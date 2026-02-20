@@ -1,5 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { expect, userEvent, waitFor, within } from '@storybook/test';
+import { Button } from "@/components/ui/aura/button";
+import { Label } from "@/components/ui/aura/label";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
   IconFile,
   IconFolder,
@@ -7,9 +8,9 @@ import {
   IconMail,
   IconSettings,
   IconUser,
-} from '@tabler/icons-react';
-import { type ComponentProps, useState } from 'react';
-
+} from "@tabler/icons-react";
+import { type ComponentProps, useState } from "react";
+import { expect, userEvent, waitFor, within } from "storybook/test";
 import {
   Select,
   SelectContent,
@@ -19,327 +20,321 @@ import {
   SelectSeparator,
   SelectTrigger,
   SelectValue,
-} from './select';
-
-import { Button } from '@/components/ui/aura/button';
-import { Label } from '@/components/ui/aura/label';
+} from "./select";
 const basicOptions = [
   {
-    label: 'Option 1',
-    value: 'option1',
+    label: "Option 1",
+    value: "option1",
   },
   {
-    label: 'Option 2',
-    value: 'option2',
+    label: "Option 2",
+    value: "option2",
   },
   {
-    label: 'Option 3',
-    value: 'option3',
+    label: "Option 3",
+    value: "option3",
   },
 ];
 
 const shortOptions = [
   {
-    label: 'Option 1',
-    value: 'option1',
+    label: "Option 1",
+    value: "option1",
   },
   {
-    label: 'Option 2',
-    value: 'option2',
+    label: "Option 2",
+    value: "option2",
   },
 ];
 
 const labeledOptions = [
   {
-    label: 'Asset',
-    value: 'asset',
+    label: "Asset",
+    value: "asset",
   },
   {
-    label: 'Event',
-    value: 'event',
+    label: "Event",
+    value: "event",
   },
   {
-    label: 'Time series',
-    value: 'timeseries',
+    label: "Time series",
+    value: "timeseries",
   },
   {
-    label: 'Work order',
-    value: 'workorder',
+    label: "Work order",
+    value: "workorder",
   },
 ];
 
 const iconOptions = [
   {
-    label: 'User',
-    value: 'user',
+    label: "User",
+    value: "user",
   },
   {
-    label: 'Mail',
-    value: 'mail',
+    label: "Mail",
+    value: "mail",
   },
   {
-    label: 'Settings',
-    value: 'settings',
+    label: "Settings",
+    value: "settings",
   },
   {
-    label: 'Home',
-    value: 'home',
+    label: "Home",
+    value: "home",
   },
 ];
 
 const documentOptions = [
   {
-    label: 'PDF',
-    value: 'pdf',
+    label: "PDF",
+    value: "pdf",
   },
   {
-    label: 'Word Document',
-    value: 'doc',
+    label: "Word Document",
+    value: "doc",
   },
   {
-    label: 'Excel Spreadsheet',
-    value: 'xls',
+    label: "Excel Spreadsheet",
+    value: "xls",
   },
 ];
 
 const mediaOptions = [
   {
-    label: 'Image',
-    value: 'image',
+    label: "Image",
+    value: "image",
   },
   {
-    label: 'Video',
-    value: 'video',
+    label: "Video",
+    value: "video",
   },
   {
-    label: 'Audio',
-    value: 'audio',
+    label: "Audio",
+    value: "audio",
   },
 ];
 
 const defaultValueOptions = [
   {
-    label: 'First Option',
-    value: 'option1',
+    label: "First Option",
+    value: "option1",
   },
   {
-    label: 'Second Option',
-    value: 'option2',
+    label: "Second Option",
+    value: "option2",
   },
   {
-    label: 'Third Option',
-    value: 'option3',
+    label: "Third Option",
+    value: "option3",
   },
 ];
 
 const colorOptions = [
   {
-    label: 'Red',
-    value: 'red',
+    label: "Red",
+    value: "red",
   },
   {
-    label: 'Green',
-    value: 'green',
+    label: "Green",
+    value: "green",
   },
   {
-    label: 'Blue',
-    value: 'blue',
+    label: "Blue",
+    value: "blue",
   },
 ];
 
 const disabledOptions = [
   {
-    label: 'Available Option',
-    value: 'available1',
+    label: "Available Option",
+    value: "available1",
   },
   {
-    label: 'Unavailable Option',
-    value: 'disabled1',
+    label: "Unavailable Option",
+    value: "disabled1",
     disabled: true,
   },
   {
-    label: 'Another Available',
-    value: 'available2',
+    label: "Another Available",
+    value: "available2",
   },
   {
-    label: 'Also Unavailable',
-    value: 'disabled2',
+    label: "Also Unavailable",
+    value: "disabled2",
     disabled: true,
   },
 ];
 
 const singleOption = [
   {
-    label: 'Option 1',
-    value: 'option1',
+    label: "Option 1",
+    value: "option1",
   },
 ];
 
 const longTextOptions = [
   {
-    label:
-      'This is a very long option label that should wrap or truncate when space is limited',
-    value: 'option1',
+    label: "This is a very long option label that should wrap or truncate when space is limited",
+    value: "option1",
   },
   {
-    label:
-      'Another extremely verbose option label demonstrating overflow behaviour in the list',
-    value: 'option2',
+    label: "Another extremely verbose option label demonstrating overflow behaviour in the list",
+    value: "option2",
   },
   {
-    label: 'Short label',
-    value: 'option3',
+    label: "Short label",
+    value: "option3",
   },
   {
-    label:
-      'Yet another long option label to force vertical scrolling inside the menu content area',
-    value: 'option4',
+    label: "Yet another long option label to force vertical scrolling inside the menu content area",
+    value: "option4",
   },
 ];
 
 const specialCharacterOptions = [
   {
-    label: '🎉 Party time!',
-    value: 'emoji1',
+    label: "🎉 Party time!",
+    value: "emoji1",
   },
   {
-    label: '🚀 Launch',
-    value: 'emoji2',
+    label: "🚀 Launch",
+    value: "emoji2",
   },
   {
     label: "Option with <HTML> & 'quotes'",
-    value: 'special1',
+    value: "special1",
   },
   {
-    label: 'C++ & C# & Java',
-    value: 'special2',
+    label: "C++ & C# & Java",
+    value: "special2",
   },
   {
-    label: 'Ü니코드文字',
-    value: 'unicode',
+    label: "Ü니코드文字",
+    value: "unicode",
   },
 ];
 
 const languageOptions = [
   {
-    label: 'JavaScript',
-    value: 'javascript',
+    label: "JavaScript",
+    value: "javascript",
   },
   {
-    label: 'TypeScript',
-    value: 'typescript',
+    label: "TypeScript",
+    value: "typescript",
   },
   {
-    label: 'Python',
-    value: 'python',
+    label: "Python",
+    value: "python",
   },
   {
-    label: 'Java',
-    value: 'java',
+    label: "Java",
+    value: "java",
   },
   {
-    label: 'C#',
-    value: 'csharp',
+    label: "C#",
+    value: "csharp",
   },
   {
-    label: 'PHP',
-    value: 'php',
+    label: "PHP",
+    value: "php",
   },
   {
-    label: 'C++',
-    value: 'cpp',
+    label: "C++",
+    value: "cpp",
   },
   {
-    label: 'Rust',
-    value: 'rust',
+    label: "Rust",
+    value: "rust",
   },
   {
-    label: 'Go',
-    value: 'go',
+    label: "Go",
+    value: "go",
   },
   {
-    label: 'Swift',
-    value: 'swift',
+    label: "Swift",
+    value: "swift",
   },
 ];
 
 const meta: Meta<typeof Select> = {
-  title: 'Primitives/Select',
+  title: "Primitives/Select",
   component: Select,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     open: {
-      control: 'boolean',
+      control: "boolean",
       table: {
-        category: 'Behavior',
+        category: "Behavior",
         type: {
-          summary: 'boolean',
+          summary: "boolean",
         },
       },
     },
     defaultOpen: {
-      control: 'boolean',
+      control: "boolean",
       table: {
-        category: 'Behavior',
+        category: "Behavior",
         type: {
-          summary: 'boolean',
+          summary: "boolean",
         },
         defaultValue: {
-          summary: 'false',
+          summary: "false",
         },
       },
     },
     value: {
-      control: 'text',
+      control: "text",
       table: {
-        category: 'Behavior',
+        category: "Behavior",
         type: {
-          summary: 'string',
+          summary: "string",
         },
       },
     },
     defaultValue: {
-      control: 'text',
+      control: "text",
       table: {
-        category: 'Behavior',
+        category: "Behavior",
         type: {
-          summary: 'string',
+          summary: "string",
         },
       },
     },
     disabled: {
-      control: 'boolean',
+      control: "boolean",
       table: {
-        category: 'Behavior',
+        category: "Behavior",
         type: {
-          summary: 'boolean',
+          summary: "boolean",
         },
         defaultValue: {
-          summary: 'false',
+          summary: "false",
         },
       },
     },
     onValueChange: {
-      action: 'valueChange',
+      action: "valueChange",
       table: {
-        category: 'Events',
+        category: "Events",
         type: {
-          summary: '(value: string) => void',
+          summary: "(value: string) => void",
         },
       },
     },
     onOpenChange: {
-      action: 'openChange',
+      action: "openChange",
       table: {
-        category: 'Events',
+        category: "Events",
         type: {
-          summary: '(open: boolean) => void',
+          summary: "(open: boolean) => void",
         },
       },
     },
   },
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
 };
 export default meta;
@@ -362,9 +357,13 @@ export const Default: Story = {
   parameters: {
     order: 1,
   },
-  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+  play: async ({
+    canvasElement,
+  }: {
+    canvasElement: HTMLElement;
+  }) => {
     const canvas = within(canvasElement);
-    const trigger = canvas.getByRole('combobox');
+    const trigger = canvas.getByRole("combobox");
     await expect(trigger).toBeInTheDocument();
     await userEvent.click(trigger);
     await waitFor(() => {
@@ -397,7 +396,7 @@ export const WithLabel: Story = {
 };
 export const WithIcons: Story = {
   render: function SelectWithIcons() {
-    const [value, setValue] = useState('settings');
+    const [value, setValue] = useState("settings");
     const iconMap: Record<string, React.ReactNode> = {
       user: <IconUser className="size-4" />,
       mail: <IconMail className="size-4" />,
@@ -409,18 +408,11 @@ export const WithIcons: Story = {
         <Label>Category</Label>
         <Select items={iconOptions} value={value} onValueChange={setValue}>
           <SelectTrigger className="w-50">
-            <SelectValue
-              placeholder="Select..."
-              icon={value ? iconMap[value] : undefined}
-            />
+            <SelectValue placeholder="Select..." icon={value ? iconMap[value] : undefined} />
           </SelectTrigger>
           <SelectContent>
             {iconOptions.map((option) => (
-              <SelectItem
-                key={option.value}
-                value={option.value}
-                icon={iconMap[option.value]}
-              >
+              <SelectItem key={option.value} value={option.value} icon={iconMap[option.value]}>
                 {option.label}
               </SelectItem>
             ))}
@@ -452,9 +444,13 @@ export const Disabled: Story = {
   parameters: {
     order: 4,
   },
-  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+  play: async ({
+    canvasElement,
+  }: {
+    canvasElement: HTMLElement;
+  }) => {
     const canvas = within(canvasElement);
-    const trigger = canvas.getByRole('combobox');
+    const trigger = canvas.getByRole("combobox");
     await expect(trigger).toBeDisabled();
   },
 };
@@ -463,11 +459,7 @@ export const WithError: Story = {
     <div className="grid w-full items-center gap-1.5">
       <Label htmlFor="select-error">Required field</Label>
       <Select items={shortOptions}>
-        <SelectTrigger
-          id="select-error"
-          className="w-50"
-          errorMessage="Please select an option"
-        >
+        <SelectTrigger id="select-error" className="w-50" errorMessage="Please select an option">
           <SelectValue placeholder="Select..." />
         </SelectTrigger>
         <SelectContent>
@@ -544,7 +536,7 @@ export const WithDefaultValue: Story = {
 };
 export const Controlled: Story = {
   render: function ControlledSelect() {
-    const [value, setValue] = useState('');
+    const [value, setValue] = useState("");
     return (
       <div className="space-y-4">
         <Select items={colorOptions} value={value} onValueChange={setValue}>
@@ -560,19 +552,17 @@ export const Controlled: Story = {
           </SelectContent>
         </Select>
         <div className="flex gap-2">
-          <Button size="sm" variant="outline" onClick={() => setValue('red')}>
+          <Button size="sm" variant="outline" onClick={() => setValue("red")}>
             Set Red
           </Button>
-          <Button size="sm" variant="outline" onClick={() => setValue('green')}>
+          <Button size="sm" variant="outline" onClick={() => setValue("green")}>
             Set Green
           </Button>
-          <Button size="sm" variant="outline" onClick={() => setValue('')}>
+          <Button size="sm" variant="outline" onClick={() => setValue("")}>
             Clear
           </Button>
         </div>
-        <p className="text-sm text-muted-foreground">
-          Selected: {value || '(none)'}
-        </p>
+        <p className="text-sm text-muted-foreground">Selected: {value || "(none)"}</p>
       </div>
     );
   },
@@ -588,11 +578,7 @@ export const DisabledItems: Story = {
       </SelectTrigger>
       <SelectContent>
         {disabledOptions.map((option) => (
-          <SelectItem
-            key={option.value}
-            value={option.value}
-            disabled={option.disabled}
-          >
+          <SelectItem key={option.value} value={option.value} disabled={option.disabled}>
             {option.label}
           </SelectItem>
         ))}
@@ -659,8 +645,8 @@ export const AllStates: Story = {
         <Select
           items={[
             {
-              label: 'Selected Option',
-              value: 'option1',
+              label: "Selected Option",
+              value: "option1",
             },
           ]}
           defaultValue="option1"
@@ -671,8 +657,8 @@ export const AllStates: Story = {
           <SelectContent>
             {[
               {
-                label: 'Selected Option',
-                value: 'option1',
+                label: "Selected Option",
+                value: "option1",
               },
             ].map((option) => (
               <SelectItem key={option.value} value={option.value}>
@@ -737,9 +723,8 @@ export const LongTextAndOverflow: Story = {
         </Select>
       </div>
       <p className="text-sm text-muted-foreground max-w-md">
-        The trigger is constrained by a narrow container while the dropdown
-        content has a limited max height with scrolling enabled, helping you see
-        how long labels behave in tight layouts.
+        The trigger is constrained by a narrow container while the dropdown content has a limited
+        max height with scrolling enabled, helping you see how long labels behave in tight layouts.
       </p>
     </div>
   ),
@@ -756,8 +741,8 @@ export const VisualRegression: Story = {
           <Select
             items={[
               {
-                label: 'Option',
-                value: '1',
+                label: "Option",
+                value: "1",
               },
             ]}
           >
@@ -767,8 +752,8 @@ export const VisualRegression: Story = {
             <SelectContent>
               {[
                 {
-                  label: 'Option',
-                  value: '1',
+                  label: "Option",
+                  value: "1",
                 },
               ].map((option) => (
                 <SelectItem key={option.value} value={option.value}>
@@ -780,8 +765,8 @@ export const VisualRegression: Story = {
           <Select
             items={[
               {
-                label: 'Selected',
-                value: 'selected',
+                label: "Selected",
+                value: "selected",
               },
             ]}
             defaultValue="selected"
@@ -792,8 +777,8 @@ export const VisualRegression: Story = {
             <SelectContent>
               {[
                 {
-                  label: 'Selected',
-                  value: 'selected',
+                  label: "Selected",
+                  value: "selected",
                 },
               ].map((option) => (
                 <SelectItem key={option.value} value={option.value}>
@@ -805,8 +790,8 @@ export const VisualRegression: Story = {
           <Select
             items={[
               {
-                label: 'Option',
-                value: '1',
+                label: "Option",
+                value: "1",
               },
             ]}
             disabled
@@ -817,8 +802,8 @@ export const VisualRegression: Story = {
             <SelectContent>
               {[
                 {
-                  label: 'Option',
-                  value: '1',
+                  label: "Option",
+                  value: "1",
                 },
               ].map((option) => (
                 <SelectItem key={option.value} value={option.value}>
@@ -831,14 +816,12 @@ export const VisualRegression: Story = {
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">
-          With Icons
-        </h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">With Icons</h3>
         <Select
           items={[
             {
-              label: 'Settings',
-              value: 'settings',
+              label: "Settings",
+              value: "settings",
             },
           ]}
           defaultValue="settings"
@@ -849,8 +832,8 @@ export const VisualRegression: Story = {
           <SelectContent>
             {[
               {
-                label: 'Settings',
-                value: 'settings',
+                label: "Settings",
+                value: "settings",
               },
             ].map((option) => (
               <SelectItem
@@ -870,8 +853,8 @@ export const VisualRegression: Story = {
         <Select
           items={[
             {
-              label: 'Option',
-              value: '1',
+              label: "Option",
+              value: "1",
             },
           ]}
         >
@@ -881,8 +864,8 @@ export const VisualRegression: Story = {
           <SelectContent>
             {[
               {
-                label: 'Option',
-                value: '1',
+                label: "Option",
+                value: "1",
               },
             ].map((option) => (
               <SelectItem key={option.value} value={option.value}>
@@ -947,7 +930,7 @@ export const EdgeCaseSpecialCharacters: Story = {
 };
 export const MultipleSelection: Story = {
   render: function MultipleSelectionExample() {
-    const [value, setValue] = useState<string[]>(['javascript', 'typescript']);
+    const [value, setValue] = useState<string[]>(["javascript", "typescript"]);
     return (
       <div className="flex flex-col gap-4">
         <div className="flex flex-col gap-1.5">
@@ -961,8 +944,8 @@ export const MultipleSelection: Story = {
             <SelectTrigger id="languages" className="w-75">
               <SelectValue placeholder="Select languages">
                 {value.length > 0
-                  ? `${value[0].charAt(0).toUpperCase() + value[0].slice(1)} ${value.length > 1 ? `(+${value.length - 1} more)` : ''}`
-                  : 'Select languages'}
+                  ? `${value[0].charAt(0).toUpperCase() + value[0].slice(1)} ${value.length > 1 ? `(+${value.length - 1} more)` : ""}`
+                  : "Select languages"}
               </SelectValue>
             </SelectTrigger>
             <SelectContent>
@@ -975,7 +958,7 @@ export const MultipleSelection: Story = {
           </Select>
         </div>
         <div className="text-sm text-muted-foreground">
-          Selected: {value.length > 0 ? value.join(', ') : 'None'}
+          Selected: {value.length > 0 ? value.join(", ") : "None"}
         </div>
       </div>
     );

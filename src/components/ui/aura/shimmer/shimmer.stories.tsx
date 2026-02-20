@@ -1,12 +1,11 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { expect, waitFor, within } from '@storybook/test';
-import { useEffect, useState } from 'react';
-
-import { Shimmer } from './shimmer';
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { useEffect, useState } from "react";
+import { expect, waitFor, within } from "storybook/test";
+import { Shimmer } from "./shimmer";
 const meta: Meta<typeof Shimmer> = {
-  title: 'AI/Shimmer',
+  title: "AI/Shimmer",
   component: Shimmer,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   decorators: [
     (Story) => (
       <div className="p-8">
@@ -16,88 +15,78 @@ const meta: Meta<typeof Shimmer> = {
   ],
   argTypes: {
     children: {
-      control: 'text',
+      control: "text",
       table: {
-        category: 'Content',
+        category: "Content",
         type: {
-          summary: 'string',
+          summary: "string",
         },
       },
     },
     as: {
-      control: 'select',
-      options: ['p', 'span', 'div', 'h1', 'h2', 'h3'],
+      control: "select",
+      options: ["p", "span", "div", "h1", "h2", "h3"],
       table: {
-        category: 'Variants/Styling',
+        category: "Variants/Styling",
         type: {
-          summary: 'ElementType',
+          summary: "ElementType",
         },
         defaultValue: {
-          summary: 'p',
+          summary: "p",
         },
       },
     },
     variant: {
-      control: 'select',
-      options: [
-        'default',
-        'nordic',
-        'aurora',
-        'dusk',
-        'equinox',
-        'summer',
-        'spring',
-        'fall',
-      ],
+      control: "select",
+      options: ["default", "nordic", "aurora", "dusk", "equinox", "summer", "spring", "fall"],
       table: {
-        category: 'Variants/Styling',
+        category: "Variants/Styling",
         type: {
-          summary:
-            'default | nordic | aurora | dusk | equinox | summer | spring | fall',
+          summary: "default | nordic | aurora | dusk | equinox | summer | spring | fall",
         },
         defaultValue: {
-          summary: 'default',
+          summary: "default",
         },
       },
     },
     duration: {
-      control: 'number',
+      control: "number",
       table: {
-        category: 'Behavior',
+        category: "Behavior",
         type: {
-          summary: 'number',
+          summary: "number",
         },
         defaultValue: {
-          summary: '2',
+          summary: "2",
         },
       },
     },
     spread: {
-      control: 'number',
+      control: "number",
       table: {
-        category: 'Behavior',
+        category: "Behavior",
         type: {
-          summary: 'number',
+          summary: "number",
         },
         defaultValue: {
-          summary: '2',
+          summary: "2",
         },
       },
     },
     className: {
-      control: 'text',
+      control: "text",
       table: {
-        category: 'Variants/Styling',
+        category: "Variants/Styling",
       },
     },
   },
   parameters: {
-    layout: 'centered',
+    layout: "centered",
     a11y: {
       config: {
         rules: [
           {
-            id: 'color-contrast',
+            id: "color-contrast",
             enabled: false,
           },
         ],
@@ -113,7 +102,7 @@ export const Basic: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const shimmer = canvas.getByText('Processing...');
+    const shimmer = canvas.getByText("Processing...");
     await expect(shimmer).toBeInTheDocument();
   },
   render: () => <Shimmer>Processing...</Shimmer>,
@@ -125,19 +114,17 @@ export const GradientVariants: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const variants = [
-      'Default gradient',
-      'Nordic gradient',
-      'Aurora gradient',
-      'Dusk gradient',
-      'Equinox gradient',
-      'Summer gradient',
-      'Spring gradient',
-      'Fall gradient',
+      "Default gradient",
+      "Nordic gradient",
+      "Aurora gradient",
+      "Dusk gradient",
+      "Equinox gradient",
+      "Summer gradient",
+      "Spring gradient",
+      "Fall gradient",
     ];
     await Promise.all(
-      variants.map((variant) =>
-        expect(canvas.getByText(variant)).toBeInTheDocument()
-      )
+      variants.map((variant) => expect(canvas.getByText(variant)).toBeInTheDocument())
     );
   },
   render: () => (
@@ -176,7 +163,7 @@ export const ElementTypes: Story = {
     await Promise.all(
       headings.map(({ level, name }) =>
         expect(
-          canvas.getByRole('heading', {
+          canvas.getByRole("heading", {
             level,
             name,
           })
@@ -199,10 +186,10 @@ export const ElementTypes: Story = {
         Paragraph text with shimmer effect applied.
       </Shimmer>
       <p className="text-base">
-        Inline text with a{' '}
+        Inline text with a{" "}
         <Shimmer as="span" className="font-medium">
           shimmer span
-        </Shimmer>{' '}
+        </Shimmer>{" "}
         inside it.
       </p>
       <Shimmer as="div" className="text-sm text-muted-foreground">
@@ -218,15 +205,13 @@ export const AnimationDurations: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const durations = [
-      'Fast (1 second)',
-      'Default (2 seconds)',
-      'Slow (3 seconds)',
-      'Very slow (4 seconds)',
+      "Fast (1 second)",
+      "Default (2 seconds)",
+      "Slow (3 seconds)",
+      "Very slow (4 seconds)",
     ];
     await Promise.all(
-      durations.map((duration) =>
-        expect(canvas.getByText(duration)).toBeInTheDocument()
-      )
+      durations.map((duration) => expect(canvas.getByText(duration)).toBeInTheDocument())
     );
   },
   render: () => (
@@ -245,15 +230,13 @@ export const SpreadValues: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const spreads = [
-      'Narrow spread (1)',
-      'Default spread (2)',
-      'Wide spread (3)',
-      'Very wide spread (4)',
+      "Narrow spread (1)",
+      "Default spread (2)",
+      "Wide spread (3)",
+      "Very wide spread (4)",
     ];
     await Promise.all(
-      spreads.map((spread) =>
-        expect(canvas.getByText(spread)).toBeInTheDocument()
-      )
+      spreads.map((spread) => expect(canvas.getByText(spread)).toBeInTheDocument())
     );
   },
   render: () => (
@@ -287,12 +270,12 @@ export const LongText: Story = {
   render: () => (
     <div className="w-full flex flex-col items-start gap-4 max-w-md">
       <Shimmer>
-        This is a longer piece of text that demonstrates how the shimmer effect
-        works with extended content.
+        This is a longer piece of text that demonstrates how the shimmer effect works with extended
+        content.
       </Shimmer>
       <Shimmer variant="aurora">
-        The shimmer animation smoothly transitions across the entire length of
-        the text, creating an engaging loading effect.
+        The shimmer animation smoothly transitions across the entire length of the text, creating an
+        engaging loading effect.
       </Shimmer>
     </div>
   ),
@@ -305,35 +288,32 @@ export const InlineUsage: Story = {
     const canvas = within(canvasElement);
     const inlineTexts = [
       /Your request is/i,
-      'processing',
+      "processing",
       /Status:/i,
-      'Analyzing data',
+      "Analyzing data",
       /Loading/i,
-      'configuration',
+      "configuration",
     ];
     await Promise.all(
-      inlineTexts.map((text) =>
-        expect(canvas.getByText(text)).toBeInTheDocument()
-      )
+      inlineTexts.map((text) => expect(canvas.getByText(text)).toBeInTheDocument())
     );
   },
   render: () => (
     <div className="w-full flex flex-col items-start gap-4 max-w-md">
       <p className="text-base">
-        Your request is <Shimmer as="span">processing</Shimmer> and will be
-        ready shortly.
+        Your request is <Shimmer as="span">processing</Shimmer> and will be ready shortly.
       </p>
       <p className="text-base">
-        Status:{' '}
+        Status:{" "}
         <Shimmer as="span" variant="aurora">
           Analyzing data
         </Shimmer>
       </p>
       <p className="text-base">
-        Loading{' '}
+        Loading{" "}
         <Shimmer as="span" variant="nordic">
           configuration
-        </Shimmer>{' '}
+        </Shimmer>{" "}
         files...
       </p>
     </div>
@@ -345,15 +325,9 @@ export const CustomStyling: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const styledTexts = [
-      'Large bold text',
-      'Small muted text',
-      'Medium semibold text',
-    ];
+    const styledTexts = ["Large bold text", "Small muted text", "Medium semibold text"];
     await Promise.all(
-      styledTexts.map((text) =>
-        expect(canvas.getByText(text)).toBeInTheDocument()
-      )
+      styledTexts.map((text) => expect(canvas.getByText(text)).toBeInTheDocument())
     );
   },
   render: () => (
@@ -375,41 +349,29 @@ export const LoadingStates: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await expect(
-      canvas.getByRole('heading', {
+      canvas.getByRole("heading", {
         name: /Processing Request/i,
       })
     ).toBeInTheDocument();
     await expect(
-      canvas.getByRole('heading', {
+      canvas.getByRole("heading", {
         name: /System Status/i,
       })
     ).toBeInTheDocument();
-    await expect(
-      canvas.getByText('Analyzing input parameters...')
-    ).toBeInTheDocument();
-    await expect(
-      canvas.getByText('Data synchronization in progress')
-    ).toBeInTheDocument();
+    await expect(canvas.getByText("Analyzing input parameters...")).toBeInTheDocument();
+    await expect(canvas.getByText("Data synchronization in progress")).toBeInTheDocument();
     await waitFor(
       () => {
-        expect(
-          canvas.getByText('Input parameters analyzed.')
-        ).toBeInTheDocument();
-        expect(
-          canvas.getByText('Data synchronization complete.')
-        ).toBeInTheDocument();
+        expect(canvas.getByText("Input parameters analyzed.")).toBeInTheDocument();
+        expect(canvas.getByText("Data synchronization complete.")).toBeInTheDocument();
       },
       {
         timeout: 4000,
       }
     );
     await waitFor(() => {
-      expect(
-        canvas.queryByText('Analyzing input parameters...')
-      ).not.toBeInTheDocument();
-      expect(
-        canvas.queryByText('Data synchronization in progress')
-      ).not.toBeInTheDocument();
+      expect(canvas.queryByText("Analyzing input parameters...")).not.toBeInTheDocument();
+      expect(canvas.queryByText("Data synchronization in progress")).not.toBeInTheDocument();
     });
   },
   render: function LoadingStatesStory() {
@@ -431,27 +393,23 @@ export const LoadingStates: Story = {
               <Shimmer variant="nordic">Finalizing results...</Shimmer>
             </>
           ) : (
-            <p className="text-sm text-muted-foreground">
-              Input parameters analyzed.
-            </p>
+            <p className="text-sm text-muted-foreground">Input parameters analyzed.</p>
           )}
         </div>
         <div className="space-y-2">
           <h3 className="text-lg font-semibold">System Status</h3>
           <p className="text-sm">
-            Current operation:{' '}
+            Current operation:{" "}
             {loading ? (
               <Shimmer as="span" variant="dusk">
                 Data synchronization in progress
               </Shimmer>
             ) : (
-              <span className="text-green-500 font-medium">
-                Data synchronization complete.
-              </span>
+              <span className="text-green-500 font-medium">Data synchronization complete.</span>
             )}
           </p>
           <p className="text-sm">
-            Estimated time:{' '}
+            Estimated time:{" "}
             {loading ? (
               <Shimmer as="span" variant="equinox">
                 Calculating...
@@ -467,11 +425,11 @@ export const LoadingStates: Story = {
 };
 export const Playground: Story = {
   args: {
-    children: 'Playground shimmer text',
-    variant: 'default',
+    children: "Playground shimmer text",
+    variant: "default",
     duration: 2,
     spread: 2,
-    as: 'p',
+    as: "p",
   },
   render: (args) => <Shimmer {...args} />,
   parameters: {
@@ -479,7 +437,7 @@ export const Playground: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const shimmer = canvas.getByText('Playground shimmer text');
+    const shimmer = canvas.getByText("Playground shimmer text");
     await expect(shimmer).toBeInTheDocument();
   },
 };

@@ -1,20 +1,19 @@
-import type { Meta, StoryObj } from '@storybook/react';
-
-import { TimeInput } from './time-input';
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { TimeInput } from "./time-input";
 const meta: Meta<typeof TimeInput> = {
-  title: 'Primitives/Time Input',
+  title: "Primitives/Time Input",
   component: TimeInput,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     className: {
-      control: 'text',
+      control: "text",
       table: {
-        category: 'Styling',
+        category: "Styling",
       },
     },
   },
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
 };
 export default meta;
@@ -23,8 +22,7 @@ export const Default: Story = {
   render: () => (
     <TimeInput className="p-4 border rounded-md">
       <p className="text-sm text-muted-foreground">
-        Time Input component placeholder. This component is currently in
-        development.
+        Time Input component placeholder. This component is currently in development.
       </p>
     </TimeInput>
   ),

@@ -1,21 +1,12 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { expect, userEvent, waitFor, within } from '@storybook/test';
-import {
-  IconAdjustments,
-  IconAlertTriangle,
-  IconChevronDown,
-} from '@tabler/icons-react';
-import { type ComponentProps, useRef, useState } from 'react';
-
-import { Button } from '@/components/ui/aura/button';
+import { Button } from "@/components/ui/aura/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/aura/dropdown-menu';
-import { HelperText } from '@/components/ui/aura/helper-text';
-import { Label } from '@/components/ui/aura/label';
+} from "@/components/ui/aura/dropdown-menu";
+import { HelperText } from "@/components/ui/aura/helper-text";
+import { Label } from "@/components/ui/aura/label";
 import {
   PromptInput,
   PromptInputBody,
@@ -26,11 +17,15 @@ import {
   PromptInputSubmit,
   PromptInputTextarea,
   PromptInputTools,
-} from '@/components/ui/aura/prompt-input';
+} from "@/components/ui/aura/prompt-input";
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { IconAdjustments, IconAlertTriangle, IconChevronDown } from "@tabler/icons-react";
+import { type ComponentProps, useRef, useState } from "react";
+import { expect, userEvent, waitFor, within } from "storybook/test";
 const meta: Meta<typeof PromptInput> = {
-  title: 'AI/Prompt Input',
+  title: "AI/Prompt Input",
   component: PromptInput,
-  tags: ['autodocs', 'ai-elements'],
+  tags: ["autodocs", "ai-elements"],
   decorators: [
     (Story) => (
       <PromptInputProvider>
@@ -42,100 +37,100 @@ const meta: Meta<typeof PromptInput> = {
     helperText: {
       control: false,
       table: {
-        category: 'Content',
+        category: "Content",
         type: {
-          summary: 'ReactNode | false',
+          summary: "ReactNode | false",
         },
       },
     },
     className: {
-      control: 'text',
+      control: "text",
       table: {
-        category: 'Variants/Styling',
+        category: "Variants/Styling",
       },
     },
     onSubmit: {
-      action: 'submitted',
+      action: "submitted",
       table: {
-        category: 'Events',
+        category: "Events",
         type: {
-          summary: '(message, event) => void',
+          summary: "(message, event) => void",
         },
       },
     },
     accept: {
       control: false,
       table: {
-        category: 'Behavior',
+        category: "Behavior",
       },
     },
     multiple: {
       control: false,
       table: {
-        category: 'Behavior',
+        category: "Behavior",
       },
     },
     globalDrop: {
       control: false,
       table: {
-        category: 'Behavior',
+        category: "Behavior",
       },
     },
     maxFiles: {
       control: false,
       table: {
-        category: 'Behavior',
+        category: "Behavior",
       },
     },
     maxFileSize: {
       control: false,
       table: {
-        category: 'Behavior',
+        category: "Behavior",
       },
     },
     onError: {
       control: false,
       table: {
-        category: 'Events',
+        category: "Events",
       },
     },
     syncHiddenInput: {
       control: false,
       table: {
-        category: 'Advanced',
+        category: "Advanced",
       },
     },
   },
   parameters: {
-    layout: 'centered',
+    layout: "centered",
     actions: {
-      handles: ['submit', 'error'],
+      handles: ["submit", "error"],
     },
   },
 };
 export default meta;
 type Story = StoryObj<typeof PromptInput>;
-type PromptInputSubmitHandler = ComponentProps<typeof PromptInput>['onSubmit'];
+type PromptInputSubmitHandler = ComponentProps<typeof PromptInput>["onSubmit"];
 export const Basic: Story = {
   parameters: {
     order: 1,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const textarea = canvas.getByRole('textbox');
+    const textarea = canvas.getByRole("textbox");
     await expect(textarea).toBeInTheDocument();
-    await userEvent.type(textarea, 'Hello, world!', {
+    await userEvent.type(textarea, "Hello, world!", {
       delay: 50,
     });
-    await expect(textarea).toHaveValue('Hello, world!');
-    const submitButton = canvas.getByRole('button', {
+    await expect(textarea).toHaveValue("Hello, world!");
+    const submitButton = canvas.getByRole("button", {
       name: /submit/i,
     });
     await expect(submitButton).toBeInTheDocument();
     await userEvent.click(submitButton);
     await waitFor(
       () => {
-        expect(submitButton).toHaveAttribute('data-status', 'submitted');
+        expect(submitButton).toHaveAttribute("data-status", "submitted");
       },
       {
         timeout: 300,
@@ -143,7 +138,7 @@ export const Basic: Story = {
     );
     await waitFor(
       () => {
-        expect(submitButton).toHaveAttribute('data-status', 'streaming');
+        expect(submitButton).toHaveAttribute("data-status", "streaming");
       },
       {
         timeout: 500,
@@ -151,18 +146,16 @@ export const Basic: Story = {
     );
   },
   render: function PromptInputBasicStory() {
-    const [status, setStatus] = useState<
-      'submitted' | 'streaming' | 'ready' | 'error'
-    >('ready');
-    const handleSubmit: PromptInputSubmitHandler = (message, _event) => {
+    const [status, setStatus] = useState<"submitted" | "streaming" | "ready" | "error">("ready");
+    const handleSubmit: PromptInputSubmitHandler = (message, event) => {
       const hasText = Boolean(message.text);
       const hasAttachments = Boolean(message.files?.length);
       if (!(hasText || hasAttachments)) {
         return;
       }
-      setStatus('submitted');
-      setTimeout(() => setStatus('streaming'), 200);
-      setTimeout(() => setStatus('ready'), 2000);
+      setStatus("submitted");
+      setTimeout(() => setStatus("streaming"), 200);
+      setTimeout(() => setStatus("ready"), 2000);
     };
     return (
       <PromptInput className="w-125" onSubmit={handleSubmit}>
@@ -183,9 +176,9 @@ export const NoHelperText: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const textarea = canvas.getByRole('textbox');
+    const textarea = canvas.getByRole("textbox");
     await expect(textarea).toBeInTheDocument();
-    const submitButton = canvas.getByRole('button', {
+    const submitButton = canvas.getByRole("button", {
       name: /submit/i,
     });
     await expect(submitButton).toBeInTheDocument();
@@ -193,18 +186,16 @@ export const NoHelperText: Story = {
     await expect(helperText).not.toBeInTheDocument();
   },
   render: function PromptInputNoHelperTextStory() {
-    const [status, setStatus] = useState<
-      'submitted' | 'streaming' | 'ready' | 'error'
-    >('ready');
-    const handleSubmit: PromptInputSubmitHandler = (message, _event) => {
+    const [status, setStatus] = useState<"submitted" | "streaming" | "ready" | "error">("ready");
+    const handleSubmit: PromptInputSubmitHandler = (message, event) => {
       const hasText = Boolean(message.text);
       const hasAttachments = Boolean(message.files?.length);
       if (!(hasText || hasAttachments)) {
         return;
       }
-      setStatus('submitted');
-      setTimeout(() => setStatus('streaming'), 200);
-      setTimeout(() => setStatus('ready'), 2000);
+      setStatus("submitted");
+      setTimeout(() => setStatus("streaming"), 200);
+      setTimeout(() => setStatus("ready"), 2000);
     };
     return (
       <PromptInput helperText={false} className="w-125" onSubmit={handleSubmit}>
@@ -225,30 +216,24 @@ export const CustomHelperText: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const customHelperText = canvas.getByText(
-      /This is experimental. Use with caution./i
-    );
+    const customHelperText = canvas.getByText(/This is experimental. Use with caution./i);
     await expect(customHelperText).toBeInTheDocument();
-    const textarea = canvas.getByRole('textbox');
+    const textarea = canvas.getByRole("textbox");
     await expect(textarea).toBeInTheDocument();
-    const defaultHelperText = canvas.queryByText(
-      /AI doesn't always get it right/i
-    );
+    const defaultHelperText = canvas.queryByText(/AI doesn't always get it right/i);
     await expect(defaultHelperText).not.toBeInTheDocument();
   },
   render: function PromptInputCustomHelperTextStory() {
-    const [status, setStatus] = useState<
-      'submitted' | 'streaming' | 'ready' | 'error'
-    >('ready');
-    const handleSubmit: PromptInputSubmitHandler = (message, _event) => {
+    const [status, setStatus] = useState<"submitted" | "streaming" | "ready" | "error">("ready");
+    const handleSubmit: PromptInputSubmitHandler = (message, event) => {
       const hasText = Boolean(message.text);
       const hasAttachments = Boolean(message.files?.length);
       if (!(hasText || hasAttachments)) {
         return;
       }
-      setStatus('submitted');
-      setTimeout(() => setStatus('streaming'), 200);
-      setTimeout(() => setStatus('ready'), 2000);
+      setStatus("submitted");
+      setTimeout(() => setStatus("streaming"), 200);
+      setTimeout(() => setStatus("ready"), 2000);
     };
     return (
       <PromptInput
@@ -277,12 +262,12 @@ export const SubmittedState: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const submitButton = canvas.getByRole('button', {
+    const submitButton = canvas.getByRole("button", {
       name: /submit/i,
     });
-    await expect(submitButton).toHaveAttribute('data-status', 'submitted');
+    await expect(submitButton).toHaveAttribute("data-status", "submitted");
     await expect(submitButton).toBeDisabled();
-    const textarea = canvas.getByRole('textbox');
+    const textarea = canvas.getByRole("textbox");
     await expect(textarea).toBeDisabled();
   },
   render: () => (
@@ -303,12 +288,12 @@ export const StreamingState: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const submitButton = canvas.getByRole('button', {
+    const submitButton = canvas.getByRole("button", {
       name: /submit/i,
     });
-    await expect(submitButton).toHaveAttribute('data-status', 'streaming');
+    await expect(submitButton).toHaveAttribute("data-status", "streaming");
     await expect(submitButton).toBeInTheDocument();
-    const textarea = canvas.getByRole('textbox');
+    const textarea = canvas.getByRole("textbox");
     await expect(textarea).toBeDisabled();
   },
   render: () => (
@@ -329,10 +314,10 @@ export const ErrorState: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const submitButton = canvas.getByRole('button', {
+    const submitButton = canvas.getByRole("button", {
       name: /submit/i,
     });
-    await expect(submitButton).toHaveAttribute('data-status', 'error');
+    await expect(submitButton).toHaveAttribute("data-status", "error");
     await expect(submitButton).toBeInTheDocument();
   },
   render: () => (
@@ -353,33 +338,31 @@ export const SubmissionError: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const textarea = canvas.getByRole('textbox');
+    const textarea = canvas.getByRole("textbox");
     await expect(textarea).toBeInTheDocument();
-    await userEvent.type(textarea, 'Test error handling', {
+    await userEvent.type(textarea, "Test error handling", {
       delay: 50,
     });
-    await expect(textarea).toHaveValue('Test error handling');
-    const submitButton = canvas.getByRole('button', {
+    await expect(textarea).toHaveValue("Test error handling");
+    const submitButton = canvas.getByRole("button", {
       name: /submit/i,
     });
     await userEvent.click(submitButton);
     await waitFor(
       () => {
-        const errorText = canvas.getByText(
-          'Failed to submit. Please try again.'
-        );
+        const errorText = canvas.getByText("Failed to submit. Please try again.");
         expect(errorText).toBeInTheDocument();
       },
       {
         timeout: 1000,
       }
     );
-    await expect(textarea).toHaveValue('Test error handling');
+    await expect(textarea).toHaveValue("Test error handling");
   },
   render: () => (
     <PromptInput
       onSubmit={() => {
-        throw new Error('Failed to submit. Please try again.');
+        throw new Error("Failed to submit. Please try again.");
       }}
       className="w-125"
     >
@@ -399,17 +382,17 @@ export const AsyncSubmissionError: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const textarea = canvas.getByRole('textbox');
-    await userEvent.type(textarea, 'Test async error', {
+    const textarea = canvas.getByRole("textbox");
+    await userEvent.type(textarea, "Test async error", {
       delay: 50,
     });
-    const submitButton = canvas.getByRole('button', {
+    const submitButton = canvas.getByRole("button", {
       name: /submit/i,
     });
     await userEvent.click(submitButton);
     await waitFor(
       () => {
-        const errorText = canvas.getByText('Network request failed');
+        const errorText = canvas.getByText("Network request failed");
         expect(errorText).toBeInTheDocument();
       },
       {
@@ -421,7 +404,7 @@ export const AsyncSubmissionError: Story = {
     <PromptInput
       onSubmit={async () => {
         await new Promise((resolve) => setTimeout(resolve, 500));
-        throw new Error('Network request failed');
+        throw new Error("Network request failed");
       }}
       className="w-125"
     >
@@ -443,20 +426,17 @@ export const Minimal: Story = {
     const canvas = within(canvasElement);
     const textarea = canvas.getByPlaceholderText(/Message.../i);
     await expect(textarea).toBeInTheDocument();
-    const submitButton = canvas.getByRole('button', {
+    const submitButton = canvas.getByRole("button", {
       name: /submit/i,
     });
     await expect(submitButton).toBeInTheDocument();
-    await userEvent.type(textarea, 'Minimal test', {
+    await userEvent.type(textarea, "Minimal test", {
       delay: 50,
     });
-    await expect(textarea).toHaveValue('Minimal test');
+    await expect(textarea).toHaveValue("Minimal test");
   },
   render: () => (
-    <PromptInput
-      onSubmit={(message) => console.log('Submitted:', message)}
-      className="w-100"
-    >
+    <PromptInput onSubmit={(message) => console.log("Submitted:", message)} className="w-100">
       <PromptInputBody>
         <PromptInputTextarea placeholder="Message..." />
       </PromptInputBody>
@@ -472,26 +452,26 @@ export const KeyboardInteractions: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const textarea = canvas.getByRole('textbox');
-    await userEvent.type(textarea, 'Line 1', {
+    const textarea = canvas.getByRole("textbox");
+    await userEvent.type(textarea, "Line 1", {
       delay: 50,
     });
-    await userEvent.keyboard('{Shift>}{Enter}{/Shift}');
-    await userEvent.type(textarea, 'Line 2', {
+    await userEvent.keyboard("{Shift>}{Enter}{/Shift}");
+    await userEvent.type(textarea, "Line 2", {
       delay: 50,
     });
-    await expect(textarea).toHaveValue('Line 1\nLine 2');
+    await expect(textarea).toHaveValue("Line 1\nLine 2");
     await userEvent.clear(textarea);
-    await userEvent.type(textarea, 'Test message', {
+    await userEvent.type(textarea, "Test message", {
       delay: 50,
     });
-    await userEvent.keyboard('{Enter}');
-    const submitButton = canvas.getByRole('button', {
+    await userEvent.keyboard("{Enter}");
+    const submitButton = canvas.getByRole("button", {
       name: /submit/i,
     });
     await waitFor(
       () => {
-        expect(submitButton).toHaveAttribute('data-status', 'submitted');
+        expect(submitButton).toHaveAttribute("data-status", "submitted");
       },
       {
         timeout: 300,
@@ -499,15 +479,13 @@ export const KeyboardInteractions: Story = {
     );
   },
   render: function KeyboardInteractionsStory() {
-    const [status, setStatus] = useState<
-      'submitted' | 'streaming' | 'ready' | 'error'
-    >('ready');
-    const handleSubmit: PromptInputSubmitHandler = (message, _event) => {
+    const [status, setStatus] = useState<"submitted" | "streaming" | "ready" | "error">("ready");
+    const handleSubmit: PromptInputSubmitHandler = (message, event) => {
       const hasText = Boolean(message.text);
       if (!hasText) return;
-      setStatus('submitted');
-      setTimeout(() => setStatus('streaming'), 200);
-      setTimeout(() => setStatus('ready'), 2000);
+      setStatus("submitted");
+      setTimeout(() => setStatus("streaming"), 200);
+      setTimeout(() => setStatus("ready"), 2000);
     };
     return (
       <PromptInput helperText={false} className="w-125" onSubmit={handleSubmit}>
@@ -528,43 +506,38 @@ export const WithAdvancedTools: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const textarea = canvas.getByRole('textbox');
+    const textarea = canvas.getByRole("textbox");
     await expect(textarea).toBeInTheDocument();
     const settingsButton = canvas.getByLabelText(/Settings/i);
     await expect(settingsButton).toBeInTheDocument();
-    const modelButton = canvas.getByRole('button', {
+    const modelButton = canvas.getByRole("button", {
       name: /Agent model/i,
     });
     await expect(modelButton).toBeInTheDocument();
-    await expect(modelButton).toHaveAttribute('aria-haspopup', 'menu');
-    const submitButton = canvas.getByRole('button', {
+    await expect(modelButton).toHaveAttribute("aria-haspopup", "menu");
+    const submitButton = canvas.getByRole("button", {
       name: /submit/i,
     });
     await expect(submitButton).toBeInTheDocument();
   },
   render: function PromptInputWithAdvancedToolsStory() {
-    const [model, setModel] = useState('Agent model');
-    const [status, setStatus] = useState<
-      'submitted' | 'streaming' | 'ready' | 'error'
-    >('ready');
+    const [model, setModel] = useState("Agent model");
+    const [status, setStatus] = useState<"submitted" | "streaming" | "ready" | "error">("ready");
     const textareaRef = useRef<HTMLTextAreaElement>(null);
-    const handleSubmit: PromptInputSubmitHandler = (message, _event) => {
+    const handleSubmit: PromptInputSubmitHandler = (message, event) => {
       const hasText = Boolean(message.text);
       const hasAttachments = Boolean(message.files?.length);
       if (!(hasText || hasAttachments)) {
         return;
       }
-      setStatus('submitted');
-      setTimeout(() => setStatus('streaming'), 200);
-      setTimeout(() => setStatus('ready'), 2000);
+      setStatus("submitted");
+      setTimeout(() => setStatus("streaming"), 200);
+      setTimeout(() => setStatus("ready"), 2000);
     };
     return (
       <PromptInput className="w-125" onSubmit={handleSubmit}>
         <PromptInputBody>
-          <PromptInputTextarea
-            ref={textareaRef}
-            placeholder="Type your message..."
-          />
+          <PromptInputTextarea ref={textareaRef} placeholder="Type your message..." />
         </PromptInputBody>
         <PromptInputFooter>
           <PromptInputTools>
@@ -581,15 +554,9 @@ export const WithAdvancedTools: Story = {
                 }
               />
               <DropdownMenuContent>
-                <DropdownMenuItem onClick={() => setModel('GPT-4')}>
-                  GPT-4
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setModel('GPT-3.5')}>
-                  GPT-3.5
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setModel('Claude')}>
-                  Claude
-                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setModel("GPT-4")}>GPT-4</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setModel("GPT-3.5")}>GPT-3.5</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setModel("Claude")}>Claude</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </PromptInputTools>
@@ -666,11 +633,11 @@ export const EdgeCases: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const textareas = canvas.getAllByRole('textbox');
+    const textareas = canvas.getAllByRole("textbox");
     await expect(textareas.length).toBe(4);
-    const longTextLabel = canvas.getByText('Very long text input');
+    const longTextLabel = canvas.getByText("Very long text input");
     await expect(longTextLabel).toBeInTheDocument();
-    const specialCharsLabel = canvas.getByText('Special characters');
+    const specialCharsLabel = canvas.getByText("Special characters");
     await expect(specialCharsLabel).toBeInTheDocument();
   },
 };
@@ -682,18 +649,16 @@ export const Playground: Story = {
     order: 99,
   },
   render: function PromptInputPlaygroundStory(args) {
-    const [status, setStatus] = useState<
-      'submitted' | 'streaming' | 'ready' | 'error'
-    >('ready');
-    const handleSubmit: PromptInputSubmitHandler = (message, _event) => {
+    const [status, setStatus] = useState<"submitted" | "streaming" | "ready" | "error">("ready");
+    const handleSubmit: PromptInputSubmitHandler = (message, event) => {
       const hasText = Boolean(message.text);
       const hasAttachments = Boolean(message.files?.length);
       if (!(hasText || hasAttachments)) {
         return;
       }
-      setStatus('submitted');
-      setTimeout(() => setStatus('streaming'), 200);
-      setTimeout(() => setStatus('ready'), 2000);
+      setStatus("submitted");
+      setTimeout(() => setStatus("streaming"), 200);
+      setTimeout(() => setStatus("ready"), 2000);
     };
     const { onSubmit, ...restArgs } = args;
     return (

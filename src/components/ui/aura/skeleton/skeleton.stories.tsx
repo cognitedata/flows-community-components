@@ -1,21 +1,20 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { expect } from '@storybook/test';
-
-import { Skeleton } from './skeleton';
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { expect } from "storybook/test";
+import { Skeleton } from "./skeleton";
 const meta: Meta<typeof Skeleton> = {
-  title: 'Primitives/Skeleton',
+  title: "Primitives/Skeleton",
   component: Skeleton,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     className: {
-      control: 'text',
+      control: "text",
       table: {
-        category: 'Variants/Styling',
+        category: "Variants/Styling",
       },
     },
   },
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
 };
 export default meta;
@@ -29,7 +28,7 @@ export const Basic: Story = {
     const skeleton = skeletons[0];
     await expect(skeletons.length).toBe(1);
     await expect(skeleton).toBeInTheDocument();
-    await expect(skeleton).toHaveClass('animate-pulse');
+    await expect(skeleton).toHaveClass("animate-pulse");
   },
   render: () => <Skeleton className="w-100 h-8" />,
 };
@@ -131,7 +130,7 @@ export const ListItems: Story = {
 };
 export const Playground: Story = {
   args: {
-    className: 'w-100 h-8',
+    className: "w-100 h-8",
   },
   render: (args) => <Skeleton {...args} />,
   parameters: {

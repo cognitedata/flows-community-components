@@ -1,27 +1,3 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { expect, userEvent, waitFor, within } from '@storybook/test';
-import {
-  IconChartBar as BarChart3,
-  IconDownload,
-  IconEdit,
-  IconFileText,
-  IconHomeFilled,
-  IconLayoutSidebar,
-  IconPlus,
-  IconSettings,
-  IconShare,
-  IconUsers,
-} from '@tabler/icons-react';
-import { useState } from 'react';
-
-import {
-  Topbar,
-  TopbarBreadcrumbs,
-  TopbarCenter,
-  TopbarLeft,
-  TopbarRight,
-} from './topbar';
-
 import {
   AlertDialog,
   AlertDialogAction,
@@ -32,20 +8,16 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from '@/components/ui/aura/alert-dialog';
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from '@/components/ui/aura/avatar';
+} from "@/components/ui/aura/alert-dialog";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/aura/avatar";
 import {
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from '@/components/ui/aura/breadcrumb';
-import { Button } from '@/components/ui/aura/button';
+} from "@/components/ui/aura/breadcrumb";
+import { Button } from "@/components/ui/aura/button";
 import {
   Sidebar,
   SidebarContent,
@@ -61,22 +33,37 @@ import {
   SidebarMenuItem,
   SidebarProvider,
   SidebarTrigger,
-} from '@/components/ui/aura/sidebar';
-
+} from "@/components/ui/aura/sidebar";
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import {
+  IconChartBar as BarChart3,
+  IconDownload,
+  IconEdit,
+  IconFileText,
+  IconHomeFilled,
+  IconLayoutSidebar,
+  IconPlus,
+  IconSettings,
+  IconShare,
+  IconUsers,
+} from "@tabler/icons-react";
+import { useState } from "react";
+import { expect, userEvent, waitFor, within } from "storybook/test";
+import { Topbar, TopbarBreadcrumbs, TopbarCenter, TopbarLeft, TopbarRight } from "./topbar";
 const meta: Meta<typeof Topbar> = {
-  title: 'Primitives/Topbar',
+  title: "Primitives/Topbar",
   component: Topbar,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     className: {
-      control: 'text',
+      control: "text",
       table: {
-        category: 'Display',
+        category: "Display",
       },
     },
   },
   parameters: {
-    layout: 'fullscreen',
+    layout: "fullscreen",
   },
 };
 export default meta;
@@ -87,11 +74,11 @@ export const Basic: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const sidebarButton = canvas.getByRole('button', {
+    const sidebarButton = canvas.getByRole("button", {
       name: /sidebar/i,
     });
     await expect(sidebarButton).toBeInTheDocument();
-    const actionButtons = canvas.getAllByRole('button');
+    const actionButtons = canvas.getAllByRole("button");
     await expect(actionButtons.length).toBeGreaterThan(0);
   },
   render: function TopbarBasicStory() {
@@ -140,9 +127,9 @@ export const WithCenterContent: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText('Project Dashboard')).toBeInTheDocument();
+    await expect(canvas.getByText("Project Dashboard")).toBeInTheDocument();
     await expect(
-      canvas.getByRole('button', {
+      canvas.getByRole("button", {
         name: /new item/i,
       })
     ).toBeInTheDocument();
@@ -192,7 +179,7 @@ export const EosStyle: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const newChatButton = canvas.getByRole('button', {
+    const newChatButton = canvas.getByRole("button", {
       name: /new chat/i,
     });
     await expect(newChatButton).toBeInTheDocument();
@@ -242,8 +229,7 @@ export const EosStyle: Story = {
                 <AlertDialogHeader>
                   <AlertDialogTitle>Start a new chat?</AlertDialogTitle>
                   <AlertDialogDescription>
-                    This will create a new chat session. Your current chat will
-                    be saved.
+                    This will create a new chat session. Your current chat will be saved.
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
@@ -264,10 +250,10 @@ export const Minimal: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText('Home')).toBeInTheDocument();
+    await expect(canvas.getByText("Home")).toBeInTheDocument();
     await expect(
-      canvas.getByRole('link', {
-        name: 'Go to home',
+      canvas.getByRole("link", {
+        name: "Go to home",
       })
     ).toBeInTheDocument();
   },
@@ -304,17 +290,17 @@ export const WithMultipleActions: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await expect(
-      canvas.getByRole('button', {
+      canvas.getByRole("button", {
         name: /settings/i,
       })
     ).toBeInTheDocument();
     await expect(
-      canvas.getByRole('button', {
+      canvas.getByRole("button", {
         name: /export/i,
       })
     ).toBeInTheDocument();
     await expect(
-      canvas.getByRole('button', {
+      canvas.getByRole("button", {
         name: /create/i,
       })
     ).toBeInTheDocument();
@@ -370,13 +356,13 @@ export const WithSidebar: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const sidebarTrigger = canvas.getByRole('button', {
+    const sidebarTrigger = canvas.getByRole("button", {
       name: /toggle sidebar/i,
     });
     await expect(sidebarTrigger).toBeInTheDocument();
-    const sidebarLabel = canvas.getByText('Platform');
+    const sidebarLabel = canvas.getByText("Platform");
     await expect(sidebarLabel).toBeInTheDocument();
-    const activeItem = canvas.getByText('Overview');
+    const activeItem = canvas.getByText("Overview");
     await expect(activeItem).toBeInTheDocument();
     await userEvent.click(sidebarTrigger);
     await expect(sidebarLabel).toBeInTheDocument();
@@ -451,19 +437,14 @@ export const WithSidebar: Story = {
               <SidebarFooter>
                 <div className="flex items-center gap-2">
                   <Avatar sizes="default">
-                    <AvatarImage
-                      src="/user-avatar2.png"
-                      alt="Elizabeth Fitzgerald"
-                    />
+                    <AvatarImage src="/user-avatar2.png" alt="Elizabeth Fitzgerald" />
                     <AvatarFallback>EF</AvatarFallback>
                   </Avatar>
                   <div className="flex flex-col min-w-0 group-data-[collapsible=icon]:hidden">
                     <div className="text-sm font-medium text-sidebar-foreground truncate">
                       Elizabeth Fitzgerald
                     </div>
-                    <div className="text-xs text-sidebar-foreground/70 truncate">
-                      AkerBP
-                    </div>
+                    <div className="text-xs text-sidebar-foreground/70 truncate">AkerBP</div>
                   </div>
                 </div>
               </SidebarFooter>
@@ -502,13 +483,10 @@ export const WithSidebar: Story = {
                 </TopbarRight>
               </Topbar>
               <div className="flex-1 p-6 overflow-auto">
-                <h1 className="text-2xl font-bold mb-4">
-                  Topbar with Sidebar Layout
-                </h1>
+                <h1 className="text-2xl font-bold mb-4">Topbar with Sidebar Layout</h1>
                 <p className="text-muted-foreground mb-4">
-                  Click the sidebar toggle button in the topbar to
-                  collapse/expand the sidebar. When collapsed, the sidebar shows
-                  in icon mode with tooltips.
+                  Click the sidebar toggle button in the topbar to collapse/expand the sidebar. When
+                  collapsed, the sidebar shows in icon mode with tooltips.
                 </p>
                 <div className="space-y-4">
                   <div className="p-4 border rounded-lg">
@@ -539,7 +517,7 @@ export const Interactive: Story = {
     await waitFor(
       () => {
         expect(
-          canvas.getByRole('button', {
+          canvas.getByRole("button", {
             name: /new item/i,
           })
         ).toBeInTheDocument();
@@ -548,7 +526,7 @@ export const Interactive: Story = {
         timeout: 5000,
       }
     );
-    const newItemButton = canvas.getByRole('button', {
+    const newItemButton = canvas.getByRole("button", {
       name: /new item/i,
     });
     await userEvent.click(newItemButton);
@@ -560,7 +538,7 @@ export const Interactive: Story = {
         timeout: 5000,
       }
     );
-    const shareButton = canvas.getByRole('button', {
+    const shareButton = canvas.getByRole("button", {
       name: /share/i,
     });
     await userEvent.click(shareButton);
@@ -572,8 +550,8 @@ export const Interactive: Story = {
         timeout: 5000,
       }
     );
-    const homeLink = canvas.getByRole('link', {
-      name: 'Home',
+    const homeLink = canvas.getByRole("link", {
+      name: "Home",
     });
     await userEvent.click(homeLink);
   },
@@ -587,7 +565,7 @@ export const Interactive: Story = {
               variant="ghost"
               size="icon-sm"
               aria-label="Toggle sidebar"
-              onClick={() => setClicked('sidebar')}
+              onClick={() => setClicked("sidebar")}
             >
               <IconLayoutSidebar className="h-4.5 w-4.5" />
             </Button>
@@ -598,7 +576,7 @@ export const Interactive: Story = {
                     href="#"
                     onClick={(e) => {
                       e.preventDefault();
-                      setClicked('home');
+                      setClicked("home");
                     }}
                     aria-label="Home"
                   >
@@ -614,13 +592,11 @@ export const Interactive: Story = {
           </TopbarLeft>
           <TopbarCenter>
             {clicked && (
-              <div className="text-xs text-muted-foreground">
-                Last clicked: {clicked}
-              </div>
+              <div className="text-xs text-muted-foreground">Last clicked: {clicked}</div>
             )}
           </TopbarCenter>
           <TopbarRight>
-            <Button size="sm" onClick={() => setClicked('new-item')}>
+            <Button size="sm" onClick={() => setClicked("new-item")}>
               <IconPlus />
               New Item
             </Button>
@@ -628,7 +604,7 @@ export const Interactive: Story = {
               variant="ghost"
               size="icon-sm"
               aria-label="Share"
-              onClick={() => setClicked('share')}
+              onClick={() => setClicked("share")}
             >
               <IconShare className="h-4 w-4" />
             </Button>
@@ -644,10 +620,10 @@ export const LongBreadcrumb: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText('Current Project')).toBeInTheDocument();
-    await expect(canvas.getByText('Workspace')).toBeInTheDocument();
+    await expect(canvas.getByText("Current Project")).toBeInTheDocument();
+    await expect(canvas.getByText("Workspace")).toBeInTheDocument();
     await expect(
-      canvas.getByRole('button', {
+      canvas.getByRole("button", {
         name: /action/i,
       })
     ).toBeInTheDocument();
@@ -704,7 +680,7 @@ export const LongBreadcrumb: Story = {
 };
 export const Playground: Story = {
   args: {
-    className: '',
+    className: "",
   },
   parameters: {
     order: 99,
@@ -715,11 +691,7 @@ export const Playground: Story = {
         <div className="w-full overflow-hidden border rounded-lg">
           <Topbar {...args}>
             <TopbarLeft>
-              <Button
-                variant="ghost"
-                size="icon-sm"
-                aria-label="Toggle sidebar"
-              >
+              <Button variant="ghost" size="icon-sm" aria-label="Toggle sidebar">
                 <IconLayoutSidebar className="h-4.5 w-4.5" />
               </Button>
               <TopbarBreadcrumbs>
@@ -737,9 +709,7 @@ export const Playground: Story = {
               </TopbarBreadcrumbs>
             </TopbarLeft>
             <TopbarCenter>
-              <div className="text-xs text-muted-foreground">
-                Center content
-              </div>
+              <div className="text-xs text-muted-foreground">Center content</div>
             </TopbarCenter>
             <TopbarRight>
               <Button size="sm">

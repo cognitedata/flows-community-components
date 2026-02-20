@@ -1,62 +1,60 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { expect, userEvent, waitFor, within } from '@storybook/test';
-import { useState } from 'react';
-
-import { Button } from '../button';
-
-import { Tool, ToolContent, ToolHeader, ToolInput, ToolOutput } from './tool';
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { useState } from "react";
+import { expect, userEvent, waitFor, within } from "storybook/test";
+import { Button } from "../button";
+import { Tool, ToolContent, ToolHeader, ToolInput, ToolOutput } from "./tool";
 const meta: Meta<typeof Tool> = {
-  title: 'AI/Tool',
+  title: "AI/Tool",
   component: Tool,
-  tags: ['autodocs', 'ai-elements'],
+  tags: ["autodocs", "ai-elements"],
   argTypes: {
     open: {
-      control: 'boolean',
+      control: "boolean",
       table: {
-        category: 'Behavior',
+        category: "Behavior",
         type: {
-          summary: 'boolean',
+          summary: "boolean",
         },
       },
     },
     defaultOpen: {
-      control: 'boolean',
+      control: "boolean",
       table: {
-        category: 'Behavior',
+        category: "Behavior",
         type: {
-          summary: 'boolean',
+          summary: "boolean",
         },
       },
     },
     onOpenChange: {
-      action: 'openChanged',
+      action: "openChanged",
       table: {
-        category: 'Events',
+        category: "Events",
         type: {
-          summary: '(open: boolean) => void',
+          summary: "(open: boolean) => void",
         },
       },
     },
     disabled: {
-      control: 'boolean',
+      control: "boolean",
       table: {
-        category: 'Behavior',
+        category: "Behavior",
         type: {
-          summary: 'boolean',
+          summary: "boolean",
         },
       },
     },
     className: {
-      control: 'text',
+      control: "text",
       table: {
-        category: 'Variants/Styling',
+        category: "Variants/Styling",
       },
     },
   },
   parameters: {
-    layout: 'centered',
+    layout: "centered",
     actions: {
-      handles: ['openChanged'],
+      handles: ["openChanged"],
     },
   },
   decorators: [
@@ -76,19 +74,19 @@ export const Basic: Story = {
       <ToolContent>
         <ToolInput
           input={{
-            query: 'button component',
-            path: 'src/components',
-            extensions: ['tsx', 'ts'],
+            query: "button component",
+            path: "src/components",
+            extensions: ["tsx", "ts"],
           }}
         />
         <ToolOutput
           output={[
             {
-              file: 'src/components/Button.tsx',
+              file: "src/components/Button.tsx",
               matches: 5,
             },
             {
-              file: 'src/components/IconButton.tsx',
+              file: "src/components/IconButton.tsx",
               matches: 2,
             },
           ]}
@@ -102,7 +100,7 @@ export const Basic: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const header = canvas.getByText('search_files');
+    const header = canvas.getByText("search_files");
     await expect(header).toBeInTheDocument();
   },
 };
@@ -113,7 +111,7 @@ export const WithError: Story = {
       <ToolContent>
         <ToolInput
           input={{
-            path: '/nonexistent/file.txt',
+            path: "/nonexistent/file.txt",
           }}
         />
         <ToolOutput
@@ -128,7 +126,7 @@ export const WithError: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText('Error')).toBeInTheDocument();
+    await expect(canvas.getByText("Error")).toBeInTheDocument();
     await expect(canvas.getByText(/File not found/)).toBeInTheDocument();
   },
 };
@@ -139,14 +137,14 @@ export const CollapsedByDefault: Story = {
       <ToolContent>
         <ToolInput
           input={{
-            command: 'npm install',
-            workingDirectory: '/project',
+            command: "npm install",
+            workingDirectory: "/project",
           }}
         />
         <ToolOutput
           output={{
             success: true,
-            duration: '2.5s',
+            duration: "2.5s",
           }}
           errorText={undefined}
         />
@@ -158,9 +156,9 @@ export const CollapsedByDefault: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const trigger = canvas.getByText('execute_command');
+    const trigger = canvas.getByText("execute_command");
     await userEvent.click(trigger);
-    const parametersHeading = canvas.getByText('Parameters');
+    const parametersHeading = canvas.getByText("Parameters");
     await expect(parametersHeading).toBeInTheDocument();
   },
 };
@@ -171,21 +169,21 @@ export const ComplexInput: Story = {
       <ToolContent>
         <ToolInput
           input={{
-            repository: 'owner/repo',
-            title: 'Add new feature',
-            description: 'This PR adds a new button component with variants',
-            baseBranch: 'main',
-            headBranch: 'feature/new-button',
-            labels: ['enhancement', 'ui'],
-            reviewers: ['user1', 'user2'],
+            repository: "owner/repo",
+            title: "Add new feature",
+            description: "This PR adds a new button component with variants",
+            baseBranch: "main",
+            headBranch: "feature/new-button",
+            labels: ["enhancement", "ui"],
+            reviewers: ["user1", "user2"],
             draft: false,
           }}
         />
         <ToolOutput
           output={{
             prNumber: 123,
-            url: 'https://github.com/owner/repo/pull/123',
-            status: 'created',
+            url: "https://github.com/owner/repo/pull/123",
+            status: "created",
           }}
           errorText={undefined}
         />
@@ -197,9 +195,9 @@ export const ComplexInput: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText('create_pull_request')).toBeInTheDocument();
-    await expect(canvas.getByText('Parameters')).toBeInTheDocument();
-    await expect(canvas.getByText('Result')).toBeInTheDocument();
+    await expect(canvas.getByText("create_pull_request")).toBeInTheDocument();
+    await expect(canvas.getByText("Parameters")).toBeInTheDocument();
+    await expect(canvas.getByText("Result")).toBeInTheDocument();
   },
 };
 export const MultipleTools: Story = {
@@ -210,13 +208,10 @@ export const MultipleTools: Story = {
         <ToolContent>
           <ToolInput
             input={{
-              path: 'src/',
+              path: "src/",
             }}
           />
-          <ToolOutput
-            output={['components/', 'utils/', 'hooks/']}
-            errorText={undefined}
-          />
+          <ToolOutput output={["components/", "utils/", "hooks/"]} errorText={undefined} />
         </ToolContent>
       </Tool>
       <Tool defaultOpen={false}>
@@ -224,13 +219,10 @@ export const MultipleTools: Story = {
         <ToolContent>
           <ToolInput
             input={{
-              path: 'src/index.ts',
+              path: "src/index.ts",
             }}
           />
-          <ToolOutput
-            output="export * from './components';"
-            errorText={undefined}
-          />
+          <ToolOutput output="export * from './components';" errorText={undefined} />
         </ToolContent>
       </Tool>
       <Tool>
@@ -238,8 +230,8 @@ export const MultipleTools: Story = {
         <ToolContent>
           <ToolInput
             input={{
-              path: 'src/new-component.tsx',
-              content: 'export const NewComponent = () => <div>Hello</div>;',
+              path: "src/new-component.tsx",
+              content: "export const NewComponent = () => <div>Hello</div>;",
             }}
           />
           <ToolOutput
@@ -258,9 +250,9 @@ export const MultipleTools: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText('list_directory')).toBeInTheDocument();
-    await expect(canvas.getByText('read_file')).toBeInTheDocument();
-    await expect(canvas.getByText('write_file')).toBeInTheDocument();
+    await expect(canvas.getByText("list_directory")).toBeInTheDocument();
+    await expect(canvas.getByText("read_file")).toBeInTheDocument();
+    await expect(canvas.getByText("write_file")).toBeInTheDocument();
   },
 };
 export const LargeOutput: Story = {
@@ -270,8 +262,8 @@ export const LargeOutput: Story = {
       <ToolContent>
         <ToolInput
           input={{
-            query: 'useState',
-            fileTypes: ['tsx', 'jsx'],
+            query: "useState",
+            fileTypes: ["tsx", "jsx"],
           }}
         />
         <ToolOutput
@@ -279,29 +271,29 @@ export const LargeOutput: Story = {
             totalMatches: 47,
             files: [
               {
-                path: 'src/components/Form.tsx',
+                path: "src/components/Form.tsx",
                 line: 12,
                 preview: "const [value, setValue] = useState('')",
               },
               {
-                path: 'src/components/Modal.tsx',
+                path: "src/components/Modal.tsx",
                 line: 8,
-                preview: 'const [isOpen, setIsOpen] = useState(false)',
+                preview: "const [isOpen, setIsOpen] = useState(false)",
               },
               {
-                path: 'src/components/List.tsx',
+                path: "src/components/List.tsx",
                 line: 15,
-                preview: 'const [items, setItems] = useState([])',
+                preview: "const [items, setItems] = useState([])",
               },
               {
-                path: 'src/hooks/useForm.ts',
+                path: "src/hooks/useForm.ts",
                 line: 5,
-                preview: 'const [formData, setFormData] = useState(initial)',
+                preview: "const [formData, setFormData] = useState(initial)",
               },
               {
-                path: 'src/pages/Home.tsx',
+                path: "src/pages/Home.tsx",
                 line: 22,
-                preview: 'const [loading, setLoading] = useState(true)',
+                preview: "const [loading, setLoading] = useState(true)",
               },
             ],
           }}
@@ -315,8 +307,8 @@ export const LargeOutput: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText('search_codebase')).toBeInTheDocument();
-    await expect(canvas.getByText('Result')).toBeInTheDocument();
+    await expect(canvas.getByText("search_codebase")).toBeInTheDocument();
+    await expect(canvas.getByText("Result")).toBeInTheDocument();
   },
 };
 export const Interactive: Story = {
@@ -326,7 +318,7 @@ export const Interactive: Story = {
       <div className="space-y-4">
         <div className="flex gap-2">
           <Button variant="outline" size="sm" onClick={() => setOpen(!open)}>
-            {open ? 'Collapse' : 'Expand'}
+            {open ? "Collapse" : "Expand"}
           </Button>
         </div>
         <Tool open={open} onOpenChange={setOpen}>
@@ -334,12 +326,12 @@ export const Interactive: Story = {
           <ToolContent>
             <ToolInput
               input={{
-                query: 'test',
+                query: "test",
               }}
             />
             <ToolOutput
               output={{
-                status: 'completed',
+                status: "completed",
               }}
               errorText={undefined}
             />
@@ -353,19 +345,17 @@ export const Interactive: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const expandButton = await canvas.findByText('Expand');
+    const expandButton = await canvas.findByText("Expand");
     await expect(expandButton).toBeInTheDocument();
     await userEvent.click(expandButton);
-    await expect(canvas.getByText('Collapse')).toBeInTheDocument();
-    await expect(canvas.getByText('Parameters')).toBeInTheDocument();
-    await userEvent.click(canvas.getByText('Collapse'));
-    await expect(canvas.getByText('Expand')).toBeInTheDocument();
-    const toolTrigger = canvas.getByRole('button', {
-      name: 'controlled_tool',
+    await expect(canvas.getByText("Collapse")).toBeInTheDocument();
+    await expect(canvas.getByText("Parameters")).toBeInTheDocument();
+    await userEvent.click(canvas.getByText("Collapse"));
+    await expect(canvas.getByText("Expand")).toBeInTheDocument();
+    const toolTrigger = canvas.getByRole("button", {
+      name: "controlled_tool",
     });
-    await waitFor(() =>
-      expect(toolTrigger).not.toHaveAttribute('data-panel-open')
-    );
+    await waitFor(() => expect(toolTrigger).not.toHaveAttribute("data-panel-open"));
   },
 };
 export const Accessibility: Story = {
@@ -375,12 +365,12 @@ export const Accessibility: Story = {
       <ToolContent>
         <ToolInput
           input={{
-            key: 'value',
+            key: "value",
           }}
         />
         <ToolOutput
           output={{
-            result: 'success',
+            result: "success",
           }}
           errorText={undefined}
         />
@@ -392,14 +382,14 @@ export const Accessibility: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const trigger = await canvas.findByRole('button');
+    const trigger = await canvas.findByRole("button");
     await expect(trigger).toBeInTheDocument();
     trigger.focus();
     await expect(trigger).toHaveFocus();
-    await userEvent.keyboard('{Enter}');
-    await expect(canvas.getByText('Parameters')).toBeInTheDocument();
-    await userEvent.keyboard('{Enter}');
-    await waitFor(() => expect(trigger).not.toHaveAttribute('data-panel-open'));
+    await userEvent.keyboard("{Enter}");
+    await expect(canvas.getByText("Parameters")).toBeInTheDocument();
+    await userEvent.keyboard("{Enter}");
+    await waitFor(() => expect(trigger).not.toHaveAttribute("data-panel-open"));
   },
 };
 export const VisualRegression: Story = {
@@ -412,12 +402,12 @@ export const VisualRegression: Story = {
           <ToolContent>
             <ToolInput
               input={{
-                key: 'value',
+                key: "value",
               }}
             />
             <ToolOutput
               output={{
-                result: 'success',
+                result: "success",
               }}
               errorText={undefined}
             />
@@ -426,9 +416,7 @@ export const VisualRegression: Story = {
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">
-          With Error
-        </h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">With Error</h3>
         <Tool>
           <ToolHeader title="error_tool" type="tool-invocation" hasError />
           <ToolContent>

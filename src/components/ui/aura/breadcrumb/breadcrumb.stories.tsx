@@ -1,5 +1,10 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { expect, userEvent, waitFor, within } from '@storybook/test';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/aura/dropdown-menu";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
   IconChevronRight,
   IconCircleArrowDown,
@@ -7,9 +12,9 @@ import {
   IconPencil,
   IconTag,
   IconTrash,
-} from '@tabler/icons-react';
-import { useState } from 'react';
-
+} from "@tabler/icons-react";
+import { useState } from "react";
+import { expect, userEvent, waitFor, within } from "storybook/test";
 import {
   Breadcrumb,
   BreadcrumbEllipsis,
@@ -20,34 +25,27 @@ import {
   BreadcrumbPage,
   BreadcrumbPageButton,
   BreadcrumbSeparator,
-} from './breadcrumb';
-
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/aura/dropdown-menu';
+} from "./breadcrumb";
 const meta: Meta<typeof Breadcrumb> = {
-  title: 'Primitives/Breadcrumb',
+  title: "Primitives/Breadcrumb",
   component: Breadcrumb,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     className: {
-      control: 'text',
+      control: "text",
       table: {
-        category: 'Display',
+        category: "Display",
       },
     },
     children: {
       control: false,
       table: {
-        category: 'Display',
+        category: "Display",
       },
     },
   },
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
 };
 export default meta;
@@ -55,14 +53,14 @@ type Story = StoryObj<typeof Breadcrumb>;
 export const Basic: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const nav = canvas.getByRole('navigation');
+    const nav = canvas.getByRole("navigation");
     await expect(nav).toBeInTheDocument();
-    const homeLink = canvas.getByText('Home');
+    const homeLink = canvas.getByText("Home");
     await expect(homeLink).toBeInTheDocument();
-    await expect(homeLink).toHaveAttribute('href', '/');
-    const projectsLink = canvas.getByText('Projects');
+    await expect(homeLink).toHaveAttribute("href", "/");
+    const projectsLink = canvas.getByText("Projects");
     await expect(projectsLink).toBeInTheDocument();
-    const currentPage = canvas.getByText('Project Alpha');
+    const currentPage = canvas.getByText("Project Alpha");
     await expect(currentPage).toBeInTheDocument();
   },
   render: () => (
@@ -86,13 +84,13 @@ export const Basic: Story = {
 export const CurrentPageLinked: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const homeLink = canvas.getByText('Home');
-    await expect(homeLink).toHaveAttribute('href', '/');
-    const projectsLink = canvas.getByText('Projects');
-    await expect(projectsLink).toHaveAttribute('href', '/projects');
-    const currentPageLink = canvas.getByText('Project Alpha');
-    await expect(currentPageLink).toHaveAttribute('href', '/projects/alpha');
-    await expect(currentPageLink).toHaveAttribute('aria-current', 'page');
+    const homeLink = canvas.getByText("Home");
+    await expect(homeLink).toHaveAttribute("href", "/");
+    const projectsLink = canvas.getByText("Projects");
+    await expect(projectsLink).toHaveAttribute("href", "/projects");
+    const currentPageLink = canvas.getByText("Project Alpha");
+    await expect(currentPageLink).toHaveAttribute("href", "/projects/alpha");
+    await expect(currentPageLink).toHaveAttribute("aria-current", "page");
   },
   render: () => (
     <Breadcrumb>
@@ -115,17 +113,15 @@ export const CurrentPageLinked: Story = {
 export const WithEllipsisDropdown: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const nav = canvas.getByRole('navigation');
+    const nav = canvas.getByRole("navigation");
     await expect(nav).toBeInTheDocument();
-    const homeLink = canvas.getByText('Home');
-    await expect(homeLink).toHaveAttribute('href', '/');
-    const canvasLink = canvas.getByText('Canvas');
-    await expect(canvasLink).toHaveAttribute('href', '/canvas');
-    const ellipsisButton = canvasElement.querySelector(
-      '[data-slot="breadcrumb-ellipsis"] button'
-    );
+    const homeLink = canvas.getByText("Home");
+    await expect(homeLink).toHaveAttribute("href", "/");
+    const canvasLink = canvas.getByText("Canvas");
+    await expect(canvasLink).toHaveAttribute("href", "/canvas");
+    const ellipsisButton = canvasElement.querySelector('[data-slot="breadcrumb-ellipsis"] button');
     await expect(ellipsisButton).toBeInTheDocument();
-    const currentPage = canvas.getByText('Test canvas');
+    const currentPage = canvas.getByText("Test canvas");
     await expect(currentPage).toBeInTheDocument();
   },
   render: () => (
@@ -160,15 +156,15 @@ export const WithEllipsisDropdown: Story = {
 export const StaticEllipsis: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const nav = canvas.getByRole('navigation');
+    const nav = canvas.getByRole("navigation");
     await expect(nav).toBeInTheDocument();
-    const list = canvas.getByRole('list');
+    const list = canvas.getByRole("list");
     await expect(list).toBeInTheDocument();
-    const homeLink = canvas.getByText('Home');
-    await expect(homeLink).toHaveAttribute('href', '/');
-    const currentFolder = canvas.getByText('Current Folder');
+    const homeLink = canvas.getByText("Home");
+    await expect(homeLink).toHaveAttribute("href", "/");
+    const currentFolder = canvas.getByText("Current Folder");
     await expect(currentFolder).toBeInTheDocument();
-    const currentPage = canvas.getByText('Document.pdf');
+    const currentPage = canvas.getByText("Document.pdf");
     await expect(currentPage).toBeInTheDocument();
   },
   render: () => (
@@ -194,15 +190,15 @@ export const StaticEllipsis: Story = {
 export const WithPageActions: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const nav = canvas.getByRole('navigation');
+    const nav = canvas.getByRole("navigation");
     await expect(nav).toBeInTheDocument();
-    const homeLink = canvas.getByText('Home');
-    await expect(homeLink).toHaveAttribute('href', '/');
-    const canvasLink = canvas.getByText('Canvas');
-    await expect(canvasLink).toHaveAttribute('href', '/canvas');
-    const pageButton = canvas.getByText('Test canvas').closest('button');
+    const homeLink = canvas.getByText("Home");
+    await expect(homeLink).toHaveAttribute("href", "/");
+    const canvasLink = canvas.getByText("Canvas");
+    await expect(canvasLink).toHaveAttribute("href", "/canvas");
+    const pageButton = canvas.getByText("Test canvas").closest("button");
     await expect(pageButton).toBeInTheDocument();
-    await expect(pageButton).toHaveAttribute('aria-current', 'page');
+    await expect(pageButton).toHaveAttribute("aria-current", "page");
   },
   render: () => (
     <Breadcrumb>
@@ -246,13 +242,13 @@ export const WithPageActions: Story = {
 export const Short: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const nav = canvas.getByRole('navigation');
+    const nav = canvas.getByRole("navigation");
     await expect(nav).toBeInTheDocument();
-    const homeLink = canvas.getByText('Home');
-    await expect(homeLink).toHaveAttribute('href', '/');
-    const currentPage = canvas.getByText('Dashboard');
+    const homeLink = canvas.getByText("Home");
+    await expect(homeLink).toHaveAttribute("href", "/");
+    const currentPage = canvas.getByText("Dashboard");
     await expect(currentPage).toBeInTheDocument();
-    await expect(currentPage).toHaveAttribute('aria-current', 'page');
+    await expect(currentPage).toHaveAttribute("aria-current", "page");
   },
   render: () => (
     <Breadcrumb>
@@ -271,25 +267,19 @@ export const Short: Story = {
 export const LongPath: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const homeLink = canvas.getByText('Home');
-    await expect(homeLink).toHaveAttribute('href', '/');
-    const orgLink = canvas.getByText('Organization');
-    await expect(orgLink).toHaveAttribute('href', '/organization');
-    const teamsLink = canvas.getByText('Teams');
-    await expect(teamsLink).toHaveAttribute('href', '/organization/teams');
-    const engineeringLink = canvas.getByText('Engineering');
-    await expect(engineeringLink).toHaveAttribute(
-      'href',
-      '/organization/teams/engineering'
-    );
-    const projectsLink = canvas.getByText('Projects');
-    await expect(projectsLink).toHaveAttribute(
-      'href',
-      '/organization/teams/engineering/projects'
-    );
-    const currentPage = canvas.getByText('Q1 2024 Planning');
+    const homeLink = canvas.getByText("Home");
+    await expect(homeLink).toHaveAttribute("href", "/");
+    const orgLink = canvas.getByText("Organization");
+    await expect(orgLink).toHaveAttribute("href", "/organization");
+    const teamsLink = canvas.getByText("Teams");
+    await expect(teamsLink).toHaveAttribute("href", "/organization/teams");
+    const engineeringLink = canvas.getByText("Engineering");
+    await expect(engineeringLink).toHaveAttribute("href", "/organization/teams/engineering");
+    const projectsLink = canvas.getByText("Projects");
+    await expect(projectsLink).toHaveAttribute("href", "/organization/teams/engineering/projects");
+    const currentPage = canvas.getByText("Q1 2024 Planning");
     await expect(currentPage).toBeInTheDocument();
-    await expect(currentPage).toHaveAttribute('aria-current', 'page');
+    await expect(currentPage).toHaveAttribute("aria-current", "page");
   },
   render: () => (
     <Breadcrumb>
@@ -307,15 +297,11 @@ export const LongPath: Story = {
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-          <BreadcrumbLink href="/organization/teams/engineering">
-            Engineering
-          </BreadcrumbLink>
+          <BreadcrumbLink href="/organization/teams/engineering">Engineering</BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-          <BreadcrumbLink href="/organization/teams/engineering/projects">
-            Projects
-          </BreadcrumbLink>
+          <BreadcrumbLink href="/organization/teams/engineering/projects">Projects</BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
@@ -328,13 +314,13 @@ export const LongPath: Story = {
 export const CustomSeparator: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const nav = canvas.getByRole('navigation');
+    const nav = canvas.getByRole("navigation");
     await expect(nav).toBeInTheDocument();
-    const homeLink = canvas.getByText('Home');
-    await expect(homeLink).toHaveAttribute('href', '/');
-    const projectsLink = canvas.getByText('Projects');
-    await expect(projectsLink).toHaveAttribute('href', '/projects');
-    const currentPage = canvas.getByText('Project Alpha');
+    const homeLink = canvas.getByText("Home");
+    await expect(homeLink).toHaveAttribute("href", "/");
+    const projectsLink = canvas.getByText("Projects");
+    await expect(projectsLink).toHaveAttribute("href", "/projects");
+    const currentPage = canvas.getByText("Project Alpha");
     await expect(currentPage).toBeInTheDocument();
   },
   render: () => (
@@ -362,15 +348,15 @@ export const CustomSeparator: Story = {
 export const WithIcon: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const nav = canvas.getByRole('navigation');
+    const nav = canvas.getByRole("navigation");
     await expect(nav).toBeInTheDocument();
-    const homeLink = canvas.getByText('Home');
-    await expect(homeLink).toHaveAttribute('href', '/');
-    const settingsLink = canvas.getByText('Settings');
-    await expect(settingsLink).toHaveAttribute('href', '/settings');
-    const currentPage = canvas.getByText('Profile');
+    const homeLink = canvas.getByText("Home");
+    await expect(homeLink).toHaveAttribute("href", "/");
+    const settingsLink = canvas.getByText("Settings");
+    await expect(settingsLink).toHaveAttribute("href", "/settings");
+    const currentPage = canvas.getByText("Profile");
     await expect(currentPage).toBeInTheDocument();
-    await expect(currentPage).toHaveAttribute('aria-current', 'page');
+    await expect(currentPage).toHaveAttribute("aria-current", "page");
   },
   render: () => (
     <Breadcrumb>
@@ -396,59 +382,57 @@ export const WithIcon: Story = {
 export const Interactive: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const nav = canvas.getByRole('navigation');
+    const nav = canvas.getByRole("navigation");
     await expect(nav).toBeInTheDocument();
-    const navLinks = within(nav).getAllByRole('link');
+    const navLinks = within(nav).getAllByRole("link");
     await expect(navLinks.length).toBeGreaterThan(0);
-    const buttons = canvas.getAllByRole('button');
-    const settingsButton = buttons.find((btn) =>
-      btn.textContent?.includes('Settings')
-    );
+    const buttons = canvas.getAllByRole("button");
+    const settingsButton = buttons.find((btn) => btn.textContent?.includes("Settings"));
     if (settingsButton) {
       await userEvent.click(settingsButton);
     }
     await waitFor(() => {
-      const updatedLinks = within(nav).queryAllByRole('link');
+      const updatedLinks = within(nav).queryAllByRole("link");
       expect(updatedLinks.length).toBeGreaterThanOrEqual(1);
     });
   },
   render: function InteractiveBreadcrumb() {
-    const [path, setPath] = useState(['Home', 'Projects', 'Project Alpha']);
+    const [path, setPath] = useState(["Home", "Projects", "Project Alpha"]);
     const handleNavigate = (index: number) => {
       setPath(path.slice(0, index + 1));
     };
     const navigationOptions = [
       {
-        label: 'Home',
-        path: ['Home'],
+        label: "Home",
+        path: ["Home"],
       },
       {
-        label: 'Projects',
-        path: ['Home', 'Projects'],
+        label: "Projects",
+        path: ["Home", "Projects"],
       },
       {
-        label: 'Project Alpha',
-        path: ['Home', 'Projects', 'Project Alpha'],
+        label: "Project Alpha",
+        path: ["Home", "Projects", "Project Alpha"],
       },
       {
-        label: 'Settings',
-        path: ['Home', 'Settings'],
+        label: "Settings",
+        path: ["Home", "Settings"],
       },
       {
-        label: 'Profile',
-        path: ['Home', 'Settings', 'Profile'],
+        label: "Profile",
+        path: ["Home", "Settings", "Profile"],
       },
       {
-        label: 'Teams',
-        path: ['Home', 'Teams'],
+        label: "Teams",
+        path: ["Home", "Teams"],
       },
       {
-        label: 'Engineering',
-        path: ['Home', 'Teams', 'Engineering'],
+        label: "Engineering",
+        path: ["Home", "Teams", "Engineering"],
       },
       {
-        label: 'Deep Path',
-        path: ['Home', 'Organization', 'Teams', 'Engineering', 'Projects'],
+        label: "Deep Path",
+        path: ["Home", "Organization", "Teams", "Engineering", "Projects"],
       },
     ];
     return (
@@ -478,9 +462,7 @@ export const Interactive: Story = {
           </BreadcrumbList>
         </Breadcrumb>
         <div className="flex flex-wrap gap-2 pt-2 border-t">
-          <p className="text-xs text-muted-foreground w-full mb-1">
-            Navigate to:
-          </p>
+          <p className="text-xs text-muted-foreground w-full mb-1">Navigate to:</p>
           {navigationOptions.map((option) => (
             <button
               key={option.label}
@@ -499,15 +481,15 @@ export const Interactive: Story = {
 export const StyleComparison: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const interactiveLink = canvas.getByText('Hover me');
-    await expect(interactiveLink).toHaveAttribute('href', '/test');
-    const nonInteractivePage = canvas.getByText('Try hovering');
+    const interactiveLink = canvas.getByText("Hover me");
+    await expect(interactiveLink).toHaveAttribute("href", "/test");
+    const nonInteractivePage = canvas.getByText("Try hovering");
     await expect(nonInteractivePage).toBeInTheDocument();
-    await expect(nonInteractivePage).toHaveAttribute('aria-current', 'page');
-    const testCanvasElements = canvas.getAllByText('Test canvas');
-    const dropdownButton = testCanvasElements[0]?.closest('button');
+    await expect(nonInteractivePage).toHaveAttribute("aria-current", "page");
+    const testCanvasElements = canvas.getAllByText("Test canvas");
+    const dropdownButton = testCanvasElements[0]?.closest("button");
     await expect(dropdownButton).toBeInTheDocument();
-    await expect(dropdownButton).toHaveAttribute('aria-current', 'page');
+    await expect(dropdownButton).toHaveAttribute("aria-current", "page");
   },
   render: () => (
     <div className="flex flex-col gap-6">
@@ -552,9 +534,7 @@ export const StyleComparison: Story = {
             <BreadcrumbItem>
               <DropdownMenu>
                 <DropdownMenuTrigger
-                  render={
-                    <BreadcrumbPageButton>Test canvas</BreadcrumbPageButton>
-                  }
+                  render={<BreadcrumbPageButton>Test canvas</BreadcrumbPageButton>}
                 />
                 <DropdownMenuContent align="start" className="w-[280px] p-0">
                   <div className="p-1">
@@ -581,15 +561,15 @@ export const StyleComparison: Story = {
 export const ConstrainedContainer: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const nav = canvas.getByRole('navigation');
+    const nav = canvas.getByRole("navigation");
     await expect(nav).toBeInTheDocument();
-    const homeLink = canvas.getByText('Home');
-    await expect(homeLink).toHaveAttribute('href', '/');
-    const projectsLink = canvas.getByText('Projects');
-    await expect(projectsLink).toHaveAttribute('href', '/projects');
-    const designLink = canvas.getByText('Design System');
-    await expect(designLink).toHaveAttribute('href', '/projects/design');
-    const currentPage = canvas.getByText('Components Library');
+    const homeLink = canvas.getByText("Home");
+    await expect(homeLink).toHaveAttribute("href", "/");
+    const projectsLink = canvas.getByText("Projects");
+    await expect(projectsLink).toHaveAttribute("href", "/projects");
+    const designLink = canvas.getByText("Design System");
+    await expect(designLink).toHaveAttribute("href", "/projects/design");
+    const currentPage = canvas.getByText("Components Library");
     await expect(currentPage).toBeInTheDocument();
   },
   render: () => (
@@ -605,9 +585,7 @@ export const ConstrainedContainer: Story = {
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbLink href="/projects/design">
-              Design System
-            </BreadcrumbLink>
+            <BreadcrumbLink href="/projects/design">Design System</BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
@@ -621,17 +599,13 @@ export const ConstrainedContainer: Story = {
 export const LongItemNames: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const homeLink = canvas.getByText('Home');
+    const homeLink = canvas.getByText("Home");
     await expect(homeLink).toBeInTheDocument();
-    const longLink = canvas.getByText(
-      'Department of Engineering and Technology Services'
-    );
-    await expect(longLink).toHaveAttribute('href', '/department');
-    const longPage = canvas.getByText(
-      'Enterprise Resource Planning System Implementation Project'
-    );
+    const longLink = canvas.getByText("Department of Engineering and Technology Services");
+    await expect(longLink).toHaveAttribute("href", "/department");
+    const longPage = canvas.getByText("Enterprise Resource Planning System Implementation Project");
     await expect(longPage).toBeInTheDocument();
-    await expect(longPage).toHaveAttribute('aria-current', 'page');
+    await expect(longPage).toHaveAttribute("aria-current", "page");
   },
   render: () => (
     <Breadcrumb>
@@ -658,16 +632,16 @@ export const LongItemNames: Story = {
 export const ManyItems: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const homeLink = canvas.getByText('Home');
-    await expect(homeLink).toHaveAttribute('href', '/');
-    const level1 = canvas.getByText('Level 1');
-    await expect(level1).toHaveAttribute('href', '/level1');
-    const level7 = canvas.getByText('Level 7');
-    await expect(level7).toHaveAttribute('href', '/level7');
-    const currentPage = canvas.getByText('Level 8');
+    const homeLink = canvas.getByText("Home");
+    await expect(homeLink).toHaveAttribute("href", "/");
+    const level1 = canvas.getByText("Level 1");
+    await expect(level1).toHaveAttribute("href", "/level1");
+    const level7 = canvas.getByText("Level 7");
+    await expect(level7).toHaveAttribute("href", "/level7");
+    const currentPage = canvas.getByText("Level 8");
     await expect(currentPage).toBeInTheDocument();
-    await expect(currentPage).toHaveAttribute('aria-current', 'page');
-    const allLinks = canvas.getAllByRole('link');
+    await expect(currentPage).toHaveAttribute("aria-current", "page");
+    const allLinks = canvas.getAllByRole("link");
     await expect(allLinks.length).toBe(9);
   },
   render: () => (
@@ -717,12 +691,12 @@ export const ManyItems: Story = {
 export const SingleItem: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const nav = canvas.getByRole('navigation');
+    const nav = canvas.getByRole("navigation");
     await expect(nav).toBeInTheDocument();
-    const homePage = canvas.getByText('Home');
+    const homePage = canvas.getByText("Home");
     await expect(homePage).toBeInTheDocument();
-    await expect(homePage).toHaveAttribute('aria-current', 'page');
-    await expect(homePage.tagName).not.toBe('A');
+    await expect(homePage).toHaveAttribute("aria-current", "page");
+    await expect(homePage.tagName).not.toBe("A");
   },
   render: () => (
     <Breadcrumb>
@@ -737,11 +711,11 @@ export const SingleItem: Story = {
 export const Empty: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const nav = canvas.getByRole('navigation');
+    const nav = canvas.getByRole("navigation");
     await expect(nav).toBeInTheDocument();
-    const list = canvas.getByRole('list');
+    const list = canvas.getByRole("list");
     await expect(list).toBeInTheDocument();
-    const links = canvas.queryAllByRole('link');
+    const links = canvas.queryAllByRole("link");
     await expect(links.length).toBe(0);
   },
   render: () => (
@@ -753,19 +727,17 @@ export const Empty: Story = {
 export const SmallContainerManyLongItems: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const nav = canvas.getByRole('navigation');
+    const nav = canvas.getByRole("navigation");
     await expect(nav).toBeInTheDocument();
-    const homeLink = canvas.getByText('Home');
-    await expect(homeLink).toHaveAttribute('href', '/');
-    const ellipsisButton = canvasElement.querySelector(
-      '[data-slot="breadcrumb-ellipsis"] button'
-    );
+    const homeLink = canvas.getByText("Home");
+    await expect(homeLink).toHaveAttribute("href", "/");
+    const ellipsisButton = canvasElement.querySelector('[data-slot="breadcrumb-ellipsis"] button');
     await expect(ellipsisButton).toBeInTheDocument();
-    const longLink = canvas.getByText('Frontend Development Team');
-    await expect(longLink).toHaveAttribute('href', '/team');
-    const currentPage = canvas.getByText('Component Library Documentation');
+    const longLink = canvas.getByText("Frontend Development Team");
+    await expect(longLink).toHaveAttribute("href", "/team");
+    const currentPage = canvas.getByText("Component Library Documentation");
     await expect(currentPage).toBeInTheDocument();
-    await expect(currentPage).toHaveAttribute('aria-current', 'page');
+    await expect(currentPage).toHaveAttribute("aria-current", "page");
   },
   render: () => (
     <div className="w-[250px] border border-muted-foreground/20 p-3 rounded">
@@ -779,20 +751,14 @@ export const SmallContainerManyLongItems: Story = {
             <DropdownMenu>
               <DropdownMenuTrigger render={<BreadcrumbEllipsisButton />} />
               <DropdownMenuContent>
-                <DropdownMenuItem
-                  render={<a href="/organization">Organization Management</a>}
-                />
-                <DropdownMenuItem
-                  render={<a href="/department">Engineering Department</a>}
-                />
+                <DropdownMenuItem render={<a href="/organization">Organization Management</a>} />
+                <DropdownMenuItem render={<a href="/department">Engineering Department</a>} />
               </DropdownMenuContent>
             </DropdownMenu>
           </BreadcrumbEllipsis>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbLink href="/team">
-              Frontend Development Team
-            </BreadcrumbLink>
+            <BreadcrumbLink href="/team">Frontend Development Team</BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>

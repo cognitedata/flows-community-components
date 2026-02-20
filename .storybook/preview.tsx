@@ -1,8 +1,8 @@
-import type { Preview } from '@storybook/react';
-import { type ComponentType, useEffect } from 'react';
-import '../src/globals.css';
+import type { Preview } from "@storybook/react-vite";
+import { type ComponentType, useEffect } from "react";
+import "../src/globals.css";
 
-export const render: Preview['render'] = (args, context) => {
+export const render: Preview["render"] = (args, context) => {
   const Component = context.component as ComponentType<typeof args> | undefined;
 
   if (!Component) {
@@ -23,23 +23,23 @@ const preview: Preview = {
     backgrounds: {
       disable: true,
     },
-    layout: 'padded',
+    layout: "padded",
     options: {
       storySort: {
-        order: ['Foundations', 'Primitives', 'AI', '*'],
+        order: ["Foundations", "Primitives", "AI", "*"],
       },
     },
   },
   globalTypes: {
     theme: {
-      description: 'Theme for the components',
-      defaultValue: 'light',
+      description: "Theme for the components",
+      defaultValue: "light",
       toolbar: {
-        title: 'Theme',
-        icon: 'circlehollow',
+        title: "Theme",
+        icon: "circlehollow",
         items: [
-          { value: 'light', icon: 'sun', title: 'Light' },
-          { value: 'dark', icon: 'moon', title: 'Dark' },
+          { value: "light", icon: "sun", title: "Light" },
+          { value: "dark", icon: "moon", title: "Dark" },
         ],
         dynamicTitle: true,
       },
@@ -47,23 +47,19 @@ const preview: Preview = {
   },
   decorators: [
     (Story, context) => {
-      const theme = context.globals.theme || 'light';
+      const theme = context.globals.theme || "light";
 
       useEffect(() => {
         const root = document.documentElement;
-        if (theme === 'dark') {
-          root.classList.add('dark');
+        if (theme === "dark") {
+          root.classList.add("dark");
         } else {
-          root.classList.remove('dark');
+          root.classList.remove("dark");
         }
       }, [theme]);
 
       return (
-        <div
-          className={
-            theme === 'dark' ? 'dark text-foreground' : 'text-foreground'
-          }
-        >
+        <div className={theme === "dark" ? "dark text-foreground" : "text-foreground"}>
           <Story />
         </div>
       );

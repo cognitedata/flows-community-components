@@ -1,54 +1,52 @@
-'use client';
+"use client";
 
-import type { Meta, StoryObj } from '@storybook/react';
-import { expect, userEvent, within } from '@storybook/test';
-import { IconAsterisk } from '@tabler/icons-react';
-import { type ChangeEvent, useState } from 'react';
-
-import { Label } from './label';
-
-import { Input } from '@/components/ui/aura/input';
+import { Input } from "@/components/ui/aura/input";
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { IconAsterisk } from "@tabler/icons-react";
+import { type ChangeEvent, useState } from "react";
+import { expect, userEvent, within } from "storybook/test";
+import { Label } from "./label";
 const meta: Meta<typeof Label> = {
-  title: 'Primitives/Label',
+  title: "Primitives/Label",
   component: Label,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     children: {
-      control: 'text',
+      control: "text",
       table: {
-        category: 'Display',
+        category: "Display",
         type: {
-          summary: 'ReactNode',
+          summary: "ReactNode",
         },
       },
     },
     className: {
-      control: 'text',
+      control: "text",
       table: {
-        category: 'Display',
+        category: "Display",
       },
     },
     htmlFor: {
-      control: 'text',
+      control: "text",
       table: {
-        category: 'Accessibility',
+        category: "Accessibility",
         type: {
-          summary: 'string',
+          summary: "string",
         },
       },
     },
     onClick: {
-      action: 'clicked',
+      action: "clicked",
       table: {
-        category: 'Events',
+        category: "Events",
         type: {
-          summary: '(event: MouseEvent) => void',
+          summary: "(event: MouseEvent) => void",
         },
       },
     },
   },
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
 };
 export default meta;
@@ -60,7 +58,7 @@ export const Basic: Story = {
   render: () => <Label htmlFor="name">Name</Label>,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const label = canvas.getByText('Name');
+    const label = canvas.getByText("Name");
     await expect(label).toBeInTheDocument();
   },
 };
@@ -76,8 +74,8 @@ export const Disabled: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const label = canvas.getByText('Disabled label');
-    const input = canvas.getByPlaceholderText('Disabled input');
+    const label = canvas.getByText("Disabled label");
+    const input = canvas.getByPlaceholderText("Disabled input");
     await expect(label).toBeInTheDocument();
     await expect(input).toBeInTheDocument();
   },
@@ -98,7 +96,7 @@ export const WithAsterisk: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const label = canvas.getByText(/Email address/);
-    const asterisk = canvas.getByTitle('required');
+    const asterisk = canvas.getByTitle("required");
     await expect(label).toBeInTheDocument();
     await expect(asterisk).toBeInTheDocument();
   },
@@ -108,7 +106,7 @@ export const WithInput: Story = {
     order: 4,
   },
   render: () => {
-    const [value, setValue] = useState('');
+    const [value, setValue] = useState("");
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
       setValue(event.target.value);
     };
@@ -126,8 +124,8 @@ export const WithInput: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const label = canvas.getByText('Project name');
-    const input = canvas.getByPlaceholderText('Enter project name');
+    const label = canvas.getByText("Project name");
+    const input = canvas.getByPlaceholderText("Enter project name");
     await expect(label).toBeInTheDocument();
     await expect(input).toBeInTheDocument();
     await userEvent.click(label);
@@ -136,8 +134,8 @@ export const WithInput: Story = {
 };
 export const Playground: Story = {
   args: {
-    children: 'Playground label',
-    htmlFor: 'playground-id',
+    children: "Playground label",
+    htmlFor: "playground-id",
   },
   parameters: {
     order: 99,

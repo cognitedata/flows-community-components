@@ -1,20 +1,19 @@
-import type { Meta, StoryObj } from '@storybook/react';
-
-import { Toolbar } from './toolbar';
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { Toolbar } from "./toolbar";
 const meta: Meta<typeof Toolbar> = {
-  title: 'Primitives/Toolbar',
+  title: "Primitives/Toolbar",
   component: Toolbar,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     className: {
-      control: 'text',
+      control: "text",
       table: {
-        category: 'Styling',
+        category: "Styling",
       },
     },
   },
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
 };
 export default meta;
@@ -60,8 +59,8 @@ function CustomNode({ data }) {
 }`}</pre>
       </div>
       <p className="text-sm text-muted-foreground">
-        The Toolbar appears when a ReactFlow node is selected, positioned at the
-        bottom of the node by default.
+        The Toolbar appears when a ReactFlow node is selected, positioned at the bottom of the node
+        by default.
       </p>
     </div>
   ),
