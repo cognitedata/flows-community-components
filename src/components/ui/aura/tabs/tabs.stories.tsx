@@ -216,7 +216,7 @@ export const DisabledTabs: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const disabledTab = canvas.getByRole("tab", { name: /disabled/i });
+    const disabledTab = canvas.getByRole("tab", { name: /^Disabled/i });
     const isAriaDisabled = disabledTab.getAttribute("aria-disabled") === "true";
     const hasDataDisabled = disabledTab.hasAttribute("data-disabled");
     const isNativeDisabled = disabledTab.matches(":disabled");
