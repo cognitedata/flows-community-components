@@ -1,7 +1,7 @@
 import { Select, SelectContent, SelectItem, SelectValue } from "@/components/ui/aura/select";
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { expect } from "storybook/test";
 import { useState } from "react";
+import { expect } from "storybook/test";
 import {
   Pagination,
   PaginationContent,

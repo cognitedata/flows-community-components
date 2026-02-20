@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { expect, userEvent, within } from "storybook/test";
 import {
   IconAlignCenter,
   IconAlignLeft,
@@ -9,6 +8,7 @@ import {
   IconUnderline,
 } from "@tabler/icons-react";
 import { useState } from "react";
+import { expect, userEvent, within } from "storybook/test";
 import { Toggle } from "./toggle";
 const meta: Meta<typeof Toggle> = {
   title: "Primitives/Toggle",

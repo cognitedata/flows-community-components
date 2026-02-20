@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { expect, userEvent, waitFor, within } from "storybook/test";
 import {
   IconAlertHexagon,
   IconAlertTriangle,
@@ -12,6 +11,7 @@ import {
   IconX,
 } from "@tabler/icons-react";
 import { useState } from "react";
+import { expect, userEvent, waitFor, within } from "storybook/test";
 import { Badge } from "./badge";
 const meta: Meta<typeof Badge> = {
   title: "Primitives/Badge",

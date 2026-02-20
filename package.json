@@ -93,9 +93,6 @@
     "overrides": {
       "vite": "npm:rolldown-vite@7.3.1"
     },
-    "onlyBuiltDependencies": [
-      "@biomejs/biome",
-      "esbuild"
-    ]
+    "onlyBuiltDependencies": ["@biomejs/biome", "esbuild"]
   }
 }

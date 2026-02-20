@@ -1,7 +1,7 @@
 import { Label } from "@/components/ui/aura/label";
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { expect, userEvent, within } from "storybook/test";
 import { useState } from "react";
+import { expect, userEvent, within } from "storybook/test";
 import { Checkbox } from "./checkbox";
 const meta: Meta<typeof Checkbox> = {
   title: "Primitives/Checkbox",

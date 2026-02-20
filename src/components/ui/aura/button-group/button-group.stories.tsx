@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { expect, userEvent, within } from "storybook/test";
 import {
   IconAlignCenter,
   IconAlignLeft,
@@ -14,6 +13,7 @@ import {
   IconUnderline,
 } from "@tabler/icons-react";
 import { useState } from "react";
+import { expect, userEvent, within } from "storybook/test";
 import { Button } from "../button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../select";
 import { ButtonGroup, ButtonGroupSeparator, ButtonGroupText } from "./button-group";

@@ -19,9 +19,9 @@ import {
   PromptInputTools,
 } from "@/components/ui/aura/prompt-input";
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { expect, userEvent, waitFor, within } from "storybook/test";
 import { IconAdjustments, IconAlertTriangle, IconChevronDown } from "@tabler/icons-react";
 import { type ComponentProps, useRef, useState } from "react";
+import { expect, userEvent, waitFor, within } from "storybook/test";
 const meta: Meta<typeof PromptInput> = {
   title: "AI/Prompt Input",
   component: PromptInput,

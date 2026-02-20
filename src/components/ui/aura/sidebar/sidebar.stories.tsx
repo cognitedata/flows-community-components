@@ -1,6 +1,5 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/aura/avatar";
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { expect, userEvent, within } from "storybook/test";
 import {
   IconAppsFilled,
   IconBellFilled,
@@ -13,6 +12,7 @@ import {
   IconSearch,
   IconWorld,
 } from "@tabler/icons-react";
+import { expect, userEvent, within } from "storybook/test";
 import {
   Sidebar,
   SidebarContent,
