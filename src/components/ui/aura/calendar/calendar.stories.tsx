@@ -1,85 +1,86 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent } from "@storybook/test";
-import { useState } from "react";
-import type { DateRange } from "react-day-picker";
-import { Calendar } from "./calendar";
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { useState } from 'react';
+import type { DateRange } from 'react-day-picker';
+import { expect, userEvent } from 'storybook/test';
+
+import { Calendar } from './calendar';
 const meta: Meta<typeof Calendar> = {
-  title: "Primitives/Calendar",
+  title: 'Primitives/Calendar',
   component: Calendar,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     mode: {
-      control: "select",
-      options: ["single", "multiple", "range"],
+      control: 'select',
+      options: ['single', 'multiple', 'range'],
       table: {
-        category: "Behavior",
+        category: 'Behavior',
         type: {
           summary: '"single" | "multiple" | "range"',
         },
         defaultValue: {
-          summary: "single",
+          summary: 'single',
         },
       },
     },
     showOutsideDays: {
-      control: "boolean",
+      control: 'boolean',
       table: {
-        category: "Display",
+        category: 'Display',
         type: {
-          summary: "boolean",
+          summary: 'boolean',
         },
         defaultValue: {
-          summary: "true",
+          summary: 'true',
         },
       },
     },
     captionLayout: {
-      control: "select",
-      options: ["label", "dropdown", "dropdown-months", "dropdown-years"],
+      control: 'select',
+      options: ['label', 'dropdown', 'dropdown-months', 'dropdown-years'],
       table: {
-        category: "Display",
+        category: 'Display',
         type: {
-          summary: "string",
+          summary: 'string',
         },
         defaultValue: {
-          summary: "label",
+          summary: 'label',
         },
       },
     },
     buttonVariant: {
-      control: "select",
-      options: ["ghost", "outline", "secondary"],
+      control: 'select',
+      options: ['ghost', 'outline', 'secondary'],
       table: {
-        category: "Appearance",
+        category: 'Appearance',
         type: {
-          summary: "string",
+          summary: 'string',
         },
         defaultValue: {
-          summary: "ghost",
+          summary: 'ghost',
         },
       },
     },
     disabled: {
-      control: "boolean",
+      control: 'boolean',
       table: {
-        category: "State",
+        category: 'State',
         type: {
-          summary: "boolean",
+          summary: 'boolean',
         },
         defaultValue: {
-          summary: "false",
+          summary: 'false',
         },
       },
     },
     className: {
-      control: "text",
+      control: 'text',
       table: {
-        category: "Styling",
+        category: 'Styling',
       },
     },
   },
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
 };
 export default meta;
@@ -93,8 +94,8 @@ export const Default: Story = {
   play: async ({ canvasElement }) => {
     const calendar = canvasElement.querySelector('[data-slot="calendar"]');
     await expect(calendar).toBeInTheDocument();
-    const prevButton = canvasElement.querySelector(".rdp-button_previous");
-    const nextButton = canvasElement.querySelector(".rdp-button_next");
+    const prevButton = canvasElement.querySelector('.rdp-button_previous');
+    const nextButton = canvasElement.querySelector('.rdp-button_next');
     await expect(prevButton).toBeInTheDocument();
     await expect(nextButton).toBeInTheDocument();
   },
@@ -105,10 +106,15 @@ export const SingleSelection: Story = {
     return (
       <div className="space-y-4">
         <div className="rounded-md border">
-          <Calendar mode="single" selected={date} onSelect={setDate} className="rounded-md" />
+          <Calendar
+            mode="single"
+            selected={date}
+            onSelect={setDate}
+            className="rounded-md"
+          />
         </div>
         <p className="text-sm text-muted-foreground">
-          Selected: {date ? date.toLocaleDateString() : "None"}
+          Selected: {date ? date.toLocaleDateString() : 'None'}
         </p>
       </div>
     );
@@ -140,7 +146,8 @@ export const RangeSelection: Story = {
           />
         </div>
         <p className="text-sm text-muted-foreground">
-          Range: {range?.from?.toLocaleDateString()} - {range?.to?.toLocaleDateString()}
+          Range: {range?.from?.toLocaleDateString()} -{' '}
+          {range?.to?.toLocaleDateString()}
         </p>
       </div>
     );
@@ -152,9 +159,16 @@ export const MultipleSelection: Story = {
     return (
       <div className="space-y-4">
         <div className="rounded-md border">
-          <Calendar mode="multiple" selected={dates} onSelect={setDates} className="rounded-md" />
+          <Calendar
+            mode="multiple"
+            selected={dates}
+            onSelect={setDates}
+            className="rounded-md"
+          />
         </div>
-        <p className="text-sm text-muted-foreground">Selected: {dates?.length || 0} date(s)</p>
+        <p className="text-sm text-muted-foreground">
+          Selected: {dates?.length || 0} date(s)
+        </p>
       </div>
     );
   },
@@ -184,9 +198,15 @@ export const DisabledDates: Story = {
     return (
       <div className="space-y-4">
         <div className="rounded-md border">
-          <Calendar mode="single" disabled={disabledDays} className="rounded-md" />
+          <Calendar
+            mode="single"
+            disabled={disabledDays}
+            className="rounded-md"
+          />
         </div>
-        <p className="text-sm text-muted-foreground">Weekends and specific dates are disabled.</p>
+        <p className="text-sm text-muted-foreground">
+          Weekends and specific dates are disabled.
+        </p>
       </div>
     );
   },
@@ -208,11 +228,20 @@ export const WithoutOutsideDays: Story = {
 export const DateConstraints: Story = {
   render: () => {
     const today = new Date();
-    const nextMonth = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate());
+    const nextMonth = new Date(
+      today.getFullYear(),
+      today.getMonth() + 1,
+      today.getDate()
+    );
     return (
       <div className="space-y-4">
         <div className="rounded-md border">
-          <Calendar mode="single" fromDate={today} toDate={nextMonth} className="rounded-md" />
+          <Calendar
+            mode="single"
+            fromDate={today}
+            toDate={nextMonth}
+            className="rounded-md"
+          />
         </div>
         <p className="text-sm text-muted-foreground">
           Only dates from today to one month ahead are selectable.
@@ -239,21 +268,27 @@ export const VisualRegression: Story = {
   render: () => (
     <div className="space-y-8">
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">Single Selection</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          Single Selection
+        </h3>
         <div className="rounded-md border w-fit">
           <Calendar mode="single" className="rounded-md" />
         </div>
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">Range Selection (2 months)</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          Range Selection (2 months)
+        </h3>
         <div className="rounded-md border w-fit">
           <Calendar mode="range" numberOfMonths={2} className="rounded-md" />
         </div>
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">With Dropdowns</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          With Dropdowns
+        </h3>
         <div className="rounded-md border w-fit">
           <Calendar
             mode="single"
@@ -274,10 +309,10 @@ export const VisualRegression: Story = {
 };
 export const Playground: Story = {
   args: {
-    mode: "single",
+    mode: 'single',
     showOutsideDays: true,
-    captionLayout: "label",
-    buttonVariant: "ghost",
+    captionLayout: 'label',
+    buttonVariant: 'ghost',
   },
   render: (args) => (
     <div className="rounded-md border">

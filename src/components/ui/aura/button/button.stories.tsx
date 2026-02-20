@@ -1,5 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor, within } from "@storybook/test";
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import {
   IconBookmark,
   IconDownload,
@@ -9,85 +8,94 @@ import {
   IconSend,
   IconSettings,
   IconTrash,
-} from "@tabler/icons-react";
-import { useState } from "react";
-import { Button } from "./button";
+} from '@tabler/icons-react';
+import { useState } from 'react';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
+
+import { Button } from './button';
 const meta: Meta<typeof Button> = {
-  title: "Primitives/Button",
+  title: 'Primitives/Button',
   component: Button,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     variant: {
-      control: "select",
-      options: ["default", "destructive", "secondary", "outline", "ghost", "link"],
+      control: 'select',
+      options: [
+        'default',
+        'destructive',
+        'secondary',
+        'outline',
+        'ghost',
+        'link',
+      ],
       table: {
-        category: "Variants/Styling",
+        category: 'Variants/Styling',
         type: {
-          summary: "string",
+          summary: 'string',
         },
         defaultValue: {
-          summary: "default",
+          summary: 'default',
         },
       },
     },
     size: {
-      control: "select",
-      options: ["default", "sm", "lg", "icon", "icon-sm", "icon-lg"],
+      control: 'select',
+      options: ['default', 'sm', 'lg', 'icon', 'icon-sm', 'icon-lg'],
       table: {
-        category: "Variants/Styling",
+        category: 'Variants/Styling',
         type: {
-          summary: "string",
+          summary: 'string',
         },
         defaultValue: {
-          summary: "default",
+          summary: 'default',
         },
       },
     },
     children: {
-      control: "text",
+      control: 'text',
       table: {
-        category: "Content",
+        category: 'Content',
       },
     },
     disabled: {
-      control: "boolean",
+      control: 'boolean',
       table: {
-        category: "Behavior",
+        category: 'Behavior',
         type: {
-          summary: "boolean",
+          summary: 'boolean',
         },
         defaultValue: {
-          summary: "false",
+          summary: 'false',
         },
       },
     },
     onClick: {
-      action: "clicked",
+      action: 'clicked',
       table: {
-        category: "Events",
+        category: 'Events',
         type: {
-          summary: "(event: MouseEvent) => void",
+          summary: '(event: MouseEvent) => void',
         },
       },
     },
     type: {
-      control: "select",
-      options: ["button", "submit", "reset"],
+      control: 'select',
+      options: ['button', 'submit', 'reset'],
       table: {
-        category: "Advanced",
+        category: 'Advanced',
         type: {
-          summary: "string",
+          summary: 'string',
         },
         defaultValue: {
-          summary: "button",
+          summary: 'button',
         },
       },
     },
   },
   parameters: {
-    layout: "centered",
+    layout: 'centered',
     actions: {
-      handles: ["click"],
+      handles: ['click'],
     },
   },
 };
@@ -100,7 +108,7 @@ export const Default: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const button = canvas.getByRole("button", {
+    const button = canvas.getByRole('button', {
       name: /button/i,
     });
     await expect(button).toBeInTheDocument();
@@ -115,7 +123,7 @@ export const Secondary: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const button = canvas.getByRole("button", {
+    const button = canvas.getByRole('button', {
       name: /secondary/i,
     });
     await expect(button).toBeInTheDocument();
@@ -129,7 +137,7 @@ export const Outline: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const button = canvas.getByRole("button", {
+    const button = canvas.getByRole('button', {
       name: /outline/i,
     });
     await expect(button).toBeInTheDocument();
@@ -143,7 +151,7 @@ export const Ghost: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const button = canvas.getByRole("button", {
+    const button = canvas.getByRole('button', {
       name: /ghost/i,
     });
     await expect(button).toBeInTheDocument();
@@ -157,7 +165,7 @@ export const Destructive: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const button = canvas.getByRole("button", {
+    const button = canvas.getByRole('button', {
       name: /delete/i,
     });
     await expect(button).toBeInTheDocument();
@@ -172,7 +180,7 @@ export const Link: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const button = canvas.getByRole("button", {
+    const button = canvas.getByRole('button', {
       name: /link button/i,
     });
     await expect(button).toBeInTheDocument();
@@ -210,37 +218,49 @@ export const AllVariants: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const buttons = await canvas.findAllByRole("button");
+    const buttons = await canvas.findAllByRole('button');
     await expect(buttons).toHaveLength(6);
     await userEvent.click(buttons[0]);
   },
 };
 export const MainComponent: Story = {
   render: () => {
-    const variants = ["default", "secondary", "outline", "ghost", "destructive", "link"] as const;
+    const variants = [
+      'default',
+      'secondary',
+      'outline',
+      'ghost',
+      'destructive',
+      'link',
+    ] as const;
     const sizePairs = [
       {
-        label: "default",
+        label: 'default',
       },
       {
-        label: "sm",
+        label: 'sm',
       },
       {
-        label: "lg",
+        label: 'lg',
       },
     ] as const;
     const activeWrapperClassByVariant = {
-      default: "[&>button]:bg-primary-hover dark:[&>button]:bg-primary-hover",
-      secondary: "[&>button]:bg-secondary-hover dark:[&>button]:bg-secondary-hover",
-      outline: "[&>button]:bg-accent dark:[&>button]:bg-input/50",
-      ghost: "[&>button]:bg-accent dark:[&>button]:bg-accent/50",
-      destructive: "[&>button]:bg-destructive-hover dark:[&>button]:bg-destructive-hover",
-      link: "[&>button]:bg-accent/50 dark:[&>button]:bg-accent/30 [&>button]:underline",
+      default: '[&>button]:bg-primary-hover dark:[&>button]:bg-primary-hover',
+      secondary:
+        '[&>button]:bg-secondary-hover dark:[&>button]:bg-secondary-hover',
+      outline: '[&>button]:bg-accent dark:[&>button]:bg-input/50',
+      ghost: '[&>button]:bg-accent dark:[&>button]:bg-accent/50',
+      destructive:
+        '[&>button]:bg-destructive-hover dark:[&>button]:bg-destructive-hover',
+      link: '[&>button]:bg-accent/50 dark:[&>button]:bg-accent/30 [&>button]:underline',
     } as const;
     return (
       <div className="flex flex-wrap gap-3 flex-col w-full">
         {variants.map((variant) => (
-          <div key={variant} className="flex flex-wrap items-center gap-3 w-full">
+          <div
+            key={variant}
+            className="flex flex-wrap items-center gap-3 w-full"
+          >
             {sizePairs.map(({ label }) => (
               <div key={`${variant}-${label}`} className="contents">
                 <Button variant={variant} size={label}>
@@ -280,7 +300,7 @@ export const MainComponent: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const buttons = await canvas.findAllByRole("button");
+    const buttons = await canvas.findAllByRole('button');
     await expect(buttons.length).toBeGreaterThan(10);
   },
 };
@@ -301,7 +321,7 @@ export const ButtonStates: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const buttons = await canvas.findAllByRole("button");
+    const buttons = await canvas.findAllByRole('button');
     await expect(buttons).toHaveLength(2);
     await expect(buttons[0]).toBeDisabled();
     await expect(buttons[1]).toBeDisabled();
@@ -320,9 +340,9 @@ export const AllSizes: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const buttons = await canvas.findAllByRole("button");
+    const buttons = await canvas.findAllByRole('button');
     await expect(buttons).toHaveLength(3);
-    const smallButton = canvas.getByText("Small");
+    const smallButton = canvas.getByText('Small');
     await expect(smallButton).toBeInTheDocument();
   },
 };
@@ -338,11 +358,11 @@ export const WithLeftIcon: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const button = canvas.getByRole("button", {
+    const button = canvas.getByRole('button', {
       name: /add item/i,
     });
     await expect(button).toBeInTheDocument();
-    const icon = button.querySelector("svg");
+    const icon = button.querySelector('svg');
     await expect(icon).toBeInTheDocument();
   },
 };
@@ -358,7 +378,7 @@ export const WithRightIcon: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const button = canvas.getByRole("button", {
+    const button = canvas.getByRole('button', {
       name: /download/i,
     });
     await expect(button).toBeInTheDocument();
@@ -383,9 +403,9 @@ export const IconButtons: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const smallButton = canvas.getByLabelText("Settings small");
-    const defaultButton = canvas.getByLabelText("Settings default");
-    const largeButton = canvas.getByLabelText("Settings large");
+    const smallButton = canvas.getByLabelText('Settings small');
+    const defaultButton = canvas.getByLabelText('Settings default');
+    const largeButton = canvas.getByLabelText('Settings large');
     await expect(smallButton).toBeInTheDocument();
     await expect(defaultButton).toBeInTheDocument();
     await expect(largeButton).toBeInTheDocument();
@@ -415,10 +435,10 @@ export const Disabled: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const buttons = await canvas.findAllByRole("button");
+    const buttons = await canvas.findAllByRole('button');
     for (const button of buttons) {
       await expect(button).toBeDisabled();
-      await expect(button).toHaveClass("disabled:pointer-events-none");
+      await expect(button).toHaveClass('disabled:pointer-events-none');
     }
   },
 };
@@ -440,11 +460,11 @@ export const Loading: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const buttons = await canvas.findAllByRole("button");
+    const buttons = await canvas.findAllByRole('button');
     for (const button of buttons) {
       await expect(button).toBeDisabled();
     }
-    const spinner = buttons[0].querySelector("svg");
+    const spinner = buttons[0].querySelector('svg');
     await expect(spinner).toBeInTheDocument();
   },
 };
@@ -478,11 +498,11 @@ export const InContext: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const cancelButton = canvas.getByText("Cancel");
-    const saveButton = canvas.getByText("Save Changes");
+    const cancelButton = canvas.getByText('Cancel');
+    const saveButton = canvas.getByText('Save Changes');
     await expect(cancelButton).toBeInTheDocument();
     await expect(saveButton).toBeInTheDocument();
-    const settingsButton = canvas.getByRole("button", {
+    const settingsButton = canvas.getByRole('button', {
       name: /settings/i,
     });
     await userEvent.click(settingsButton);
@@ -493,7 +513,9 @@ export const ClickInteraction: Story = {
     const [count, setCount] = useState(0);
     return (
       <div className="flex flex-col items-center gap-4">
-        <Button onClick={() => setCount((c) => c + 1)}>Clicked {count} times</Button>
+        <Button onClick={() => setCount((c) => c + 1)}>
+          Clicked {count} times
+        </Button>
         <div className="text-sm text-muted-foreground">Count: {count}</div>
       </div>
     );
@@ -503,17 +525,17 @@ export const ClickInteraction: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const button = canvas.getByRole("button", {
+    const button = canvas.getByRole('button', {
       name: /clicked/i,
     });
     const counter = canvas.getByText(/Count:/);
-    await expect(counter).toHaveTextContent("Count: 0");
+    await expect(counter).toHaveTextContent('Count: 0');
     await userEvent.click(button);
-    await waitFor(() => expect(counter).toHaveTextContent("Count: 1"));
+    await waitFor(() => expect(counter).toHaveTextContent('Count: 1'));
     await userEvent.click(button);
-    await waitFor(() => expect(counter).toHaveTextContent("Count: 2"));
+    await waitFor(() => expect(counter).toHaveTextContent('Count: 2'));
     await userEvent.click(button);
-    await waitFor(() => expect(counter).toHaveTextContent("Count: 3"));
+    await waitFor(() => expect(counter).toHaveTextContent('Count: 3'));
   },
 };
 export const KeyboardNavigation: Story = {
@@ -529,13 +551,13 @@ export const KeyboardNavigation: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const buttons = await canvas.findAllByRole("button");
+    const buttons = await canvas.findAllByRole('button');
     await userEvent.tab();
     await expect(buttons[0]).toHaveFocus();
-    await userEvent.keyboard(" ");
+    await userEvent.keyboard(' ');
     await userEvent.tab();
     await expect(buttons[1]).toHaveFocus();
-    await userEvent.keyboard("{Enter}");
+    await userEvent.keyboard('{Enter}');
   },
 };
 export const Accessibility: Story = {
@@ -564,10 +586,10 @@ export const Accessibility: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const addButton = canvas.getByLabelText("Add new item");
-    const deleteButton = canvas.getByLabelText("Delete item");
-    const settingsButton = canvas.getByLabelText("Settings");
-    const disabledButton = canvas.getByLabelText("Disabled save button");
+    const addButton = canvas.getByLabelText('Add new item');
+    const deleteButton = canvas.getByLabelText('Delete item');
+    const settingsButton = canvas.getByLabelText('Settings');
+    const disabledButton = canvas.getByLabelText('Disabled save button');
     await expect(addButton).toBeInTheDocument();
     await expect(deleteButton).toBeInTheDocument();
     await expect(settingsButton).toBeInTheDocument();
@@ -579,7 +601,7 @@ export const Accessibility: Story = {
 export const FormButtonTypes: Story = {
   render: function FormButtonTypesDemo() {
     const [submitted, setSubmitted] = useState(false);
-    const [value, setValue] = useState("Initial value");
+    const [value, setValue] = useState('Initial value');
     return (
       <form
         onSubmit={(e) => {
@@ -588,7 +610,7 @@ export const FormButtonTypes: Story = {
           setTimeout(() => setSubmitted(false), 2000);
         }}
         onReset={() => {
-          setValue("Initial value");
+          setValue('Initial value');
         }}
         className="flex flex-col gap-4 p-4 border rounded-md"
       >
@@ -602,12 +624,12 @@ export const FormButtonTypes: Story = {
 
         <div className="flex items-center gap-2">
           <Button type="submit" disabled={submitted}>
-            {submitted ? "Submitted!" : "Submit"}
+            {submitted ? 'Submitted!' : 'Submit'}
           </Button>
           <Button type="reset" variant="outline">
             Reset
           </Button>
-          <Button type="button" variant="ghost" onClick={() => setValue("")}>
+          <Button type="button" variant="ghost" onClick={() => setValue('')}>
             Clear
           </Button>
         </div>
@@ -619,24 +641,26 @@ export const FormButtonTypes: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const input = canvas.getByPlaceholderText("Type something...");
-    const submitButton = canvas.getByText("Submit");
-    const clearButton = canvas.getByText("Clear");
+    const input = canvas.getByPlaceholderText('Type something...');
+    const submitButton = canvas.getByText('Submit');
+    const clearButton = canvas.getByText('Clear');
     await userEvent.clear(input);
-    await userEvent.type(input, "Test input");
-    await expect(input).toHaveValue("Test input");
+    await userEvent.type(input, 'Test input');
+    await expect(input).toHaveValue('Test input');
     await userEvent.click(clearButton);
-    await waitFor(() => expect(input).toHaveValue(""));
-    await userEvent.type(input, "Another test");
+    await waitFor(() => expect(input).toHaveValue(''));
+    await userEvent.type(input, 'Another test');
     await userEvent.click(submitButton);
-    await waitFor(() => expect(submitButton).toHaveTextContent("Submitted!"));
+    await waitFor(() => expect(submitButton).toHaveTextContent('Submitted!'));
   },
 };
 export const VisualRegression: Story = {
   render: () => (
     <div className="flex flex-col gap-8 p-8">
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">All Variants</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          All Variants
+        </h3>
         <div className="flex flex-wrap gap-3">
           <Button variant="default">Default</Button>
           <Button variant="secondary">Secondary</Button>
@@ -648,7 +672,9 @@ export const VisualRegression: Story = {
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">All Sizes</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          All Sizes
+        </h3>
         <div className="flex flex-wrap items-center gap-3">
           <Button size="sm">Small</Button>
           <Button size="default">Default</Button>
@@ -657,7 +683,9 @@ export const VisualRegression: Story = {
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">Disabled States</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          Disabled States
+        </h3>
         <div className="flex flex-wrap gap-3">
           <Button disabled>Default Disabled</Button>
           <Button variant="secondary" disabled>
@@ -673,7 +701,9 @@ export const VisualRegression: Story = {
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">Icon Buttons</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          Icon Buttons
+        </h3>
         <div className="flex flex-wrap items-center gap-3">
           <Button size="icon-sm" variant="outline" aria-label="Small icon">
             <IconPlus className="size-4" />
@@ -688,7 +718,9 @@ export const VisualRegression: Story = {
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">With Icons</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          With Icons
+        </h3>
         <div className="flex flex-wrap gap-3">
           <Button>
             <IconPlus className="size-4" />
@@ -706,7 +738,9 @@ export const VisualRegression: Story = {
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">Loading States</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          Loading States
+        </h3>
         <div className="flex flex-wrap gap-3">
           <Button disabled>
             <IconLoader2 className="size-4 animate-spin" />
@@ -740,7 +774,7 @@ export const EdgeCaseEmpty: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const buttons = await canvas.findAllByRole("button");
+    const buttons = await canvas.findAllByRole('button');
     await expect(buttons).toHaveLength(3);
     await userEvent.click(buttons[0]);
     await expect(buttons[0]).toHaveFocus();
@@ -750,13 +784,15 @@ export const EdgeCaseLongText: Story = {
   render: () => (
     <div className="flex flex-col gap-4 max-w-md">
       <Button>
-        This is a button with an extremely long text that should demonstrate how the button handles
-        overflow and wrapping
+        This is a button with an extremely long text that should demonstrate how
+        the button handles overflow and wrapping
       </Button>
       <Button variant="outline" className="max-w-50">
         This text is constrained and will wrap
       </Button>
-      <Button size="sm">Small button with really long text content that might cause issues</Button>
+      <Button size="sm">
+        Small button with really long text content that might cause issues
+      </Button>
     </div>
   ),
   parameters: {
@@ -764,7 +800,7 @@ export const EdgeCaseLongText: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const buttons = await canvas.findAllByRole("button");
+    const buttons = await canvas.findAllByRole('button');
     await expect(buttons).toHaveLength(3);
     const firstButton = buttons[0];
     await expect(firstButton).toHaveTextContent(/extremely long text/);
@@ -777,24 +813,24 @@ export const EdgeCaseSpecialCharacters: Story = {
         <span role="img" aria-label="rocket">
           🚀
         </span>
-        {"  "}
+        {'  '}
         Emoji Button
       </Button>
-      <Button variant="outline">{"Button & Special <Characters>"}</Button>
+      <Button variant="outline">{'Button & Special <Characters>'}</Button>
       <Button variant="secondary">中文按钮</Button>
       <Button variant="ghost">Кнопка</Button>
       <Button>
         <span role="img" aria-label="play">
           ▶️
-        </span>{" "}
+        </span>{' '}
         <span role="img" aria-label="pause">
           ⏸️
-        </span>{" "}
+        </span>{' '}
         <span role="img" aria-label="stop">
           ⏹️
         </span>
       </Button>
-      <Button variant="outline">{"Price: $99.99 €85"}</Button>
+      <Button variant="outline">{'Price: $99.99 €85'}</Button>
     </div>
   ),
   parameters: {
@@ -802,13 +838,13 @@ export const EdgeCaseSpecialCharacters: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const emojiButton = canvas.getByRole("button", {
+    const emojiButton = canvas.getByRole('button', {
       name: /emoji button/i,
     });
     await expect(emojiButton).toBeInTheDocument();
     const specialButton = canvas.getByText(/Special <Characters>/);
     await expect(specialButton).toBeInTheDocument();
-    const chineseButton = canvas.getByText("中文按钮");
+    const chineseButton = canvas.getByText('中文按钮');
     await userEvent.click(chineseButton);
   },
 };
@@ -838,10 +874,10 @@ export const EdgeCaseMultipleIcons: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const buttons = await canvas.findAllByRole("button");
+    const buttons = await canvas.findAllByRole('button');
     await expect(buttons).toHaveLength(3);
     const firstButton = buttons[0];
-    const icons = firstButton.querySelectorAll("svg");
+    const icons = firstButton.querySelectorAll('svg');
     await expect(icons.length).toBeGreaterThanOrEqual(2);
   },
 };
@@ -849,7 +885,7 @@ export const EdgeCaseWhitespace: Story = {
   render: () => (
     <div className="flex flex-col gap-4">
       <Button> Spaces Before And After </Button>
-      <Button variant="outline">{"  \n  Line  \n  Breaks  \n  "}</Button>
+      <Button variant="outline">{'  \n  Line  \n  Breaks  \n  '}</Button>
       <Button variant="secondary"> Tabs And Spaces </Button>
     </div>
   ),
@@ -858,7 +894,7 @@ export const EdgeCaseWhitespace: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const buttons = await canvas.findAllByRole("button");
+    const buttons = await canvas.findAllByRole('button');
     await expect(buttons).toHaveLength(3);
     await userEvent.click(buttons[0]);
     await expect(buttons[0]).toHaveFocus();
@@ -868,7 +904,8 @@ export const EdgeCaseNestedElements: Story = {
   render: () => (
     <div className="flex flex-col gap-4">
       <Button>
-        <span className="font-bold">Bold</span> and <span className="italic">italic</span>
+        <span className="font-bold">Bold</span> and{' '}
+        <span className="italic">italic</span>
       </Button>
       <Button variant="outline">
         <div className="flex items-center gap-2">
@@ -886,10 +923,10 @@ export const EdgeCaseNestedElements: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const buttons = await canvas.findAllByRole("button");
+    const buttons = await canvas.findAllByRole('button');
     await expect(buttons).toHaveLength(3);
     const firstButton = buttons[0];
-    const boldSpan = firstButton.querySelector("span.font-bold");
+    const boldSpan = firstButton.querySelector('span.font-bold');
     await expect(boldSpan).toBeInTheDocument();
     await userEvent.click(buttons[1]);
   },
@@ -906,7 +943,9 @@ export const EdgeCaseWidthConstraints: Story = {
         </Button>
       </div>
       <div className="w-full max-w-36 border border-dashed border-gray-300 p-2">
-        <Button className="w-full truncate">Very long text that will be truncated</Button>
+        <Button className="w-full truncate">
+          Very long text that will be truncated
+        </Button>
       </div>
       <div className="flex gap-2 w-50 border border-dashed border-gray-300 p-2">
         <Button className="flex-1">Button 1</Button>
@@ -919,7 +958,7 @@ export const EdgeCaseWidthConstraints: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const buttons = await canvas.findAllByRole("button");
+    const buttons = await canvas.findAllByRole('button');
     await expect(buttons.length).toBeGreaterThanOrEqual(4);
     await userEvent.click(buttons[0]);
     await expect(buttons[0]).toHaveFocus();
@@ -951,8 +990,10 @@ export const EdgeCaseIconOnly: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const labeledIconButton = canvas.getByLabelText("Icon button with label");
-    const labeledSettingsButton = canvas.getByLabelText("Settings with proper label");
+    const labeledIconButton = canvas.getByLabelText('Icon button with label');
+    const labeledSettingsButton = canvas.getByLabelText(
+      'Settings with proper label'
+    );
     await expect(labeledIconButton).toBeInTheDocument();
     await expect(labeledSettingsButton).toBeInTheDocument();
     await userEvent.click(labeledIconButton);
@@ -961,21 +1002,33 @@ export const EdgeCaseIconOnly: Story = {
 export const EdgeCaseRapidStateChanges: Story = {
   render: function RapidStateChanges() {
     const [disabled, setDisabled] = useState(false);
-    const [variant, setVariant] = useState<"default" | "destructive">("default");
+    const [variant, setVariant] = useState<'default' | 'destructive'>(
+      'default'
+    );
     const [count, setCount] = useState(0);
     return (
       <div className="flex flex-col gap-4">
-        <Button variant={variant} disabled={disabled} onClick={() => setCount((c) => c + 1)}>
+        <Button
+          variant={variant}
+          disabled={disabled}
+          onClick={() => setCount((c) => c + 1)}
+        >
           Clicked {count} times
         </Button>
         <div className="flex gap-2">
-          <Button size="sm" variant="outline" onClick={() => setDisabled(!disabled)}>
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={() => setDisabled(!disabled)}
+          >
             Toggle Disabled
           </Button>
           <Button
             size="sm"
             variant="outline"
-            onClick={() => setVariant((v) => (v === "default" ? "destructive" : "default"))}
+            onClick={() =>
+              setVariant((v) => (v === 'default' ? 'destructive' : 'default'))
+            }
           >
             Toggle Variant
           </Button>
@@ -988,11 +1041,11 @@ export const EdgeCaseRapidStateChanges: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const button = canvas.getByRole("button", {
+    const button = canvas.getByRole('button', {
       name: /clicked/i,
     });
-    const toggleDisabled = canvas.getByText("Toggle Disabled");
-    const toggleVariant = canvas.getByText("Toggle Variant");
+    const toggleDisabled = canvas.getByText('Toggle Disabled');
+    const toggleVariant = canvas.getByText('Toggle Variant');
     await userEvent.click(button);
     await userEvent.click(button);
     await userEvent.click(toggleDisabled);
@@ -1029,22 +1082,22 @@ export const EdgeCaseInvisibleContent: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const buttons = await canvas.findAllByRole("button");
+    const buttons = await canvas.findAllByRole('button');
     await expect(buttons).toHaveLength(3);
     await userEvent.click(buttons[0]);
     await expect(buttons[0]).toHaveFocus();
     const srButton = buttons[1];
-    const srText = srButton.querySelector(".sr-only");
+    const srText = srButton.querySelector('.sr-only');
     await expect(srText).toBeInTheDocument();
   },
 };
 export const Playground: Story = {
   args: {
-    variant: "default",
-    size: "default",
-    children: "Click me",
+    variant: 'default',
+    size: 'default',
+    children: 'Click me',
     disabled: false,
-    type: "button",
+    type: 'button',
   },
   render: (args) => <Button {...args} />,
   parameters: {

@@ -9,8 +9,8 @@ import {
   DrawerPortal,
   DrawerTitle,
   DrawerTrigger,
-} from "./drawer";
-import { DrawerMetadata } from "./drawer.metadata";
+} from './drawer';
+import { DrawerMetadata } from './drawer.metadata';
 
 export {
   Drawer,
