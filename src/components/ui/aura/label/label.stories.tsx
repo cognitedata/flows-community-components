@@ -1,10 +1,10 @@
 "use client";
 
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, within } from "@storybook/test";
+import { Input } from "../input";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { IconAsterisk } from "@tabler/icons-react";
 import { type ChangeEvent, useState } from "react";
-import { Input } from "../input";
+import { expect, userEvent, within } from "storybook/test";
 import { Label } from "./label";
 const meta: Meta<typeof Label> = {
   title: "Primitives/Label",

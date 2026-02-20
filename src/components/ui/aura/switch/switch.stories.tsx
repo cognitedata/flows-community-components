@@ -1,7 +1,7 @@
 import { Label } from "@/components/ui/aura/label";
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, within } from "@storybook/test";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
+import { expect, userEvent, within } from "storybook/test";
 import { Switch } from "./switch";
 const meta: Meta<typeof Switch> = {
   title: "Primitives/Switch",

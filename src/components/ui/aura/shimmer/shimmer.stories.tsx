@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, waitFor, within } from "@storybook/test";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useEffect, useState } from "react";
+import { expect, waitFor, within } from "storybook/test";
 import { Shimmer } from "./shimmer";
 const meta: Meta<typeof Shimmer> = {
   title: "AI/Shimmer",

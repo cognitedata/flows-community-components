@@ -1,11 +1,5 @@
-import type { ComponentMeta } from "../../../../lib/component-examples";
+import type { ComponentMeta } from "../../../../lib/types";
 
-/**
- * Confirmation Component Metadata
- *
- * This metadata is used by the documentation system to generate
- * component documentation pages and provide context for LLMs.
- */
 export const ConfirmationMetadata: ComponentMeta = {
   name: "Confirmation",
   status: "in-progress-code-review",

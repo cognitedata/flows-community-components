@@ -1,6 +1,6 @@
 import { CodeBlock } from "@/components/ui/aura/code-block";
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, within } from "@storybook/test";
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { expect, within } from "storybook/test";
 import { getTypographyBySection, typographyPatterns, typographyScale } from "./typography";
 const meta: Meta = {
   title: "Foundations/Typography",

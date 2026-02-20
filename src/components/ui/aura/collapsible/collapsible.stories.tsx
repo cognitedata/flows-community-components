@@ -1,8 +1,8 @@
 import { Button } from "@/components/ui/aura/button";
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor, within } from "@storybook/test";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { IconSelector } from "@tabler/icons-react";
 import { useState } from "react";
+import { expect, userEvent, waitFor, within } from "storybook/test";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./collapsible";
 const meta: Meta<typeof Collapsible> = {
   title: "Primitives/Collapsible",

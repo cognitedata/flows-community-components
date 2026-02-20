@@ -1,22 +1,39 @@
-/**
- * Components for displaying inline citations and source references.
- */
-export {
+import {
   InlineCitation,
-  InlineCitationGroup,
-  InlineCitationText,
   InlineCitationCard,
-  InlineCitationCardTrigger,
   InlineCitationCardBody,
+  InlineCitationCardTrigger,
   InlineCitationCarousel,
   InlineCitationCarouselContent,
-  InlineCitationCarouselItem,
   InlineCitationCarouselHeader,
   InlineCitationCarouselIndex,
-  InlineCitationCarouselPrev,
+  InlineCitationCarouselItem,
   InlineCitationCarouselNext,
-  InlineCitationSource,
-  InlineCitationQuote,
+  InlineCitationCarouselPrev,
+  InlineCitationGroup,
   InlineCitationLink,
+  InlineCitationQuote,
+  InlineCitationSource,
+  InlineCitationText,
 } from "./inline-citation";
-export { InlineCitationMetadata } from "./inline-citation.metadata";
+import { InlineCitationMetadata } from "./inline-citation.metadata";
+
+export {
+  InlineCitation,
+  InlineCitationCard,
+  InlineCitationCardBody,
+  InlineCitationCardTrigger,
+  InlineCitationCarousel,
+  InlineCitationCarouselContent,
+  InlineCitationCarouselHeader,
+  InlineCitationCarouselIndex,
+  InlineCitationCarouselItem,
+  InlineCitationCarouselNext,
+  InlineCitationCarouselPrev,
+  InlineCitationGroup,
+  InlineCitationLink,
+  InlineCitationQuote,
+  InlineCitationSource,
+  InlineCitationText,
+  InlineCitationMetadata,
+};

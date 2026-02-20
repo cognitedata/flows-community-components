@@ -1,4 +1,4 @@
-import { setProjectAnnotations } from "@storybook/react";
+import { setProjectAnnotations } from "@storybook/react-vite";
 import * as preview from "./preview";
 
 if (typeof window !== "undefined") {
