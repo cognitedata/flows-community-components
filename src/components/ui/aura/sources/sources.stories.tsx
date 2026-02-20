@@ -8,8 +8,10 @@ import {
   IconWorld,
 } from '@tabler/icons-react';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
+
 import { Badge } from '../badge';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '../hover-card';
+
 import { Source, Sources, SourcesTitle } from './sources';
 const meta: Meta<typeof Sources> = {
   title: 'AI/Sources',
@@ -51,9 +53,9 @@ type Story = StoryObj<typeof Sources>;
 export const Basic: Story = {
   render: () => (
     <Sources>
-      <Source url="https://example.com/docs" title="Documentation" />
-      <Source url="https://example.com/api" title="API Reference" />
-      <Source url="https://example.com/guide" title="Getting Started" />
+      <Source url="https://cognite.test/docs" title="Documentation" />
+      <Source url="https://cognite.test/api" title="API Reference" />
+      <Source url="https://cognite.test/guide" title="Getting Started" />
     </Sources>
   ),
   parameters: {
@@ -68,8 +70,8 @@ export const Basic: Story = {
 export const NoTitle: Story = {
   render: () => (
     <Sources title={false}>
-      <Source url="https://docs.example.com" title="Official Docs" />
-      <Source url="https://api.example.com" title="API" />
+      <Source url="https://cognite.test/docs" title="Official Docs" />
+      <Source url="https://cognite.test/api" title="API" />
     </Sources>
   ),
   parameters: {
@@ -79,9 +81,9 @@ export const NoTitle: Story = {
 export const CustomTitle: Story = {
   render: () => (
     <Sources title={<SourcesTitle title="References" />}>
-      <Source url="https://example.com/ref1" title="Reference 1" />
-      <Source url="https://example.com/ref2" title="Reference 2" />
-      <Source url="https://example.com/ref3" title="Reference 3" />
+      <Source url="https://cognite.test/ref1" title="Reference 1" />
+      <Source url="https://cognite.test/ref2" title="Reference 2" />
+      <Source url="https://cognite.test/ref3" title="Reference 3" />
     </Sources>
   ),
   parameters: {
@@ -92,16 +94,16 @@ export const WithIcons: Story = {
   render: () => (
     <Sources>
       <Source
-        url="https://github.com/example/repo"
+        url="https://cognite.test/github-repo"
         title="GitHub Repository"
         icon={IconBrandGithub}
       />
       <Source
-        url="https://example.com/docs"
+        url="https://cognite.test/docs"
         title="Documentation"
         icon={IconFileText}
       />
-      <Source url="https://example.com" title="Website" icon={IconWorld} />
+      <Source url="https://cognite.test" title="Website" icon={IconWorld} />
     </Sources>
   ),
   parameters: {
@@ -111,12 +113,12 @@ export const WithIcons: Story = {
 export const ManySources: Story = {
   render: () => (
     <Sources>
-      <Source url="https://example.com/1" title="React Documentation" />
-      <Source url="https://example.com/2" title="TypeScript Handbook" />
-      <Source url="https://example.com/3" title="MDN Web Docs" />
-      <Source url="https://example.com/4" title="Stack Overflow" />
-      <Source url="https://example.com/5" title="GitHub Issues" />
-      <Source url="https://example.com/6" title="API Reference" />
+      <Source url="https://cognite.test/1" title="React Documentation" />
+      <Source url="https://cognite.test/2" title="TypeScript Handbook" />
+      <Source url="https://cognite.test/3" title="MDN Web Docs" />
+      <Source url="https://cognite.test/4" title="Stack Overflow" />
+      <Source url="https://cognite.test/5" title="GitHub Issues" />
+      <Source url="https://cognite.test/6" title="API Reference" />
     </Sources>
   ),
   parameters: {
@@ -127,46 +129,46 @@ export const TooManySourcesWithOverflow: Story = {
   render: () => {
     const visibleSources = [
       {
-        url: 'https://example.com/asset/21PT1019',
+        url: 'https://cognite.test/asset/21PT1019',
         title: '21PT1019',
         icon: IconChartLine,
       },
       {
-        url: 'https://example.com/image/pumpB.jpg',
+        url: 'https://cognite.test/image/pumpB.jpg',
         title: 'This is a really long source to show how these items will wrap',
         icon: IconPhoto,
       },
       {
-        url: 'https://example.com/docs/LER_13FI2418N.Y-1728.pdf',
+        url: 'https://cognite.test/docs/LER_13FI2418N.Y-1728.pdf',
         title: 'LER_13FI2418N.Y-1728.pdf',
         icon: IconFileText,
       },
       {
-        url: 'https://example.com/work-order/120_oaoXR',
+        url: 'https://cognite.test/work-order/120_oaoXR',
         title: '120_oaoXR',
         icon: IconBriefcase,
       },
       {
-        url: 'https://example.com/docs/ORB_1901.pdf',
+        url: 'https://cognite.test/docs/ORB_1901.pdf',
         title: 'ORB_1901.pdf',
         icon: IconBriefcase,
       },
     ];
     const overflowSources = [
       {
-        url: 'https://example.com/7',
+        url: 'https://cognite.test/7',
         title: 'Source 7',
       },
       {
-        url: 'https://example.com/8',
+        url: 'https://cognite.test/8',
         title: 'Source 8',
       },
       {
-        url: 'https://example.com/9',
+        url: 'https://cognite.test/9',
         title: 'Source 9',
       },
       {
-        url: 'https://example.com/10',
+        url: 'https://cognite.test/10',
         title: 'Source 10',
       },
     ];
@@ -182,7 +184,10 @@ export const TooManySourcesWithOverflow: Story = {
                 variant="secondary"
                 className="cursor-default"
                 render={
-                  <button type="button" aria-label={`${overflowSources.length} more sources`} />
+                  <button
+                    type="button"
+                    aria-label={`${overflowSources.length} more sources`}
+                  />
                 }
               >
                 +{overflowSources.length}
@@ -212,36 +217,24 @@ export const TooManySourcesWithOverflow: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(await canvas.findByText("Sources")).toBeInTheDocument();
-    await expect(await canvas.findByText("21PT1019")).toBeInTheDocument();
+    await expect(await canvas.findByText('Sources')).toBeInTheDocument();
+    await expect(await canvas.findByText('21PT1019')).toBeInTheDocument();
 
-    const overflowTrigger = await canvas.findByRole("button", { name: "4 more sources" });
+    const overflowTrigger = await canvas.findByRole('button', {
+      name: '4 more sources',
+    });
     await userEvent.hover(overflowTrigger);
-
-    const doc = canvasElement.ownerDocument;
-    const waitForOpenHoverCard = async () => {
-      await waitFor(() => {
-        const hoverCard = doc.querySelector(
-          '[data-slot="hover-card-content"][data-open]'
-        ) as HTMLElement | null;
-        expect(hoverCard).toBeInTheDocument();
-        expect(hoverCard).toHaveTextContent("4 more sources");
-        expect(hoverCard).toHaveTextContent("Source 7");
-      });
-    };
-    try {
-      await waitForOpenHoverCard();
-    } catch {
-      await userEvent.unhover(overflowTrigger);
-      await userEvent.hover(overflowTrigger);
-      await waitForOpenHoverCard();
-    }
+    const body = within(canvasElement.ownerDocument.body);
+    await waitFor(() => {
+      expect(body.getByText('4 more sources')).toBeInTheDocument();
+      expect(body.getByText('Source 7')).toBeInTheDocument();
+    });
   },
 };
 export const SingleSource: Story = {
   render: () => (
     <Sources>
-      <Source url="https://example.com/article" title="Relevant Article" />
+      <Source url="https://cognite.test/article" title="Relevant Article" />
     </Sources>
   ),
   parameters: {
@@ -254,8 +247,8 @@ export const VisualRegression: Story = {
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">Default</h3>
         <Sources>
-          <Source url="https://example.com/1" title="Source 1" />
-          <Source url="https://example.com/2" title="Source 2" />
+          <Source url="https://cognite.test/1" title="Source 1" />
+          <Source url="https://cognite.test/2" title="Source 2" />
         </Sources>
       </div>
 
@@ -264,8 +257,8 @@ export const VisualRegression: Story = {
           No Title
         </h3>
         <Sources title={false}>
-          <Source url="https://example.com/1" title="Source 1" />
-          <Source url="https://example.com/2" title="Source 2" />
+          <Source url="https://cognite.test/1" title="Source 1" />
+          <Source url="https://cognite.test/2" title="Source 2" />
         </Sources>
       </div>
 
@@ -275,7 +268,7 @@ export const VisualRegression: Story = {
         </h3>
         <Sources>
           <Source
-            url="https://github.com"
+            url="https://cognite.test/github"
             title="GitHub"
             icon={IconBrandGithub}
           />
