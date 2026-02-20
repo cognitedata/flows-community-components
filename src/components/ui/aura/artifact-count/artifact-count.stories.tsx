@@ -1,14 +1,8 @@
-import { Button } from "@/components/ui/aura/button";
-import {
-  type ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from "@/components/ui/aura/chart";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { type ComponentProps, useEffect, useState } from "react";
-import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts";
-import { expect, userEvent, waitFor, within } from "storybook/test";
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { type ComponentProps, useEffect, useState } from 'react';
+import { CartesianGrid, Line, LineChart, XAxis, YAxis } from 'recharts';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
+
 import {
   ArtifactCount,
   ArtifactCountContent,
@@ -20,39 +14,47 @@ import {
   ArtifactCountHeader,
   ArtifactCountSeparator,
   ArtifactCountTag,
-} from "./artifact-count";
+} from './artifact-count';
+
+import { Button } from '@/components/ui/aura/button';
+import {
+  type ChartConfig,
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from '@/components/ui/aura/chart';
 const meta: Meta<typeof ArtifactCount> = {
-  title: "Primitives/Artifact - Count",
+  title: 'Primitives/Artifact - Count',
   component: ArtifactCount,
-  tags: ["autodocs", "ai-elements"],
+  tags: ['autodocs', 'ai-elements'],
   argTypes: {
     className: {
-      control: "text",
+      control: 'text',
       table: {
-        category: "Variants / Styling",
+        category: 'Variants / Styling',
         type: {
-          summary: "string",
+          summary: 'string',
         },
       },
     },
     children: {
       control: false,
       table: {
-        category: "Content",
+        category: 'Content',
         type: {
-          summary: "ReactNode",
+          summary: 'ReactNode',
         },
       },
     },
   },
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
 };
 export default meta;
 type Story = StoryObj<typeof ArtifactCount>;
 type PlaygroundArgs = ComponentProps<typeof ArtifactCount> & {
-  variant: "default" | "warning" | "critical";
+  variant: 'default' | 'warning' | 'critical';
   count: string;
   title: string;
   tag: string;
@@ -80,9 +82,9 @@ const generateTemperatureData = () => {
     }
     temperature = Math.max(60, Math.min(110, temperature));
     data.push({
-      time: time.toLocaleTimeString("en-US", {
-        hour: "2-digit",
-        minute: "2-digit",
+      time: time.toLocaleTimeString('en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
         hour12: false,
       }),
       temperature: Math.round(temperature * 10) / 10,
@@ -94,8 +96,8 @@ const generateTemperatureData = () => {
 const temperatureData = generateTemperatureData();
 const temperatureChartConfig = {
   temperature: {
-    label: "Temperature",
-    color: "hsl(239 84% 67%)",
+    label: 'Temperature',
+    color: 'hsl(239 84% 67%)',
   },
 } satisfies ChartConfig;
 export const Basic: Story = {
@@ -104,16 +106,18 @@ export const Basic: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText("Active alarms")).toBeInTheDocument();
-    await expect(canvas.getByText("Critical:")).toBeInTheDocument();
-    await expect(canvas.getByText("High:")).toBeInTheDocument();
-    await expect(canvas.getByText("Medium:")).toBeInTheDocument();
+    await expect(canvas.getByText('Active alarms')).toBeInTheDocument();
+    await expect(canvas.getByText('Critical:')).toBeInTheDocument();
+    await expect(canvas.getByText('High:')).toBeInTheDocument();
+    await expect(canvas.getByText('Medium:')).toBeInTheDocument();
   },
   render: () => (
     <ArtifactCount className="w-md">
       <ArtifactCountHeader>
         <ArtifactCountCount variant="warning">3</ArtifactCountCount>
-        <span className="text-base font-medium leading-5 tracking-tightest">Active alarms</span>
+        <span className="text-base font-medium leading-5 tracking-tightest">
+          Active alarms
+        </span>
       </ArtifactCountHeader>
       <ArtifactCountSeparator />
       <ArtifactCountFooter>
@@ -139,9 +143,9 @@ export const WithFooter: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText("Temperature")).toBeInTheDocument();
-    await expect(canvas.getByText("Min: 384°C")).toBeInTheDocument();
-    await expect(canvas.getByText("Max: 390°C")).toBeInTheDocument();
+    await expect(canvas.getByText('Temperature')).toBeInTheDocument();
+    await expect(canvas.getByText('Min: 384°C')).toBeInTheDocument();
+    await expect(canvas.getByText('Max: 390°C')).toBeInTheDocument();
   },
   render: () => (
     <ArtifactCount className="w-md">
@@ -169,8 +173,8 @@ export const WithChart: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText("Bar")).toBeInTheDocument();
-    await expect(canvas.getByText("V-192")).toBeInTheDocument();
+    await expect(canvas.getByText('Bar')).toBeInTheDocument();
+    await expect(canvas.getByText('V-192')).toBeInTheDocument();
   },
   render: function WithChartRender() {
     const [currentData, setCurrentData] = useState(temperatureData);
@@ -178,15 +182,17 @@ export const WithChart: Story = {
       const interval = setInterval(() => {
         setCurrentData((prevData) => {
           const newData = [...prevData];
-          const lastTime = new Date(newData[newData.length - 1].timestamp + 5 * 60 * 1000);
+          const lastTime = new Date(
+            newData[newData.length - 1].timestamp + 5 * 60 * 1000
+          );
           let newTemp = newData[newData.length - 1].temperature;
           newTemp += (Math.random() - 0.5) * 3;
           newTemp = Math.max(60, Math.min(110, newTemp));
           newData.shift();
           newData.push({
-            time: lastTime.toLocaleTimeString("en-US", {
-              hour: "2-digit",
-              minute: "2-digit",
+            time: lastTime.toLocaleTimeString('en-US', {
+              hour: '2-digit',
+              minute: '2-digit',
               hour12: false,
             }),
             temperature: Math.round(newTemp * 10) / 10,
@@ -199,11 +205,14 @@ export const WithChart: Story = {
     }, []);
     const currentTemp = currentData[currentData.length - 1]?.temperature || 0;
     const avgTemp =
-      currentData.reduce((sum, item) => sum + item.temperature, 0) / currentData.length;
+      currentData.reduce((sum, item) => sum + item.temperature, 0) /
+      currentData.length;
     return (
       <ArtifactCount className="w-md gap-2">
         <ArtifactCountHeader className="items-end">
-          <ArtifactCountCount variant="default">{currentTemp}</ArtifactCountCount>
+          <ArtifactCountCount variant="default">
+            {currentTemp}
+          </ArtifactCountCount>
           <div className="flex flex-1 items-end justify-between">
             <div className="flex flex-col">
               <span className="text-base font-medium">Bar</span>
@@ -213,7 +222,10 @@ export const WithChart: Story = {
           </div>
         </ArtifactCountHeader>
         <ArtifactCountContent className="p-0">
-          <ChartContainer config={temperatureChartConfig} className="h-48 w-full">
+          <ChartContainer
+            config={temperatureChartConfig}
+            className="h-48 w-full"
+          >
             <LineChart
               accessibilityLayer
               data={currentData}
@@ -236,19 +248,19 @@ export const WithChart: Story = {
                 tickLine={false}
                 axisLine={false}
                 tickMargin={8}
-                domain={["dataMin - 5", "dataMax + 5"]}
+                domain={['dataMin - 5', 'dataMax + 5']}
                 tickFormatter={(value) => `${value}°C`}
               />
               <ChartTooltip
                 cursor={{
-                  stroke: "hsl(239 84% 67%)",
+                  stroke: 'hsl(239 84% 67%)',
                   strokeWidth: 1,
                 }}
                 content={
                   <ChartTooltipContent
                     indicator="dot"
                     labelFormatter={(value) => `Time: ${value}`}
-                    formatter={(value) => [`${value}°C`, "Temperature"]}
+                    formatter={(value) => [`${value}°C`, 'Temperature']}
                   />
                 }
               />
@@ -260,7 +272,7 @@ export const WithChart: Story = {
                 dot={false}
                 activeDot={{
                   r: 4,
-                  stroke: "hsl(239 84% 67%)",
+                  stroke: 'hsl(239 84% 67%)',
                   strokeWidth: 2,
                 }}
                 animationDuration={300}
@@ -274,15 +286,21 @@ export const WithChart: Story = {
               <div
                 className="h-3 w-3 rounded-full"
                 style={{
-                  backgroundColor: "hsl(239 84% 67%)",
+                  backgroundColor: 'hsl(239 84% 67%)',
                 }}
               />
-              <span className="text-muted-foreground">Current: {currentTemp}°C</span>
+              <span className="text-muted-foreground">
+                Current: {currentTemp}°C
+              </span>
             </div>
-            <span className="text-muted-foreground">4h Average: {avgTemp.toFixed(1)}°C</span>
+            <span className="text-muted-foreground">
+              4h Average: {avgTemp.toFixed(1)}°C
+            </span>
           </ArtifactCountFooterLeft>
           <ArtifactCountFooterRight>
-            <span className="text-xs text-muted-foreground">Updates every 5 minutes</span>
+            <span className="text-xs text-muted-foreground">
+              Updates every 5 minutes
+            </span>
           </ArtifactCountFooterRight>
         </ArtifactCountFooter>
       </ArtifactCount>
@@ -302,9 +320,15 @@ export const Interactive: Story = {
         </ArtifactCountHeader>
         <ArtifactCountSeparator />
         <ArtifactCountFooter className="text-muted-foreground">
-          <ArtifactCountFooterLeft>Last updated just now</ArtifactCountFooterLeft>
+          <ArtifactCountFooterLeft>
+            Last updated just now
+          </ArtifactCountFooterLeft>
           <ArtifactCountFooterRight>
-            <Button size="sm" variant="secondary" onClick={() => setValue((prev) => prev + 1)}>
+            <Button
+              size="sm"
+              variant="secondary"
+              onClick={() => setValue((prev) => prev + 1)}
+            >
               Increase
             </Button>
           </ArtifactCountFooterRight>
@@ -314,13 +338,13 @@ export const Interactive: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const button = canvas.getByRole("button", {
-      name: "Increase",
+    const button = canvas.getByRole('button', {
+      name: 'Increase',
     });
     await userEvent.click(button);
     await waitFor(
       () => {
-        expect(canvas.getByText("393°C")).toBeInTheDocument();
+        expect(canvas.getByText('393°C')).toBeInTheDocument();
       },
       {
         timeout: 300,
@@ -363,7 +387,9 @@ export const EdgeCaseLongText: Story = {
         <ArtifactCountFooterLeft>
           Critical: 24 • High: 56 • Medium: 48 • Low: 12
         </ArtifactCountFooterLeft>
-        <ArtifactCountFooterRight>Rolling total based on last 24 hours</ArtifactCountFooterRight>
+        <ArtifactCountFooterRight>
+          Rolling total based on last 24 hours
+        </ArtifactCountFooterRight>
       </ArtifactCountFooter>
     </ArtifactCount>
   ),
@@ -378,7 +404,9 @@ export const EdgeCaseSpecialCharacters: Story = {
         <ArtifactCountCount variant="critical">99+</ArtifactCountCount>
         <div className="flex flex-1 items-end justify-between">
           <div className="flex flex-col">
-            <span className="text-base font-medium">Alerts: ΔP &gt; 5%, ΔT &lt; 0</span>
+            <span className="text-base font-medium">
+              Alerts: ΔP &gt; 5%, ΔT &lt; 0
+            </span>
             <ArtifactCountTag>Unit: V-192 • Line A/B</ArtifactCountTag>
           </div>
           <ArtifactCountTag>Since 08:15 — Shift 2</ArtifactCountTag>
@@ -386,7 +414,9 @@ export const EdgeCaseSpecialCharacters: Story = {
       </ArtifactCountHeader>
       <ArtifactCountSeparator />
       <ArtifactCountFooter className="text-muted-foreground">
-        <ArtifactCountFooterLeft>Notes: “Overheat” — check valve #4</ArtifactCountFooterLeft>
+        <ArtifactCountFooterLeft>
+          Notes: “Overheat” — check valve #4
+        </ArtifactCountFooterLeft>
         <ArtifactCountFooterRight>Notify on-call ⚠️</ArtifactCountFooterRight>
       </ArtifactCountFooter>
     </ArtifactCount>
@@ -394,67 +424,67 @@ export const EdgeCaseSpecialCharacters: Story = {
 };
 export const Playground: PlaygroundStory = {
   args: {
-    className: "w-md",
-    variant: "default",
-    count: "392°C",
-    title: "Temperature",
-    tag: "V-192",
-    footerLeft: "Min: 384°C",
-    footerRight: "Max: 390°C",
+    className: 'w-md',
+    variant: 'default',
+    count: '392°C',
+    title: 'Temperature',
+    tag: 'V-192',
+    footerLeft: 'Min: 384°C',
+    footerRight: 'Max: 390°C',
   },
   argTypes: {
     variant: {
-      control: "select",
-      options: ["default", "warning", "critical"],
+      control: 'select',
+      options: ['default', 'warning', 'critical'],
       table: {
-        category: "Variants / Styling",
+        category: 'Variants / Styling',
         type: {
           summary: "'default' | 'warning' | 'critical'",
         },
       },
     },
     count: {
-      control: "text",
+      control: 'text',
       table: {
-        category: "Content",
+        category: 'Content',
         type: {
-          summary: "string",
+          summary: 'string',
         },
       },
     },
     title: {
-      control: "text",
+      control: 'text',
       table: {
-        category: "Content",
+        category: 'Content',
         type: {
-          summary: "string",
+          summary: 'string',
         },
       },
     },
     tag: {
-      control: "text",
+      control: 'text',
       table: {
-        category: "Content",
+        category: 'Content',
         type: {
-          summary: "string",
+          summary: 'string',
         },
       },
     },
     footerLeft: {
-      control: "text",
+      control: 'text',
       table: {
-        category: "Content",
+        category: 'Content',
         type: {
-          summary: "string",
+          summary: 'string',
         },
       },
     },
     footerRight: {
-      control: "text",
+      control: 'text',
       table: {
-        category: "Content",
+        category: 'Content',
         type: {
-          summary: "string",
+          summary: 'string',
         },
       },
     },
@@ -465,7 +495,9 @@ export const Playground: PlaygroundStory = {
   render: (args) => (
     <ArtifactCount className={args.className}>
       <ArtifactCountHeader className="items-end">
-        <ArtifactCountCount variant={args.variant}>{args.count}</ArtifactCountCount>
+        <ArtifactCountCount variant={args.variant}>
+          {args.count}
+        </ArtifactCountCount>
         <div className="flex flex-1 items-end justify-between">
           <div className="flex flex-col">
             <span className="text-base font-medium">{args.title}</span>

@@ -1,7 +1,7 @@
-import type { ComponentMeta } from "../../../../lib/types";
+import type { ComponentMeta } from '../../../../lib/types';
 
 export const TimePickerRangeMetadata: ComponentMeta = {
-  name: "Time picker (range)",
-  status: "imported-from-fusion",
-  description: "Range-based time selection",
+  name: 'Time picker (range)',
+  status: 'imported-from-fusion',
+  description: 'Range-based time selection',
 };
