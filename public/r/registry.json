@@ -713,7 +713,7 @@
       "title": "Conversation",
       "description": "A scrollable container for AI chat conversations with auto-scroll.",
       "dependencies": ["@tabler/icons-react", "use-stick-to-bottom"],
-      "registryDependencies": ["@aura/css"],
+      "registryDependencies": ["@aura/css", "@aura/button"],
       "files": [
         {
           "path": "src/components/ui/aura/conversation/conversation.tsx",
