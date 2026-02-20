@@ -106,6 +106,7 @@ const ConversationScrollButton = ({ className, ...props }: ConversationScrollBut
     !isAtBottom && (
       <Button
         data-slot="conversation-scroll-button"
+        aria-label="Scroll to bottom"
         className={cn("absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full", className)}
         onClick={handleScrollToBottom}
         size="icon"

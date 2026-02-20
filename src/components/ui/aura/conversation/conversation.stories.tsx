@@ -35,14 +35,12 @@ const meta: Meta<typeof Conversation> = {
   argTypes: {
     className: {
       control: "text",
-      description: "Additional CSS classes for custom styling.",
       table: {
         category: "Variants/Styling",
       },
     },
     children: {
       control: false,
-      description: "Conversation content.",
       table: {
         category: "Content",
         type: { summary: "ReactNode" },
@@ -50,7 +48,6 @@ const meta: Meta<typeof Conversation> = {
     },
     initial: {
       control: false,
-      description: "Initial scroll behavior.",
       table: {
         category: "Behavior",
         type: { summary: "ScrollBehavior" },
@@ -59,7 +56,6 @@ const meta: Meta<typeof Conversation> = {
     },
     resize: {
       control: false,
-      description: "Scroll behavior on resize.",
       table: {
         category: "Behavior",
         type: { summary: "ScrollBehavior" },
@@ -68,7 +64,6 @@ const meta: Meta<typeof Conversation> = {
     },
     role: {
       control: false,
-      description: "ARIA role for the conversation container.",
       table: {
         category: "Advanced",
         type: { summary: "string" },
@@ -94,11 +89,6 @@ type Story = StoryObj<typeof Conversation>;
 export const Default: Story = {
   parameters: {
     order: 1,
-    docs: {
-      description: {
-        story: "Default conversation with user and assistant messages.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -170,11 +160,6 @@ export const Default: Story = {
 export const EmptyState: Story = {
   parameters: {
     order: 2,
-    docs: {
-      description: {
-        story: "Empty state for a new conversation.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -203,11 +188,6 @@ export const EmptyState: Story = {
 export const SuggestionsAutoSubmit: Story = {
   parameters: {
     order: 3,
-    docs: {
-      description: {
-        story: "Suggestions that submit directly into the conversation.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -261,11 +241,6 @@ export const SuggestionsAutoSubmit: Story = {
 export const SuggestionsFillInput: Story = {
   parameters: {
     order: 4,
-    docs: {
-      description: {
-        story: "Suggestions that prefill the prompt input.",
-      },
-    },
   },
   decorators: [
     (Story) => (
@@ -331,11 +306,6 @@ export const SuggestionsFillInput: Story = {
 export const MixedMessageTypes: Story = {
   parameters: {
     order: 5,
-    docs: {
-      description: {
-        story: "Conversation with mixed action sets and assistant responses.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -405,11 +375,6 @@ export const MixedMessageTypes: Story = {
 export const KeyboardNavigation: Story = {
   parameters: {
     order: 6,
-    docs: {
-      description: {
-        story: "Keyboard accessibility for message actions.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -456,11 +421,6 @@ export const KeyboardNavigation: Story = {
 export const VeryLongConversation: Story = {
   parameters: {
     order: 7,
-    docs: {
-      description: {
-        story: "Long conversation to validate large message lists.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -518,11 +478,6 @@ export const VeryLongConversation: Story = {
 export const SingleMessage: Story = {
   parameters: {
     order: 8,
-    docs: {
-      description: {
-        story: "Single-message conversation state.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -547,11 +502,6 @@ export const SingleMessage: Story = {
 export const ShortContainer: Story = {
   parameters: {
     order: 9,
-    docs: {
-      description: {
-        story: "Conversation rendered in a shorter container.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -618,11 +568,6 @@ export const ShortContainer: Story = {
 export const VisualRegression: Story = {
   parameters: {
     order: 10,
-    docs: {
-      description: {
-        story: "Visual regression baseline for conversation layout.",
-      },
-    },
     chromatic: {
       disableSnapshot: false,
     },
@@ -655,11 +600,6 @@ export const Playground: Story = {
   },
   parameters: {
     order: 99,
-    docs: {
-      description: {
-        story: "Interactive playground for the conversation container.",
-      },
-    },
   },
   render: (args) => (
     <Conversation {...args}>
