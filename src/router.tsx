@@ -19,7 +19,6 @@ import PrimitivesColorsPage from "./pages/primitives/colors/Page";
 import PrimitivesComponentPage from "./pages/primitives/components/ComponentPage";
 import PrimitivesEffectsPage from "./pages/primitives/effects/Page";
 import PrimitivesIconsPage from "./pages/primitives/icons/Page";
-import PrimitivesIllustrationsPage from "./pages/primitives/illustrations/Page";
 import PrimitivesLayoutsPage from "./pages/primitives/layouts/Page";
 import PrimitivesMotionDesignPage from "./pages/primitives/motion-design/Page";
 import PrimitivesThemingPage from "./pages/primitives/theming/Page";
@@ -69,7 +68,6 @@ export const router = createBrowserRouter(
             { path: "layouts", element: <PrimitivesLayoutsPage /> },
             { path: "colors", element: <PrimitivesColorsPage /> },
             { path: "typography", element: <PrimitivesTypographyPage /> },
-            { path: "illustrations", element: <PrimitivesIllustrationsPage /> },
             { path: "icons", element: <PrimitivesIconsPage /> },
             { path: "motion-design", element: <PrimitivesMotionDesignPage /> },
             // Catch-all route for component pages (must be last)

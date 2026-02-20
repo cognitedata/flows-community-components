@@ -101,6 +101,7 @@ For files under `src/components/ui/aura/**`, prefer relative imports (for exampl
 - Consolidate docs content onto the root page instead of routing under `/docs`.
 - Use `forwardRef` and `displayName` for wrapper components to preserve refs.
 - Base UI's `TooltipProvider` and `TooltipRoot` don't support refs - use plain functions, not `forwardRef`.
+- When using Base UI's `useRender`, set the slot via `state.slot` instead of adding `data-slot` in `mergeProps` (avoids type casts).
 - Component status checks should use valid `ComponentStatusType` values like "stable" and "ready-for-ga", not "production" or "done".
 - Form components should import and use utility classes from relative Aura lib paths (for example `../../../../lib/utils`): `formElementBase`, `focusState`, `invalidState`, `disabledState`, `hoverState`, `filledState`.
 - `formElementBase` includes `bg-background` by default. Override with `bg-transparent` or other backgrounds inline when needed.
@@ -110,6 +111,7 @@ For files under `src/components/ui/aura/**`, prefer relative imports (for exampl
 - When overriding focus states in InputGroup controls, must override BOTH `focus-visible:shadow-none` AND `aria-invalid:focus-visible:shadow-none` to prevent double focus rings in error states.
 - Don't export prop types from components. Use inline typing (`type MessageProps = ...`) instead of `export type`. Consumers can use `ComponentProps<typeof Component>` if they need access to types. Follow the pattern used by Badge, Card, Button, Dialog, and AlertDialog components.
 - Tooltip delay stories are more stable with deterministic waits and without interaction retries.
+- Storybook stories should omit description metadata and explanatory comments; keep examples self-explanatory through naming and structure.
 - Collapsible play tests are more stable when asserting `data-panel-open` and scoping queries to the panel.
 - Tooltip play tests should avoid retry-based interaction fallbacks; fix root causes and prefer deterministic semantic checks.
 - Hover card play tests are more reliable when asserting open-state attributes with deterministic waits (no retry fallbacks).
@@ -121,14 +123,18 @@ For files under `src/components/ui/aura/**`, prefer relative imports (for exampl
 - Keep `*.metadata.ts` files metadata-only; remove any runtime/component code from them.
 - Do not include `importPath` in `*.metadata.ts` files.
 - Component `*.metadata.ts` files should include `name`, `status`, and `description` fields for the registry build script.
+- Catalog grouping/filtering should rely on metadata `status`; do not use legacy `progressStatus`.
 - Export blocks should list one export per line within a single `export { ... }` block (no separate `export { X };` lines).
 - `getPortalContainer` supports optional `id`, `className`, and `style` overrides only at first container creation; once cached, custom options are ignored to avoid side effects on subsequent calls.
 - For Base UI tooltip delay tests, avoid mouse-move “keepalive” events during the delay; they can prevent the delayed open from triggering. Prefer `hover` + deterministic wait, with a single hover retry if needed.
 - Prefer a closure-scoped cancellation flag in async `useEffect` flows to avoid stale updates after unmount.
 - For static brand images in app code, import from `src/assets` so Vite rewrites URLs correctly for base-path deployments.
 - For portal stories, prefer semantic queries first; use test ids only in test code when mocking and no semantic query is available.
+- Accordion story play tests are more robust when asserting trigger `aria-expanded` state changes instead of querying open panels by implementation-specific selectors.
 - Aura components use relative paths (`../../../../lib/*`) for lib imports instead of `@/lib/*` to support portable/registry installs.
+- Registry dependency extraction must account for relative component imports (for example `../helper-text`) so `registryDependencies` stays correct.
 - When updating component metadata statuses from a list, update only existing `*.metadata.ts` files and skip missing components without creating placeholders.
+- Set per-component Figma links in `src/lib/primitives-catalog.ts`; catalog and component pages use those URLs to enable clickable Figma icons.
 
 # Storybook Stories
 
@@ -143,7 +149,7 @@ For detailed story writing guidelines, use the `/story-builder` skill.
 - Use explicit render functions with hardcoded props
 - No inline code comments in play functions
 - No JSX comments in render functions (e.g., `{/* comment */}`) - if you need section labels, use semantic HTML headings instead
-- All stories should have a description that is short and relevant; don't reword existing descriptions that already meet this criteria
+- Omit Storybook description metadata and story-level explanatory comments; keep stories concise and self-explanatory
 - Prioritize semantic queries (`getByRole`, `getByText`, etc.) over `getByTestId` in play functions
 - Avoid `getByTestId` in story interactions; reserve test ids for mocked unit-test scenarios only
 - Run `pnpm lint` and `pnpm tsc -b` after changes
