@@ -23,8 +23,8 @@ const meta: Meta<typeof Drawer> = {
       control: "boolean",
       table: {
         category: "Behavior",
-        type: { 
-          summary: "boolean" 
+        type: {
+          summary: "boolean",
         },
       },
     },
@@ -33,11 +33,11 @@ const meta: Meta<typeof Drawer> = {
       options: ["top", "bottom", "left", "right"],
       table: {
         category: "Variants/Styling",
-        type: { 
-          summary: '"top" | "bottom" | "left" | "right"' 
+        type: {
+          summary: '"top" | "bottom" | "left" | "right"',
         },
-        defaultValue: { 
-          summary: "bottom" 
+        defaultValue: {
+          summary: "bottom",
         },
       },
     },
