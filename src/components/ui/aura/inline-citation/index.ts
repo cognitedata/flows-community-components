@@ -15,8 +15,8 @@ import {
   InlineCitationQuote,
   InlineCitationSource,
   InlineCitationText,
-} from "./inline-citation";
-import { InlineCitationMetadata } from "./inline-citation.metadata";
+} from './inline-citation';
+import { InlineCitationMetadata } from './inline-citation.metadata';
 
 export {
   InlineCitation,

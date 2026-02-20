@@ -1,7 +1,7 @@
-import type { ComponentMeta } from "../../../../lib/component-examples";
+import type { ComponentMeta } from '../../../../lib/types';
 
 export const ChartMetadata: ComponentMeta = {
-  name: "Chart",
-  status: "draft",
-  description: "Chart components built with Recharts for data visualization.",
+  name: 'Chart',
+  status: 'draft',
+  description: 'Chart components built with Recharts for data visualization.',
 };

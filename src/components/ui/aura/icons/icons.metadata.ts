@@ -1,7 +1,7 @@
-import type { ComponentMeta } from "@/lib/component-examples";
+import type { ComponentMeta } from '../../../../lib/types';
 
 export const IconsMetadata: ComponentMeta = {
-  name: "Icons",
-  status: "planned",
-  description: "System iconography and usage guidance",
+  name: 'Icons',
+  status: 'planned',
+  description: 'System iconography and usage guidance',
 };
