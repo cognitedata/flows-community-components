@@ -11,6 +11,8 @@ import {
 import { useState } from 'react';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
 
+import { Button } from '../button';
+
 import {
   Command,
   CommandDialog,
@@ -23,7 +25,6 @@ import {
   CommandShortcut,
 } from './command';
 
-import { Button } from '@/components/ui/aura/button';
 const meta: Meta<typeof Command> = {
   title: 'Primitives/Command',
   component: Command,
@@ -136,27 +137,22 @@ export const Dialog: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const body = within(canvasElement.ownerDocument.body);
     const trigger = canvas.getByRole('button', {
       name: /open command palette/i,
     });
     await userEvent.click(trigger);
-    await waitFor(() => {
-      const dialog = document.querySelector('[data-slot="command-dialog"]');
-      expect(dialog).toBeInTheDocument();
-    });
-    const dialog = document.querySelector('[data-slot="command-dialog"]');
-    const input = within(dialog as HTMLElement).getByPlaceholderText(
+    const dialog = await body.findByRole('dialog');
+    const input = within(dialog).getByPlaceholderText(
       'Type a command or search...'
     );
     await expect(input).toBeInTheDocument();
-    const calendarItem = within(dialog as HTMLElement).getByRole('option', {
+    const calendarItem = within(dialog).getByRole('option', {
       name: /calendar/i,
     });
     await userEvent.click(calendarItem);
     await waitFor(() => {
-      expect(
-        canvas.queryByTestId('command-dialog-content')
-      ).not.toBeInTheDocument();
+      expect(body.queryByRole('dialog')).not.toBeInTheDocument();
     });
   },
 };
