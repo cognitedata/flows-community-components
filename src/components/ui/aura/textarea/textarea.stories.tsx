@@ -5,7 +5,6 @@ import { useState } from 'react';
 import { Label } from '../label';
 
 import { Textarea } from './textarea';
-
 const meta: Meta<typeof Textarea> = {
   title: 'Primitives/Textarea',
   component: Textarea,
@@ -13,57 +12,66 @@ const meta: Meta<typeof Textarea> = {
   argTypes: {
     placeholder: {
       control: 'text',
-      description: 'Placeholder text',
       table: {
         category: 'Content',
-        type: { summary: 'string' },
+        type: {
+          summary: 'string',
+        },
       },
     },
     defaultValue: {
       control: 'text',
-      description: 'Default value (uncontrolled)',
       table: {
         category: 'Content',
-        type: { summary: 'string' },
+        type: {
+          summary: 'string',
+        },
       },
     },
     maxChars: {
       control: 'number',
-      description: 'Maximum character limit',
       table: {
         category: 'Behavior',
-        type: { summary: 'number' },
+        type: {
+          summary: 'number',
+        },
       },
     },
     errorMessage: {
       control: 'text',
-      description: 'Error message to display',
       table: {
         category: 'Behavior',
-        type: { summary: 'string' },
+        type: {
+          summary: 'string',
+        },
       },
     },
     overLimitMessage: {
       control: 'text',
-      description: 'Message when over character limit',
       table: {
         category: 'Behavior',
-        type: { summary: 'string' },
-        defaultValue: { summary: 'Too many characters' },
+        type: {
+          summary: 'string',
+        },
+        defaultValue: {
+          summary: 'Too many characters',
+        },
       },
     },
     disabled: {
       control: 'boolean',
-      description: 'Disable the textarea',
       table: {
         category: 'Behavior',
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' },
+        type: {
+          summary: 'boolean',
+        },
+        defaultValue: {
+          summary: 'false',
+        },
       },
     },
     className: {
       control: 'text',
-      description: 'Additional CSS classes',
       table: {
         category: 'Variants/Styling',
       },
@@ -80,37 +88,21 @@ const meta: Meta<typeof Textarea> = {
     ),
   ],
 };
-
 export default meta;
 type Story = StoryObj<typeof Textarea>;
-
-/**
- * Default textarea.
- */
 export const Default: Story = {
   render: () => <Textarea placeholder="Enter your message..." />,
   parameters: {
     order: 1,
-    docs: {
-      description: {
-        story: 'Default textarea with placeholder.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const textarea = canvas.getByPlaceholderText('Enter your message...');
-
     await expect(textarea).toBeInTheDocument();
-
     await userEvent.type(textarea, 'Hello World');
     await expect(textarea).toHaveValue('Hello World');
   },
 };
-
-/**
- * Textarea with label.
- */
 export const WithLabel: Story = {
   render: () => (
     <div className="grid w-full gap-1.5">
@@ -120,17 +112,8 @@ export const WithLabel: Story = {
   ),
   parameters: {
     order: 2,
-    docs: {
-      description: {
-        story: 'Textarea with an associated label.',
-      },
-    },
   },
 };
-
-/**
- * Textarea with character limit.
- */
 export const WithCharacterLimit: Story = {
   render: () => (
     <div className="grid w-full gap-1.5">
@@ -140,29 +123,17 @@ export const WithCharacterLimit: Story = {
   ),
   parameters: {
     order: 3,
-    docs: {
-      description: {
-        story: 'Textarea with a character counter showing remaining characters.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const textarea = canvas.getByPlaceholderText('Tell us about yourself...');
-
     await expect(canvas.getByText('100 characters left')).toBeInTheDocument();
-
     await userEvent.type(textarea, 'Hello');
-
     await waitFor(() => {
       expect(canvas.getByText('95 characters left')).toBeInTheDocument();
     });
   },
 };
-
-/**
- * Textarea over character limit.
- */
 export const OverLimit: Story = {
   render: () => (
     <div className="grid w-full gap-1.5">
@@ -176,17 +147,8 @@ export const OverLimit: Story = {
   ),
   parameters: {
     order: 4,
-    docs: {
-      description: {
-        story: 'Textarea with text exceeding the character limit.',
-      },
-    },
   },
 };
-
-/**
- * Textarea with error message.
- */
 export const WithError: Story = {
   render: () => (
     <div className="grid w-full gap-1.5">
@@ -200,11 +162,6 @@ export const WithError: Story = {
   ),
   parameters: {
     order: 5,
-    docs: {
-      description: {
-        story: 'Textarea with validation error message.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -212,10 +169,6 @@ export const WithError: Story = {
     await expect(errorText).toBeInTheDocument();
   },
 };
-
-/**
- * Disabled textarea.
- */
 export const Disabled: Story = {
   render: () => (
     <div className="space-y-4">
@@ -235,11 +188,6 @@ export const Disabled: Story = {
   ),
   parameters: {
     order: 6,
-    docs: {
-      description: {
-        story: 'Disabled textareas prevent user interaction.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -249,14 +197,9 @@ export const Disabled: Story = {
     }
   },
 };
-
-/**
- * Controlled textarea.
- */
 export const Controlled: Story = {
   render: function ControlledTextarea() {
     const [value, setValue] = useState('');
-
     return (
       <div className="space-y-4">
         <div className="grid w-full gap-1.5">
@@ -290,17 +233,8 @@ export const Controlled: Story = {
   },
   parameters: {
     order: 7,
-    docs: {
-      description: {
-        story: 'Controlled textarea with external state management.',
-      },
-    },
   },
 };
-
-/**
- * Custom character limit messages.
- */
 export const CustomMessages: Story = {
   render: () => (
     <div className="grid w-full gap-1.5">
@@ -318,17 +252,8 @@ export const CustomMessages: Story = {
   ),
   parameters: {
     order: 8,
-    docs: {
-      description: {
-        story: 'Textarea with customized character limit messages.',
-      },
-    },
   },
 };
-
-/**
- * All textarea states.
- */
 export const AllStates: Story = {
   render: () => (
     <div className="space-y-4">
@@ -356,17 +281,8 @@ export const AllStates: Story = {
   ),
   parameters: {
     order: 9,
-    docs: {
-      description: {
-        story: 'All textarea states for comparison.',
-      },
-    },
   },
 };
-
-/**
- * Edge cases with long text, special characters, and unicode.
- */
 export const EdgeCases: Story = {
   render: () => (
     <div className="space-y-4">
@@ -418,34 +334,21 @@ export const EdgeCases: Story = {
   ),
   parameters: {
     order: 10,
-    docs: {
-      description: {
-        story:
-          'Edge cases including very long values, special characters, emoji, unicode text, whitespace handling, and character limit overflow.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     const longValueTextarea = canvas.getByLabelText('Very long value');
     await expect(longValueTextarea).toHaveValue(
       'This is a very long textarea value that should demonstrate how the textarea handles overflow and text wrapping behavior in various scenarios and edge cases. The text continues on multiple lines to test the behavior with extensive content that spans several rows and demonstrates proper text handling in the component.'
     );
-
     const emojiTextarea = canvas.getByLabelText('Emoji');
     await expect(emojiTextarea).toHaveValue(
       '🚀 Hello World! 🌍 ✨ Multiline text with emoji on multiple lines. 🎉 More emoji here! 🔥'
     );
-
     const unicodeTextarea = canvas.getByLabelText('Unicode characters');
     await expect(unicodeTextarea).toHaveValue('中文字符 مرحبا Привет नमस्ते');
   },
 };
-
-/**
- * Visual regression testing.
- */
 export const VisualRegression: Story = {
   render: () => (
     <div className="space-y-6 p-4 w-100">
@@ -468,11 +371,6 @@ export const VisualRegression: Story = {
   ),
   parameters: {
     order: 11,
-    docs: {
-      description: {
-        story: 'Comprehensive visual overview for regression testing.',
-      },
-    },
     chromatic: {
       disableSnapshot: false,
     },
@@ -485,10 +383,6 @@ export const VisualRegression: Story = {
     ),
   ],
 };
-
-/**
- * Interactive playground.
- */
 export const Playground: Story = {
   args: {
     placeholder: 'Enter text...',
@@ -499,10 +393,5 @@ export const Playground: Story = {
   render: (args) => <Textarea {...args} />,
   parameters: {
     order: 99,
-    docs: {
-      description: {
-        story: 'Interactive playground - use controls to experiment with textarea props.',
-      },
-    },
   },
 };

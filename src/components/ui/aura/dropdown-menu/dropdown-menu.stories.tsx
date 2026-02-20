@@ -27,7 +27,6 @@ import {
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/aura/avatar';
 import { Button } from '@/components/ui/aura/button';
-
 const meta: Meta<typeof DropdownMenu> = {
   title: 'Primitives/Dropdown Menu',
   component: DropdownMenu,
@@ -38,36 +37,44 @@ const meta: Meta<typeof DropdownMenu> = {
   argTypes: {
     open: {
       control: 'boolean',
-      description: 'Controlled open state',
       table: {
         category: 'Behavior',
-        type: { summary: 'boolean' },
+        type: {
+          summary: 'boolean',
+        },
       },
     },
     defaultOpen: {
       control: 'boolean',
-      description: 'Default open state (uncontrolled)',
       table: {
         category: 'Behavior',
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' },
+        type: {
+          summary: 'boolean',
+        },
+        defaultValue: {
+          summary: 'false',
+        },
       },
     },
     modal: {
       control: 'boolean',
-      description: 'Whether the dropdown is modal (blocks interaction with other content)',
       table: {
         category: 'Behavior',
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'true' },
+        type: {
+          summary: 'boolean',
+        },
+        defaultValue: {
+          summary: 'true',
+        },
       },
     },
     onOpenChange: {
       action: 'openChanged',
-      description: 'Callback when open state changes',
       table: {
         category: 'Events',
-        type: { summary: '(open: boolean) => void' },
+        type: {
+          summary: '(open: boolean) => void',
+        },
       },
     },
   },
@@ -85,39 +92,47 @@ const meta: Meta<typeof DropdownMenu> = {
     },
   },
 };
-
 export default meta;
 type Story = StoryObj<typeof DropdownMenu>;
-
 async function openMenu(
   canvasElement: HTMLElement,
   triggerName: RegExp | string
 ): Promise<ReturnType<typeof within>> {
   const canvas = within(canvasElement);
-  const trigger = canvas.getByRole('button', { name: triggerName });
+  const trigger = canvas.getByRole('button', {
+    name: triggerName,
+  });
   await userEvent.click(trigger);
   const menu = await within(document.body).findByRole('menu');
   return within(menu);
 }
-
 export const Basic: Story = {
   parameters: {
     order: 1,
-    docs: {
-      description: {
-        story: 'Basic dropdown menu with action items.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const trigger = canvas.getByRole('button', { name: /open menu/i });
+    const trigger = canvas.getByRole('button', {
+      name: /open menu/i,
+    });
     await expect(trigger).toBeInTheDocument();
     await expect(trigger).toHaveAttribute('aria-haspopup');
     const menu = await openMenu(canvasElement, /open menu/i);
-    await expect(menu.getByRole('menuitem', { name: /profile/i })).toBeInTheDocument();
-    await expect(menu.getByRole('menuitem', { name: /settings/i })).toBeInTheDocument();
-    await expect(menu.getByRole('menuitem', { name: /help/i })).toBeInTheDocument();
+    await expect(
+      menu.getByRole('menuitem', {
+        name: /profile/i,
+      })
+    ).toBeInTheDocument();
+    await expect(
+      menu.getByRole('menuitem', {
+        name: /settings/i,
+      })
+    ).toBeInTheDocument();
+    await expect(
+      menu.getByRole('menuitem', {
+        name: /help/i,
+      })
+    ).toBeInTheDocument();
   },
   render: function BasicStory() {
     return (
@@ -145,15 +160,9 @@ export const Basic: Story = {
     );
   },
 };
-
 export const WithUserLabel: Story = {
   parameters: {
     order: 2,
-    docs: {
-      description: {
-        story: 'Dropdown menu with rich label content including avatar and user information.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const menu = await openMenu(canvasElement, /user menu/i);
@@ -198,15 +207,9 @@ export const WithUserLabel: Story = {
     );
   },
 };
-
 export const WithCheckboxItems: Story = {
   parameters: {
     order: 3,
-    docs: {
-      description: {
-        story: 'Dropdown menu with checkbox items for multi-select.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -216,7 +219,6 @@ export const WithCheckboxItems: Story = {
     expect(checkboxItems.length).toBeGreaterThanOrEqual(4);
     await userEvent.click(checkboxItems[0]);
     await expect(within(document.body).getByRole('menu')).toBeInTheDocument();
-
     await waitFor(() => {
       expect(canvas.getByText(/1 notification selected/i)).toBeInTheDocument();
     });
@@ -228,9 +230,7 @@ export const WithCheckboxItems: Story = {
       updates: false,
       security: false,
     });
-
     const selectedCount = Object.values(checkedItems).filter(Boolean).length;
-
     return (
       <div>
         <div className="text-sm text-muted-foreground">
@@ -273,7 +273,10 @@ export const WithCheckboxItems: Story = {
               <DropdownMenuCheckboxItem
                 checked={checkedItems.emails}
                 onCheckedChange={(checked) =>
-                  setCheckedItems((prev) => ({ ...prev, emails: checked }))
+                  setCheckedItems((prev) => ({
+                    ...prev,
+                    emails: checked,
+                  }))
                 }
               >
                 Email notifications
@@ -281,7 +284,10 @@ export const WithCheckboxItems: Story = {
               <DropdownMenuCheckboxItem
                 checked={checkedItems.messages}
                 onCheckedChange={(checked) =>
-                  setCheckedItems((prev) => ({ ...prev, messages: checked }))
+                  setCheckedItems((prev) => ({
+                    ...prev,
+                    messages: checked,
+                  }))
                 }
               >
                 Direct messages
@@ -289,7 +295,10 @@ export const WithCheckboxItems: Story = {
               <DropdownMenuCheckboxItem
                 checked={checkedItems.updates}
                 onCheckedChange={(checked) =>
-                  setCheckedItems((prev) => ({ ...prev, updates: checked }))
+                  setCheckedItems((prev) => ({
+                    ...prev,
+                    updates: checked,
+                  }))
                 }
               >
                 Product updates
@@ -297,7 +306,10 @@ export const WithCheckboxItems: Story = {
               <DropdownMenuCheckboxItem
                 checked={checkedItems.security}
                 onCheckedChange={(checked) =>
-                  setCheckedItems((prev) => ({ ...prev, security: checked }))
+                  setCheckedItems((prev) => ({
+                    ...prev,
+                    security: checked,
+                  }))
                 }
               >
                 Security alerts
@@ -309,16 +321,9 @@ export const WithCheckboxItems: Story = {
     );
   },
 };
-
 export const WithRadioGroup: Story = {
   parameters: {
     order: 4,
-    docs: {
-      description: {
-        story:
-          'Dropdown menu with radio group items. Menu stays open when selecting options. Shows current selection above for better visibility.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -328,7 +333,6 @@ export const WithRadioGroup: Story = {
     const radioItems = menu.getAllByRole('menuitemradio');
     await userEvent.click(radioItems[1]);
     await expect(within(document.body).getByRole('menu')).toBeInTheDocument();
-
     await waitFor(() => {
       expect(canvas.getByText(/current view:/i)).toBeInTheDocument();
       expect(canvas.getByText(/list/i)).toBeInTheDocument();
@@ -336,7 +340,6 @@ export const WithRadioGroup: Story = {
   },
   render: function WithRadioGroupStory({ modal = false }) {
     const [viewMode, setViewMode] = useState('grid');
-
     return (
       <div>
         <div className="text-sm text-muted-foreground">
@@ -367,26 +370,20 @@ export const WithRadioGroup: Story = {
     );
   },
 };
-
 export const WithDestructiveAction: Story = {
   parameters: {
     order: 5,
-    docs: {
-      description: {
-        story:
-          'Dropdown menu with a destructive action item. Destructive items have warning styling.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const menu = await openMenu(canvasElement, /actions/i);
-    const deleteItem = menu.getByRole('menuitem', { name: /delete/i });
+    const deleteItem = menu.getByRole('menuitem', {
+      name: /delete/i,
+    });
     await expect(deleteItem).toBeInTheDocument();
     await expect(deleteItem).toHaveAttribute('data-variant', 'destructive');
   },
   render: function WithDestructiveActionStory({ modal = false }) {
     const [, setAction] = useState<string>('');
-
     return (
       <div>
         <DropdownMenu modal={modal}>
@@ -411,20 +408,15 @@ export const WithDestructiveAction: Story = {
     );
   },
 };
-
 export const KeyboardNavigation: Story = {
   parameters: {
     order: 6,
-    docs: {
-      description: {
-        story:
-          'Tests keyboard navigation: Space/Enter to open, Arrow keys (not Tab) to navigate between items, Enter to select, Esc to close. Tab key moves focus out of the menu.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const trigger = await canvas.findByRole('button', { name: 'Keyboard Test' });
+    const trigger = await canvas.findByRole('button', {
+      name: 'Keyboard Test',
+    });
     trigger.focus();
     await expect(trigger).toHaveFocus();
     await userEvent.keyboard('{Enter}');
@@ -433,7 +425,9 @@ export const KeyboardNavigation: Story = {
       await userEvent.click(trigger);
       menu = await within(document.body).findByRole('menu');
     }
-    await within(menu).findByRole('menuitem', { name: /first item/i });
+    await within(menu).findByRole('menuitem', {
+      name: /first item/i,
+    });
     await userEvent.keyboard('{ArrowDown}');
     await waitFor(() => {
       const menuDoc = canvasElement.ownerDocument;
@@ -441,14 +435,12 @@ export const KeyboardNavigation: Story = {
       expect(focused).toHaveAttribute('data-slot', 'dropdown-menu-item');
     });
     await userEvent.keyboard('{Escape}');
-
     await waitFor(() => {
       expect(within(document.body).queryByRole('menu')).not.toBeInTheDocument();
     });
   },
   render: function KeyboardNavigationStory({ modal = false }) {
     const [selectedItem, setSelectedItem] = useState<string>('');
-
     return (
       <div>
         {selectedItem && (
@@ -477,19 +469,17 @@ export const KeyboardNavigation: Story = {
     );
   },
 };
-
 export const EmptyMenu: Story = {
   parameters: {
     order: 7,
-    docs: {
-      description: {
-        story: 'Edge case: Dropdown menu with no available items, showing disabled placeholder.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const menu = await openMenu(canvasElement, /empty menu/i);
-    await expect(menu.getByRole('menuitem', { name: /no items available/i })).toBeInTheDocument();
+    await expect(
+      menu.getByRole('menuitem', {
+        name: /no items available/i,
+      })
+    ).toBeInTheDocument();
   },
   render: function EmptyMenuStory() {
     return (
@@ -504,15 +494,9 @@ export const EmptyMenu: Story = {
     );
   },
 };
-
 export const DisabledTrigger: Story = {
   parameters: {
     order: 8,
-    docs: {
-      description: {
-        story: 'Dropdown menu with disabled trigger.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -537,15 +521,9 @@ export const DisabledTrigger: Story = {
     );
   },
 };
-
 export const ComplexInteractive: Story = {
   parameters: {
     order: 9,
-    docs: {
-      description: {
-        story: 'Complex menu with checkboxes, radio groups, and actions.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const menu = await openMenu(canvasElement, /preferences/i);
@@ -558,7 +536,11 @@ export const ComplexInteractive: Story = {
     await waitFor(() => {
       expect(within(document.body).getByRole('menu')).toBeInTheDocument();
     });
-    await expect(menu.getByRole('menuitem', { name: /reset to defaults/i })).toBeInTheDocument();
+    await expect(
+      menu.getByRole('menuitem', {
+        name: /reset to defaults/i,
+      })
+    ).toBeInTheDocument();
   },
   render: function ComplexInteractiveStory({ modal = false }) {
     const [notifications, setNotifications] = useState({
@@ -568,9 +550,7 @@ export const ComplexInteractive: Story = {
     });
     const [theme, setTheme] = useState('light');
     const [lastAction, setLastAction] = useState('');
-
     const notificationCount = Object.values(notifications).filter(Boolean).length;
-
     return (
       <div className="w-80">
         <div className="space-y-3 text-sm">
@@ -616,7 +596,10 @@ export const ComplexInteractive: Story = {
               <DropdownMenuCheckboxItem
                 checked={notifications.email}
                 onCheckedChange={(checked) =>
-                  setNotifications((prev) => ({ ...prev, email: checked }))
+                  setNotifications((prev) => ({
+                    ...prev,
+                    email: checked,
+                  }))
                 }
               >
                 Email notifications
@@ -624,7 +607,10 @@ export const ComplexInteractive: Story = {
               <DropdownMenuCheckboxItem
                 checked={notifications.push}
                 onCheckedChange={(checked) =>
-                  setNotifications((prev) => ({ ...prev, push: checked }))
+                  setNotifications((prev) => ({
+                    ...prev,
+                    push: checked,
+                  }))
                 }
               >
                 Push notifications
@@ -632,7 +618,10 @@ export const ComplexInteractive: Story = {
               <DropdownMenuCheckboxItem
                 checked={notifications.sms}
                 onCheckedChange={(checked) =>
-                  setNotifications((prev) => ({ ...prev, sms: checked }))
+                  setNotifications((prev) => ({
+                    ...prev,
+                    sms: checked,
+                  }))
                 }
               >
                 SMS notifications
@@ -664,19 +653,12 @@ export const ComplexInteractive: Story = {
     );
   },
 };
-
 export const Playground: Story = {
   parameters: {
     order: 99,
-    docs: {
-      description: {
-        story: 'Interactive playground - use controls to experiment with dropdown menu props.',
-      },
-    },
   },
   render: function PlaygroundStory({ modal = false }) {
     const [selectedItem, setSelectedItem] = useState<string>('');
-
     return (
       <div>
         {selectedItem && (

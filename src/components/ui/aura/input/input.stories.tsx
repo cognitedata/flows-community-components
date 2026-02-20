@@ -7,7 +7,6 @@ import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from '
 import { Label } from '../label';
 
 import { Input, PasswordInput } from './input';
-
 const meta: Meta<typeof Input> = {
   title: 'Primitives/Input',
   component: Input,
@@ -16,58 +15,69 @@ const meta: Meta<typeof Input> = {
     type: {
       control: 'select',
       options: ['text', 'email', 'password', 'number', 'tel', 'url', 'search'],
-      description: 'The type of input',
       table: {
         category: 'Content',
-        type: { summary: 'string' },
-        defaultValue: { summary: 'text' },
+        type: {
+          summary: 'string',
+        },
+        defaultValue: {
+          summary: 'text',
+        },
       },
     },
     placeholder: {
       control: 'text',
-      description: 'Placeholder text',
       table: {
         category: 'Content',
-        type: { summary: 'string' },
+        type: {
+          summary: 'string',
+        },
       },
     },
     defaultValue: {
       control: 'text',
-      description: 'Default value (uncontrolled)',
       table: {
         category: 'Content',
-        type: { summary: 'string' },
+        type: {
+          summary: 'string',
+        },
       },
     },
     disabled: {
       control: 'boolean',
-      description: 'Disable the input',
       table: {
         category: 'Behavior',
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' },
+        type: {
+          summary: 'boolean',
+        },
+        defaultValue: {
+          summary: 'false',
+        },
       },
     },
     readOnly: {
       control: 'boolean',
-      description: 'Make the input read-only',
       table: {
         category: 'Behavior',
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' },
+        type: {
+          summary: 'boolean',
+        },
+        defaultValue: {
+          summary: 'false',
+        },
       },
     },
     errorMessage: {
       control: 'text',
-      description: 'Error message to display',
       table: {
         category: 'Behavior',
-        type: { summary: 'string' },
+        type: {
+          summary: 'string',
+        },
       },
     },
     className: {
       control: 'text',
-      description: 'Additional CSS classes',
       table: {
         category: 'Variants/Styling',
       },
@@ -84,37 +94,21 @@ const meta: Meta<typeof Input> = {
     ),
   ],
 };
-
 export default meta;
 type Story = StoryObj<typeof Input>;
-
-/**
- * Default text input.
- */
 export const Default: Story = {
   render: () => <Input placeholder="Input text" />,
   parameters: {
     order: 1,
-    docs: {
-      description: {
-        story: 'Default text input with placeholder.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const input = canvas.getByPlaceholderText('Input text');
-
     await expect(input).toBeInTheDocument();
-
     await userEvent.type(input, 'Input text');
     await expect(input).toHaveValue('Input text');
   },
 };
-
-/**
- * Input with label.
- */
 export const WithLabel: Story = {
   render: () => (
     <div className="grid w-full items-center gap-1">
@@ -124,11 +118,6 @@ export const WithLabel: Story = {
   ),
   parameters: {
     order: 2,
-    docs: {
-      description: {
-        story: 'Input field with an associated label for accessibility.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -136,10 +125,6 @@ export const WithLabel: Story = {
     await expect(input).toBeInTheDocument();
   },
 };
-
-/**
- * Disabled input.
- */
 export const Disabled: Story = {
   render: () => (
     <div className="space-y-4">
@@ -155,11 +140,6 @@ export const Disabled: Story = {
   ),
   parameters: {
     order: 3,
-    docs: {
-      description: {
-        story: 'Disabled inputs prevent user interaction.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -169,10 +149,6 @@ export const Disabled: Story = {
     }
   },
 };
-
-/**
- * Read-only input.
- */
 export const ReadOnly: Story = {
   render: () => (
     <div className="grid w-full items-center gap-1">
@@ -182,11 +158,6 @@ export const ReadOnly: Story = {
   ),
   parameters: {
     order: 4,
-    docs: {
-      description: {
-        story: 'Read-only inputs display data without allowing user modification.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -194,22 +165,16 @@ export const ReadOnly: Story = {
     await expect(input).toHaveAttribute('readonly');
   },
 };
-
-/**
- * Read-only input with copy button using InputGroup composition.
- */
 export const ReadOnlyWithCopy: Story = {
   render: function ReadOnlyWithCopyExample() {
     const [copied, setCopied] = useState(false);
     const [isClipboardAvailable, setIsClipboardAvailable] = useState(true);
     const timeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
-
     useEffect(() => {
       setIsClipboardAvailable(
         typeof navigator !== 'undefined' && typeof navigator.clipboard !== 'undefined'
       );
     }, []);
-
     useEffect(() => {
       return () => {
         if (timeoutRef.current !== undefined) {
@@ -217,7 +182,6 @@ export const ReadOnlyWithCopy: Story = {
         }
       };
     }, []);
-
     const handleCopy = () => {
       const value = 'sk-1234567890abcdef';
       void navigator.clipboard
@@ -231,7 +195,6 @@ export const ReadOnlyWithCopy: Story = {
         })
         .catch(() => undefined);
     };
-
     if (!isClipboardAvailable) {
       return (
         <div className="grid w-full items-center gap-1">
@@ -240,7 +203,6 @@ export const ReadOnlyWithCopy: Story = {
         </div>
       );
     }
-
     return (
       <div className="grid w-full items-center gap-1">
         <Label htmlFor="readonly-api-key">API Key</Label>
@@ -261,28 +223,17 @@ export const ReadOnlyWithCopy: Story = {
   },
   parameters: {
     order: 5,
-    docs: {
-      description: {
-        story: 'Read-only input with copy action using InputGroup composition.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const input = canvas.getByDisplayValue('sk-1234567890abcdef');
     await expect(input).toHaveAttribute('readonly');
-
     const copyButton = canvas.getByLabelText('Copy to clipboard');
     await expect(copyButton).toBeInTheDocument();
-
     const label = canvas.getByText('API Key');
     await expect(label).toBeInTheDocument();
   },
 };
-
-/**
- * Input with error message.
- */
 export const WithError: Story = {
   render: () => (
     <div className="grid w-full items-center gap-1">
@@ -292,11 +243,6 @@ export const WithError: Story = {
   ),
   parameters: {
     order: 10,
-    docs: {
-      description: {
-        story: 'Input with validation error message displayed.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -304,10 +250,6 @@ export const WithError: Story = {
     await expect(errorText).toBeInTheDocument();
   },
 };
-
-/**
- * Input with default value.
- */
 export const WithDefaultValue: Story = {
   render: () => (
     <div className="grid w-full items-center gap-1">
@@ -317,21 +259,11 @@ export const WithDefaultValue: Story = {
   ),
   parameters: {
     order: 11,
-    docs: {
-      description: {
-        story: 'Input with a pre-filled default value.',
-      },
-    },
   },
 };
-
-/**
- * Controlled input.
- */
 export const Controlled: Story = {
   render: function ControlledInput() {
     const [value, setValue] = useState('');
-
     return (
       <div className="space-y-4">
         <div className="grid w-full items-center gap-1">
@@ -365,28 +297,17 @@ export const Controlled: Story = {
   },
   parameters: {
     order: 12,
-    docs: {
-      description: {
-        story: 'Controlled input with external state management.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const input = canvas.getByLabelText('Controlled input');
-
     await userEvent.type(input, 'Test');
     await expect(input).toHaveValue('Test');
-
     const clearButton = canvas.getByText('Clear');
     await userEvent.click(clearButton);
     await expect(input).toHaveValue('');
   },
 };
-
-/**
- * Different input types.
- */
 export const InputTypes: Story = {
   render: () => (
     <div className="space-y-4">
@@ -414,17 +335,8 @@ export const InputTypes: Story = {
   ),
   parameters: {
     order: 13,
-    docs: {
-      description: {
-        story: 'Various input types for different data formats.',
-      },
-    },
   },
 };
-
-/**
- * Form example with multiple inputs.
- */
 export const FormExample: Story = {
   render: () => (
     <form
@@ -452,17 +364,8 @@ export const FormExample: Story = {
   ),
   parameters: {
     order: 14,
-    docs: {
-      description: {
-        story: 'Complete form example with email and password inputs.',
-      },
-    },
   },
 };
-
-/**
- * All input states.
- */
 export const AllStates: Story = {
   render: () => (
     <div className="space-y-4">
@@ -490,17 +393,8 @@ export const AllStates: Story = {
   ),
   parameters: {
     order: 15,
-    docs: {
-      description: {
-        story: 'All input states for comparison.',
-      },
-    },
   },
 };
-
-/**
- * Edge cases with long text, special characters, and unicode.
- */
 export const EdgeCases: Story = {
   render: () => (
     <div className="space-y-4">
@@ -538,32 +432,19 @@ export const EdgeCases: Story = {
   ),
   parameters: {
     order: 16,
-    docs: {
-      description: {
-        story:
-          'Edge cases including very long values, special characters, emoji, unicode text, and whitespace handling.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     const longValueInput = canvas.getByLabelText('Very long value');
     await expect(longValueInput).toHaveValue(
       'This is a very long input value that should demonstrate how the input handles overflow and text wrapping behavior in various scenarios and edge cases'
     );
-
     const emojiInput = canvas.getByLabelText('Emoji');
     await expect(emojiInput).toHaveValue('🚀 Hello World! 🌍 ✨');
-
     const unicodeInput = canvas.getByLabelText('Unicode characters');
     await expect(unicodeInput).toHaveValue('中文字符 مرحبا Привет नमस्ते');
   },
 };
-
-/**
- * Visual regression testing.
- */
 export const VisualRegression: Story = {
   render: () => (
     <div className="space-y-6 p-4 w-88">
@@ -599,11 +480,6 @@ export const VisualRegression: Story = {
   ),
   parameters: {
     order: 17,
-    docs: {
-      description: {
-        story: 'Comprehensive visual overview for regression testing.',
-      },
-    },
     chromatic: {
       disableSnapshot: false,
     },
@@ -616,10 +492,6 @@ export const VisualRegression: Story = {
     ),
   ],
 };
-
-/**
- * Password input with show/hide toggle.
- */
 export const PasswordBasic: Story = {
   render: () => (
     <div className="grid w-full items-center gap-1">
@@ -629,35 +501,23 @@ export const PasswordBasic: Story = {
   ),
   parameters: {
     order: 6,
-    docs: {
-      description: {
-        story: 'Password input with built-in show/hide toggle button.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const input = canvas.getByPlaceholderText('Enter your password');
     await expect(input).toHaveAttribute('type', 'password');
-
     const toggleButton = canvas.getByLabelText('Show password');
     await expect(toggleButton).toBeInTheDocument();
-
     await userEvent.click(toggleButton);
     await waitFor(() => {
       expect(input).toHaveAttribute('type', 'text');
     });
-
     await userEvent.click(canvas.getByLabelText('Hide password'));
     await waitFor(() => {
       expect(input).toHaveAttribute('type', 'password');
     });
   },
 };
-
-/**
- * Password input with value.
- */
 export const PasswordWithValue: Story = {
   render: () => (
     <div className="grid w-full items-center gap-1">
@@ -667,17 +527,8 @@ export const PasswordWithValue: Story = {
   ),
   parameters: {
     order: 7,
-    docs: {
-      description: {
-        story: 'Password input with a pre-filled value.',
-      },
-    },
   },
 };
-
-/**
- * Password input with error.
- */
 export const PasswordWithError: Story = {
   render: () => (
     <div className="grid w-full items-center gap-1">
@@ -691,11 +542,6 @@ export const PasswordWithError: Story = {
   ),
   parameters: {
     order: 8,
-    docs: {
-      description: {
-        story: 'Password input with validation error message.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -703,10 +549,6 @@ export const PasswordWithError: Story = {
     await expect(errorText).toBeInTheDocument();
   },
 };
-
-/**
- * Password input states.
- */
 export const PasswordStates: Story = {
   render: () => (
     <div className="space-y-4">
@@ -730,17 +572,8 @@ export const PasswordStates: Story = {
   ),
   parameters: {
     order: 9,
-    docs: {
-      description: {
-        story: 'All password input states for comparison.',
-      },
-    },
   },
 };
-
-/**
- * Interactive playground.
- */
 export const Playground: Story = {
   args: {
     type: 'text',
@@ -751,10 +584,5 @@ export const Playground: Story = {
   render: (args) => <Input {...args} />,
   parameters: {
     order: 99,
-    docs: {
-      description: {
-        story: 'Interactive playground - use controls to experiment with input props.',
-      },
-    },
   },
 };

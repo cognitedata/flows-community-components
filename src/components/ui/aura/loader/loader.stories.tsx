@@ -4,8 +4,6 @@ import { expect, within } from '@storybook/test';
 import { Loader } from './loader';
 
 import { Button } from '@/components/ui/aura/button';
-
-
 const meta: Meta<typeof Loader> = {
   title: 'AI/Loader',
   component: Loader,
@@ -13,16 +11,18 @@ const meta: Meta<typeof Loader> = {
   argTypes: {
     size: {
       control: 'number',
-      description: 'Size of the loader in pixels',
       table: {
         category: 'Variants/Styling',
-        type: { summary: 'number' },
-        defaultValue: { summary: '16' },
+        type: {
+          summary: 'number',
+        },
+        defaultValue: {
+          summary: '16',
+        },
       },
     },
     className: {
       control: 'text',
-      description: 'Additional CSS classes',
       table: {
         category: 'Variants/Styling',
       },
@@ -32,22 +32,12 @@ const meta: Meta<typeof Loader> = {
     layout: 'centered',
   },
 };
-
 export default meta;
 type Story = StoryObj<typeof Loader>;
-
-/**
- * Default loader.
- */
 export const Default: Story = {
   render: () => <Loader aria-label="Loading" />,
   parameters: {
     order: 1,
-    docs: {
-      description: {
-        story: 'Default spinning loader.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -55,10 +45,6 @@ export const Default: Story = {
     await expect(loader).toBeInTheDocument();
   },
 };
-
-/**
- * Different sizes.
- */
 export const Sizes: Story = {
   render: () => (
     <div className="flex items-center gap-8">
@@ -86,17 +72,8 @@ export const Sizes: Story = {
   ),
   parameters: {
     order: 2,
-    docs: {
-      description: {
-        story: 'Loader in different sizes.',
-      },
-    },
   },
 };
-
-/**
- * Loader in button.
- */
 export const InButton: Story = {
   render: () => (
     <div className="flex gap-4">
@@ -116,17 +93,8 @@ export const InButton: Story = {
   ),
   parameters: {
     order: 3,
-    docs: {
-      description: {
-        story: 'Loader used inside buttons to indicate loading state.',
-      },
-    },
   },
 };
-
-/**
- * Loader with text.
- */
 export const WithText: Story = {
   render: () => (
     <div className="space-y-4">
@@ -149,17 +117,8 @@ export const WithText: Story = {
   ),
   parameters: {
     order: 4,
-    docs: {
-      description: {
-        story: 'Loader displayed alongside text.',
-      },
-    },
   },
 };
-
-/**
- * Centered loader.
- */
 export const Centered: Story = {
   render: () => (
     <div className="w-80 h-48 border rounded-lg flex items-center justify-center">
@@ -171,17 +130,8 @@ export const Centered: Story = {
   ),
   parameters: {
     order: 5,
-    docs: {
-      description: {
-        story: 'Loader centered in a container.',
-      },
-    },
   },
 };
-
-/**
- * Loader in card.
- */
 export const InCard: Story = {
   render: () => (
     <div className="w-80 rounded-lg border p-4">
@@ -198,17 +148,8 @@ export const InCard: Story = {
   ),
   parameters: {
     order: 6,
-    docs: {
-      description: {
-        story: 'Loader displayed in a card with skeleton content.',
-      },
-    },
   },
 };
-
-/**
- * Overlay loader.
- */
 export const Overlay: Story = {
   render: () => (
     <div className="relative w-80 h-48 border rounded-lg">
@@ -226,17 +167,8 @@ export const Overlay: Story = {
   ),
   parameters: {
     order: 7,
-    docs: {
-      description: {
-        story: 'Loader as an overlay on content.',
-      },
-    },
   },
 };
-
-/**
- * Custom colored loader.
- */
 export const CustomColors: Story = {
   render: () => (
     <div className="flex items-center gap-8">
@@ -249,17 +181,8 @@ export const CustomColors: Story = {
   ),
   parameters: {
     order: 8,
-    docs: {
-      description: {
-        story: 'Loader with custom colors using className.',
-      },
-    },
   },
 };
-
-/**
- * Inline loader.
- */
 export const Inline: Story = {
   render: () => (
     <div className="space-y-2 text-sm">
@@ -273,17 +196,8 @@ export const Inline: Story = {
   ),
   parameters: {
     order: 9,
-    docs: {
-      description: {
-        story: 'Loader used inline within text.',
-      },
-    },
   },
 };
-
-/**
- * Accessible loading states.
- */
 export const Accessibility: Story = {
   render: () => (
     <div className="space-y-6">
@@ -319,17 +233,8 @@ export const Accessibility: Story = {
   ),
   parameters: {
     order: 10,
-    docs: {
-      description: {
-        story: 'Loader with proper ARIA attributes for screen readers.',
-      },
-    },
   },
 };
-
-/**
- * Visual regression testing.
- */
 export const VisualRegression: Story = {
   render: () => (
     <div className="space-y-8 p-4">
@@ -372,20 +277,11 @@ export const VisualRegression: Story = {
   ),
   parameters: {
     order: 11,
-    docs: {
-      description: {
-        story: 'Visual overview of loader variations.',
-      },
-    },
     chromatic: {
       pauseAnimationAtEnd: true,
     },
   },
 };
-
-/**
- * Interactive playground.
- */
 export const Playground: Story = {
   args: {
     size: 16,
@@ -393,10 +289,5 @@ export const Playground: Story = {
   render: (args) => <Loader {...args} />,
   parameters: {
     order: 99,
-    docs: {
-      description: {
-        story: 'Interactive playground - use controls to experiment with loader props.',
-      },
-    },
   },
 };

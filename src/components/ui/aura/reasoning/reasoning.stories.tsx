@@ -10,7 +10,6 @@ import {
   ToolInput,
   ToolOutput,
 } from '@/components/ui/aura/tool/tool';
-
 const meta: Meta<typeof Reasoning> = {
   title: 'AI/Reasoning',
   component: Reasoning,
@@ -18,29 +17,25 @@ const meta: Meta<typeof Reasoning> = {
   argTypes: {
     children: {
       control: false,
-      description: 'The reasoning content including header and items',
       table: {
         category: 'Content',
-        type: { summary: 'ReactNode' },
+        type: {
+          summary: 'ReactNode',
+        },
       },
     },
-
     className: {
       control: 'text',
-      description: 'Additional CSS classes for custom styling',
       table: {
         category: 'Variants/Styling',
-        type: { summary: 'string' },
+        type: {
+          summary: 'string',
+        },
       },
     },
   },
   parameters: {
     layout: 'centered',
-    docs: {
-      description: {
-        component: 'Container for AI reasoning steps with optional tool-call content.',
-      },
-    },
   },
   decorators: [
     (Story) => (
@@ -50,10 +45,8 @@ const meta: Meta<typeof Reasoning> = {
     ),
   ],
 };
-
 export default meta;
 type Story = StoryObj<typeof Reasoning>;
-
 export const IndustrialWorkflow: Story = {
   render: () => (
     <Reasoning>
@@ -72,8 +65,16 @@ export const IndustrialWorkflow: Story = {
               <ToolOutput
                 output={{
                   assets: [
-                    { id: 1, name: 'Pump 21PT1019', building: 'A' },
-                    { id: 2, name: 'Pump 21PT1020', building: 'A' },
+                    {
+                      id: 1,
+                      name: 'Pump 21PT1019',
+                      building: 'A',
+                    },
+                    {
+                      id: 2,
+                      name: 'Pump 21PT1020',
+                      building: 'A',
+                    },
                   ],
                   total: 2,
                 }}
@@ -96,8 +97,16 @@ export const IndustrialWorkflow: Story = {
               />
               <ToolOutput
                 output={{
-                  vibration: { current: 2.3, average: 1.8, unit: 'mm/s' },
-                  temperature: { current: 68, average: 55, unit: '°C' },
+                  vibration: {
+                    current: 2.3,
+                    average: 1.8,
+                    unit: 'mm/s',
+                  },
+                  temperature: {
+                    current: 68,
+                    average: 55,
+                    unit: '°C',
+                  },
                 }}
                 errorText={undefined}
               />
@@ -132,11 +141,6 @@ export const IndustrialWorkflow: Story = {
   ),
   parameters: {
     order: 1,
-    docs: {
-      description: {
-        story: 'Reasoning workflow with multiple tool calls.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -144,16 +148,13 @@ export const IndustrialWorkflow: Story = {
       name: /find assets|get sensor data|analyze trends/i,
     });
     await expect(toolButtons.length).toBe(3);
-
     await expect(toolButtons[0]).toHaveTextContent('Find assets');
     await expect(toolButtons[1]).toHaveTextContent('Get sensor data');
     await expect(toolButtons[2]).toHaveTextContent('Analyze trends');
-
     const firstTool = toolButtons[0];
     if (!firstTool.hasAttribute('data-panel-open')) {
       await userEvent.click(firstTool);
     }
-
     await waitFor(() => {
       const firstPanelId = firstTool.getAttribute('aria-controls');
       const firstPanel = firstPanelId ? document.getElementById(firstPanelId) : null;
@@ -167,12 +168,10 @@ export const IndustrialWorkflow: Story = {
       expect(firstPanel.textContent).toContain('Show all pumps in building A');
       expect(firstPanel.textContent).toContain('Pump 21PT1019');
     });
-
     const secondTool = toolButtons[1];
     if (!secondTool.hasAttribute('data-panel-open')) {
       await userEvent.click(secondTool);
     }
-
     await waitFor(() => {
       const secondPanelId = secondTool.getAttribute('aria-controls');
       const secondPanel = secondPanelId ? document.getElementById(secondPanelId) : null;
@@ -185,7 +184,6 @@ export const IndustrialWorkflow: Story = {
     });
   },
 };
-
 export const SingleToolCall: Story = {
   render: () => (
     <Reasoning>
@@ -217,25 +215,16 @@ export const SingleToolCall: Story = {
   ),
   parameters: {
     order: 2,
-    docs: {
-      description: {
-        story: 'Single tool call in a reasoning flow.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     const toolButtons = await canvas.findAllByRole('button');
     await expect(toolButtons.length).toBe(1);
-
     await expect(toolButtons[0]).toHaveTextContent('Look up asset details');
-
     const singleToolButton = toolButtons[0];
     if (!singleToolButton.hasAttribute('data-panel-open')) {
       await userEvent.click(singleToolButton);
     }
-
     await waitFor(() => {
       const panelId = singleToolButton.getAttribute('aria-controls');
       const panel = panelId ? document.getElementById(panelId) : null;
@@ -251,7 +240,6 @@ export const SingleToolCall: Story = {
     });
   },
 };
-
 export const ToolWithError: Story = {
   render: () => (
     <Reasoning>
@@ -287,7 +275,10 @@ export const ToolWithError: Story = {
                 output={{
                   cached: true,
                   age: '5 minutes',
-                  data: { assets: [], total: 0 },
+                  data: {
+                    assets: [],
+                    total: 0,
+                  },
                 }}
                 errorText={undefined}
               />
@@ -299,38 +290,27 @@ export const ToolWithError: Story = {
   ),
   parameters: {
     order: 3,
-    docs: {
-      description: {
-        story: 'Tool call with error and fallback handling.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     const toolButtons = await canvas.findAllByRole('button');
     await expect(toolButtons.length).toBe(2);
-
     if (!toolButtons[0].hasAttribute('data-panel-open')) {
       await userEvent.click(toolButtons[0]);
     }
-
     await waitFor(() => {
       expect(canvas.getByText('Error')).toBeVisible();
       expect(canvas.getByText(/Database connection timeout/)).toBeVisible();
     });
-
     if (!toolButtons[1].hasAttribute('data-panel-open')) {
       await userEvent.click(toolButtons[1]);
     }
-
     await waitFor(() => {
       expect(canvas.getAllByText('Result').length).toBeGreaterThanOrEqual(1);
       expect(canvasElement.textContent).toContain('cached');
     });
   },
 };
-
 export const ManyToolCalls: Story = {
   render: () => (
     <Reasoning>
@@ -472,20 +452,12 @@ export const ManyToolCalls: Story = {
   ),
   parameters: {
     order: 4,
-    docs: {
-      description: {
-        story: 'Multi-step reasoning workflow with several tool calls.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     const toolButtons = await canvas.findAllByRole('button');
     await expect(toolButtons.length).toBe(6);
-
     await expect(canvas.getByText('Complex Analysis Workflow')).toBeInTheDocument();
-
     if (!toolButtons[0].hasAttribute('data-panel-open')) {
       await userEvent.click(toolButtons[0]);
     }
@@ -495,7 +467,6 @@ export const ManyToolCalls: Story = {
     if (!toolButtons[5].hasAttribute('data-panel-open')) {
       await userEvent.click(toolButtons[5]);
     }
-
     await waitFor(() => {
       expect(canvasElement.textContent).toContain('sensor-database');
       expect(canvasElement.textContent).toContain('isolation-forest');
@@ -503,7 +474,6 @@ export const ManyToolCalls: Story = {
     });
   },
 };
-
 export const LongContent: Story = {
   render: () => (
     <Reasoning>
@@ -588,20 +558,13 @@ export const LongContent: Story = {
   ),
   parameters: {
     order: 5,
-    docs: {
-      description: {
-        story: 'Tool call with long JSON input and output.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     const toolButton = await canvas.findByRole('button');
     if (!toolButton.hasAttribute('data-panel-open')) {
       await userEvent.click(toolButton);
     }
-
     await waitFor(() => {
       expect(canvasElement.textContent).toContain('readings');
       expect(canvasElement.textContent).toContain('total_readings');
@@ -610,7 +573,6 @@ export const LongContent: Story = {
     });
   },
 };
-
 export const CustomHeaders: Story = {
   render: () => (
     <div className="space-y-6">
@@ -621,8 +583,17 @@ export const CustomHeaders: Story = {
             <Tool>
               <ToolHeader title="Extract data" type="tool-call" />
               <ToolContent>
-                <ToolInput input={{ source: 'database' }} />
-                <ToolOutput output={{ records: 1000 }} errorText={undefined} />
+                <ToolInput
+                  input={{
+                    source: 'database',
+                  }}
+                />
+                <ToolOutput
+                  output={{
+                    records: 1000,
+                  }}
+                  errorText={undefined}
+                />
               </ToolContent>
             </Tool>
           </ReasoningItem>
@@ -641,8 +612,17 @@ export const CustomHeaders: Story = {
             <Tool>
               <ToolHeader title="Transform data" type="tool-call" />
               <ToolContent>
-                <ToolInput input={{ format: 'json' }} />
-                <ToolOutput output={{ success: true }} errorText={undefined} />
+                <ToolInput
+                  input={{
+                    format: 'json',
+                  }}
+                />
+                <ToolOutput
+                  output={{
+                    success: true,
+                  }}
+                  errorText={undefined}
+                />
               </ToolContent>
             </Tool>
           </ReasoningItem>
@@ -652,29 +632,20 @@ export const CustomHeaders: Story = {
   ),
   parameters: {
     order: 6,
-    docs: {
-      description: {
-        story: 'Header variants with default and custom content.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     expect(canvas.getByText('Data Pipeline Execution')).toBeInTheDocument();
     expect(canvas.getByText('Processing')).toBeInTheDocument();
     expect(canvas.getByText('3 steps')).toBeInTheDocument();
-
     const toolButtons = await canvas.findAllByRole('button');
     expect(toolButtons).toHaveLength(2);
-
     if (!toolButtons[0].hasAttribute('data-panel-open')) {
       await userEvent.click(toolButtons[0]);
     }
     await waitFor(() => {
       expect(canvas.getAllByText('Parameters')[0]).toBeVisible();
     });
-
     if (!toolButtons[1].hasAttribute('data-panel-open')) {
       await userEvent.click(toolButtons[1]);
     }
@@ -683,7 +654,6 @@ export const CustomHeaders: Story = {
     });
   },
 };
-
 export const Accessibility: Story = {
   render: () => (
     <Reasoning>
@@ -735,46 +705,32 @@ export const Accessibility: Story = {
   ),
   parameters: {
     order: 7,
-    docs: {
-      description: {
-        story: 'Accessibility checks for keyboard and button names.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     const toolButtons = await canvas.findAllByRole('button');
-
     await expect(toolButtons[0]).toHaveAccessibleName('Check system status');
     await expect(toolButtons[1]).toHaveAccessibleName('Run diagnostics');
-
     toolButtons[0].focus();
     await expect(toolButtons[0]).toHaveFocus();
-
     if (!toolButtons[0].hasAttribute('data-panel-open')) {
       await userEvent.keyboard('{Enter}');
     }
-
     await waitFor(() => {
       expect(canvas.getAllByText('Parameters').length).toBeGreaterThanOrEqual(1);
       expect(canvasElement.textContent).toContain('api');
     });
-
     toolButtons[1].focus();
     await expect(toolButtons[1]).toHaveFocus();
-
     if (!toolButtons[1].hasAttribute('data-panel-open')) {
       await userEvent.keyboard(' ');
     }
-
     await waitFor(() => {
       expect(canvas.getAllByText('Parameters').length).toBeGreaterThanOrEqual(2);
       expect(canvasElement.textContent).toContain('comprehensive');
     });
   },
 };
-
 export const VisualRegression: Story = {
   render: () => (
     <div className="space-y-8 p-4">
@@ -787,8 +743,17 @@ export const VisualRegression: Story = {
               <Tool>
                 <ToolHeader title="Single tool call" type="tool-call" />
                 <ToolContent>
-                  <ToolInput input={{ test: true }} />
-                  <ToolOutput output={{ result: 'success' }} errorText={undefined} />
+                  <ToolInput
+                    input={{
+                      test: true,
+                    }}
+                  />
+                  <ToolOutput
+                    output={{
+                      result: 'success',
+                    }}
+                    errorText={undefined}
+                  />
                 </ToolContent>
               </Tool>
             </ReasoningItem>
@@ -805,8 +770,17 @@ export const VisualRegression: Story = {
               <Tool>
                 <ToolHeader title="First tool" type="tool-call" />
                 <ToolContent>
-                  <ToolInput input={{ step: 1 }} />
-                  <ToolOutput output={{ done: true }} errorText={undefined} />
+                  <ToolInput
+                    input={{
+                      step: 1,
+                    }}
+                  />
+                  <ToolOutput
+                    output={{
+                      done: true,
+                    }}
+                    errorText={undefined}
+                  />
                 </ToolContent>
               </Tool>
             </ReasoningItem>
@@ -814,8 +788,17 @@ export const VisualRegression: Story = {
               <Tool>
                 <ToolHeader title="Second tool" type="tool-call" />
                 <ToolContent>
-                  <ToolInput input={{ step: 2 }} />
-                  <ToolOutput output={{ done: true }} errorText={undefined} />
+                  <ToolInput
+                    input={{
+                      step: 2,
+                    }}
+                  />
+                  <ToolOutput
+                    output={{
+                      done: true,
+                    }}
+                    errorText={undefined}
+                  />
                 </ToolContent>
               </Tool>
             </ReasoningItem>
@@ -832,7 +815,11 @@ export const VisualRegression: Story = {
               <Tool>
                 <ToolHeader title="Failed tool" type="tool-call" hasError />
                 <ToolContent>
-                  <ToolInput input={{ test: true }} />
+                  <ToolInput
+                    input={{
+                      test: true,
+                    }}
+                  />
                   <ToolOutput output={undefined} errorText="Connection failed" />
                 </ToolContent>
               </Tool>
@@ -844,17 +831,11 @@ export const VisualRegression: Story = {
   ),
   parameters: {
     order: 8,
-    docs: {
-      description: {
-        story: 'Visual regression baseline showing single tool, multiple tools, and error states.',
-      },
-    },
     chromatic: {
       disableSnapshot: false,
     },
   },
 };
-
 export const Playground: Story = {
   render: (args) => (
     <Reasoning {...args}>
@@ -884,10 +865,5 @@ export const Playground: Story = {
   ),
   parameters: {
     order: 99,
-    docs: {
-      description: {
-        story: 'Interactive playground for Reasoning props.',
-      },
-    },
   },
 };

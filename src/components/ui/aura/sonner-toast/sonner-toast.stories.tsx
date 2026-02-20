@@ -4,7 +4,6 @@ import { userEvent, within } from '@storybook/test';
 import { Toaster, toast } from './sonner-toast';
 
 import { Button } from '@/components/ui/aura/button';
-
 const meta: Meta<typeof Toaster> = {
   title: 'Primitives/Sonner Toast',
   component: Toaster,
@@ -20,35 +19,41 @@ const meta: Meta<typeof Toaster> = {
         'bottom-center',
         'bottom-right',
       ],
-      description: 'Position of the toasts',
       table: {
         category: 'Layout',
-        type: { summary: 'string' },
-        defaultValue: { summary: 'bottom-right' },
+        type: {
+          summary: 'string',
+        },
+        defaultValue: {
+          summary: 'bottom-right',
+        },
       },
     },
     richColors: {
       control: 'boolean',
-      description: 'Use rich colors for toast types',
       table: {
         category: 'Appearance',
-        type: { summary: 'boolean' },
+        type: {
+          summary: 'boolean',
+        },
       },
     },
     expand: {
       control: 'boolean',
-      description: 'Expand toasts by default',
       table: {
         category: 'Behavior',
-        type: { summary: 'boolean' },
+        type: {
+          summary: 'boolean',
+        },
       },
     },
     closeButton: {
       control: 'boolean',
-      description: 'Show close button on toasts',
       table: {
         category: 'Behavior',
-        type: { summary: 'boolean' },
+        type: {
+          summary: 'boolean',
+        },
       },
     },
   },
@@ -64,32 +69,16 @@ const meta: Meta<typeof Toaster> = {
     ),
   ],
 };
-
 export default meta;
 type Story = StoryObj<typeof Toaster>;
-
-/**
- * Default toast.
- */
 export const Default: Story = {
   render: () => <Button onClick={() => toast('Event has been created')}>Show Toast</Button>,
-  parameters: {
-    docs: {
-      description: {
-        story: 'Default toast notification.',
-      },
-    },
-  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const button = canvas.getByRole('button');
     await userEvent.click(button);
   },
 };
-
-/**
- * Toast with description.
- */
 export const WithDescription: Story = {
   render: () => (
     <Button
@@ -102,18 +91,7 @@ export const WithDescription: Story = {
       Show Toast with Description
     </Button>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: 'Toast with title and description.',
-      },
-    },
-  },
 };
-
-/**
- * Success toast.
- */
 export const Success: Story = {
   render: () => (
     <Button
@@ -126,18 +104,7 @@ export const Success: Story = {
       Show Success Toast
     </Button>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: 'Success variant toast.',
-      },
-    },
-  },
 };
-
-/**
- * Error toast.
- */
 export const ErrorState: Story = {
   render: () => (
     <Button
@@ -151,18 +118,7 @@ export const ErrorState: Story = {
       Show Error Toast
     </Button>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: 'Error variant toast.',
-      },
-    },
-  },
 };
-
-/**
- * Warning toast.
- */
 export const Warning: Story = {
   render: () => (
     <Button
@@ -176,18 +132,7 @@ export const Warning: Story = {
       Show Warning Toast
     </Button>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: 'Warning variant toast.',
-      },
-    },
-  },
 };
-
-/**
- * Info toast.
- */
 export const Info: Story = {
   render: () => (
     <Button
@@ -201,27 +146,23 @@ export const Info: Story = {
       Show Info Toast
     </Button>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: 'Info variant toast.',
-      },
-    },
-  },
 };
-
-/**
- * Loading toast with promise.
- */
 export const LoadingWithPromise: Story = {
   render: () => (
     <Button
       onClick={() => {
         const promise = () =>
-          new Promise<{ name: string }>((resolve) =>
-            setTimeout(() => resolve({ name: 'Sonner' }), 2000)
+          new Promise<{
+            name: string;
+          }>((resolve) =>
+            setTimeout(
+              () =>
+                resolve({
+                  name: 'Sonner',
+                }),
+              2000
+            )
           );
-
         toast.promise(promise, {
           loading: 'Loading...',
           success: (data) => `${data.name} toast has been added`,
@@ -232,18 +173,7 @@ export const LoadingWithPromise: Story = {
       Show Loading Toast
     </Button>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: 'Toast that shows loading state and resolves with success/error.',
-      },
-    },
-  },
 };
-
-/**
- * Toast with action.
- */
 export const WithAction: Story = {
   render: () => (
     <Button
@@ -260,18 +190,7 @@ export const WithAction: Story = {
       Show Toast with Action
     </Button>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: 'Toast with an action button.',
-      },
-    },
-  },
 };
-
-/**
- * Toast with custom duration.
- */
 export const CustomDuration: Story = {
   render: () => (
     <div className="flex gap-4">
@@ -307,18 +226,7 @@ export const CustomDuration: Story = {
       </Button>
     </div>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: 'Toasts with different durations.',
-      },
-    },
-  },
 };
-
-/**
- * All toast types.
- */
 export const AllTypes: Story = {
   render: () => (
     <div className="flex flex-wrap gap-4">
@@ -330,22 +238,10 @@ export const AllTypes: Story = {
       <Button onClick={() => toast.loading('Loading...')}>Loading</Button>
     </div>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: 'All available toast types.',
-      },
-    },
-  },
 };
-
-/**
- * Dismiss toast.
- */
 export const Dismiss: Story = {
   render: () => {
     let toastId: string | number;
-
     return (
       <div className="flex gap-4">
         <Button
@@ -364,18 +260,7 @@ export const Dismiss: Story = {
       </div>
     );
   },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Programmatically dismiss a specific toast.',
-      },
-    },
-  },
 };
-
-/**
- * Visual regression testing.
- */
 export const VisualRegression: Story = {
   render: () => (
     <div className="space-y-4">
@@ -400,20 +285,11 @@ export const VisualRegression: Story = {
     </div>
   ),
   parameters: {
-    docs: {
-      description: {
-        story: 'Toast triggers for visual regression testing.',
-      },
-    },
     chromatic: {
       disableSnapshot: false,
     },
   },
 };
-
-/**
- * Interactive playground.
- */
 export const Playground: Story = {
   render: () => (
     <Button
@@ -426,11 +302,4 @@ export const Playground: Story = {
       Show Playground Toast
     </Button>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: 'Interactive toast example.',
-      },
-    },
-  },
 };

@@ -111,6 +111,7 @@ For files under `src/components/ui/aura/**`, prefer relative imports (for exampl
 - When overriding focus states in InputGroup controls, must override BOTH `focus-visible:shadow-none` AND `aria-invalid:focus-visible:shadow-none` to prevent double focus rings in error states.
 - Don't export prop types from components. Use inline typing (`type MessageProps = ...`) instead of `export type`. Consumers can use `ComponentProps<typeof Component>` if they need access to types. Follow the pattern used by Badge, Card, Button, Dialog, and AlertDialog components.
 - Tooltip delay stories are more stable with deterministic waits and without interaction retries.
+- Storybook stories should omit description metadata and explanatory comments; keep examples self-explanatory through naming and structure.
 - Collapsible play tests are more stable when asserting `data-panel-open` and scoping queries to the panel.
 - Tooltip play tests should avoid retry-based interaction fallbacks; fix root causes and prefer deterministic semantic checks.
 - Hover card play tests are more reliable when asserting open-state attributes with deterministic waits (no retry fallbacks).
@@ -148,7 +149,7 @@ For detailed story writing guidelines, use the `/story-builder` skill.
 - Use explicit render functions with hardcoded props
 - No inline code comments in play functions
 - No JSX comments in render functions (e.g., `{/* comment */}`) - if you need section labels, use semantic HTML headings instead
-- All stories should have a description that is short and relevant; don't reword existing descriptions that already meet this criteria
+- Omit Storybook description metadata and story-level explanatory comments; keep stories concise and self-explanatory
 - Prioritize semantic queries (`getByRole`, `getByText`, etc.) over `getByTestId` in play functions
 - Avoid `getByTestId` in story interactions; reserve test ids for mocked unit-test scenarios only
 - Run `pnpm lint` and `pnpm tsc -b` after changes

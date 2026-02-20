@@ -7,7 +7,6 @@ import { Popover, PopoverContent, PopoverTrigger } from './popover';
 import { Button } from '@/components/ui/aura/button';
 import { Input } from '@/components/ui/aura/input';
 import { Label } from '@/components/ui/aura/label';
-
 const meta: Meta<typeof Popover> = {
   title: 'Primitives/Popover',
   component: Popover,
@@ -15,46 +14,49 @@ const meta: Meta<typeof Popover> = {
   argTypes: {
     open: {
       control: 'boolean',
-      description: 'Controlled open state',
       table: {
         category: 'Behavior',
-        type: { summary: 'boolean' },
+        type: {
+          summary: 'boolean',
+        },
       },
     },
     defaultOpen: {
       control: 'boolean',
-      description: 'Default open state (uncontrolled)',
       table: {
         category: 'Behavior',
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' },
+        type: {
+          summary: 'boolean',
+        },
+        defaultValue: {
+          summary: 'false',
+        },
       },
     },
     onOpenChange: {
       action: 'openChanged',
-      description: 'Callback when open state changes',
       table: {
         category: 'Events',
-        type: { summary: '(open: boolean) => void' },
+        type: {
+          summary: '(open: boolean) => void',
+        },
       },
     },
     modal: {
       control: 'boolean',
-      description: 'Whether the popover should be modal',
       table: {
         category: 'Behavior',
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' },
+        type: {
+          summary: 'boolean',
+        },
+        defaultValue: {
+          summary: 'false',
+        },
       },
     },
   },
   parameters: {
     layout: 'centered',
-    docs: {
-      description: {
-        component: 'Floating panel for contextual content triggered by interaction.',
-      },
-    },
     a11y: {
       config: {
         rules: [
@@ -68,32 +70,23 @@ const meta: Meta<typeof Popover> = {
     },
   },
 };
-
 export default meta;
 type Story = StoryObj<typeof Popover>;
-
 export const Basic: Story = {
   parameters: {
     order: 1,
-    docs: {
-      description: {
-        story: 'Default popover with heading and description.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    const trigger = canvas.getByRole('button', { name: /open popover/i });
+    const trigger = canvas.getByRole('button', {
+      name: /open popover/i,
+    });
     await expect(trigger).toBeInTheDocument();
-
     await userEvent.click(trigger);
-
     await waitFor(() => {
       const content = document.querySelector('[data-slot="popover-content"]');
       expect(content).toBeInTheDocument();
     });
-
     const content = document.querySelector('[data-slot="popover-content"]') as HTMLElement;
     const heading = within(content).getByText(/getting started/i);
     await expect(heading).toBeInTheDocument();
@@ -121,30 +114,22 @@ export const Basic: Story = {
     );
   },
 };
-
 export const Sides: Story = {
   parameters: {
     order: 2,
-    docs: {
-      description: {
-        story: 'Popover side positioning examples.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    const topButton = canvas.getByRole('button', { name: /^top$/i });
+    const topButton = canvas.getByRole('button', {
+      name: /^top$/i,
+    });
     await userEvent.click(topButton);
-
     await waitFor(() => {
       const content = document.querySelector('[data-slot="popover-content"]');
       expect(content).toBeInTheDocument();
     });
-
     const content = document.querySelector('[data-slot="popover-content"]') as HTMLElement;
     await expect(within(content).getByText(/this popover appears on top/i)).toBeInTheDocument();
-
     await userEvent.click(topButton);
   },
   render: function PopoverSidesStory() {
@@ -181,27 +166,20 @@ export const Sides: Story = {
     );
   },
 };
-
 export const Alignment: Story = {
   parameters: {
     order: 3,
-    docs: {
-      description: {
-        story: 'Popover alignment variants.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    const startButton = canvas.getByRole('button', { name: /align start/i });
+    const startButton = canvas.getByRole('button', {
+      name: /align start/i,
+    });
     await userEvent.click(startButton);
-
     await waitFor(() => {
       const content = document.querySelector('[data-slot="popover-content"]');
       expect(content).toBeInTheDocument();
     });
-
     const content = document.querySelector('[data-slot="popover-content"]') as HTMLElement;
     await expect(within(content).getByText(/aligned to start/i)).toBeInTheDocument();
   },
@@ -247,35 +225,31 @@ export const Alignment: Story = {
     );
   },
 };
-
 export const WithForm: Story = {
   parameters: {
     order: 4,
-    docs: {
-      description: {
-        story: 'Popover with interactive form controls.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    const trigger = canvas.getByRole('button', { name: /create project/i });
+    const trigger = canvas.getByRole('button', {
+      name: /create project/i,
+    });
     await userEvent.click(trigger);
-
     await waitFor(() => {
       const content = document.querySelector('[data-slot="popover-content"]');
       expect(content).toBeInTheDocument();
     });
-
     const content = document.querySelector('[data-slot="popover-content"]') as HTMLElement;
     await expect(within(content).getByText(/create new project/i)).toBeInTheDocument();
     const nameInput = within(content).getByPlaceholderText(/enter project name/i);
     await expect(nameInput).toBeInTheDocument();
-    await userEvent.type(nameInput, 'My Project', { delay: 50 });
+    await userEvent.type(nameInput, 'My Project', {
+      delay: 50,
+    });
     await expect(nameInput).toHaveValue('My Project');
-
-    const createButton = within(content).getByRole('button', { name: /^create$/i });
+    const createButton = within(content).getByRole('button', {
+      name: /^create$/i,
+    });
     await expect(createButton).toBeInTheDocument();
   },
   render: function PopoverWithFormStory() {
@@ -318,41 +292,33 @@ export const WithForm: Story = {
     );
   },
 };
-
 export const CustomWidth: Story = {
   parameters: {
     order: 5,
-    docs: {
-      description: {
-        story: 'Popover width customization examples.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    const narrowButton = canvas.getByRole('button', { name: /narrow/i });
+    const narrowButton = canvas.getByRole('button', {
+      name: /narrow/i,
+    });
     await userEvent.click(narrowButton);
-
     await waitFor(() => {
       const narrowContent = document.querySelector('[aria-label="Narrow width popover"]');
       expect(narrowContent).toBeInTheDocument();
     });
-
     const narrowContent = document.querySelector(
       '[aria-label="Narrow width popover"]'
     ) as HTMLElement;
     await expect(within(narrowContent).getByText(/narrow popover with w-48/i)).toBeInTheDocument();
-
     await userEvent.click(narrowButton);
-    const wideButton = canvas.getByRole('button', { name: /wide/i });
+    const wideButton = canvas.getByRole('button', {
+      name: /wide/i,
+    });
     await userEvent.click(wideButton);
-
     await waitFor(() => {
       const wideContent = document.querySelector('[aria-label="Wide popover"]:not([data-closed])');
       expect(wideContent).toBeInTheDocument();
     });
-
     const wideContent = document.querySelector('[aria-label="Wide popover"]') as HTMLElement;
     await expect(within(wideContent).getByText(/wide popover with w-96/i)).toBeInTheDocument();
   },
@@ -390,32 +356,26 @@ export const CustomWidth: Story = {
     );
   },
 };
-
 export const RichContent: Story = {
   parameters: {
     order: 6,
-    docs: {
-      description: {
-        story: 'Popover with richer content and actions.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    const trigger = canvas.getByRole('button', { name: /view actions/i });
+    const trigger = canvas.getByRole('button', {
+      name: /view actions/i,
+    });
     await userEvent.click(trigger);
-
     await waitFor(() => {
       const content = document.querySelector('[data-slot="popover-content"]');
       expect(content).toBeInTheDocument();
     });
-
     const content = document.querySelector('[data-slot="popover-content"]') as HTMLElement;
     await expect(within(content).getByText(/quick actions/i)).toBeInTheDocument();
-    const exportButton = within(content).getByRole('button', { name: /export data/i });
+    const exportButton = within(content).getByRole('button', {
+      name: /export data/i,
+    });
     await expect(exportButton).toBeInTheDocument();
-
     await userEvent.click(exportButton);
   },
   render: function PopoverRichContentStory() {
@@ -454,51 +414,41 @@ export const RichContent: Story = {
     );
   },
 };
-
 export const Controlled: Story = {
   parameters: {
     order: 7,
-    docs: {
-      description: {
-        story: 'Controlled popover with external open state.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     const toggleButton = canvas.getByRole('button', {
       name: /toggle with external button/i,
     });
     await expect(toggleButton).toBeInTheDocument();
-
-    const trigger = canvas.getByRole('button', { name: /popover trigger/i });
+    const trigger = canvas.getByRole('button', {
+      name: /popover trigger/i,
+    });
     await expect(trigger).not.toHaveAttribute('data-popup-open');
-
     await userEvent.click(toggleButton);
-
     await waitFor(
       async () => {
         expect(trigger).toHaveAttribute('data-popup-open');
       },
-      { timeout: 500 }
+      {
+        timeout: 500,
+      }
     );
-
     await waitFor(() => {
       const content = document.querySelector('[data-slot="popover-content"]');
       expect(content).toBeInTheDocument();
     });
-
     const content = document.querySelector('[data-slot="popover-content"]') as HTMLElement;
     const heading = within(content).getByText(/controlled popover/i);
     await expect(heading).toBeInTheDocument();
-
     const description = within(content).getByText(/controlled externally/i);
     await expect(description).toBeInTheDocument();
   },
   render: function PopoverControlledStory() {
     const [open, setOpen] = useState(false);
-
     return (
       <div className="flex flex-col items-center gap-4 p-12">
         <Button variant="outline" onClick={() => setOpen(!open)} className="mb-4">
@@ -520,29 +470,21 @@ export const Controlled: Story = {
     );
   },
 };
-
 export const EmptyContent: Story = {
   parameters: {
     order: 8,
-    docs: {
-      description: {
-        story: 'Minimal popover content state.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    const trigger = canvas.getByRole('button', { name: /open empty popover/i });
+    const trigger = canvas.getByRole('button', {
+      name: /open empty popover/i,
+    });
     await expect(trigger).toBeInTheDocument();
-
     await userEvent.click(trigger);
-
     await waitFor(() => {
       const content = document.querySelector('[data-slot="popover-content"]');
       expect(content).toBeInTheDocument();
     });
-
     const content = document.querySelector('[data-slot="popover-content"]') as HTMLElement;
     await expect(within(content).getByText('No additional details.')).toBeInTheDocument();
   },
@@ -559,27 +501,20 @@ export const EmptyContent: Story = {
     );
   },
 };
-
 export const LongContentScrollable: Story = {
   parameters: {
     order: 9,
-    docs: {
-      description: {
-        story: 'Scrollable long-content popover.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    const trigger = canvas.getByRole('button', { name: /open long content/i });
+    const trigger = canvas.getByRole('button', {
+      name: /open long content/i,
+    });
     await userEvent.click(trigger);
-
     await waitFor(() => {
       const container = document.querySelector('[data-slot="popover-content"]');
       expect(container).toBeInTheDocument();
     });
-
     const container = document.querySelector('[data-slot="popover-content"]') as HTMLElement;
     const heading = within(container).getByText('Release notes');
     await expect(heading).toBeInTheDocument();
@@ -617,27 +552,20 @@ export const LongContentScrollable: Story = {
     );
   },
 };
-
 export const NarrowViewport: Story = {
   parameters: {
     order: 10,
-    docs: {
-      description: {
-        story: 'Narrow-layout popover behavior.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    const trigger = canvas.getByRole('button', { name: /open compact popover/i });
+    const trigger = canvas.getByRole('button', {
+      name: /open compact popover/i,
+    });
     await userEvent.click(trigger);
-
     await waitFor(() => {
       const container = document.querySelector('[data-slot="popover-content"]');
       expect(container).toBeInTheDocument();
     });
-
     const container = document.querySelector('[data-slot="popover-content"]') as HTMLElement;
     const text = within(container).getByText(/content wraps correctly in narrow layouts/i);
     await expect(text).toBeInTheDocument();
@@ -659,7 +587,6 @@ export const NarrowViewport: Story = {
     );
   },
 };
-
 export const Playground: Story = {
   args: {
     modal: false,
@@ -667,11 +594,6 @@ export const Playground: Story = {
   },
   parameters: {
     order: 99,
-    docs: {
-      description: {
-        story: 'Interactive playground for popover root props.',
-      },
-    },
   },
   render: function PopoverPlaygroundStory(args) {
     return (

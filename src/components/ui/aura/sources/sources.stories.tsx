@@ -12,24 +12,25 @@ import {
 import { Badge } from '@/components/ui/aura/badge';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/aura/hover-card';
 import { Source, Sources, SourcesTitle } from '@/components/ui/aura/sources';
-
 const meta: Meta<typeof Sources> = {
   title: 'AI/Sources',
   component: Sources,
   tags: ['autodocs', 'ai-elements'],
   argTypes: {
     title: {
-      control: { type: 'select' },
+      control: {
+        type: 'select',
+      },
       options: [undefined, true, false, 'Custom Title'],
-      description: 'Title above the sources list',
       table: {
         category: 'Content',
-        type: { summary: 'ReactNode | boolean' },
+        type: {
+          summary: 'ReactNode | boolean',
+        },
       },
     },
     className: {
       control: 'text',
-      description: 'Additional CSS classes',
       table: {
         category: 'Variants/Styling',
       },
@@ -46,13 +47,8 @@ const meta: Meta<typeof Sources> = {
     ),
   ],
 };
-
 export default meta;
 type Story = StoryObj<typeof Sources>;
-
-/**
- * Default sources display.
- */
 export const Basic: Story = {
   render: () => (
     <Sources>
@@ -63,11 +59,6 @@ export const Basic: Story = {
   ),
   parameters: {
     order: 1,
-    docs: {
-      description: {
-        story: 'Default sources component with default title.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -75,10 +66,6 @@ export const Basic: Story = {
     await expect(title).toBeInTheDocument();
   },
 };
-
-/**
- * Sources with title hidden.
- */
 export const NoTitle: Story = {
   render: () => (
     <Sources title={false}>
@@ -88,17 +75,8 @@ export const NoTitle: Story = {
   ),
   parameters: {
     order: 2,
-    docs: {
-      description: {
-        story: 'Sources with the title section hidden.',
-      },
-    },
   },
 };
-
-/**
- * Custom title.
- */
 export const CustomTitle: Story = {
   render: () => (
     <Sources title={<SourcesTitle title="References" />}>
@@ -109,17 +87,8 @@ export const CustomTitle: Story = {
   ),
   parameters: {
     order: 3,
-    docs: {
-      description: {
-        story: 'Sources with a custom title.',
-      },
-    },
   },
 };
-
-/**
- * Sources with icons.
- */
 export const WithIcons: Story = {
   render: () => (
     <Sources>
@@ -134,17 +103,8 @@ export const WithIcons: Story = {
   ),
   parameters: {
     order: 4,
-    docs: {
-      description: {
-        story: 'Sources with custom icons.',
-      },
-    },
   },
 };
-
-/**
- * Many sources.
- */
 export const ManySources: Story = {
   render: () => (
     <Sources>
@@ -158,19 +118,8 @@ export const ManySources: Story = {
   ),
   parameters: {
     order: 5,
-    docs: {
-      description: {
-        story: 'Sources with multiple items that wrap.',
-      },
-    },
   },
 };
-
-/**
- * Too many sources with overflow indicator and hover to reveal.
- * When there are many sources, show a subset and a "+ N" pill; hovering the pill
- * reveals the remaining sources in a hover card (like AvatarGroup).
- */
 export const TooManySourcesWithOverflow: Story = {
   render: () => {
     const visibleSources = [
@@ -201,10 +150,22 @@ export const TooManySourcesWithOverflow: Story = {
       },
     ];
     const overflowSources = [
-      { url: 'https://example.com/7', title: 'Source 7' },
-      { url: 'https://example.com/8', title: 'Source 8' },
-      { url: 'https://example.com/9', title: 'Source 9' },
-      { url: 'https://example.com/10', title: 'Source 10' },
+      {
+        url: 'https://example.com/7',
+        title: 'Source 7',
+      },
+      {
+        url: 'https://example.com/8',
+        title: 'Source 8',
+      },
+      {
+        url: 'https://example.com/9',
+        title: 'Source 9',
+      },
+      {
+        url: 'https://example.com/10',
+        title: 'Source 10',
+      },
     ];
     return (
       <Sources>
@@ -240,12 +201,6 @@ export const TooManySourcesWithOverflow: Story = {
   },
   parameters: {
     order: 6,
-    docs: {
-      description: {
-        story:
-          'When there are too many sources, show a subset with an overflow indicator (+N). Hover the + N pill to reveal the remaining sources in a hover card, similar to AvatarGroup.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -259,7 +214,6 @@ export const TooManySourcesWithOverflow: Story = {
         expect(hovercard).toBeTruthy();
       });
     };
-
     await userEvent.hover(overflowPill);
     try {
       await waitForHoverCard();
@@ -270,10 +224,6 @@ export const TooManySourcesWithOverflow: Story = {
     }
   },
 };
-
-/**
- * Single source.
- */
 export const SingleSource: Story = {
   render: () => (
     <Sources>
@@ -282,17 +232,8 @@ export const SingleSource: Story = {
   ),
   parameters: {
     order: 7,
-    docs: {
-      description: {
-        story: 'Sources with a single item.',
-      },
-    },
   },
 };
-
-/**
- * Visual regression testing.
- */
 export const VisualRegression: Story = {
   render: () => (
     <div className="space-y-8 p-4">
@@ -322,11 +263,6 @@ export const VisualRegression: Story = {
   ),
   parameters: {
     order: 8,
-    docs: {
-      description: {
-        story: 'Sources for visual regression testing.',
-      },
-    },
     chromatic: {
       disableSnapshot: false,
     },

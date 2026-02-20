@@ -4,33 +4,6 @@ import { expect, within } from '@storybook/test';
 import { getTypographyBySection, typographyPatterns, typographyScale } from './typography';
 
 import { CodeBlock } from '@/components/ui/aura/code-block';
-
-/**
- * # Aura Typography System
- *
- * The typography system uses three font families:
- * - **Inter** - Primary text for body copy and UI elements
- * - **Space Grotesk** - Marketing and display text for headlines
- * - **Source Code Pro** - Monospace for code blocks
- *
- * ## Usage
- *
- * Apply typography using Tailwind classes directly:
- *
- * ```tsx
- * // Body text
- * <p className="text-base font-normal">Default body text</p>
- *
- * // Emphasized text
- * <p className="text-sm font-medium">Secondary text with emphasis</p>
- *
- * // Marketing headline
- * <h1 className="font-marketing text-4xl font-bold">Hero headline</h1>
- *
- * // Code
- * <code className="font-mono text-sm font-medium">const x = 1;</code>
- * ```
- */
 const meta: Meta = {
   title: 'Foundations/Typography',
   tags: ['autodocs'],
@@ -38,39 +11,15 @@ const meta: Meta = {
     layout: 'padded',
   },
 };
-
 export default meta;
 type Story = StoryObj;
-
-// =============================================================================
-// Individual Scale Stories
-// =============================================================================
-
-/**
- * All text typography variants from xxs to 5xl.
- * These use the Inter font family and are suitable for body copy, labels, and UI text.
- */
 export const TextScale: Story = {
-  parameters: {
-    docs: {
-      description: {
-        story:
-          'Displays all 20 text typography variants using the Inter font family. Each variant shows the name, Tailwind class, sample text, and usage guidance.',
-      },
-    },
-  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Verify all text variants are rendered
     const textVariants = getTypographyBySection('Text');
     await expect(textVariants.length).toBe(20);
-
-    // Check that sample text is rendered for each variant
     const sampleTexts = canvas.getAllByText('The quick brown fox jumps over the lazy dog.');
     await expect(sampleTexts.length).toBe(textVariants.length);
-
-    // Verify specific variants exist
     await expect(canvas.getByText('xxs/normal')).toBeInTheDocument();
     await expect(canvas.getByText('5xl/medium')).toBeInTheDocument();
     await expect(canvas.getByText('text-base font-normal')).toBeInTheDocument();
@@ -96,32 +45,13 @@ export const TextScale: Story = {
     </div>
   ),
 };
-
-/**
- * Marketing typography using Space Grotesk font.
- * Use for hero sections, landing pages, onboarding flows, and sign-in screens.
- */
 export const MarketingScale: Story = {
-  parameters: {
-    docs: {
-      description: {
-        story:
-          'Displays all 4 marketing typography variants using the Space Grotesk font family. Use for hero sections, landing pages, and sign-in screens.',
-      },
-    },
-  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Verify all marketing variants are rendered
     const marketingVariants = getTypographyBySection('Marketing');
     await expect(marketingVariants.length).toBe(4);
-
-    // Check that sample text is rendered for each variant
     const sampleTexts = canvas.getAllByText('The quick brown fox jumps over the lazy dog.');
     await expect(sampleTexts.length).toBe(marketingVariants.length);
-
-    // Verify marketing font class is present
     await expect(canvas.getByText('font-marketing text-5xl font-bold')).toBeInTheDocument();
   },
   render: () => (
@@ -145,32 +75,13 @@ export const MarketingScale: Story = {
     </div>
   ),
 };
-
-/**
- * Code typography using Source Code Pro monospace font.
- * Use for code blocks, inline code, and terminal output.
- */
 export const CodeScale: Story = {
-  parameters: {
-    docs: {
-      description: {
-        story:
-          'Displays all 3 code typography variants using the Source Code Pro monospace font. Use for code blocks, inline code, and terminal output.',
-      },
-    },
-  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Verify all code variants are rendered
     const codeVariants = getTypographyBySection('Code');
     await expect(codeVariants.length).toBe(3);
-
-    // Check that code sample text is rendered
     const sampleTexts = canvas.getAllByText('const greeting = "Hello, World!";');
     await expect(sampleTexts.length).toBe(codeVariants.length);
-
-    // Verify monospace font class is present
     await expect(canvas.getByText('font-mono text-sm font-medium')).toBeInTheDocument();
   },
   render: () => (
@@ -194,36 +105,17 @@ export const CodeScale: Story = {
     </div>
   ),
 };
-
-// =============================================================================
-// Composition Stories - How typography works together
-// =============================================================================
-
-/**
- * Typography hierarchy showing how different scales relate when stacked.
- * This demonstrates the visual rhythm of the type system.
- */
 export const Hierarchy: Story = {
-  parameters: {
-    docs: {
-      description: {
-        story:
-          'Demonstrates how different typography scales create visual hierarchy when stacked together. Shows the rhythm from 4xl headings down to xxs labels.',
-      },
-    },
-  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Verify hierarchy structure exists
     await expect(canvas.getByText('Page Title (4xl/medium)')).toBeInTheDocument();
     await expect(canvas.getByText(/Subtitle explaining the page purpose/)).toBeInTheDocument();
     await expect(canvas.getByText(/Body text that makes up/)).toBeInTheDocument();
     await expect(canvas.getByText(/Secondary information or metadata/)).toBeInTheDocument();
     await expect(canvas.getByText(/Fine print or label/)).toBeInTheDocument();
-
-    // Verify correct heading level
-    const heading = canvas.getByRole('heading', { level: 1 });
+    const heading = canvas.getByRole('heading', {
+      level: 1,
+    });
     await expect(heading).toHaveTextContent('Page Title (4xl/medium)');
   },
   render: () => (
@@ -246,11 +138,6 @@ export const Hierarchy: Story = {
     </article>
   ),
 };
-
-/**
- * Page header pattern with title and subtitle.
- * Use at the top of pages to establish context.
- */
 export const PageHeaderPattern: Story = {
   name: 'Pattern: Page Header',
   render: () => (
@@ -262,10 +149,6 @@ export const PageHeaderPattern: Story = {
     </header>
   ),
 };
-
-/**
- * Card pattern showing title, description, and metadata together.
- */
 export const CardPattern: Story = {
   name: 'Pattern: Card',
   render: () => (
@@ -278,18 +161,23 @@ export const CardPattern: Story = {
     </div>
   ),
 };
-
-/**
- * List item pattern with primary and secondary text.
- */
 export const ListItemPattern: Story = {
   name: 'Pattern: List Item',
   render: () => (
     <div className="max-w-md divide-y divide-border">
       {[
-        { title: 'Design Review', secondary: 'Due tomorrow' },
-        { title: 'API Integration', secondary: 'In progress' },
-        { title: 'User Testing', secondary: 'Scheduled for next week' },
+        {
+          title: 'Design Review',
+          secondary: 'Due tomorrow',
+        },
+        {
+          title: 'API Integration',
+          secondary: 'In progress',
+        },
+        {
+          title: 'User Testing',
+          secondary: 'Scheduled for next week',
+        },
       ].map((item) => (
         <div key={item.title} className="flex flex-col py-3">
           <span className="text-base font-medium">{item.title}</span>
@@ -299,10 +187,6 @@ export const ListItemPattern: Story = {
     </div>
   ),
 };
-
-/**
- * Form field pattern with label, input placeholder, and helper text.
- */
 export const FormFieldPattern: Story = {
   name: 'Pattern: Form Field',
   render: () => (
@@ -336,10 +220,6 @@ export const FormFieldPattern: Story = {
     </div>
   ),
 };
-
-/**
- * Article body showing long-form content structure.
- */
 export const ArticleBodyPattern: Story = {
   name: 'Pattern: Article Body',
   render: () => (
@@ -380,10 +260,6 @@ export const ArticleBodyPattern: Story = {
     </article>
   ),
 };
-
-/**
- * Marketing hero section for landing pages.
- */
 export const MarketingHeroPattern: Story = {
   name: 'Pattern: Marketing Hero',
   render: () => (
@@ -410,10 +286,6 @@ export const MarketingHeroPattern: Story = {
     </div>
   ),
 };
-
-/**
- * Data table pattern showing header and cell typography.
- */
 export const DataTablePattern: Story = {
   name: 'Pattern: Data Table',
   render: () => (
@@ -434,9 +306,21 @@ export const DataTablePattern: Story = {
         </thead>
         <tbody className="divide-y divide-border">
           {[
-            { name: 'Project Alpha', status: 'Active', date: 'Jan 7, 2026' },
-            { name: 'Project Beta', status: 'Draft', date: 'Jan 5, 2026' },
-            { name: 'Project Gamma', status: 'Archived', date: 'Dec 28, 2025' },
+            {
+              name: 'Project Alpha',
+              status: 'Active',
+              date: 'Jan 7, 2026',
+            },
+            {
+              name: 'Project Beta',
+              status: 'Draft',
+              date: 'Jan 5, 2026',
+            },
+            {
+              name: 'Project Gamma',
+              status: 'Archived',
+              date: 'Dec 28, 2025',
+            },
           ].map((row) => (
             <tr key={row.name}>
               <td className="text-sm font-normal px-4 py-3">{row.name}</td>
@@ -449,23 +333,8 @@ export const DataTablePattern: Story = {
     </div>
   ),
 };
-
-/**
- * AI chat response pattern with modest hierarchy and vertical rhythm.
- * Typography is subordinate to the chat UI, using smaller heading sizes (h1=text-xl, h2=text-lg).
- * Includes proper spacing for natural reading flow within a conversational context.
- * This pattern is used by the MessageResponse component with Streamdown for markdown rendering.
- */
 export const AIChatResponsePattern: Story = {
   name: 'Pattern: AI Chat Response',
-  parameters: {
-    docs: {
-      description: {
-        story:
-          'Demonstrates typography hierarchy for AI-generated responses within a chat interface. Uses a modest scale (h1=text-xl, h2=text-lg) appropriate for content subordinate to the chat UI. Includes vertical rhythm (margins) for natural reading flow. Used by MessageResponse component.',
-      },
-    },
-  },
   render: () => (
     <div className="max-w-prose bg-muted/30 rounded-lg p-6">
       <div>
@@ -511,22 +380,8 @@ export const AIChatResponsePattern: Story = {
     </div>
   ),
 };
-
-/**
- * Documentation page pattern with larger hierarchy for standalone content.
- * Typography dominates the page using larger heading sizes (h1=text-4xl, h2=text-2xl).
- * Designed for full-page documentation, guides, or long-form articles where content is primary.
- */
 export const DocumentationPagePattern: Story = {
   name: 'Pattern: Documentation Page',
-  parameters: {
-    docs: {
-      description: {
-        story:
-          'Demonstrates typography hierarchy for standalone documentation or article pages. Uses a larger scale (h1=text-4xl, h2=text-2xl) appropriate for primary content that dominates the page. Suitable for full-page docs, guides, or long-form articles.',
-      },
-    },
-  },
   render: () => (
     <article className="max-w-3xl mx-auto py-8">
       <h1 className="text-4xl font-medium mt-0 mb-4">Getting Started</h1>
@@ -582,76 +437,39 @@ export const DocumentationPagePattern: Story = {
     </article>
   ),
 };
-
-// =============================================================================
-// Full Page Example
-// =============================================================================
-
-/**
- * A complete page example demonstrating ALL 27 typography styles working together.
- * This shows how different scales, weights, and font families combine in a realistic layout.
- *
- * Includes all Text styles (xxs-5xl, normal/medium), all Marketing styles (2xl-5xl),
- * and all Code styles (sm/md/lg).
- */
 export const FullPageExample: Story = {
   name: 'Example: Full Page',
   parameters: {
     layout: 'fullscreen',
-    docs: {
-      description: {
-        story:
-          'A comprehensive page example using ALL 27 typography styles. Includes marketing hero sections, page headers, article content, metrics, data tables, forms, and footer. Tests that all font families (Inter, Space Grotesk, Source Code Pro) and all size/weight combinations are present.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Test Marketing Typography (Space Grotesk)
     await expect(canvas.getByText('Build beautiful interfaces faster')).toBeInTheDocument();
     await expect(
       canvas.getByText('The complete design system for modern applications')
     ).toBeInTheDocument();
     await expect(canvas.getByText('Trusted by thousands of developers')).toBeInTheDocument();
-
-    // Test Page Headers (5xl, 4xl variants)
     await expect(canvas.getByText('Documentation')).toBeInTheDocument();
     await expect(canvas.getByText('Everything you need')).toBeInTheDocument();
     await expect(canvas.getByText('Getting Started Guide')).toBeInTheDocument();
-
-    // Test Article Content (2xl, xl, base variants)
     await expect(canvas.getByText('Core Concepts')).toBeInTheDocument();
     await expect(canvas.getByText(/All components are fully accessible/)).toBeInTheDocument();
-
-    // Test Metrics Section (xs font-normal for chart labels)
     await expect(canvas.getByText('Usage Analytics')).toBeInTheDocument();
     await expect(canvas.getByText('Downloads')).toBeInTheDocument();
     await expect(canvas.getByText('2.4M')).toBeInTheDocument();
-
-    // Test Code Examples (all three code sizes)
     await expect(canvas.getByText(/Small \(14px\)/)).toBeInTheDocument();
     await expect(canvas.getByText(/Medium \(16px\)/)).toBeInTheDocument();
     await expect(canvas.getByText(/Large \(18px\)/)).toBeInTheDocument();
-
-    // Test Data Table
     await expect(canvas.getByText('Recent Updates')).toBeInTheDocument();
     await expect(canvas.getByRole('table')).toBeInTheDocument();
-
-    // Test Form Elements
     await expect(canvas.getByTestId('subscribe-form')).toBeInTheDocument();
     await expect(canvas.getByPlaceholderText('you@example.com')).toBeInTheDocument();
-
-    // Test Footer
     await expect(canvas.getByText('© 2026 Aura Design System')).toBeInTheDocument();
     await expect(canvas.getByText('GitHub')).toBeInTheDocument();
-
-    // Verify total typography scale count
     await expect(typographyScale.length).toBe(27);
   },
   render: () => (
     <div className="min-h-screen bg-background">
-      {/* Marketing Hero - uses font-marketing 5xl/bold, 3xl/medium, 2xl/medium */}
       <header className="border-b border-border bg-muted/30">
         <div className="max-w-5xl mx-auto px-8 py-16 text-center space-y-6">
           <p className="text-2xs font-medium uppercase tracking-widest text-muted-foreground">
@@ -667,7 +485,6 @@ export const FullPageExample: Story = {
         </div>
       </header>
 
-      {/* Secondary Marketing Section - uses font-marketing 4xl/bold */}
       <section className="border-b border-border bg-muted/10 py-12">
         <div className="max-w-5xl mx-auto px-8 text-center">
           <h2 className="font-marketing text-4xl font-bold mb-4">
@@ -680,7 +497,6 @@ export const FullPageExample: Story = {
       </section>
 
       <main className="max-w-5xl mx-auto px-8 py-12">
-        {/* Page Header - uses 5xl/normal, 5xl/medium, 4xl/normal, 4xl/medium */}
         <div className="space-y-8 mb-16">
           <div className="space-y-2">
             <h1 className="text-5xl font-medium">Documentation</h1>
@@ -692,7 +508,6 @@ export const FullPageExample: Story = {
           </div>
         </div>
 
-        {/* Metrics Section - uses text-xs font-normal for chart labels */}
         <section className="mb-12 rounded-lg border border-border p-6">
           <h2 className="text-3xl font-medium mb-2">Usage Analytics</h2>
           <p className="text-3xl font-normal text-muted-foreground mb-6">
@@ -700,10 +515,26 @@ export const FullPageExample: Story = {
           </p>
           <div className="grid grid-cols-4 gap-6">
             {[
-              { label: 'Downloads', value: '2.4M', change: '+12%' },
-              { label: 'Active Projects', value: '18.2K', change: '+8%' },
-              { label: 'Contributors', value: '342', change: '+24%' },
-              { label: 'Components', value: '127', change: '+6%' },
+              {
+                label: 'Downloads',
+                value: '2.4M',
+                change: '+12%',
+              },
+              {
+                label: 'Active Projects',
+                value: '18.2K',
+                change: '+8%',
+              },
+              {
+                label: 'Contributors',
+                value: '342',
+                change: '+24%',
+              },
+              {
+                label: 'Components',
+                value: '127',
+                change: '+6%',
+              },
             ].map((metric) => (
               <div key={metric.label} className="text-center">
                 <p className="text-xs font-normal text-muted-foreground mb-1">{metric.label}</p>
@@ -717,9 +548,7 @@ export const FullPageExample: Story = {
         </section>
 
         <div className="grid grid-cols-3 gap-12">
-          {/* Main Content */}
           <div className="col-span-2 space-y-8">
-            {/* Article Section - uses 2xl/normal, 2xl/medium, base/medium */}
             <article className="space-y-6">
               <section className="space-y-4">
                 <h2 className="text-2xl font-medium">Core Concepts</h2>
@@ -781,7 +610,6 @@ export const FullPageExample: Story = {
                 </ul>
               </section>
 
-              {/* Code Examples - uses all three code sizes */}
               <section className="space-y-4">
                 <h3 className="text-xl font-medium">Code Examples</h3>
                 <p className="text-sm font-normal text-muted-foreground">
@@ -825,7 +653,6 @@ export const FullPageExample: Story = {
               </section>
             </article>
 
-            {/* Data Table */}
             <section className="space-y-4">
               <h2 className="text-2xl font-medium">Recent Updates</h2>
               <div className="rounded-lg border border-border overflow-hidden">
@@ -867,9 +694,7 @@ export const FullPageExample: Story = {
             </section>
           </div>
 
-          {/* Sidebar */}
           <aside className="space-y-8">
-            {/* Card */}
             <div className="rounded-lg border border-border p-6 space-y-3">
               <h3 className="text-lg font-medium">Quick Links</h3>
               <p className="text-lg font-normal text-muted-foreground">Jump to a section</p>
@@ -901,7 +726,6 @@ export const FullPageExample: Story = {
               </nav>
             </div>
 
-            {/* Form */}
             <div
               className="rounded-lg border border-border p-6 space-y-4"
               data-testid="subscribe-form"
@@ -934,7 +758,6 @@ export const FullPageExample: Story = {
               </button>
             </div>
 
-            {/* Metadata */}
             <div className="space-y-2">
               <p className="text-2xs font-medium uppercase tracking-wide text-muted-foreground">
                 Last updated
@@ -948,7 +771,6 @@ export const FullPageExample: Story = {
         </div>
       </main>
 
-      {/* Footer */}
       <footer className="border-t border-border mt-16">
         <div className="max-w-5xl mx-auto px-8 py-8">
           <div className="flex items-center justify-between">
@@ -979,47 +801,21 @@ export const FullPageExample: Story = {
     </div>
   ),
 };
-
-// =============================================================================
-// Reference Stories
-// =============================================================================
-
-/**
- * Quick reference table showing all Tailwind classes at a glance.
- */
 export const TailwindClassReference: Story = {
   name: 'Reference: All Classes',
-  parameters: {
-    docs: {
-      description: {
-        story:
-          'A complete reference table of all 27 typography variants with their Tailwind classes, organised by section (Text, Marketing, Code).',
-      },
-    },
-  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Verify table structure
     const table = canvas.getByRole('table');
     await expect(table).toBeInTheDocument();
-
-    // Verify headers
     await expect(canvas.getByText('Section')).toBeInTheDocument();
     await expect(canvas.getByText('Name')).toBeInTheDocument();
     await expect(canvas.getByText('Tailwind Class')).toBeInTheDocument();
     await expect(canvas.getByText('Usage')).toBeInTheDocument();
-
-    // Verify all 27 rows are rendered (plus header row)
     const rows = canvas.getAllByRole('row');
     await expect(rows.length).toBe(typographyScale.length + 1);
-
-    // Verify sections are present
     await expect(canvas.getAllByText('Text').length).toBeGreaterThan(0);
     await expect(canvas.getAllByText('Marketing').length).toBeGreaterThan(0);
     await expect(canvas.getAllByText('Code').length).toBeGreaterThan(0);
-
-    // Verify specific classes are rendered
     await expect(canvas.getByText('text-2xs font-normal')).toBeInTheDocument();
     await expect(canvas.getByText('font-marketing text-5xl font-bold')).toBeInTheDocument();
     await expect(canvas.getByText('font-mono text-lg font-medium')).toBeInTheDocument();
@@ -1053,28 +849,12 @@ export const TailwindClassReference: Story = {
     </div>
   ),
 };
-
-/**
- * Pattern reference showing all available composition patterns.
- */
 export const PatternReference: Story = {
   name: 'Reference: All Patterns',
-  parameters: {
-    docs: {
-      description: {
-        story:
-          'A reference of all typography composition patterns with their element roles and Tailwind classes. Use these patterns as recipes for common UI layouts.',
-      },
-    },
-  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Verify all patterns are rendered
     const patternCount = Object.keys(typographyPatterns).length;
     await expect(patternCount).toBe(10);
-
-    // Verify specific patterns exist
     await expect(canvas.getByText('Page Header')).toBeInTheDocument();
     await expect(canvas.getByText('Section Header')).toBeInTheDocument();
     await expect(canvas.getByText('Card')).toBeInTheDocument();
@@ -1085,8 +865,6 @@ export const PatternReference: Story = {
     await expect(canvas.getByText('Data Table')).toBeInTheDocument();
     await expect(canvas.getByText('AI Chat Response')).toBeInTheDocument();
     await expect(canvas.getByText('Documentation Page')).toBeInTheDocument();
-
-    // Verify element roles are shown
     await expect(canvas.getAllByText('title:').length).toBeGreaterThan(0);
     await expect(canvas.getAllByText('Elements').length).toBe(patternCount);
   },
