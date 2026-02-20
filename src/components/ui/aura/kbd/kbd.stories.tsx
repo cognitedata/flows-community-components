@@ -3,7 +3,7 @@ import { IconArrowDown, IconArrowUp, IconCommand } from '@tabler/icons-react';
 import type { ComponentProps } from 'react';
 import { expect, within } from 'storybook/test';
 
-import { Kbd, KbdGroup } from '@/components/ui/aura/kbd';
+import { Kbd, KbdGroup } from './kbd';
 
 type StoryPlayContext = { canvasElement: HTMLElement };
 
