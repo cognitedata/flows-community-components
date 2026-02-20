@@ -4,8 +4,8 @@ import {
   ButtonGroupSeparator,
   ButtonGroupText,
   buttonGroupVariants,
-} from "./button-group";
-import { ButtonGroupMetadata } from "./button-group.metadata";
+} from './button-group';
+import { ButtonGroupMetadata } from './button-group.metadata';
 
 export {
   ButtonGroup,

@@ -1,10 +1,10 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { IconCheck, IconSearch, IconSend, IconX } from "@tabler/icons-react";
-import { useState } from "react";
-import { expect, userEvent, waitFor, within } from "storybook/test";
-import { Button } from "../button";
-import { Kbd } from "../kbd";
-import { Label } from "../label";
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { IconCheck, IconSearch, IconSend, IconX } from '@tabler/icons-react';
+import { useState } from 'react';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
+
+import { Kbd } from '../kbd';
+import { Label } from '../label';
 import {
   PromptInput,
   PromptInputAttachment,
@@ -14,7 +14,8 @@ import {
   PromptInputSubmit,
   PromptInputTextarea,
   PromptInputTools,
-} from "../prompt-input";
+} from '../prompt-input';
+
 import {
   InputGroup,
   InputGroupAddon,
@@ -22,21 +23,21 @@ import {
   InputGroupInput,
   InputGroupText,
   InputGroupTextarea,
-} from "./input-group";
+} from './input-group';
 const meta: Meta<typeof InputGroup> = {
-  title: "Primitives/Input Group",
+  title: 'Primitives/Input Group',
   component: InputGroup,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     className: {
-      control: "text",
+      control: 'text',
       table: {
-        category: "Variants/Styling",
+        category: 'Variants/Styling',
       },
     },
   },
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
   decorators: [
     (Story) => (
@@ -62,10 +63,10 @@ export const Basic: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const input = canvas.getByPlaceholderText("Search...");
+    const input = canvas.getByPlaceholderText('Search...');
     await expect(input).toBeInTheDocument();
-    await userEvent.type(input, "test query");
-    await expect(input).toHaveValue("test query");
+    await userEvent.type(input, 'test query');
+    await expect(input).toHaveValue('test query');
   },
 };
 export const InlineEnd: Story = {
@@ -164,7 +165,10 @@ export const WithTextarea: Story = {
       <InputGroupAddon align="block-start">
         <InputGroupText>Description</InputGroupText>
       </InputGroupAddon>
-      <InputGroupTextarea placeholder="Enter a detailed description..." rows={4} />
+      <InputGroupTextarea
+        placeholder="Enter a detailed description..."
+        rows={4}
+      />
       <InputGroupAddon align="block-end">
         <InputGroupButton size="sm" variant="default">
           <IconSend className="size-4" />
@@ -223,7 +227,7 @@ export const Disabled: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const inputs = canvas.getAllByRole("textbox");
+    const inputs = canvas.getAllByRole('textbox');
     for (const input of inputs) {
       await expect(input).toBeDisabled();
     }
@@ -242,7 +246,9 @@ export const WithError: Story = {
             aria-invalid={true}
           />
         </InputGroup>
-        <p className="text-destructive-foreground text-sm">Please enter a valid email address</p>
+        <p className="text-destructive-foreground text-sm">
+          Please enter a valid email address
+        </p>
       </div>
       <div className="space-y-1">
         <Label htmlFor="error-textarea">Comment</Label>
@@ -254,7 +260,9 @@ export const WithError: Story = {
             aria-invalid={true}
           />
         </InputGroup>
-        <p className="text-destructive-foreground text-sm">Comment is required</p>
+        <p className="text-destructive-foreground text-sm">
+          Comment is required
+        </p>
       </div>
     </div>
   ),
@@ -264,7 +272,7 @@ export const WithError: Story = {
 };
 export const Interactive: Story = {
   render: function InteractiveInputGroup() {
-    const [value, setValue] = useState("");
+    const [value, setValue] = useState('');
     const maxLength = 100;
     return (
       <div className="space-y-4">
@@ -289,7 +297,7 @@ export const Interactive: Story = {
               disabled={value.length === 0}
               onClick={() => {
                 alert(`Posted: ${value}`);
-                setValue("");
+                setValue('');
               }}
             >
               Post
@@ -305,12 +313,12 @@ export const Interactive: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const textarea = canvas.getByPlaceholderText("What's happening?");
-    const button = canvas.getByText("Post");
+    const button = canvas.getByText('Post');
     await expect(button).toBeDisabled();
-    await userEvent.type(textarea, "Hello world!");
-    await expect(textarea).toHaveValue("Hello world!");
+    await userEvent.type(textarea, 'Hello world!');
+    await expect(textarea).toHaveValue('Hello world!');
     await waitFor(() => {
-      expect(canvas.getByText("12/100")).toBeInTheDocument();
+      expect(canvas.getByText('12/100')).toBeInTheDocument();
     });
     await expect(button).toBeEnabled();
   },
@@ -319,7 +327,7 @@ export const PromptInputExample: Story = {
   render: () => (
     <PromptInput
       onSubmit={(message) => {
-        console.log("Submitted:", message);
+        console.log('Submitted:', message);
       }}
       helperText={false}
     >
@@ -340,10 +348,10 @@ export const PromptInputExample: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const textarea = canvas.getByPlaceholderText("Ask me anything...");
+    const textarea = canvas.getByPlaceholderText('Ask me anything...');
     await expect(textarea).toBeInTheDocument();
-    await userEvent.type(textarea, "Test message");
-    await expect(textarea).toHaveValue("Test message");
+    await userEvent.type(textarea, 'Test message');
+    await expect(textarea).toHaveValue('Test message');
   },
 };
 export const AllAlignments: Story = {
@@ -468,7 +476,9 @@ export const VisualRegression: Story = {
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">With Text</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          With Text
+        </h3>
         <InputGroup>
           <InputGroupAddon align="inline-start">
             <InputGroupText>https://</InputGroupText>
@@ -478,7 +488,9 @@ export const VisualRegression: Story = {
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">With Buttons</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          With Buttons
+        </h3>
         <InputGroup>
           <InputGroupInput placeholder="Search..." />
           <InputGroupAddon align="inline-end">
@@ -488,14 +500,18 @@ export const VisualRegression: Story = {
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">Textarea</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          Textarea
+        </h3>
         <InputGroup>
           <InputGroupTextarea placeholder="Message..." rows={3} />
         </InputGroup>
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">Disabled</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          Disabled
+        </h3>
         <InputGroup data-disabled="true">
           <InputGroupInput placeholder="Disabled" disabled />
         </InputGroup>

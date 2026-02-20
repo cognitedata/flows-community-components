@@ -23,5 +23,5 @@ export {
   paginationEllipsisVariants,
   paginationLinkVariants,
   paginationStatusVariants,
-} from "./pagination";
-export { PaginationMetadata } from "./pagination.metadata";
+} from './pagination';
+export { PaginationMetadata } from './pagination.metadata';
