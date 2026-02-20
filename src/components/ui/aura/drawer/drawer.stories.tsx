@@ -14,7 +14,6 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "./drawer";
-
 const meta: Meta<typeof Drawer> = {
   title: "Primitives/Drawer",
   component: Drawer,
@@ -22,28 +21,33 @@ const meta: Meta<typeof Drawer> = {
   argTypes: {
     open: {
       control: "boolean",
-      description: "Controlled open state",
       table: {
         category: "Behavior",
-        type: { summary: "boolean" },
+        type: { 
+          summary: "boolean" 
+        },
       },
     },
     direction: {
       control: "select",
       options: ["top", "bottom", "left", "right"],
-      description: "Direction the drawer opens from",
       table: {
         category: "Variants/Styling",
-        type: { summary: '"top" | "bottom" | "left" | "right"' },
-        defaultValue: { summary: "bottom" },
+        type: { 
+          summary: '"top" | "bottom" | "left" | "right"' 
+        },
+        defaultValue: { 
+          summary: "bottom" 
+        },
       },
     },
     onOpenChange: {
       action: "openChange",
-      description: "Callback when open state changes",
       table: {
         category: "Events",
-        type: { summary: "(open: boolean) => void" },
+        type: {
+          summary: "(open: boolean) => void",
+        },
       },
     },
   },
@@ -51,13 +55,8 @@ const meta: Meta<typeof Drawer> = {
     layout: "centered",
   },
 };
-
 export default meta;
 type Story = StoryObj<typeof Drawer>;
-
-/**
- * Default bottom drawer.
- */
 export const Default: Story = {
   render: () => (
     <Drawer>
@@ -85,11 +84,6 @@ export const Default: Story = {
   ),
   parameters: {
     order: 1,
-    docs: {
-      description: {
-        story: "Default drawer that slides up from the bottom.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -101,10 +95,6 @@ export const Default: Story = {
     await body.findByRole("dialog", { name: /drawer title/i });
   },
 };
-
-/**
- * Right side drawer.
- */
 export const RightDrawer: Story = {
   render: () => (
     <Drawer direction="right">
@@ -137,17 +127,8 @@ export const RightDrawer: Story = {
   ),
   parameters: {
     order: 2,
-    docs: {
-      description: {
-        story: "Drawer that slides in from the right side.",
-      },
-    },
   },
 };
-
-/**
- * Left side drawer.
- */
 export const LeftDrawer: Story = {
   render: () => (
     <Drawer direction="left">
@@ -187,17 +168,8 @@ export const LeftDrawer: Story = {
   ),
   parameters: {
     order: 3,
-    docs: {
-      description: {
-        story: "Drawer that slides in from the left side.",
-      },
-    },
   },
 };
-
-/**
- * Top drawer.
- */
 export const TopDrawer: Story = {
   render: () => (
     <Drawer direction="top">
@@ -232,21 +204,11 @@ export const TopDrawer: Story = {
   ),
   parameters: {
     order: 4,
-    docs: {
-      description: {
-        story: "Drawer that slides down from the top.",
-      },
-    },
   },
 };
-
-/**
- * Controlled drawer.
- */
 export const Controlled: Story = {
   render: function ControlledDrawer() {
     const [open, setOpen] = useState(false);
-
     return (
       <div className="space-y-4">
         <div className="flex gap-2">
@@ -274,17 +236,8 @@ export const Controlled: Story = {
   },
   parameters: {
     order: 5,
-    docs: {
-      description: {
-        story: "Drawer with externally controlled open state.",
-      },
-    },
   },
 };
-
-/**
- * Drawer with form.
- */
 export const WithForm: Story = {
   render: () => (
     <Drawer>
@@ -325,17 +278,8 @@ export const WithForm: Story = {
   ),
   parameters: {
     order: 6,
-    docs: {
-      description: {
-        story: "Drawer containing a form for user input.",
-      },
-    },
   },
 };
-
-/**
- * Drawer with scrolling content.
- */
 export const WithScrollingContent: Story = {
   render: () => (
     <Drawer>
@@ -348,13 +292,18 @@ export const WithScrollingContent: Story = {
           <DrawerDescription>Please read and accept our terms.</DrawerDescription>
         </DrawerHeader>
         <div className="p-4 overflow-y-auto max-h-75 text-sm text-muted-foreground">
-          {Array.from({ length: 10 }, (_, i) => (
-            <p key={`terms-${i}`} className="mb-4">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
-              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-              exercitation ullamco laboris.
-            </p>
-          ))}
+          {Array.from(
+            {
+              length: 10,
+            },
+            (_, i) => (
+              <p key={`terms-${i}`} className="mb-4">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
+                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                exercitation ullamco laboris.
+              </p>
+            )
+          )}
         </div>
         <DrawerFooter>
           <DrawerClose asChild>
@@ -367,23 +316,13 @@ export const WithScrollingContent: Story = {
   ),
   parameters: {
     order: 7,
-    docs: {
-      description: {
-        story: "Drawer with scrolling content area.",
-      },
-    },
   },
 };
-
-/**
- * Drawer demonstrating async save behaviour with a temporary loading state.
- */
 export const AsyncAction: Story = {
   render: function AsyncActionDrawer() {
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);
     const [saved, setSaved] = useState(false);
-
     const handleSave = () => {
       setLoading(true);
       setSaved(false);
@@ -393,7 +332,6 @@ export const AsyncAction: Story = {
         setOpen(false);
       }, 500);
     };
-
     return (
       <div className="space-y-4">
         <Drawer open={open} onOpenChange={setOpen}>
@@ -429,12 +367,6 @@ export const AsyncAction: Story = {
   },
   parameters: {
     order: 8,
-    docs: {
-      description: {
-        story:
-          "Drawer that demonstrates an asynchronous save action with a temporary loading state and success feedback.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -446,25 +378,18 @@ export const AsyncAction: Story = {
     const dialog = await body.findByRole("dialog", { name: /async save/i });
     const saveButton = within(dialog).getByRole("button", { name: /^save$/i });
     await userEvent.click(saveButton);
-
     await waitFor(() => {
       expect(saveButton).toHaveTextContent("Saving...");
     });
-
     await waitFor(() => {
       expect(canvas.getByText(/changes saved successfully/i)).toBeInTheDocument();
     });
   },
 };
-
-/**
- * Drawer keyboard interactions: focus, keyboard activation, and ESC to close.
- */
 export const KeyboardInteractions: Story = {
   render: function KeyboardInteractionsDrawer() {
     const [open, setOpen] = useState(false);
     const [activated, setActivated] = useState(false);
-
     return (
       <div className="space-y-4">
         <Drawer open={open} onOpenChange={setOpen}>
@@ -501,12 +426,6 @@ export const KeyboardInteractions: Story = {
   },
   parameters: {
     order: 9,
-    docs: {
-      description: {
-        story:
-          "Drawer story focused on keyboard accessibility: Tab focus, keyboard activation, and Escape to close.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -526,21 +445,15 @@ export const KeyboardInteractions: Story = {
       expect(primaryButton).toHaveFocus();
     });
     await userEvent.keyboard("{Enter}");
-
     await waitFor(() => {
       expect(canvas.getByText(/status: activated/i)).toBeInTheDocument();
     });
-
     await userEvent.keyboard("{Escape}");
     await waitFor(() => {
       expect(body.queryByRole("dialog", { name: /keyboard drawer/i })).not.toBeInTheDocument();
     });
   },
 };
-
-/**
- * Visual regression testing.
- */
 export const VisualRegression: Story = {
   render: () => (
     <div className="flex gap-4">
@@ -580,20 +493,11 @@ export const VisualRegression: Story = {
   ),
   parameters: {
     order: 10,
-    docs: {
-      description: {
-        story: "Drawer triggers for visual regression testing.",
-      },
-    },
     chromatic: {
       disableSnapshot: false,
     },
   },
 };
-
-/**
- * Interactive playground.
- */
 export const Playground: Story = {
   args: {
     direction: "bottom",
@@ -624,10 +528,5 @@ export const Playground: Story = {
   ),
   parameters: {
     order: 99,
-    docs: {
-      description: {
-        story: "Interactive playground - use controls to experiment with drawer props.",
-      },
-    },
   },
 };

@@ -3,80 +3,88 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, within } from "@storybook/test";
 import { useState } from "react";
 import { Checkbox } from "./checkbox";
-
 const meta: Meta<typeof Checkbox> = {
   title: "Primitives/Checkbox",
   component: Checkbox,
   tags: ["autodocs"],
   argTypes: {
-    // State
     checked: {
       control: "boolean",
-      description: "Controlled checked state",
       table: {
         category: "State",
-        type: { summary: 'boolean | "indeterminate"' },
+        type: {
+          summary: 'boolean | "indeterminate"',
+        },
       },
     },
     defaultChecked: {
       control: "boolean",
-      description: "Default checked state (uncontrolled)",
       table: {
         category: "State",
-        type: { summary: "boolean" },
-        defaultValue: { summary: "false" },
+        type: {
+          summary: "boolean",
+        },
+        defaultValue: {
+          summary: "false",
+        },
       },
     },
     disabled: {
       control: "boolean",
-      description: "Disable the checkbox",
       table: {
         category: "State",
-        type: { summary: "boolean" },
-        defaultValue: { summary: "false" },
+        type: {
+          summary: "boolean",
+        },
+        defaultValue: {
+          summary: "false",
+        },
       },
     },
     required: {
       control: "boolean",
-      description: "Mark as required for form validation",
       table: {
         category: "Validation",
-        type: { summary: "boolean" },
-        defaultValue: { summary: "false" },
+        type: {
+          summary: "boolean",
+        },
+        defaultValue: {
+          summary: "false",
+        },
       },
     },
     name: {
       control: "text",
-      description: "Name attribute for form submission",
       table: {
         category: "Form",
-        type: { summary: "string" },
+        type: {
+          summary: "string",
+        },
       },
     },
     value: {
       control: "text",
-      description: "Value attribute for form submission",
       table: {
         category: "Form",
-        type: { summary: "string" },
-        defaultValue: { summary: "on" },
+        type: {
+          summary: "string",
+        },
+        defaultValue: {
+          summary: "on",
+        },
       },
     },
-
-    // Events
     onCheckedChange: {
       action: "checkedChange",
-      description: "Callback when checked state changes",
       table: {
         category: "Events",
-        type: { summary: '(checked: boolean | "indeterminate") => void' },
+        type: {
+          summary: '(checked: boolean | "indeterminate") => void',
+        },
       },
     },
-
-    // Styling
     className: {
       control: "text",
-      description: "Additional CSS classes",
       table: {
         category: "Styling",
       },
@@ -86,13 +94,8 @@ const meta: Meta<typeof Checkbox> = {
     layout: "centered",
   },
 };
-
 export default meta;
 type Story = StoryObj<typeof Checkbox>;
-
-/**
- * Default unchecked checkbox.
- */
 export const Default: Story = {
   render: () => (
     <div className="flex items-center space-x-2">
@@ -100,34 +103,17 @@ export const Default: Story = {
       <Label htmlFor="default">Accept terms and conditions</Label>
     </div>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: "Default checkbox in unchecked state.",
-      },
-    },
-  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Find checkbox
     const checkbox = canvas.getByRole("checkbox");
     await expect(checkbox).toBeInTheDocument();
     await expect(checkbox).not.toBeChecked();
-
-    // Click to check
     await userEvent.click(checkbox);
     await expect(checkbox).toBeChecked();
-
-    // Click to uncheck
     await userEvent.click(checkbox);
     await expect(checkbox).not.toBeChecked();
   },
 };
-
-/**
- * Checkbox that is checked by default.
- */
 export const DefaultChecked: Story = {
   render: () => (
     <div className="flex items-center space-x-2">
@@ -135,23 +121,12 @@ export const DefaultChecked: Story = {
       <Label htmlFor="checked">Receive marketing emails</Label>
     </div>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: "Checkbox that starts in checked state.",
-      },
-    },
-  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const checkbox = canvas.getByRole("checkbox");
     await expect(checkbox).toBeChecked();
   },
 };
-
-/**
- * Disabled checkbox states.
- */
 export const Disabled: Story = {
   render: () => (
     <div className="space-y-3">
@@ -169,30 +144,17 @@ export const Disabled: Story = {
       </div>
     </div>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: "Disabled checkboxes in both checked and unchecked states.",
-      },
-    },
-  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const checkboxes = canvas.getAllByRole("checkbox");
-
     for (const checkbox of checkboxes) {
       await expect(checkbox).toHaveAttribute("data-disabled");
     }
   },
 };
-
-/**
- * Controlled checkbox with external state.
- */
 export const Controlled: Story = {
   render: function ControlledCheckbox() {
     const [checked, setChecked] = useState(false);
-
     return (
       <div className="space-y-4">
         <div className="flex items-center space-x-2">
@@ -230,40 +192,20 @@ export const Controlled: Story = {
       </div>
     );
   },
-  parameters: {
-    docs: {
-      description: {
-        story: "Checkbox with externally controlled state.",
-      },
-    },
-  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Click Check button
     const checkButton = canvas.getByText("Check");
     await userEvent.click(checkButton);
-
-    // Verify checked
     const checkbox = canvas.getByRole("checkbox");
     await expect(checkbox).toBeChecked();
-
-    // Click Uncheck button
     const uncheckButton = canvas.getByText("Uncheck");
     await userEvent.click(uncheckButton);
-
-    // Verify unchecked
     await expect(checkbox).not.toBeChecked();
   },
 };
-
-/**
- * Indeterminate checkbox state.
- */
 export const Indeterminate: Story = {
   render: function IndeterminateCheckbox() {
     const [checked, setChecked] = useState<boolean | "indeterminate">("indeterminate");
-
     return (
       <div className="space-y-4">
         <div className="flex items-center space-x-2">
@@ -297,28 +239,15 @@ export const Indeterminate: Story = {
       </div>
     );
   },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Checkbox with indeterminate state for "select all" patterns.',
-      },
-    },
-  },
 };
-
-/**
- * Checkbox group example.
- */
 export const CheckboxGroup: Story = {
   render: function CheckboxGroupExample() {
     const [selected, setSelected] = useState<string[]>(["email"]);
-
     const toggleItem = (item: string) => {
       setSelected((prev) =>
         prev.includes(item) ? prev.filter((i) => i !== item) : [...prev, item]
       );
     };
-
     return (
       <div className="space-y-4">
         <fieldset className="space-y-3">
@@ -352,30 +281,15 @@ export const CheckboxGroup: Story = {
       </div>
     );
   },
-  parameters: {
-    docs: {
-      description: {
-        story: "Group of checkboxes for multiple selection.",
-      },
-    },
-  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Email should be checked by default
     const emailCheckbox = canvas.getByLabelText("Email notifications");
     await expect(emailCheckbox).toBeChecked();
-
-    // Click SMS to check it
     const smsCheckbox = canvas.getByLabelText("SMS notifications");
     await userEvent.click(smsCheckbox);
     await expect(smsCheckbox).toBeChecked();
   },
 };
-
-/**
- * Checkbox with form validation.
- */
 export const WithValidation: Story = {
   render: () => (
     <form
@@ -399,18 +313,7 @@ export const WithValidation: Story = {
       </button>
     </form>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: "Required checkbox for form validation.",
-      },
-    },
-  },
 };
-
-/**
- * Checkbox without label (icon-only).
- */
 export const IconOnly: Story = {
   render: () => (
     <div className="flex items-center gap-4">
@@ -419,18 +322,7 @@ export const IconOnly: Story = {
       <Checkbox aria-label="Option 3" disabled />
     </div>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: "Checkboxes without visible labels (with aria-label for accessibility).",
-      },
-    },
-  },
 };
-
-/**
- * All checkbox states.
- */
 export const AllStates: Story = {
   render: () => (
     <div className="space-y-3">
@@ -456,22 +348,10 @@ export const AllStates: Story = {
       </div>
     </div>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: "All checkbox states for comparison.",
-      },
-    },
-  },
 };
-
-/**
- * Visual regression testing.
- */
 export const VisualRegression: Story = {
   render: () => (
     <div className="space-y-6 p-4">
-      {/* States */}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">All States</h3>
         <div className="flex flex-wrap gap-6">
@@ -498,7 +378,6 @@ export const VisualRegression: Story = {
         </div>
       </div>
 
-      {/* Without labels */}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">Without Labels</h3>
         <div className="flex gap-4">
@@ -510,20 +389,11 @@ export const VisualRegression: Story = {
     </div>
   ),
   parameters: {
-    docs: {
-      description: {
-        story: "Comprehensive visual overview for regression testing.",
-      },
-    },
     chromatic: {
       disableSnapshot: false,
     },
   },
 };
-
-/**
- * Interactive playground.
- */
 export const Playground: Story = {
   args: {
     disabled: false,
@@ -536,11 +406,4 @@ export const Playground: Story = {
       <Label htmlFor="playground">Playground checkbox</Label>
     </div>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: "Interactive playground - use controls to experiment with checkbox props.",
-      },
-    },
-  },
 };
