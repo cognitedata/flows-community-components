@@ -9,7 +9,7 @@ const meta: Meta<typeof Toolbar> = {
     className: {
       control: 'text',
       table: {
-        category: "Variants/Styling",
+        category: 'Variants/Styling',
       },
     },
   },
