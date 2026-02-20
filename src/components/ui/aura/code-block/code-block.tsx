@@ -12,8 +12,8 @@ import {
 import { IconCheck, IconCopy, IconSelector } from "@tabler/icons-react";
 import type { BundledLanguage } from "shiki";
 
-import { Button } from "@/components/ui/aura/button";
-import { cn, escapeHtml, highlightCode, isStorybookTestEnv } from "@/lib/utils";
+import { cn, escapeHtml, highlightCode, isStorybookTestEnv } from "../../../../lib/utils";
+import { Button } from "../button";
 
 type CodeBlockProps = HTMLAttributes<HTMLDivElement> & {
   code: string;
@@ -164,24 +164,13 @@ const CodeBlockCopyButton = forwardRef<ComponentRef<typeof Button>, CodeBlockCop
       }
 
       try {
-        if (navigator.permissions?.query) {
-          const permissionStatus = await navigator.permissions.query({
-            name: "clipboard-write" as PermissionName,
-          });
-
-          if (permissionStatus.state === "denied") {
-            onError?.(new Error("Clipboard access denied by browser policy"));
-            return;
-          }
-        }
-
         await navigator.clipboard.writeText(copyText);
         setIsCopied(true);
         onCopy?.();
         setTimeout(() => setIsCopied(false), timeout);
-      } catch (error) {
+      } catch (error: unknown) {
         console.warn("Clipboard write failed:", error);
-        onError?.(error as Error);
+        onError?.(error instanceof Error ? error : new Error("Clipboard write failed"));
       }
     };
 
@@ -232,6 +221,4 @@ const CodeBlockCollapseButton = forwardRef<
 });
 CodeBlockCollapseButton.displayName = "CodeBlockCollapseButton";
 
-export { CodeBlock };
-export { CodeBlockCopyButton };
-export { CodeBlockCollapseButton };
+export { CodeBlock, CodeBlockCollapseButton, CodeBlockCopyButton };

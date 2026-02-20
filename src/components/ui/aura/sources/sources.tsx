@@ -3,7 +3,7 @@ import type { ComponentProps, ReactNode } from "react";
 import { IconMist } from "@tabler/icons-react";
 
 import { InlineCitation, InlineCitationLink } from "@/components/ui/aura/inline-citation";
-import { cn } from "@/lib/utils";
+import { cn } from "../../../../lib/utils";
 
 type SourcesProps = Omit<ComponentProps<"div">, "title"> & {
   title?: ReactNode | boolean;

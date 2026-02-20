@@ -32,46 +32,52 @@ import {
   SidebarSeparator,
   SidebarTrigger,
 } from "./sidebar";
-
 const meta: Meta<typeof Sidebar> = {
   title: "Primitives/Sidebar",
   component: Sidebar,
   tags: ["autodocs"],
   argTypes: {
-    // Structure
     side: {
       control: "select",
       options: ["left", "right"],
-      description: "Which side the sidebar appears on",
       table: {
         category: "Structure",
-        type: { summary: '"left" | "right"' },
-        defaultValue: { summary: "left" },
+        type: {
+          summary: '"left" | "right"',
+        },
+        defaultValue: {
+          summary: "left",
+        },
       },
     },
     variant: {
       control: "select",
       options: ["sidebar", "floating", "inset"],
-      description: "Visual variant of the sidebar",
       table: {
         category: "Structure",
-        type: { summary: '"sidebar" | "floating" | "inset"' },
-        defaultValue: { summary: "sidebar" },
+        type: {
+          summary: '"sidebar" | "floating" | "inset"',
+        },
+        defaultValue: {
+          summary: "sidebar",
+        },
       },
     },
     collapsible: {
       control: "select",
       options: ["offcanvas", "icon", "none"],
-      description: "How the sidebar can be collapsed",
       table: {
         category: "Behavior",
-        type: { summary: '"offcanvas" | "icon" | "none"' },
-        defaultValue: { summary: "offcanvas" },
+        type: {
+          summary: '"offcanvas" | "icon" | "none"',
+        },
+        defaultValue: {
+          summary: "offcanvas",
+        },
       },
     },
     className: {
       control: "text",
-      description: "CSS classes for styling",
       table: {
         category: "Display",
       },
@@ -85,43 +91,17 @@ const meta: Meta<typeof Sidebar> = {
     chromatic: {
       viewports: [1200],
     },
-    docs: {
-      description: {
-        component:
-          "A composable sidebar component following the shadcn pattern with sticky header/footer and scrollable content.",
-      },
-    },
   },
 };
-
 export default meta;
 type Story = StoryObj<typeof Sidebar>;
-
-/**
- * Complete sidebar with header, scrollable content, and footer.
- * This follows the shadcn pattern with proper flexbox layout.
- */
 export const Basic: Story = {
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Full sidebar structure with brand, project selector, search, navigation pages, pinned apps, and footer with user profile. The content scrolls while header and footer remain visible.",
-      },
-    },
-  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Verify sidebar is rendered
     const sidebar = canvas.getByTestId("sidebar-header-insert");
     await expect(sidebar).toBeInTheDocument();
-
-    // Verify navigation items exist
     const atlasButton = canvas.getByText("Atlas");
     await expect(atlasButton).toBeInTheDocument();
-
-    // Verify footer is visible
     const footer = canvas.getByText("Elizabeth Fitzgerald");
     await expect(footer).toBeInTheDocument();
   },
@@ -262,35 +242,16 @@ export const Basic: Story = {
     </div>
   ),
 };
-
-/**
- * Collapsed sidebar in icon-only mode with tooltips.
- * Tests tooltip behavior on hover.
- */
 export const Collapsed: Story = {
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Sidebar collapsed to icon-only mode. Hover over icons to see tooltips. Click the trigger button to expand.",
-      },
-    },
-  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Verify collapsed state
-    const trigger = canvas.getByRole("button", { name: /toggle sidebar/i });
+    const trigger = canvas.getByRole("button", {
+      name: /toggle sidebar/i,
+    });
     await expect(trigger).toBeInTheDocument();
-
-    // Verify icons are present
     const homeButton = canvas.getByText("Home");
     await expect(homeButton).toBeInTheDocument();
-
-    // Test expand functionality
     await userEvent.click(trigger);
-
-    // Wait a moment for the animation
     await new Promise((resolve) => setTimeout(resolve, 300));
   },
   render: () => (
@@ -429,20 +390,7 @@ export const Collapsed: Story = {
     </div>
   ),
 };
-
-/**
- * Sidebar with minimal content to show footer positioning
- * Demonstrates that footer stays at bottom with little content.
- */
 export const MinimalContent: Story = {
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Sidebar with only a few navigation items. Shows that the footer remains at the bottom even with minimal scrollable content.",
-      },
-    },
-  },
   render: () => (
     <div className="relative h-[996px] w-full rounded-lg overflow-hidden">
       <SidebarProvider className="min-h-0 h-[996px]">
@@ -542,10 +490,6 @@ export const MinimalContent: Story = {
     </div>
   ),
 };
-
-/**
- * Interactive playground for testing sidebar props
- */
 export const Playground: Story = {
   args: {
     side: "left",

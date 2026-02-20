@@ -1,22 +1,14 @@
 import type { ComponentProps, ComponentRef, ReactNode } from "react";
-import { forwardRef, isValidElement } from "react";
+import { forwardRef } from "react";
 
 import { IconSelector as ChevronsUpDown } from "@tabler/icons-react";
 
-import { Badge } from "@/components/ui/aura/badge";
-import { Button } from "@/components/ui/aura/button";
-import {
-  CodeBlock,
-  CodeBlockCollapseButton,
-  CodeBlockCopyButton,
-} from "@/components/ui/aura/code-block";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/aura/collapsible";
-import type { ToolUIPart } from "@/lib/ai/types";
-import { cn } from "@/lib/utils";
+import type { ToolUIPart } from "../../../../lib/ai/types";
+import { cn } from "../../../../lib/utils";
+import { Badge } from "../badge";
+import { Button } from "../button";
+import { CodeBlock, CodeBlockCollapseButton, CodeBlockCopyButton } from "../code-block";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "../collapsible";
 
 type ToolProps = ComponentProps<typeof Collapsible>;
 
@@ -120,21 +112,35 @@ const ToolOutput = forwardRef<HTMLDivElement, ToolOutputProps>(
       return null;
     }
 
-    const codeContent =
-      typeof output === "object" && !isValidElement(output)
-        ? JSON.stringify(output, null, 2)
-        : typeof output === "string"
-          ? output
-          : undefined;
-
-    const outputElement = codeContent ? (
-      <CodeBlock code={codeContent} language="json" collapsed>
-        <CodeBlockCopyButton />
-        <CodeBlockCollapseButton />
-      </CodeBlock>
-    ) : (
-      <div>{output as ReactNode}</div>
-    );
+    let outputElement: ReactNode = null;
+    if (typeof output === "string") {
+      outputElement = (
+        <CodeBlock code={output} language="json" collapsed>
+          <CodeBlockCopyButton />
+          <CodeBlockCollapseButton />
+        </CodeBlock>
+      );
+    } else if (output === null || output === undefined) {
+      outputElement = null;
+    } else if (typeof output === "object") {
+      outputElement = (
+        <CodeBlock code={JSON.stringify(output, null, 2)} language="json" collapsed>
+          <CodeBlockCopyButton />
+          <CodeBlockCollapseButton />
+        </CodeBlock>
+      );
+    } else if (
+      typeof output === "number" ||
+      typeof output === "boolean" ||
+      typeof output === "bigint"
+    ) {
+      outputElement = (
+        <CodeBlock code={String(output)} language="json" collapsed>
+          <CodeBlockCopyButton />
+          <CodeBlockCollapseButton />
+        </CodeBlock>
+      );
+    }
 
     if (errorText) {
       return (

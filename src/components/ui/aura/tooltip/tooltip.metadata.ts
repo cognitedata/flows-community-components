@@ -1,4 +1,4 @@
-import type { ComponentMeta } from "@/lib/component-examples";
+import type { ComponentMeta } from "../../../../lib/component-examples";
 
 /**
  * Tooltip Component Metadata
@@ -8,9 +8,9 @@ import type { ComponentMeta } from "@/lib/component-examples";
  */
 export const TooltipMetadata: ComponentMeta = {
   name: "Tooltip",
-  status: "draft",
+  status: "in-progress-code-review",
   description:
     "A popup that displays information related to an element when the element receives keyboard focus or mouse hover, built on Base UI Tooltip primitives.",
   llmUsage:
-    "Use `<Tooltip>` with `<TooltipTrigger>` and `<TooltipContent>` for contextual help text.",
+    "Use `<TooltipProvider>` to configure shared behavior (for example delay), then compose `<Tooltip>`, `<TooltipTrigger>`, and `<TooltipContent>` for contextual help text.",
 };

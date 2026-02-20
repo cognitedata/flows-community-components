@@ -1157,46 +1157,6 @@
       ]
     },
     {
-      "name": "reasoning-original",
-      "type": "registry:component",
-      "title": "ReasoningOriginal",
-      "description": "Original collapsible reasoning component (preserved for future use).",
-      "dependencies": ["@tabler/icons-react", "streamdown"],
-      "registryDependencies": ["@aura/css", "@aura/collapsible", "@aura/shimmer"],
-      "files": [
-        {
-          "path": "src/components/ui/aura/reasoning-original/reasoning-original.tsx",
-          "target": "src/components/ui/aura/reasoning-original.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "src/globals.css",
-          "target": "src/styles.css",
-          "type": "registry:component"
-        }
-      ]
-    },
-    {
-      "name": "shimmer",
-      "type": "registry:component",
-      "title": "Shimmer",
-      "description": "An animated text shimmer component for creating eye-catching loading states and progressive reveal effects.",
-      "dependencies": ["framer-motion"],
-      "registryDependencies": ["@aura/css"],
-      "files": [
-        {
-          "path": "src/components/ui/aura/shimmer/shimmer.tsx",
-          "target": "src/components/ui/aura/shimmer.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "src/globals.css",
-          "target": "src/styles.css",
-          "type": "registry:component"
-        }
-      ]
-    },
-    {
       "name": "scroll-area",
       "type": "registry:component",
       "title": "ScrollArea",
@@ -1227,6 +1187,26 @@
         {
           "path": "src/components/ui/aura/sheet/sheet.tsx",
           "target": "src/components/ui/aura/sheet.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "shimmer",
+      "type": "registry:component",
+      "title": "Shimmer",
+      "description": "An animated text shimmer component for creating eye-catching loading states and progressive reveal effects.",
+      "dependencies": ["framer-motion"],
+      "registryDependencies": ["@aura/css"],
+      "files": [
+        {
+          "path": "src/components/ui/aura/shimmer/shimmer.tsx",
+          "target": "src/components/ui/aura/shimmer.tsx",
           "type": "registry:component"
         },
         {
@@ -1547,8 +1527,8 @@
     {
       "name": "typography",
       "type": "registry:component",
-      "title": "typography",
-      "description": "* Aura Typography System",
+      "title": "Typography",
+      "description": "Text styles and scales",
       "registryDependencies": ["@aura/css"],
       "files": [
         {

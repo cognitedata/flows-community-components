@@ -3,13 +3,13 @@ import { type VariantProps, cva } from "class-variance-authority";
 import {
   type ComponentRef,
   type HTMLAttributes,
-  type ReactElement,
   type ReactNode,
   cloneElement,
   forwardRef,
+  isValidElement,
 } from "react";
 
-import { cn } from "@/lib/utils";
+import { cn } from "../../../../lib/utils";
 
 const helperTextVariants = cva("flex flex-row justify-start items-start", {
   variants: {
@@ -49,7 +49,7 @@ const HelperText = forwardRef<ComponentRef<"div">, HelperTextProps>(
     ref
   ) => {
     const displayIcon = icon ?? (isError ? <IconExclamationCircle /> : null);
-    const iconElement = displayIcon as ReactElement<{ className?: string }> | null;
+    const iconElement = isValidElement<{ className?: string }>(displayIcon) ? displayIcon : null;
 
     const textColor = isError
       ? "text-destructive-foreground"

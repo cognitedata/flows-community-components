@@ -1,5 +1,5 @@
-import { cn } from "@/lib/utils";
 import { type ComponentProps, type ComponentRef, forwardRef } from "react";
+import { cn } from "../../../../lib/utils";
 
 const Skeleton = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
   ({ className, ...props }, ref) => (

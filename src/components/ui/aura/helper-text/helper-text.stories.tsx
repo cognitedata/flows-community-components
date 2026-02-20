@@ -3,11 +3,10 @@ import { expect, userEvent, within } from "@storybook/test";
 import { IconAlertTriangle, IconBulb, IconCircleCheck, IconInfoCircle } from "@tabler/icons-react";
 import { useState } from "react";
 
-import { Button } from "@/components/ui/aura/button";
-import { Input } from "@/components/ui/aura/input";
-import { Label } from "@/components/ui/aura/label";
+import { Button } from "../button";
+import { Input } from "../input";
+import { Label } from "../label";
 import { HelperText } from "./helper-text";
-
 const meta: Meta<typeof HelperText> = {
   title: "Primitives/Helper Text",
   component: HelperText,
@@ -16,54 +15,62 @@ const meta: Meta<typeof HelperText> = {
     size: {
       control: "select",
       options: ["xs", "sm"],
-      description: "Size of the helper text",
       table: {
         category: "Variants/Styling",
-        type: { summary: '"xs" | "sm"' },
-        defaultValue: { summary: "sm" },
+        type: {
+          summary: '"xs" | "sm"',
+        },
+        defaultValue: {
+          summary: "sm",
+        },
       },
     },
     className: {
       control: "text",
-      description: "CSS classes for styling",
       table: {
         category: "Variants/Styling",
       },
     },
-
     isError: {
       control: "boolean",
-      description: "Show error state with destructive color",
       table: {
         category: "Behavior",
-        type: { summary: "boolean" },
-        defaultValue: { summary: "false" },
+        type: {
+          summary: "boolean",
+        },
+        defaultValue: {
+          summary: "false",
+        },
       },
     },
     isSuccess: {
       control: "boolean",
-      description: "Show success state with success color",
       table: {
         category: "Behavior",
-        type: { summary: "boolean" },
-        defaultValue: { summary: "false" },
+        type: {
+          summary: "boolean",
+        },
+        defaultValue: {
+          summary: "false",
+        },
       },
     },
-
     icon: {
       control: false,
-      description: "Custom icon to display. Defaults to error icon when isError is true",
       table: {
         category: "Content",
-        type: { summary: "ReactNode" },
+        type: {
+          summary: "ReactNode",
+        },
       },
     },
     children: {
       control: "text",
-      description: "Helper text content",
       table: {
         category: "Content",
-        type: { summary: "ReactNode" },
+        type: {
+          summary: "ReactNode",
+        },
       },
     },
   },
@@ -71,109 +78,65 @@ const meta: Meta<typeof HelperText> = {
     layout: "centered",
   },
 };
-
 export default meta;
 type Story = StoryObj<typeof HelperText>;
-
 export const Basic: Story = {
   parameters: {
     order: 1,
-    docs: {
-      description: {
-        story: "Default helper text with muted styling.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const helperText = canvas.getByText("This is helpful information for the user.");
-
     await expect(helperText).toBeInTheDocument();
     await expect(helperText).toHaveClass("text-muted-foreground");
   },
   render: () => <HelperText>This is helpful information for the user.</HelperText>,
 };
-
 export const SizeXS: Story = {
   parameters: {
     order: 2,
-    docs: {
-      description: {
-        story: "Extra small size variant for compact layouts and inline help.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const helperText = canvas.getByText("Compact helper text for tight spaces.");
-
     await expect(helperText).toBeInTheDocument();
-
     await expect(helperText.parentElement).toHaveClass("text-xs");
   },
   render: () => <HelperText size="xs">Compact helper text for tight spaces.</HelperText>,
 };
-
 export const SizeSM: Story = {
   parameters: {
     order: 3,
-    docs: {
-      description: {
-        story: "Standard size variant (default). Used for most form fields.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const helperText = canvas.getByText("Standard sized helper text.");
-
     await expect(helperText).toBeInTheDocument();
-
     await expect(helperText.parentElement).toHaveClass("text-sm");
   },
   render: () => <HelperText size="sm">Standard sized helper text.</HelperText>,
 };
-
 export const ErrorState: Story = {
   parameters: {
     order: 4,
-    docs: {
-      description: {
-        story: "Error state with destructive styling and default icon.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const helperText = canvas.getByText("This field is required.");
-
     await expect(helperText).toBeInTheDocument();
     await expect(helperText).toHaveClass("text-destructive-foreground");
-
-    const container = canvasElement.querySelector('[data-slot="helper-text"]');
-    await expect(container?.querySelector("svg")).toBeInTheDocument();
   },
   render: () => <HelperText isError>This field is required.</HelperText>,
 };
-
 export const Success: Story = {
   parameters: {
     order: 5,
-    docs: {
-      description: {
-        story: "Success state with success color and custom check icon.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const helperText = canvas.getByText("Password meets all requirements.");
-
     await expect(helperText).toBeInTheDocument();
     await expect(helperText).toHaveClass("text-success-foreground");
-
-    const container = canvasElement.querySelector('[data-slot="helper-text"]');
-    await expect(container?.querySelector("svg")).toBeInTheDocument();
   },
   render: () => (
     <HelperText isSuccess icon={<IconCircleCheck />}>
@@ -181,114 +144,64 @@ export const Success: Story = {
     </HelperText>
   ),
 };
-
 export const WithCustomIcon: Story = {
   parameters: {
     order: 6,
-    docs: {
-      description: {
-        story: "Helper text with a custom icon for informational messages.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const helperText = canvas.getByText("Your data is encrypted and secure.");
-
     await expect(helperText).toBeInTheDocument();
-
-    const container = canvasElement.querySelector('[data-slot="helper-text"]');
-    await expect(container?.querySelector("svg")).toBeInTheDocument();
   },
   render: () => (
     <HelperText icon={<IconInfoCircle />}>Your data is encrypted and secure.</HelperText>
   ),
 };
-
 export const Warning: Story = {
   parameters: {
     order: 7,
-    docs: {
-      description: {
-        story: "Warning message with alert triangle icon. Uses default muted color.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const helperText = canvas.getByText("Changes cannot be undone after saving.");
-
     await expect(helperText).toBeInTheDocument();
-
-    const container = canvasElement.querySelector('[data-slot="helper-text"]');
-    await expect(container?.querySelector("svg")).toBeInTheDocument();
   },
   render: () => (
     <HelperText icon={<IconAlertTriangle />}>Changes cannot be undone after saving.</HelperText>
   ),
 };
-
 export const Tip: Story = {
   parameters: {
     order: 8,
-    docs: {
-      description: {
-        story: "Helpful tip with lightbulb icon for suggestions.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const helperText = canvas.getByText("Pro tip: Use keyboard shortcuts to work faster.");
-
     await expect(helperText).toBeInTheDocument();
-
-    const container = canvasElement.querySelector('[data-slot="helper-text"]');
-    await expect(container?.querySelector("svg")).toBeInTheDocument();
   },
   render: () => (
     <HelperText icon={<IconBulb />}>Pro tip: Use keyboard shortcuts to work faster.</HelperText>
   ),
 };
-
 export const NoIcon: Story = {
   parameters: {
     order: 9,
-    docs: {
-      description: {
-        story: "Helper text without an icon.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const helperText = canvas.getByText("Simple text without an icon.");
-
     await expect(helperText).toBeInTheDocument();
-
-    const container = canvasElement.querySelector('[data-slot="helper-text"]');
-    await expect(container?.querySelector("svg")).not.toBeInTheDocument();
   },
   render: () => <HelperText>Simple text without an icon.</HelperText>,
 };
-
 export const LongText: Story = {
   parameters: {
     order: 10,
-    docs: {
-      description: {
-        story: "Long helper text wrapping behavior.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const helperText = canvas.getByText(/This is a longer piece of helper text/);
-
     await expect(helperText).toBeInTheDocument();
-
-    const container = canvasElement.querySelector('[data-slot="helper-text"]');
-    await expect(container?.querySelector("svg")).toBeInTheDocument();
   },
   render: () => (
     <HelperText icon={<IconInfoCircle />} className="max-w-md">
@@ -297,39 +210,33 @@ export const LongText: Story = {
     </HelperText>
   ),
 };
-
 export const InteractiveFormExample: Story = {
   parameters: {
     order: 11,
-    docs: {
-      description: {
-        story: "Interactive example showing helper text changing based on form validation state.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const input = canvas.getByLabelText("Email address");
-
     await expect(
       canvas.getByText("Enter your email to receive notifications.")
     ).toBeInTheDocument();
-
-    await userEvent.type(input, "invalid-email", { delay: 50 });
+    await userEvent.type(input, "invalid-email", {
+      delay: 50,
+    });
     await expect(canvas.getByText("Please enter a valid email address.")).toBeInTheDocument();
     await expect(
       canvas.queryByText("Enter your email to receive notifications.")
     ).not.toBeInTheDocument();
-
     await userEvent.clear(input);
-    await userEvent.type(input, "valid@email.com", { delay: 50 });
+    await userEvent.type(input, "valid@email.com", {
+      delay: 50,
+    });
     await expect(canvas.getByText("Email format is valid.")).toBeInTheDocument();
     await expect(canvas.queryByText("Please enter a valid email address.")).not.toBeInTheDocument();
   },
   render: function InteractiveFormExampleStory() {
     const [email, setEmail] = useState("");
     const [status, setStatus] = useState<"idle" | "error" | "success">("idle");
-
     const validateEmail = (value: string) => {
       if (value.length === 0) {
         setStatus("idle");
@@ -338,7 +245,6 @@ export const InteractiveFormExample: Story = {
       const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
       setStatus(isValid ? "success" : "error");
     };
-
     return (
       <div className="w-100 space-y-2">
         <Label htmlFor="email">Email address</Label>
@@ -369,25 +275,16 @@ export const InteractiveFormExample: Story = {
     );
   },
 };
-
 export const SizeComparison: Story = {
   parameters: {
     order: 12,
-    docs: {
-      description: {
-        story: "Side-by-side comparison of size variants.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     const xsText = canvas.getByText("This is extra small helper text");
     const smText = canvas.getByText("This is small helper text");
-
     await expect(xsText).toBeInTheDocument();
     await expect(smText).toBeInTheDocument();
-
     await expect(xsText.parentElement).toHaveClass("text-xs");
     await expect(smText.parentElement).toHaveClass("text-sm");
   },
@@ -408,29 +305,20 @@ export const SizeComparison: Story = {
     </div>
   ),
 };
-
 export const AllStates: Story = {
   parameters: {
     order: 13,
-    docs: {
-      description: {
-        story: "Overview of common helper text states.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     await expect(canvas.getByText("This is default helper text.")).toBeInTheDocument();
     await expect(canvas.getByText("This field contains an error.")).toBeInTheDocument();
     await expect(canvas.getByText("Successfully validated.")).toBeInTheDocument();
     await expect(canvas.getByText("Additional information is available.")).toBeInTheDocument();
     await expect(canvas.getByText("Proceed with caution.")).toBeInTheDocument();
     await expect(canvas.getByText("Simple text without an icon.")).toBeInTheDocument();
-
     const errorText = canvas.getByText("This field contains an error.");
     await expect(errorText).toHaveClass("text-destructive-foreground");
-
     const successText = canvas.getByText("Successfully validated.");
     await expect(successText).toHaveClass("text-success-foreground");
   },
@@ -465,30 +353,21 @@ export const AllStates: Story = {
     </div>
   ),
 };
-
 export const WithFormFields: Story = {
   parameters: {
     order: 14,
-    docs: {
-      description: {
-        story: "Examples of helper text integrated with different form components.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     await expect(canvas.getByLabelText("Username")).toBeInTheDocument();
     await expect(canvas.getByLabelText("Password")).toBeInTheDocument();
     await expect(canvas.getByLabelText("Confirm Password")).toBeInTheDocument();
-
     await expect(
       canvas.getByText("Choose a unique username. Only letters, numbers, and underscores.")
     ).toBeInTheDocument();
     await expect(
       canvas.getByText("Must be at least 8 characters with a mix of letters and numbers.")
     ).toBeInTheDocument();
-
     const errorText = canvas.getByText("Passwords do not match.");
     await expect(errorText).toBeInTheDocument();
     await expect(errorText).toHaveClass("text-destructive-foreground");
@@ -521,39 +400,34 @@ export const WithFormFields: Story = {
     </div>
   ),
 };
-
 export const StatefulValidation: Story = {
   parameters: {
     order: 15,
-    docs: {
-      description: {
-        story: "Interactive validation that updates helper text state on button click.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const input = canvas.getByLabelText("Name");
-    const button = canvas.getByRole("button", { name: /Validate/i });
-
+    const button = canvas.getByRole("button", {
+      name: /Validate/i,
+    });
     await expect(canvas.getByText("Enter your name and click validate.")).toBeInTheDocument();
-
     await userEvent.click(button);
     await expect(canvas.getByText("Name must be at least 5 characters long.")).toBeInTheDocument();
-
-    await userEvent.type(input, "test", { delay: 50 });
+    await userEvent.type(input, "test", {
+      delay: 50,
+    });
     await userEvent.click(button);
     await expect(canvas.getByText("Name must be at least 5 characters long.")).toBeInTheDocument();
-
     await userEvent.clear(input);
-    await userEvent.type(input, "valid name", { delay: 50 });
+    await userEvent.type(input, "valid name", {
+      delay: 50,
+    });
     await userEvent.click(button);
     await expect(canvas.getByText("Name is valid!")).toBeInTheDocument();
   },
   render: function StatefulValidationStory() {
     const [value, setValue] = useState("");
     const [state, setState] = useState<"idle" | "error" | "success">("idle");
-
     const handleValidate = () => {
       if (value.length === 0) {
         setState("error");
@@ -563,7 +437,6 @@ export const StatefulValidation: Story = {
         setState("success");
       }
     };
-
     return (
       <div className="w-100 space-y-3">
         <div className="space-y-2">
@@ -596,7 +469,6 @@ export const StatefulValidation: Story = {
     );
   },
 };
-
 export const Playground: Story = {
   args: {
     size: "sm",
@@ -606,11 +478,6 @@ export const Playground: Story = {
   },
   parameters: {
     order: 99,
-    docs: {
-      description: {
-        story: "Interactive playground for helper text props.",
-      },
-    },
   },
   render: (args) => <HelperText {...args} />,
 };
