@@ -1,9 +1,9 @@
-import { type ComponentPropsWithoutRef, forwardRef } from "react";
+import { type ComponentPropsWithoutRef, type ComponentRef, forwardRef } from "react";
 
 import { cn } from "../../../../lib/utils";
 
-const Label = forwardRef<HTMLLabelElement, ComponentPropsWithoutRef<"label">>(
-  ({ className, ...props }, ref) => {
+const Label = forwardRef<ComponentRef<"label">, ComponentPropsWithoutRef<"label">>(
+  ({ className, children, ...props }, ref) => {
     return (
       // biome-ignore lint/a11y/noLabelWithoutControl: This is a reusable label primitive; consumers provide `htmlFor` or wrap a control.
       <label
@@ -14,7 +14,9 @@ const Label = forwardRef<HTMLLabelElement, ComponentPropsWithoutRef<"label">>(
           className
         )}
         {...props}
-      />
+      >
+        {children}
+      </label>
     );
   }
 );
