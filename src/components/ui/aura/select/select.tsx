@@ -76,7 +76,13 @@ function Select(props: SelectProps) {
   const selectContext = useMemo(() => ({ isOpen: isOpen ?? false }), [isOpen]);
 
   if (props.multiple) {
-    const { multiple: _multiple, value, defaultValue, onValueChange, ...rest } = props;
+    const {
+      multiple: _multiple,
+      value,
+      defaultValue,
+      onValueChange,
+      ...rest
+    } = props;
 
     return (
       <SelectContext.Provider value={selectContext}>
@@ -87,7 +93,10 @@ function Select(props: SelectProps) {
           value={value}
           defaultValue={defaultValue}
           onValueChange={(nextValue, _details) => {
-            if (Array.isArray(nextValue) && nextValue.every((v) => typeof v === "string")) {
+            if (
+              Array.isArray(nextValue) &&
+              nextValue.every((v) => typeof v === 'string')
+            ) {
               onValueChange?.(nextValue);
               return;
             }
@@ -104,9 +113,14 @@ function Select(props: SelectProps) {
 
   const { value, defaultValue, onValueChange, ...rest } = props;
 
-  const mappedValue = value === undefined ? undefined : value === "" ? null : value;
+  const mappedValue =
+    value === undefined ? undefined : value === '' ? null : value;
   const mappedDefaultValue =
-    defaultValue === undefined ? undefined : defaultValue === "" ? null : defaultValue;
+    defaultValue === undefined
+      ? undefined
+      : defaultValue === ''
+        ? null
+        : defaultValue;
 
   return (
     <SelectContext.Provider value={selectContext}>
@@ -117,7 +131,7 @@ function Select(props: SelectProps) {
         value={mappedValue}
         defaultValue={mappedDefaultValue}
         onValueChange={(nextValue, _details) => {
-          onValueChange?.(typeof nextValue === "string" ? nextValue : "");
+          onValueChange?.(typeof nextValue === 'string' ? nextValue : '');
         }}
         {...rest}
       />

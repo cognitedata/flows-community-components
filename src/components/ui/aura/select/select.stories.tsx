@@ -9,6 +9,10 @@ import {
 } from '@tabler/icons-react';
 import { type ComponentProps, type ReactNode, useState } from 'react';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
+
+import { Button } from '../button';
+import { Label } from '../label';
+
 import {
   Select,
   SelectContent,
@@ -19,8 +23,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from './select';
-import { Button } from '../button';
-import { Label } from '../label';
 const basicOptions = [
   {
     label: 'Option 1',
@@ -946,7 +948,9 @@ export const EdgeCaseSpecialCharacters: Story = {
         <SelectContent>
           {specialCharacterOptions.map((option) => (
             <SelectItem key={option.value} value={option.value}>
-              {"renderLabel" in option && option.renderLabel ? option.renderLabel : option.label}
+              {'renderLabel' in option && option.renderLabel
+                ? option.renderLabel
+                : option.label}
             </SelectItem>
           ))}
         </SelectContent>
@@ -967,7 +971,12 @@ export const MultipleSelection: Story = {
       <div className="flex flex-col gap-4">
         <div className="flex flex-col gap-1.5">
           <Label htmlFor="languages">Select languages</Label>
-          <Select items={languageOptions} multiple value={value} onValueChange={setValue}>
+          <Select
+            items={languageOptions}
+            multiple
+            value={value}
+            onValueChange={setValue}
+          >
             <SelectTrigger id="languages" className="w-75">
               <SelectValue placeholder="Select languages">
                 {value.length > 0
