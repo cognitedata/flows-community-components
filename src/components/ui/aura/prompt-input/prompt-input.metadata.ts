@@ -1,4 +1,4 @@
-import type { ComponentMeta } from "../../../../lib/component-examples";
+import type { ComponentMeta } from "../../../../lib/types";
 
 export const PromptInputMetadata: ComponentMeta = {
   name: "PromptInput",
