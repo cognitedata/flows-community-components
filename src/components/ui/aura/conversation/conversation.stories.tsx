@@ -1,3 +1,21 @@
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import {
+  IconCopy,
+  IconDownload,
+  IconRefresh,
+  IconTool,
+  IconWheel,
+} from '@tabler/icons-react';
+import { useState } from 'react';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
+
+import {
+  Conversation,
+  ConversationContent,
+  ConversationEmptyState,
+  ConversationScrollButton,
+} from './conversation';
+
 import {
   Message,
   MessageAction,
@@ -5,7 +23,7 @@ import {
   MessageAvatar,
   MessageAvatarIcon,
   MessageContent,
-} from "@/components/ui/aura/message";
+} from '@/components/ui/aura/message';
 import {
   PromptInput,
   PromptInputBody,
@@ -14,77 +32,67 @@ import {
   PromptInputSubmit,
   PromptInputTextarea,
   usePromptInputController,
-} from "@/components/ui/aura/prompt-input";
-import { Suggestion } from "@/components/ui/aura/suggestion";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { IconCopy, IconDownload, IconRefresh, IconTool, IconWheel } from "@tabler/icons-react";
-import { useState } from "react";
-import { expect, userEvent, waitFor, within } from "storybook/test";
-import {
-  Conversation,
-  ConversationContent,
-  ConversationEmptyState,
-  ConversationScrollButton,
-} from "./conversation";
+} from '@/components/ui/aura/prompt-input';
+import { Suggestion } from '@/components/ui/aura/suggestion';
 const meta: Meta<typeof Conversation> = {
-  title: "AI/Conversation",
+  title: 'AI/Conversation',
   component: Conversation,
-  tags: ["autodocs", "ai-elements"],
+  tags: ['autodocs', 'ai-elements'],
   argTypes: {
     className: {
-      control: "text",
+      control: 'text',
       table: {
-        category: "Display",
+        category: 'Display',
       },
     },
     children: {
       control: false,
       table: {
-        category: "Display",
+        category: 'Display',
         type: {
-          summary: "ReactNode",
+          summary: 'ReactNode',
         },
       },
     },
     initial: {
       control: false,
       table: {
-        category: "Behavior",
+        category: 'Behavior',
         type: {
-          summary: "ScrollBehavior",
+          summary: 'ScrollBehavior',
         },
         defaultValue: {
-          summary: "smooth",
+          summary: 'smooth',
         },
       },
     },
     resize: {
       control: false,
       table: {
-        category: "Behavior",
+        category: 'Behavior',
         type: {
-          summary: "ScrollBehavior",
+          summary: 'ScrollBehavior',
         },
         defaultValue: {
-          summary: "smooth",
+          summary: 'smooth',
         },
       },
     },
     role: {
       control: false,
       table: {
-        category: "Accessibility",
+        category: 'Accessibility',
         type: {
-          summary: "string",
+          summary: 'string',
         },
         defaultValue: {
-          summary: "log",
+          summary: 'log',
         },
       },
     },
   },
   parameters: {
-    layout: "fullscreen",
+    layout: 'fullscreen',
   },
   decorators: [
     (Story) => (
@@ -101,28 +109,37 @@ export const Default: Story = {
     const canvas = within(canvasElement);
     const conversationContainer = canvasElement.querySelector('[role="log"]');
     await expect(conversationContainer).toBeInTheDocument();
-    const messages = canvasElement.querySelectorAll("[data-message]");
+    const messages = canvasElement.querySelectorAll('[data-message]');
     await expect(messages.length).toBeGreaterThanOrEqual(8);
-    const copyButtons = canvas.getAllByRole("button", {
+    const copyButtons = canvas.getAllByRole('button', {
       name: /copy/i,
     });
     await expect(copyButtons.length).toBeGreaterThan(0);
-    const firstUserMessage = canvas.getByText(/What's the status of pump 21PT1019/i);
+    const firstUserMessage = canvas.getByText(
+      /What's the status of pump 21PT1019/i
+    );
     await expect(firstUserMessage).toBeInTheDocument();
-    const avatars = canvasElement.querySelectorAll('[data-slot="message-avatar"]');
+    const avatars = canvasElement.querySelectorAll(
+      '[data-slot="message-avatar"]'
+    );
     await expect(avatars.length).toBeGreaterThan(0);
     const scrollableContent = canvasElement.querySelector('[role="log"]');
-    if (scrollableContent && scrollableContent.scrollHeight > scrollableContent.clientHeight) {
+    if (
+      scrollableContent &&
+      scrollableContent.scrollHeight > scrollableContent.clientHeight
+    ) {
       scrollableContent.scrollTop = 0;
       await new Promise((resolve) => setTimeout(resolve, 100));
-      const scrollButton = canvasElement.querySelector("button.rounded-full");
+      const scrollButton = canvasElement.querySelector('button.rounded-full');
       if (scrollButton) {
         await expect(scrollButton).toBeInTheDocument();
         await expect(scrollButton).toBeVisible();
         await userEvent.click(scrollButton);
         await waitFor(
           async () => {
-            const buttonAfterClick = canvasElement.querySelector("button.rounded-full");
+            const buttonAfterClick = canvasElement.querySelector(
+              'button.rounded-full'
+            );
             await expect(buttonAfterClick).not.toBeInTheDocument();
           },
           {
@@ -147,8 +164,9 @@ export const Default: Story = {
           </MessageAvatar>
           <MessageContent className="flex flex-col gap-2">
             <span>
-              Pump 21PT1019 is currently operational. Recent vibration readings show levels within
-              normal parameters at 3.2 mm/s. Temperature is stable at 68°C.
+              Pump 21PT1019 is currently operational. Recent vibration readings
+              show levels within normal parameters at 3.2 mm/s. Temperature is
+              stable at 68°C.
             </span>
             <MessageActions>
               <MessageAction size="icon-sm" label="Copy" tooltip="Copy">
@@ -162,39 +180,11 @@ export const Default: Story = {
         </Message>
 
         <Message isResponse={false} data-message>
-          <MessageContent>Can you check the maintenance history?</MessageContent>
-        </Message>
-
-        <Message isResponse={true} data-message>
-          <MessageAvatar variant="nordic">
-            <MessageAvatarIcon>
-              <IconWheel />
-            </MessageAvatarIcon>
-          </MessageAvatar>
-          <MessageContent className="flex flex-col gap-2">
-            <span>
-              The last scheduled maintenance was performed on 15 November 2024. The next maintenance
-              is scheduled for 15 February 2025. All previous inspections have shown normal wear
-              patterns.
-            </span>
-            <MessageActions>
-              <MessageAction size="icon-sm" label="Copy" tooltip="Copy">
-                <IconCopy className="w-3 h-3" />
-              </MessageAction>
-              <MessageAction size="icon-sm" label="Download" tooltip="Download">
-                <IconDownload className="w-3 h-3" />
-              </MessageAction>
-              <MessageAction size="icon-sm" label="Retry" tooltip="Retry">
-                <IconRefresh className="w-3 h-3" />
-              </MessageAction>
-            </MessageActions>
+          <MessageContent>
+            Can you check the maintenance history?
           </MessageContent>
         </Message>
 
-        <Message isResponse={false} data-message>
-          <MessageContent>Show me the vibration trend over the last week</MessageContent>
-        </Message>
-
         <Message isResponse={true} data-message>
           <MessageAvatar variant="nordic">
             <MessageAvatarIcon>
@@ -203,9 +193,9 @@ export const Default: Story = {
           </MessageAvatar>
           <MessageContent className="flex flex-col gap-2">
             <span>
-              Vibration levels have remained stable over the past week, averaging 3.1 mm/s with a
-              peak of 3.4 mm/s on 16 January at 14:30. All readings are well below the warning
-              threshold of 4.0 mm/s.
+              The last scheduled maintenance was performed on 15 November 2024.
+              The next maintenance is scheduled for 15 February 2025. All
+              previous inspections have shown normal wear patterns.
             </span>
             <MessageActions>
               <MessageAction size="icon-sm" label="Copy" tooltip="Copy">
@@ -222,7 +212,9 @@ export const Default: Story = {
         </Message>
 
         <Message isResponse={false} data-message>
-          <MessageContent>Are there any similar pumps showing issues?</MessageContent>
+          <MessageContent>
+            Show me the vibration trend over the last week
+          </MessageContent>
         </Message>
 
         <Message isResponse={true} data-message>
@@ -233,9 +225,42 @@ export const Default: Story = {
           </MessageAvatar>
           <MessageContent className="flex flex-col gap-2">
             <span>
-              Two similar pumps in the same section (21PT1020 and 21PT1021) are showing elevated
-              vibration levels. 21PT1020 is at 5.2 mm/s (warning threshold exceeded) and 21PT1021 is
-              at 4.8 mm/s. I recommend scheduling inspections for both units.
+              Vibration levels have remained stable over the past week,
+              averaging 3.1 mm/s with a peak of 3.4 mm/s on 16 January at 14:30.
+              All readings are well below the warning threshold of 4.0 mm/s.
+            </span>
+            <MessageActions>
+              <MessageAction size="icon-sm" label="Copy" tooltip="Copy">
+                <IconCopy className="w-3 h-3" />
+              </MessageAction>
+              <MessageAction size="icon-sm" label="Download" tooltip="Download">
+                <IconDownload className="w-3 h-3" />
+              </MessageAction>
+              <MessageAction size="icon-sm" label="Retry" tooltip="Retry">
+                <IconRefresh className="w-3 h-3" />
+              </MessageAction>
+            </MessageActions>
+          </MessageContent>
+        </Message>
+
+        <Message isResponse={false} data-message>
+          <MessageContent>
+            Are there any similar pumps showing issues?
+          </MessageContent>
+        </Message>
+
+        <Message isResponse={true} data-message>
+          <MessageAvatar variant="nordic">
+            <MessageAvatarIcon>
+              <IconWheel />
+            </MessageAvatarIcon>
+          </MessageAvatar>
+          <MessageContent className="flex flex-col gap-2">
+            <span>
+              Two similar pumps in the same section (21PT1020 and 21PT1021) are
+              showing elevated vibration levels. 21PT1020 is at 5.2 mm/s
+              (warning threshold exceeded) and 21PT1021 is at 4.8 mm/s. I
+              recommend scheduling inspections for both units.
             </span>
             <MessageActions>
               <MessageAction size="icon-sm" label="Copy" tooltip="Copy">
@@ -252,7 +277,9 @@ export const Default: Story = {
         </Message>
 
         <Message isResponse={false} data-message>
-          <MessageContent>Create a maintenance work order for those two pumps</MessageContent>
+          <MessageContent>
+            Create a maintenance work order for those two pumps
+          </MessageContent>
         </Message>
 
         <Message isResponse={true} data-message>
@@ -263,9 +290,10 @@ export const Default: Story = {
           </MessageAvatar>
           <MessageContent className="flex flex-col gap-2">
             <span>
-              I've created maintenance work orders WO-2025-0142 and WO-2025-0143 for pumps 21PT1020
-              and 21PT1021 respectively. Both are marked as priority due to the elevated vibration
-              levels. The maintenance team has been notified.
+              I've created maintenance work orders WO-2025-0142 and WO-2025-0143
+              for pumps 21PT1020 and 21PT1021 respectively. Both are marked as
+              priority due to the elevated vibration levels. The maintenance
+              team has been notified.
             </span>
             <MessageActions>
               <MessageAction size="icon-sm" label="Copy" tooltip="Copy">
@@ -290,12 +318,14 @@ export const EmptyState: Story = {
     const canvas = within(canvasElement);
     const conversationContainer = canvasElement.querySelector('[role="log"]');
     await expect(conversationContainer).toBeInTheDocument();
-    const title = canvas.getByText("Start a conversation");
+    const title = canvas.getByText('Start a conversation');
     await expect(title).toBeInTheDocument();
-    await expect(title.tagName).toBe("H3");
-    const description = canvas.getByText(/Ask me anything about your industrial equipment/i);
+    await expect(title.tagName).toBe('H3');
+    const description = canvas.getByText(
+      /Ask me anything about your industrial equipment/i
+    );
     await expect(description).toBeInTheDocument();
-    const messages = canvasElement.querySelectorAll("[data-message]");
+    const messages = canvasElement.querySelectorAll('[data-message]');
     await expect(messages.length).toBe(0);
   },
   render: () => (
@@ -312,12 +342,12 @@ export const EmptyState: Story = {
 export const SuggestionsAutoSubmit: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const suggestions = canvas.getAllByRole("button");
+    const suggestions = canvas.getAllByRole('button');
     await expect(suggestions.length).toBeGreaterThanOrEqual(3);
     await userEvent.click(suggestions[0]);
     await waitFor(
       async () => {
-        const messages = canvasElement.querySelectorAll("[data-message]");
+        const messages = canvasElement.querySelectorAll('[data-message]');
         await expect(messages.length).toBeGreaterThanOrEqual(1);
       },
       {
@@ -328,7 +358,7 @@ export const SuggestionsAutoSubmit: Story = {
   render: () => {
     const SuggestionsAutoSubmitDemo = () => {
       const [submitted, setSubmitted] = useState(false);
-      const [userMessage, setUserMessage] = useState("");
+      const [userMessage, setUserMessage] = useState('');
       const handleSuggestion = (value: string) => {
         setUserMessage(value);
         setSubmitted(true);
@@ -371,13 +401,15 @@ export const SuggestionsAutoSubmit: Story = {
 export const SuggestionsFillInput: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const suggestions = canvas.getAllByRole("button");
+    const suggestions = canvas.getAllByRole('button');
     await expect(suggestions.length).toBeGreaterThanOrEqual(3);
     await userEvent.click(suggestions[0]);
     await waitFor(
       async () => {
-        const textarea = canvas.getByRole("textbox");
-        await expect(textarea).toHaveValue("What equipment requires maintenance this week?");
+        const textarea = canvas.getByRole('textbox');
+        await expect(textarea).toHaveValue(
+          'What equipment requires maintenance this week?'
+        );
       },
       {
         timeout: 1000,
@@ -439,12 +471,14 @@ export const MixedMessageTypes: Story = {
     const canvas = within(canvasElement);
     const conversationContainer = canvasElement.querySelector('[role="log"]');
     await expect(conversationContainer).toBeInTheDocument();
-    const messages = canvasElement.querySelectorAll("[data-message]");
+    const messages = canvasElement.querySelectorAll('[data-message]');
     await expect(messages.length).toBeGreaterThanOrEqual(4);
-    const avatars = canvasElement.querySelectorAll('[data-slot="message-avatar"]');
+    const avatars = canvasElement.querySelectorAll(
+      '[data-slot="message-avatar"]'
+    );
     await expect(avatars.length).toBeGreaterThan(0);
     await expect(avatars.length).toBeLessThan(messages.length);
-    const copyButtons = canvas.getAllByRole("button", {
+    const copyButtons = canvas.getAllByRole('button', {
       name: /copy/i,
     });
     await expect(copyButtons.length).toBeGreaterThan(0);
@@ -456,7 +490,9 @@ export const MixedMessageTypes: Story = {
     <Conversation className="flex-1 min-h-0">
       <ConversationContent>
         <Message isResponse={false} data-message>
-          <MessageContent>What's the current status of all pumps in section B?</MessageContent>
+          <MessageContent>
+            What's the current status of all pumps in section B?
+          </MessageContent>
         </Message>
 
         <Message isResponse={true} data-message>
@@ -467,8 +503,8 @@ export const MixedMessageTypes: Story = {
           </MessageAvatar>
           <MessageContent className="flex flex-col gap-2">
             <span>
-              All pumps in section B are currently operational. I've checked the latest sensor data
-              across all 12 units.
+              All pumps in section B are currently operational. I've checked the
+              latest sensor data across all 12 units.
             </span>
             <MessageActions>
               <MessageAction size="icon-sm" label="Copy" tooltip="Copy">
@@ -493,14 +529,18 @@ export const MixedMessageTypes: Story = {
           </MessageAvatar>
           <MessageContent className="flex flex-col gap-2">
             <span>
-              Yes, pump 21PT1020 has elevated vibration levels at 5.2 mm/s, exceeding the warning
-              threshold. I recommend immediate inspection.
+              Yes, pump 21PT1020 has elevated vibration levels at 5.2 mm/s,
+              exceeding the warning threshold. I recommend immediate inspection.
             </span>
             <MessageActions>
               <MessageAction size="icon-sm" label="Copy" tooltip="Copy">
                 <IconCopy className="w-3 h-3" />
               </MessageAction>
-              <MessageAction size="icon-sm" label="Download" tooltip="Download report">
+              <MessageAction
+                size="icon-sm"
+                label="Download"
+                tooltip="Download report"
+              >
                 <IconDownload className="w-3 h-3" />
               </MessageAction>
               <MessageAction size="icon-sm" label="Tools" tooltip="View tools">
@@ -520,22 +560,22 @@ export const MixedMessageTypes: Story = {
 export const KeyboardNavigation: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const allButtons = canvas.getAllByRole("button");
+    const allButtons = canvas.getAllByRole('button');
     await expect(allButtons.length).toBeGreaterThan(0);
     const firstButton = allButtons[0];
     firstButton.focus();
     await expect(firstButton).toHaveFocus();
-    const copyButton = canvas.getAllByRole("button", {
+    const copyButton = canvas.getAllByRole('button', {
       name: /copy/i,
     })[0];
     await expect(copyButton).toBeInTheDocument();
     copyButton.focus();
     await expect(copyButton).toHaveFocus();
-    const retryButton = canvas.getByRole("button", {
+    const retryButton = canvas.getByRole('button', {
       name: /retry/i,
     });
     await expect(retryButton).toBeInTheDocument();
-    const downloadButton = canvas.getByRole("button", {
+    const downloadButton = canvas.getByRole('button', {
       name: /download/i,
     });
     await expect(downloadButton).toBeInTheDocument();
@@ -555,17 +595,29 @@ export const KeyboardNavigation: Story = {
           </MessageAvatar>
           <MessageContent className="flex flex-col gap-2">
             <span>
-              All interactive elements in this conversation should be keyboard accessible. Use Tab
-              to navigate between action buttons.
+              All interactive elements in this conversation should be keyboard
+              accessible. Use Tab to navigate between action buttons.
             </span>
             <MessageActions>
-              <MessageAction size="icon-sm" label="Copy" tooltip="Copy response">
+              <MessageAction
+                size="icon-sm"
+                label="Copy"
+                tooltip="Copy response"
+              >
                 <IconCopy className="w-3 h-3" />
               </MessageAction>
-              <MessageAction size="icon-sm" label="Download" tooltip="Download as file">
+              <MessageAction
+                size="icon-sm"
+                label="Download"
+                tooltip="Download as file"
+              >
                 <IconDownload className="w-3 h-3" />
               </MessageAction>
-              <MessageAction size="icon-sm" label="Retry" tooltip="Retry request">
+              <MessageAction
+                size="icon-sm"
+                label="Retry"
+                tooltip="Retry request"
+              >
                 <IconRefresh className="w-3 h-3" />
               </MessageAction>
             </MessageActions>
@@ -581,21 +633,24 @@ export const VeryLongConversation: Story = {
     const canvas = within(canvasElement);
     const conversationContainer = canvasElement.querySelector('[role="log"]');
     await expect(conversationContainer).toBeInTheDocument();
-    const messages = canvasElement.querySelectorAll("[data-message]");
+    const messages = canvasElement.querySelectorAll('[data-message]');
     await expect(messages.length).toBeGreaterThanOrEqual(30);
-    const copyButtons = canvas.getAllByRole("button", {
+    const copyButtons = canvas.getAllByRole('button', {
       name: /copy/i,
     });
     await expect(copyButtons.length).toBeGreaterThan(10);
     const scrollableContent = canvasElement.querySelector('[role="log"]');
-    if (scrollableContent && scrollableContent.scrollHeight > scrollableContent.clientHeight) {
+    if (
+      scrollableContent &&
+      scrollableContent.scrollHeight > scrollableContent.clientHeight
+    ) {
       scrollableContent.scrollTop = 0;
       await new Promise((resolve) => setTimeout(resolve, 100));
-      const scrollButton = canvasElement.querySelector("button.rounded-full");
+      const scrollButton = canvasElement.querySelector('button.rounded-full');
       if (scrollButton) {
         await expect(scrollButton).toBeInTheDocument();
         await expect(scrollButton).toBeVisible();
-        await expect(scrollButton).toHaveAttribute("type", "button");
+        await expect(scrollButton).toHaveAttribute('type', 'button');
       }
     }
   },
@@ -609,7 +664,9 @@ export const VeryLongConversation: Story = {
           (_, i) => {
             const isResponse = i % 2 === 1;
             const messageNum = Math.floor(i / 2) + 1;
-            const messageId = isResponse ? `assistant-${messageNum}` : `user-${messageNum}`;
+            const messageId = isResponse
+              ? `assistant-${messageNum}`
+              : `user-${messageNum}`;
             return (
               <Message key={messageId} isResponse={isResponse} data-message>
                 {isResponse && (
@@ -619,7 +676,9 @@ export const VeryLongConversation: Story = {
                     </MessageAvatarIcon>
                   </MessageAvatar>
                 )}
-                <MessageContent className={isResponse ? "flex flex-col gap-2" : undefined}>
+                <MessageContent
+                  className={isResponse ? 'flex flex-col gap-2' : undefined}
+                >
                   <span>
                     {isResponse
                       ? `Analysis ${messageNum}: Sensor readings from pump 21PT101${messageNum} indicate normal operating conditions. Vibration levels at 3.${messageNum} mm/s, temperature at 7${messageNum}°C. All parameters within acceptable ranges.`
@@ -630,7 +689,11 @@ export const VeryLongConversation: Story = {
                       <MessageAction size="icon-sm" label="Copy" tooltip="Copy">
                         <IconCopy className="w-3 h-3" />
                       </MessageAction>
-                      <MessageAction size="icon-sm" label="Retry" tooltip="Retry">
+                      <MessageAction
+                        size="icon-sm"
+                        label="Retry"
+                        tooltip="Retry"
+                      >
                         <IconRefresh className="w-3 h-3" />
                       </MessageAction>
                     </MessageActions>
@@ -648,20 +711,24 @@ export const VeryLongConversation: Story = {
 export const SingleMessage: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const messages = canvasElement.querySelectorAll("[data-message]");
+    const messages = canvasElement.querySelectorAll('[data-message]');
     await expect(messages.length).toBe(1);
-    const messageText = canvas.getByText(/What sensors are available for monitoring/i);
+    const messageText = canvas.getByText(
+      /What sensors are available for monitoring/i
+    );
     await expect(messageText).toBeInTheDocument();
     const conversationContainer = canvasElement.querySelector('[role="log"]');
     await expect(conversationContainer).toBeInTheDocument();
-    const scrollButton = canvasElement.querySelector("button.rounded-full");
+    const scrollButton = canvasElement.querySelector('button.rounded-full');
     await expect(scrollButton).not.toBeInTheDocument();
   },
   render: () => (
     <Conversation className="flex-1 min-h-0">
       <ConversationContent>
         <Message isResponse={false} data-message>
-          <MessageContent>What sensors are available for monitoring?</MessageContent>
+          <MessageContent>
+            What sensors are available for monitoring?
+          </MessageContent>
         </Message>
       </ConversationContent>
       <ConversationScrollButton />
@@ -670,22 +737,26 @@ export const SingleMessage: Story = {
 };
 export const ShortContainer: Story = {
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const messages = canvasElement.querySelectorAll("[data-message]");
+    const messages = canvasElement.querySelectorAll('[data-message]');
     await expect(messages.length).toBeGreaterThan(2);
     const conversationContainer = canvasElement.querySelector('[role="log"]');
     await expect(conversationContainer).toBeInTheDocument();
-    const avatars = canvasElement.querySelectorAll('[data-slot="message-avatar"]');
+    const avatars = canvasElement.querySelectorAll(
+      '[data-slot="message-avatar"]'
+    );
     await expect(avatars.length).toBeGreaterThan(0);
     const scrollableContent = canvasElement.querySelector('[role="log"]');
-    if (scrollableContent && scrollableContent.scrollHeight > scrollableContent.clientHeight) {
+    if (
+      scrollableContent &&
+      scrollableContent.scrollHeight > scrollableContent.clientHeight
+    ) {
       scrollableContent.scrollTop = 0;
       await new Promise((resolve) => setTimeout(resolve, 100));
-      const scrollButton = canvasElement.querySelector("button.rounded-full");
+      const scrollButton = canvasElement.querySelector('button.rounded-full');
       if (scrollButton) {
         await expect(scrollButton).toBeInTheDocument();
         await expect(scrollButton).toBeVisible();
-        await expect(scrollButton).toHaveAttribute("type", "button");
+        await expect(scrollButton).toHaveAttribute('type', 'button');
       }
     }
   },
@@ -705,8 +776,9 @@ export const ShortContainer: Story = {
             </MessageAvatar>
             <MessageContent className="flex flex-col gap-2">
               <span>
-                All pumps in section B are operational. Average vibration levels: 3.4 mm/s.
-                Temperature range: 65-72°C. No anomalies detected in the last 24 hours.
+                All pumps in section B are operational. Average vibration
+                levels: 3.4 mm/s. Temperature range: 65-72°C. No anomalies
+                detected in the last 24 hours.
               </span>
               <MessageActions>
                 <MessageAction size="icon-sm" label="Copy" tooltip="Copy">
@@ -731,15 +803,19 @@ export const ShortContainer: Story = {
             </MessageAvatar>
             <MessageContent className="flex flex-col gap-2">
               <span>
-                Detailed metrics retrieved. 21PT1019: 3.2 mm/s, 68°C. 21PT1020: 5.2 mm/s, 82°C
-                (warning). 21PT1021: 4.8 mm/s, 78°C. Recommended action: inspect 21PT1020 within 48
-                hours.
+                Detailed metrics retrieved. 21PT1019: 3.2 mm/s, 68°C. 21PT1020:
+                5.2 mm/s, 82°C (warning). 21PT1021: 4.8 mm/s, 78°C. Recommended
+                action: inspect 21PT1020 within 48 hours.
               </span>
               <MessageActions>
                 <MessageAction size="icon-sm" label="Copy" tooltip="Copy">
                   <IconCopy className="w-3 h-3" />
                 </MessageAction>
-                <MessageAction size="icon-sm" label="Download" tooltip="Download">
+                <MessageAction
+                  size="icon-sm"
+                  label="Download"
+                  tooltip="Download"
+                >
                   <IconDownload className="w-3 h-3" />
                 </MessageAction>
                 <MessageAction size="icon-sm" label="Retry" tooltip="Retry">
@@ -768,8 +844,9 @@ export const WithMessages: Story = {
           <MessageAvatar name="AI" />
           <MessageContent>
             <p>
-              To create a React component, you can use either a function component or a class
-              component. Function components are recommended for most use cases.
+              To create a React component, you can use either a function
+              component or a class component. Function components are
+              recommended for most use cases.
             </p>
           </MessageContent>
         </Message>
@@ -809,7 +886,10 @@ export const CustomEmptyStateFromMain: Story = {
             >
               Get Started
             </button>
-            <button type="button" className="px-3 py-1.5 text-sm rounded-md border">
+            <button
+              type="button"
+              className="px-3 py-1.5 text-sm rounded-md border"
+            >
               View FAQ
             </button>
           </div>
@@ -834,8 +914,9 @@ export const SimpleLongConversation: Story = {
               <MessageAvatar name="AI" />
               <MessageContent>
                 <p>
-                  Response {i} from assistant. This is a longer response to demonstrate how the
-                  conversation handles multiple messages and scrolling.
+                  Response {i} from assistant. This is a longer response to
+                  demonstrate how the conversation handles multiple messages and
+                  scrolling.
                 </p>
               </MessageContent>
             </Message>
