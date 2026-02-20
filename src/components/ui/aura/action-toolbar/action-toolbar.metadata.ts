@@ -1,7 +1,7 @@
-import type { ComponentMeta } from '@/lib/component-examples';
+import type { ComponentMeta } from "../../../../lib/types";
 
 export const ActionToolbarMetadata: ComponentMeta = {
-  name: 'Action toolbar',
-  status: 'planned',
-  description: '',
+  name: "Action toolbar",
+  status: "planned",
+  description: "",
 };

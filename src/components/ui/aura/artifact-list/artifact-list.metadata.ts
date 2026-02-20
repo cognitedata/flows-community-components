@@ -1,4 +1,4 @@
-import type { ComponentMeta } from '../../../../lib/component-examples';
+import type { ComponentMeta } from "../../../../lib/types";
 
 /**
  * Artifact - List Component Metadata
@@ -7,18 +7,18 @@ import type { ComponentMeta } from '../../../../lib/component-examples';
  * component documentation pages and provide context for LLMs.
  */
 export const ArtifactListMetadata: ComponentMeta = {
-  name: 'ArtifactList',
+  name: "ArtifactList",
 
   description:
-    'A compositional list artifact widget component that displays timeline-style items with optional headers. Uses List primitives directly for item content.',
+    "A compositional list artifact widget component that displays timeline-style items with optional headers. Uses List primitives directly for item content.",
 
   llmUsage:
-    'When showing list artifacts, compose `<ArtifactList>` with `<ArtifactListHeader>`, `<ArtifactListTitle>`, `<ArtifactListContent>`, and `<ArtifactListItem>`. Use List primitives (`<ListItemTitle>`, `<ListItemDescription>`, `<ListItemStatus>`, `<ListItemIcon>`) for item content. Set `variant` on `<ArtifactListItem>` to apply status colors/icons automatically.',
+    "When showing list artifacts, compose `<ArtifactList>` with `<ArtifactListHeader>`, `<ArtifactListTitle>`, `<ArtifactListContent>`, and `<ArtifactListItem>`. Use List primitives (`<ListItemTitle>`, `<ListItemDescription>`, `<ListItemStatus>`, `<ListItemIcon>`) for item content. Set `variant` on `<ArtifactListItem>` to apply status colors/icons automatically.",
 
   codeExamples: [
     {
-      title: 'Basic List Artifact',
-      description: 'A list widget showing timeline items with a header.',
+      title: "Basic List Artifact",
+      description: "A list widget showing timeline items with a header.",
       code: `import {
   ArtifactList,
   ArtifactListHeader,
@@ -50,8 +50,8 @@ export function BasicDemo() {
 }`,
     },
     {
-      title: 'Custom Icons',
-      description: 'Override default icons with custom ones.',
+      title: "Custom Icons",
+      description: "Override default icons with custom ones.",
       code: `import {
   ArtifactList,
   ArtifactListContent,
@@ -80,8 +80,8 @@ export function CustomIconDemo() {
 }`,
     },
     {
-      title: 'Minimal List',
-      description: 'Simplest form with only list items, no header.',
+      title: "Minimal List",
+      description: "Simplest form with only list items, no header.",
       code: `import {
   ArtifactList,
   ArtifactListContent,

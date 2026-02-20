@@ -1,10 +1,10 @@
-import type { ComponentMeta } from '../../../../lib/component-examples';
+import type { ComponentMeta } from "../../../../lib/types";
 
 export const CollapsibleMetadata: ComponentMeta = {
-  name: 'Collapsible',
-  status: 'in-progress-code-review',
+  name: "Collapsible",
+  status: "in-progress-code-review",
   description:
-    'An interactive component that expands/collapses content, built on Base UI Collapsible primitives.',
+    "An interactive component that expands/collapses content, built on Base UI Collapsible primitives.",
   llmUsage:
-    'Use `<Collapsible>` with `<CollapsibleTrigger>` and `<CollapsibleContent>` for expandable sections.',
+    "Use `<Collapsible>` with `<CollapsibleTrigger>` and `<CollapsibleContent>` for expandable sections.",
 };

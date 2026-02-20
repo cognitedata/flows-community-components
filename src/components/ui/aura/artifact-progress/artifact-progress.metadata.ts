@@ -1,4 +1,4 @@
-import type { ComponentMeta } from '../../../../lib/component-examples';
+import type { ComponentMeta } from "../../../../lib/types";
 
 /**
  * Artifact - Progress Component Metadata
@@ -7,19 +7,18 @@ import type { ComponentMeta } from '../../../../lib/component-examples';
  * component documentation pages and provide context for LLMs.
  */
 export const ArtifactProgressMetadata: ComponentMeta = {
-  name: 'ArtifactProgress',
+  name: "ArtifactProgress",
 
   description:
-    'A compositional progress artifact widget component that displays task completion progress with header and footer context.',
+    "A compositional progress artifact widget component that displays task completion progress with header and footer context.",
 
   llmUsage:
-    'When showing progress for tasks or workflows, compose `<ArtifactProgress>` with `<ArtifactProgressHeader>`, `<ArtifactProgressTitle>`, `<ArtifactProgressDescription>`, `<ArtifactProgressBar>`, and `<ArtifactProgressFooter>` subcomponents. All subcomponents have sensible default styling.',
+    "When showing progress for tasks or workflows, compose `<ArtifactProgress>` with `<ArtifactProgressHeader>`, `<ArtifactProgressTitle>`, `<ArtifactProgressDescription>`, `<ArtifactProgressBar>`, and `<ArtifactProgressFooter>` subcomponents. All subcomponents have sensible default styling.",
 
   codeExamples: [
     {
-      title: 'Basic Progress Artifact',
-      description:
-        'A progress widget showing task completion with header and footer.',
+      title: "Basic Progress Artifact",
+      description: "A progress widget showing task completion with header and footer.",
       code: `import {
   ArtifactProgress,
   ArtifactProgressHeader,
@@ -47,8 +46,8 @@ export function BasicDemo() {
 }`,
     },
     {
-      title: 'Custom Styling',
-      description: 'Override default styles with custom classes.',
+      title: "Custom Styling",
+      description: "Override default styles with custom classes.",
       code: `import {
   ArtifactProgress,
   ArtifactProgressHeader,

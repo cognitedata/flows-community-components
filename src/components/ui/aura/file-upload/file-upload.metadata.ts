@@ -1,7 +1,7 @@
-import type { ComponentMeta } from '@/lib/component-examples';
+import type { ComponentMeta } from "../../../../lib/types";
 
 export const FileUploadMetadata: ComponentMeta = {
-  name: 'File upload',
-  status: 'planned',
-  description: '',
+  name: "File upload",
+  status: "planned",
+  description: "",
 };

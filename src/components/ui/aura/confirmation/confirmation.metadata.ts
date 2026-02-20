@@ -1,16 +1,10 @@
-import type { ComponentMeta } from '../../../../lib/component-examples';
+import type { ComponentMeta } from "../../../../lib/types";
 
-/**
- * Confirmation Component Metadata
- *
- * This metadata is used by the documentation system to generate
- * component documentation pages and provide context for LLMs.
- */
 export const ConfirmationMetadata: ComponentMeta = {
-  name: 'Confirmation',
-  status: 'in-progress-code-review',
+  name: "Confirmation",
+  status: "in-progress-code-review",
   description:
-    'A confirmation dialog component for AI approval workflows, with support for request, accepted, and rejected states.',
+    "A confirmation dialog component for AI approval workflows, with support for request, accepted, and rejected states.",
   llmUsage:
-    'Use `<Confirmation>` with `<ConfirmationRequest>`, `<ConfirmationAccepted>`, `<ConfirmationRejected>`, and `<ConfirmationActions>` for AI approval flows.',
+    "Use `<Confirmation>` with `<ConfirmationRequest>`, `<ConfirmationAccepted>`, `<ConfirmationRejected>`, and `<ConfirmationActions>` for AI approval flows.",
 };
