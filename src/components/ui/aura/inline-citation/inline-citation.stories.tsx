@@ -1,5 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, within } from "@storybook/test";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
   IconBrackets,
   IconBriefcase,
@@ -16,6 +15,7 @@ import {
   IconWheel,
 } from "@tabler/icons-react";
 import type { ComponentProps } from "react";
+import { expect, userEvent, within } from "storybook/test";
 
 import {
   Message,

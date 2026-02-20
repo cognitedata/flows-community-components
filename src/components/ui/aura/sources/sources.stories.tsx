@@ -1,8 +1,7 @@
 import { Badge } from "@/components/ui/aura/badge";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/aura/hover-card";
 import { Source, Sources, SourcesTitle } from "@/components/ui/aura/sources";
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor, within } from "@storybook/test";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
   IconBrandGithub,
   IconBriefcase,
@@ -11,6 +10,7 @@ import {
   IconPhoto,
   IconWorld,
 } from "@tabler/icons-react";
+import { expect, userEvent, waitFor, within } from "storybook/test";
 const meta: Meta<typeof Sources> = {
   title: "AI/Sources",
   component: Sources,

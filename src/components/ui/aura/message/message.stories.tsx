@@ -1,5 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, waitFor, within } from "@storybook/test";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
   IconCopy,
   IconDownload,
@@ -22,6 +21,7 @@ import {
 } from ".";
 import { CodeBlock, CodeBlockCollapseButton, CodeBlockCopyButton } from "../code-block";
 import { InlineCitation, InlineCitationLink } from "../inline-citation";
+import { expect, userEvent, waitFor, within } from "storybook/test";
 const meta: Meta<typeof Message> = {
   title: "AI/Message",
   component: Message,
