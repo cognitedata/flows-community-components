@@ -9,6 +9,7 @@ import {
   CardIcon,
   CardTitle,
 } from './card';
+import { CardMetadata } from './card.metadata';
 
 export {
   Card,
@@ -20,5 +21,5 @@ export {
   CardActions,
   CardDescription,
   CardContent,
+  CardMetadata,
 };
-export { CardMetadata } from './card.metadata';

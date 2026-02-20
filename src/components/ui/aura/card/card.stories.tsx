@@ -35,17 +35,14 @@ const meta: Meta<typeof Card> = {
     ),
   ],
   argTypes: {
-    // Card Props
     className: {
       control: 'text',
-      description: 'CSS classes for styling the card container',
       table: {
-        category: 'Display',
+        category: 'Advanced',
       },
     },
     children: {
       control: 'text',
-      description: 'Content to render inside the card',
       table: {
         category: 'Content',
       },
@@ -58,20 +55,9 @@ const meta: Meta<typeof Card> = {
 
 export default meta;
 type Story = StoryObj<typeof Card>;
-
-/**
- * Basic card with header, content, and footer
- * Matches the basic example from card.examples.tsx
- */
 export const Basic: Story = {
   parameters: {
     order: 1,
-    docs: {
-      description: {
-        story:
-          'Basic card with title, description, and footer badges. Tests card structure and content rendering.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -107,19 +93,9 @@ export const Basic: Story = {
   ),
 };
 
-/**
- * Card with text content in footer
- * Matches the withFooter example from card.examples.tsx
- */
 export const WithTextFooter: Story = {
   parameters: {
     order: 2,
-    docs: {
-      description: {
-        story:
-          'Card with text content displayed in the footer instead of badges.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -153,19 +129,9 @@ export const WithTextFooter: Story = {
   ),
 };
 
-/**
- * Card with badge in header and image content
- * Matches the badgeInHeader example from card.examples.tsx
- */
 export const WithBadgeInHeader: Story = {
   parameters: {
     order: 3,
-    docs: {
-      description: {
-        story:
-          'Card with a badge displayed in the header using CardIcon. No wrapper divs needed - the grid layout handles positioning automatically.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -211,19 +177,9 @@ export const WithBadgeInHeader: Story = {
   ),
 };
 
-/**
- * Card with hover effect
- * Matches the cardHover example from card.examples.tsx
- */
 export const WithHover: Story = {
   parameters: {
     order: 4,
-    docs: {
-      description: {
-        story:
-          'Card with hover effect. The card background changes on hover to indicate interactivity.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -261,17 +217,9 @@ export const WithHover: Story = {
   ),
 };
 
-/**
- * Minimal card with just title and content
- */
 export const Minimal: Story = {
   parameters: {
     order: 5,
-    docs: {
-      description: {
-        story: 'Minimal card with just a title and content section.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -299,18 +247,9 @@ export const Minimal: Story = {
   ),
 };
 
-/**
- * Card with actions dropdown menu in header
- */
 export const WithActions: Story = {
   parameters: {
     order: 6,
-    docs: {
-      description: {
-        story:
-          'Card with CardActions wrapped in CardHeaderRight. CardActions provides a pre-configured dropdown menu.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -369,18 +308,9 @@ export const WithActions: Story = {
   ),
 };
 
-/**
- * Card with both icon and actions in header
- */
 export const WithIconAndActions: Story = {
   parameters: {
     order: 7,
-    docs: {
-      description: {
-        story:
-          'Card with both CardIcon and CardHeaderRight (containing CardActions). The grid automatically creates 3 columns: icon, content, right.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -436,18 +366,9 @@ export const WithIconAndActions: Story = {
   ),
 };
 
-/**
- * Card with custom badge in header right slot
- */
 export const WithHeaderRightBadge: Story = {
   parameters: {
     order: 8,
-    docs: {
-      description: {
-        story:
-          'Use CardHeaderRight for custom content in the header corner. Accepts any element - badges, buttons, text, etc.',
-      },
-    },
   },
   render: () => (
     <Card className="w-96">
@@ -472,18 +393,9 @@ export const WithHeaderRightBadge: Story = {
   ),
 };
 
-/**
- * Card with icon and custom header right element (3-column grid)
- */
 export const WithIconAndHeaderRight: Story = {
   parameters: {
     order: 9,
-    docs: {
-      description: {
-        story:
-          'Demonstrates the full 3-column grid: CardIcon + title/description + CardHeaderRight with a custom badge.',
-      },
-    },
   },
   render: () => (
     <Card className="w-96">
@@ -511,17 +423,9 @@ export const WithIconAndHeaderRight: Story = {
   ),
 };
 
-/**
- * Card with only content (no header or footer)
- */
 export const ContentOnly: Story = {
   parameters: {
     order: 10,
-    docs: {
-      description: {
-        story: 'Card with only content section, no header or footer.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -545,18 +449,9 @@ export const ContentOnly: Story = {
   ),
 };
 
-/**
- * Multiple cards in a grid layout
- */
 export const GridLayout: Story = {
   parameters: {
     order: 11,
-    docs: {
-      description: {
-        story:
-          'Multiple cards displayed in a responsive grid using container queries. Cards stack on mobile, display 2 across on tablets, and 3 across on larger containers.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -600,18 +495,9 @@ export const GridLayout: Story = {
   ),
 };
 
-/**
- * Card with custom heading levels for semantic HTML
- */
 export const SemanticHeadings: Story = {
   parameters: {
     order: 12,
-    docs: {
-      description: {
-        story:
-          'CardTitle supports polymorphic heading elements via the `as` prop. Use h1-h6 to maintain proper document outline and semantic HTML structure. Defaults to h3.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -679,18 +565,9 @@ export const SemanticHeadings: Story = {
   ),
 };
 
-/**
- * Interactive playground for experimenting with card props
- */
 export const Playground: Story = {
   parameters: {
     order: 99,
-    docs: {
-      description: {
-        story:
-          'Interactive playground to experiment with different card configurations. Use the controls panel to customize props.',
-      },
-    },
   },
   render: () => (
     <Card className="w-96">
