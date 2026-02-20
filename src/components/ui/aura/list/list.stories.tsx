@@ -23,7 +23,6 @@ const meta: Meta<typeof List> = {
   argTypes: {
     className: {
       control: "text",
-      description: "CSS classes for styling the list",
       table: {
         category: "Variants/Styling",
         type: { summary: "string" },
@@ -32,7 +31,6 @@ const meta: Meta<typeof List> = {
 
     children: {
       control: false,
-      description: "List items and content",
       table: {
         category: "Content",
         type: { summary: "ReactNode" },
@@ -47,17 +45,9 @@ const meta: Meta<typeof List> = {
 export default meta;
 type Story = StoryObj<typeof List>;
 
-/**
- * Basic key-value list
- */
 export const Basic: Story = {
   parameters: {
     order: 1,
-    docs: {
-      description: {
-        story: "Simple key-value pairs in a list.",
-      },
-    },
   },
   play: async ({ canvasElement }: StoryPlayContext) => {
     const canvas = within(canvasElement);
@@ -88,17 +78,9 @@ export const Basic: Story = {
   ),
 };
 
-/**
- * Timeline list with status markers
- */
 export const Timeline: Story = {
   parameters: {
     order: 2,
-    docs: {
-      description: {
-        story: "Timeline-style list with status markers and timestamps.",
-      },
-    },
   },
   play: async ({ canvasElement }: StoryPlayContext) => {
     const canvas = within(canvasElement);
@@ -128,17 +110,9 @@ export const Timeline: Story = {
   ),
 };
 
-/**
- * Task list with status
- */
 export const TaskList: Story = {
   parameters: {
     order: 3,
-    docs: {
-      description: {
-        story: "Task list with status indicators and descriptions.",
-      },
-    },
   },
   play: async ({ canvasElement }: StoryPlayContext) => {
     const canvas = within(canvasElement);
@@ -167,17 +141,9 @@ export const TaskList: Story = {
   ),
 };
 
-/**
- * All variants comparison
- */
 export const AllVariants: Story = {
   parameters: {
     order: 4,
-    docs: {
-      description: {
-        story: "All list item variants side by side for comparison.",
-      },
-    },
   },
   play: async ({ canvasElement }: StoryPlayContext) => {
     const canvas = within(canvasElement);
@@ -213,17 +179,9 @@ export const AllVariants: Story = {
   ),
 };
 
-/**
- * Compact list without gaps
- */
 export const Compact: Story = {
   parameters: {
     order: 5,
-    docs: {
-      description: {
-        story: "Compact list with reduced spacing.",
-      },
-    },
   },
   play: async ({ canvasElement }: StoryPlayContext) => {
     const canvas = within(canvasElement);
@@ -253,17 +211,9 @@ export const Compact: Story = {
   ),
 };
 
-/**
- * Ordered list
- */
 export const Ordered: Story = {
   parameters: {
     order: 6,
-    docs: {
-      description: {
-        story: "Ordered list using semantic <ol> markup.",
-      },
-    },
   },
   play: async ({ canvasElement }: StoryPlayContext) => {
     const canvas = within(canvasElement);
@@ -289,17 +239,9 @@ export const Ordered: Story = {
   ),
 };
 
-/**
- * Description list
- */
 export const Description: Story = {
   parameters: {
     order: 7,
-    docs: {
-      description: {
-        story: "Definition list using semantic <dl> markup.",
-      },
-    },
   },
   play: async ({ canvasElement }: StoryPlayContext) => {
     const canvas = within(canvasElement);
@@ -319,17 +261,9 @@ export const Description: Story = {
   ),
 };
 
-/**
- * Interactive list with stateful updates
- */
 export const Interactive: Story = {
   parameters: {
     order: 8,
-    docs: {
-      description: {
-        story: "Stateful list where items toggle active status on click.",
-      },
-    },
   },
   play: async ({ canvasElement }: StoryPlayContext) => {
     const canvas = within(canvasElement);
@@ -378,17 +312,9 @@ export const Interactive: Story = {
   },
 };
 
-/**
- * Minimal list item with title only
- */
 export const Minimal: Story = {
   parameters: {
     order: 9,
-    docs: {
-      description: {
-        story: "List items with only titles, no descriptions or status.",
-      },
-    },
   },
   play: async ({ canvasElement }: StoryPlayContext) => {
     const canvas = within(canvasElement);
@@ -411,17 +337,9 @@ export const Minimal: Story = {
   ),
 };
 
-/**
- * Edge case: Empty list
- */
 export const EdgeCaseEmpty: Story = {
   parameters: {
     order: 10,
-    docs: {
-      description: {
-        story: "Empty list container.",
-      },
-    },
   },
   play: async ({ canvasElement }: StoryPlayContext) => {
     const canvas = within(canvasElement);
@@ -432,17 +350,9 @@ export const EdgeCaseEmpty: Story = {
   render: () => <List />,
 };
 
-/**
- * Edge case: Long text overflow
- */
 export const EdgeCaseLongText: Story = {
   parameters: {
     order: 11,
-    docs: {
-      description: {
-        story: "List items with very long text to test overflow behavior.",
-      },
-    },
   },
   play: async ({ canvasElement }: StoryPlayContext) => {
     const canvas = within(canvasElement);
@@ -469,17 +379,9 @@ export const EdgeCaseLongText: Story = {
   ),
 };
 
-/**
- * List with custom icons
- */
 export const WithCustomIcons: Story = {
   parameters: {
     order: 12,
-    docs: {
-      description: {
-        story: "List items with custom icons instead of default variant icons.",
-      },
-    },
   },
   play: async ({ canvasElement }: StoryPlayContext) => {
     const canvas = within(canvasElement);
@@ -601,17 +503,9 @@ export const WithCustomIcons: Story = {
   ),
 };
 
-/**
- * Edge case: Single item
- */
 export const EdgeCaseSingleItem: Story = {
   parameters: {
     order: 13,
-    docs: {
-      description: {
-        story: "List with only a single item.",
-      },
-    },
   },
   play: async ({ canvasElement }: StoryPlayContext) => {
     const canvas = within(canvasElement);
@@ -631,18 +525,9 @@ export const EdgeCaseSingleItem: Story = {
   ),
 };
 
-/**
- * Edge case: Mixed content structure
- */
 export const EdgeCaseMixedContent: Story = {
   parameters: {
     order: 14,
-    docs: {
-      description: {
-        story:
-          "List items with varying content structure - some with descriptions, some without, some with status.",
-      },
-    },
   },
   play: async ({ canvasElement }: StoryPlayContext) => {
     const canvas = within(canvasElement);
@@ -674,17 +559,9 @@ export const EdgeCaseMixedContent: Story = {
   ),
 };
 
-/**
- * Edge case: Very short text
- */
 export const EdgeCaseShortText: Story = {
   parameters: {
     order: 15,
-    docs: {
-      description: {
-        story: "List items with very short or minimal text content.",
-      },
-    },
   },
   play: async ({ canvasElement }: StoryPlayContext) => {
     const canvas = within(canvasElement);
@@ -711,17 +588,9 @@ export const EdgeCaseShortText: Story = {
   ),
 };
 
-/**
- * Edge case: Many items
- */
 export const EdgeCaseManyItems: Story = {
   parameters: {
     order: 16,
-    docs: {
-      description: {
-        story: "List with many items to test performance and scrolling behavior.",
-      },
-    },
   },
   play: async ({ canvasElement }: StoryPlayContext) => {
     const canvas = within(canvasElement);
@@ -746,17 +615,9 @@ export const EdgeCaseManyItems: Story = {
   ),
 };
 
-/**
- * Edge case: Special characters
- */
 export const EdgeCaseSpecialCharacters: Story = {
   parameters: {
     order: 17,
-    docs: {
-      description: {
-        story: "List items with special characters, symbols, and Unicode.",
-      },
-    },
   },
   play: async ({ canvasElement }: StoryPlayContext) => {
     const canvas = within(canvasElement);
@@ -807,17 +668,9 @@ export const EdgeCaseSpecialCharacters: Story = {
   ),
 };
 
-/**
- * Edge case: No variant with custom styling
- */
 export const EdgeCaseNoVariant: Story = {
   parameters: {
     order: 18,
-    docs: {
-      description: {
-        story: "List items without any variant specified (no automatic icons).",
-      },
-    },
   },
   play: async ({ canvasElement }: StoryPlayContext) => {
     const canvas = within(canvasElement);
@@ -843,20 +696,12 @@ export const EdgeCaseNoVariant: Story = {
   ),
 };
 
-/**
- * Interactive playground
- */
 export const Playground: Story = {
   args: {
     className: "",
   },
   parameters: {
     order: 99,
-    docs: {
-      description: {
-        story: "Interactive playground - use controls to experiment with list props.",
-      },
-    },
   },
   render: (args: ComponentProps<typeof List>) => (
     <List {...args}>
