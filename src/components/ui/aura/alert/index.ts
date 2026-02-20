@@ -1,12 +1,19 @@
-/**
- * Alert component for displaying informational messages, warnings, and errors.
- */
-export {
+import {
   Alert,
-  AlertTitle,
-  AlertDescription,
   AlertActions,
   AlertButton,
   AlertClose,
-} from "./alert";
-export { AlertMetadata } from "./alert.metadata";
+  AlertDescription,
+  AlertTitle,
+} from './alert';
+import { AlertMetadata } from './alert.metadata';
+
+export {
+  Alert,
+  AlertActions,
+  AlertButton,
+  AlertClose,
+  AlertDescription,
+  AlertMetadata,
+  AlertTitle,
+};
