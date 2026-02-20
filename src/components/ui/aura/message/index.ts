@@ -1,4 +1,23 @@
 /** Message components for AI chat UIs. */
+import {
+  Message,
+  MessageAction,
+  MessageActions,
+  MessageAttachment,
+  MessageAttachments,
+  MessageAvatar,
+  MessageAvatarIcon,
+  MessageBranch,
+  MessageBranchContent,
+  MessageBranchNext,
+  MessageBranchPage,
+  MessageBranchPrevious,
+  MessageBranchSelector,
+  MessageContent,
+  MessageResponse,
+  MessageToolbar,
+} from "./message";
+
 export {
   Message,
   MessageContent,
@@ -16,5 +35,5 @@ export {
   MessageAttachment,
   MessageAttachments,
   MessageToolbar,
-} from "./message";
+};
 export { MessageMetadata } from "./message.metadata";

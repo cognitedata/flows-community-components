@@ -10,16 +10,16 @@ import {
 } from "react";
 
 import { IconChevronLeft, IconChevronRight, IconPaperclip, IconX } from "@tabler/icons-react";
-import type { BundledLanguage } from "shiki";
+import { type BundledLanguage, bundledLanguages } from "shiki";
 import { Streamdown } from "streamdown";
 
-import { Avatar, AvatarFallback, AvatarIcon, AvatarImage } from "@/components/ui/aura/avatar";
-import { Button } from "@/components/ui/aura/button";
-import { ButtonGroup, ButtonGroupText } from "@/components/ui/aura/button-group";
-import { CodeBlock, CodeBlockCopyButton } from "@/components/ui/aura/code-block";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/aura/tooltip";
 import type { FileUIPart, UIMessage } from "../../../../lib/ai/types";
 import { cn, getInitials } from "../../../../lib/utils";
+import { Avatar, AvatarFallback, AvatarIcon, AvatarImage } from "../avatar";
+import { Button } from "../button";
+import { ButtonGroup, ButtonGroupText } from "../button-group";
+import { CodeBlock, CodeBlockCopyButton } from "../code-block";
+import { Tooltip, TooltipContent, TooltipTrigger } from "../tooltip";
 
 type MessageProps = HTMLAttributes<HTMLDivElement> & {
   isResponse?: boolean;
@@ -331,17 +331,21 @@ type MessageResponseCodeProps = {
   children?: ReactNode;
 };
 
+const isBundledLanguage = (value: string): value is BundledLanguage => value in bundledLanguages;
+
 const MessageResponseCode = ({ className, children }: MessageResponseCodeProps) => {
   const languageMatch = className?.match(/language-(\w+)/);
-  const language = languageMatch?.[1] as BundledLanguage | undefined;
+  const matchedLanguage = languageMatch?.[1];
+  const language =
+    matchedLanguage && isBundledLanguage(matchedLanguage) ? matchedLanguage : undefined;
 
   let codeText = "";
   if (typeof children === "string") {
     codeText = children;
-  } else if (isValidElement(children)) {
-    const props = children.props as { children?: string };
-    if (typeof props.children === "string") {
-      codeText = props.children;
+  } else if (isValidElement<{ children?: ReactNode }>(children)) {
+    const childContent = children.props.children;
+    if (typeof childContent === "string") {
+      codeText = childContent;
     }
   }
 

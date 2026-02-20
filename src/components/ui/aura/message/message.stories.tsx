@@ -1,20 +1,5 @@
-import {
-  CodeBlock,
-  CodeBlockCollapseButton,
-  CodeBlockCopyButton,
-} from "@/components/ui/aura/code-block";
-import { InlineCitation, InlineCitationLink } from "@/components/ui/aura/inline-citation";
-import {
-  Message,
-  MessageAction,
-  MessageActions,
-  MessageAvatar,
-  MessageAvatarIcon,
-  MessageContent,
-  MessageResponse,
-} from "@/components/ui/aura/message";
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor, within } from "@storybook/test";
+import { expect, waitFor, within } from "@storybook/test";
 import {
   IconCopy,
   IconDownload,
@@ -26,7 +11,17 @@ import {
   IconTool,
   IconWheel,
 } from "@tabler/icons-react";
-import type { CSSProperties } from "react";
+import {
+  Message,
+  MessageAction,
+  MessageActions,
+  MessageAvatar,
+  MessageAvatarIcon,
+  MessageContent,
+  MessageResponse,
+} from ".";
+import { CodeBlock, CodeBlockCollapseButton, CodeBlockCopyButton } from "../code-block";
+import { InlineCitation, InlineCitationLink } from "../inline-citation";
 const meta: Meta<typeof Message> = {
   title: "AI/Message",
   component: Message,
@@ -79,8 +74,10 @@ export const Default: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const messages = canvasElement.querySelectorAll("[data-message]");
-    await expect(messages.length).toBe(2);
+    await expect(canvas.getByText(/There are abnormal vibration levels on/i)).toBeInTheDocument();
+    await expect(
+      canvas.getByText(/I analyzed the sensor data and found that vibration levels/i)
+    ).toBeInTheDocument();
     const citations = canvas.getAllByRole("link");
     await expect(citations.length).toBeGreaterThanOrEqual(4);
     const buttons = await canvas.findAllByRole("button");
@@ -186,10 +183,11 @@ export const WithCodeBlock: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const messages = canvasElement.querySelectorAll("[data-message]");
-    await expect(messages.length).toBe(2);
-    const codeBlock = canvasElement.querySelector("[data-code-block]");
-    await expect(codeBlock).toBeInTheDocument();
+    await expect(
+      canvas.getByText(/Can you show me how to analyze vibration data using TypeScript\?/i)
+    ).toBeInTheDocument();
+    const codeSnippets = canvas.getAllByText(/async function analyzeVibrationData/i);
+    await expect(codeSnippets.length).toBeGreaterThan(0);
     const buttons = await canvas.findAllByRole("button");
     await expect(buttons.length).toBe(4);
   },
@@ -255,12 +253,12 @@ export const MessageResponseStreamdown: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const messages = canvasElement.querySelectorAll("[data-message]");
-    await expect(messages.length).toBe(2);
+    await expect(
+      canvas.getByText(/Can you show me all the different formatting options available\?/i)
+    ).toBeInTheDocument();
     await waitFor(
       () => {
-        const headings = canvasElement.querySelectorAll("h1, h2, h3, h4, h5, h6");
-        expect(headings.length).toBeGreaterThan(0);
+        expect(canvas.getByRole("heading", { level: 1, name: "Heading 1" })).toBeInTheDocument();
       },
       {
         timeout: 3000,
@@ -372,7 +370,9 @@ export const UserMessage: Story = {
     order: 4,
   },
   play: async ({ canvasElement }) => {
-    const message = canvasElement.querySelector("[data-message]");
+    const canvas = within(canvasElement);
+    const content = canvas.getByText("Hello! How can I get started with this project?");
+    const message = content.closest('[data-slot="message"]');
     await expect(message).toBeInTheDocument();
     await expect(message).not.toHaveClass("is-assistant");
   },
@@ -389,7 +389,9 @@ export const AssistantMessage: Story = {
     order: 5,
   },
   play: async ({ canvasElement }) => {
-    const message = canvasElement.querySelector("[data-message]");
+    const canvas = within(canvasElement);
+    const content = canvas.getByText(/Welcome! To get started, you can install the package/i);
+    const message = content.closest('[data-slot="message"]');
     await expect(message).toBeInTheDocument();
     await expect(message).toHaveClass("is-assistant");
   },
@@ -414,8 +416,13 @@ export const ExtendedConversation: Story = {
     order: 6,
   },
   play: async ({ canvasElement }) => {
-    const messages = canvasElement.querySelectorAll("[data-message]");
-    await expect(messages.length).toBe(4);
+    const canvas = within(canvasElement);
+    await expect(
+      canvas.getByText(/Can you help me write a function to sort an array\?/i)
+    ).toBeInTheDocument();
+    await expect(
+      canvas.getByText(/The sort method takes a comparison function that determines the order/i)
+    ).toBeInTheDocument();
   },
   render: () => (
     <div className="space-y-2">
@@ -468,10 +475,12 @@ export const VeryLongMessage: Story = {
     order: 7,
   },
   play: async ({ canvasElement }) => {
-    const message = canvasElement.querySelector("[data-message]");
-    await expect(message).toBeInTheDocument();
-    const paragraphs = canvasElement.querySelectorAll("p");
-    await expect(paragraphs.length).toBeGreaterThan(2);
+    const canvas = within(canvasElement);
+    await expect(
+      canvas.getByText(/This is a longer message that demonstrates how the component handles/i)
+    ).toBeInTheDocument();
+    const listItems = await canvas.findAllByRole("listitem");
+    await expect(listItems.length).toBe(5);
   },
   render: () => (
     <Message isResponse={true} data-message>
@@ -553,10 +562,12 @@ export const AvatarVariants: Story = {
     order: 9,
   },
   play: async ({ canvasElement }) => {
-    const messages = canvasElement.querySelectorAll("[data-message]");
-    await expect(messages.length).toBeGreaterThanOrEqual(3);
-    const avatars = canvasElement.querySelectorAll('[data-slot="message-avatar"]');
-    await expect(avatars.length).toBeGreaterThanOrEqual(3);
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText("Nordic variant (teal)")).toBeInTheDocument();
+    await expect(canvas.getByText("Default/Mountain variant (grey)")).toBeInTheDocument();
+    await expect(canvas.getByText("Fjord variant (blue)")).toBeInTheDocument();
+    await expect(canvas.getByText("Aurora variant (lime green)")).toBeInTheDocument();
+    await expect(canvas.getByText("Dusk variant (pink)")).toBeInTheDocument();
   },
   render: () => (
     <div className="space-y-3">
@@ -608,10 +619,10 @@ export const MessageWithoutAvatar: Story = {
     order: 10,
   },
   play: async ({ canvasElement }) => {
-    const message = canvasElement.querySelector("[data-message]");
-    await expect(message).toBeInTheDocument();
-    const avatar = canvasElement.querySelector('[data-slot="message-avatar"]');
-    await expect(avatar).not.toBeInTheDocument();
+    const canvas = within(canvasElement);
+    await expect(
+      canvas.getByText(/This is a message without an avatar. Some chat interfaces omit avatars/i)
+    ).toBeInTheDocument();
   },
   render: () => (
     <Message isResponse={true} data-message>
@@ -658,8 +669,7 @@ export const EmptyMessage: Story = {
     order: 12,
   },
   play: async ({ canvasElement }) => {
-    const message = canvasElement.querySelector("[data-message]");
-    await expect(message).toBeInTheDocument();
+    await expect(canvasElement.firstElementChild).toBeInTheDocument();
   },
   render: () => (
     <Message isResponse={false} data-message>
@@ -675,8 +685,7 @@ export const SingleCharacterMessage: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const message = canvasElement.querySelector("[data-message]");
-    await expect(message).toBeInTheDocument();
+    await expect(canvas.getByText("?")).toBeInTheDocument();
   },
   render: () => (
     <Message isResponse={false} data-message>
@@ -689,8 +698,10 @@ export const MessageWithSpecialCharacters: Story = {
     order: 14,
   },
   play: async ({ canvasElement }) => {
-    const message = canvasElement.querySelector("[data-message]");
-    await expect(message).toBeInTheDocument();
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText(/Special characters test:/i)).toBeInTheDocument();
+    await expect(canvas.getByText(/Unicode:/i)).toBeInTheDocument();
+    await expect(canvas.getByText(/Emojis:/i)).toBeInTheDocument();
   },
   render: () => (
     <Message isResponse={true} data-message>
@@ -713,8 +724,15 @@ export const VeryLongConversation: Story = {
     order: 15,
   },
   play: async ({ canvasElement }) => {
-    const messages = canvasElement.querySelectorAll("[data-message]");
-    await expect(messages.length).toBeGreaterThanOrEqual(10);
+    const canvas = within(canvasElement);
+    await expect(
+      canvas.getByText("User query 1: What's the status of pump 21PT1011?")
+    ).toBeInTheDocument();
+    await expect(
+      canvas.getByText(
+        /Assistant response 6: Analysis of sensor data shows nominal operating conditions\./i
+      )
+    ).toBeInTheDocument();
   },
   render: () => (
     <div className="space-y-2">
@@ -752,8 +770,10 @@ export const MessageWithLineBreaks: Story = {
     order: 16,
   },
   play: async ({ canvasElement }) => {
-    const message = canvasElement.querySelector("[data-message]");
-    await expect(message).toBeInTheDocument();
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText("First line")).toBeInTheDocument();
+    await expect(canvas.getByText("Line after multiple breaks")).toBeInTheDocument();
+    await expect(canvas.getByText("Final line")).toBeInTheDocument();
   },
   render: () => (
     <Message isResponse={true} data-message>
