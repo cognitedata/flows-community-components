@@ -6,6 +6,10 @@ alwaysApply: true
 
 Use this checklist when reviewing pull requests. Flag deviations as requested changes.
 
+## Review Comment Format
+- Reference files with repository-relative paths (for example `src/components/ui/aura/button/button.tsx:42`).
+- Do not use absolute filesystem paths (for example `/Users/.../src/components/ui/aura/button/button.tsx`).
+
 ## Component Registry
 - If a component is created or updated, confirm `registry.template.json` includes the component and ALL required dependencies.
 - Verify the registry was rebuilt after changes with `pnpm run registry:build`.

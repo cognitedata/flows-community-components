@@ -3,9 +3,9 @@
  * Used by both the Vite plugin and standalone extraction script.
  */
 
-import _generate from "@babel/generator";
-import { parse } from "@babel/parser";
-import _traverse from "@babel/traverse";
+import _generate from '@babel/generator';
+import { parse } from '@babel/parser';
+import _traverse from '@babel/traverse';
 
 export const traverse = (_traverse as any).default || _traverse;
 export const generate = (_generate as any).default || _generate;
@@ -14,8 +14,8 @@ export const generate = (_generate as any).default || _generate;
  * Babel parser configuration for TypeScript/JSX story files.
  */
 export const PARSER_CONFIG = {
-  sourceType: "module" as const,
-  plugins: ["typescript", "jsx", "decorators-legacy"],
+  sourceType: 'module' as const,
+  plugins: ['typescript', 'jsx', 'decorators-legacy'],
 };
 
 /**
@@ -33,7 +33,7 @@ export const GENERATOR_OPTIONS = {
   retainLines: false,
   compact: false,
   jsescOption: {
-    quotes: "double" as const,
+    quotes: 'double' as const,
   },
 };
 
@@ -46,8 +46,8 @@ export function normalizeIndentation(code: string): string {
   if (!code) return code;
 
   // First, trim only the leading/trailing newlines but preserve internal structure
-  const trimmed = code.replace(/^\n+/, "").replace(/\n+$/, "");
-  const lines = trimmed.split("\n");
+  const trimmed = code.replace(/^\n+/, '').replace(/\n+$/, '');
+  const lines = trimmed.split('\n');
   if (lines.length === 0) return code.trim();
 
   // Find the minimum indentation (excluding empty lines)
@@ -100,7 +100,7 @@ export function normalizeIndentation(code: string): string {
   const normalized = lines
     .map((line) => {
       const trimmedLine = line.trim();
-      if (trimmedLine.length === 0) return ""; // Preserve empty lines as empty strings
+      if (trimmedLine.length === 0) return ''; // Preserve empty lines as empty strings
 
       // Calculate actual indentation for this line
       const indent = line.match(/^(\s*)/)?.[1]?.length ?? 0;
@@ -114,10 +114,10 @@ export function normalizeIndentation(code: string): string {
       // If line has less indentation than minIndent, return as-is (preserves first line at column 0)
       return line;
     })
-    .join("\n");
+    .join('\n');
 
   // Only trim leading/trailing newlines, NOT whitespace from the first/last lines
-  return normalized.replace(/^\n+/, "").replace(/\n+$/, "");
+  return normalized.replace(/^\n+/, '').replace(/\n+$/, '');
 }
 
 /**
@@ -125,8 +125,8 @@ export function normalizeIndentation(code: string): string {
  */
 export function parseSource(source: string, withRanges = false) {
   return parse(source, {
-    sourceType: "module",
-    plugins: ["typescript", "jsx", "decorators-legacy"],
+    sourceType: 'module',
+    plugins: ['typescript', 'jsx', 'decorators-legacy'],
     ...(withRanges && { ranges: true }),
   });
 }

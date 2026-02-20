@@ -1,3 +1,4 @@
+import { IconBrain } from '@tabler/icons-react';
 import {
   Children,
   type ComponentProps,
@@ -5,41 +6,40 @@ import {
   createContext,
   forwardRef,
   useContext,
-} from "react";
+} from 'react';
 
-import { cn } from "@/lib/utils";
-import { IconBrain } from "@tabler/icons-react";
+import { cn } from '../../../../lib/utils';
 
 const ReasoningDecorationsContext = createContext<boolean>(true);
 const useReasoningDecorations = () => useContext(ReasoningDecorationsContext);
 
-type ReasoningProps = ComponentProps<"div">;
+type ReasoningProps = ComponentProps<'div'>;
 
-const Reasoning = forwardRef<ComponentRef<"div">, ReasoningProps>(
+const Reasoning = forwardRef<ComponentRef<'div'>, ReasoningProps>(
   ({ className, children, ...props }, ref) => (
     <div
       ref={ref}
       data-slot="reasoning"
-      className={cn("relative flex w-full flex-col gap-2 not-prose", className)}
+      className={cn('relative flex w-full flex-col gap-2 not-prose', className)}
       {...props}
     >
       {children}
     </div>
   )
 );
-Reasoning.displayName = "Reasoning";
+Reasoning.displayName = 'Reasoning';
 
-type ReasoningHeaderProps = ComponentProps<"div"> & {
+type ReasoningHeaderProps = ComponentProps<'div'> & {
   title?: string;
 };
 
-const ReasoningHeader = forwardRef<ComponentRef<"div">, ReasoningHeaderProps>(
-  ({ className, title = "Reasoning", children, ...props }, ref) => (
+const ReasoningHeader = forwardRef<ComponentRef<'div'>, ReasoningHeaderProps>(
+  ({ className, title = 'Reasoning', children, ...props }, ref) => (
     <div
       ref={ref}
       data-slot="reasoning-header"
       className={cn(
-        "flex items-center gap-2 text-base leading-5 tracking-tighter text-muted-foreground",
+        'flex items-center gap-2 text-base leading-5 tracking-tighter text-muted-foreground',
         className
       )}
       {...props}
@@ -49,11 +49,11 @@ const ReasoningHeader = forwardRef<ComponentRef<"div">, ReasoningHeaderProps>(
     </div>
   )
 );
-ReasoningHeader.displayName = "ReasoningHeader";
+ReasoningHeader.displayName = 'ReasoningHeader';
 
-type ReasoningContentProps = ComponentProps<"div">;
+type ReasoningContentProps = ComponentProps<'div'>;
 
-const ReasoningContent = forwardRef<ComponentRef<"div">, ReasoningContentProps>(
+const ReasoningContent = forwardRef<ComponentRef<'div'>, ReasoningContentProps>(
   ({ className, children, ...props }, ref) => (
     <ReasoningDecorationsContext.Provider
       value={Children.toArray(children).filter(Boolean).length > 1}
@@ -64,25 +64,26 @@ const ReasoningContent = forwardRef<ComponentRef<"div">, ReasoningContentProps>(
     </ReasoningDecorationsContext.Provider>
   )
 );
-ReasoningContent.displayName = "ReasoningContent";
+ReasoningContent.displayName = 'ReasoningContent';
 
-const ReasoningContentInner = forwardRef<ComponentRef<"div">, ReasoningContentProps>(
-  ({ className, children, ...props }, ref) => (
-    <div
-      ref={ref}
-      data-slot="reasoning-content-inner"
-      className={cn("relative flex flex-col gap-0 pl-4", className)}
-      {...props}
-    >
-      {children}
-    </div>
-  )
-);
-ReasoningContentInner.displayName = "ReasoningContentInner";
+const ReasoningContentInner = forwardRef<
+  ComponentRef<'div'>,
+  ReasoningContentProps
+>(({ className, children, ...props }, ref) => (
+  <div
+    ref={ref}
+    data-slot="reasoning-content-inner"
+    className={cn('relative flex flex-col gap-0 pl-4', className)}
+    {...props}
+  >
+    {children}
+  </div>
+));
+ReasoningContentInner.displayName = 'ReasoningContentInner';
 
-type ReasoningItemProps = ComponentProps<"div">;
+type ReasoningItemProps = ComponentProps<'div'>;
 
-const ReasoningItem = forwardRef<ComponentRef<"div">, ReasoningItemProps>(
+const ReasoningItem = forwardRef<ComponentRef<'div'>, ReasoningItemProps>(
   ({ className, children, ...props }, ref) => {
     const showDecorations = useReasoningDecorations();
 
@@ -91,12 +92,12 @@ const ReasoningItem = forwardRef<ComponentRef<"div">, ReasoningItemProps>(
         ref={ref}
         data-slot="reasoning-item"
         className={cn(
-          "relative",
+          'relative',
           showDecorations && [
-            "before:absolute before:-left-2.75 before:top-4 before:z-10 before:size-1.75 before:rounded-full before:bg-border",
-            "after:absolute after:-left-2 after:top-0 after:bottom-0 after:w-px after:bg-border",
-            "first:after:top-4",
-            "last:after:bottom-auto last:after:h-4",
+            'before:absolute before:-left-2.75 before:top-4 before:z-10 before:size-1.75 before:rounded-full before:bg-border',
+            'after:absolute after:-left-2 after:top-0 after:bottom-0 after:w-px after:bg-border',
+            'first:after:top-4',
+            'last:after:bottom-auto last:after:h-4',
           ],
           className
         )}
@@ -107,6 +108,6 @@ const ReasoningItem = forwardRef<ComponentRef<"div">, ReasoningItemProps>(
     );
   }
 );
-ReasoningItem.displayName = "ReasoningItem";
+ReasoningItem.displayName = 'ReasoningItem';
 
 export { Reasoning, ReasoningContent, ReasoningHeader, ReasoningItem };

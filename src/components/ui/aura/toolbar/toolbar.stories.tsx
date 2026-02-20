@@ -1,34 +1,24 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { Toolbar } from "./toolbar";
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
+import { Toolbar } from './toolbar';
 const meta: Meta<typeof Toolbar> = {
-  title: "Primitives/Toolbar",
+  title: 'Primitives/Toolbar',
   component: Toolbar,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     className: {
-      control: "text",
-      description: "Additional CSS classes",
+      control: 'text',
       table: {
-        category: "Styling",
+        category: 'Styling',
       },
     },
   },
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
 };
-
 export default meta;
 type Story = StoryObj<typeof Toolbar>;
-
-/**
- * Default toolbar (requires ReactFlow context).
- *
- * Note: This component is a ReactFlow NodeToolbar wrapper and requires
- * a ReactFlow context to function properly. In production, use it within
- * a ReactFlow node component.
- */
 export const Default: Story = {
   render: () => (
     <div className="p-4 border rounded-md bg-muted/20">
@@ -42,18 +32,7 @@ export const Default: Story = {
       </p>
     </div>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: "Toolbar component for ReactFlow nodes. Requires ReactFlow context.",
-      },
-    },
-  },
 };
-
-/**
- * Usage example documentation.
- */
 export const UsageExample: Story = {
   render: () => (
     <div className="p-4 border rounded-md space-y-4 max-w-md">
@@ -81,16 +60,9 @@ function CustomNode({ data }) {
 }`}</pre>
       </div>
       <p className="text-sm text-muted-foreground">
-        The Toolbar appears when a ReactFlow node is selected, positioned at the bottom of the node
-        by default.
+        The Toolbar appears when a ReactFlow node is selected, positioned at the
+        bottom of the node by default.
       </p>
     </div>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: "Example showing how to use the Toolbar component with ReactFlow.",
-      },
-    },
-  },
 };
