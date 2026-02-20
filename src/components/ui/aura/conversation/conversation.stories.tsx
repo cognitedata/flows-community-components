@@ -1,7 +1,13 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { IconCopy, IconDownload, IconRefresh, IconTool, IconWheel } from "@tabler/icons-react";
-import { useState } from "react";
-import { expect, userEvent, within } from "storybook/test";
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import {
+  IconCopy,
+  IconDownload,
+  IconRefresh,
+  IconTool,
+  IconWheel,
+} from '@tabler/icons-react';
+import { useState } from 'react';
+import { expect, userEvent, within } from 'storybook/test';
 
 import {
   Message,
@@ -10,7 +16,7 @@ import {
   MessageAvatar,
   MessageAvatarIcon,
   MessageContent,
-} from "../message";
+} from '../message';
 import {
   PromptInput,
   PromptInputBody,
@@ -19,60 +25,61 @@ import {
   PromptInputSubmit,
   PromptInputTextarea,
   usePromptInputController,
-} from "../prompt-input";
-import { Suggestion } from "../suggestion";
+} from '../prompt-input';
+import { Suggestion } from '../suggestion';
+
 import {
   Conversation,
   ConversationContent,
   ConversationEmptyState,
   ConversationScrollButton,
-} from "./conversation";
+} from './conversation';
 
 const meta: Meta<typeof Conversation> = {
-  title: "AI/Conversation",
+  title: 'AI/Conversation',
   component: Conversation,
-  tags: ["autodocs", "ai-elements"],
+  tags: ['autodocs', 'ai-elements'],
   argTypes: {
     className: {
-      control: "text",
+      control: 'text',
       table: {
-        category: "Variants/Styling",
+        category: 'Variants/Styling',
       },
     },
     children: {
       control: false,
       table: {
-        category: "Content",
-        type: { summary: "ReactNode" },
+        category: 'Content',
+        type: { summary: 'ReactNode' },
       },
     },
     initial: {
       control: false,
       table: {
-        category: "Behavior",
-        type: { summary: "ScrollBehavior" },
-        defaultValue: { summary: "smooth" },
+        category: 'Behavior',
+        type: { summary: 'ScrollBehavior' },
+        defaultValue: { summary: 'smooth' },
       },
     },
     resize: {
       control: false,
       table: {
-        category: "Behavior",
-        type: { summary: "ScrollBehavior" },
-        defaultValue: { summary: "smooth" },
+        category: 'Behavior',
+        type: { summary: 'ScrollBehavior' },
+        defaultValue: { summary: 'smooth' },
       },
     },
     role: {
       control: false,
       table: {
-        category: "Advanced",
-        type: { summary: "string" },
-        defaultValue: { summary: "log" },
+        category: 'Advanced',
+        type: { summary: 'string' },
+        defaultValue: { summary: 'log' },
       },
     },
   },
   parameters: {
-    layout: "fullscreen",
+    layout: 'fullscreen',
   },
   decorators: [
     (Story) => (
@@ -92,16 +99,20 @@ export const Default: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByRole("log")).toBeInTheDocument();
-    await expect(canvas.getByText("What's the status of pump 21PT1019?")).toBeInTheDocument();
-    const copyButtons = await canvas.findAllByRole("button", { name: /copy/i });
+    await expect(canvas.getByRole('log')).toBeInTheDocument();
+    await expect(
+      canvas.getByText("What's the status of pump 21PT1019?")
+    ).toBeInTheDocument();
+    const copyButtons = await canvas.findAllByRole('button', { name: /copy/i });
     await expect(copyButtons.length).toBeGreaterThan(0);
   },
   render: () => (
     <Conversation className="flex-1 min-h-0">
       <ConversationContent>
         <Message isResponse={false}>
-          <MessageContent>What&apos;s the status of pump 21PT1019?</MessageContent>
+          <MessageContent>
+            What&apos;s the status of pump 21PT1019?
+          </MessageContent>
         </Message>
         <Message isResponse={true}>
           <MessageAvatar variant="nordic">
@@ -111,8 +122,8 @@ export const Default: Story = {
           </MessageAvatar>
           <MessageContent className="flex flex-col gap-2">
             <span>
-              Pump 21PT1019 is currently operational. Recent vibration readings are within normal
-              parameters at 3.2 mm/s.
+              Pump 21PT1019 is currently operational. Recent vibration readings
+              are within normal parameters at 3.2 mm/s.
             </span>
             <MessageActions>
               <MessageAction size="icon-sm" label="Copy" tooltip="Copy">
@@ -125,7 +136,9 @@ export const Default: Story = {
           </MessageContent>
         </Message>
         <Message isResponse={false}>
-          <MessageContent>Can you check the maintenance history?</MessageContent>
+          <MessageContent>
+            Can you check the maintenance history?
+          </MessageContent>
         </Message>
         <Message isResponse={true}>
           <MessageAvatar variant="nordic">
@@ -135,8 +148,8 @@ export const Default: Story = {
           </MessageAvatar>
           <MessageContent className="flex flex-col gap-2">
             <span>
-              The last scheduled maintenance was completed on 15 November 2024, and the next one is
-              planned for 15 February 2025.
+              The last scheduled maintenance was completed on 15 November 2024,
+              and the next one is planned for 15 February 2025.
             </span>
             <MessageActions>
               <MessageAction size="icon-sm" label="Copy" tooltip="Copy">
@@ -163,9 +176,9 @@ export const EmptyState: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByRole("log")).toBeInTheDocument();
+    await expect(canvas.getByRole('log')).toBeInTheDocument();
     await expect(
-      canvas.getByRole("heading", { level: 3, name: "Start a conversation" })
+      canvas.getByRole('heading', { level: 3, name: 'Start a conversation' })
     ).toBeInTheDocument();
     await expect(
       canvas.getByText(
@@ -191,15 +204,15 @@ export const SuggestionsAutoSubmit: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const buttons = await canvas.findAllByRole("button");
+    const buttons = await canvas.findAllByRole('button');
     await userEvent.click(buttons[0]);
     await expect(
-      canvas.getByText("What equipment requires maintenance this week?")
+      canvas.getByText('What equipment requires maintenance this week?')
     ).toBeInTheDocument();
   },
   render: function SuggestionsAutoSubmitStory() {
     const [submitted, setSubmitted] = useState(false);
-    const [userMessage, setUserMessage] = useState("");
+    const [userMessage, setUserMessage] = useState('');
 
     const handleSuggestion = (value: string) => {
       setUserMessage(value);
@@ -251,10 +264,10 @@ export const SuggestionsFillInput: Story = {
   ],
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const buttons = await canvas.findAllByRole("button");
+    const buttons = await canvas.findAllByRole('button');
     await userEvent.click(buttons[0]);
-    await expect(canvas.getByRole("textbox")).toHaveValue(
-      "What equipment requires maintenance this week?"
+    await expect(canvas.getByRole('textbox')).toHaveValue(
+      'What equipment requires maintenance this week?'
     );
   },
   render: function SuggestionsFillInputStory() {
@@ -309,17 +322,23 @@ export const MixedMessageTypes: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByRole("log")).toBeInTheDocument();
-    await expect(canvas.getByText("Any with warning indicators?")).toBeInTheDocument();
-    const copyButtons = await canvas.findAllByRole("button", { name: /copy/i });
+    await expect(canvas.getByRole('log')).toBeInTheDocument();
+    await expect(
+      canvas.getByText('Any with warning indicators?')
+    ).toBeInTheDocument();
+    const copyButtons = await canvas.findAllByRole('button', { name: /copy/i });
     await expect(copyButtons.length).toBeGreaterThan(0);
-    await expect(canvas.getByRole("button", { name: /download report/i })).toBeInTheDocument();
+    await expect(
+      canvas.getByRole('button', { name: /download report/i })
+    ).toBeInTheDocument();
   },
   render: () => (
     <Conversation className="flex-1 min-h-0">
       <ConversationContent>
         <Message isResponse={false}>
-          <MessageContent>What&apos;s the current status of all pumps in section B?</MessageContent>
+          <MessageContent>
+            What&apos;s the current status of all pumps in section B?
+          </MessageContent>
         </Message>
         <Message isResponse={true}>
           <MessageAvatar variant="nordic">
@@ -328,7 +347,9 @@ export const MixedMessageTypes: Story = {
             </MessageAvatarIcon>
           </MessageAvatar>
           <MessageContent className="flex flex-col gap-2">
-            <span>All pumps in section B are operational based on the latest data.</span>
+            <span>
+              All pumps in section B are operational based on the latest data.
+            </span>
             <MessageActions>
               <MessageAction size="icon-sm" label="Copy" tooltip="Copy">
                 <IconCopy className="size-3" />
@@ -349,12 +370,19 @@ export const MixedMessageTypes: Story = {
             </MessageAvatarIcon>
           </MessageAvatar>
           <MessageContent className="flex flex-col gap-2">
-            <span>Pump 21PT1020 is over the warning threshold and should be inspected.</span>
+            <span>
+              Pump 21PT1020 is over the warning threshold and should be
+              inspected.
+            </span>
             <MessageActions>
               <MessageAction size="icon-sm" label="Copy" tooltip="Copy">
                 <IconCopy className="size-3" />
               </MessageAction>
-              <MessageAction size="icon-sm" label="Download report" tooltip="Download report">
+              <MessageAction
+                size="icon-sm"
+                label="Download report"
+                tooltip="Download report"
+              >
                 <IconDownload className="size-3" />
               </MessageAction>
               <MessageAction size="icon-sm" label="Tools" tooltip="View tools">
@@ -378,8 +406,10 @@ export const KeyboardNavigation: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const copyButton = canvas.getByRole("button", { name: /copy response/i });
-    const downloadButton = canvas.getByRole("button", { name: /download as file/i });
+    const copyButton = canvas.getByRole('button', { name: /copy response/i });
+    const downloadButton = canvas.getByRole('button', {
+      name: /download as file/i,
+    });
     copyButton.focus();
     await expect(copyButton).toHaveFocus();
     await userEvent.tab();
@@ -400,13 +430,25 @@ export const KeyboardNavigation: Story = {
           <MessageContent className="flex flex-col gap-2">
             <span>Use Tab to move between action buttons.</span>
             <MessageActions>
-              <MessageAction size="icon-sm" label="Copy response" tooltip="Copy response">
+              <MessageAction
+                size="icon-sm"
+                label="Copy response"
+                tooltip="Copy response"
+              >
                 <IconCopy className="size-3" />
               </MessageAction>
-              <MessageAction size="icon-sm" label="Download as file" tooltip="Download as file">
+              <MessageAction
+                size="icon-sm"
+                label="Download as file"
+                tooltip="Download as file"
+              >
                 <IconDownload className="size-3" />
               </MessageAction>
-              <MessageAction size="icon-sm" label="Retry request" tooltip="Retry request">
+              <MessageAction
+                size="icon-sm"
+                label="Retry request"
+                tooltip="Retry request"
+              >
                 <IconRefresh className="size-3" />
               </MessageAction>
             </MessageActions>
@@ -424,7 +466,7 @@ export const VeryLongConversation: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByRole("log")).toBeInTheDocument();
+    await expect(canvas.getByRole('log')).toBeInTheDocument();
     await expect(
       canvas.getByText("Query 1: What's the current status of pump 21PT1011?")
     ).toBeInTheDocument();
@@ -438,7 +480,9 @@ export const VeryLongConversation: Story = {
         {Array.from({ length: 40 }, (_, i) => {
           const isResponse = i % 2 === 1;
           const messageNum = Math.floor(i / 2) + 1;
-          const messageId = isResponse ? `assistant-${messageNum}` : `user-${messageNum}`;
+          const messageId = isResponse
+            ? `assistant-${messageNum}`
+            : `user-${messageNum}`;
 
           return (
             <Message key={messageId} isResponse={isResponse}>
@@ -449,7 +493,9 @@ export const VeryLongConversation: Story = {
                   </MessageAvatarIcon>
                 </MessageAvatar>
               )}
-              <MessageContent className={isResponse ? "flex flex-col gap-2" : undefined}>
+              <MessageContent
+                className={isResponse ? 'flex flex-col gap-2' : undefined}
+              >
                 <span>
                   {isResponse
                     ? `Analysis ${messageNum}: Sensor readings for pump 21PT101${messageNum} are in normal range.`
@@ -481,17 +527,21 @@ export const SingleMessage: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByRole("log")).toBeInTheDocument();
+    await expect(canvas.getByRole('log')).toBeInTheDocument();
     await expect(
-      canvas.getByText("What sensors are available for monitoring?")
+      canvas.getByText('What sensors are available for monitoring?')
     ).toBeInTheDocument();
-    await expect(canvas.queryByRole("button", { name: /copy/i })).not.toBeInTheDocument();
+    await expect(
+      canvas.queryByRole('button', { name: /copy/i })
+    ).not.toBeInTheDocument();
   },
   render: () => (
     <Conversation className="flex-1 min-h-0">
       <ConversationContent>
         <Message isResponse={false}>
-          <MessageContent>What sensors are available for monitoring?</MessageContent>
+          <MessageContent>
+            What sensors are available for monitoring?
+          </MessageContent>
         </Message>
       </ConversationContent>
       <ConversationScrollButton />
@@ -505,9 +555,13 @@ export const ShortContainer: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByRole("log")).toBeInTheDocument();
-    await expect(canvas.getByText("Status check for section B pumps")).toBeInTheDocument();
-    await expect(canvas.getByRole("button", { name: /download/i })).toBeInTheDocument();
+    await expect(canvas.getByRole('log')).toBeInTheDocument();
+    await expect(
+      canvas.getByText('Status check for section B pumps')
+    ).toBeInTheDocument();
+    await expect(
+      canvas.getByRole('button', { name: /download/i })
+    ).toBeInTheDocument();
   },
   render: () => (
     <div className="h-80 flex flex-col border rounded-lg">
@@ -544,12 +598,18 @@ export const ShortContainer: Story = {
               </MessageAvatarIcon>
             </MessageAvatar>
             <MessageContent className="flex flex-col gap-2">
-              <span>Detailed metrics are available for all monitored units.</span>
+              <span>
+                Detailed metrics are available for all monitored units.
+              </span>
               <MessageActions>
                 <MessageAction size="icon-sm" label="Copy" tooltip="Copy">
                   <IconCopy className="size-3" />
                 </MessageAction>
-                <MessageAction size="icon-sm" label="Download" tooltip="Download">
+                <MessageAction
+                  size="icon-sm"
+                  label="Download"
+                  tooltip="Download"
+                >
                   <IconDownload className="size-3" />
                 </MessageAction>
                 <MessageAction size="icon-sm" label="Retry" tooltip="Retry">
@@ -596,7 +656,7 @@ export const VisualRegression: Story = {
 
 export const Playground: Story = {
   args: {
-    className: "flex-1 min-h-0",
+    className: 'flex-1 min-h-0',
   },
   parameters: {
     order: 99,

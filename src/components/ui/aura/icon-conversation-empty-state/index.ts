@@ -1,1 +1,1 @@
-export { ConversationEmptyStateIcon } from "./icon-conversation-empty-state";
+export { ConversationEmptyStateIcon } from './icon-conversation-empty-state';

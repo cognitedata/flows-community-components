@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import {
   IconAlignCenter,
   IconAlignLeft,
@@ -11,38 +11,50 @@ import {
   IconPlus,
   IconTrash,
   IconUnderline,
-} from "@tabler/icons-react";
-import { useState } from "react";
-import { expect, userEvent, within } from "storybook/test";
-import { Button } from "../button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../select";
-import { ButtonGroup, ButtonGroupSeparator, ButtonGroupText } from "./button-group";
+} from '@tabler/icons-react';
+import { useState } from 'react';
+import { expect, userEvent, within } from 'storybook/test';
+
+import { Button } from '../button';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '../select';
+
+import {
+  ButtonGroup,
+  ButtonGroupSeparator,
+  ButtonGroupText,
+} from './button-group';
 const meta: Meta<typeof ButtonGroup> = {
-  title: "Primitives/Button Group",
+  title: 'Primitives/Button Group',
   component: ButtonGroup,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     orientation: {
-      control: "select",
-      options: ["horizontal", "vertical"],
+      control: 'select',
+      options: ['horizontal', 'vertical'],
       table: {
-        category: "Variants/Styling",
+        category: 'Variants/Styling',
         type: {
-          summary: "horizontal | vertical",
+          summary: 'horizontal | vertical',
         },
         defaultValue: {
-          summary: "horizontal",
+          summary: 'horizontal',
         },
       },
     },
     children: {
       table: {
-        category: "Content",
+        category: 'Content',
       },
     },
   },
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
 };
 export default meta;
@@ -60,9 +72,9 @@ export const Default: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const group = canvas.getByRole("group");
+    const group = canvas.getByRole('group');
     await expect(group).toBeInTheDocument();
-    const buttons = await canvas.findAllByRole("button");
+    const buttons = await canvas.findAllByRole('button');
     await expect(buttons).toHaveLength(3);
     await userEvent.click(buttons[1]);
     await expect(buttons[1]).toHaveFocus();
@@ -81,9 +93,9 @@ export const Vertical: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const group = canvas.getByRole("group");
-    await expect(group).toHaveAttribute("data-orientation", "vertical");
-    const buttons = await canvas.findAllByRole("button");
+    const group = canvas.getByRole('group');
+    await expect(group).toHaveAttribute('data-orientation', 'vertical');
+    const buttons = await canvas.findAllByRole('button');
     await expect(buttons).toHaveLength(3);
   },
 };
@@ -113,10 +125,10 @@ export const AllOrientations: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const groups = canvas.getAllByRole("group");
+    const groups = canvas.getAllByRole('group');
     await expect(groups).toHaveLength(2);
-    await expect(groups[0]).toHaveAttribute("data-orientation", "horizontal");
-    await expect(groups[1]).toHaveAttribute("data-orientation", "vertical");
+    await expect(groups[0]).toHaveAttribute('data-orientation', 'horizontal');
+    await expect(groups[1]).toHaveAttribute('data-orientation', 'vertical');
   },
 };
 export const WithIcons: Story = {
@@ -138,9 +150,9 @@ export const WithIcons: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const buttons = await canvas.findAllByRole("button");
+    const buttons = await canvas.findAllByRole('button');
     await expect(buttons).toHaveLength(3);
-    const group = canvas.getByRole("group");
+    const group = canvas.getByRole('group');
     await expect(group).toBeInTheDocument();
   },
 };
@@ -161,9 +173,9 @@ export const WithText: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const text = canvas.getByText("Font");
+    const text = canvas.getByText('Font');
     await expect(text).toBeInTheDocument();
-    const buttons = await canvas.findAllByRole("button");
+    const buttons = await canvas.findAllByRole('button');
     await expect(buttons).toHaveLength(2);
   },
 };
@@ -193,9 +205,9 @@ export const WithSeparators: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const separator = canvas.getByRole("separator");
+    const separator = canvas.getByRole('separator');
     await expect(separator).toBeInTheDocument();
-    const buttons = await canvas.findAllByRole("button");
+    const buttons = await canvas.findAllByRole('button');
     await expect(buttons).toHaveLength(5);
   },
 };
@@ -218,26 +230,26 @@ export const Mixed: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const label = canvas.getByText("Pages");
+    const label = canvas.getByText('Pages');
     await expect(label).toBeInTheDocument();
-    const buttons = await canvas.findAllByRole("button");
+    const buttons = await canvas.findAllByRole('button');
     await expect(buttons).toHaveLength(2);
-    const separator = canvas.getByRole("separator");
+    const separator = canvas.getByRole('separator');
     await expect(separator).toBeInTheDocument();
   },
 };
 const pageOptions = [
   {
-    label: "Page 1",
-    value: "page-1",
+    label: 'Page 1',
+    value: 'page-1',
   },
   {
-    label: "Page 2",
-    value: "page-2",
+    label: 'Page 2',
+    value: 'page-2',
   },
   {
-    label: "Page 3",
-    value: "page-3",
+    label: 'Page 3',
+    value: 'page-3',
   },
 ];
 export const WithSelect: Story = {
@@ -267,9 +279,9 @@ export const WithSelect: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const select = canvas.getByRole("combobox");
+    const select = canvas.getByRole('combobox');
     await expect(select).toBeInTheDocument();
-    const button = canvas.getByRole("button", {
+    const button = canvas.getByRole('button', {
       name: /copy/i,
     });
     await expect(button).toBeInTheDocument();
@@ -293,7 +305,7 @@ export const MixedVariants: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const buttons = await canvas.findAllByRole("button");
+    const buttons = await canvas.findAllByRole('button');
     await expect(buttons).toHaveLength(2);
     await userEvent.click(buttons[0]);
     await expect(buttons[0]).toHaveFocus();
@@ -321,33 +333,35 @@ export const VerticalWithIcons: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const group = canvas.getByRole("group");
-    await expect(group).toHaveAttribute("data-orientation", "vertical");
-    const buttons = await canvas.findAllByRole("button");
+    const group = canvas.getByRole('group');
+    await expect(group).toHaveAttribute('data-orientation', 'vertical');
+    const buttons = await canvas.findAllByRole('button');
     await expect(buttons).toHaveLength(3);
   },
 };
 export const Interactive: Story = {
   render: function InteractiveButtonGroup() {
-    const [selected, setSelected] = useState<"left" | "center" | "right">("left");
+    const [selected, setSelected] = useState<'left' | 'center' | 'right'>(
+      'left'
+    );
     return (
       <div className="flex flex-col items-center gap-4">
         <ButtonGroup>
           <Button
-            variant={selected === "left" ? "default" : "outline"}
-            onClick={() => setSelected("left")}
+            variant={selected === 'left' ? 'default' : 'outline'}
+            onClick={() => setSelected('left')}
           >
             <IconAlignLeft className="size-4" />
           </Button>
           <Button
-            variant={selected === "center" ? "default" : "outline"}
-            onClick={() => setSelected("center")}
+            variant={selected === 'center' ? 'default' : 'outline'}
+            onClick={() => setSelected('center')}
           >
             <IconAlignCenter className="size-4" />
           </Button>
           <Button
-            variant={selected === "right" ? "default" : "outline"}
-            onClick={() => setSelected("right")}
+            variant={selected === 'right' ? 'default' : 'outline'}
+            onClick={() => setSelected('right')}
           >
             <IconAlignRight className="size-4" />
           </Button>
@@ -361,12 +375,12 @@ export const Interactive: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const buttons = await canvas.findAllByRole("button");
+    const buttons = await canvas.findAllByRole('button');
     await expect(buttons).toHaveLength(3);
     await userEvent.click(buttons[1]);
-    await expect(canvas.getByText("Selected: center")).toBeInTheDocument();
+    await expect(canvas.getByText('Selected: center')).toBeInTheDocument();
     await userEvent.click(buttons[2]);
-    await expect(canvas.getByText("Selected: right")).toBeInTheDocument();
+    await expect(canvas.getByText('Selected: right')).toBeInTheDocument();
   },
 };
 export const Accessibility: Story = {
@@ -382,9 +396,9 @@ export const Accessibility: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const buttons = await canvas.findAllByRole("button");
+    const buttons = await canvas.findAllByRole('button');
     await expect(buttons).toHaveLength(3);
-    const group = canvas.getByRole("group");
+    const group = canvas.getByRole('group');
     await expect(group).toBeInTheDocument();
     buttons[0].focus();
     await expect(buttons[0]).toHaveFocus();
@@ -443,7 +457,7 @@ export const WithDisabled: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const buttons = await canvas.findAllByRole("button");
+    const buttons = await canvas.findAllByRole('button');
     await expect(buttons).toHaveLength(3);
     await expect(buttons[1]).toBeDisabled();
   },
@@ -459,7 +473,7 @@ export const SingleButton: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const buttons = await canvas.findAllByRole("button");
+    const buttons = await canvas.findAllByRole('button');
     await expect(buttons).toHaveLength(1);
   },
 };
@@ -497,7 +511,7 @@ export const ManyButtons: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const buttons = await canvas.findAllByRole("button");
+    const buttons = await canvas.findAllByRole('button');
     await expect(buttons).toHaveLength(8);
   },
 };
@@ -519,14 +533,14 @@ export const LongText: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const buttons = await canvas.findAllByRole("button");
+    const buttons = await canvas.findAllByRole('button');
     await expect(buttons).toHaveLength(2);
     await expect(buttons[0]).toHaveTextContent(/Very Long Button Label/i);
   },
 };
 export const Playground: Story = {
   args: {
-    orientation: "horizontal",
+    orientation: 'horizontal',
   },
   render: (args) => (
     <ButtonGroup {...args}>

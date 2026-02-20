@@ -7,8 +7,8 @@ import {
   ConfirmationContentTrigger,
   ConfirmationRejected,
   ConfirmationRequest,
-} from "./confirmation";
-import { ConfirmationMetadata } from "./confirmation.metadata";
+} from './confirmation';
+import { ConfirmationMetadata } from './confirmation.metadata';
 
 export {
   Confirmation,
