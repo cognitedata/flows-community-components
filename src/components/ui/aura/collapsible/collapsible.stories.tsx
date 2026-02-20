@@ -3,7 +3,11 @@ import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { IconSelector } from '@tabler/icons-react';
 import { useState } from 'react';
 
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from './collapsible';
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from './collapsible';
 
 import { Button } from '@/components/ui/aura/button';
 const meta: Meta<typeof Collapsible> = {
@@ -103,9 +107,9 @@ export const Basic: Story = {
       />
       <CollapsibleContent>
         <div className="px-4 py-2">
-          A collapsible is an interactive component that expands and collapses to show or hide
-          content. Multiple collapsibles can be open at the same time, unlike accordions which are
-          mutually exclusive.
+          A collapsible is an interactive component that expands and collapses
+          to show or hide content. Multiple collapsibles can be open at the same
+          time, unlike accordions which are mutually exclusive.
         </div>
       </CollapsibleContent>
     </Collapsible>
@@ -142,12 +146,12 @@ export const DefaultOpen: Story = {
       <CollapsibleContent>
         <div className="px-4 py-2">
           <p className="mb-2">
-            This collapsible starts open by default. You can collapse it by clicking the trigger
-            button.
+            This collapsible starts open by default. You can collapse it by
+            clicking the trigger button.
           </p>
           <p>
-            Use defaultOpen when you want to show content immediately but still allow users to
-            collapse it.
+            Use defaultOpen when you want to show content immediately but still
+            allow users to collapse it.
           </p>
         </div>
       </CollapsibleContent>
@@ -182,14 +186,22 @@ export const Controlled: Story = {
     return (
       <div className="space-y-4 w-100">
         <div className="flex gap-2">
-          <Button variant="outline" size="sm" onClick={() => setIsOpen(!isOpen)}>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setIsOpen(!isOpen)}
+          >
             Toggle Collapsible
           </Button>
           <span className="text-sm text-muted-foreground flex items-center">
             State: {isOpen ? 'Open' : 'Closed'}
           </span>
         </div>
-        <Collapsible open={isOpen} onOpenChange={setIsOpen} className="space-y-2">
+        <Collapsible
+          open={isOpen}
+          onOpenChange={setIsOpen}
+          className="space-y-2"
+        >
           <CollapsibleTrigger
             render={
               <Button variant="ghost" className="w-full justify-between">
@@ -200,8 +212,9 @@ export const Controlled: Story = {
           />
           <CollapsibleContent>
             <div className="px-4 py-2">
-              This collapsible is controlled externally. The open state is managed by React state,
-              and you can toggle it using the button above or by clicking the trigger.
+              This collapsible is controlled externally. The open state is
+              managed by React state, and you can toggle it using the button
+              above or by clicking the trigger.
             </div>
           </CollapsibleContent>
         </Collapsible>
@@ -224,13 +237,18 @@ export const WithCustomTrigger: Story = {
       expect(trigger).toHaveAttribute('data-panel-open');
     });
     const [panel] = getCollapsiblePanels(canvasElement);
-    await expect(within(panel).getByText(/here are some advanced settings/i)).toBeInTheDocument();
+    await expect(
+      within(panel).getByText(/here are some advanced settings/i)
+    ).toBeInTheDocument();
   },
   render: () => (
     <Collapsible className="w-100 space-y-2">
       <CollapsibleTrigger
         render={
-          <Button variant="outline" className="w-full justify-between font-semibold">
+          <Button
+            variant="outline"
+            className="w-full justify-between font-semibold"
+          >
             <span>Advanced Settings</span>
             <IconSelector className="h-4 w-4" />
           </Button>
@@ -272,7 +290,9 @@ export const Multiple: Story = {
       expect(q2).toHaveAttribute('data-panel-open');
     });
     const panels = getCollapsiblePanels(canvasElement);
-    await expect(within(panels[0]).getByText(/react is a javascript library/i)).toBeInTheDocument();
+    await expect(
+      within(panels[0]).getByText(/react is a javascript library/i)
+    ).toBeInTheDocument();
     await expect(
       within(panels[1]).getByText(/typescript is a typed superset/i)
     ).toBeInTheDocument();
@@ -290,8 +310,8 @@ export const Multiple: Story = {
         />
         <CollapsibleContent>
           <div className="px-4 py-2">
-            React is a JavaScript library for building user interfaces, particularly web
-            applications.
+            React is a JavaScript library for building user interfaces,
+            particularly web applications.
           </div>
         </CollapsibleContent>
       </Collapsible>
@@ -307,7 +327,8 @@ export const Multiple: Story = {
         />
         <CollapsibleContent>
           <div className="px-4 py-2">
-            TypeScript is a typed superset of JavaScript that compiles to plain JavaScript.
+            TypeScript is a typed superset of JavaScript that compiles to plain
+            JavaScript.
           </div>
         </CollapsibleContent>
       </Collapsible>
@@ -323,8 +344,8 @@ export const Multiple: Story = {
         />
         <CollapsibleContent>
           <div className="px-4 py-2">
-            Next.js is a React framework for production with features like server-side rendering and
-            static site generation.
+            Next.js is a React framework for production with features like
+            server-side rendering and static site generation.
           </div>
         </CollapsibleContent>
       </Collapsible>
@@ -375,9 +396,13 @@ export const WithRichContent: Story = {
     await expect(trigger).toBeInTheDocument();
     await userEvent.click(trigger);
     const [panel] = getCollapsiblePanels(canvasElement);
-    await expect(within(panel).getByText('Getting Started')).toBeInTheDocument();
     await expect(
-      within(panel).getByText('Follow these steps to get started with the component library:')
+      within(panel).getByText('Getting Started')
+    ).toBeInTheDocument();
+    await expect(
+      within(panel).getByText(
+        'Follow these steps to get started with the component library:'
+      )
     ).toBeInTheDocument();
   },
   render: () => (
@@ -393,7 +418,9 @@ export const WithRichContent: Story = {
       <CollapsibleContent>
         <div className="px-4 py-2 space-y-3">
           <h3 className="font-semibold text-base">Getting Started</h3>
-          <p className="text-sm">Follow these steps to get started with the component library:</p>
+          <p className="text-sm">
+            Follow these steps to get started with the component library:
+          </p>
           <ol className="list-decimal list-inside space-y-1 text-sm">
             <li>Install the required dependencies</li>
             <li>Import the components you need</li>
@@ -422,10 +449,14 @@ export const FAQ: Story = {
     await userEvent.click(q1);
     const panels = getCollapsiblePanels(canvasElement);
     await expect(
-      within(panels[0]).getByText(/collapsibles work independently—multiple can be open at once/i)
+      within(panels[0]).getByText(
+        /collapsibles work independently—multiple can be open at once/i
+      )
     ).toBeInTheDocument();
     await expect(
-      within(panels[2]).getByText(/yes! use the open prop for controlled state/i)
+      within(panels[2]).getByText(
+        /yes! use the open prop for controlled state/i
+      )
     ).toBeInTheDocument();
   },
   render: () => (
@@ -435,17 +466,22 @@ export const FAQ: Story = {
       <Collapsible className="space-y-2">
         <CollapsibleTrigger
           render={
-            <Button variant="ghost" className="w-full justify-between text-left">
-              <span>What&apos;s the difference between Collapsible and Accordion?</span>
+            <Button
+              variant="ghost"
+              className="w-full justify-between text-left"
+            >
+              <span>
+                What&apos;s the difference between Collapsible and Accordion?
+              </span>
               <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-panel-open/collapsible-trigger:rotate-180 shrink-0 ml-2" />
             </Button>
           }
         />
         <CollapsibleContent>
           <div className="px-4 py-2">
-            Collapsibles work independently—multiple can be open at once. The Collapsible component
-            is for independent sections. Use accordion patterns when you want mutually exclusive
-            content areas.
+            Collapsibles work independently—multiple can be open at once. The
+            Collapsible component is for independent sections. Use accordion
+            patterns when you want mutually exclusive content areas.
           </div>
         </CollapsibleContent>
       </Collapsible>
@@ -453,7 +489,10 @@ export const FAQ: Story = {
       <Collapsible className="space-y-2">
         <CollapsibleTrigger
           render={
-            <Button variant="ghost" className="w-full justify-between text-left">
+            <Button
+              variant="ghost"
+              className="w-full justify-between text-left"
+            >
               <span>How do I customize the styling?</span>
               <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-panel-open/collapsible-trigger:rotate-180 shrink-0 ml-2" />
             </Button>
@@ -461,8 +500,9 @@ export const FAQ: Story = {
         />
         <CollapsibleContent>
           <div className="px-4 py-2">
-            You can customize the styling by passing className props to any of the collapsible
-            components. The trigger and content can be styled independently.
+            You can customize the styling by passing className props to any of
+            the collapsible components. The trigger and content can be styled
+            independently.
           </div>
         </CollapsibleContent>
       </Collapsible>
@@ -470,7 +510,10 @@ export const FAQ: Story = {
       <Collapsible defaultOpen className="space-y-2">
         <CollapsibleTrigger
           render={
-            <Button variant="ghost" className="w-full justify-between text-left">
+            <Button
+              variant="ghost"
+              className="w-full justify-between text-left"
+            >
               <span>Can I control the open state programmatically?</span>
               <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-panel-open/collapsible-trigger:rotate-180 shrink-0 ml-2" />
             </Button>
@@ -478,8 +521,9 @@ export const FAQ: Story = {
         />
         <CollapsibleContent>
           <div className="px-4 py-2">
-            Yes! Use the open prop for controlled state, or defaultOpen for uncontrolled state with
-            an initial value. The onOpenChange callback will be called whenever the state changes.
+            Yes! Use the open prop for controlled state, or defaultOpen for
+            uncontrolled state with an initial value. The onOpenChange callback
+            will be called whenever the state changes.
           </div>
         </CollapsibleContent>
       </Collapsible>
@@ -543,7 +587,10 @@ export const EdgeCaseLongText: Story = {
       <CollapsibleTrigger
         render={
           <Button variant="ghost" className="w-full justify-between">
-            <span>Very Long Title That Might Wrap to Multiple Lines in Narrow Viewports</span>
+            <span>
+              Very Long Title That Might Wrap to Multiple Lines in Narrow
+              Viewports
+            </span>
             <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-panel-open/collapsible-trigger:rotate-180 shrink-0" />
           </Button>
         }
@@ -551,23 +598,26 @@ export const EdgeCaseLongText: Story = {
       <CollapsibleContent>
         <div className="px-4 py-2 space-y-2">
           <p className="text-sm">
-            This is an extremely long paragraph that demonstrates how the collapsible component
-            handles extensive text content. Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-            veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-            consequat.
+            This is an extremely long paragraph that demonstrates how the
+            collapsible component handles extensive text content. Lorem ipsum
+            dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+            incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+            veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+            ea commodo consequat.
           </p>
           <p className="text-sm">
-            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-            nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-            officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus
-            error sit voluptatem accusantium doloremque laudantium.
+            Duis aute irure dolor in reprehenderit in voluptate velit esse
+            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+            cupidatat non proident, sunt in culpa qui officia deserunt mollit
+            anim id est laborum. Sed ut perspiciatis unde omnis iste natus error
+            sit voluptatem accusantium doloremque laudantium.
           </p>
           <p className="text-sm">
-            Totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto
-            beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
-            aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
-            voluptatem sequi nesciunt.
+            Totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et
+            quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam
+            voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia
+            consequuntur magni dolores eos qui ratione voluptatem sequi
+            nesciunt.
           </p>
         </div>
       </CollapsibleContent>

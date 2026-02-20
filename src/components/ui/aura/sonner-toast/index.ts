@@ -12,9 +12,5 @@
  * // Show a toast
  * toast("Event has been created")
  */
-export {
-   
-  toast,
-  Toaster,
-} from './sonner-toast';
+export { toast, Toaster } from './sonner-toast';
 export { SonnerToastMetadata } from './sonner-toast.metadata';

@@ -1,4 +1,10 @@
-import { createContext, useCallback, useContext, useEffect, useState } from 'react';
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 
 type Theme = 'dark' | 'light' | 'system';
 
@@ -50,15 +56,20 @@ export function ThemeProvider({
   const [mounted, setMounted] = useState(false);
 
   // Get resolved theme (system -> actual theme)
-  const getResolvedTheme = useCallback((currentTheme: Theme): 'dark' | 'light' => {
-    if (currentTheme === 'system') {
-      if (typeof window === 'undefined') {
-        return 'light';
+  const getResolvedTheme = useCallback(
+    (currentTheme: Theme): 'dark' | 'light' => {
+      if (currentTheme === 'system') {
+        if (typeof window === 'undefined') {
+          return 'light';
+        }
+        return window.matchMedia('(prefers-color-scheme: dark)').matches
+          ? 'dark'
+          : 'light';
       }
-      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    }
-    return currentTheme;
-  }, []);
+      return currentTheme;
+    },
+    []
+  );
 
   const [resolvedTheme, setResolvedTheme] = useState<'dark' | 'light'>(() =>
     getResolvedTheme(theme)
@@ -144,7 +155,9 @@ export function ThemeProvider({
 
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     const handleChange = () => {
-      const resolved = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      const resolved = window.matchMedia('(prefers-color-scheme: dark)').matches
+        ? 'dark'
+        : 'light';
       setResolvedTheme(resolved);
       applyThemeToDom(resolved);
     };
@@ -155,7 +168,7 @@ export function ThemeProvider({
       return () => mediaQuery.removeEventListener('change', handleChange);
     }
     // Fallback for older browsers
-     
+
     mediaQuery.addListener(handleChange);
     return () => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -165,7 +178,11 @@ export function ThemeProvider({
 
   const setTheme = (newTheme: Theme) => {
     // Validate theme if themes array is provided
-    if (themes.length > 0 && !themes.includes(newTheme) && newTheme !== 'system') {
+    if (
+      themes.length > 0 &&
+      !themes.includes(newTheme) &&
+      newTheme !== 'system'
+    ) {
       console.warn(`Theme "${newTheme}" is not in the allowed themes list.`);
       return;
     }

@@ -16,9 +16,19 @@ import {
 import { useState } from 'react';
 
 import { Button } from '../button';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../select';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '../select';
 
-import { ButtonGroup, ButtonGroupSeparator, ButtonGroupText } from './button-group';
+import {
+  ButtonGroup,
+  ButtonGroupSeparator,
+  ButtonGroupText,
+} from './button-group';
 const meta: Meta<typeof ButtonGroup> = {
   title: 'Primitives/Button Group',
   component: ButtonGroup,
@@ -331,7 +341,9 @@ export const VerticalWithIcons: Story = {
 };
 export const Interactive: Story = {
   render: function InteractiveButtonGroup() {
-    const [selected, setSelected] = useState<'left' | 'center' | 'right'>('left');
+    const [selected, setSelected] = useState<'left' | 'center' | 'right'>(
+      'left'
+    );
     return (
       <div className="flex flex-col items-center gap-4">
         <ButtonGroup>

@@ -1,5 +1,10 @@
 import { PreviewCard as PreviewCardPrimitive } from '@base-ui/react/preview-card';
-import { type ComponentRef, createContext, forwardRef, useContext } from 'react';
+import {
+  type ComponentRef,
+  createContext,
+  forwardRef,
+  useContext,
+} from 'react';
 
 import { cn, getPortalContainer } from '../../../../lib/utils';
 
@@ -23,36 +28,50 @@ function HoverCard({
 }
 HoverCard.displayName = 'HoverCard';
 
-const HoverCardTrigger = forwardRef<HTMLAnchorElement, PreviewCardPrimitive.Trigger.Props>(
-  ({ children, ...props }, ref) => {
-    const delayContext = useContext(HoverCardDelayContext);
-    const { delay, closeDelay, ...triggerProps } = props;
-    return (
-      <PreviewCardPrimitive.Trigger
-        ref={ref}
-        data-slot="hover-card-trigger"
-        delay={delay ?? delayContext?.openDelay}
-        closeDelay={closeDelay ?? delayContext?.closeDelay}
-        {...triggerProps}
-      >
-        {children}
-      </PreviewCardPrimitive.Trigger>
-    );
-  }
-);
+const HoverCardTrigger = forwardRef<
+  HTMLAnchorElement,
+  PreviewCardPrimitive.Trigger.Props
+>(({ children, ...props }, ref) => {
+  const delayContext = useContext(HoverCardDelayContext);
+  const { delay, closeDelay, ...triggerProps } = props;
+  return (
+    <PreviewCardPrimitive.Trigger
+      ref={ref}
+      data-slot="hover-card-trigger"
+      delay={delay ?? delayContext?.openDelay}
+      closeDelay={closeDelay ?? delayContext?.closeDelay}
+      {...triggerProps}
+    >
+      {children}
+    </PreviewCardPrimitive.Trigger>
+  );
+});
 HoverCardTrigger.displayName = 'HoverCardTrigger';
 
 const HoverCardContent = forwardRef<
   ComponentRef<typeof PreviewCardPrimitive.Popup>,
   PreviewCardPrimitive.Popup.Props &
-    Pick<PreviewCardPrimitive.Positioner.Props, 'align' | 'alignOffset' | 'side' | 'sideOffset'>
+    Pick<
+      PreviewCardPrimitive.Positioner.Props,
+      'align' | 'alignOffset' | 'side' | 'sideOffset'
+    >
 >(
   (
-    { className, side = 'bottom', sideOffset = 4, align = 'center', alignOffset = 4, ...props },
+    {
+      className,
+      side = 'bottom',
+      sideOffset = 4,
+      align = 'center',
+      alignOffset = 4,
+      ...props
+    },
     ref
   ) => {
     return (
-      <PreviewCardPrimitive.Portal data-slot="hover-card-portal" container={getPortalContainer()}>
+      <PreviewCardPrimitive.Portal
+        data-slot="hover-card-portal"
+        container={getPortalContainer()}
+      >
         <PreviewCardPrimitive.Positioner
           align={align}
           alignOffset={alignOffset}

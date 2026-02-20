@@ -35,17 +35,20 @@ function ColorSwatch({
           backgroundColor: `var(${cssVar})`,
         }}
       />
-      {showLabel && <span className="text-2xs font-medium text-muted-foreground mt-1">{name}</span>}
+      {showLabel && (
+        <span className="text-2xs font-medium text-muted-foreground mt-1">
+          {name}
+        </span>
+      )}
     </div>
   );
 }
-function PaletteDisplay({
-  palette,
-}: {
-  palette: ColorPalette;
-}) {
+function PaletteDisplay({ palette }: { palette: ColorPalette }) {
   return (
-    <div className="space-y-3" data-testid={`palette-${palette.name.toLowerCase()}`}>
+    <div
+      className="space-y-3"
+      data-testid={`palette-${palette.name.toLowerCase()}`}
+    >
       <div>
         <h3 className="text-lg font-medium">{palette.name}</h3>
         <p className="text-sm text-muted-foreground">{palette.description}</p>
@@ -53,7 +56,11 @@ function PaletteDisplay({
       </div>
       <div className="grid grid-cols-7 sm:grid-cols-14 gap-1">
         {palette.colors.map((color) => (
-          <ColorSwatch key={color.name} cssVar={color.cssVar} name={color.name} />
+          <ColorSwatch
+            key={color.name}
+            cssVar={color.cssVar}
+            name={color.name}
+          />
         ))}
       </div>
     </div>
@@ -158,9 +165,13 @@ export const SemanticTokens: Story = {
             <div className="flex-1 min-w-0">
               <div className="flex items-baseline gap-2">
                 <span className="text-sm font-medium">{token.name}</span>
-                <code className="text-xs font-mono text-muted-foreground">{token.cssVar}</code>
+                <code className="text-xs font-mono text-muted-foreground">
+                  {token.cssVar}
+                </code>
               </div>
-              <p className="text-xs text-muted-foreground mt-0.5">{token.usage}</p>
+              <p className="text-xs text-muted-foreground mt-0.5">
+                {token.usage}
+              </p>
               <div className="flex gap-4 mt-1 text-2xs text-muted-foreground">
                 <span>Light: {token.lightValue}</span>
                 <span>Dark: {token.darkValue}</span>
@@ -209,7 +220,9 @@ export const TextHierarchy: Story = {
     <div className="space-y-4" data-testid="text-hierarchy">
       <p className="text-foreground text-lg">
         Primary Text
-        <span className="text-sm text-muted-foreground ml-2">— text-foreground</span>
+        <span className="text-sm text-muted-foreground ml-2">
+          — text-foreground
+        </span>
       </p>
       <p className="text-muted-foreground text-lg">
         Secondary Text
@@ -221,7 +234,9 @@ export const TextHierarchy: Story = {
       </p>
       <p className="text-foreground-link hover:underline text-lg cursor-pointer">
         Link Text
-        <span className="text-sm text-muted-foreground ml-2">— text-foreground-link</span>
+        <span className="text-sm text-muted-foreground ml-2">
+          — text-foreground-link
+        </span>
       </p>
     </div>
   ),
@@ -267,14 +282,22 @@ export const DataVisualisationColors: Story = {
   render: () => (
     <div className="space-y-6" data-testid="data-visualisation">
       {colorPatterns.dataVisualisation.patterns.map((pattern) => (
-        <div key={pattern.name} className="space-y-2" data-testid={`dataviz-${pattern.name}`}>
+        <div
+          key={pattern.name}
+          className="space-y-2"
+          data-testid={`dataviz-${pattern.name}`}
+        >
           <div>
             <h4 className="text-sm font-medium capitalize">{pattern.name}</h4>
             <p className="text-xs text-muted-foreground">{pattern.usage}</p>
           </div>
           <div className="flex gap-2">
             {pattern.colors.map((color) => (
-              <div key={color} className={`${color} w-12 h-12 rounded-md`} title={color} />
+              <div
+                key={color}
+                className={`${color} w-12 h-12 rounded-md`}
+                title={color}
+              />
             ))}
           </div>
         </div>
@@ -294,16 +317,18 @@ export const AllPalettesReference: Story = {
   },
   render: () => (
     <div className="space-y-12" data-testid="all-palettes-reference">
-      {(['base', 'decorative', 'semantic', 'extended'] as const).map((category) => (
-        <section key={category} data-testid={`category-${category}`}>
-          <h2 className="text-2xl font-medium capitalize mb-6">{category}</h2>
-          <div className="space-y-8">
-            {getColorsByCategory(category).map((palette) => (
-              <PaletteDisplay key={palette.name} palette={palette} />
-            ))}
-          </div>
-        </section>
-      ))}
+      {(['base', 'decorative', 'semantic', 'extended'] as const).map(
+        (category) => (
+          <section key={category} data-testid={`category-${category}`}>
+            <h2 className="text-2xl font-medium capitalize mb-6">{category}</h2>
+            <div className="space-y-8">
+              {getColorsByCategory(category).map((palette) => (
+                <PaletteDisplay key={palette.name} palette={palette} />
+              ))}
+            </div>
+          </section>
+        )
+      )}
     </div>
   ),
 };

@@ -3,7 +3,12 @@ import { type ComponentProps, forwardRef } from 'react';
 
 import { cn } from '../../../../lib/utils';
 
-import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/aura/card';
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from '@/components/ui/aura/card';
 import { Separator } from '@/components/ui/aura/separator';
 
 const artifactCountCountVariants = cva(
@@ -31,7 +36,10 @@ const ArtifactCount = forwardRef<HTMLDivElement, ComponentProps<typeof Card>>(
       <Card
         ref={ref}
         data-slot="artifact-count"
-        className={cn('flex min-h-35 flex-col justify-between gap-2', className)}
+        className={cn(
+          'flex min-h-35 flex-col justify-between gap-2',
+          className
+        )}
         {...props}
       />
     );
@@ -42,18 +50,19 @@ ArtifactCount.displayName = 'ArtifactCount';
 /**
  * Header area for count widgets.
  */
-const ArtifactCountHeader = forwardRef<HTMLDivElement, ComponentProps<typeof CardHeader>>(
-  ({ className, ...props }, ref) => {
-    return (
-      <CardHeader
-        ref={ref}
-        data-slot="artifact-count-header"
-        className={cn('flex w-full items-center gap-2', className)}
-        {...props}
-      />
-    );
-  }
-);
+const ArtifactCountHeader = forwardRef<
+  HTMLDivElement,
+  ComponentProps<typeof CardHeader>
+>(({ className, ...props }, ref) => {
+  return (
+    <CardHeader
+      ref={ref}
+      data-slot="artifact-count-header"
+      className={cn('flex w-full items-center gap-2', className)}
+      {...props}
+    />
+  );
+});
 ArtifactCountHeader.displayName = 'ArtifactCountHeader';
 
 /**
@@ -77,18 +86,19 @@ ArtifactCountCount.displayName = 'ArtifactCountCount';
 /**
  * Content area for count widgets.
  */
-const ArtifactCountContent = forwardRef<HTMLDivElement, ComponentProps<typeof CardContent>>(
-  ({ className, ...props }, ref) => {
-    return (
-      <CardContent
-        ref={ref}
-        data-slot="artifact-count-content"
-        className={cn(className)}
-        {...props}
-      />
-    );
-  }
-);
+const ArtifactCountContent = forwardRef<
+  HTMLDivElement,
+  ComponentProps<typeof CardContent>
+>(({ className, ...props }, ref) => {
+  return (
+    <CardContent
+      ref={ref}
+      data-slot="artifact-count-content"
+      className={cn(className)}
+      {...props}
+    />
+  );
+});
 ArtifactCountContent.displayName = 'ArtifactCountContent';
 
 /**
@@ -100,7 +110,10 @@ const ArtifactCountTag = forwardRef<HTMLSpanElement, ComponentProps<'span'>>(
       <span
         ref={ref}
         data-slot="artifact-count-tag"
-        className={cn('text-sm font-medium leading-4.5 text-muted-foreground', className)}
+        className={cn(
+          'text-sm font-medium leading-4.5 text-muted-foreground',
+          className
+        )}
         {...props}
       />
     );
@@ -111,83 +124,88 @@ ArtifactCountTag.displayName = 'ArtifactCountTag';
 /**
  * Footer area for count widgets.
  */
-const ArtifactCountFooter = forwardRef<HTMLDivElement, ComponentProps<typeof CardFooter>>(
-  ({ className, ...props }, ref) => {
-    return (
-      <CardFooter
-        ref={ref}
-        data-slot="artifact-count-footer"
-        className={cn('w-full items-center gap-2 text-sm', className)}
-        {...props}
-      />
-    );
-  }
-);
+const ArtifactCountFooter = forwardRef<
+  HTMLDivElement,
+  ComponentProps<typeof CardFooter>
+>(({ className, ...props }, ref) => {
+  return (
+    <CardFooter
+      ref={ref}
+      data-slot="artifact-count-footer"
+      className={cn('w-full items-center gap-2 text-sm', className)}
+      {...props}
+    />
+  );
+});
 ArtifactCountFooter.displayName = 'ArtifactCountFooter';
 
 /**
  * Footer item aligned to the left.
  */
-const ArtifactCountFooterLeft = forwardRef<HTMLDivElement, ComponentProps<'div'>>(
-  ({ className, ...props }, ref) => {
-    return (
-      <div
-        ref={ref}
-        data-slot="artifact-count-footer-left"
-        className={cn('flex flex-1 items-center justify-start gap-2', className)}
-        {...props}
-      />
-    );
-  }
-);
+const ArtifactCountFooterLeft = forwardRef<
+  HTMLDivElement,
+  ComponentProps<'div'>
+>(({ className, ...props }, ref) => {
+  return (
+    <div
+      ref={ref}
+      data-slot="artifact-count-footer-left"
+      className={cn('flex flex-1 items-center justify-start gap-2', className)}
+      {...props}
+    />
+  );
+});
 ArtifactCountFooterLeft.displayName = 'ArtifactCountFooterLeft';
 
 /**
  * Footer item aligned to the center.
  */
-const ArtifactCountFooterCenter = forwardRef<HTMLDivElement, ComponentProps<'div'>>(
-  ({ className, ...props }, ref) => {
-    return (
-      <div
-        ref={ref}
-        data-slot="artifact-count-footer-center"
-        className={cn('flex flex-1 items-center justify-center gap-2', className)}
-        {...props}
-      />
-    );
-  }
-);
+const ArtifactCountFooterCenter = forwardRef<
+  HTMLDivElement,
+  ComponentProps<'div'>
+>(({ className, ...props }, ref) => {
+  return (
+    <div
+      ref={ref}
+      data-slot="artifact-count-footer-center"
+      className={cn('flex flex-1 items-center justify-center gap-2', className)}
+      {...props}
+    />
+  );
+});
 ArtifactCountFooterCenter.displayName = 'ArtifactCountFooterCenter';
 
 /**
  * Footer item aligned to the right.
  */
-const ArtifactCountFooterRight = forwardRef<HTMLDivElement, ComponentProps<'div'>>(
-  ({ className, ...props }, ref) => {
-    return (
-      <div
-        ref={ref}
-        data-slot="artifact-count-footer-right"
-        className={cn('flex flex-1 items-center justify-end gap-2', className)}
-        {...props}
-      />
-    );
-  }
-);
+const ArtifactCountFooterRight = forwardRef<
+  HTMLDivElement,
+  ComponentProps<'div'>
+>(({ className, ...props }, ref) => {
+  return (
+    <div
+      ref={ref}
+      data-slot="artifact-count-footer-right"
+      className={cn('flex flex-1 items-center justify-end gap-2', className)}
+      {...props}
+    />
+  );
+});
 ArtifactCountFooterRight.displayName = 'ArtifactCountFooterRight';
 
 /**
  * Separator between header/content/footer regions.
  */
-const ArtifactCountSeparator = forwardRef<HTMLDivElement, ComponentProps<typeof Separator>>(
-  ({ className, ...props }, ref) => {
-    return (
-      <div ref={ref} data-slot="artifact-count-separator" className="w-full px-4">
-        <Separator className={cn(className)} {...props} />
-      </div>
-    );
-  }
-);
+const ArtifactCountSeparator = forwardRef<
+  HTMLDivElement,
+  ComponentProps<typeof Separator>
+>(({ className, ...props }, ref) => {
+  return (
+    <div ref={ref} data-slot="artifact-count-separator" className="w-full px-4">
+      <Separator className={cn(className)} {...props} />
+    </div>
+  );
+});
 ArtifactCountSeparator.displayName = 'ArtifactCountSeparator';
 
 export {

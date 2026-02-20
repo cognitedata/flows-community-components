@@ -1,6 +1,11 @@
 import { Menu as MenuPrimitive } from '@base-ui/react/menu';
 import { IconCheck, IconChevronRight } from '@tabler/icons-react';
-import { type ComponentProps, type ComponentRef, type HTMLAttributes, forwardRef } from 'react';
+import {
+  type ComponentProps,
+  type ComponentRef,
+  type HTMLAttributes,
+  forwardRef,
+} from 'react';
 
 import { cn, getPortalContainer } from '../../../../lib/utils';
 
@@ -20,7 +25,10 @@ function DropdownMenuPortal({ ...props }: MenuPrimitive.Portal.Props) {
 }
 DropdownMenuPortal.displayName = 'DropdownMenuPortal';
 
-function DropdownMenuTrigger({ children, ...props }: MenuPrimitive.Trigger.Props) {
+function DropdownMenuTrigger({
+  children,
+  ...props
+}: MenuPrimitive.Trigger.Props) {
   return (
     <MenuPrimitive.Trigger data-slot="dropdown-menu-trigger" {...props}>
       {children}
@@ -37,7 +45,10 @@ function DropdownMenuContent({
   className,
   ...props
 }: MenuPrimitive.Popup.Props &
-  Pick<MenuPrimitive.Positioner.Props, 'align' | 'alignOffset' | 'side' | 'sideOffset'>) {
+  Pick<
+    MenuPrimitive.Positioner.Props,
+    'align' | 'alignOffset' | 'side' | 'sideOffset'
+  >) {
   return (
     <DropdownMenuPortal>
       <MenuPrimitive.Positioner
@@ -118,7 +129,12 @@ const DropdownMenuCheckboxItem = forwardRef<
 DropdownMenuCheckboxItem.displayName = 'DropdownMenuCheckboxItem';
 
 function DropdownMenuRadioGroup({ ...props }: MenuPrimitive.RadioGroup.Props) {
-  return <MenuPrimitive.RadioGroup data-slot="dropdown-menu-radio-group" {...props} />;
+  return (
+    <MenuPrimitive.RadioGroup
+      data-slot="dropdown-menu-radio-group"
+      {...props}
+    />
+  );
 }
 DropdownMenuRadioGroup.displayName = 'DropdownMenuRadioGroup';
 
@@ -168,21 +184,22 @@ const DropdownMenuLabel = forwardRef<
 });
 DropdownMenuLabel.displayName = 'DropdownMenuLabel';
 
-const DropdownMenuHeader = forwardRef<ComponentRef<'div'>, HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...props }, ref) => {
-    return (
-      <div
-        ref={ref}
-        data-slot="dropdown-menu-header"
-        className={cn(
-          '-mx-1 -mt-1 mb-1 flex flex-row items-center gap-2 border-b border-border px-2 py-2 pointer-events-none',
-          className
-        )}
-        {...props}
-      />
-    );
-  }
-);
+const DropdownMenuHeader = forwardRef<
+  ComponentRef<'div'>,
+  HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => {
+  return (
+    <div
+      ref={ref}
+      data-slot="dropdown-menu-header"
+      className={cn(
+        '-mx-1 -mt-1 mb-1 flex flex-row items-center gap-2 border-b border-border px-2 py-2 pointer-events-none',
+        className
+      )}
+      {...props}
+    />
+  );
+});
 DropdownMenuHeader.displayName = 'DropdownMenuHeader';
 
 const DropdownMenuSeparator = forwardRef<
@@ -200,18 +217,22 @@ const DropdownMenuSeparator = forwardRef<
 });
 DropdownMenuSeparator.displayName = 'DropdownMenuSeparator';
 
-const DropdownMenuShortcut = forwardRef<ComponentRef<'span'>, HTMLAttributes<HTMLSpanElement>>(
-  ({ className, ...props }, ref) => {
-    return (
-      <span
-        ref={ref}
-        data-slot="dropdown-menu-shortcut"
-        className={cn('text-muted-foreground ml-auto text-xs tracking-widest', className)}
-        {...props}
-      />
-    );
-  }
-);
+const DropdownMenuShortcut = forwardRef<
+  ComponentRef<'span'>,
+  HTMLAttributes<HTMLSpanElement>
+>(({ className, ...props }, ref) => {
+  return (
+    <span
+      ref={ref}
+      data-slot="dropdown-menu-shortcut"
+      className={cn(
+        'text-muted-foreground ml-auto text-xs tracking-widest',
+        className
+      )}
+      {...props}
+    />
+  );
+});
 DropdownMenuShortcut.displayName = 'DropdownMenuShortcut';
 
 function DropdownMenuSub({ ...props }: MenuPrimitive.SubmenuRoot.Props) {
@@ -265,21 +286,22 @@ function DropdownMenuSubContent({
 }
 DropdownMenuSubContent.displayName = 'DropdownMenuSubContent';
 
-const DropdownMenuSectionLabel = forwardRef<ComponentRef<'div'>, HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...props }, ref) => {
-    return (
-      <div
-        ref={ref}
-        data-slot="dropdown-menu-section-label"
-        className={cn(
-          'px-2 py-1 text-sm text-muted-foreground dark:text-muted-foreground',
-          className
-        )}
-        {...props}
-      />
-    );
-  }
-);
+const DropdownMenuSectionLabel = forwardRef<
+  ComponentRef<'div'>,
+  HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => {
+  return (
+    <div
+      ref={ref}
+      data-slot="dropdown-menu-section-label"
+      className={cn(
+        'px-2 py-1 text-sm text-muted-foreground dark:text-muted-foreground',
+        className
+      )}
+      {...props}
+    />
+  );
+});
 DropdownMenuSectionLabel.displayName = 'DropdownMenuSectionLabel';
 
 export {

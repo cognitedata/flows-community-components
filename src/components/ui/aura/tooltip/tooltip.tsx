@@ -1,14 +1,19 @@
 import { Tooltip as TooltipPrimitive } from '@base-ui/react/tooltip';
 import { type ComponentRef, forwardRef } from 'react';
 
-
 import { cn, getPortalContainer } from '../../../../lib/utils';
 function TooltipProvider({
   delayDuration = 0,
   ...props
-}: Omit<TooltipPrimitive.Provider.Props, 'delay'> & { delayDuration?: number }) {
+}: Omit<TooltipPrimitive.Provider.Props, 'delay'> & {
+  delayDuration?: number;
+}) {
   return (
-    <TooltipPrimitive.Provider data-slot="tooltip-provider" delay={delayDuration} {...props} />
+    <TooltipPrimitive.Provider
+      data-slot="tooltip-provider"
+      delay={delayDuration}
+      {...props}
+    />
   );
 }
 
@@ -27,17 +32,27 @@ function Tooltip({
   );
 }
 
-const TooltipTrigger = forwardRef<HTMLButtonElement, TooltipPrimitive.Trigger.Props>(
-  (props, ref) => {
-    return <TooltipPrimitive.Trigger ref={ref} data-slot="tooltip-trigger" {...props} />;
-  }
-);
+const TooltipTrigger = forwardRef<
+  HTMLButtonElement,
+  TooltipPrimitive.Trigger.Props
+>((props, ref) => {
+  return (
+    <TooltipPrimitive.Trigger
+      ref={ref}
+      data-slot="tooltip-trigger"
+      {...props}
+    />
+  );
+});
 TooltipTrigger.displayName = 'TooltipTrigger';
 
 const TooltipContent = forwardRef<
   ComponentRef<typeof TooltipPrimitive.Popup>,
   TooltipPrimitive.Popup.Props &
-    Pick<TooltipPrimitive.Positioner.Props, 'align' | 'alignOffset' | 'side' | 'sideOffset'>
+    Pick<
+      TooltipPrimitive.Positioner.Props,
+      'align' | 'alignOffset' | 'side' | 'sideOffset'
+    >
 >(
   (
     {

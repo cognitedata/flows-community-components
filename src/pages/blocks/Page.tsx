@@ -23,23 +23,40 @@ const blockCategories = [
     description:
       'Interactive AI chat interfaces with real-time responses, typing indicators, and message threading.',
     href: '/patterns/agent-chat',
-    features: ['Typing indicators', 'Message threading', 'AI responses', 'Code highlighting'],
+    features: [
+      'Typing indicators',
+      'Message threading',
+      'AI responses',
+      'Code highlighting',
+    ],
     status: 'Interactive',
   },
   {
     icon: BarChart3,
     title: 'Dashboards',
-    description: 'Dynamic data visualization blocks with charts, KPIs, and real-time updates.',
+    description:
+      'Dynamic data visualization blocks with charts, KPIs, and real-time updates.',
     href: '/patterns/dashboards',
-    features: ['Live charts', 'KPI cards', 'Data filtering', 'Responsive layouts'],
+    features: [
+      'Live charts',
+      'KPI cards',
+      'Data filtering',
+      'Responsive layouts',
+    ],
     status: 'Interactive',
   },
   {
     icon: Users,
     title: 'Shift handover',
-    description: 'Collaborative workflow blocks for team transitions and task management.',
+    description:
+      'Collaborative workflow blocks for team transitions and task management.',
     href: '/eos/shift-handover-app',
-    features: ['Task lists', 'Team updates', 'Status tracking', 'Notifications'],
+    features: [
+      'Task lists',
+      'Team updates',
+      'Status tracking',
+      'Notifications',
+    ],
     status: 'Interactive',
   },
 ];
@@ -52,15 +69,16 @@ export default function PatternsPage() {
         <div>
           <h1 className="text-3xl font-bold tracking-tight">About</h1>
           <p className="text-lg text-muted-foreground mt-2">
-            Complete UI components with animations, interactions, and real-world use cases
+            Complete UI components with animations, interactions, and real-world
+            use cases
           </p>
         </div>
 
         <div className="bg-muted/50 border rounded-lg p-4">
           <p className="text-sm text-muted-foreground">
-            Each component demonstrates advanced interactions, micro-animations, and state
-            management patterns. Perfect for understanding how components work together in real
-            applications.
+            Each component demonstrates advanced interactions, micro-animations,
+            and state management patterns. Perfect for understanding how
+            components work together in real applications.
           </p>
         </div>
       </div>
@@ -88,7 +106,9 @@ export default function PatternsPage() {
                     </div>
                   </div>
                 </div>
-                <CardDescription className="mt-2">{block.description}</CardDescription>
+                <CardDescription className="mt-2">
+                  {block.description}
+                </CardDescription>
               </CardHeader>
 
               <CardContent className="space-y-4">

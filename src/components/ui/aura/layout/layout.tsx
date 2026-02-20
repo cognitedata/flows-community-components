@@ -118,7 +118,8 @@ export const gridPatterns = {
   responsiveGrid: {
     name: 'Responsive Grid',
     description: 'Full responsive grid that adapts across all breakpoints',
-    class: 'grid grid-cols-4 gap-2 px-4 @sm:grid-cols-8 @md:grid-cols-12 @md:gap-4 @md:px-3',
+    class:
+      'grid grid-cols-4 gap-2 px-4 @sm:grid-cols-8 @md:grid-cols-12 @md:gap-4 @md:px-3',
     usage: 'Main content grid that adapts from 4 to 8 to 12 columns',
   },
   simpleGrid: {
@@ -241,7 +242,8 @@ export const layoutCompositions = {
   contentCentered: {
     name: 'Centered Content',
     description: 'Narrow centered content with gutters',
-    container: 'col-span-4 @sm:col-span-6 @sm:col-start-2 @md:col-span-8 @md:col-start-3',
+    container:
+      'col-span-4 @sm:col-span-6 @sm:col-start-2 @md:col-span-8 @md:col-start-3',
     usage: 'Article content, forms, focused reading',
   },
 } as const;
@@ -268,7 +270,11 @@ export function getContainerPrefix(breakpoint: string): string {
 /**
  * Generate responsive column span classes
  */
-export function getResponsiveSpan(base: number, sm: number, md: number): string {
+export function getResponsiveSpan(
+  base: number,
+  sm: number,
+  md: number
+): string {
   return `col-span-${base} @sm:col-span-${sm} @md:col-span-${md}`;
 }
 

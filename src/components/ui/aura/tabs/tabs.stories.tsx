@@ -1,6 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, within } from '@storybook/test';
-import { IconBell, IconLock, IconSettings, IconUser } from '@tabler/icons-react';
+import {
+  IconBell,
+  IconLock,
+  IconSettings,
+  IconUser,
+} from '@tabler/icons-react';
 import { useState } from 'react';
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './tabs';
@@ -78,13 +83,19 @@ export const Default: Story = {
         <TabsTrigger value="settings">Settings</TabsTrigger>
       </TabsList>
       <TabsContent value="account" className="p-4">
-        <p className="text-sm text-muted-foreground">Make changes to your account settings here.</p>
+        <p className="text-sm text-muted-foreground">
+          Make changes to your account settings here.
+        </p>
       </TabsContent>
       <TabsContent value="password" className="p-4">
-        <p className="text-sm text-muted-foreground">Change your password and security settings.</p>
+        <p className="text-sm text-muted-foreground">
+          Change your password and security settings.
+        </p>
       </TabsContent>
       <TabsContent value="settings" className="p-4">
-        <p className="text-sm text-muted-foreground">Configure your application preferences.</p>
+        <p className="text-sm text-muted-foreground">
+          Configure your application preferences.
+        </p>
       </TabsContent>
     </Tabs>
   ),
@@ -120,13 +131,19 @@ export const WithIcons: Story = {
         </TabsTrigger>
       </TabsList>
       <TabsContent value="profile" className="p-4">
-        <p className="text-sm text-muted-foreground">Manage your profile information.</p>
+        <p className="text-sm text-muted-foreground">
+          Manage your profile information.
+        </p>
       </TabsContent>
       <TabsContent value="notifications" className="p-4">
-        <p className="text-sm text-muted-foreground">Configure notification preferences.</p>
+        <p className="text-sm text-muted-foreground">
+          Configure notification preferences.
+        </p>
       </TabsContent>
       <TabsContent value="security" className="p-4">
-        <p className="text-sm text-muted-foreground">Update security settings.</p>
+        <p className="text-sm text-muted-foreground">
+          Update security settings.
+        </p>
       </TabsContent>
     </Tabs>
   ),
@@ -232,11 +249,15 @@ export const RichContent: Story = {
       </TabsContent>
       <TabsContent value="analytics" className="p-4">
         <h3 className="font-medium">Analytics Dashboard</h3>
-        <p className="text-sm text-muted-foreground mt-2">View detailed analytics and metrics.</p>
+        <p className="text-sm text-muted-foreground mt-2">
+          View detailed analytics and metrics.
+        </p>
       </TabsContent>
       <TabsContent value="reports" className="p-4">
         <h3 className="font-medium">Reports</h3>
-        <p className="text-sm text-muted-foreground mt-2">Generate and download reports.</p>
+        <p className="text-sm text-muted-foreground mt-2">
+          Generate and download reports.
+        </p>
       </TabsContent>
     </Tabs>
   ),
@@ -287,7 +308,9 @@ export const VisualRegression: Story = {
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">With Icons</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          With Icons
+        </h3>
         <Tabs defaultValue="settings">
           <TabsList>
             <TabsTrigger value="user">
@@ -306,7 +329,9 @@ export const VisualRegression: Story = {
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">Full Width</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          Full Width
+        </h3>
         <Tabs defaultValue="first">
           <TabsList className="w-full">
             <TabsTrigger value="first" className="flex-1">

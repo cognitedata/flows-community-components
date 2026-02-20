@@ -26,12 +26,20 @@ export default function CogDocsPageComponent() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-8">
           {cogdocsPages.map((page: CogDocsPage) => (
-            <Link key={page.slug} to={`/cogdocs/${page.slug}`} className="block">
+            <Link
+              key={page.slug}
+              to={`/cogdocs/${page.slug}`}
+              className="block"
+            >
               <Card className="h-full transition-colors hover:border-primary">
                 <CardContent className="py-4">
                   <div className="space-y-1">
-                    <div className="text-foreground font-medium">{page.title}</div>
-                    <p className="text-sm text-muted-foreground">CogDocs documentation</p>
+                    <div className="text-foreground font-medium">
+                      {page.title}
+                    </div>
+                    <p className="text-sm text-muted-foreground">
+                      CogDocs documentation
+                    </p>
                   </div>
                 </CardContent>
               </Card>

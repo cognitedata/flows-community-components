@@ -30,7 +30,10 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/aura/dropdown-menu';
-import { InlineCitation, InlineCitationLink } from '@/components/ui/aura/inline-citation';
+import {
+  InlineCitation,
+  InlineCitationLink,
+} from '@/components/ui/aura/inline-citation';
 import {
   Message,
   MessageAction,
@@ -65,14 +68,24 @@ import {
 import { Shimmer } from '@/components/ui/aura/shimmer';
 import { Source, Sources } from '@/components/ui/aura/sources';
 import { Suggestion } from '@/components/ui/aura/suggestion';
-import { Tool, ToolContent, ToolHeader, ToolInput, ToolOutput } from '@/components/ui/aura/tool';
+import {
+  Tool,
+  ToolContent,
+  ToolHeader,
+  ToolInput,
+  ToolOutput,
+} from '@/components/ui/aura/tool';
 import { cn } from '@/lib/utils';
 
 // ============================================================================
 // Constants
 // ============================================================================
 
-const thinkingPhrases = ['Searching database…', 'Fetching sensor data…', 'Formulating response…'];
+const thinkingPhrases = [
+  'Searching database…',
+  'Fetching sensor data…',
+  'Formulating response…',
+];
 
 const searchDatabaseInput = {
   asset_id: '21PT1019',
@@ -636,7 +649,10 @@ export function AIChatDemo({
           {showGrid && (
             <div className="absolute inset-x-2 inset-y-6 grid grid-cols-12 gap-3 pointer-events-none z-10">
               {Array.from({ length: 12 }).map((_, i) => (
-                <div key={i} className="bg-blue-500/10 border border-blue-500/30" />
+                <div
+                  key={i}
+                  className="bg-blue-500/10 border border-blue-500/30"
+                />
               ))}
             </div>
           )}
@@ -700,7 +716,9 @@ export function AIChatDemo({
                               </MessageAvatar>
                               <MessageContent className="flex flex-col gap-2">
                                 {(isThinking && index === currentBranchIndex) ||
-                                (isRetrying && index === currentBranchIndex && !branch) ? (
+                                (isRetrying &&
+                                  index === currentBranchIndex &&
+                                  !branch) ? (
                                   <Shimmer variant="nordic">
                                     {isRetrying
                                       ? 'Generating alternative response…'
@@ -713,10 +731,15 @@ export function AIChatDemo({
                                     </span>
                                     <MessageResponse controls={false}>
                                       {branch ||
-                                        (index === currentBranchIndex ? streamedContent : '')}
+                                        (index === currentBranchIndex
+                                          ? streamedContent
+                                          : '')}
                                     </MessageResponse>
                                     {branch &&
-                                      !(phase === 'streaming' && index === currentBranchIndex) && (
+                                      !(
+                                        phase === 'streaming' &&
+                                        index === currentBranchIndex
+                                      ) && (
                                         <Sources className="flex flex-col gap-2 py-3">
                                           <Source
                                             href="https://example.com/21PT2019"
@@ -746,7 +769,10 @@ export function AIChatDemo({
                                       )}
                                     {branch &&
                                       showTools &&
-                                      !(phase === 'streaming' && index === currentBranchIndex) && (
+                                      !(
+                                        phase === 'streaming' &&
+                                        index === currentBranchIndex
+                                      ) && (
                                         <div className="flex flex-col gap-2 py-3">
                                           <Reasoning>
                                             <ReasoningHeader />
@@ -758,9 +784,15 @@ export function AIChatDemo({
                                                     type="tool-call"
                                                   />
                                                   <ToolContent>
-                                                    <ToolInput input={searchDatabaseInput} />
+                                                    <ToolInput
+                                                      input={
+                                                        searchDatabaseInput
+                                                      }
+                                                    />
                                                     <ToolOutput
-                                                      output={searchDatabaseOutput}
+                                                      output={
+                                                        searchDatabaseOutput
+                                                      }
                                                       errorText={undefined}
                                                     />
                                                   </ToolContent>
@@ -773,9 +805,15 @@ export function AIChatDemo({
                                                     type="tool-call"
                                                   />
                                                   <ToolContent>
-                                                    <ToolInput input={fetchSensorDataInput} />
+                                                    <ToolInput
+                                                      input={
+                                                        fetchSensorDataInput
+                                                      }
+                                                    />
                                                     <ToolOutput
-                                                      output={fetchSensorDataOutput}
+                                                      output={
+                                                        fetchSensorDataOutput
+                                                      }
                                                       errorText={undefined}
                                                     />
                                                   </ToolContent>
@@ -786,7 +824,10 @@ export function AIChatDemo({
                                         </div>
                                       )}
                                     {branch &&
-                                      !(phase === 'streaming' && index === currentBranchIndex) && (
+                                      !(
+                                        phase === 'streaming' &&
+                                        index === currentBranchIndex
+                                      ) && (
                                         <MessageActions className="justify-between">
                                           <div className="flex items-center gap-2">
                                             <MessageAction
@@ -810,7 +851,10 @@ export function AIChatDemo({
                                               label="Retry"
                                               tooltip="Retry"
                                               onClick={handleRetry}
-                                              disabled={branches.length >= 2 || isRetrying}
+                                              disabled={
+                                                branches.length >= 2 ||
+                                                isRetrying
+                                              }
                                             >
                                               <IconRefresh className="w-3 h-3" />
                                             </MessageAction>
@@ -827,12 +871,16 @@ export function AIChatDemo({
                                           </div>
                                           <MessageAction
                                             size="sm"
-                                            onClick={() => setShowTools(!showTools)}
+                                            onClick={() =>
+                                              setShowTools(!showTools)
+                                            }
                                             data-active={showTools}
                                             className="data-[active=true]:bg-accent"
                                           >
                                             <IconBrain className="w-3.5 h-3.5" />
-                                            {showTools ? 'Hide reasoning' : 'Show reasoning'}
+                                            {showTools
+                                              ? 'Hide reasoning'
+                                              : 'Show reasoning'}
                                           </MessageAction>
                                         </MessageActions>
                                       )}
@@ -855,7 +903,13 @@ export function AIChatDemo({
         {/* Prompt Input - sticky positioned to stay at bottom while scrolling */}
         <div className="sticky bottom-0 left-0 right-0 grid grid-cols-12 gap-3 px-2 mx-auto max-w-2xl @2xl:max-w-2xl @3xl:max-w-3xl @5xl:max-w-5xl @7xl:max-w-7xl @8xl:max-w-8xl pointer-events-none">
           <div className="col-span-12 @5xl:col-start-3 @5xl:col-span-8 pointer-events-auto">
-            <div className={cn('p-6', showPromptBorder && 'border-t', 'bg-background')}>
+            <div
+              className={cn(
+                'p-6',
+                showPromptBorder && 'border-t',
+                'bg-background'
+              )}
+            >
               <PromptInputProvider>
                 <PromptInput onSubmit={() => {}}>
                   <PromptInputBody>

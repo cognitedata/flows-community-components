@@ -23,7 +23,12 @@ import { useTheme } from '@/components/theme-provider';
 import { Badge } from '@/components/ui/aura/badge';
 import { Button } from '@/components/ui/aura/button';
 import { Calendar } from '@/components/ui/aura/calendar';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/aura/card';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/aura/card';
 import { Checkbox } from '@/components/ui/aura/checkbox';
 import {
   Dialog,
@@ -34,7 +39,11 @@ import {
 } from '@/components/ui/aura/dialog';
 import { Input } from '@/components/ui/aura/input';
 import { Label } from '@/components/ui/aura/label';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/aura/popover';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/aura/popover';
 import {
   Select,
   SelectContent,
@@ -58,8 +67,12 @@ export default function ShiftHandoverAppPage() {
   const [mounted, setMounted] = React.useState(false);
   React.useEffect(() => setMounted(true), []);
 
-  const [shiftDate, setShiftDate] = React.useState<Date | undefined>(new Date());
-  const [shiftType, setShiftType] = React.useState<'morning' | 'day' | 'night'>('night');
+  const [shiftDate, setShiftDate] = React.useState<Date | undefined>(
+    new Date()
+  );
+  const [shiftType, setShiftType] = React.useState<'morning' | 'day' | 'night'>(
+    'night'
+  );
   const [fromUser, setFromUser] = React.useState('Jerry Seinfeld');
   const [toUser, setToUser] = React.useState('George Costanza');
   const [summary, setSummary] = React.useState('');
@@ -84,7 +97,9 @@ export default function ShiftHandoverAppPage() {
   const [newChecklistLabel, setNewChecklistLabel] = React.useState('');
 
   function toggleChecklistItem(id: string, checked: boolean) {
-    setChecklistItems((prev) => prev.map((item) => (item.id === id ? { ...item, checked } : item)));
+    setChecklistItems((prev) =>
+      prev.map((item) => (item.id === id ? { ...item, checked } : item))
+    );
   }
 
   function handleAddChecklistItem() {
@@ -95,7 +110,10 @@ export default function ShiftHandoverAppPage() {
     const label = newChecklistLabel.trim();
     if (!label) return;
     const newId = `item-${Date.now()}`;
-    setChecklistItems((prev) => [...prev, { id: newId, label, description: '', checked: false }]);
+    setChecklistItems((prev) => [
+      ...prev,
+      { id: newId, label, description: '', checked: false },
+    ]);
     setNewChecklistLabel('');
     setIsAddDialogOpen(false);
   }
@@ -185,12 +203,21 @@ export default function ShiftHandoverAppPage() {
       <div className="w-full border-b border-border bg-background">
         <div className="h-12 px-3 flex items-center justify-between gap-3">
           <div className="flex items-center gap-2">
-            <img src="/cognite-logo.png" alt="Cognite" width={32} height={32} className="rounded" />
+            <img
+              src="/cognite-logo.png"
+              alt="Cognite"
+              width={32}
+              height={32}
+              className="rounded"
+            />
           </div>
           <div className="hidden md:flex">
             <Tabs defaultValue="apps">
               <TabsList className="grid grid-cols-3">
-                <TabsTrigger value="overview" className="flex items-center gap-2">
+                <TabsTrigger
+                  value="overview"
+                  className="flex items-center gap-2"
+                >
                   <BarChart3 className="h-4 w-4" />
                   Overview
                 </TabsTrigger>
@@ -225,7 +252,13 @@ export default function ShiftHandoverAppPage() {
                 <Sun className="h-4 w-4" />
               )}
             </Button>
-            <img src="/user-avatar.png" alt="User" width={28} height={28} className="rounded" />
+            <img
+              src="/user-avatar.png"
+              alt="User"
+              width={28}
+              height={28}
+              className="rounded"
+            />
           </div>
         </div>
       </div>
@@ -242,7 +275,12 @@ export default function ShiftHandoverAppPage() {
           <Separator orientation="vertical" className="mx-1 h-4" />
           <div className="flex items-center gap-1">
             {['File', 'Edit', 'View', 'Profiles', 'Settings'].map((label) => (
-              <Button key={label} variant="ghost" size="sm" className="h-7 px-2">
+              <Button
+                key={label}
+                variant="ghost"
+                size="sm"
+                className="h-7 px-2"
+              >
                 {label}
               </Button>
             ))}
@@ -262,7 +300,10 @@ export default function ShiftHandoverAppPage() {
               {/* Row 1: date + shift type */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="handover-date" className="text-muted-foreground">
+                  <Label
+                    htmlFor="handover-date"
+                    className="text-muted-foreground"
+                  >
                     Shift date
                   </Label>
                   <Popover>
@@ -272,7 +313,9 @@ export default function ShiftHandoverAppPage() {
                           <Input
                             id="handover-date"
                             readOnly
-                            value={shiftDate ? format(shiftDate, 'MM/dd/yyyy') : ''}
+                            value={
+                              shiftDate ? format(shiftDate, 'MM/dd/yyyy') : ''
+                            }
                             className="pr-8 bg-transparent"
                           />
                           <CalendarIcon className="absolute right-2 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -313,7 +356,9 @@ export default function ShiftHandoverAppPage() {
                       <SelectValue placeholder="Select" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="Jerry Seinfeld">Jerry Seinfeld</SelectItem>
+                      <SelectItem value="Jerry Seinfeld">
+                        Jerry Seinfeld
+                      </SelectItem>
                       <SelectItem value="Elaine Benes">Elaine Benes</SelectItem>
                       <SelectItem value="Kramer">Kramer</SelectItem>
                     </SelectContent>
@@ -326,9 +371,13 @@ export default function ShiftHandoverAppPage() {
                       <SelectValue placeholder="Select" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="George Costanza">George Costanza</SelectItem>
+                      <SelectItem value="George Costanza">
+                        George Costanza
+                      </SelectItem>
                       <SelectItem value="Newman">Newman</SelectItem>
-                      <SelectItem value="Frank Costanza">Frank Costanza</SelectItem>
+                      <SelectItem value="Frank Costanza">
+                        Frank Costanza
+                      </SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -367,15 +416,22 @@ export default function ShiftHandoverAppPage() {
                       <Checkbox
                         id={`check-${item.id}`}
                         checked={item.checked}
-                        onCheckedChange={(c) => toggleChecklistItem(item.id, Boolean(c))}
+                        onCheckedChange={(c) =>
+                          toggleChecklistItem(item.id, Boolean(c))
+                        }
                         className="mt-0.5"
                       />
                       <div className="flex-1">
-                        <Label htmlFor={`check-${item.id}`} className="leading-none">
+                        <Label
+                          htmlFor={`check-${item.id}`}
+                          className="leading-none"
+                        >
                           {item.label}
                         </Label>
                         {item.description ? (
-                          <div className="text-xs text-muted-foreground">{item.description}</div>
+                          <div className="text-xs text-muted-foreground">
+                            {item.description}
+                          </div>
                         ) : null}
                       </div>
                     </div>
@@ -390,7 +446,10 @@ export default function ShiftHandoverAppPage() {
                   <Plus className="h-4 w-4" /> Add checklist item
                 </Button>
 
-                <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
+                <Dialog
+                  open={isAddDialogOpen}
+                  onOpenChange={setIsAddDialogOpen}
+                >
                   <DialogContent>
                     <DialogHeader>
                       <DialogTitle>Add checklist item</DialogTitle>
@@ -412,7 +471,10 @@ export default function ShiftHandoverAppPage() {
                       />
                     </div>
                     <DialogFooter>
-                      <Button variant="outline" onClick={() => setIsAddDialogOpen(false)}>
+                      <Button
+                        variant="outline"
+                        onClick={() => setIsAddDialogOpen(false)}
+                      >
                         Cancel
                       </Button>
                       <Button
@@ -480,7 +542,10 @@ export default function ShiftHandoverAppPage() {
           </div>
 
           {/* Vertical separator */}
-          <Separator orientation="vertical" className="hidden lg:block h-full" />
+          <Separator
+            orientation="vertical"
+            className="hidden lg:block h-full"
+          />
 
           {/* Right column: reports */}
           <div className="px-6">
@@ -496,7 +561,9 @@ export default function ShiftHandoverAppPage() {
                         <div className="inline-flex h-5 w-5 items-center justify-center rounded bg-[--ns-glacier-900]">
                           {report.headerIcon}
                         </div>
-                        <CardTitle className="text-base">{report.title}</CardTitle>
+                        <CardTitle className="text-base">
+                          {report.title}
+                        </CardTitle>
                       </div>
                       <Button variant="ghost" size="icon" className="h-7 w-7">
                         ⋮

@@ -72,7 +72,9 @@ const meta: Meta<typeof Toaster> = {
 export default meta;
 type Story = StoryObj<typeof Toaster>;
 export const Default: Story = {
-  render: () => <Button onClick={() => toast('Event has been created')}>Show Toast</Button>,
+  render: () => (
+    <Button onClick={() => toast('Event has been created')}>Show Toast</Button>
+  ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const button = canvas.getByRole('button');
@@ -139,7 +141,8 @@ export const Info: Story = {
       variant="secondary"
       onClick={() =>
         toast.info('Did you know?', {
-          description: 'You can customize your notification preferences in settings.',
+          description:
+            'You can customize your notification preferences in settings.',
         })
       }
     >
@@ -264,7 +267,9 @@ export const Dismiss: Story = {
 export const VisualRegression: Story = {
   render: () => (
     <div className="space-y-4">
-      <h3 className="text-sm font-semibold text-muted-foreground">Toast Triggers</h3>
+      <h3 className="text-sm font-semibold text-muted-foreground">
+        Toast Triggers
+      </h3>
       <div className="flex flex-wrap gap-2">
         <Button size="sm" onClick={() => toast('Default')}>
           Default

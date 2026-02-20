@@ -30,7 +30,8 @@ export function MarkdownCopyBlock({ content }: MarkdownCopyBlockProps) {
     <div className="space-y-6">
       <div className="space-y-4">
         <p className="text-muted-foreground">
-          Share the markdown with AI assistants to explain Aura UI concepts and APIs.
+          Share the markdown with AI assistants to explain Aura UI concepts and
+          APIs.
         </p>
         <div className="relative bg-muted/50 rounded-lg p-4">
           {/* Copy Button with Tooltip */}
@@ -44,7 +45,11 @@ export function MarkdownCopyBlock({ content }: MarkdownCopyBlockProps) {
                     className="absolute top-2 right-2 h-8 w-8"
                     onClick={handleCopy}
                   >
-                    {copied ? <IconCheck className="h-4 w-4" /> : <IconCopy className="h-4 w-4" />}
+                    {copied ? (
+                      <IconCheck className="h-4 w-4" />
+                    ) : (
+                      <IconCopy className="h-4 w-4" />
+                    )}
                   </Button>
                 }
               />

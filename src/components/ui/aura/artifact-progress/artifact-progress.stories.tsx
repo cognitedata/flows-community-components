@@ -58,10 +58,14 @@ export const Basic: Story = {
     <ArtifactProgress className="w-96">
       <ArtifactProgressHeader>
         <ArtifactProgressTitle>Progress title</ArtifactProgressTitle>
-        <ArtifactProgressDescription>8 of 12 tasks complete</ArtifactProgressDescription>
+        <ArtifactProgressDescription>
+          8 of 12 tasks complete
+        </ArtifactProgressDescription>
       </ArtifactProgressHeader>
       <ArtifactProgressBar value={32} />
-      <ArtifactProgressFooter>On track for completion by Friday</ArtifactProgressFooter>
+      <ArtifactProgressFooter>
+        On track for completion by Friday
+      </ArtifactProgressFooter>
     </ArtifactProgress>
   ),
 };
@@ -86,7 +90,9 @@ export const CustomStyling: Story = {
   render: () => (
     <ArtifactProgress className="w-96">
       <ArtifactProgressHeader>
-        <ArtifactProgressTitle className="text-lg">Custom Styled Title</ArtifactProgressTitle>
+        <ArtifactProgressTitle className="text-lg">
+          Custom Styled Title
+        </ArtifactProgressTitle>
         <ArtifactProgressDescription className="text-xs italic">
           Custom description styling
         </ArtifactProgressDescription>
@@ -106,14 +112,18 @@ export const CustomAriaLabel: Story = {
     await expect(canvas.getByText('Custom label')).toBeInTheDocument();
     const progressBars = canvas.getAllByRole('progressbar');
     await expect(progressBars).toHaveLength(2);
-    await expect(progressBars[1]).toHaveAccessibleName('Document upload progress: 60%');
+    await expect(progressBars[1]).toHaveAccessibleName(
+      'Document upload progress: 60%'
+    );
   },
   render: () => (
     <div className="flex flex-col gap-6 w-96">
       <ArtifactProgress>
         <ArtifactProgressHeader>
           <ArtifactProgressTitle>Auto-generated label</ArtifactProgressTitle>
-          <ArtifactProgressDescription>Uses default aria-label</ArtifactProgressDescription>
+          <ArtifactProgressDescription>
+            Uses default aria-label
+          </ArtifactProgressDescription>
         </ArtifactProgressHeader>
         <ArtifactProgressBar value={60} />
         <ArtifactProgressFooter className="text-xs text-muted-foreground">
@@ -124,9 +134,14 @@ export const CustomAriaLabel: Story = {
       <ArtifactProgress>
         <ArtifactProgressHeader>
           <ArtifactProgressTitle>Custom label</ArtifactProgressTitle>
-          <ArtifactProgressDescription>Provides specific context</ArtifactProgressDescription>
+          <ArtifactProgressDescription>
+            Provides specific context
+          </ArtifactProgressDescription>
         </ArtifactProgressHeader>
-        <ArtifactProgressBar value={60} aria-label="Document upload progress: 60%" />
+        <ArtifactProgressBar
+          value={60}
+          aria-label="Document upload progress: 60%"
+        />
         <ArtifactProgressFooter className="text-xs text-muted-foreground">
           aria-label: "Document upload progress: 60%"
         </ArtifactProgressFooter>
@@ -154,7 +169,9 @@ export const ProgressValues: Story = {
       <ArtifactProgress className="w-96">
         <ArtifactProgressHeader>
           <ArtifactProgressTitle>Just Started</ArtifactProgressTitle>
-          <ArtifactProgressDescription>0 of 20 tasks complete</ArtifactProgressDescription>
+          <ArtifactProgressDescription>
+            0 of 20 tasks complete
+          </ArtifactProgressDescription>
         </ArtifactProgressHeader>
         <ArtifactProgressBar value={0} />
         <ArtifactProgressFooter>Recently initiated</ArtifactProgressFooter>
@@ -163,7 +180,9 @@ export const ProgressValues: Story = {
       <ArtifactProgress className="w-96">
         <ArtifactProgressHeader>
           <ArtifactProgressTitle>In Progress</ArtifactProgressTitle>
-          <ArtifactProgressDescription>10 of 20 tasks complete</ArtifactProgressDescription>
+          <ArtifactProgressDescription>
+            10 of 20 tasks complete
+          </ArtifactProgressDescription>
         </ArtifactProgressHeader>
         <ArtifactProgressBar value={50} />
         <ArtifactProgressFooter>Halfway there</ArtifactProgressFooter>
@@ -172,7 +191,9 @@ export const ProgressValues: Story = {
       <ArtifactProgress className="w-96">
         <ArtifactProgressHeader>
           <ArtifactProgressTitle>Nearly Done</ArtifactProgressTitle>
-          <ArtifactProgressDescription>18 of 20 tasks complete</ArtifactProgressDescription>
+          <ArtifactProgressDescription>
+            18 of 20 tasks complete
+          </ArtifactProgressDescription>
         </ArtifactProgressHeader>
         <ArtifactProgressBar value={90} />
         <ArtifactProgressFooter>Almost finished</ArtifactProgressFooter>
@@ -181,7 +202,9 @@ export const ProgressValues: Story = {
       <ArtifactProgress className="w-96">
         <ArtifactProgressHeader>
           <ArtifactProgressTitle>Complete</ArtifactProgressTitle>
-          <ArtifactProgressDescription>20 of 20 tasks complete</ArtifactProgressDescription>
+          <ArtifactProgressDescription>
+            20 of 20 tasks complete
+          </ArtifactProgressDescription>
         </ArtifactProgressHeader>
         <ArtifactProgressBar value={100} />
         <ArtifactProgressFooter>All tasks completed</ArtifactProgressFooter>
@@ -199,7 +222,9 @@ export const WithoutFooter: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await expect(canvas.getByText('Data Processing')).toBeInTheDocument();
-    await expect(canvas.getByText('Processing 450 of 1000 records')).toBeInTheDocument();
+    await expect(
+      canvas.getByText('Processing 450 of 1000 records')
+    ).toBeInTheDocument();
     await expect(canvas.getByText('45%')).toBeInTheDocument();
     const container = canvasElement;
     expect(container.textContent).not.toContain('On track');
@@ -208,7 +233,9 @@ export const WithoutFooter: Story = {
     <ArtifactProgress className="w-96">
       <ArtifactProgressHeader>
         <ArtifactProgressTitle>Data Processing</ArtifactProgressTitle>
-        <ArtifactProgressDescription>Processing 450 of 1000 records</ArtifactProgressDescription>
+        <ArtifactProgressDescription>
+          Processing 450 of 1000 records
+        </ArtifactProgressDescription>
       </ArtifactProgressHeader>
       <ArtifactProgressBar value={45} />
     </ArtifactProgress>
@@ -286,7 +313,12 @@ export const Interactive: Story = {
       return () => clearInterval(interval);
     }, []);
     const tasksComplete = Math.floor((progress / 100) * 15);
-    const status = progress === 0 ? 'Not started' : progress === 100 ? 'Complete!' : 'In progress';
+    const status =
+      progress === 0
+        ? 'Not started'
+        : progress === 100
+          ? 'Complete!'
+          : 'In progress';
     return (
       <ArtifactProgress className="w-96">
         <ArtifactProgressHeader>
@@ -313,7 +345,9 @@ export const CustomPadding: Story = {
     await expect(canvas.getByText('Custom Padding')).toBeInTheDocument();
     await expect(canvas.getByText('With extra padding')).toBeInTheDocument();
     await expect(canvas.getByText('40%')).toBeInTheDocument();
-    await expect(canvas.getByText('More space around progress')).toBeInTheDocument();
+    await expect(
+      canvas.getByText('More space around progress')
+    ).toBeInTheDocument();
     const progressContent = canvasElement.querySelector('.px-8.py-8');
     expect(progressContent).toBeInTheDocument();
   },
@@ -321,10 +355,14 @@ export const CustomPadding: Story = {
     <ArtifactProgress className="w-96">
       <ArtifactProgressHeader>
         <ArtifactProgressTitle>Custom Padding</ArtifactProgressTitle>
-        <ArtifactProgressDescription>With extra padding</ArtifactProgressDescription>
+        <ArtifactProgressDescription>
+          With extra padding
+        </ArtifactProgressDescription>
       </ArtifactProgressHeader>
       <ArtifactProgressBar value={40} className="px-8 py-8" />
-      <ArtifactProgressFooter>More space around progress</ArtifactProgressFooter>
+      <ArtifactProgressFooter>
+        More space around progress
+      </ArtifactProgressFooter>
     </ArtifactProgress>
   ),
 };

@@ -166,7 +166,13 @@ export const CustomRange: Story = {
           <Label>Budget</Label>
           <span className="text-sm text-muted-foreground">${value[0]}</span>
         </div>
-        <Slider value={value} onValueChange={setValue} min={100} max={1000} step={50} />
+        <Slider
+          value={value}
+          onValueChange={setValue}
+          min={100}
+          max={1000}
+          step={50}
+        />
         <div className="flex justify-between text-xs text-muted-foreground">
           <span>$100</span>
           <span>$1000</span>
@@ -195,7 +201,11 @@ export const Vertical: Story = {
     return (
       <div className="flex items-center gap-8 h-[200px]">
         <div className="flex flex-col items-center gap-2">
-          <Slider value={value} onValueChange={setValue} orientation="vertical" />
+          <Slider
+            value={value}
+            onValueChange={setValue}
+            orientation="vertical"
+          />
           <span className="text-sm text-muted-foreground">{value[0]}%</span>
         </div>
         <div className="flex flex-col items-center gap-2">
@@ -265,7 +275,13 @@ export const StepIncrements: Story = {
           <Label>Rating (1-5)</Label>
           <span className="text-sm text-muted-foreground">{value[0]}</span>
         </div>
-        <Slider value={value} onValueChange={setValue} min={1} max={5} step={1} />
+        <Slider
+          value={value}
+          onValueChange={setValue}
+          min={1}
+          max={5}
+          step={1}
+        />
         <div className="flex justify-between text-xs text-muted-foreground">
           {[1, 2, 3, 4, 5].map((n) => (
             <span key={n}>{n}</span>
@@ -293,23 +309,38 @@ export const MultipleSliders: Story = {
         <div className="space-y-2">
           <div className="flex justify-between">
             <Label>Brightness</Label>
-            <span className="text-sm text-muted-foreground">{settings.brightness[0]}%</span>
+            <span className="text-sm text-muted-foreground">
+              {settings.brightness[0]}%
+            </span>
           </div>
-          <Slider value={settings.brightness} onValueChange={updateSetting('brightness')} />
+          <Slider
+            value={settings.brightness}
+            onValueChange={updateSetting('brightness')}
+          />
         </div>
         <div className="space-y-2">
           <div className="flex justify-between">
             <Label>Contrast</Label>
-            <span className="text-sm text-muted-foreground">{settings.contrast[0]}%</span>
+            <span className="text-sm text-muted-foreground">
+              {settings.contrast[0]}%
+            </span>
           </div>
-          <Slider value={settings.contrast} onValueChange={updateSetting('contrast')} />
+          <Slider
+            value={settings.contrast}
+            onValueChange={updateSetting('contrast')}
+          />
         </div>
         <div className="space-y-2">
           <div className="flex justify-between">
             <Label>Saturation</Label>
-            <span className="text-sm text-muted-foreground">{settings.saturation[0]}%</span>
+            <span className="text-sm text-muted-foreground">
+              {settings.saturation[0]}%
+            </span>
           </div>
-          <Slider value={settings.saturation} onValueChange={updateSetting('saturation')} />
+          <Slider
+            value={settings.saturation}
+            onValueChange={updateSetting('saturation')}
+          />
         </div>
       </div>
     );
@@ -319,7 +350,9 @@ export const VisualRegression: Story = {
   render: () => (
     <div className="space-y-8 p-4 w-[350px]">
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">Single Thumb</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          Single Thumb
+        </h3>
         <Slider defaultValue={[0]} />
         <Slider defaultValue={[50]} />
         <Slider defaultValue={[100]} />
@@ -331,7 +364,9 @@ export const VisualRegression: Story = {
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">Disabled</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          Disabled
+        </h3>
         <Slider defaultValue={[50]} disabled />
         <Slider defaultValue={[25, 75]} disabled />
       </div>

@@ -213,7 +213,10 @@ export const MultipleTools: Story = {
               path: 'src/',
             }}
           />
-          <ToolOutput output={['components/', 'utils/', 'hooks/']} errorText={undefined} />
+          <ToolOutput
+            output={['components/', 'utils/', 'hooks/']}
+            errorText={undefined}
+          />
         </ToolContent>
       </Tool>
       <Tool defaultOpen={false}>
@@ -224,7 +227,10 @@ export const MultipleTools: Story = {
               path: 'src/index.ts',
             }}
           />
-          <ToolOutput output="export * from './components';" errorText={undefined} />
+          <ToolOutput
+            output="export * from './components';"
+            errorText={undefined}
+          />
         </ToolContent>
       </Tool>
       <Tool>
@@ -357,7 +363,9 @@ export const Interactive: Story = {
     const toolTrigger = canvas.getByRole('button', {
       name: 'controlled_tool',
     });
-    await waitFor(() => expect(toolTrigger).not.toHaveAttribute('data-panel-open'));
+    await waitFor(() =>
+      expect(toolTrigger).not.toHaveAttribute('data-panel-open')
+    );
   },
 };
 export const Accessibility: Story = {
@@ -418,7 +426,9 @@ export const VisualRegression: Story = {
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">With Error</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          With Error
+        </h3>
         <Tool>
           <ToolHeader title="error_tool" type="tool-invocation" hasError />
           <ToolContent>

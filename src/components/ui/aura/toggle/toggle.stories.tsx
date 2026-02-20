@@ -174,7 +174,11 @@ export const Controlled: Story = {
     const [pressed, setPressed] = useState(false);
     return (
       <div className="space-y-4">
-        <Toggle pressed={pressed} onPressedChange={setPressed} aria-label="Toggle bold">
+        <Toggle
+          pressed={pressed}
+          onPressedChange={setPressed}
+          aria-label="Toggle bold"
+        >
           <IconBold className="size-4" />
           Bold
         </Toggle>
@@ -194,7 +198,9 @@ export const Controlled: Story = {
             Unpress
           </button>
         </div>
-        <p className="text-sm text-muted-foreground">Pressed: {pressed ? 'true' : 'false'}</p>
+        <p className="text-sm text-muted-foreground">
+          Pressed: {pressed ? 'true' : 'false'}
+        </p>
       </div>
     );
   },
@@ -206,10 +212,20 @@ export const ToolbarExample: Story = {
     const [underline, setUnderline] = useState(false);
     return (
       <div className="flex items-center gap-1 rounded-md border p-1">
-        <Toggle pressed={bold} onPressedChange={setBold} aria-label="Toggle bold" size="sm">
+        <Toggle
+          pressed={bold}
+          onPressedChange={setBold}
+          aria-label="Toggle bold"
+          size="sm"
+        >
           <IconBold className="size-4" />
         </Toggle>
-        <Toggle pressed={italic} onPressedChange={setItalic} aria-label="Toggle italic" size="sm">
+        <Toggle
+          pressed={italic}
+          onPressedChange={setItalic}
+          aria-label="Toggle italic"
+          size="sm"
+        >
           <IconItalic className="size-4" />
         </Toggle>
         <Toggle
@@ -226,7 +242,9 @@ export const ToolbarExample: Story = {
 };
 export const SingleSelectGroup: Story = {
   render: function SingleSelectToggle() {
-    const [alignment, setAlignment] = useState<'left' | 'center' | 'right'>('left');
+    const [alignment, setAlignment] = useState<'left' | 'center' | 'right'>(
+      'left'
+    );
     return (
       <div className="flex items-center gap-1 rounded-md border p-1">
         <Toggle
@@ -291,7 +309,9 @@ export const VisualRegression: Story = {
   render: () => (
     <div className="space-y-6 p-4">
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">Variants</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          Variants
+        </h3>
         <div className="flex gap-4">
           <Toggle aria-label="Default">
             <IconBold className="size-4" />

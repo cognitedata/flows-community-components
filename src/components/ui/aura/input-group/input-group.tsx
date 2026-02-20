@@ -1,7 +1,6 @@
 import { type VariantProps, cva } from 'class-variance-authority';
 import { type ComponentProps, type ComponentRef, forwardRef } from 'react';
 
-
 import { cn } from '../../../../lib/utils';
 import { Button } from '../button';
 import { Input } from '../input';
@@ -39,7 +38,8 @@ const inputGroupAddonVariants = cva(
   {
     variants: {
       align: {
-        'inline-start': 'order-first pl-3 has-[>button]:-ml-2 has-[>kbd]:-ml-1.5',
+        'inline-start':
+          'order-first pl-3 has-[>button]:-ml-2 has-[>kbd]:-ml-1.5',
         'inline-end': 'order-last pr-3 has-[>button]:-mr-2 has-[>kbd]:-mr-1.5',
         'block-start':
           'order-first w-full justify-start px-3 pt-3 [.border-b]:pb-3 group-has-[>input]/input-group:pt-2.5',
@@ -76,35 +76,44 @@ const InputGroupAddon = forwardRef<
 });
 InputGroupAddon.displayName = 'InputGroupAddon';
 
-const inputGroupButtonVariants = cva('text-sm shadow-none flex gap-2 items-center', {
-  variants: {
-    size: {
-      xs: "h-6 gap-1 px-2 rounded-sm [&>svg:not([class*='size-'])]:size-3.5 has-[>svg]:px-2",
-      sm: 'h-7 px-2.5 gap-1.5 rounded-md has-[>svg]:px-2.5',
-      'icon-xs': 'size-6 rounded-xs p-0 has-[>svg]:p-0',
-      'icon-sm': 'size-7 p-0 has-[>svg]:p-0',
+const inputGroupButtonVariants = cva(
+  'text-sm shadow-none flex gap-2 items-center',
+  {
+    variants: {
+      size: {
+        xs: "h-6 gap-1 px-2 rounded-sm [&>svg:not([class*='size-'])]:size-3.5 has-[>svg]:px-2",
+        sm: 'h-7 px-2.5 gap-1.5 rounded-md has-[>svg]:px-2.5',
+        'icon-xs': 'size-6 rounded-xs p-0 has-[>svg]:p-0',
+        'icon-sm': 'size-7 p-0 has-[>svg]:p-0',
+      },
     },
-  },
-  defaultVariants: {
-    size: 'xs',
-  },
-});
+    defaultVariants: {
+      size: 'xs',
+    },
+  }
+);
 
 const InputGroupButton = forwardRef<
   ComponentRef<typeof Button>,
-  Omit<ComponentProps<typeof Button>, 'size'> & VariantProps<typeof inputGroupButtonVariants>
->(({ className, type = 'button', variant = 'ghost', size = 'xs', ...props }, ref) => {
-  return (
-    <Button
-      ref={ref}
-      type={type}
-      data-size={size}
-      variant={variant}
-      className={cn(inputGroupButtonVariants({ size }), className)}
-      {...props}
-    />
-  );
-});
+  Omit<ComponentProps<typeof Button>, 'size'> &
+    VariantProps<typeof inputGroupButtonVariants>
+>(
+  (
+    { className, type = 'button', variant = 'ghost', size = 'xs', ...props },
+    ref
+  ) => {
+    return (
+      <Button
+        ref={ref}
+        type={type}
+        data-size={size}
+        variant={variant}
+        className={cn(inputGroupButtonVariants({ size }), className)}
+        {...props}
+      />
+    );
+  }
+);
 InputGroupButton.displayName = 'InputGroupButton';
 
 const InputGroupText = forwardRef<HTMLSpanElement, ComponentProps<'span'>>(
@@ -143,21 +152,22 @@ const InputGroupInput = forwardRef<HTMLInputElement, ComponentProps<'input'>>(
 );
 InputGroupInput.displayName = 'InputGroupInput';
 
-const InputGroupTextarea = forwardRef<HTMLTextAreaElement, ComponentProps<'textarea'>>(
-  ({ className, ...props }, ref) => {
-    return (
-      <Textarea
-        ref={ref}
-        data-slot="input-group-control"
-        className={cn(
-          'flex-1 resize-none rounded-md border-0 bg-transparent py-3 shadow-none focus-visible:shadow-none focus-visible:border-transparent aria-invalid:focus-visible:shadow-none aria-invalid:focus-visible:border-transparent dark:bg-transparent hover:bg-transparent hover:text-current',
-          className
-        )}
-        {...props}
-      />
-    );
-  }
-);
+const InputGroupTextarea = forwardRef<
+  HTMLTextAreaElement,
+  ComponentProps<'textarea'>
+>(({ className, ...props }, ref) => {
+  return (
+    <Textarea
+      ref={ref}
+      data-slot="input-group-control"
+      className={cn(
+        'flex-1 resize-none rounded-md border-0 bg-transparent py-3 shadow-none focus-visible:shadow-none focus-visible:border-transparent aria-invalid:focus-visible:shadow-none aria-invalid:focus-visible:border-transparent dark:bg-transparent hover:bg-transparent hover:text-current',
+        className
+      )}
+      {...props}
+    />
+  );
+});
 InputGroupTextarea.displayName = 'InputGroupTextarea';
 
 export {

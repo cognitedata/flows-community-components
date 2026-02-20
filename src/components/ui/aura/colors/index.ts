@@ -10,25 +10,22 @@
  *
  * const decorativeColors = getColorsByCategory('decorative');
  */
-export type { ColorStop, ColorPalette, SemanticToken, ColorCategory, ColorPattern } from './colors';
+export type {
+  ColorStop,
+  ColorPalette,
+  SemanticToken,
+  ColorCategory,
+  ColorPattern,
+} from './colors';
 export {
-   
   colorPalettes,
-   
   semanticTokens,
-   
   colorPatterns,
-   
   getColorsByCategory,
-   
   findPalette,
-   
   getColorStop,
-   
   getCssVar,
-   
   getTailwindClass,
-   
   colorExamples,
 } from './colors';
 export { ColorsMetadata } from './colors.metadata';

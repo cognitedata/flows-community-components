@@ -1,9 +1,20 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
-import { IconBrush, IconClock, IconInfoCircle, IconSettings, IconUser } from '@tabler/icons-react';
+import {
+  IconBrush,
+  IconClock,
+  IconInfoCircle,
+  IconSettings,
+  IconUser,
+} from '@tabler/icons-react';
 import { useState } from 'react';
 
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from './accordion';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from './accordion';
 const meta: Meta<typeof Accordion> = {
   title: 'Primitives/Accordion',
   component: Accordion,
@@ -77,7 +88,9 @@ export const Basic: Story = {
     <Accordion type="single" collapsible className="w-full">
       <AccordionItem value="item-1">
         <AccordionTrigger>Is it accessible?</AccordionTrigger>
-        <AccordionContent>Yes. It adheres to the WAI-ARIA design pattern.</AccordionContent>
+        <AccordionContent>
+          Yes. It adheres to the WAI-ARIA design pattern.
+        </AccordionContent>
       </AccordionItem>
       <AccordionItem value="item-2">
         <AccordionTrigger>Is it styled?</AccordionTrigger>
@@ -113,13 +126,19 @@ export const Basic: Story = {
 };
 export const DefaultExpanded: Story = {
   render: () => (
-    <Accordion type="single" defaultValue="item-2" collapsible className="w-full">
+    <Accordion
+      type="single"
+      defaultValue="item-2"
+      collapsible
+      className="w-full"
+    >
       <AccordionItem value="item-1">
         <AccordionTrigger icon={IconInfoCircle}>
           When should I use single vs. multiple mode?
         </AccordionTrigger>
         <AccordionContent>
-          You should use single mode when you want to allow only one section to be open at a time.
+          You should use single mode when you want to allow only one section to
+          be open at a time.
         </AccordionContent>
       </AccordionItem>
       <AccordionItem value="item-2">
@@ -127,8 +146,8 @@ export const DefaultExpanded: Story = {
           Should any sections be open by default?
         </AccordionTrigger>
         <AccordionContent>
-          Micro-interactions are events which have one main task — a single purpose — and they are
-          found all over your device and within apps.
+          Micro-interactions are events which have one main task — a single
+          purpose — and they are found all over your device and within apps.
         </AccordionContent>
       </AccordionItem>
       <AccordionItem value="item-3">
@@ -136,8 +155,8 @@ export const DefaultExpanded: Story = {
           Any special considerations for mobile?
         </AccordionTrigger>
         <AccordionContent>
-          Yes, you should use the collapsible prop to allow the user to collapse the accordion on
-          mobile.
+          Yes, you should use the collapsible prop to allow the user to collapse
+          the accordion on mobile.
         </AccordionContent>
       </AccordionItem>
     </Accordion>
@@ -159,8 +178,12 @@ export const WithIcons: Story = {
   render: () => (
     <Accordion type="single" collapsible className="w-full">
       <AccordionItem value="item-1">
-        <AccordionTrigger icon={IconInfoCircle}>Is it accessible?</AccordionTrigger>
-        <AccordionContent>Yes. It adheres to the WAI-ARIA design pattern.</AccordionContent>
+        <AccordionTrigger icon={IconInfoCircle}>
+          Is it accessible?
+        </AccordionTrigger>
+        <AccordionContent>
+          Yes. It adheres to the WAI-ARIA design pattern.
+        </AccordionContent>
       </AccordionItem>
       <AccordionItem value="item-2">
         <AccordionTrigger icon={IconBrush}>Is it styled?</AccordionTrigger>
@@ -205,15 +228,21 @@ export const Multiple: Story = {
     <Accordion type="multiple" className="w-full">
       <AccordionItem value="item-1">
         <AccordionTrigger>Section 1</AccordionTrigger>
-        <AccordionContent>This section can be open at the same time as others.</AccordionContent>
+        <AccordionContent>
+          This section can be open at the same time as others.
+        </AccordionContent>
       </AccordionItem>
       <AccordionItem value="item-2">
         <AccordionTrigger>Section 2</AccordionTrigger>
-        <AccordionContent>Multiple sections can be expanded simultaneously.</AccordionContent>
+        <AccordionContent>
+          Multiple sections can be expanded simultaneously.
+        </AccordionContent>
       </AccordionItem>
       <AccordionItem value="item-3">
         <AccordionTrigger>Section 3</AccordionTrigger>
-        <AccordionContent>Click to expand and collapse independently.</AccordionContent>
+        <AccordionContent>
+          Click to expand and collapse independently.
+        </AccordionContent>
       </AccordionItem>
     </Accordion>
   ),
@@ -259,7 +288,12 @@ export const Controlled: Story = {
             Open Item 3
           </button>
         </div>
-        <Accordion type="single" value={value} onValueChange={setValue} className="w-full">
+        <Accordion
+          type="single"
+          value={value}
+          onValueChange={setValue}
+          className="w-full"
+        >
           <AccordionItem value="item-1">
             <AccordionTrigger>Item 1</AccordionTrigger>
             <AccordionContent>Content for item 1</AccordionContent>
@@ -314,7 +348,8 @@ export const Disabled: Story = {
     for (const trigger of triggers) {
       const isAriaDisabled = trigger.getAttribute('aria-disabled') === 'true';
       const hasDataDisabled = trigger.hasAttribute('data-disabled');
-      const isNativeDisabled = trigger instanceof HTMLButtonElement && trigger.disabled;
+      const isNativeDisabled =
+        trigger instanceof HTMLButtonElement && trigger.disabled;
       expect(isAriaDisabled || hasDataDisabled || isNativeDisabled).toBe(true);
     }
   },
@@ -366,11 +401,20 @@ export const VisualRegression: Story = {
   render: () => (
     <div className="space-y-8">
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">Single (Collapsible)</h3>
-        <Accordion type="single" collapsible defaultValue="item-1" className="w-full">
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          Single (Collapsible)
+        </h3>
+        <Accordion
+          type="single"
+          collapsible
+          defaultValue="item-1"
+          className="w-full"
+        >
           <AccordionItem value="item-1">
             <AccordionTrigger>Expanded Item</AccordionTrigger>
-            <AccordionContent>This item is expanded by default.</AccordionContent>
+            <AccordionContent>
+              This item is expanded by default.
+            </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-2">
             <AccordionTrigger>Collapsed Item</AccordionTrigger>
@@ -379,7 +423,9 @@ export const VisualRegression: Story = {
         </Accordion>
       </div>
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">With Icons</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          With Icons
+        </h3>
         <Accordion type="single" collapsible className="w-full">
           <AccordionItem value="item-1">
             <AccordionTrigger icon={IconInfoCircle}>Info</AccordionTrigger>
@@ -392,7 +438,9 @@ export const VisualRegression: Story = {
         </Accordion>
       </div>
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">Disabled</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          Disabled
+        </h3>
         <Accordion type="single" collapsible disabled className="w-full">
           <AccordionItem value="item-1">
             <AccordionTrigger>Disabled Item</AccordionTrigger>

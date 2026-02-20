@@ -17,7 +17,10 @@ import {
   CodeBlockCollapseButton,
   CodeBlockCopyButton,
 } from '@/components/ui/aura/code-block';
-import { InlineCitation, InlineCitationLink } from '@/components/ui/aura/inline-citation';
+import {
+  InlineCitation,
+  InlineCitationLink,
+} from '@/components/ui/aura/inline-citation';
 import {
   Message,
   MessageAction,
@@ -125,8 +128,8 @@ export const Default: Story = {
                 21PT1019
               </InlineCitationLink>
             </InlineCitation>{' '}
-            exceeded normal thresholds at 03:15. This correlates with a 12% increase in RPM during
-            that window.
+            exceeded normal thresholds at 03:15. This correlates with a 12%
+            increase in RPM during that window.
           </span>
           <div className="flex flex-row gap-2">
             <InlineCitation>
@@ -259,7 +262,9 @@ export const MessageResponseStreamdown: Story = {
     await expect(messages.length).toBe(2);
     await waitFor(
       () => {
-        const headings = canvasElement.querySelectorAll('h1, h2, h3, h4, h5, h6');
+        const headings = canvasElement.querySelectorAll(
+          'h1, h2, h3, h4, h5, h6'
+        );
         expect(headings.length).toBeGreaterThan(0);
       },
       {
@@ -402,8 +407,8 @@ export const AssistantMessage: Story = {
       </MessageAvatar>
       <MessageContent>
         <p>
-          Welcome! To get started, you can install the package using npm or pnpm. First, run the
-          installation command in your project directory.
+          Welcome! To get started, you can install the package using npm or
+          pnpm. First, run the installation command in your project directory.
         </p>
       </MessageContent>
     </Message>
@@ -432,7 +437,8 @@ export const ExtendedConversation: Story = {
         </MessageAvatar>
         <MessageContent>
           <p>
-            Of course! Here's a simple sorting function using JavaScript's built-in sort method:
+            Of course! Here's a simple sorting function using JavaScript's
+            built-in sort method:
           </p>
           <pre className="bg-muted p-2 rounded-md text-sm mt-2">
             {`function sortArray(arr) {
@@ -454,9 +460,10 @@ export const ExtendedConversation: Story = {
         </MessageAvatar>
         <MessageContent>
           <p>
-            The sort method takes a comparison function that determines the order. The function (a,
-            b) =&gt; a - b returns a negative number if a should come before b, a positive number if
-            b should come before a, and zero if they're equal.
+            The sort method takes a comparison function that determines the
+            order. The function (a, b) =&gt; a - b returns a negative number if
+            a should come before b, a positive number if b should come before a,
+            and zero if they're equal.
           </p>
         </MessageContent>
       </Message>
@@ -482,24 +489,28 @@ export const VeryLongMessage: Story = {
       </MessageAvatar>
       <MessageContent>
         <p>
-          This is a longer message that demonstrates how the component handles multiple paragraphs
-          and extended content. The message component is designed to gracefully handle various
-          content lengths whilst maintaining readability.
+          This is a longer message that demonstrates how the component handles
+          multiple paragraphs and extended content. The message component is
+          designed to gracefully handle various content lengths whilst
+          maintaining readability.
         </p>
         <p className="mt-2">
-          Here's another paragraph to show the spacing between multiple blocks of text. This helps
-          users read longer responses more easily. Industrial AI applications often require detailed
-          explanations of complex processes and analysis.
+          Here's another paragraph to show the spacing between multiple blocks
+          of text. This helps users read longer responses more easily.
+          Industrial AI applications often require detailed explanations of
+          complex processes and analysis.
         </p>
         <p className="mt-2">
-          For example, when analyzing pump vibration data, we need to consider multiple factors
-          including:
+          For example, when analyzing pump vibration data, we need to consider
+          multiple factors including:
         </p>
         <ul className="list-disc pl-4 mt-2 space-y-1">
           <li>Baseline vibration levels during normal operation</li>
           <li>Environmental factors such as temperature and humidity</li>
           <li>Historical maintenance records and failure patterns</li>
-          <li>Correlation with other sensor readings (RPM, temperature, pressure)</li>
+          <li>
+            Correlation with other sensor readings (RPM, temperature, pressure)
+          </li>
           <li>Frequency analysis to identify specific failure modes</li>
         </ul>
       </MessageContent>
@@ -555,7 +566,9 @@ export const AvatarVariants: Story = {
   play: async ({ canvasElement }) => {
     const messages = canvasElement.querySelectorAll('[data-message]');
     await expect(messages.length).toBeGreaterThanOrEqual(3);
-    const avatars = canvasElement.querySelectorAll('[data-slot="message-avatar"]');
+    const avatars = canvasElement.querySelectorAll(
+      '[data-slot="message-avatar"]'
+    );
     await expect(avatars.length).toBeGreaterThanOrEqual(3);
   },
   render: () => (
@@ -616,7 +629,8 @@ export const MessageWithoutAvatar: Story = {
   render: () => (
     <Message isResponse={true} data-message>
       <MessageContent>
-        This is a message without an avatar. Some chat interfaces omit avatars for cleaner UI.
+        This is a message without an avatar. Some chat interfaces omit avatars
+        for cleaner UI.
       </MessageContent>
     </Message>
   ),
@@ -724,7 +738,9 @@ export const VeryLongConversation: Story = {
         (_, i) => {
           const isResponse = i % 2 === 1;
           const messageNum = Math.floor(i / 2) + 1;
-          const messageId = isResponse ? `assistant-${messageNum}` : `user-${messageNum}`;
+          const messageId = isResponse
+            ? `assistant-${messageNum}`
+            : `user-${messageNum}`;
           return (
             <Message key={messageId} isResponse={isResponse} data-message>
               {isResponse && (

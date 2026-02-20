@@ -10,7 +10,11 @@ import {
 } from '@tabler/icons-react';
 
 import { Badge } from '@/components/ui/aura/badge';
-import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/aura/hover-card';
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from '@/components/ui/aura/hover-card';
 import { Source, Sources, SourcesTitle } from '@/components/ui/aura/sources';
 const meta: Meta<typeof Sources> = {
   title: 'AI/Sources',
@@ -97,7 +101,11 @@ export const WithIcons: Story = {
         title="GitHub Repository"
         icon={IconBrandGithub}
       />
-      <Source url="https://example.com/docs" title="Documentation" icon={IconFileText} />
+      <Source
+        url="https://example.com/docs"
+        title="Documentation"
+        icon={IconFileText}
+      />
       <Source url="https://example.com" title="Website" icon={IconWorld} />
     </Sources>
   ),
@@ -181,7 +189,10 @@ export const TooManySourcesWithOverflow: Story = {
           >
             <Badge variant="secondary">+{overflowSources.length}</Badge>
           </HoverCardTrigger>
-          <HoverCardContent className="w-auto p-3" data-testid="sources-overflow-hovercard">
+          <HoverCardContent
+            className="w-auto p-3"
+            data-testid="sources-overflow-hovercard"
+          >
             <div className="flex flex-col gap-2">
               <p className="text-xs font-medium text-muted-foreground">
                 {overflowSources.length} more sources
@@ -210,7 +221,8 @@ export const TooManySourcesWithOverflow: Story = {
     const hoverCardSelector = '[data-slot="hover-card-content"][data-open]';
     const waitForHoverCard = async () => {
       await waitFor(() => {
-        const hovercard = canvasElement.ownerDocument.body.querySelector(hoverCardSelector);
+        const hovercard =
+          canvasElement.ownerDocument.body.querySelector(hoverCardSelector);
         expect(hovercard).toBeTruthy();
       });
     };
@@ -246,7 +258,9 @@ export const VisualRegression: Story = {
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">No Title</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          No Title
+        </h3>
         <Sources title={false}>
           <Source url="https://example.com/1" title="Source 1" />
           <Source url="https://example.com/2" title="Source 2" />
@@ -254,9 +268,15 @@ export const VisualRegression: Story = {
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">With Icons</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          With Icons
+        </h3>
         <Sources>
-          <Source url="https://github.com" title="GitHub" icon={IconBrandGithub} />
+          <Source
+            url="https://github.com"
+            title="GitHub"
+            icon={IconBrandGithub}
+          />
         </Sources>
       </div>
     </div>

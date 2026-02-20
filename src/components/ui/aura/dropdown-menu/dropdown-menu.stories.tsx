@@ -25,7 +25,11 @@ import {
   DropdownMenuTrigger,
 } from './dropdown-menu';
 
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/aura/avatar';
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from '@/components/ui/aura/avatar';
 import { Button } from '@/components/ui/aura/button';
 const meta: Meta<typeof DropdownMenu> = {
   title: 'Primitives/Dropdown Menu',
@@ -180,7 +184,9 @@ export const WithUserLabel: Story = {
               <AvatarFallback>JS</AvatarFallback>
             </Avatar>
             <div className="flex flex-col">
-              <div className="text-base tracking-tighter font-medium">Jane Smith</div>
+              <div className="text-base tracking-tighter font-medium">
+                Jane Smith
+              </div>
               <span className="text-sm font-normal tracking-tight text-muted-foreground">
                 jane.smith@cognite.com
               </span>
@@ -213,7 +219,9 @@ export const WithCheckboxItems: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText(/2 notifications selected/i)).toBeInTheDocument();
+    await expect(
+      canvas.getByText(/2 notifications selected/i)
+    ).toBeInTheDocument();
     const menu = await openMenu(canvasElement, /filters/i);
     const checkboxItems = menu.getAllByRole('menuitemcheckbox');
     expect(checkboxItems.length).toBeGreaterThanOrEqual(4);
@@ -238,7 +246,8 @@ export const WithCheckboxItems: Story = {
           <ul className="mt-2 space-y-1">
             {checkedItems.emails && (
               <li className="flex items-center gap-2">
-                <IconCheck className="size-3 text-success" /> Email notifications
+                <IconCheck className="size-3 text-success" /> Email
+                notifications
               </li>
             )}
             {checkedItems.messages && (
@@ -343,7 +352,10 @@ export const WithRadioGroup: Story = {
     return (
       <div>
         <div className="text-sm text-muted-foreground">
-          Current view: <span className="font-medium text-foreground capitalize">{viewMode}</span>
+          Current view:{' '}
+          <span className="font-medium text-foreground capitalize">
+            {viewMode}
+          </span>
         </div>
         <DropdownMenu modal={modal}>
           <DropdownMenuTrigger
@@ -357,11 +369,22 @@ export const WithRadioGroup: Story = {
           <DropdownMenuContent className="w-48">
             <DropdownMenuGroup>
               <DropdownMenuLabel>Display Mode</DropdownMenuLabel>
-              <DropdownMenuRadioGroup value={viewMode} onValueChange={setViewMode}>
-                <DropdownMenuRadioItem value="grid">Grid view</DropdownMenuRadioItem>
-                <DropdownMenuRadioItem value="list">List view</DropdownMenuRadioItem>
-                <DropdownMenuRadioItem value="table">Table view</DropdownMenuRadioItem>
-                <DropdownMenuRadioItem value="kanban">Kanban board</DropdownMenuRadioItem>
+              <DropdownMenuRadioGroup
+                value={viewMode}
+                onValueChange={setViewMode}
+              >
+                <DropdownMenuRadioItem value="grid">
+                  Grid view
+                </DropdownMenuRadioItem>
+                <DropdownMenuRadioItem value="list">
+                  List view
+                </DropdownMenuRadioItem>
+                <DropdownMenuRadioItem value="table">
+                  Table view
+                </DropdownMenuRadioItem>
+                <DropdownMenuRadioItem value="kanban">
+                  Kanban board
+                </DropdownMenuRadioItem>
               </DropdownMenuRadioGroup>
             </DropdownMenuGroup>
           </DropdownMenuContent>
@@ -398,7 +421,10 @@ export const WithDestructiveAction: Story = {
               Settings
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem variant="destructive" onClick={() => setAction('Deleted item')}>
+            <DropdownMenuItem
+              variant="destructive"
+              onClick={() => setAction('Deleted item')}
+            >
               <IconTrash />
               Delete
             </DropdownMenuItem>
@@ -445,7 +471,8 @@ export const KeyboardNavigation: Story = {
       <div>
         {selectedItem && (
           <div className="text-sm text-muted-foreground">
-            Selected: <span className="font-medium text-foreground">{selectedItem}</span>
+            Selected:{' '}
+            <span className="font-medium text-foreground">{selectedItem}</span>
           </div>
         )}
         <DropdownMenu modal={modal}>
@@ -550,14 +577,16 @@ export const ComplexInteractive: Story = {
     });
     const [theme, setTheme] = useState('light');
     const [lastAction, setLastAction] = useState('');
-    const notificationCount = Object.values(notifications).filter(Boolean).length;
+    const notificationCount =
+      Object.values(notifications).filter(Boolean).length;
     return (
       <div className="w-80">
         <div className="space-y-3 text-sm">
           <div>
             <span className="font-medium">Notifications:</span>{' '}
             <span className="text-muted-foreground">
-              {notificationCount} type{notificationCount !== 1 ? 's' : ''} enabled
+              {notificationCount} type{notificationCount !== 1 ? 's' : ''}{' '}
+              enabled
             </span>
             {notificationCount > 0 && (
               <ul className="mt-1 ml-4 space-y-0.5 text-muted-foreground">
@@ -633,16 +662,22 @@ export const ComplexInteractive: Story = {
             <DropdownMenuGroup>
               <DropdownMenuLabel>Theme</DropdownMenuLabel>
               <DropdownMenuRadioGroup value={theme} onValueChange={setTheme}>
-                <DropdownMenuRadioItem value="light">Light</DropdownMenuRadioItem>
+                <DropdownMenuRadioItem value="light">
+                  Light
+                </DropdownMenuRadioItem>
                 <DropdownMenuRadioItem value="dark">Dark</DropdownMenuRadioItem>
-                <DropdownMenuRadioItem value="system">System</DropdownMenuRadioItem>
+                <DropdownMenuRadioItem value="system">
+                  System
+                </DropdownMenuRadioItem>
               </DropdownMenuRadioGroup>
             </DropdownMenuGroup>
 
             <DropdownMenuSeparator />
 
             <DropdownMenuGroup>
-              <DropdownMenuItem onClick={() => setLastAction('Reset preferences')}>
+              <DropdownMenuItem
+                onClick={() => setLastAction('Reset preferences')}
+              >
                 <IconSettingsFilled />
                 Reset to defaults
               </DropdownMenuItem>
@@ -663,7 +698,8 @@ export const Playground: Story = {
       <div>
         {selectedItem && (
           <div className="text-sm text-muted-foreground">
-            Selected: <span className="font-medium text-foreground">{selectedItem}</span>
+            Selected:{' '}
+            <span className="font-medium text-foreground">{selectedItem}</span>
           </div>
         )}
         <DropdownMenu modal={modal}>
@@ -679,7 +715,9 @@ export const Playground: Story = {
                 <IconSettingsFilled />
                 Settings
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setSelectedItem('Notifications')}>
+              <DropdownMenuItem
+                onClick={() => setSelectedItem('Notifications')}
+              >
                 <IconBell />
                 Notifications
               </DropdownMenuItem>

@@ -37,7 +37,9 @@ import {
 import { AIChatDemo } from '@/lib/ai-examples/ai-chat-demo';
 
 // Static heatmap data for dashboard demos
-const heatmapData = Array.from({ length: 35 }).map(() => Math.floor(Math.random() * 4));
+const heatmapData = Array.from({ length: 35 }).map(() =>
+  Math.floor(Math.random() * 4)
+);
 
 /**
  * Container Query Breakpoint System
@@ -62,7 +64,13 @@ const breakpoints = [
   { name: '3xl', min: 768, max: 1023, columns: 12, prefix: '@3xl:' },
   { name: '5xl', min: 1024, max: 1279, columns: 12, prefix: '@5xl:' },
   { name: '7xl', min: 1280, max: 1535, columns: 12, prefix: '@7xl:' },
-  { name: '8xl', min: 1536, max: Number.POSITIVE_INFINITY, columns: 12, prefix: '@8xl:' },
+  {
+    name: '8xl',
+    min: 1536,
+    max: Number.POSITIVE_INFINITY,
+    columns: 12,
+    prefix: '@8xl:',
+  },
 ];
 
 /**
@@ -121,7 +129,9 @@ function BreakpointTable() {
               </td>
               <td className="py-3 pr-4">{bp.columns}</td>
               <td className="py-3">
-                <code className="text-xs bg-muted px-1.5 py-0.5 rounded">{bp.prefix}</code>
+                <code className="text-xs bg-muted px-1.5 py-0.5 rounded">
+                  {bp.prefix}
+                </code>
               </td>
             </tr>
           ))}
@@ -146,10 +156,14 @@ function MaxWidthTable() {
           {maxWidths.map((mw) => (
             <tr key={mw.breakpoint}>
               <td className="py-3 pr-4">
-                <code className="text-xs bg-muted px-1.5 py-0.5 rounded">{mw.breakpoint}</code>
+                <code className="text-xs bg-muted px-1.5 py-0.5 rounded">
+                  {mw.breakpoint}
+                </code>
               </td>
               <td className="py-3 pr-4">
-                <code className="text-xs bg-muted px-1.5 py-0.5 rounded">{mw.class}</code>
+                <code className="text-xs bg-muted px-1.5 py-0.5 rounded">
+                  {mw.class}
+                </code>
               </td>
               <td className="py-3 text-muted-foreground">{mw.description}</td>
             </tr>
@@ -201,7 +215,6 @@ function InteractiveDemos({
         }, 100);
       }
     }
-     
   }, [setDemoType]); // setDemoType is stable, but we only want to run once on mount
 
   // Keyboard shortcut for grid toggle (Ctrl/Cmd + G)
@@ -304,7 +317,8 @@ function InteractiveDemos({
             {showGrid ? 'Hide' : 'Show'} Grid
           </button>
           <span className="text-xs text-muted-foreground">
-            Press {navigator.platform.includes('Mac') ? 'Cmd' : 'Ctrl'}+G to toggle grid overlay
+            Press {navigator.platform.includes('Mac') ? 'Cmd' : 'Ctrl'}+G to
+            toggle grid overlay
           </span>
         </div>
       </div>
@@ -348,7 +362,10 @@ function InteractiveDemos({
                 {showGrid && (
                   <div className="absolute inset-x-2 inset-y-0 grid grid-cols-12 gap-3 pointer-events-none z-10">
                     {Array.from({ length: 12 }).map((_, i) => (
-                      <div key={i} className="bg-blue-500/10 border border-blue-500/30" />
+                      <div
+                        key={i}
+                        className="bg-blue-500/10 border border-blue-500/30"
+                      />
                     ))}
                   </div>
                 )}
@@ -362,10 +379,15 @@ function InteractiveDemos({
                       <CardContent>
                         <div className="flex items-start justify-between">
                           <div>
-                            <div className="text-sm text-muted-foreground mb-1">Critical</div>
+                            <div className="text-sm text-muted-foreground mb-1">
+                              Critical
+                            </div>
                             <div className="text-2xl font-bold">3</div>
                           </div>
-                          <Badge variant="error" className="flex items-center gap-1">
+                          <Badge
+                            variant="error"
+                            className="flex items-center gap-1"
+                          >
                             <IconAlertTriangle className="h-3 w-3" />
                             P-401
                           </Badge>
@@ -381,7 +403,9 @@ function InteractiveDemos({
                       <CardContent>
                         <div className="flex items-start justify-between">
                           <div>
-                            <div className="text-sm text-muted-foreground mb-1">Warning</div>
+                            <div className="text-sm text-muted-foreground mb-1">
+                              Warning
+                            </div>
                             <div className="text-2xl font-bold">8</div>
                           </div>
                           <Badge className="flex items-center gap-1 bg-amber-500/10 text-amber-700 dark:text-amber-400">
@@ -400,10 +424,15 @@ function InteractiveDemos({
                       <CardContent>
                         <div className="flex items-start justify-between">
                           <div>
-                            <div className="text-sm text-muted-foreground mb-1">Ok</div>
+                            <div className="text-sm text-muted-foreground mb-1">
+                              Ok
+                            </div>
                             <div className="text-2xl font-bold">42</div>
                           </div>
-                          <Badge variant="secondary" className="flex items-center gap-1">
+                          <Badge
+                            variant="secondary"
+                            className="flex items-center gap-1"
+                          >
                             <IconCircleCheck className="h-3 w-3" />
                             P-401
                           </Badge>
@@ -418,9 +447,14 @@ function InteractiveDemos({
                     {/* KPI Row - 4 cards */}
                     <Card className="col-span-6 @3xl:col-span-3">
                       <CardContent>
-                        <div className="text-xs text-muted-foreground mb-2">Bar Chart</div>
+                        <div className="text-xs text-muted-foreground mb-2">
+                          Bar Chart
+                        </div>
                         <div className="text-lg font-semibold mb-2">
-                          4.2 <span className="text-sm text-muted-foreground">V-192</span>
+                          4.2{' '}
+                          <span className="text-sm text-muted-foreground">
+                            V-192
+                          </span>
                         </div>
                         <div className="h-20 bg-linear-to-r from-blue-500/20 to-purple-500/20 rounded flex items-end p-2 gap-1">
                           {[40, 65, 45, 80, 55, 70, 60].map((height, i) => (
@@ -436,7 +470,9 @@ function InteractiveDemos({
 
                     <Card className="col-span-6 @3xl:col-span-3 hidden @2xl:block">
                       <CardContent>
-                        <div className="text-xs text-muted-foreground mb-2">Heatmap</div>
+                        <div className="text-xs text-muted-foreground mb-2">
+                          Heatmap
+                        </div>
                         <div className="grid grid-cols-7 gap-1">
                           {heatmapData.map((intensity, i) => (
                             <div
@@ -453,8 +489,12 @@ function InteractiveDemos({
 
                     <Card className="col-span-6 @3xl:col-span-3">
                       <CardContent>
-                        <div className="text-xs text-muted-foreground mb-2">Progress</div>
-                        <div className="text-sm font-medium mb-2">8 of 12 tasks complete</div>
+                        <div className="text-xs text-muted-foreground mb-2">
+                          Progress
+                        </div>
+                        <div className="text-sm font-medium mb-2">
+                          8 of 12 tasks complete
+                        </div>
                         <div className="h-2 bg-muted rounded-full overflow-hidden">
                           <div
                             className="h-full bg-primary rounded-full"
@@ -469,7 +509,9 @@ function InteractiveDemos({
 
                     <Card className="col-span-6 @3xl:col-span-3 hidden @2xl:block">
                       <CardContent>
-                        <div className="text-xs text-muted-foreground mb-2">Activity</div>
+                        <div className="text-xs text-muted-foreground mb-2">
+                          Activity
+                        </div>
                         <div className="space-y-2">
                           <div className="flex items-center gap-2">
                             <IconCircleCheck className="h-4 w-4 text-green-600" />
@@ -502,20 +544,24 @@ function InteractiveDemos({
                           <IconChartBar className="h-5 w-5 text-muted-foreground" />
                         </div>
                         <div className="h-48 bg-linear-to-br from-blue-500/10 via-purple-500/10 to-pink-500/10 rounded flex items-end p-4 gap-2">
-                          {[60, 45, 70, 55, 80, 65, 75, 85, 70, 90, 75, 80].map((height, i) => (
-                            <div
-                              key={i}
-                              className="flex-1 bg-linear-to-t from-primary/80 to-primary/40 rounded"
-                              style={{ height: `${height}%` }}
-                            />
-                          ))}
+                          {[60, 45, 70, 55, 80, 65, 75, 85, 70, 90, 75, 80].map(
+                            (height, i) => (
+                              <div
+                                key={i}
+                                className="flex-1 bg-linear-to-t from-primary/80 to-primary/40 rounded"
+                                style={{ height: `${height}%` }}
+                              />
+                            )
+                          )}
                         </div>
                       </CardContent>
                     </Card>
 
                     <Card className="col-span-12 @5xl:col-span-4 hidden @5xl:block">
                       <CardContent>
-                        <div className="text-xs text-muted-foreground mb-2">Image widget</div>
+                        <div className="text-xs text-muted-foreground mb-2">
+                          Image widget
+                        </div>
                         <div className="h-48 bg-linear-to-br from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-800 rounded flex items-center justify-center">
                           <IconPhoto className="h-12 w-12 text-muted-foreground" />
                         </div>
@@ -531,7 +577,9 @@ function InteractiveDemos({
                         <CardContent>
                           <div className="flex items-start justify-between">
                             <div>
-                              <div className="text-sm text-muted-foreground mb-1">Critical</div>
+                              <div className="text-sm text-muted-foreground mb-1">
+                                Critical
+                              </div>
                               <div className="text-2xl font-bold">3</div>
                             </div>
                             <Badge variant="error">
@@ -546,7 +594,9 @@ function InteractiveDemos({
                         <CardContent>
                           <div className="flex items-start justify-between">
                             <div>
-                              <div className="text-sm text-muted-foreground mb-1">Warning</div>
+                              <div className="text-sm text-muted-foreground mb-1">
+                                Warning
+                              </div>
                               <div className="text-2xl font-bold">8</div>
                             </div>
                             <Badge className="bg-amber-500/10 text-amber-700 dark:text-amber-400">
@@ -561,7 +611,9 @@ function InteractiveDemos({
                         <CardContent>
                           <div className="flex items-start justify-between">
                             <div>
-                              <div className="text-sm text-muted-foreground mb-1">Ok</div>
+                              <div className="text-sm text-muted-foreground mb-1">
+                                Ok
+                              </div>
                               <div className="text-2xl font-bold">42</div>
                             </div>
                             <Badge variant="secondary">
@@ -575,15 +627,19 @@ function InteractiveDemos({
                       {/* Large chart in main */}
                       <Card className="col-span-12">
                         <CardContent>
-                          <div className="text-sm font-medium mb-2">Main Chart</div>
+                          <div className="text-sm font-medium mb-2">
+                            Main Chart
+                          </div>
                           <div className="h-48 bg-linear-to-br from-blue-500/10 to-purple-500/10 rounded flex items-end p-4 gap-1">
-                            {[60, 45, 70, 55, 80, 65, 75, 85].map((height, i) => (
-                              <div
-                                key={i}
-                                className="flex-1 bg-primary/60 rounded"
-                                style={{ height: `${height}%` }}
-                              />
-                            ))}
+                            {[60, 45, 70, 55, 80, 65, 75, 85].map(
+                              (height, i) => (
+                                <div
+                                  key={i}
+                                  className="flex-1 bg-primary/60 rounded"
+                                  style={{ height: `${height}%` }}
+                                />
+                              )
+                            )}
                           </div>
                         </CardContent>
                       </Card>
@@ -591,7 +647,9 @@ function InteractiveDemos({
                       {/* Two smaller charts */}
                       <Card className="col-span-12 @3xl:col-span-6">
                         <CardContent>
-                          <div className="text-sm font-medium mb-2">Metric A</div>
+                          <div className="text-sm font-medium mb-2">
+                            Metric A
+                          </div>
                           <div className="text-2xl font-bold mb-2">4.2k</div>
                           <div className="h-20 bg-linear-to-r from-green-500/20 to-blue-500/20 rounded" />
                         </CardContent>
@@ -599,7 +657,9 @@ function InteractiveDemos({
 
                       <Card className="col-span-12 @3xl:col-span-6">
                         <CardContent>
-                          <div className="text-sm font-medium mb-2">Metric B</div>
+                          <div className="text-sm font-medium mb-2">
+                            Metric B
+                          </div>
                           <div className="text-2xl font-bold mb-2">8.1k</div>
                           <div className="h-20 bg-linear-to-r from-purple-500/20 to-pink-500/20 rounded" />
                         </CardContent>
@@ -610,27 +670,39 @@ function InteractiveDemos({
                     <div className="col-span-12 @5xl:col-span-4 space-y-3">
                       <Card>
                         <CardContent>
-                          <div className="text-sm font-medium mb-3">Recent Activity</div>
+                          <div className="text-sm font-medium mb-3">
+                            Recent Activity
+                          </div>
                           <div className="space-y-3">
                             <div className="flex items-start gap-2">
                               <IconClock className="h-4 w-4 text-muted-foreground mt-0.5" />
                               <div>
-                                <div className="text-sm">Pump B-401 maintenance</div>
-                                <div className="text-xs text-muted-foreground">2 hours ago</div>
+                                <div className="text-sm">
+                                  Pump B-401 maintenance
+                                </div>
+                                <div className="text-xs text-muted-foreground">
+                                  2 hours ago
+                                </div>
                               </div>
                             </div>
                             <div className="flex items-start gap-2">
                               <IconAlertTriangle className="h-4 w-4 text-amber-600 mt-0.5" />
                               <div>
                                 <div className="text-sm">Vibration warning</div>
-                                <div className="text-xs text-muted-foreground">5 hours ago</div>
+                                <div className="text-xs text-muted-foreground">
+                                  5 hours ago
+                                </div>
                               </div>
                             </div>
                             <div className="flex items-start gap-2">
                               <IconCircleCheck className="h-4 w-4 text-green-600 mt-0.5" />
                               <div>
-                                <div className="text-sm">System check complete</div>
-                                <div className="text-xs text-muted-foreground">1 day ago</div>
+                                <div className="text-sm">
+                                  System check complete
+                                </div>
+                                <div className="text-xs text-muted-foreground">
+                                  1 day ago
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -639,18 +711,26 @@ function InteractiveDemos({
 
                       <Card>
                         <CardContent>
-                          <div className="text-sm font-medium mb-3">Quick Stats</div>
+                          <div className="text-sm font-medium mb-3">
+                            Quick Stats
+                          </div>
                           <div className="space-y-2">
                             <div className="flex justify-between items-center">
-                              <span className="text-sm text-muted-foreground">Uptime</span>
+                              <span className="text-sm text-muted-foreground">
+                                Uptime
+                              </span>
                               <span className="text-sm font-medium">99.8%</span>
                             </div>
                             <div className="flex justify-between items-center">
-                              <span className="text-sm text-muted-foreground">Response</span>
+                              <span className="text-sm text-muted-foreground">
+                                Response
+                              </span>
                               <span className="text-sm font-medium">1.2s</span>
                             </div>
                             <div className="flex justify-between items-center">
-                              <span className="text-sm text-muted-foreground">Load</span>
+                              <span className="text-sm text-muted-foreground">
+                                Load
+                              </span>
                               <span className="text-sm font-medium">67%</span>
                             </div>
                           </div>
@@ -796,10 +876,13 @@ function CodeExample({
     <div className="space-y-6">
       {demoType === 'dashboard1' && (
         <div>
-          <h3 className="text-lg font-semibold mb-2">Dashboard 1: Unified Grid</h3>
+          <h3 className="text-lg font-semibold mb-2">
+            Dashboard 1: Unified Grid
+          </h3>
           <p className="text-sm text-muted-foreground mb-3">
-            Single 12-column grid containing all cards. Cards hide at smaller breakpoints to
-            maintain usable layouts. Simpler structure but may leave gaps when items hide.
+            Single 12-column grid containing all cards. Cards hide at smaller
+            breakpoints to maintain usable layouts. Simpler structure but may
+            leave gaps when items hide.
           </p>
           <CodeBlock code={dashboard1Code} language="tsx" showLineNumbers>
             <CodeBlockCopyButton />
@@ -809,11 +892,13 @@ function CodeExample({
       )}
       {demoType === 'dashboard2' && (
         <div>
-          <h3 className="text-lg font-semibold mb-2">Dashboard 2: Main + Sidebar</h3>
+          <h3 className="text-lg font-semibold mb-2">
+            Dashboard 2: Main + Sidebar
+          </h3>
           <p className="text-sm text-muted-foreground mb-3">
-            Nested grid pattern with main content area (8 cols) and sidebar (4 cols). Sidebar
-            collapses below main on smaller screens. More predictable responsive behaviour with no
-            gaps.
+            Nested grid pattern with main content area (8 cols) and sidebar (4
+            cols). Sidebar collapses below main on smaller screens. More
+            predictable responsive behaviour with no gaps.
           </p>
           <CodeBlock code={dashboard2Code} language="tsx" showLineNumbers>
             <CodeBlockCopyButton />
@@ -825,7 +910,8 @@ function CodeExample({
         <div>
           <h3 className="text-lg font-semibold mb-2">AI Chat Layout</h3>
           <p className="text-sm text-muted-foreground mb-3">
-            Responsive layout: 12 columns on mobile/tablet, 8 centred columns on desktop (1024px+)
+            Responsive layout: 12 columns on mobile/tablet, 8 centred columns on
+            desktop (1024px+)
           </p>
           <CodeBlock code={chatCode} language="tsx" showLineNumbers>
             <CodeBlockCopyButton />
@@ -833,7 +919,10 @@ function CodeExample({
           </CodeBlock>
           <p className="text-sm text-muted-foreground mt-3">
             For complete implementation details and examples, see the{' '}
-            <Link to="/ai/conversation" className="text-primary hover:underline">
+            <Link
+              to="/ai/conversation"
+              className="text-primary hover:underline"
+            >
               Conversation component documentation
             </Link>
             .
@@ -850,25 +939,31 @@ function KeyConcepts() {
       <div className="p-4 border border-border rounded-lg">
         <h4 className="font-medium mb-2">Container Query Context</h4>
         <p className="text-sm text-muted-foreground mb-2">
-          Wrap content with <code className="bg-muted px-1 rounded">@container</code> to enable
+          Wrap content with{' '}
+          <code className="bg-muted px-1 rounded">@container</code> to enable
           responsive behaviour based on container width, not viewport.
         </p>
-        <code className="text-xs bg-muted px-2 py-1 rounded block">@container</code>
+        <code className="text-xs bg-muted px-2 py-1 rounded block">
+          @container
+        </code>
       </div>
 
       <div className="p-4 border border-border rounded-lg">
         <h4 className="font-medium mb-2">12-Column Grid</h4>
         <p className="text-sm text-muted-foreground mb-2">
-          Use a consistent 12-column system at all breakpoints for maximum flexibility.
+          Use a consistent 12-column system at all breakpoints for maximum
+          flexibility.
         </p>
-        <code className="text-xs bg-muted px-2 py-1 rounded block">grid grid-cols-12</code>
+        <code className="text-xs bg-muted px-2 py-1 rounded block">
+          grid grid-cols-12
+        </code>
       </div>
 
       <div className="p-4 border border-border rounded-lg">
         <h4 className="font-medium mb-2">Column Spanning</h4>
         <p className="text-sm text-muted-foreground mb-2">
-          Control element width with spans: full (12), half (6), third (4), quarter (3). All
-          breakpoints use 12 columns.
+          Control element width with spans: full (12), half (6), third (4),
+          quarter (3). All breakpoints use 12 columns.
         </p>
         <code className="text-xs bg-muted px-2 py-1 rounded block">
           col-span-12 @2xl:col-span-6 @3xl:col-span-4 @5xl:col-span-3
@@ -878,11 +973,12 @@ function KeyConcepts() {
       <div className="p-4 border border-border rounded-lg">
         <h4 className="font-medium mb-2">Centred Max-Width</h4>
         <p className="text-sm text-muted-foreground mb-2">
-          Centre content with stepped max-widths for all breakpoints (base to 8xl).
+          Centre content with stepped max-widths for all breakpoints (base to
+          8xl).
         </p>
         <code className="text-xs bg-muted px-2 py-1 rounded block">
-          mx-auto max-w-2xl @2xl:max-w-2xl @3xl:max-w-3xl @5xl:max-w-5xl @7xl:max-w-7xl
-          @8xl:max-w-8xl
+          mx-auto max-w-2xl @2xl:max-w-2xl @3xl:max-w-3xl @5xl:max-w-5xl
+          @7xl:max-w-7xl @8xl:max-w-8xl
         </code>
       </div>
     </div>
@@ -890,7 +986,9 @@ function KeyConcepts() {
 }
 
 export default function LayoutsPage() {
-  const [demoType, setDemoType] = useState<'chat' | 'dashboard1' | 'dashboard2'>('dashboard1');
+  const [demoType, setDemoType] = useState<
+    'chat' | 'dashboard1' | 'dashboard2'
+  >('dashboard1');
 
   return (
     <div className="space-y-12">
@@ -898,8 +996,8 @@ export default function LayoutsPage() {
       <div className="max-w-4xl mx-auto">
         <h1 className="text-3xl font-bold tracking-tight">Layouts</h1>
         <p className="text-lg text-muted-foreground mt-2">
-          Container query-based responsive layout system with a unified 12-column grid across all
-          breakpoints (base to 2xl)
+          Container query-based responsive layout system with a unified
+          12-column grid across all breakpoints (base to 2xl)
         </p>
       </div>
 
@@ -907,7 +1005,9 @@ export default function LayoutsPage() {
       <section className="space-y-6 max-w-4xl mx-auto">
         <div>
           <h2 className="text-2xl font-semibold mb-2">Key Concepts</h2>
-          <p className="text-muted-foreground">Core patterns for building responsive layouts</p>
+          <p className="text-muted-foreground">
+            Core patterns for building responsive layouts
+          </p>
         </div>
         <KeyConcepts />
       </section>
@@ -917,7 +1017,8 @@ export default function LayoutsPage() {
         <div>
           <h2 className="text-2xl font-semibold mb-2">Breakpoints</h2>
           <p className="text-muted-foreground">
-            Container query breakpoints aligned with Tailwind&apos;s naming convention
+            Container query breakpoints aligned with Tailwind&apos;s naming
+            convention
           </p>
         </div>
         <BreakpointTable />
@@ -927,7 +1028,9 @@ export default function LayoutsPage() {
       <section className="space-y-6 max-w-4xl mx-auto">
         <div>
           <h2 className="text-2xl font-semibold mb-2">Content Max-Widths</h2>
-          <p className="text-muted-foreground">Stepped max-widths for centred content areas</p>
+          <p className="text-muted-foreground">
+            Stepped max-widths for centred content areas
+          </p>
         </div>
         <MaxWidthTable />
       </section>
@@ -935,13 +1038,17 @@ export default function LayoutsPage() {
       {/* Interactive Demo - Full Width of main element */}
       <section className="space-y-6">
         <div className="max-w-4xl mx-auto">
-          <h2 id="interactive-demo" className="text-2xl font-semibold mb-2 scroll-mt-24">
+          <h2
+            id="interactive-demo"
+            className="text-2xl font-semibold mb-2 scroll-mt-24"
+          >
             Interactive Demos
           </h2>
           <p className="text-muted-foreground">
-            Explore three layout patterns: Dashboard 1 (unified grid), Dashboard 2 (main + sidebar
-            with nested grids), and AI Chat (8 centred columns at 1024px+ for focused reading). Use
-            the slider to test responsiveness, press Ctrl+G to toggle grid overlay, and copy the
+            Explore three layout patterns: Dashboard 1 (unified grid), Dashboard
+            2 (main + sidebar with nested grids), and AI Chat (8 centred columns
+            at 1024px+ for focused reading). Use the slider to test
+            responsiveness, press Ctrl+G to toggle grid overlay, and copy the
             link to share specific demo configurations.
           </p>
         </div>

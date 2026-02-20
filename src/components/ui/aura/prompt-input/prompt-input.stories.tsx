@@ -1,6 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
-import { IconAdjustments, IconAlertTriangle, IconChevronDown } from '@tabler/icons-react';
+import {
+  IconAdjustments,
+  IconAlertTriangle,
+  IconChevronDown,
+} from '@tabler/icons-react';
 import { type ComponentProps, useRef, useState } from 'react';
 
 import { Button } from '@/components/ui/aura/button';
@@ -147,7 +151,9 @@ export const Basic: Story = {
     );
   },
   render: function PromptInputBasicStory() {
-    const [status, setStatus] = useState<'submitted' | 'streaming' | 'ready' | 'error'>('ready');
+    const [status, setStatus] = useState<
+      'submitted' | 'streaming' | 'ready' | 'error'
+    >('ready');
     const handleSubmit: PromptInputSubmitHandler = (message, _event) => {
       const hasText = Boolean(message.text);
       const hasAttachments = Boolean(message.files?.length);
@@ -187,7 +193,9 @@ export const NoHelperText: Story = {
     await expect(helperText).not.toBeInTheDocument();
   },
   render: function PromptInputNoHelperTextStory() {
-    const [status, setStatus] = useState<'submitted' | 'streaming' | 'ready' | 'error'>('ready');
+    const [status, setStatus] = useState<
+      'submitted' | 'streaming' | 'ready' | 'error'
+    >('ready');
     const handleSubmit: PromptInputSubmitHandler = (message, _event) => {
       const hasText = Boolean(message.text);
       const hasAttachments = Boolean(message.files?.length);
@@ -217,15 +225,21 @@ export const CustomHelperText: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const customHelperText = canvas.getByText(/This is experimental. Use with caution./i);
+    const customHelperText = canvas.getByText(
+      /This is experimental. Use with caution./i
+    );
     await expect(customHelperText).toBeInTheDocument();
     const textarea = canvas.getByRole('textbox');
     await expect(textarea).toBeInTheDocument();
-    const defaultHelperText = canvas.queryByText(/AI doesn't always get it right/i);
+    const defaultHelperText = canvas.queryByText(
+      /AI doesn't always get it right/i
+    );
     await expect(defaultHelperText).not.toBeInTheDocument();
   },
   render: function PromptInputCustomHelperTextStory() {
-    const [status, setStatus] = useState<'submitted' | 'streaming' | 'ready' | 'error'>('ready');
+    const [status, setStatus] = useState<
+      'submitted' | 'streaming' | 'ready' | 'error'
+    >('ready');
     const handleSubmit: PromptInputSubmitHandler = (message, _event) => {
       const hasText = Boolean(message.text);
       const hasAttachments = Boolean(message.files?.length);
@@ -351,7 +365,9 @@ export const SubmissionError: Story = {
     await userEvent.click(submitButton);
     await waitFor(
       () => {
-        const errorText = canvas.getByText('Failed to submit. Please try again.');
+        const errorText = canvas.getByText(
+          'Failed to submit. Please try again.'
+        );
         expect(errorText).toBeInTheDocument();
       },
       {
@@ -437,7 +453,10 @@ export const Minimal: Story = {
     await expect(textarea).toHaveValue('Minimal test');
   },
   render: () => (
-    <PromptInput onSubmit={(message) => console.log('Submitted:', message)} className="w-100">
+    <PromptInput
+      onSubmit={(message) => console.log('Submitted:', message)}
+      className="w-100"
+    >
       <PromptInputBody>
         <PromptInputTextarea placeholder="Message..." />
       </PromptInputBody>
@@ -480,7 +499,9 @@ export const KeyboardInteractions: Story = {
     );
   },
   render: function KeyboardInteractionsStory() {
-    const [status, setStatus] = useState<'submitted' | 'streaming' | 'ready' | 'error'>('ready');
+    const [status, setStatus] = useState<
+      'submitted' | 'streaming' | 'ready' | 'error'
+    >('ready');
     const handleSubmit: PromptInputSubmitHandler = (message, _event) => {
       const hasText = Boolean(message.text);
       if (!hasText) return;
@@ -523,7 +544,9 @@ export const WithAdvancedTools: Story = {
   },
   render: function PromptInputWithAdvancedToolsStory() {
     const [model, setModel] = useState('Agent model');
-    const [status, setStatus] = useState<'submitted' | 'streaming' | 'ready' | 'error'>('ready');
+    const [status, setStatus] = useState<
+      'submitted' | 'streaming' | 'ready' | 'error'
+    >('ready');
     const textareaRef = useRef<HTMLTextAreaElement>(null);
     const handleSubmit: PromptInputSubmitHandler = (message, _event) => {
       const hasText = Boolean(message.text);
@@ -538,7 +561,10 @@ export const WithAdvancedTools: Story = {
     return (
       <PromptInput className="w-125" onSubmit={handleSubmit}>
         <PromptInputBody>
-          <PromptInputTextarea ref={textareaRef} placeholder="Type your message..." />
+          <PromptInputTextarea
+            ref={textareaRef}
+            placeholder="Type your message..."
+          />
         </PromptInputBody>
         <PromptInputFooter>
           <PromptInputTools>
@@ -555,9 +581,15 @@ export const WithAdvancedTools: Story = {
                 }
               />
               <DropdownMenuContent>
-                <DropdownMenuItem onClick={() => setModel('GPT-4')}>GPT-4</DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setModel('GPT-3.5')}>GPT-3.5</DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setModel('Claude')}>Claude</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setModel('GPT-4')}>
+                  GPT-4
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setModel('GPT-3.5')}>
+                  GPT-3.5
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setModel('Claude')}>
+                  Claude
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </PromptInputTools>
@@ -650,7 +682,9 @@ export const Playground: Story = {
     order: 99,
   },
   render: function PromptInputPlaygroundStory(args) {
-    const [status, setStatus] = useState<'submitted' | 'streaming' | 'ready' | 'error'>('ready');
+    const [status, setStatus] = useState<
+      'submitted' | 'streaming' | 'ready' | 'error'
+    >('ready');
     const handleSubmit: PromptInputSubmitHandler = (message, _event) => {
       const hasText = Boolean(message.text);
       const hasAttachments = Boolean(message.files?.length);

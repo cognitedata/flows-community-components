@@ -1,9 +1,18 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
-import { IconAlertTriangle, IconHelp, IconInfoCircle } from '@tabler/icons-react';
+import {
+  IconAlertTriangle,
+  IconHelp,
+  IconInfoCircle,
+} from '@tabler/icons-react';
 import { useState } from 'react';
 
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './tooltip';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from './tooltip';
 
 import { Button } from '@/components/ui/aura/button';
 const settle = () => new Promise((resolve) => setTimeout(resolve, 200));
@@ -55,7 +64,11 @@ const waitForOpenTooltip = async (matcher: RegExp, timeout = 5000) => {
     }
   );
 };
-const hoverAndWaitForTooltip = async (trigger: HTMLElement, matcher: RegExp, timeout = 5000) => {
+const hoverAndWaitForTooltip = async (
+  trigger: HTMLElement,
+  matcher: RegExp,
+  timeout = 5000
+) => {
   await userEvent.hover(trigger);
   try {
     return await waitForOpenTooltip(matcher, timeout);
@@ -168,15 +181,22 @@ export const Basic: Story = {
       }
     );
     await expect(button).toBeInTheDocument();
-    expect(within(document.body).queryByRole('tooltip')).not.toBeInTheDocument();
-    await hoverAndWaitForTooltip(button, /Publishing will make it available to all users/i);
+    expect(
+      within(document.body).queryByRole('tooltip')
+    ).not.toBeInTheDocument();
+    await hoverAndWaitForTooltip(
+      button,
+      /Publishing will make it available to all users/i
+    );
     await settle();
   },
   render: () => (
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger render={<Button>Hover me</Button>} />
-        <TooltipContent>Publishing will make it available to all users</TooltipContent>
+        <TooltipContent>
+          Publishing will make it available to all users
+        </TooltipContent>
       </Tooltip>
     </TooltipProvider>
   ),
@@ -196,7 +216,10 @@ export const WithButtonVariants: Story = {
         timeout: 2000,
       }
     );
-    await hoverAndWaitForTooltip(firstButton, /Publishing will make it available to all users/i);
+    await hoverAndWaitForTooltip(
+      firstButton,
+      /Publishing will make it available to all users/i
+    );
     await settle();
     await userEvent.unhover(firstButton);
     await waitForTooltipClosed();
@@ -209,7 +232,10 @@ export const WithButtonVariants: Story = {
         timeout: 2000,
       }
     );
-    await hoverAndWaitForTooltip(secondButton, /This button does something important/i);
+    await hoverAndWaitForTooltip(
+      secondButton,
+      /This button does something important/i
+    );
     await settle();
     await userEvent.unhover(secondButton);
     await waitForTooltipClosed();
@@ -231,16 +257,22 @@ export const WithButtonVariants: Story = {
       <div className="flex justify-center gap-2">
         <Tooltip>
           <TooltipTrigger render={<Button>Hover me</Button>} />
-          <TooltipContent>Publishing will make it available to all users</TooltipContent>
+          <TooltipContent>
+            Publishing will make it available to all users
+          </TooltipContent>
         </Tooltip>
 
         <Tooltip>
-          <TooltipTrigger render={<Button variant="outline">More info</Button>} />
+          <TooltipTrigger
+            render={<Button variant="outline">More info</Button>}
+          />
           <TooltipContent>This button does something important</TooltipContent>
         </Tooltip>
 
         <Tooltip>
-          <TooltipTrigger render={<Button variant="destructive">Delete</Button>} />
+          <TooltipTrigger
+            render={<Button variant="destructive">Delete</Button>}
+          />
           <TooltipContent>This action cannot be undone</TooltipContent>
         </Tooltip>
       </div>
@@ -260,13 +292,18 @@ export const PositionTop: Story = {
         timeout: 2000,
       }
     );
-    const tooltip = await hoverAndWaitForTooltip(button, /This is a helpful message/i);
+    const tooltip = await hoverAndWaitForTooltip(
+      button,
+      /This is a helpful message/i
+    );
     expect(['top', 'bottom']).toContain(tooltip.getAttribute('data-side'));
   },
   render: () => (
     <TooltipProvider>
       <Tooltip>
-        <TooltipTrigger render={<Button variant="outline">Hover me - Top</Button>} />
+        <TooltipTrigger
+          render={<Button variant="outline">Hover me - Top</Button>}
+        />
         <TooltipContent side="top">This is a helpful message</TooltipContent>
       </Tooltip>
     </TooltipProvider>
@@ -285,13 +322,18 @@ export const PositionRight: Story = {
         timeout: 2000,
       }
     );
-    const tooltip = await hoverAndWaitForTooltip(button, /This is a helpful message/i);
+    const tooltip = await hoverAndWaitForTooltip(
+      button,
+      /This is a helpful message/i
+    );
     expect(tooltip).toHaveAttribute('data-side', 'right');
   },
   render: () => (
     <TooltipProvider>
       <Tooltip>
-        <TooltipTrigger render={<Button variant="outline">Hover me - Right</Button>} />
+        <TooltipTrigger
+          render={<Button variant="outline">Hover me - Right</Button>}
+        />
         <TooltipContent side="right">This is a helpful message</TooltipContent>
       </Tooltip>
     </TooltipProvider>
@@ -310,13 +352,18 @@ export const PositionBottom: Story = {
         timeout: 2000,
       }
     );
-    const tooltip = await hoverAndWaitForTooltip(button, /This is a helpful message/i);
+    const tooltip = await hoverAndWaitForTooltip(
+      button,
+      /This is a helpful message/i
+    );
     expect(tooltip).toHaveAttribute('data-side', 'bottom');
   },
   render: () => (
     <TooltipProvider>
       <Tooltip>
-        <TooltipTrigger render={<Button variant="outline">Hover me - Bottom</Button>} />
+        <TooltipTrigger
+          render={<Button variant="outline">Hover me - Bottom</Button>}
+        />
         <TooltipContent side="bottom">This is a helpful message</TooltipContent>
       </Tooltip>
     </TooltipProvider>
@@ -335,7 +382,10 @@ export const PositionLeft: Story = {
         timeout: 2000,
       }
     );
-    const tooltip = await hoverAndWaitForTooltip(button, /This is a helpful message/i);
+    const tooltip = await hoverAndWaitForTooltip(
+      button,
+      /This is a helpful message/i
+    );
     expect(['left', 'right']).toContain(tooltip.getAttribute('data-side'));
     await userEvent.unhover(button);
     await waitForTooltipClosed();
@@ -343,7 +393,9 @@ export const PositionLeft: Story = {
   render: () => (
     <TooltipProvider>
       <Tooltip>
-        <TooltipTrigger render={<Button variant="outline">Hover me - Left</Button>} />
+        <TooltipTrigger
+          render={<Button variant="outline">Hover me - Left</Button>}
+        />
         <TooltipContent side="left">This is a helpful message</TooltipContent>
       </Tooltip>
     </TooltipProvider>
@@ -376,22 +428,34 @@ export const AllPositions: Story = {
     <TooltipProvider>
       <div className="flex flex-col items-center justify-center gap-16 min-h-75">
         <Tooltip>
-          <TooltipTrigger render={<Button variant="outline">Hover me - Top</Button>} />
+          <TooltipTrigger
+            render={<Button variant="outline">Hover me - Top</Button>}
+          />
           <TooltipContent side="top">This is a helpful message</TooltipContent>
         </Tooltip>
 
         <Tooltip>
-          <TooltipTrigger render={<Button variant="outline">Hover me - Right</Button>} />
-          <TooltipContent side="right">This is a helpful message</TooltipContent>
+          <TooltipTrigger
+            render={<Button variant="outline">Hover me - Right</Button>}
+          />
+          <TooltipContent side="right">
+            This is a helpful message
+          </TooltipContent>
         </Tooltip>
 
         <Tooltip>
-          <TooltipTrigger render={<Button variant="outline">Hover me - Bottom</Button>} />
-          <TooltipContent side="bottom">This is a helpful message</TooltipContent>
+          <TooltipTrigger
+            render={<Button variant="outline">Hover me - Bottom</Button>}
+          />
+          <TooltipContent side="bottom">
+            This is a helpful message
+          </TooltipContent>
         </Tooltip>
 
         <Tooltip>
-          <TooltipTrigger render={<Button variant="outline">Hover me - Left</Button>} />
+          <TooltipTrigger
+            render={<Button variant="outline">Hover me - Left</Button>}
+          />
           <TooltipContent side="left">This is a helpful message</TooltipContent>
         </Tooltip>
       </div>
@@ -497,16 +561,22 @@ export const LongContent: Story = {
         timeout: 2000,
       }
     );
-    const tooltip = await hoverAndWaitForTooltip(button, /multiple lines of text/i);
+    const tooltip = await hoverAndWaitForTooltip(
+      button,
+      /multiple lines of text/i
+    );
     expect(tooltip).toHaveTextContent(/multiple lines of text/i);
   },
   render: () => (
     <TooltipProvider>
       <Tooltip>
-        <TooltipTrigger render={<Button variant="outline">Hover for details</Button>} />
+        <TooltipTrigger
+          render={<Button variant="outline">Hover for details</Button>}
+        />
         <TooltipContent className="max-w-xs">
-          This is a longer tooltip message that demonstrates how the component handles multiple
-          lines of text. The text will wrap naturally and maintain good readability.
+          This is a longer tooltip message that demonstrates how the component
+          handles multiple lines of text. The text will wrap naturally and
+          maintain good readability.
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>
@@ -531,7 +601,9 @@ export const WithOffset: Story = {
   render: () => (
     <TooltipProvider>
       <Tooltip>
-        <TooltipTrigger render={<Button variant="outline">Hover me (offset)</Button>} />
+        <TooltipTrigger
+          render={<Button variant="outline">Hover me (offset)</Button>}
+        />
         <TooltipContent side="top" sideOffset={20}>
           This tooltip has increased spacing from the button
         </TooltipContent>
@@ -554,7 +626,8 @@ export const KeyboardInteractions: Story = {
         timeout: 2000,
       }
     );
-    const waitForKeyboardTooltip = () => waitForOpenTooltip(/keyboard accessible/i, 4000);
+    const waitForKeyboardTooltip = () =>
+      waitForOpenTooltip(/keyboard accessible/i, 4000);
     button.focus();
     await waitFor(() => {
       expect(button).toHaveFocus();
@@ -598,7 +671,9 @@ export const DefaultOpen: Story = {
   render: () => (
     <TooltipProvider>
       <Tooltip defaultOpen>
-        <TooltipTrigger render={<Button variant="outline">Pre-opened tooltip</Button>} />
+        <TooltipTrigger
+          render={<Button variant="outline">Pre-opened tooltip</Button>}
+        />
         <TooltipContent>This tooltip is open by default</TooltipContent>
       </Tooltip>
     </TooltipProvider>
@@ -628,7 +703,9 @@ export const ControlledState: Story = {
         timeout: 2000,
       }
     );
-    expect(within(document.body).queryByRole('tooltip')).not.toBeInTheDocument();
+    expect(
+      within(document.body).queryByRole('tooltip')
+    ).not.toBeInTheDocument();
     await userEvent.click(openButton);
     try {
       await waitForOpenTooltip(/controlled externally/i, 3000);
@@ -645,8 +722,12 @@ export const ControlledState: Story = {
       <div className="flex flex-col gap-4">
         <TooltipProvider>
           <Tooltip open={isOpen} onOpenChange={setIsOpen}>
-            <TooltipTrigger render={<Button>Controlled tooltip trigger</Button>} />
-            <TooltipContent>This tooltip&apos;s state is controlled externally</TooltipContent>
+            <TooltipTrigger
+              render={<Button>Controlled tooltip trigger</Button>}
+            />
+            <TooltipContent>
+              This tooltip&apos;s state is controlled externally
+            </TooltipContent>
           </Tooltip>
         </TooltipProvider>
         <div className="flex gap-2">
@@ -683,7 +764,9 @@ export const WithDelay: Story = {
             getOpenTooltip(/This tooltip appears after a 1500ms delay/i)
           );
           expect(tooltip).toBeInTheDocument();
-          expect(tooltip).toHaveTextContent(/This tooltip appears after a 1500ms delay/i);
+          expect(tooltip).toHaveTextContent(
+            /This tooltip appears after a 1500ms delay/i
+          );
           return tooltip;
         },
         {
@@ -692,7 +775,9 @@ export const WithDelay: Story = {
       );
     };
     await userEvent.hover(button);
-    expect(within(document.body).queryByRole('tooltip')).not.toBeInTheDocument();
+    expect(
+      within(document.body).queryByRole('tooltip')
+    ).not.toBeInTheDocument();
     try {
       await waitForDelayedTooltip();
     } catch {
@@ -707,8 +792,12 @@ export const WithDelay: Story = {
   render: () => (
     <TooltipProvider delayDuration={1500}>
       <Tooltip>
-        <TooltipTrigger render={<Button variant="outline">Hover me (with delay)</Button>} />
-        <TooltipContent>This tooltip appears after a 1500ms delay</TooltipContent>
+        <TooltipTrigger
+          render={<Button variant="outline">Hover me (with delay)</Button>}
+        />
+        <TooltipContent>
+          This tooltip appears after a 1500ms delay
+        </TooltipContent>
       </Tooltip>
     </TooltipProvider>
   ),

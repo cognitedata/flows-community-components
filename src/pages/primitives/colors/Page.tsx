@@ -2,7 +2,12 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 
 import { Badge } from '@/components/ui/aura/badge';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/aura/card';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/aura/card';
 
 // Color definitions using CSS variable names (values pulled from globals.css)
 // Groups and order follow globals.css:
@@ -339,7 +344,9 @@ function ColorSwatch({
   const rgbToHex = useMemo(
     () => (rgb: string) => {
       // Accepts formats like rgb(r, g, b) or rgba(r, g, b, a)
-      const match = rgb.replace(/\s+/g, '').match(/^rgba?\((\d+),(\d+),(\d+)(?:,(\d*\.?\d+))?\)$/i);
+      const match = rgb
+        .replace(/\s+/g, '')
+        .match(/^rgba?\((\d+),(\d+),(\d+)(?:,(\d*\.?\d+))?\)$/i);
       if (!match) return '';
       const r = Number(match[1]);
       const g = Number(match[2]);
@@ -410,7 +417,9 @@ function ColorSwatch({
               <span className="font-medium">
                 {paletteName} {color.name}
               </span>
-              <span className="font-mono text-muted-foreground">{hex || '...'}</span>
+              <span className="font-mono text-muted-foreground">
+                {hex || '...'}
+              </span>
               <button
                 type="button"
                 onClick={(e) => {
@@ -458,7 +467,11 @@ function ColorPalette({ palette }: { palette: (typeof colorPalettes)[0] }) {
       <CardContent>
         <div className="grid grid-cols-7 gap-2">
           {palette.colors.map((color) => (
-            <ColorSwatch key={color.name} color={color} paletteName={palette.name} />
+            <ColorSwatch
+              key={color.name}
+              color={color}
+              paletteName={palette.name}
+            />
           ))}
         </div>
       </CardContent>
@@ -469,9 +482,15 @@ function ColorPalette({ palette }: { palette: (typeof colorPalettes)[0] }) {
 export default function ColorsPage() {
   // Group palettes by category with explicit ordering
   const basePalettes = colorPalettes.filter((p) => p.category === 'base');
-  const decorativePalettes = colorPalettes.filter((p) => p.category === 'decorative');
-  const semanticPalettes = colorPalettes.filter((p) => p.category === 'semantic');
-  const extendedPalettes = colorPalettes.filter((p) => p.category === 'extended');
+  const decorativePalettes = colorPalettes.filter(
+    (p) => p.category === 'decorative'
+  );
+  const semanticPalettes = colorPalettes.filter(
+    (p) => p.category === 'semantic'
+  );
+  const extendedPalettes = colorPalettes.filter(
+    (p) => p.category === 'extended'
+  );
 
   return (
     <div className="max-w-4xl mx-auto py-10">
@@ -525,8 +544,12 @@ export default function ColorsPage() {
         {/* Extended decorative colors */}
         <section className="space-y-6">
           <div>
-            <h2 className="text-2xl font-semibold mb-2">Extended decorative colors</h2>
-            <p className="text-muted-foreground">Sky, Orange, Yellow, Gray, Pink</p>
+            <h2 className="text-2xl font-semibold mb-2">
+              Extended decorative colors
+            </h2>
+            <p className="text-muted-foreground">
+              Sky, Orange, Yellow, Gray, Pink
+            </p>
           </div>
           <div className="space-y-6">
             {extendedPalettes.map((palette) => (

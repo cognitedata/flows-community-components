@@ -177,11 +177,13 @@ const singleOption = [
 
 const longTextOptions = [
   {
-    label: 'This is a very long option label that should wrap or truncate when space is limited',
+    label:
+      'This is a very long option label that should wrap or truncate when space is limited',
     value: 'option1',
   },
   {
-    label: 'Another extremely verbose option label demonstrating overflow behaviour in the list',
+    label:
+      'Another extremely verbose option label demonstrating overflow behaviour in the list',
     value: 'option2',
   },
   {
@@ -189,7 +191,8 @@ const longTextOptions = [
     value: 'option3',
   },
   {
-    label: 'Yet another long option label to force vertical scrolling inside the menu content area',
+    label:
+      'Yet another long option label to force vertical scrolling inside the menu content area',
     value: 'option4',
   },
 ];
@@ -359,11 +362,7 @@ export const Default: Story = {
   parameters: {
     order: 1,
   },
-  play: async ({
-    canvasElement,
-  }: {
-    canvasElement: HTMLElement;
-  }) => {
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
     const trigger = canvas.getByRole('combobox');
     await expect(trigger).toBeInTheDocument();
@@ -410,11 +409,18 @@ export const WithIcons: Story = {
         <Label>Category</Label>
         <Select items={iconOptions} value={value} onValueChange={setValue}>
           <SelectTrigger className="w-50">
-            <SelectValue placeholder="Select..." icon={value ? iconMap[value] : undefined} />
+            <SelectValue
+              placeholder="Select..."
+              icon={value ? iconMap[value] : undefined}
+            />
           </SelectTrigger>
           <SelectContent>
             {iconOptions.map((option) => (
-              <SelectItem key={option.value} value={option.value} icon={iconMap[option.value]}>
+              <SelectItem
+                key={option.value}
+                value={option.value}
+                icon={iconMap[option.value]}
+              >
                 {option.label}
               </SelectItem>
             ))}
@@ -446,11 +452,7 @@ export const Disabled: Story = {
   parameters: {
     order: 4,
   },
-  play: async ({
-    canvasElement,
-  }: {
-    canvasElement: HTMLElement;
-  }) => {
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
     const trigger = canvas.getByRole('combobox');
     await expect(trigger).toBeDisabled();
@@ -461,7 +463,11 @@ export const WithError: Story = {
     <div className="grid w-full items-center gap-1.5">
       <Label htmlFor="select-error">Required field</Label>
       <Select items={shortOptions}>
-        <SelectTrigger id="select-error" className="w-50" errorMessage="Please select an option">
+        <SelectTrigger
+          id="select-error"
+          className="w-50"
+          errorMessage="Please select an option"
+        >
           <SelectValue placeholder="Select..." />
         </SelectTrigger>
         <SelectContent>
@@ -564,7 +570,9 @@ export const Controlled: Story = {
             Clear
           </Button>
         </div>
-        <p className="text-sm text-muted-foreground">Selected: {value || '(none)'}</p>
+        <p className="text-sm text-muted-foreground">
+          Selected: {value || '(none)'}
+        </p>
       </div>
     );
   },
@@ -580,7 +588,11 @@ export const DisabledItems: Story = {
       </SelectTrigger>
       <SelectContent>
         {disabledOptions.map((option) => (
-          <SelectItem key={option.value} value={option.value} disabled={option.disabled}>
+          <SelectItem
+            key={option.value}
+            value={option.value}
+            disabled={option.disabled}
+          >
             {option.label}
           </SelectItem>
         ))}
@@ -725,8 +737,9 @@ export const LongTextAndOverflow: Story = {
         </Select>
       </div>
       <p className="text-sm text-muted-foreground max-w-md">
-        The trigger is constrained by a narrow container while the dropdown content has a limited
-        max height with scrolling enabled, helping you see how long labels behave in tight layouts.
+        The trigger is constrained by a narrow container while the dropdown
+        content has a limited max height with scrolling enabled, helping you see
+        how long labels behave in tight layouts.
       </p>
     </div>
   ),
@@ -818,7 +831,9 @@ export const VisualRegression: Story = {
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">With Icons</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          With Icons
+        </h3>
         <Select
           items={[
             {

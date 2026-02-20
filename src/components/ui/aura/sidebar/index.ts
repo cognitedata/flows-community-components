@@ -48,7 +48,6 @@ export {
   SidebarSeparator,
   SidebarTrigger,
   SidebarUserProfile,
-   
   useSidebar,
 } from './sidebar';
 export { SidebarMetadata } from './sidebar.metadata';

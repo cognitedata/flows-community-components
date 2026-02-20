@@ -35,7 +35,9 @@ const STATUS_ICONS: Record<ComponentStatusType, typeof IconCircleCheck> = {
   stable: IconCircleCheck,
 };
 
-export function ComponentStatusNotification({ status }: ComponentStatusNotificationProps) {
+export function ComponentStatusNotification({
+  status,
+}: ComponentStatusNotificationProps) {
   const message = getStatusMessage(status);
   const classes = getComponentStatusClasses(status);
   const label = getStatusLabel(status);

@@ -37,7 +37,9 @@ const metadataModules = import.meta.glob<{ [key: string]: AIComponentMeta }>(
  * Metadata is loaded from the component's folder structure
  * (e.g., message/message.metadata.ts).
  */
-export async function getAIComponentMeta(slug: string): Promise<AIComponentMeta | null> {
+export async function getAIComponentMeta(
+  slug: string
+): Promise<AIComponentMeta | null> {
   const pascalCaseSlug = slugToPascalCase(slug);
 
   try {

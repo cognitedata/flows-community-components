@@ -106,7 +106,12 @@ export const SingleSelection: Story = {
     return (
       <div className="space-y-4">
         <div className="rounded-md border">
-          <Calendar mode="single" selected={date} onSelect={setDate} className="rounded-md" />
+          <Calendar
+            mode="single"
+            selected={date}
+            onSelect={setDate}
+            className="rounded-md"
+          />
         </div>
         <p className="text-sm text-muted-foreground">
           Selected: {date ? date.toLocaleDateString() : 'None'}
@@ -141,7 +146,8 @@ export const RangeSelection: Story = {
           />
         </div>
         <p className="text-sm text-muted-foreground">
-          Range: {range?.from?.toLocaleDateString()} - {range?.to?.toLocaleDateString()}
+          Range: {range?.from?.toLocaleDateString()} -{' '}
+          {range?.to?.toLocaleDateString()}
         </p>
       </div>
     );
@@ -153,9 +159,16 @@ export const MultipleSelection: Story = {
     return (
       <div className="space-y-4">
         <div className="rounded-md border">
-          <Calendar mode="multiple" selected={dates} onSelect={setDates} className="rounded-md" />
+          <Calendar
+            mode="multiple"
+            selected={dates}
+            onSelect={setDates}
+            className="rounded-md"
+          />
         </div>
-        <p className="text-sm text-muted-foreground">Selected: {dates?.length || 0} date(s)</p>
+        <p className="text-sm text-muted-foreground">
+          Selected: {dates?.length || 0} date(s)
+        </p>
       </div>
     );
   },
@@ -185,9 +198,15 @@ export const DisabledDates: Story = {
     return (
       <div className="space-y-4">
         <div className="rounded-md border">
-          <Calendar mode="single" disabled={disabledDays} className="rounded-md" />
+          <Calendar
+            mode="single"
+            disabled={disabledDays}
+            className="rounded-md"
+          />
         </div>
-        <p className="text-sm text-muted-foreground">Weekends and specific dates are disabled.</p>
+        <p className="text-sm text-muted-foreground">
+          Weekends and specific dates are disabled.
+        </p>
       </div>
     );
   },
@@ -209,11 +228,20 @@ export const WithoutOutsideDays: Story = {
 export const DateConstraints: Story = {
   render: () => {
     const today = new Date();
-    const nextMonth = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate());
+    const nextMonth = new Date(
+      today.getFullYear(),
+      today.getMonth() + 1,
+      today.getDate()
+    );
     return (
       <div className="space-y-4">
         <div className="rounded-md border">
-          <Calendar mode="single" fromDate={today} toDate={nextMonth} className="rounded-md" />
+          <Calendar
+            mode="single"
+            fromDate={today}
+            toDate={nextMonth}
+            className="rounded-md"
+          />
         </div>
         <p className="text-sm text-muted-foreground">
           Only dates from today to one month ahead are selectable.
@@ -240,21 +268,27 @@ export const VisualRegression: Story = {
   render: () => (
     <div className="space-y-8">
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">Single Selection</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          Single Selection
+        </h3>
         <div className="rounded-md border w-fit">
           <Calendar mode="single" className="rounded-md" />
         </div>
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">Range Selection (2 months)</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          Range Selection (2 months)
+        </h3>
         <div className="rounded-md border w-fit">
           <Calendar mode="range" numberOfMonths={2} className="rounded-md" />
         </div>
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">With Dropdowns</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          With Dropdowns
+        </h3>
         <div className="rounded-md border w-fit">
           <Calendar
             mode="single"

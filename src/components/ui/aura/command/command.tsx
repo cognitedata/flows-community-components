@@ -1,6 +1,11 @@
 import { IconSearch } from '@tabler/icons-react';
 import { Command as CommandPrimitive } from 'cmdk';
-import { type ComponentProps, type ComponentRef, type ReactNode, forwardRef } from 'react';
+import {
+  type ComponentProps,
+  type ComponentRef,
+  type ReactNode,
+  forwardRef,
+} from 'react';
 
 import { cn } from '../../../../lib/utils';
 
@@ -70,7 +75,10 @@ const CommandInput = forwardRef<
   ComponentProps<typeof CommandPrimitive.Input>
 >(({ className, ...props }, ref) => {
   return (
-    <div data-slot="command-input-wrapper" className="flex h-10 items-center gap-2 border-b px-2">
+    <div
+      data-slot="command-input-wrapper"
+      className="flex h-10 items-center gap-2 border-b px-2"
+    >
       <IconSearch className="size-4 shrink-0 opacity-50" />
       <CommandPrimitive.Input
         ref={ref}
@@ -94,7 +102,10 @@ const CommandList = forwardRef<
     <CommandPrimitive.List
       ref={ref}
       data-slot="command-list"
-      className={cn('max-h-75 scroll-py-1 overflow-x-hidden overflow-y-auto', className)}
+      className={cn(
+        'max-h-75 scroll-py-1 overflow-x-hidden overflow-y-auto',
+        className
+      )}
       {...props}
     />
   );
@@ -167,18 +178,22 @@ const CommandItem = forwardRef<
 });
 CommandItem.displayName = 'CommandItem';
 
-const CommandShortcut = forwardRef<ComponentRef<'span'>, ComponentProps<'span'>>(
-  ({ className, ...props }, ref) => {
-    return (
-      <span
-        ref={ref}
-        data-slot="command-shortcut"
-        className={cn('text-muted-foreground ml-auto text-xs tracking-widest', className)}
-        {...props}
-      />
-    );
-  }
-);
+const CommandShortcut = forwardRef<
+  ComponentRef<'span'>,
+  ComponentProps<'span'>
+>(({ className, ...props }, ref) => {
+  return (
+    <span
+      ref={ref}
+      data-slot="command-shortcut"
+      className={cn(
+        'text-muted-foreground ml-auto text-xs tracking-widest',
+        className
+      )}
+      {...props}
+    />
+  );
+});
 CommandShortcut.displayName = 'CommandShortcut';
 
 export {

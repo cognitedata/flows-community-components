@@ -60,8 +60,8 @@ function CustomNode({ data }) {
 }`}</pre>
       </div>
       <p className="text-sm text-muted-foreground">
-        The Toolbar appears when a ReactFlow node is selected, positioned at the bottom of the node
-        by default.
+        The Toolbar appears when a ReactFlow node is selected, positioned at the
+        bottom of the node by default.
       </p>
     </div>
   ),

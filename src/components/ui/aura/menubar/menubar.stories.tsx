@@ -110,7 +110,9 @@ export const Default: Story = {
     const fileTrigger = canvas.getByText('File');
     await userEvent.click(fileTrigger);
     await waitFor(() => {
-      const menuContent = document.querySelector('[data-slot="menubar-content"]');
+      const menuContent = document.querySelector(
+        '[data-slot="menubar-content"]'
+      );
       expect(menuContent).toBeInTheDocument();
     });
   },
@@ -124,10 +126,16 @@ export const WithCheckboxItems: Story = {
         <MenubarMenu>
           <MenubarTrigger>View</MenubarTrigger>
           <MenubarContent>
-            <MenubarCheckboxItem checked={showBookmarks} onCheckedChange={setShowBookmarks}>
+            <MenubarCheckboxItem
+              checked={showBookmarks}
+              onCheckedChange={setShowBookmarks}
+            >
               Show Bookmarks Bar
             </MenubarCheckboxItem>
-            <MenubarCheckboxItem checked={showUrls} onCheckedChange={setShowUrls}>
+            <MenubarCheckboxItem
+              checked={showUrls}
+              onCheckedChange={setShowUrls}
+            >
               Show Full URLs
             </MenubarCheckboxItem>
             <MenubarSeparator />
@@ -263,10 +271,16 @@ export const FullExample: Story = {
         <MenubarMenu>
           <MenubarTrigger>View</MenubarTrigger>
           <MenubarContent>
-            <MenubarCheckboxItem checked={showBookmarks} onCheckedChange={setShowBookmarks}>
+            <MenubarCheckboxItem
+              checked={showBookmarks}
+              onCheckedChange={setShowBookmarks}
+            >
               Show Bookmarks Bar
             </MenubarCheckboxItem>
-            <MenubarCheckboxItem checked={showUrls} onCheckedChange={setShowUrls}>
+            <MenubarCheckboxItem
+              checked={showUrls}
+              onCheckedChange={setShowUrls}
+            >
               Show Full URLs
             </MenubarCheckboxItem>
             <MenubarSeparator />

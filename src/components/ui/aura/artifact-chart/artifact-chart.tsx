@@ -1,4 +1,8 @@
-import { type ComponentPropsWithoutRef, type ComponentRef, forwardRef } from 'react';
+import {
+  type ComponentPropsWithoutRef,
+  type ComponentRef,
+  forwardRef,
+} from 'react';
 
 import { cn } from '../../../../lib/utils';
 
@@ -18,11 +22,19 @@ import {
  * The actual chart implementation (PieChart, BarChart, etc.) is composed
  * within the content area using Recharts components directly in your code.
  */
-const ArtifactChart = forwardRef<ComponentRef<typeof Card>, ComponentPropsWithoutRef<typeof Card>>(
-  ({ className, ...props }, ref) => {
-    return <Card data-slot="artifact-chart" ref={ref} className={className} {...props} />;
-  }
-);
+const ArtifactChart = forwardRef<
+  ComponentRef<typeof Card>,
+  ComponentPropsWithoutRef<typeof Card>
+>(({ className, ...props }, ref) => {
+  return (
+    <Card
+      data-slot="artifact-chart"
+      ref={ref}
+      className={className}
+      {...props}
+    />
+  );
+});
 ArtifactChart.displayName = 'ArtifactChart';
 
 const ArtifactChartHeader = forwardRef<
@@ -81,7 +93,10 @@ const ArtifactChartContent = forwardRef<
     <CardContent
       data-slot="artifact-chart-content"
       ref={ref}
-      className={cn('flex w-full flex-col items-center gap-4 overflow-visible py-5', className)}
+      className={cn(
+        'flex w-full flex-col items-center gap-4 overflow-visible py-5',
+        className
+      )}
       {...props}
     />
   );
@@ -93,7 +108,12 @@ const ArtifactChartFooter = forwardRef<
   ComponentPropsWithoutRef<typeof CardFooter>
 >(({ className, ...props }, ref) => {
   return (
-    <CardFooter data-slot="artifact-chart-footer" ref={ref} className={className} {...props} />
+    <CardFooter
+      data-slot="artifact-chart-footer"
+      ref={ref}
+      className={className}
+      {...props}
+    />
   );
 });
 ArtifactChartFooter.displayName = 'ArtifactChartFooter';

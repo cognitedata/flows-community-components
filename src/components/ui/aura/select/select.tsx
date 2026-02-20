@@ -1,4 +1,3 @@
-
 import { Select as SelectPrimitive } from '@base-ui/react/select';
 import {
   IconCheck,
@@ -36,7 +35,13 @@ const useSelect = () => {
 
 type SelectPropsBase = Omit<
   SelectPrimitive.Root.Props<string>,
-  'open' | 'defaultOpen' | 'onOpenChange' | 'value' | 'defaultValue' | 'onValueChange' | 'multiple'
+  | 'open'
+  | 'defaultOpen'
+  | 'onOpenChange'
+  | 'value'
+  | 'defaultValue'
+  | 'onValueChange'
+  | 'multiple'
 > & {
   open?: boolean;
   defaultOpen?: boolean;
@@ -85,7 +90,9 @@ function Select(props: SelectProps) {
         data-slot="select"
         open={isOpen}
         onOpenChange={(nextOpen) => setIsOpen(nextOpen)}
-        value={value === undefined ? undefined : value === '' ? null : (value as any)}
+        value={
+          value === undefined ? undefined : value === '' ? null : (value as any)
+        }
         defaultValue={
           defaultValue === undefined
             ? undefined
@@ -179,7 +186,9 @@ function SelectTrigger({
       {errorMessage && (
         <div className="flex flex-row gap-1 justify-start items-center p-1">
           <IconExclamationCircle className="text-destructive-foreground text-sm size-4" />
-          <span className="text-destructive-foreground text-sm">{errorMessage}</span>
+          <span className="text-destructive-foreground text-sm">
+            {errorMessage}
+          </span>
         </div>
       )}
     </>
@@ -231,7 +240,10 @@ function SelectContent({
   );
 }
 
-function SelectLabel({ className, ...props }: SelectPrimitive.GroupLabel.Props) {
+function SelectLabel({
+  className,
+  ...props
+}: SelectPrimitive.GroupLabel.Props) {
   return (
     <SelectPrimitive.GroupLabel
       data-slot="select-label"
@@ -271,7 +283,10 @@ function SelectItem({
   );
 }
 
-function SelectSeparator({ className, ...props }: SelectPrimitive.Separator.Props) {
+function SelectSeparator({
+  className,
+  ...props
+}: SelectPrimitive.Separator.Props) {
   return (
     <SelectPrimitive.Separator
       data-slot="select-separator"
@@ -281,7 +296,10 @@ function SelectSeparator({ className, ...props }: SelectPrimitive.Separator.Prop
   );
 }
 
-function SelectScrollUpButton({ className, ...props }: SelectPrimitive.ScrollUpArrow.Props) {
+function SelectScrollUpButton({
+  className,
+  ...props
+}: SelectPrimitive.ScrollUpArrow.Props) {
   return (
     <SelectPrimitive.ScrollUpArrow
       data-slot="select-scroll-up-button"
@@ -296,7 +314,10 @@ function SelectScrollUpButton({ className, ...props }: SelectPrimitive.ScrollUpA
   );
 }
 
-function SelectScrollDownButton({ className, ...props }: SelectPrimitive.ScrollDownArrow.Props) {
+function SelectScrollDownButton({
+  className,
+  ...props
+}: SelectPrimitive.ScrollDownArrow.Props) {
   return (
     <SelectPrimitive.ScrollDownArrow
       data-slot="select-scroll-down-button"

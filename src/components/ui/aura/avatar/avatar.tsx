@@ -1,6 +1,11 @@
 import { Avatar as AvatarPrimitive } from '@base-ui/react/avatar';
 import { type VariantProps, cva } from 'class-variance-authority';
-import { type ComponentProps, type ComponentRef, type HTMLAttributes, forwardRef } from 'react';
+import {
+  type ComponentProps,
+  type ComponentRef,
+  type HTMLAttributes,
+  forwardRef,
+} from 'react';
 
 import { cn } from '../../../../lib/utils';
 
@@ -21,7 +26,8 @@ const avatarVariants = cva(
         orange:
           'bg-decorative-background-orange text-decorative-foreground-orange hover:bg-decorative-background-hover-orange',
         sky: 'bg-decorative-background-sky text-decorative-foreground-sky hover:bg-decorative-background-hover-sky',
-        overflow: 'bg-secondary text-secondary-foreground hover:bg-secondary-hover',
+        overflow:
+          'bg-secondary text-secondary-foreground hover:bg-secondary-hover',
       },
       sizes: {
         default: 'size-9 text-sm [&_svg]:w-5 [&_svg]:h-5',
@@ -38,7 +44,8 @@ const avatarVariants = cva(
 
 const Avatar = forwardRef<
   ComponentRef<typeof AvatarPrimitive.Root>,
-  ComponentProps<typeof AvatarPrimitive.Root> & VariantProps<typeof avatarVariants>
+  ComponentProps<typeof AvatarPrimitive.Root> &
+    VariantProps<typeof avatarVariants>
 >(({ className, variant, sizes, ...props }, ref) => {
   return (
     <AvatarPrimitive.Root
@@ -81,7 +88,10 @@ const AvatarFallback = forwardRef<
     <AvatarPrimitive.Fallback
       ref={ref}
       data-slot="avatar-fallback"
-      className={cn(' flex size-md items-center justify-center rounded-md', className)}
+      className={cn(
+        ' flex size-md items-center justify-center rounded-md',
+        className
+      )}
       {...props}
     />
   );
@@ -94,7 +104,10 @@ const AvatarIcon = forwardRef<HTMLSpanElement, HTMLAttributes<HTMLSpanElement>>(
       <span
         ref={ref}
         data-slot="avatar-icon"
-        className={cn('flex size-full items-center justify-center rounded-md', className)}
+        className={cn(
+          'flex size-full items-center justify-center rounded-md',
+          className
+        )}
         {...props}
       />
     );

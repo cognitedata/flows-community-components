@@ -11,7 +11,7 @@ import { Toaster as Sonner, type ToasterProps } from 'sonner';
 import { useTheme } from '@/components/theme-provider';
 
 // Re-export the toast function from sonner
- 
+
 export { toast } from 'sonner';
 
 const Toaster = ({ ...props }: ToasterProps) => {

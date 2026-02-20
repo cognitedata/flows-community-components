@@ -8,7 +8,10 @@ function Popover(props: PopoverPrimitive.Root.Props) {
 }
 Popover.displayName = 'Popover';
 
-function PopoverTrigger({ children, ...props }: PopoverPrimitive.Trigger.Props) {
+function PopoverTrigger({
+  children,
+  ...props
+}: PopoverPrimitive.Trigger.Props) {
   return (
     <PopoverPrimitive.Trigger data-slot="popover-trigger" {...props}>
       {children}
@@ -19,10 +22,20 @@ function PopoverTrigger({ children, ...props }: PopoverPrimitive.Trigger.Props) 
 const PopoverContent = forwardRef<
   ComponentRef<typeof PopoverPrimitive.Popup>,
   PopoverPrimitive.Popup.Props &
-    Pick<PopoverPrimitive.Positioner.Props, 'align' | 'alignOffset' | 'side' | 'sideOffset'>
+    Pick<
+      PopoverPrimitive.Positioner.Props,
+      'align' | 'alignOffset' | 'side' | 'sideOffset'
+    >
 >(
   (
-    { className, align = 'center', alignOffset = 0, side = 'bottom', sideOffset = 4, ...props },
+    {
+      className,
+      align = 'center',
+      alignOffset = 0,
+      side = 'bottom',
+      sideOffset = 4,
+      ...props
+    },
     ref
   ) => {
     return (

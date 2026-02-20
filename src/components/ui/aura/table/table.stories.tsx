@@ -254,7 +254,10 @@ export const StripedRows: Story = {
       </TableHeader>
       <TableBody>
         {invoices.map((invoice, index) => (
-          <TableRow key={invoice.id} className={index % 2 === 0 ? 'bg-muted/50' : ''}>
+          <TableRow
+            key={invoice.id}
+            className={index % 2 === 0 ? 'bg-muted/50' : ''}
+          >
             <TableCell className="font-medium">{invoice.id}</TableCell>
             <TableCell>{invoice.status}</TableCell>
             <TableCell>{invoice.method}</TableCell>
@@ -318,7 +321,9 @@ export const VisualRegression: Story = {
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">With Footer</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          With Footer
+        </h3>
         <Table>
           <TableHeader>
             <TableRow>

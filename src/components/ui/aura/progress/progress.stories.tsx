@@ -76,7 +76,9 @@ export const Basic: Story = {
     await expect(progressbar).toBeInTheDocument();
     await expect(progressbar).toHaveAccessibleName('Progress: 50%');
     await expect(progressbar).toHaveAttribute('aria-valuenow', '50');
-    const indicator = canvasElement.querySelector('[data-slot="progress-indicator"]');
+    const indicator = canvasElement.querySelector(
+      '[data-slot="progress-indicator"]'
+    );
     await expect(indicator).toBeInTheDocument();
   },
 };
@@ -86,7 +88,9 @@ export const CustomAriaLabel: Story = {
       <div className="space-y-2">
         <div className="text-sm font-medium">Auto-generated label:</div>
         <Progress value={60} />
-        <div className="text-xs text-muted-foreground">aria-label: "Progress: 60%"</div>
+        <div className="text-xs text-muted-foreground">
+          aria-label: "Progress: 60%"
+        </div>
       </div>
       <div className="space-y-2">
         <div className="text-sm font-medium">Custom label:</div>
@@ -105,7 +109,9 @@ export const CustomAriaLabel: Story = {
     const progressbars = canvas.getAllByRole('progressbar');
     await expect(progressbars).toHaveLength(2);
     await expect(progressbars[0]).toHaveAccessibleName('Progress: 60%');
-    await expect(progressbars[1]).toHaveAccessibleName('Document upload progress: 60%');
+    await expect(progressbars[1]).toHaveAccessibleName(
+      'Document upload progress: 60%'
+    );
     await expect(progressbars[0]).toHaveAttribute('aria-valuenow', '60');
     await expect(progressbars[1]).toHaveAttribute('aria-valuenow', '60');
   },
@@ -187,7 +193,11 @@ export const WithLabel: Story = {
     <div className="space-y-2 w-96">
       <Label>Files uploaded</Label>
       <div className="flex items-center justify-between gap-2">
-        <Progress value={30} className="flex-1" aria-label="Files uploaded: 30%" />
+        <Progress
+          value={30}
+          className="flex-1"
+          aria-label="Files uploaded: 30%"
+        />
         <span className="text-muted-foreground text-sm leading-4.5 tracking-tight whitespace-nowrap">
           30%
         </span>
@@ -215,7 +225,9 @@ export const Animated: Story = {
       }
     );
     const progressbar = canvas.getByRole('progressbar');
-    const initialValue = Number.parseInt(progressbar.getAttribute('aria-valuenow') || '0');
+    const initialValue = Number.parseInt(
+      progressbar.getAttribute('aria-valuenow') || '0'
+    );
     await waitFor(
       () => {
         const currentValue = Number.parseInt(
@@ -248,7 +260,10 @@ export const Animated: Story = {
           <span>Loading...</span>
           <span className="text-muted-foreground">{progress}%</span>
         </div>
-        <Progress value={progress} aria-label={`Loading progress: ${progress}%`} />
+        <Progress
+          value={progress}
+          aria-label={`Loading progress: ${progress}%`}
+        />
       </div>
     );
   },
@@ -259,7 +274,9 @@ export const FileUpload: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText('Uploading document.pdf')).toBeInTheDocument();
+    await expect(
+      canvas.getByText('Uploading document.pdf')
+    ).toBeInTheDocument();
     await expect(canvas.getByText('Uploading image.jpg')).toBeInTheDocument();
     await expect(canvas.getByText('Uploading video.mp4')).toBeInTheDocument();
     await expect(canvas.getByText('65%')).toBeInTheDocument();
@@ -278,7 +295,10 @@ export const FileUpload: Story = {
           <span>Uploading document.pdf</span>
           <span className="text-muted-foreground">65%</span>
         </div>
-        <Progress value={65} aria-label="Upload progress for document.pdf: 65%" />
+        <Progress
+          value={65}
+          aria-label="Upload progress for document.pdf: 65%"
+        />
       </div>
       <div className="space-y-2">
         <div className="flex justify-between text-sm">
@@ -439,9 +459,15 @@ export const Multiple: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText('Task 1: Data processing')).toBeInTheDocument();
-    await expect(canvas.getByText('Task 2: Image optimization')).toBeInTheDocument();
-    await expect(canvas.getByText('Task 3: File compression')).toBeInTheDocument();
+    await expect(
+      canvas.getByText('Task 1: Data processing')
+    ).toBeInTheDocument();
+    await expect(
+      canvas.getByText('Task 2: Image optimization')
+    ).toBeInTheDocument();
+    await expect(
+      canvas.getByText('Task 3: File compression')
+    ).toBeInTheDocument();
     await expect(canvas.getByText('Task 4: Finalization')).toBeInTheDocument();
     await expect(canvas.getByText('45%')).toBeInTheDocument();
     await expect(canvas.getByText('78%')).toBeInTheDocument();
@@ -461,28 +487,40 @@ export const Multiple: Story = {
           <span>Task 1: Data processing</span>
           <span className="text-muted-foreground">45%</span>
         </div>
-        <Progress value={45} aria-label="Task 1: Data processing progress: 45%" />
+        <Progress
+          value={45}
+          aria-label="Task 1: Data processing progress: 45%"
+        />
       </div>
       <div className="space-y-2">
         <div className="flex justify-between text-sm">
           <span>Task 2: Image optimization</span>
           <span className="text-muted-foreground">78%</span>
         </div>
-        <Progress value={78} aria-label="Task 2: Image optimization progress: 78%" />
+        <Progress
+          value={78}
+          aria-label="Task 2: Image optimization progress: 78%"
+        />
       </div>
       <div className="space-y-2">
         <div className="flex justify-between text-sm">
           <span>Task 3: File compression</span>
           <span className="text-muted-foreground">12%</span>
         </div>
-        <Progress value={12} aria-label="Task 3: File compression progress: 12%" />
+        <Progress
+          value={12}
+          aria-label="Task 3: File compression progress: 12%"
+        />
       </div>
       <div className="space-y-2">
         <div className="flex justify-between text-sm">
           <span>Task 4: Finalization</span>
           <span className="text-muted-foreground">100%</span>
         </div>
-        <Progress value={100} aria-label="Task 4: Finalization progress: 100%" />
+        <Progress
+          value={100}
+          aria-label="Task 4: Finalization progress: 100%"
+        />
       </div>
     </div>
   ),

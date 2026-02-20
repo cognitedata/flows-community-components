@@ -22,7 +22,11 @@ function SheetClose({ ...props }: SheetPrimitive.Close.Props) {
 
 function SheetPortal({ ...props }: SheetPrimitive.Portal.Props) {
   return (
-    <SheetPrimitive.Portal data-slot="sheet-portal" {...props} container={getPortalContainer()} />
+    <SheetPrimitive.Portal
+      data-slot="sheet-portal"
+      {...props}
+      container={getPortalContainer()}
+    />
   );
 }
 
@@ -114,7 +118,10 @@ function SheetTitle({ className, ...props }: SheetPrimitive.Title.Props) {
   );
 }
 
-function SheetDescription({ className, ...props }: SheetPrimitive.Description.Props) {
+function SheetDescription({
+  className,
+  ...props
+}: SheetPrimitive.Description.Props) {
   return (
     <SheetPrimitive.Description
       data-slot="sheet-description"

@@ -18,17 +18,49 @@ const externalIconClass =
   'size-4 grayscale opacity-70 mix-blend-multiply transition-all duration-150 group-hover:grayscale-0 group-hover:opacity-100 group-hover:mix-blend-normal';
 
 const aiComponents = [
-  { slug: 'code-block', name: 'Code block', description: 'Syntax-highlighted code display' },
-  { slug: 'confirmation', name: 'Confirmation', description: 'AI action confirmation prompt' },
-  { slug: 'conversation', name: 'Conversation', description: 'Chat message container' },
-  { slug: 'inline-citation', name: 'Inline citation', description: 'Reference link within text' },
+  {
+    slug: 'code-block',
+    name: 'Code block',
+    description: 'Syntax-highlighted code display',
+  },
+  {
+    slug: 'confirmation',
+    name: 'Confirmation',
+    description: 'AI action confirmation prompt',
+  },
+  {
+    slug: 'conversation',
+    name: 'Conversation',
+    description: 'Chat message container',
+  },
+  {
+    slug: 'inline-citation',
+    name: 'Inline citation',
+    description: 'Reference link within text',
+  },
   { slug: 'loader', name: 'Loader', description: 'AI processing indicator' },
   { slug: 'message', name: 'Message', description: 'Chat message bubble' },
-  { slug: 'prompt-input', name: 'Prompt input', description: 'AI query input field' },
-  { slug: 'reasoning', name: 'Reasoning', description: 'AI thinking process display' },
-  { slug: 'shimmer', name: 'Shimmer', description: 'Loading placeholder animation' },
+  {
+    slug: 'prompt-input',
+    name: 'Prompt input',
+    description: 'AI query input field',
+  },
+  {
+    slug: 'reasoning',
+    name: 'Reasoning',
+    description: 'AI thinking process display',
+  },
+  {
+    slug: 'shimmer',
+    name: 'Shimmer',
+    description: 'Loading placeholder animation',
+  },
   { slug: 'sources', name: 'Sources', description: 'Reference source list' },
-  { slug: 'suggestion', name: 'Suggestion', description: 'AI prompt suggestions' },
+  {
+    slug: 'suggestion',
+    name: 'Suggestion',
+    description: 'AI prompt suggestions',
+  },
   { slug: 'tool', name: 'Tool', description: 'AI tool call display' },
 ];
 
@@ -75,7 +107,11 @@ export default function AIPage() {
                     title="Open in Storybook"
                     aria-label="Open in Storybook"
                   >
-                    <img src={storybookIcon} alt="" className={externalIconClass} />
+                    <img
+                      src={storybookIcon}
+                      alt=""
+                      className={externalIconClass}
+                    />
                   </a>
                 </div>
               ),

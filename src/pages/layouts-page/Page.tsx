@@ -30,7 +30,13 @@ const layoutPatterns = [
     icon: Grid,
     description: 'Flexible grid system for complex layouts',
     cols: 'grid-cols-3',
-    preview: ['col-span-2', 'col-span-1', 'col-span-1', 'col-span-2', 'col-span-3'],
+    preview: [
+      'col-span-2',
+      'col-span-1',
+      'col-span-1',
+      'col-span-2',
+      'col-span-3',
+    ],
   },
   {
     name: 'Sidebar layout',
@@ -63,7 +69,9 @@ function ResponsiveDemo({
         <div className="flex items-center justify-between">
           <div>
             <CardTitle>{title}</CardTitle>
-            <CardDescription>Responsive behavior across different screen sizes</CardDescription>
+            <CardDescription>
+              Responsive behavior across different screen sizes
+            </CardDescription>
           </div>
           <div className="flex items-center space-x-1">
             {breakpoints.map((bp, index) => (
@@ -82,7 +90,8 @@ function ResponsiveDemo({
       <CardContent>
         <div className="border rounded-lg p-4 bg-muted/30">
           <div className="text-xs text-muted-foreground mb-2 text-center">
-            {breakpoints[activeBreakpoint].name} - {breakpoints[activeBreakpoint].width}
+            {breakpoints[activeBreakpoint].name} -{' '}
+            {breakpoints[activeBreakpoint].width}
           </div>
           <motion.div
             key={activeBreakpoint}
@@ -91,7 +100,12 @@ function ResponsiveDemo({
             transition={{ duration: 0.2 }}
             className="mx-auto bg-background border rounded"
             style={{
-              width: activeBreakpoint === 0 ? '375px' : activeBreakpoint === 1 ? '600px' : '800px',
+              width:
+                activeBreakpoint === 0
+                  ? '375px'
+                  : activeBreakpoint === 1
+                    ? '600px'
+                    : '800px',
               maxWidth: '100%',
             }}
           >
@@ -144,8 +158,9 @@ export default function LayoutsPage() {
           <div className="text-center space-y-4">
             <h1 className="text-3xl md:text-4xl font-bold">Layout patterns</h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Responsive layout systems and patterns that adapt gracefully across all device sizes.
-              Built with CSS Grid and Flexbox for maximum flexibility.
+              Responsive layout systems and patterns that adapt gracefully
+              across all device sizes. Built with CSS Grid and Flexbox for
+              maximum flexibility.
             </p>
           </div>
 
@@ -222,11 +237,16 @@ export default function LayoutsPage() {
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-4">
                       <div className="w-8 h-8 bg-primary rounded" />
-                      <div className="hidden md:block text-sm font-medium">Brand</div>
+                      <div className="hidden md:block text-sm font-medium">
+                        Brand
+                      </div>
                     </div>
                     <div className="hidden md:flex space-x-4">
                       {['Home', 'About', 'Contact'].map((item) => (
-                        <div key={item} className="text-sm px-2 py-1 bg-muted rounded">
+                        <div
+                          key={item}
+                          className="text-sm px-2 py-1 bg-muted rounded"
+                        >
                           {item}
                         </div>
                       ))}
@@ -257,7 +277,10 @@ export default function LayoutsPage() {
                     <div className="hidden lg:block w-48 h-32 bg-muted rounded p-3">
                       <div className="space-y-2">
                         {[1, 2, 3].map((item) => (
-                          <div key={item} className="h-6 bg-primary/20 rounded" />
+                          <div
+                            key={item}
+                            className="h-6 bg-primary/20 rounded"
+                          />
                         ))}
                       </div>
                     </div>
@@ -287,7 +310,8 @@ export default function LayoutsPage() {
               <CardHeader>
                 <CardTitle>12-column grid</CardTitle>
                 <CardDescription>
-                  Responsive grid with consistent gutters and flexible column spans
+                  Responsive grid with consistent gutters and flexible column
+                  spans
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -352,7 +376,8 @@ export default function LayoutsPage() {
                 </CardHeader>
                 <CardContent className="space-y-3">
                   <p className="text-sm text-muted-foreground">
-                    Start with mobile layouts and progressively enhance for larger screens.
+                    Start with mobile layouts and progressively enhance for
+                    larger screens.
                   </p>
                   <ul className="space-y-2 text-sm">
                     <li className="flex items-start space-x-2">
@@ -377,7 +402,8 @@ export default function LayoutsPage() {
                 </CardHeader>
                 <CardContent className="space-y-3">
                   <p className="text-sm text-muted-foreground">
-                    Ensure layouts work for users with different abilities and technologies.
+                    Ensure layouts work for users with different abilities and
+                    technologies.
                   </p>
                   <ul className="space-y-2 text-sm">
                     <li className="flex items-start space-x-2">
@@ -427,7 +453,8 @@ export default function LayoutsPage() {
                 </CardHeader>
                 <CardContent className="space-y-3">
                   <p className="text-sm text-muted-foreground">
-                    Maintain visual and functional consistency across all layouts.
+                    Maintain visual and functional consistency across all
+                    layouts.
                   </p>
                   <ul className="space-y-2 text-sm">
                     <li className="flex items-start space-x-2">

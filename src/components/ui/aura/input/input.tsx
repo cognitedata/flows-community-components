@@ -1,6 +1,10 @@
 import { IconEye, IconEyeOff } from '@tabler/icons-react';
-import { type ComponentProps, type ReactNode, forwardRef, useState } from 'react';
-
+import {
+  type ComponentProps,
+  type ReactNode,
+  forwardRef,
+  useState,
+} from 'react';
 
 import {
   cn,
@@ -13,7 +17,12 @@ import {
   readOnlyState,
 } from '../../../../lib/utils';
 import { HelperText } from '../helper-text';
-import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from '../input-group';
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+} from '../input-group';
 
 interface InputProps extends ComponentProps<'input'> {
   errorMessage?: string;
@@ -82,7 +91,11 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
               aria-label={showPassword ? 'Hide password' : 'Show password'}
               size="icon-sm"
             >
-              {showPassword ? <IconEyeOff className="size-4" /> : <IconEye className="size-4" />}
+              {showPassword ? (
+                <IconEyeOff className="size-4" />
+              ) : (
+                <IconEye className="size-4" />
+              )}
             </InputGroupButton>
           </InputGroupAddon>
         </InputGroup>

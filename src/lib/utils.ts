@@ -20,7 +20,8 @@ export function cn(...inputs: ClassValue[]) {
 
 export const isStorybookTestEnv =
   typeof window !== 'undefined' &&
-  (window as Window & { __STORYBOOK_TEST__?: boolean }).__STORYBOOK_TEST__ === true;
+  (window as Window & { __STORYBOOK_TEST__?: boolean }).__STORYBOOK_TEST__ ===
+    true;
 
 export const escapeHtml = (value: string) =>
   value
@@ -86,7 +87,8 @@ export async function highlightCode(
  * Focus rings for non-form interactive elements (buttons, etc.).
  * These provide only the shadow-based focus ring without background/border changes.
  */
-export const focusRing = 'focus-visible:shadow-focus-ring outline-none' as const;
+export const focusRing =
+  'focus-visible:shadow-focus-ring outline-none' as const;
 export const focusRingDestructive =
   'focus-visible:shadow-focus-ring-destructive outline-none' as const;
 
@@ -96,7 +98,8 @@ export const focusRingDestructive =
  */
 export const formElementBase =
   'rounded-md border border-border bg-background p-1.75 text-base leading-5 tracking-tightest text-muted-foreground' as const;
-export const hoverState = 'hover:bg-accent hover:text-accent-foreground' as const;
+export const hoverState =
+  'hover:bg-accent hover:text-accent-foreground' as const;
 export const filledState =
   'filled:bg-background filled:border-border filled:text-foreground' as const;
 export const focusState =
@@ -137,7 +140,9 @@ export function getHostname(url: string | undefined): string {
  * from the shell app's container query context.
  * The result is cached to avoid side effects on subsequent calls during React renders.
  */
-export const getPortalContainer = (options?: PortalContainerOptions): HTMLElement | undefined => {
+export const getPortalContainer = (
+  options?: PortalContainerOptions
+): HTMLElement | undefined => {
   const hasCustomOptions = Boolean(options && Object.keys(options).length > 0);
 
   const containerId = options?.id ?? styleScope.portalContainer;

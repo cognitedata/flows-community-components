@@ -18,7 +18,8 @@ export default function AgentChatPage() {
             <div>
               <h1 className="text-3xl font-bold tracking-tight">Agent chat</h1>
               <p className="text-lg text-muted-foreground">
-                A complete AI conversation demonstrating all components working together
+                A complete AI conversation demonstrating all components working
+                together
               </p>
             </div>
           </div>
@@ -37,10 +38,11 @@ export default function AgentChatPage() {
 
           <div className="bg-muted/50 border rounded-lg p-4">
             <p className="text-sm text-muted-foreground">
-              This pattern showcases the full AI response flow: empty state with suggestions, user
-              messages with inline citations, thinking state with shimmer, streaming responses,
-              sources, expandable tool calls with reasoning, and message actions. Watch the
-              automatic demo play out or click &quot;Replay demo&quot; to restart.
+              This pattern showcases the full AI response flow: empty state with
+              suggestions, user messages with inline citations, thinking state
+              with shimmer, streaming responses, sources, expandable tool calls
+              with reasoning, and message actions. Watch the automatic demo play
+              out or click &quot;Replay demo&quot; to restart.
             </p>
           </div>
         </div>

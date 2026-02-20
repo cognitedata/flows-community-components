@@ -12,8 +12,12 @@ export function useControllableState<T>({
   prop,
   defaultProp,
   onChange,
-}: UseControllableStateParams<T>): readonly [T, (next: SetStateAction<T>) => void] {
-  const [uncontrolledValue, setUncontrolledValue] = React.useState<T>(defaultProp);
+}: UseControllableStateParams<T>): readonly [
+  T,
+  (next: SetStateAction<T>) => void,
+] {
+  const [uncontrolledValue, setUncontrolledValue] =
+    React.useState<T>(defaultProp);
   const isControlled = prop !== undefined;
   const value = isControlled ? (prop as T) : uncontrolledValue;
 
@@ -24,7 +28,8 @@ export function useControllableState<T>({
 
   const setValue = React.useCallback(
     (next: SetStateAction<T>) => {
-      const resolved = typeof next === 'function' ? (next as (prev: T) => T)(value) : next;
+      const resolved =
+        typeof next === 'function' ? (next as (prev: T) => T)(value) : next;
 
       if (!isControlled) {
         setUncontrolledValue(resolved);

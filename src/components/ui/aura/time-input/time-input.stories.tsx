@@ -23,7 +23,8 @@ export const Default: Story = {
   render: () => (
     <TimeInput className="p-4 border rounded-md">
       <p className="text-sm text-muted-foreground">
-        Time Input component placeholder. This component is currently in development.
+        Time Input component placeholder. This component is currently in
+        development.
       </p>
     </TimeInput>
   ),

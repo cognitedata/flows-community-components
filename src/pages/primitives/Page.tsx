@@ -3,7 +3,10 @@ import { IconCheck, IconQuestionMark, IconX } from '@tabler/icons-react';
 import figmaIcon from '@/assets/figma-logo.svg';
 import storybookIcon from '@/assets/icon-storybook-default.svg';
 import { Badge } from '@/components/ui/aura/badge';
-import { getPrimitiveCatalogBySection, getPrimitiveFigmaUrl } from '@/lib/primitives-catalog';
+import {
+  getPrimitiveCatalogBySection,
+  getPrimitiveFigmaUrl,
+} from '@/lib/primitives-catalog';
 import { CatalogIndex } from '@/pages/components/CatalogIndex';
 
 function toStorybookSlug(name: string): string {
@@ -14,7 +17,10 @@ function toStorybookSlug(name: string): string {
     .replace(/^-+|-+$/g, '');
 }
 
-function getStorybookUrl(category: 'foundations' | 'primitives', name: string): string {
+function getStorybookUrl(
+  category: 'foundations' | 'primitives',
+  name: string
+): string {
   return `https://cognitedata.github.io/aura/storybook/?path=/docs/${category}-${toStorybookSlug(name)}--docs`;
 }
 
@@ -111,8 +117,14 @@ export default function PrimitivesPage() {
                       outline={gaSummaryBadgeProps.outline}
                     >
                       <span className="inline-flex items-center gap-2">
-                        <GaBadgeContent product="Eos" required={entry.eosGaRequired} />
-                        <GaBadgeContent product="Dune" required={entry.duneGaRequired} />
+                        <GaBadgeContent
+                          product="Eos"
+                          required={entry.eosGaRequired}
+                        />
+                        <GaBadgeContent
+                          product="Dune"
+                          required={entry.duneGaRequired}
+                        />
                       </span>
                     </Badge>
                   </div>
@@ -140,7 +152,11 @@ export default function PrimitivesPage() {
                           title="Open in Figma"
                           aria-label="Open in Figma"
                         >
-                          <img src={figmaIcon} alt="" className={externalIconClass} />
+                          <img
+                            src={figmaIcon}
+                            alt=""
+                            className={externalIconClass}
+                          />
                         </a>
                       )
                     ) : entry.figmaAvailability === 'unknown' ? (
@@ -166,7 +182,11 @@ export default function PrimitivesPage() {
                         title="Open in Storybook"
                         aria-label="Open in Storybook"
                       >
-                        <img src={storybookIcon} alt="" className={externalIconClass} />
+                        <img
+                          src={storybookIcon}
+                          alt=""
+                          className={externalIconClass}
+                        />
                       </a>
                     ) : (
                       <span
@@ -223,8 +243,14 @@ export default function PrimitivesPage() {
                       outline={gaSummaryBadgeProps.outline}
                     >
                       <span className="inline-flex items-center gap-2">
-                        <GaBadgeContent product="Eos" required={entry.eosGaRequired} />
-                        <GaBadgeContent product="Dune" required={entry.duneGaRequired} />
+                        <GaBadgeContent
+                          product="Eos"
+                          required={entry.eosGaRequired}
+                        />
+                        <GaBadgeContent
+                          product="Dune"
+                          required={entry.duneGaRequired}
+                        />
                       </span>
                     </Badge>
                   </div>
@@ -239,7 +265,11 @@ export default function PrimitivesPage() {
                         title="Open in Figma"
                         aria-label="Open in Figma"
                       >
-                        <img src={figmaIcon} alt="" className={externalIconClass} />
+                        <img
+                          src={figmaIcon}
+                          alt=""
+                          className={externalIconClass}
+                        />
                       </a>
                     ) : entry.figmaAvailability === 'unknown' ? (
                       <span
@@ -264,7 +294,11 @@ export default function PrimitivesPage() {
                         title="Open in Storybook"
                         aria-label="Open in Storybook"
                       >
-                        <img src={storybookIcon} alt="" className={externalIconClass} />
+                        <img
+                          src={storybookIcon}
+                          alt=""
+                          className={externalIconClass}
+                        />
                       </a>
                     ) : (
                       <span

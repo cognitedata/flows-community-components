@@ -1,6 +1,9 @@
 import { useLocation } from 'react-router-dom';
 
-import { SideNavigation, getSideNavigationForSection } from '@/components/side-navigation';
+import {
+  SideNavigation,
+  getSideNavigationForSection,
+} from '@/components/side-navigation';
 import { cn } from '@/lib/utils';
 
 interface SectionLayoutProps {
@@ -34,7 +37,9 @@ export function SectionLayout({ children, className }: SectionLayoutProps) {
         </div>
       </aside>
       {/* Main Content */}
-      <main className={cn('flex-1 min-w-0 px-6 pt-6 pb-8', className)}>{children}</main>
+      <main className={cn('flex-1 min-w-0 px-6 pt-6 pb-8', className)}>
+        {children}
+      </main>
     </div>
   );
 }

@@ -59,7 +59,11 @@ const preview: Preview = {
       }, [theme]);
 
       return (
-        <div className={theme === 'dark' ? 'dark text-foreground' : 'text-foreground'}>
+        <div
+          className={
+            theme === 'dark' ? 'dark text-foreground' : 'text-foreground'
+          }
+        >
           <Story />
         </div>
       );

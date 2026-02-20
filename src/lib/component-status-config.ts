@@ -193,7 +193,10 @@ export function getStatusConfig(status: ComponentStatusType): StatusConfig {
  * Get inline styles for a status badge that work in both light and dark modes.
  * Uses CSS custom properties for dark mode support.
  */
-export function getStatusStyles(status: ComponentStatusType, isDark = false): React.CSSProperties {
+export function getStatusStyles(
+  status: ComponentStatusType,
+  isDark = false
+): React.CSSProperties {
   const config = getStatusConfig(status);
   return {
     color: isDark ? config.colorDark : config.color,

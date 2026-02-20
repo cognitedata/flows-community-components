@@ -135,7 +135,8 @@ export const colorPalettes: ColorPalette[] = [
     name: 'Dusk',
     description: 'Magenta decorative ramp',
     category: 'decorative',
-    usage: 'Magenta/purple tones for decorative purposes, gradients, and accent elements.',
+    usage:
+      'Magenta/purple tones for decorative purposes, gradients, and accent elements.',
     colors: generateColorStops('dusk', standardStops),
   },
 
@@ -178,14 +179,16 @@ export const colorPalettes: ColorPalette[] = [
     name: 'Sky',
     description: 'Sky blue extended',
     category: 'extended',
-    usage: 'Extended blue palette for data visualisation, charts, and decorative purposes.',
+    usage:
+      'Extended blue palette for data visualisation, charts, and decorative purposes.',
     colors: generateColorStops('sky', standardStops),
   },
   {
     name: 'Orange',
     description: 'Orange extended',
     category: 'extended',
-    usage: 'Extended orange palette for data visualisation, charts, and warm accent elements.',
+    usage:
+      'Extended orange palette for data visualisation, charts, and warm accent elements.',
     colors: generateColorStops('orange', standardStops),
   },
   {
@@ -200,7 +203,8 @@ export const colorPalettes: ColorPalette[] = [
     name: 'Gray',
     description: 'Gray extended',
     category: 'extended',
-    usage: 'Extended gray palette for subtle UI elements when Mountain is too warm.',
+    usage:
+      'Extended gray palette for subtle UI elements when Mountain is too warm.',
     colors: generateColorStops('gray', standardStops),
   },
   {
@@ -478,12 +482,24 @@ export const colorPatterns = {
       },
       {
         name: 'sequential',
-        colors: ['bg-fjord-100', 'bg-fjord-300', 'bg-fjord-500', 'bg-fjord-700', 'bg-fjord-900'],
+        colors: [
+          'bg-fjord-100',
+          'bg-fjord-300',
+          'bg-fjord-500',
+          'bg-fjord-700',
+          'bg-fjord-900',
+        ],
         usage: 'Sequential data, heatmaps, gradients',
       },
       {
         name: 'diverging',
-        colors: ['bg-red-500', 'bg-red-300', 'bg-mountain-100', 'bg-green-300', 'bg-green-500'],
+        colors: [
+          'bg-red-500',
+          'bg-red-300',
+          'bg-mountain-100',
+          'bg-green-300',
+          'bg-green-500',
+        ],
         usage: 'Diverging data, positive/negative values',
       },
     ],
@@ -510,7 +526,10 @@ export function findPalette(name: string): ColorPalette | undefined {
 /**
  * Get a specific color stop from a palette
  */
-export function getColorStop(paletteName: string, stop: string): ColorStop | undefined {
+export function getColorStop(
+  paletteName: string,
+  stop: string
+): ColorStop | undefined {
   const palette = findPalette(paletteName);
   return palette?.colors.find((c) => c.name === stop);
 }

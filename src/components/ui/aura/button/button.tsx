@@ -1,4 +1,3 @@
-
 import { Button as ButtonPrimitive } from '@base-ui/react/button';
 import { type VariantProps, cva } from 'class-variance-authority';
 import { type ComponentRef, forwardRef } from 'react';
@@ -17,7 +16,8 @@ const buttonVariants = cva(
           'bg-secondary text-secondary-foreground hover:bg-secondary-hover dark:hover:bg-secondary-hover',
         outline:
           'border border-border bg-background hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:hover:bg-input/50 dark:border-border',
-        ghost: 'hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50',
+        ghost:
+          'hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50',
         link: 'text-foreground-link underline-offset-4 hover:underline',
       },
       size: {
@@ -39,7 +39,10 @@ const buttonVariants = cva(
 type ButtonProps = ButtonPrimitive.Props & VariantProps<typeof buttonVariants>;
 
 const Button = forwardRef<ComponentRef<typeof ButtonPrimitive>, ButtonProps>(
-  ({ className, variant, size, children, render, nativeButton, ...props }, ref) => (
+  (
+    { className, variant, size, children, render, nativeButton, ...props },
+    ref
+  ) => (
     <ButtonPrimitive
       ref={ref}
       data-slot="button"

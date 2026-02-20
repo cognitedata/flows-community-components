@@ -193,7 +193,8 @@ const hexToRgb01 = (hex: string): [number, number, number] => {
     h = r + r + g + g + b + b;
   }
   const intVal = Number.parseInt(h, 16);
-  if (Number.isNaN(intVal) || (h.length !== 6 && h.length !== 8)) return [1, 1, 1];
+  if (Number.isNaN(intVal) || (h.length !== 6 && h.length !== 8))
+    return [1, 1, 1];
   const r = ((intVal >> 16) & 255) / 255;
   const g = ((intVal >> 8) & 255) / 255;
   const b = (intVal & 255) / 255;
@@ -317,7 +318,10 @@ const PrismaticBurst = ({
       const w = container.clientWidth || 1;
       const h = container.clientHeight || 1;
       renderer.setSize(w, h);
-      program.uniforms.uResolution.value = [gl.drawingBufferWidth, gl.drawingBufferHeight];
+      program.uniforms.uResolution.value = [
+        gl.drawingBufferWidth,
+        gl.drawingBufferHeight,
+      ];
     };
 
     let ro: ResizeObserver | null = null;
@@ -333,7 +337,10 @@ const PrismaticBurst = ({
       const rect = container.getBoundingClientRect();
       const x = (e.clientX - rect.left) / Math.max(rect.width, 1);
       const y = (e.clientY - rect.top) / Math.max(rect.height, 1);
-      mouseTargetRef.current = [Math.min(Math.max(x, 0), 1), Math.min(Math.max(y, 0), 1)];
+      mouseTargetRef.current = [
+        Math.min(Math.max(x, 0), 1),
+        Math.min(Math.max(y, 0), 1),
+      ];
     };
     container.addEventListener('pointermove', onPointer, { passive: true });
 
@@ -387,7 +394,8 @@ const PrismaticBurst = ({
       cancelAnimationFrame(raf);
       container.removeEventListener('pointermove', onPointer);
       ro?.disconnect();
-      if (!ro && typeof window !== 'undefined') window.removeEventListener('resize', resize);
+      if (!ro && typeof window !== 'undefined')
+        window.removeEventListener('resize', resize);
       io?.disconnect();
       document.removeEventListener('visibilitychange', onVis);
       try {
@@ -411,7 +419,9 @@ const PrismaticBurst = ({
         // Ignore cleanup errors
       }
       try {
-        const glCtx = rendererRef.current?.gl as OGLRenderingContext | undefined;
+        const glCtx = rendererRef.current?.gl as
+          | OGLRenderingContext
+          | undefined;
         if (glCtx && gradTexRef.current?.texture) {
           glCtx.deleteTexture(gradTexRef.current.texture);
         }
@@ -424,14 +434,14 @@ const PrismaticBurst = ({
       meshRef.current = null;
       triRef.current = null;
     };
-     
   }, []);
 
   useEffect(() => {
     const canvas = rendererRef.current?.gl?.canvas as HTMLCanvasElement;
 
     if (canvas) {
-      canvas.style.mixBlendMode = mixBlendMode && mixBlendMode !== 'none' ? mixBlendMode : '';
+      canvas.style.mixBlendMode =
+        mixBlendMode && mixBlendMode !== 'none' ? mixBlendMode : '';
     }
   }, [mixBlendMode]);
 

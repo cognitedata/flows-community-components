@@ -25,7 +25,10 @@ import {
  * For functions with block bodies, extracts all statements including hooks and state.
  * Preserves blank lines by extracting directly from the original source when possible.
  */
-function extractJSXFromRenderNode(renderNode: any, sourceCode: string): string | null {
+function extractJSXFromRenderNode(
+  renderNode: any,
+  sourceCode: string
+): string | null {
   if (!renderNode) return null;
 
   let codeToExtract: any = null;
@@ -38,7 +41,10 @@ function extractJSXFromRenderNode(renderNode: any, sourceCode: string): string |
       codeToExtract = body;
     } else if (body.type === 'ParenthesizedExpression') {
       // Wrapped in parens: () => (<JSX />)
-      if (body.expression.type === 'JSXElement' || body.expression.type === 'JSXFragment') {
+      if (
+        body.expression.type === 'JSXElement' ||
+        body.expression.type === 'JSXFragment'
+      ) {
         codeToExtract = body.expression;
       }
     } else if (body.type === 'BlockStatement') {
@@ -48,7 +54,10 @@ function extractJSXFromRenderNode(renderNode: any, sourceCode: string): string |
     }
   }
   // Handle function expressions and declarations: function Name() { return JSX }
-  else if (renderNode.type === 'FunctionExpression' || renderNode.type === 'FunctionDeclaration') {
+  else if (
+    renderNode.type === 'FunctionExpression' ||
+    renderNode.type === 'FunctionDeclaration'
+  ) {
     const body = renderNode.body;
     if (body.type === 'BlockStatement') {
       // Extract the entire block body to include hooks and state
@@ -71,15 +80,25 @@ function extractJSXFromRenderNode(renderNode: any, sourceCode: string): string |
         ) {
           // Extract the block body content directly from source
           // BlockStatement's start/end should point to the opening '{' and closing '}'
-          const blockContent = sourceCode.slice(codeToExtract.start, codeToExtract.end);
+          const blockContent = sourceCode.slice(
+            codeToExtract.start,
+            codeToExtract.end
+          );
 
           // Find the braces and extract content between them
           const firstBraceIndex = blockContent.indexOf('{');
           const lastBraceIndex = blockContent.lastIndexOf('}');
 
-          if (firstBraceIndex !== -1 && lastBraceIndex !== -1 && lastBraceIndex > firstBraceIndex) {
+          if (
+            firstBraceIndex !== -1 &&
+            lastBraceIndex !== -1 &&
+            lastBraceIndex > firstBraceIndex
+          ) {
             // Extract content between braces, preserving all whitespace including blank lines
-            const statementsCode = blockContent.slice(firstBraceIndex + 1, lastBraceIndex);
+            const statementsCode = blockContent.slice(
+              firstBraceIndex + 1,
+              lastBraceIndex
+            );
 
             // Normalize indentation to start at column 0
             // This preserves blank lines (empty lines are kept as empty strings)
@@ -101,7 +120,11 @@ function extractJSXFromRenderNode(renderNode: any, sourceCode: string): string |
             const arg = stmt.argument;
             // Handle wrapped JSX: return (<JSX />)
             if (arg.type === 'ParenthesizedExpression') {
-              const generated = generate(arg.expression, GENERATOR_OPTIONS, sourceCode);
+              const generated = generate(
+                arg.expression,
+                GENERATOR_OPTIONS,
+                sourceCode
+              );
               return generated.code;
             }
             // Handle direct JSX: return <JSX />
@@ -192,13 +215,19 @@ function injectSourceCode(code: string, id: string): string | null {
               prop.type === 'ObjectProperty'
           );
           renderNode = renderProperty?.value || null;
-        } else if (init.type === 'ArrowFunctionExpression' || init.type === 'FunctionExpression') {
+        } else if (
+          init.type === 'ArrowFunctionExpression' ||
+          init.type === 'FunctionExpression'
+        ) {
           renderNode = init;
         }
 
         if (renderNode) {
           // Use originalSource instead of code to preserve blank lines
-          const sourceCode = extractJSXFromRenderNode(renderNode, originalSource);
+          const sourceCode = extractJSXFromRenderNode(
+            renderNode,
+            originalSource
+          );
           if (sourceCode) {
             sources[storyKey] = sourceCode;
           }
@@ -225,13 +254,17 @@ function injectSourceCode(code: string, id: string): string | null {
           // Find or create parameters.docs.source.code
           let parametersProp = init.properties.find(
             (prop: any) =>
-              (prop.key?.name === 'parameters' || prop.key?.value === 'parameters') &&
+              (prop.key?.name === 'parameters' ||
+                prop.key?.value === 'parameters') &&
               prop.type === 'ObjectProperty'
           ) as any;
 
           if (!parametersProp) {
             // Create parameters property
-            parametersProp = t.objectProperty(t.identifier('parameters'), t.objectExpression([]));
+            parametersProp = t.objectProperty(
+              t.identifier('parameters'),
+              t.objectExpression([])
+            );
             init.properties.push(parametersProp);
           }
 
@@ -248,7 +281,8 @@ function injectSourceCode(code: string, id: string): string | null {
           ) as any;
 
           const docsProp =
-            existingDocsProp || t.objectProperty(t.identifier('docs'), t.objectExpression([]));
+            existingDocsProp ||
+            t.objectProperty(t.identifier('docs'), t.objectExpression([]));
           if (!existingDocsProp) {
             parametersObj.properties.push(docsProp);
           }
@@ -266,7 +300,8 @@ function injectSourceCode(code: string, id: string): string | null {
           ) as any;
 
           const sourceProp =
-            existingSourceProp || t.objectProperty(t.identifier('source'), t.objectExpression([]));
+            existingSourceProp ||
+            t.objectProperty(t.identifier('source'), t.objectExpression([]));
           if (!existingSourceProp) {
             docsObj.properties.push(sourceProp);
           }
@@ -285,9 +320,14 @@ function injectSourceCode(code: string, id: string): string | null {
 
           const codeValue = t.stringLiteral(sources[storyKey]);
           if (codePropIndex >= 0) {
-            sourceObj.properties[codePropIndex] = t.objectProperty(t.identifier('code'), codeValue);
+            sourceObj.properties[codePropIndex] = t.objectProperty(
+              t.identifier('code'),
+              codeValue
+            );
           } else {
-            sourceObj.properties.push(t.objectProperty(t.identifier('code'), codeValue));
+            sourceObj.properties.push(
+              t.objectProperty(t.identifier('code'), codeValue)
+            );
           }
         },
       });

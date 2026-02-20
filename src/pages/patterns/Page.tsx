@@ -6,7 +6,11 @@ const patterns = [
     url: '/patterns/agent-chat',
     description: 'Conversational AI interface pattern',
   },
-  { name: 'Dashboards', url: '/patterns/dashboards', description: 'Data visualization layouts' },
+  {
+    name: 'Dashboards',
+    url: '/patterns/dashboards',
+    description: 'Data visualization layouts',
+  },
 ];
 
 export default function PatternsPage() {

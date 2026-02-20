@@ -163,7 +163,9 @@ export const WithStatus: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText('Workflow has been published')).toBeInTheDocument();
+    await expect(
+      canvas.getByText('Workflow has been published')
+    ).toBeInTheDocument();
     await expect(canvas.getByText('Published')).toBeInTheDocument();
     const actionButton = canvas.getByRole('button', {
       name: /request review/i,
@@ -253,7 +255,9 @@ export const ControlledVisibility: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText('Controlled visibility banner')).toBeInTheDocument();
+    await expect(
+      canvas.getByText('Controlled visibility banner')
+    ).toBeInTheDocument();
     const toggleButton = canvas.getByRole('button', {
       name: /toggle banner/i,
     });
@@ -261,7 +265,9 @@ export const ControlledVisibility: Story = {
     await userEvent.click(toggleButton);
     await waitFor(
       () => {
-        expect(canvas.queryByText('Controlled visibility banner')).not.toBeInTheDocument();
+        expect(
+          canvas.queryByText('Controlled visibility banner')
+        ).not.toBeInTheDocument();
       },
       {
         timeout: 300,
@@ -270,7 +276,9 @@ export const ControlledVisibility: Story = {
     await userEvent.click(toggleButton);
     await waitFor(
       () => {
-        expect(canvas.getByText('Controlled visibility banner')).toBeInTheDocument();
+        expect(
+          canvas.getByText('Controlled visibility banner')
+        ).toBeInTheDocument();
       },
       {
         timeout: 300,
@@ -327,7 +335,9 @@ export const ReadOnlyWarning: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText('Read only. Duplicate to make changes.')).toBeInTheDocument();
+    await expect(
+      canvas.getByText('Read only. Duplicate to make changes.')
+    ).toBeInTheDocument();
     const duplicateButton = canvas.getByRole('button', {
       name: /duplicate/i,
     });
@@ -355,7 +365,9 @@ export const SuccessNotification: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText('Workflow has been published')).toBeInTheDocument();
+    await expect(
+      canvas.getByText('Workflow has been published')
+    ).toBeInTheDocument();
     await expect(canvas.getByText('Published')).toBeInTheDocument();
     const reviewButton = canvas.getByRole('button', {
       name: /request review/i,
@@ -394,7 +406,9 @@ export const ErrorNotification: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText('Failed to save changes')).toBeInTheDocument();
+    await expect(
+      canvas.getByText('Failed to save changes')
+    ).toBeInTheDocument();
     const retryButton = canvas.getByRole('button', {
       name: /retry/i,
     });
@@ -420,7 +434,9 @@ export const WarningNotification: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText('Your trial expires in 3 days')).toBeInTheDocument();
+    await expect(
+      canvas.getByText('Your trial expires in 3 days')
+    ).toBeInTheDocument();
     const upgradeButton = canvas.getByRole('button', {
       name: /upgrade/i,
     });

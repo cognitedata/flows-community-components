@@ -66,18 +66,19 @@ const ReasoningContent = forwardRef<ComponentRef<'div'>, ReasoningContentProps>(
 );
 ReasoningContent.displayName = 'ReasoningContent';
 
-const ReasoningContentInner = forwardRef<ComponentRef<'div'>, ReasoningContentProps>(
-  ({ className, children, ...props }, ref) => (
-    <div
-      ref={ref}
-      data-slot="reasoning-content-inner"
-      className={cn('relative flex flex-col gap-0 pl-4', className)}
-      {...props}
-    >
-      {children}
-    </div>
-  )
-);
+const ReasoningContentInner = forwardRef<
+  ComponentRef<'div'>,
+  ReasoningContentProps
+>(({ className, children, ...props }, ref) => (
+  <div
+    ref={ref}
+    data-slot="reasoning-content-inner"
+    className={cn('relative flex flex-col gap-0 pl-4', className)}
+    {...props}
+  >
+    {children}
+  </div>
+));
 ReasoningContentInner.displayName = 'ReasoningContentInner';
 
 type ReasoningItemProps = ComponentProps<'div'>;

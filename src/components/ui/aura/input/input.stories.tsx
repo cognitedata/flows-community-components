@@ -3,7 +3,12 @@ import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { IconCheck, IconCopy } from '@tabler/icons-react';
 import { useEffect, useRef, useState } from 'react';
 
-import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from '../input-group';
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+} from '../input-group';
 import { Label } from '../label';
 
 import { Input, PasswordInput } from './input';
@@ -169,10 +174,13 @@ export const ReadOnlyWithCopy: Story = {
   render: function ReadOnlyWithCopyExample() {
     const [copied, setCopied] = useState(false);
     const [isClipboardAvailable, setIsClipboardAvailable] = useState(true);
-    const timeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+    const timeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(
+      undefined
+    );
     useEffect(() => {
       setIsClipboardAvailable(
-        typeof navigator !== 'undefined' && typeof navigator.clipboard !== 'undefined'
+        typeof navigator !== 'undefined' &&
+          typeof navigator.clipboard !== 'undefined'
       );
     }, []);
     useEffect(() => {
@@ -199,7 +207,11 @@ export const ReadOnlyWithCopy: Story = {
       return (
         <div className="grid w-full items-center gap-1">
           <Label htmlFor="readonly-api-key">API Key</Label>
-          <Input id="readonly-api-key" defaultValue="sk-1234567890abcdef" readOnly />
+          <Input
+            id="readonly-api-key"
+            defaultValue="sk-1234567890abcdef"
+            readOnly
+          />
         </div>
       );
     }
@@ -207,14 +219,22 @@ export const ReadOnlyWithCopy: Story = {
       <div className="grid w-full items-center gap-1">
         <Label htmlFor="readonly-api-key">API Key</Label>
         <InputGroup>
-          <InputGroupInput id="readonly-api-key" defaultValue="sk-1234567890abcdef" readOnly />
+          <InputGroupInput
+            id="readonly-api-key"
+            defaultValue="sk-1234567890abcdef"
+            readOnly
+          />
           <InputGroupAddon align="inline-end">
             <InputGroupButton
               onClick={handleCopy}
               aria-label={copied ? 'Copied' : 'Copy to clipboard'}
               size="icon-sm"
             >
-              {copied ? <IconCheck className="size-4" /> : <IconCopy className="size-4" />}
+              {copied ? (
+                <IconCheck className="size-4" />
+              ) : (
+                <IconCopy className="size-4" />
+              )}
             </InputGroupButton>
           </InputGroupAddon>
         </InputGroup>
@@ -238,7 +258,12 @@ export const WithError: Story = {
   render: () => (
     <div className="grid w-full items-center gap-1">
       <Label htmlFor="error">Email address</Label>
-      <Input id="error" type="email" placeholder="Input text" errorMessage="Help text" />
+      <Input
+        id="error"
+        type="email"
+        placeholder="Input text"
+        errorMessage="Help text"
+      />
     </div>
   ),
   parameters: {
@@ -291,7 +316,9 @@ export const Controlled: Story = {
             Set "Hello!"
           </button>
         </div>
-        <p className="text-sm text-muted-foreground">Value: {value || '(empty)'}</p>
+        <p className="text-sm text-muted-foreground">
+          Value: {value || '(empty)'}
+        </p>
       </div>
     );
   },
@@ -348,11 +375,20 @@ export const FormExample: Story = {
     >
       <div className="grid w-full items-center gap-1">
         <Label htmlFor="form-email">Email</Label>
-        <Input id="form-email" type="email" placeholder="Enter your email" required />
+        <Input
+          id="form-email"
+          type="email"
+          placeholder="Enter your email"
+          required
+        />
       </div>
       <div className="grid w-full items-center gap-1">
         <Label htmlFor="form-password">Password</Label>
-        <PasswordInput id="form-password" placeholder="Enter your password" required />
+        <PasswordInput
+          id="form-password"
+          placeholder="Enter your password"
+          required
+        />
       </div>
       <button
         type="submit"
@@ -387,7 +423,11 @@ export const AllStates: Story = {
       </div>
       <div className="grid w-full items-center gap-1">
         <Label htmlFor="state-error">Error</Label>
-        <Input id="state-error" placeholder="Input text" errorMessage="Help text" />
+        <Input
+          id="state-error"
+          placeholder="Input text"
+          errorMessage="Help text"
+        />
       </div>
     </div>
   ),
@@ -407,7 +447,10 @@ export const EdgeCases: Story = {
       </div>
       <div className="grid w-full items-center gap-1">
         <Label htmlFor="edge-special-chars">Special characters</Label>
-        <Input id="edge-special-chars" defaultValue="Price: $99.99 €85 ¥1000 & <special>" />
+        <Input
+          id="edge-special-chars"
+          defaultValue="Price: $99.99 €85 ¥1000 & <special>"
+        />
       </div>
       <div className="grid w-full items-center gap-1">
         <Label htmlFor="edge-emoji">Emoji</Label>
@@ -419,7 +462,10 @@ export const EdgeCases: Story = {
       </div>
       <div className="grid w-full items-center gap-1">
         <Label htmlFor="edge-whitespace">Whitespace handling</Label>
-        <Input id="edge-whitespace" defaultValue="   Spaces before and after   " />
+        <Input
+          id="edge-whitespace"
+          defaultValue="   Spaces before and after   "
+        />
       </div>
       <div className="grid w-full items-center gap-1">
         <Label htmlFor="edge-placeholder">Very long placeholder</Label>
@@ -449,7 +495,9 @@ export const VisualRegression: Story = {
   render: () => (
     <div className="space-y-6 p-4 w-88">
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">Input States</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          Input States
+        </h3>
         <div className="space-y-3">
           <Input placeholder="Input text" />
           <Input defaultValue="Input text" />
@@ -460,7 +508,9 @@ export const VisualRegression: Story = {
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">Password Input</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          Password Input
+        </h3>
         <div className="space-y-3">
           <PasswordInput placeholder="Enter password" />
           <PasswordInput defaultValue="password123" />
@@ -469,7 +519,9 @@ export const VisualRegression: Story = {
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">Input Types</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          Input Types
+        </h3>
         <div className="space-y-3">
           <Input type="text" placeholder="Text input" />
           <Input type="email" placeholder="Email input" />
@@ -545,7 +597,9 @@ export const PasswordWithError: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const errorText = canvas.getByText('Password must be at least 8 characters');
+    const errorText = canvas.getByText(
+      'Password must be at least 8 characters'
+    );
     await expect(errorText).toBeInTheDocument();
   },
 };
@@ -562,11 +616,19 @@ export const PasswordStates: Story = {
       </div>
       <div className="grid w-full items-center gap-1">
         <Label htmlFor="password-disabled">Disabled</Label>
-        <PasswordInput id="password-disabled" defaultValue="password123" disabled />
+        <PasswordInput
+          id="password-disabled"
+          defaultValue="password123"
+          disabled
+        />
       </div>
       <div className="grid w-full items-center gap-1">
         <Label htmlFor="password-error-state">Error</Label>
-        <PasswordInput id="password-error-state" defaultValue="weak" errorMessage="Too weak" />
+        <PasswordInput
+          id="password-error-state"
+          defaultValue="weak"
+          errorMessage="Too weak"
+        />
       </div>
     </div>
   ),

@@ -2,13 +2,20 @@ import { IconSelector as ChevronsUpDown } from '@tabler/icons-react';
 import type { ComponentProps, ComponentRef, ReactNode } from 'react';
 import { forwardRef } from 'react';
 
-
 import type { ToolUIPart } from '../../../../lib/ai/types';
 import { cn } from '../../../../lib/utils';
 import { Badge } from '../badge';
 import { Button } from '../button';
-import { CodeBlock, CodeBlockCollapseButton, CodeBlockCopyButton } from '../code-block';
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '../collapsible';
+import {
+  CodeBlock,
+  CodeBlockCollapseButton,
+  CodeBlockCopyButton,
+} from '../code-block';
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from '../collapsible';
 
 type ToolProps = ComponentProps<typeof Collapsible>;
 
@@ -27,52 +34,63 @@ const Tool = forwardRef<ComponentRef<typeof Collapsible>, ToolProps>(
 );
 Tool.displayName = 'Tool';
 
-type ToolHeaderProps = Omit<ComponentProps<typeof CollapsibleTrigger>, 'type'> & {
+type ToolHeaderProps = Omit<
+  ComponentProps<typeof CollapsibleTrigger>,
+  'type'
+> & {
   title?: string;
   type: ToolUIPart['type'];
   hasError?: boolean;
 };
 
-const ToolHeader = forwardRef<ComponentRef<typeof CollapsibleTrigger>, ToolHeaderProps>(
-  ({ className, title, type, hasError = false, ...props }, ref) => (
-    <CollapsibleTrigger
-      ref={ref}
-      data-slot="tool-header"
-      className={className}
-      render={
-        <Button
-          variant="ghost"
-          className="w-full justify-between text-base leading-5 tracking-tighter"
-        >
-          <span>{title ?? type.split('-').slice(1).join('-')}</span>
-          <div className="flex items-center gap-2">
-            {hasError ? (
-              <Badge outline className="bg-background text-destructive-foreground border-border">
-                Error
-              </Badge>
-            ) : null}
-            <ChevronsUpDown className="h-4 w-4" />
-          </div>
-        </Button>
-      }
-      {...props}
-    />
-  )
-);
+const ToolHeader = forwardRef<
+  ComponentRef<typeof CollapsibleTrigger>,
+  ToolHeaderProps
+>(({ className, title, type, hasError = false, ...props }, ref) => (
+  <CollapsibleTrigger
+    ref={ref}
+    data-slot="tool-header"
+    className={className}
+    render={
+      <Button
+        variant="ghost"
+        className="w-full justify-between text-base leading-5 tracking-tighter"
+      >
+        <span>{title ?? type.split('-').slice(1).join('-')}</span>
+        <div className="flex items-center gap-2">
+          {hasError ? (
+            <Badge
+              outline
+              className="bg-background text-destructive-foreground border-border"
+            >
+              Error
+            </Badge>
+          ) : null}
+          <ChevronsUpDown className="h-4 w-4" />
+        </div>
+      </Button>
+    }
+    {...props}
+  />
+));
 ToolHeader.displayName = 'ToolHeader';
 
 type ToolContentProps = ComponentProps<typeof CollapsibleContent>;
 
-const ToolContent = forwardRef<ComponentRef<typeof CollapsibleContent>, ToolContentProps>(
-  ({ className, ...props }, ref) => (
-    <CollapsibleContent
-      ref={ref}
-      data-slot="tool-content"
-      className={cn('flex flex-col gap-4 py-3 text-popover-foreground outline-none', className)}
-      {...props}
-    />
-  )
-);
+const ToolContent = forwardRef<
+  ComponentRef<typeof CollapsibleContent>,
+  ToolContentProps
+>(({ className, ...props }, ref) => (
+  <CollapsibleContent
+    ref={ref}
+    data-slot="tool-content"
+    className={cn(
+      'flex flex-col gap-4 py-3 text-popover-foreground outline-none',
+      className
+    )}
+    {...props}
+  />
+));
 ToolContent.displayName = 'ToolContent';
 
 type ToolInputProps = ComponentProps<'div'> & {
@@ -91,7 +109,11 @@ const ToolInput = forwardRef<HTMLDivElement, ToolInputProps>(
         Parameters
       </h4>
       <div className="rounded-md bg-muted/50">
-        <CodeBlock code={JSON.stringify(input, null, 2)} language="json" collapsed>
+        <CodeBlock
+          code={JSON.stringify(input, null, 2)}
+          language="json"
+          collapsed
+        >
           <CodeBlockCopyButton />
           <CodeBlockCollapseButton />
         </CodeBlock>
@@ -124,7 +146,11 @@ const ToolOutput = forwardRef<HTMLDivElement, ToolOutputProps>(
       outputElement = null;
     } else if (typeof output === 'object') {
       outputElement = (
-        <CodeBlock code={JSON.stringify(output, null, 2)} language="json" collapsed>
+        <CodeBlock
+          code={JSON.stringify(output, null, 2)}
+          language="json"
+          collapsed
+        >
           <CodeBlockCopyButton />
           <CodeBlockCollapseButton />
         </CodeBlock>
@@ -151,7 +177,9 @@ const ToolOutput = forwardRef<HTMLDivElement, ToolOutputProps>(
           {...props}
         >
           <div className="flex flex-col gap-2 text-sm">
-            <span className="font-medium text-destructive-foreground">ERROR</span>
+            <span className="font-medium text-destructive-foreground">
+              ERROR
+            </span>
             <span className="text-foreground">{errorText}</span>
           </div>
         </div>

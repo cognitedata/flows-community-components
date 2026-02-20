@@ -14,7 +14,13 @@ import {
 } from '@tabler/icons-react';
 import { useState } from 'react';
 
-import { Topbar, TopbarBreadcrumbs, TopbarCenter, TopbarLeft, TopbarRight } from './topbar';
+import {
+  Topbar,
+  TopbarBreadcrumbs,
+  TopbarCenter,
+  TopbarLeft,
+  TopbarRight,
+} from './topbar';
 
 import {
   AlertDialog,
@@ -27,7 +33,11 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/aura/alert-dialog';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/aura/avatar';
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from '@/components/ui/aura/avatar';
 import {
   BreadcrumbItem,
   BreadcrumbLink,
@@ -232,7 +242,8 @@ export const EosStyle: Story = {
                 <AlertDialogHeader>
                   <AlertDialogTitle>Start a new chat?</AlertDialogTitle>
                   <AlertDialogDescription>
-                    This will create a new chat session. Your current chat will be saved.
+                    This will create a new chat session. Your current chat will
+                    be saved.
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
@@ -440,14 +451,19 @@ export const WithSidebar: Story = {
               <SidebarFooter>
                 <div className="flex items-center gap-2">
                   <Avatar sizes="default">
-                    <AvatarImage src="/user-avatar2.png" alt="Elizabeth Fitzgerald" />
+                    <AvatarImage
+                      src="/user-avatar2.png"
+                      alt="Elizabeth Fitzgerald"
+                    />
                     <AvatarFallback>EF</AvatarFallback>
                   </Avatar>
                   <div className="flex flex-col min-w-0 group-data-[collapsible=icon]:hidden">
                     <div className="text-sm font-medium text-sidebar-foreground truncate">
                       Elizabeth Fitzgerald
                     </div>
-                    <div className="text-xs text-sidebar-foreground/70 truncate">AkerBP</div>
+                    <div className="text-xs text-sidebar-foreground/70 truncate">
+                      AkerBP
+                    </div>
                   </div>
                 </div>
               </SidebarFooter>
@@ -486,10 +502,13 @@ export const WithSidebar: Story = {
                 </TopbarRight>
               </Topbar>
               <div className="flex-1 p-6 overflow-auto">
-                <h1 className="text-2xl font-bold mb-4">Topbar with Sidebar Layout</h1>
+                <h1 className="text-2xl font-bold mb-4">
+                  Topbar with Sidebar Layout
+                </h1>
                 <p className="text-muted-foreground mb-4">
-                  Click the sidebar toggle button in the topbar to collapse/expand the sidebar. When
-                  collapsed, the sidebar shows in icon mode with tooltips.
+                  Click the sidebar toggle button in the topbar to
+                  collapse/expand the sidebar. When collapsed, the sidebar shows
+                  in icon mode with tooltips.
                 </p>
                 <div className="space-y-4">
                   <div className="p-4 border rounded-lg">
@@ -595,7 +614,9 @@ export const Interactive: Story = {
           </TopbarLeft>
           <TopbarCenter>
             {clicked && (
-              <div className="text-xs text-muted-foreground">Last clicked: {clicked}</div>
+              <div className="text-xs text-muted-foreground">
+                Last clicked: {clicked}
+              </div>
             )}
           </TopbarCenter>
           <TopbarRight>
@@ -694,7 +715,11 @@ export const Playground: Story = {
         <div className="w-full overflow-hidden border rounded-lg">
           <Topbar {...args}>
             <TopbarLeft>
-              <Button variant="ghost" size="icon-sm" aria-label="Toggle sidebar">
+              <Button
+                variant="ghost"
+                size="icon-sm"
+                aria-label="Toggle sidebar"
+              >
                 <IconLayoutSidebar className="h-4.5 w-4.5" />
               </Button>
               <TopbarBreadcrumbs>
@@ -712,7 +737,9 @@ export const Playground: Story = {
               </TopbarBreadcrumbs>
             </TopbarLeft>
             <TopbarCenter>
-              <div className="text-xs text-muted-foreground">Center content</div>
+              <div className="text-xs text-muted-foreground">
+                Center content
+              </div>
             </TopbarCenter>
             <TopbarRight>
               <Button size="sm">

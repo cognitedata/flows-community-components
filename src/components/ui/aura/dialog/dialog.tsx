@@ -18,7 +18,11 @@ function DialogTrigger({ children, ...props }: DialogPrimitive.Trigger.Props) {
 
 function DialogPortal({ ...props }: DialogPrimitive.Portal.Props) {
   return (
-    <DialogPrimitive.Portal data-slot="dialog-portal" {...props} container={getPortalContainer()} />
+    <DialogPrimitive.Portal
+      data-slot="dialog-portal"
+      {...props}
+      container={getPortalContainer()}
+    />
   );
 }
 
@@ -33,7 +37,10 @@ function DialogClose({
   );
 }
 
-function DialogOverlay({ className, ...props }: DialogPrimitive.Backdrop.Props) {
+function DialogOverlay({
+  className,
+  ...props
+}: DialogPrimitive.Backdrop.Props) {
   return (
     <DialogPrimitive.Backdrop
       data-slot="dialog-overlay"
@@ -89,7 +96,10 @@ function DialogHeader({ className, ...props }: ComponentProps<'div'>) {
   return (
     <div
       data-slot="dialog-header"
-      className={cn('flex flex-col gap-2 text-center sm:text-left pb-2', className)}
+      className={cn(
+        'flex flex-col gap-2 text-center sm:text-left pb-2',
+        className
+      )}
       {...props}
     />
   );
@@ -99,23 +109,35 @@ function DialogFooter({ className, ...props }: ComponentProps<'div'>) {
   return (
     <div
       data-slot="dialog-footer"
-      className={cn('flex flex-col-reverse gap-2 sm:flex-row sm:justify-end pt-3', className)}
+      className={cn(
+        'flex flex-col-reverse gap-2 sm:flex-row sm:justify-end pt-3',
+        className
+      )}
       {...props}
     />
   );
 }
 
-function DialogTitle({ className, ...props }: ComponentProps<typeof DialogPrimitive.Title>) {
+function DialogTitle({
+  className,
+  ...props
+}: ComponentProps<typeof DialogPrimitive.Title>) {
   return (
     <DialogPrimitive.Title
       data-slot="dialog-title"
-      className={cn('text-lg font-medium text-foreground leading-6 tracking-tightest', className)}
+      className={cn(
+        'text-lg font-medium text-foreground leading-6 tracking-tightest',
+        className
+      )}
       {...props}
     />
   );
 }
 
-function DialogDescription({ className, ...props }: DialogPrimitive.Description.Props) {
+function DialogDescription({
+  className,
+  ...props
+}: DialogPrimitive.Description.Props) {
   return (
     <DialogPrimitive.Description
       data-slot="dialog-description"

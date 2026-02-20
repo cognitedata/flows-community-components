@@ -45,9 +45,13 @@ function Checkbox({
         className
       )}
       checked={checked === 'indeterminate' ? false : checked}
-      defaultChecked={defaultChecked === 'indeterminate' ? false : defaultChecked}
+      defaultChecked={
+        defaultChecked === 'indeterminate' ? false : defaultChecked
+      }
       indeterminate={isControlledIndeterminate || uncontrolledIndeterminate}
-      onCheckedChange={(nextChecked, _details) => handleCheckedChange(nextChecked)}
+      onCheckedChange={(nextChecked, _details) =>
+        handleCheckedChange(nextChecked)
+      }
       {...props}
     >
       <CheckboxPrimitive.Indicator

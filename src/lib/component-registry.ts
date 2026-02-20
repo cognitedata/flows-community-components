@@ -16,7 +16,9 @@ const metadataModules = import.meta.glob<{ [key: string]: ComponentMeta }>(
  * Metadata is loaded from the component's folder structure
  * (e.g., button/button.metadata.ts).
  */
-export async function getComponentMeta(slug: string): Promise<ComponentMeta | null> {
+export async function getComponentMeta(
+  slug: string
+): Promise<ComponentMeta | null> {
   const pascalCaseSlug = slugToPascalCase(slug);
 
   try {

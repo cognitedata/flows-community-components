@@ -69,7 +69,8 @@ export const Default: Story = {
         <AlertDialogHeader>
           <AlertDialogTitle>Are you sure?</AlertDialogTitle>
           <AlertDialogDescription>
-            This action cannot be undone. This will permanently affect your data.
+            This action cannot be undone. This will permanently affect your
+            data.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
@@ -115,8 +116,8 @@ export const DestructiveAction: Story = {
         <AlertDialogHeader>
           <AlertDialogTitle>Delete your account?</AlertDialogTitle>
           <AlertDialogDescription>
-            This action cannot be undone. This will permanently delete your account and remove all
-            your data from our servers.
+            This action cannot be undone. This will permanently delete your
+            account and remove all your data from our servers.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
@@ -140,8 +141,8 @@ export const ExportData: Story = {
         <AlertDialogHeader>
           <AlertDialogTitle>Export all data?</AlertDialogTitle>
           <AlertDialogDescription>
-            This will export all your data to a CSV file. The process may take a few moments
-            depending on the amount of data.
+            This will export all your data to a CSV file. The process may take a
+            few moments depending on the amount of data.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
@@ -158,7 +159,9 @@ export const WithIcon: Story = {
   },
   render: () => (
     <AlertDialog>
-      <AlertDialogTrigger render={<Button variant="outline">Confirm Action</Button>} />
+      <AlertDialogTrigger
+        render={<Button variant="outline">Confirm Action</Button>}
+      />
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Confirm your action</AlertDialogTitle>
@@ -198,8 +201,8 @@ export const Warning: Story = {
             Warning
           </AlertDialogTitle>
           <AlertDialogDescription>
-            This action may have unintended consequences. Please review the details before
-            proceeding.
+            This action may have unintended consequences. Please review the
+            details before proceeding.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
@@ -216,13 +219,15 @@ export const InformationalSingleAction: Story = {
   },
   render: () => (
     <AlertDialog>
-      <AlertDialogTrigger render={<Button variant="outline">Show Info</Button>} />
+      <AlertDialogTrigger
+        render={<Button variant="outline">Show Info</Button>}
+      />
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Information</AlertDialogTitle>
           <AlertDialogDescription>
-            This is an informational alert dialog. You can use it to display important information
-            to users that requires acknowledgment.
+            This is an informational alert dialog. You can use it to display
+            important information to users that requires acknowledgment.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
@@ -246,7 +251,9 @@ export const Controlled: Story = {
             Close Dialog
           </Button>
         </div>
-        <p className="text-sm text-muted-foreground">Dialog is {open ? 'open' : 'closed'}</p>
+        <p className="text-sm text-muted-foreground">
+          Dialog is {open ? 'open' : 'closed'}
+        </p>
         <AlertDialog open={open} onOpenChange={setOpen}>
           <AlertDialogContent>
             <AlertDialogHeader>
@@ -361,7 +368,9 @@ export const KeyboardNavigation: Story = {
       name: /cancel/i,
     });
     await waitFor(() => {
-      expect([actionButton, cancelButton]).toContain(dialog.ownerDocument.activeElement);
+      expect([actionButton, cancelButton]).toContain(
+        dialog.ownerDocument.activeElement
+      );
     });
     await userEvent.keyboard('{Tab}');
     await waitFor(() => {
@@ -391,8 +400,8 @@ export const KeyboardNavigation: Story = {
           <AlertDialogHeader>
             <AlertDialogTitle>Keyboard Navigation Test</AlertDialogTitle>
             <AlertDialogDescription>
-              Use Tab to navigate, ESC to close, or Enter to confirm. The dialog traps focus
-              internally.
+              Use Tab to navigate, ESC to close, or Enter to confirm. The dialog
+              traps focus internally.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
@@ -433,16 +442,19 @@ export const LongContent: Story = {
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>
-              This is a very long title that might wrap to multiple lines and test how the dialog
-              handles overflow when the content exceeds the expected width
+              This is a very long title that might wrap to multiple lines and
+              test how the dialog handles overflow when the content exceeds the
+              expected width
             </AlertDialogTitle>
             <AlertDialogDescription>
-              This is an extremely long description that contains a lot of text to test how the
-              alert dialog component handles content that extends beyond the typical length. The
-              description should wrap properly and maintain readability. It should also ensure that
-              the dialog remains accessible and usable even when the content is very lengthy. This
-              tests the component&apos;s ability to handle edge cases where users might provide
-              verbose messages or detailed explanations that require more space than usual.
+              This is an extremely long description that contains a lot of text
+              to test how the alert dialog component handles content that
+              extends beyond the typical length. The description should wrap
+              properly and maintain readability. It should also ensure that the
+              dialog remains accessible and usable even when the content is very
+              lengthy. This tests the component&apos;s ability to handle edge
+              cases where users might provide verbose messages or detailed
+              explanations that require more space than usual.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
@@ -470,7 +482,9 @@ export const NoDescription: Story = {
       name: 'Are you sure?',
     });
     await expect(title).toBeInTheDocument();
-    const description = dialog.querySelector('[data-slot="alert-dialog-description"]');
+    const description = dialog.querySelector(
+      '[data-slot="alert-dialog-description"]'
+    );
     await expect(description).not.toBeInTheDocument();
     const cancelButton = within(dialog).getByRole('button', {
       name: /Cancel/i,
@@ -525,8 +539,8 @@ export const DisabledButtons: Story = {
           <AlertDialogHeader>
             <AlertDialogTitle>Save changes?</AlertDialogTitle>
             <AlertDialogDescription>
-              The buttons are disabled. This might happen during a loading state or when certain
-              conditions aren&apos;t met.
+              The buttons are disabled. This might happen during a loading state
+              or when certain conditions aren&apos;t met.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>

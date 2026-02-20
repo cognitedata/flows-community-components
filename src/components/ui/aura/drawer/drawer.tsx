@@ -7,21 +7,34 @@ function Drawer({ ...props }: ComponentProps<typeof DrawerPrimitive.Root>) {
   return <DrawerPrimitive.Root data-slot="drawer" {...props} />;
 }
 
-function DrawerTrigger({ ...props }: ComponentProps<typeof DrawerPrimitive.Trigger>) {
+function DrawerTrigger({
+  ...props
+}: ComponentProps<typeof DrawerPrimitive.Trigger>) {
   return <DrawerPrimitive.Trigger data-slot="drawer-trigger" {...props} />;
 }
 
-function DrawerPortal({ ...props }: ComponentProps<typeof DrawerPrimitive.Portal>) {
+function DrawerPortal({
+  ...props
+}: ComponentProps<typeof DrawerPrimitive.Portal>) {
   return (
-    <DrawerPrimitive.Portal data-slot="drawer-portal" {...props} container={getPortalContainer()} />
+    <DrawerPrimitive.Portal
+      data-slot="drawer-portal"
+      {...props}
+      container={getPortalContainer()}
+    />
   );
 }
 
-function DrawerClose({ ...props }: ComponentProps<typeof DrawerPrimitive.Close>) {
+function DrawerClose({
+  ...props
+}: ComponentProps<typeof DrawerPrimitive.Close>) {
   return <DrawerPrimitive.Close data-slot="drawer-close" {...props} />;
 }
 
-function DrawerOverlay({ className, ...props }: ComponentProps<typeof DrawerPrimitive.Overlay>) {
+function DrawerOverlay({
+  className,
+  ...props
+}: ComponentProps<typeof DrawerPrimitive.Overlay>) {
   return (
     <DrawerPrimitive.Overlay
       data-slot="drawer-overlay"
@@ -86,11 +99,17 @@ function DrawerFooter({ className, ...props }: ComponentProps<'div'>) {
   );
 }
 
-function DrawerTitle({ className, ...props }: ComponentProps<typeof DrawerPrimitive.Title>) {
+function DrawerTitle({
+  className,
+  ...props
+}: ComponentProps<typeof DrawerPrimitive.Title>) {
   return (
     <DrawerPrimitive.Title
       data-slot="drawer-title"
-      className={cn('text-foreground text-xl font-semibold leading-6 tracking-tightest', className)}
+      className={cn(
+        'text-foreground text-xl font-semibold leading-6 tracking-tightest',
+        className
+      )}
       {...props}
     />
   );

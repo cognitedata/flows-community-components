@@ -1,4 +1,9 @@
-import { IconBrandGithub, IconMenu2, IconMoon, IconSun } from '@tabler/icons-react';
+import {
+  IconBrandGithub,
+  IconMenu2,
+  IconMoon,
+  IconSun,
+} from '@tabler/icons-react';
 import { motion } from 'framer-motion';
 import * as React from 'react';
 import { Link, useLocation } from 'react-router-dom';
@@ -67,7 +72,8 @@ export function Navigation() {
           <nav className="hidden md:flex items-center space-x-6">
             {navItems.map((item) => {
               // Check if current pathname starts with the nav item href (for sub-routes)
-              const isActive = pathname.startsWith(item.href) && pathname !== '/';
+              const isActive =
+                pathname.startsWith(item.href) && pathname !== '/';
 
               return (
                 <Link key={item.href} to={item.href} className="relative">
@@ -130,7 +136,8 @@ export function Navigation() {
             <SheetContent side="right" className="w-80">
               <div className="flex flex-col space-y-4 mt-8">
                 {navItems.map((item) => {
-                  const isActive = pathname.startsWith(item.href) && pathname !== '/';
+                  const isActive =
+                    pathname.startsWith(item.href) && pathname !== '/';
 
                   return (
                     <Link

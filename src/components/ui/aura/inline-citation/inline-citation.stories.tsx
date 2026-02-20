@@ -16,7 +16,11 @@ import {
   IconWheel,
 } from '@tabler/icons-react';
 
-import { InlineCitation, InlineCitationGroup, InlineCitationLink } from './inline-citation';
+import {
+  InlineCitation,
+  InlineCitationGroup,
+  InlineCitationLink,
+} from './inline-citation';
 
 import {
   Message,
@@ -69,7 +73,10 @@ export const Default: Story = {
     const citations = canvas.getAllByRole('link');
     await expect(citations).toHaveLength(7);
     const firstLink = citations[0];
-    await expect(firstLink).toHaveAttribute('href', 'https://example.com/image/pumpB.jpg');
+    await expect(firstLink).toHaveAttribute(
+      'href',
+      'https://example.com/image/pumpB.jpg'
+    );
     await expect(firstLink).toHaveAttribute('target', '_blank');
     await expect(firstLink).toHaveAttribute('rel', 'noopener noreferrer');
   },
@@ -160,7 +167,10 @@ export const LinkCitation: Story = {
       name: /pump 21PT1019/i,
     });
     await expect(link).toBeInTheDocument();
-    await expect(link).toHaveAttribute('href', 'https://cognite.com/assets/pump-21PT1019');
+    await expect(link).toHaveAttribute(
+      'href',
+      'https://cognite.com/assets/pump-21PT1019'
+    );
     await expect(link).toHaveAttribute('target', '_blank');
     await userEvent.hover(link);
     await expect(link).toBeVisible();
@@ -178,12 +188,14 @@ export const LinkCitation: Story = {
             pump 21PT1019
           </InlineCitationLink>
         </InlineCitation>{' '}
-        reveals a concerning trend in vibration patterns over the past 72 hours. The data shows a
-        steady increase in amplitude, particularly during high-load operations, which correlates
-        with elevated bearing temperatures. Historical maintenance records indicate similar patterns
-        preceded bearing failures in comparable equipment. The motor temperature has increased by
-        8°C over the same period, suggesting potential mechanical stress. We recommend immediate
-        inspection and scheduling preventive maintenance to avoid unplanned downtime and potential
+        reveals a concerning trend in vibration patterns over the past 72 hours.
+        The data shows a steady increase in amplitude, particularly during
+        high-load operations, which correlates with elevated bearing
+        temperatures. Historical maintenance records indicate similar patterns
+        preceded bearing failures in comparable equipment. The motor temperature
+        has increased by 8°C over the same period, suggesting potential
+        mechanical stress. We recommend immediate inspection and scheduling
+        preventive maintenance to avoid unplanned downtime and potential
         equipment damage.
       </p>
     </div>
@@ -239,8 +251,8 @@ export const InMessageContext: Story = {
                 21PT1019
               </InlineCitationLink>
             </InlineCitation>{' '}
-            exceeded normal thresholds at 03:15. This correlates with a 12% increase in RPM during
-            that window.
+            exceeded normal thresholds at 03:15. This correlates with a 12%
+            increase in RPM during that window.
           </span>
           <div className="flex flex-row gap-2">
             <InlineCitation>
@@ -388,7 +400,8 @@ export const LongCitationText: Story = {
             variant="mountain"
             icon={IconFile}
           >
-            This is a very long citation text that should not wrap to multiple lines
+            This is a very long citation text that should not wrap to multiple
+            lines
           </InlineCitationLink>
         </InlineCitation>
       </p>
@@ -505,7 +518,11 @@ export const ColorVariants: Story = {
       <p className="text-sm">
         Fjord variant (blue):{' '}
         <InlineCitation>
-          <InlineCitationLink href="https://example.com" variant="fjord" icon={IconFile}>
+          <InlineCitationLink
+            href="https://example.com"
+            variant="fjord"
+            icon={IconFile}
+          >
             Fjord
           </InlineCitationLink>
         </InlineCitation>
@@ -513,7 +530,11 @@ export const ColorVariants: Story = {
       <p className="text-sm">
         Mountain variant (green):{' '}
         <InlineCitation>
-          <InlineCitationLink href="https://example.com" variant="mountain" icon={IconFile}>
+          <InlineCitationLink
+            href="https://example.com"
+            variant="mountain"
+            icon={IconFile}
+          >
             Mountain
           </InlineCitationLink>
         </InlineCitation>
@@ -521,7 +542,11 @@ export const ColorVariants: Story = {
       <p className="text-sm">
         Nordic variant (purple):{' '}
         <InlineCitation>
-          <InlineCitationLink href="https://example.com" variant="nordic" icon={IconFile}>
+          <InlineCitationLink
+            href="https://example.com"
+            variant="nordic"
+            icon={IconFile}
+          >
             Nordic
           </InlineCitationLink>
         </InlineCitation>
@@ -546,7 +571,10 @@ export const LinkTargetAndIconVariants: Story = {
     await expect(selfLink).toHaveAttribute('target', '_self');
     await expect(selfLink).not.toHaveAttribute('rel');
     await expect(blankLink).toBeInTheDocument();
-    await expect(blankLink).toHaveAttribute('href', 'https://example.com/remote/report');
+    await expect(blankLink).toHaveAttribute(
+      'href',
+      'https://example.com/remote/report'
+    );
     await expect(blankLink).toHaveAttribute('target', '_blank');
     await expect(blankLink).toHaveAttribute('rel', 'noopener noreferrer');
   },

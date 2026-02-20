@@ -9,23 +9,20 @@
  *
  * const mdBreakpoint = getBreakpoint('md');
  */
-export type { LayoutBreakpoint, ColumnSpan, GridPattern, LayoutComposition } from './layout';
+export type {
+  LayoutBreakpoint,
+  ColumnSpan,
+  GridPattern,
+  LayoutComposition,
+} from './layout';
 export {
-   
   layoutBreakpoints,
-   
   gridPatterns,
-   
   columnSpans,
-   
   layoutCompositions,
-   
   getBreakpoint,
-   
   getContainerPrefix,
-   
   getResponsiveSpan,
-   
   layoutExamples,
 } from './layout';
 export { LayoutMetadata } from './layout.metadata';

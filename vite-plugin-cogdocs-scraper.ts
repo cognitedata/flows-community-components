@@ -27,7 +27,9 @@ async function fetchContent(url: string): Promise<string> {
   try {
     const response = await fetch(url);
     if (!response.ok) {
-      throw new Error(`Failed to fetch ${url}: ${response.status} ${response.statusText}`);
+      throw new Error(
+        `Failed to fetch ${url}: ${response.status} ${response.statusText}`
+      );
     }
     return await response.text();
   } catch (error) {
@@ -50,7 +52,9 @@ function parseLlmsTxt(content: string): CogDocsEntryBase[] {
       const [, title, url] = match;
       // Extract slug from URL (e.g., /cogdocs/cogdocs-style-guide.md -> cogdocs-style-guide)
       const urlMatch = url.match(/([^/]+)\.md$/);
-      const slug = urlMatch ? urlMatch[1] : title.toLowerCase().replace(/\s+/g, '-');
+      const slug = urlMatch
+        ? urlMatch[1]
+        : title.toLowerCase().replace(/\s+/g, '-');
       entries.push({ title, url, slug });
     }
   }
@@ -84,7 +88,10 @@ async function scrapeCogDocsPages(
 
       console.log(`[cogdocs-scraper] ✓ Fetched: ${entry.title}`);
     } catch (error) {
-      console.error(`[cogdocs-scraper] ✗ Failed to fetch ${entry.title}:`, error);
+      console.error(
+        `[cogdocs-scraper] ✗ Failed to fetch ${entry.title}:`,
+        error
+      );
     }
   }
 
@@ -169,7 +176,9 @@ export interface CogDocsScraperOptions {
   runOnBuild?: boolean;
 }
 
-export function cogDocsScraperPlugin(options: CogDocsScraperOptions = {}): Plugin {
+export function cogDocsScraperPlugin(
+  options: CogDocsScraperOptions = {}
+): Plugin {
   const {
     llmsTxtUrl = 'https://cogdocs.mintlify.app/llms.txt',
     runOnDev = true,
@@ -186,7 +195,9 @@ export function cogDocsScraperPlugin(options: CogDocsScraperOptions = {}): Plugi
 
       if (pages.length > 0) {
         virtualModuleContent = generateVirtualModule(pages);
-        console.log(`[cogdocs-scraper] Generated virtual module with ${pages.length} pages`);
+        console.log(
+          `[cogdocs-scraper] Generated virtual module with ${pages.length} pages`
+        );
       }
     } catch (error) {
       console.error('[cogdocs-scraper] Error during scrape:', error);

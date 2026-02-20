@@ -110,7 +110,9 @@ export const WithText: Story = {
         <Loader size={20} />
         <div>
           <p className="text-sm font-medium">Processing your request</p>
-          <p className="text-xs text-muted-foreground">This may take a moment</p>
+          <p className="text-xs text-muted-foreground">
+            This may take a moment
+          </p>
         </div>
       </div>
     </div>
@@ -124,7 +126,9 @@ export const Centered: Story = {
     <div className="w-80 h-48 border rounded-lg flex items-center justify-center">
       <div className="flex flex-col items-center gap-2">
         <Loader size={32} />
-        <span className="text-sm text-muted-foreground">Loading content...</span>
+        <span className="text-sm text-muted-foreground">
+          Loading content...
+        </span>
       </div>
     </div>
   ),
@@ -155,7 +159,9 @@ export const Overlay: Story = {
     <div className="relative w-80 h-48 border rounded-lg">
       <div className="p-4">
         <h3 className="font-medium mb-2">Content Area</h3>
-        <p className="text-sm text-muted-foreground">This content is being loaded or processed.</p>
+        <p className="text-sm text-muted-foreground">
+          This content is being loaded or processed.
+        </p>
       </div>
       <div className="absolute inset-0 bg-background/80 flex items-center justify-center rounded-lg">
         <div className="flex flex-col items-center gap-2">
@@ -187,7 +193,8 @@ export const Inline: Story = {
   render: () => (
     <div className="space-y-2 text-sm">
       <p>
-        Fetching data <Loader size={14} className="inline-block mx-1" /> please wait.
+        Fetching data <Loader size={14} className="inline-block mx-1" /> please
+        wait.
       </p>
       <p>
         Status: <Loader size={14} className="inline-block mx-1" /> Connecting...
@@ -208,15 +215,25 @@ export const Accessibility: Story = {
 
       <div>
         <h3 className="text-sm font-medium mb-2">With live region</h3>
-        <div role="status" aria-live="polite" className="flex items-center gap-2">
+        <div
+          role="status"
+          aria-live="polite"
+          className="flex items-center gap-2"
+        >
           <Loader size={16} />
           <span>Loading data...</span>
         </div>
       </div>
 
       <div>
-        <h3 className="text-sm font-medium mb-2">With assertive announcement</h3>
-        <div role="alert" aria-live="assertive" className="flex items-center gap-2">
+        <h3 className="text-sm font-medium mb-2">
+          With assertive announcement
+        </h3>
+        <div
+          role="alert"
+          aria-live="assertive"
+          className="flex items-center gap-2"
+        >
           <Loader size={16} />
           <span>Processing urgent request</span>
         </div>
@@ -259,7 +276,9 @@ export const VisualRegression: Story = {
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">In Button</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          In Button
+        </h3>
         <Button disabled>
           <Loader size={16} />
           Loading
@@ -267,7 +286,9 @@ export const VisualRegression: Story = {
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">With Text</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          With Text
+        </h3>
         <div className="flex items-center gap-2">
           <Loader size={16} />
           <span className="text-sm">Loading...</span>

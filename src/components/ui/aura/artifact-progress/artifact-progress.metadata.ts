@@ -18,7 +18,8 @@ export const ArtifactProgressMetadata: ComponentMeta = {
   codeExamples: [
     {
       title: 'Basic Progress Artifact',
-      description: 'A progress widget showing task completion with header and footer.',
+      description:
+        'A progress widget showing task completion with header and footer.',
       code: `import {
   ArtifactProgress,
   ArtifactProgressHeader,

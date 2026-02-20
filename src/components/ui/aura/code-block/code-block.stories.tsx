@@ -1,7 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, within } from '@storybook/test';
 
-import { CodeBlock, CodeBlockCollapseButton, CodeBlockCopyButton } from './code-block';
+import {
+  CodeBlock,
+  CodeBlockCollapseButton,
+  CodeBlockCopyButton,
+} from './code-block';
 const meta: Meta<typeof CodeBlock> = {
   title: 'AI/Code Block',
   component: CodeBlock,
@@ -18,7 +22,16 @@ const meta: Meta<typeof CodeBlock> = {
     },
     language: {
       control: 'select',
-      options: ['typescript', 'javascript', 'python', 'json', 'css', 'html', 'bash', 'markdown'],
+      options: [
+        'typescript',
+        'javascript',
+        'python',
+        'json',
+        'css',
+        'html',
+        'bash',
+        'markdown',
+      ],
       table: {
         category: 'Variants/Styling',
         type: {
@@ -152,7 +165,11 @@ export const Basic: Story = {
 };
 export const WithLineNumbers: Story = {
   render: () => (
-    <CodeBlock code={sampleCode.typescript} language="typescript" showLineNumbers>
+    <CodeBlock
+      code={sampleCode.typescript}
+      language="typescript"
+      showLineNumbers
+    >
       <CodeBlockCopyButton />
     </CodeBlock>
   ),
@@ -279,7 +296,12 @@ export const CustomCopyText: Story = {
 };
 export const CollapsedWithLineNumbers: Story = {
   render: () => (
-    <CodeBlock code={sampleCode.typescript} language="typescript" collapsed showLineNumbers>
+    <CodeBlock
+      code={sampleCode.typescript}
+      language="typescript"
+      collapsed
+      showLineNumbers
+    >
       <CodeBlockCollapseButton />
       <CodeBlockCopyButton />
     </CodeBlock>
@@ -320,7 +342,9 @@ export const VisualRegression: Story = {
   render: () => (
     <div className="space-y-8">
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">TypeScript</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          TypeScript
+        </h3>
         <CodeBlock
           code={`function greet(name: string): string {
   return \`Hello, \${name}!\`;
@@ -332,7 +356,9 @@ export const VisualRegression: Story = {
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">With Line Numbers</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          With Line Numbers
+        </h3>
         <CodeBlock
           code={`const a = 1;
 const b = 2;

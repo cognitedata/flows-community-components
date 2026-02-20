@@ -79,8 +79,9 @@ export const ContainerQueries: Story = {
     <div className="space-y-6" data-testid="container-queries">
       <div className="bg-muted/50 p-4 rounded-lg">
         <p className="text-sm">
-          <strong>Important:</strong> Container queries require a containment context. Add{' '}
-          <code className="bg-muted px-1 rounded">@container</code> to the parent element.
+          <strong>Important:</strong> Container queries require a containment
+          context. Add <code className="bg-muted px-1 rounded">@container</code>{' '}
+          to the parent element.
         </p>
       </div>
       <div className="overflow-x-auto">
@@ -144,9 +145,15 @@ export const InteractiveDemo: Story = {
         <div className="@container p-4" data-testid="grid-demo">
           <div className="mb-4 p-2 bg-muted rounded text-sm font-mono">
             <span className="@sm:hidden">Base (&lt;640px) — 4 columns</span>
-            <span className="hidden @sm:inline @md:hidden">sm (640-767px) — 8 columns</span>
-            <span className="hidden @md:inline @lg:hidden">md (768-1023px) — 12 columns</span>
-            <span className="hidden @lg:inline">lg+ (≥1024px) — 12 columns</span>
+            <span className="hidden @sm:inline @md:hidden">
+              sm (640-767px) — 8 columns
+            </span>
+            <span className="hidden @md:inline @lg:hidden">
+              md (768-1023px) — 12 columns
+            </span>
+            <span className="hidden @lg:inline">
+              lg+ (≥1024px) — 12 columns
+            </span>
           </div>
 
           <div className="grid grid-cols-4 gap-2 @sm:grid-cols-8 @md:grid-cols-12 @md:gap-4">
@@ -183,11 +190,17 @@ export const ColumnSpans: Story = {
         >
           <div className="flex items-baseline justify-between mb-3">
             <h4 className="font-medium">{span.name}</h4>
-            <span className="text-sm text-muted-foreground">{span.fraction}</span>
+            <span className="text-sm text-muted-foreground">
+              {span.fraction}
+            </span>
           </div>
-          <p className="text-sm text-muted-foreground mb-3">{span.description}</p>
+          <p className="text-sm text-muted-foreground mb-3">
+            {span.description}
+          </p>
           <div className="flex flex-wrap gap-2 text-xs font-mono">
-            <code className="bg-muted px-2 py-1 rounded">base: {span.base}</code>
+            <code className="bg-muted px-2 py-1 rounded">
+              base: {span.base}
+            </code>
             <code className="bg-muted px-2 py-1 rounded">@sm: {span.sm}</code>
             <code className="bg-muted px-2 py-1 rounded">@md: {span.md}</code>
           </div>
@@ -269,12 +282,15 @@ export const SidebarLeftLayout: Story = {
           </nav>
         </aside>
 
-        <main data-testid="main-content" className="col-span-4 @sm:col-span-6 @md:col-span-9">
+        <main
+          data-testid="main-content"
+          className="col-span-4 @sm:col-span-6 @md:col-span-9"
+        >
           <div className="border border-border rounded-lg p-6">
             <h1 className="text-2xl font-bold mb-4">Main Content</h1>
             <p className="text-muted-foreground">
-              This area expands to fill the remaining space. On mobile, the sidebar stacks above the
-              main content.
+              This area expands to fill the remaining space. On mobile, the
+              sidebar stacks above the main content.
             </p>
           </div>
         </main>
@@ -308,7 +324,8 @@ export const CardGridLayout: Story = {
             <div className="aspect-video bg-muted rounded-md mb-3" />
             <h3 className="font-medium mb-1">Card {i}</h3>
             <p className="text-sm text-muted-foreground">
-              Cards stack on mobile, show 2 per row on tablet, and 3 per row on desktop.
+              Cards stack on mobile, show 2 per row on tablet, and 3 per row on
+              desktop.
             </p>
           </div>
         ))}
@@ -327,7 +344,10 @@ export const DashboardLayout: Story = {
     await expect(canvas.getByTestId('chart-area')).toBeInTheDocument();
   },
   render: () => (
-    <div className="@container min-h-screen bg-background p-4" data-testid="dashboard">
+    <div
+      className="@container min-h-screen bg-background p-4"
+      data-testid="dashboard"
+    >
       <div className="grid grid-cols-4 gap-4 @sm:grid-cols-8 @md:grid-cols-12">
         {[
           {
@@ -351,7 +371,10 @@ export const DashboardLayout: Story = {
             change: '+5%',
           },
         ].map((metric, i) => (
-          <div key={i} className="col-span-2 @sm:col-span-2 @md:col-span-3 bg-card rounded-lg p-4">
+          <div
+            key={i}
+            className="col-span-2 @sm:col-span-2 @md:col-span-3 bg-card rounded-lg p-4"
+          >
             <p className="text-sm text-muted-foreground">{metric.label}</p>
             <p className="text-2xl font-bold">{metric.value}</p>
             <p className="text-sm text-green-600">{metric.change}</p>
@@ -378,12 +401,17 @@ export const ComprehensiveDashboard: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByTestId('comprehensive-dashboard')).toBeInTheDocument();
+    await expect(
+      canvas.getByTestId('comprehensive-dashboard')
+    ).toBeInTheDocument();
     await expect(canvas.getByTestId('status-cards')).toBeInTheDocument();
     await expect(canvas.getByTestId('main-chart')).toBeInTheDocument();
   },
   render: () => (
-    <div className="@container min-h-screen p-4" data-testid="comprehensive-dashboard">
+    <div
+      className="@container min-h-screen p-4"
+      data-testid="comprehensive-dashboard"
+    >
       <div className="grid grid-cols-4 gap-3 @sm:grid-cols-8 @md:grid-cols-12 @lg:gap-4">
         <div
           data-testid="status-cards"
@@ -492,7 +520,9 @@ export const ComprehensiveDashboard: Story = {
               'Reactor R-501',
             ].map((label) => (
               <div key={label} className="flex items-center gap-2">
-                <span className="text-xs text-muted-foreground w-28 truncate">{label}</span>
+                <span className="text-xs text-muted-foreground w-28 truncate">
+                  {label}
+                </span>
                 <div className="flex gap-1 flex-1">
                   {[1, 2, 3, 4, 5].map((col) => (
                     <div
@@ -508,11 +538,13 @@ export const ComprehensiveDashboard: Story = {
             ))}
           </div>
           <div className="flex gap-4 mt-3 text-xs text-muted-foreground">
-            {['Vibration', 'Temp', 'Pressure', 'Efficiency', 'Flow rate'].map((label) => (
-              <span key={label} className="flex-1 text-center truncate">
-                {label}
-              </span>
-            ))}
+            {['Vibration', 'Temp', 'Pressure', 'Efficiency', 'Flow rate'].map(
+              (label) => (
+                <span key={label} className="flex-1 text-center truncate">
+                  {label}
+                </span>
+              )
+            )}
           </div>
         </div>
 
@@ -523,7 +555,9 @@ export const ComprehensiveDashboard: Story = {
           <div className="flex justify-between items-start mb-2">
             <div>
               <h3 className="font-medium">Chart title</h3>
-              <p className="text-xs text-muted-foreground">January - June 2024</p>
+              <p className="text-xs text-muted-foreground">
+                January - June 2024
+              </p>
             </div>
             <button type="button" className="text-muted-foreground">
               ⋮
@@ -563,16 +597,21 @@ export const ComprehensiveDashboard: Story = {
           </div>
           <div className="mt-3 pt-3 border-t border-border">
             <p className="text-sm">
-              Trending up by 5.2% this month <span className="text-success">↗</span>
+              Trending up by 5.2% this month{' '}
+              <span className="text-success">↗</span>
             </p>
-            <p className="text-xs text-muted-foreground">Total visitors for the last 6 months</p>
+            <p className="text-xs text-muted-foreground">
+              Total visitors for the last 6 months
+            </p>
           </div>
         </div>
 
         <div className="col-span-4 @sm:col-span-8 @md:col-span-3 space-y-3 @lg:space-y-4">
           <div className="bg-card rounded-lg p-4">
             <h3 className="font-medium">Progress title</h3>
-            <p className="text-xs text-muted-foreground mb-3">8 of 12 tasks complete</p>
+            <p className="text-xs text-muted-foreground mb-3">
+              8 of 12 tasks complete
+            </p>
             <div className="h-2 bg-muted rounded-full overflow-hidden mb-2">
               <div className="h-full bg-primary w-2/3 rounded-full" />
             </div>
@@ -586,7 +625,9 @@ export const ComprehensiveDashboard: Story = {
             <div className="flex justify-between items-start mb-2">
               <div>
                 <h3 className="font-medium">Tree title</h3>
-                <p className="text-xs text-muted-foreground">January - June 2024</p>
+                <p className="text-xs text-muted-foreground">
+                  January - June 2024
+                </p>
               </div>
               <button type="button" className="text-muted-foreground">
                 ⋮
@@ -623,7 +664,9 @@ export const ComprehensiveDashboard: Story = {
           <div className="flex justify-between items-start mb-2">
             <div>
               <h3 className="font-medium">Chart title</h3>
-              <p className="text-xs text-muted-foreground">January - June 2024</p>
+              <p className="text-xs text-muted-foreground">
+                January - June 2024
+              </p>
             </div>
             <button type="button" className="text-muted-foreground">
               ⋮
@@ -669,7 +712,9 @@ export const ComprehensiveDashboard: Story = {
           <div className="flex justify-between items-start mb-2">
             <div>
               <h3 className="font-medium">Image widget</h3>
-              <p className="text-xs text-muted-foreground">January - June 2024</p>
+              <p className="text-xs text-muted-foreground">
+                January - June 2024
+              </p>
             </div>
             <button type="button" className="text-muted-foreground">
               ⋮
@@ -705,7 +750,9 @@ export const GridPatternsReference: Story = {
           className="border border-border rounded-lg p-4"
         >
           <h4 className="font-medium">{pattern.name}</h4>
-          <p className="text-sm text-muted-foreground mb-2">{pattern.description}</p>
+          <p className="text-sm text-muted-foreground mb-2">
+            {pattern.description}
+          </p>
           <code className="text-xs font-mono bg-muted px-2 py-1 rounded block overflow-x-auto">
             {pattern.class}
           </code>
@@ -721,14 +768,24 @@ export const CodeExamples: Story = {
   name: 'Reference: Code Examples',
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByTestId('code-example-basicGrid')).toBeInTheDocument();
-    await expect(canvas.getByTestId('code-example-sidebarLayout')).toBeInTheDocument();
-    await expect(canvas.getByTestId('code-example-cardGrid')).toBeInTheDocument();
+    await expect(
+      canvas.getByTestId('code-example-basicGrid')
+    ).toBeInTheDocument();
+    await expect(
+      canvas.getByTestId('code-example-sidebarLayout')
+    ).toBeInTheDocument();
+    await expect(
+      canvas.getByTestId('code-example-cardGrid')
+    ).toBeInTheDocument();
   },
   render: () => (
     <div className="space-y-8" data-testid="code-examples">
       {Object.entries(layoutExamples).map(([name, code]) => (
-        <div key={name} className="space-y-2" data-testid={`code-example-${name}`}>
+        <div
+          key={name}
+          className="space-y-2"
+          data-testid={`code-example-${name}`}
+        >
           <h3 className="text-lg font-medium capitalize">
             {name.replace(/([A-Z])/g, ' $1').trim()}
           </h3>

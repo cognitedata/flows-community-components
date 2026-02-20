@@ -25,7 +25,9 @@ export const Shadows: Story = {
     const canvas = within(canvasElement);
     await expect(shadows.length).toBe(5);
     await expect(canvas.getByTestId('shadow-shadow-sm')).toBeInTheDocument();
-    await expect(canvas.getByTestId('shadow-shadow-default')).toBeInTheDocument();
+    await expect(
+      canvas.getByTestId('shadow-shadow-default')
+    ).toBeInTheDocument();
     await expect(canvas.getByTestId('shadow-shadow-md')).toBeInTheDocument();
     await expect(canvas.getByTestId('shadow-shadow-lg')).toBeInTheDocument();
     await expect(canvas.getByTestId('shadow-shadow-xl')).toBeInTheDocument();
@@ -63,7 +65,9 @@ export const FocusRings: Story = {
     const defaultButton = canvas.getByTestId('focus-ring-focus');
     await userEvent.click(defaultButton);
     await expect(defaultButton).toBeInTheDocument();
-    const destructiveButton = canvas.getByTestId('focus-ring-focus-destructive');
+    const destructiveButton = canvas.getByTestId(
+      'focus-ring-focus-destructive'
+    );
     await expect(destructiveButton).toBeInTheDocument();
   },
   render: () => (
@@ -157,7 +161,9 @@ export const Transitions: Story = {
           >
             <div className="flex items-center justify-between">
               <h3 className="text-base font-medium">{transition.name}</h3>
-              <span className="text-xs text-muted-foreground">{transition.duration}</span>
+              <span className="text-xs text-muted-foreground">
+                {transition.duration}
+              </span>
             </div>
             <button
               type="button"
@@ -198,7 +204,9 @@ export const EffectPatterns: Story = {
         >
           <div>
             <h3 className="text-base font-medium">{pattern.name}</h3>
-            <p className="text-sm text-muted-foreground">{pattern.description}</p>
+            <p className="text-sm text-muted-foreground">
+              {pattern.description}
+            </p>
           </div>
           <div className="flex items-center gap-4">
             <code className="text-xs font-mono text-muted-foreground bg-muted px-2 py-1 rounded flex-1 overflow-x-auto">
@@ -282,15 +290,31 @@ export const InteractiveExamples: Story = {
             )}
           >
             <h4 className="font-medium">Interactive Card</h4>
-            <p className="text-sm text-muted-foreground mt-1">Hover for shadow lift</p>
+            <p className="text-sm text-muted-foreground mt-1">
+              Hover for shadow lift
+            </p>
           </button>
-          <div className={cn('p-4 rounded-lg', 'bg-card border border-border', 'shadow-default')}>
+          <div
+            className={cn(
+              'p-4 rounded-lg',
+              'bg-card border border-border',
+              'shadow-default'
+            )}
+          >
             <h4 className="font-medium">Elevated Card</h4>
             <p className="text-sm text-muted-foreground mt-1">Default shadow</p>
           </div>
-          <div className={cn('p-4 rounded-lg', 'bg-card border border-border', 'shadow-xl')}>
+          <div
+            className={cn(
+              'p-4 rounded-lg',
+              'bg-card border border-border',
+              'shadow-xl'
+            )}
+          >
             <h4 className="font-medium">Modal Card</h4>
-            <p className="text-sm text-muted-foreground mt-1">Maximum elevation</p>
+            <p className="text-sm text-muted-foreground mt-1">
+              Maximum elevation
+            </p>
           </div>
         </div>
       </section>
@@ -328,10 +352,18 @@ export const InteractiveExamples: Story = {
       <section className="space-y-4">
         <h3 className="text-lg font-medium">Border Radius Examples</h3>
         <div className="flex items-center gap-4">
-          <span className="rounded-sm px-2 py-1 bg-muted text-sm">rounded-sm</span>
-          <span className="rounded-md px-2 py-1 bg-muted text-sm">rounded-md</span>
-          <span className="rounded-lg px-2 py-1 bg-muted text-sm">rounded-lg</span>
-          <span className="rounded-full px-3 py-1 bg-muted text-sm">rounded-full</span>
+          <span className="rounded-sm px-2 py-1 bg-muted text-sm">
+            rounded-sm
+          </span>
+          <span className="rounded-md px-2 py-1 bg-muted text-sm">
+            rounded-md
+          </span>
+          <span className="rounded-lg px-2 py-1 bg-muted text-sm">
+            rounded-lg
+          </span>
+          <span className="rounded-full px-3 py-1 bg-muted text-sm">
+            rounded-full
+          </span>
           <div className="rounded-full w-10 h-10 bg-primary flex items-center justify-center text-primary-foreground text-sm font-medium">
             AV
           </div>
@@ -369,7 +401,9 @@ export const ShadowsReference: Story = {
                   {shadow.tailwindClass}
                 </code>
               </td>
-              <td className="py-2 pr-4 text-muted-foreground text-xs font-mono">{shadow.cssVar}</td>
+              <td className="py-2 pr-4 text-muted-foreground text-xs font-mono">
+                {shadow.cssVar}
+              </td>
               <td className="py-2 text-muted-foreground">{shadow.usage}</td>
             </tr>
           ))}
@@ -407,7 +441,9 @@ export const RadiusReference: Story = {
                   {radius.tailwindClass}
                 </code>
               </td>
-              <td className="py-2 pr-4 text-muted-foreground text-xs font-mono">{radius.value}</td>
+              <td className="py-2 pr-4 text-muted-foreground text-xs font-mono">
+                {radius.value}
+              </td>
               <td className="py-2 text-muted-foreground">{radius.usage}</td>
             </tr>
           ))}
@@ -420,15 +456,27 @@ export const CodeExamples: Story = {
   name: 'Reference: Code Examples',
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByTestId('code-example-shadows')).toBeInTheDocument();
-    await expect(canvas.getByTestId('code-example-focusRings')).toBeInTheDocument();
-    await expect(canvas.getByTestId('code-example-borderRadius')).toBeInTheDocument();
-    await expect(canvas.getByTestId('code-example-transitions')).toBeInTheDocument();
+    await expect(
+      canvas.getByTestId('code-example-shadows')
+    ).toBeInTheDocument();
+    await expect(
+      canvas.getByTestId('code-example-focusRings')
+    ).toBeInTheDocument();
+    await expect(
+      canvas.getByTestId('code-example-borderRadius')
+    ).toBeInTheDocument();
+    await expect(
+      canvas.getByTestId('code-example-transitions')
+    ).toBeInTheDocument();
   },
   render: () => (
     <div className="space-y-8" data-testid="code-examples">
       {Object.entries(effectExamples).map(([name, code]) => (
-        <div key={name} className="space-y-2" data-testid={`code-example-${name}`}>
+        <div
+          key={name}
+          className="space-y-2"
+          data-testid={`code-example-${name}`}
+        >
           <h3 className="text-lg font-medium capitalize">
             {name.replace(/([A-Z])/g, ' $1').trim()}
           </h3>

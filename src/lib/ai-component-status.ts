@@ -20,8 +20,10 @@ export type AIComponentStatus = ComponentStatusType;
  * @deprecated Status is now defined in component metadata files.
  * Use the status field from AIComponentMeta instead.
  */
- 
-export function getAIComponentStatus(_componentSlug: string): ComponentStatusType {
+
+export function getAIComponentStatus(
+  _componentSlug: string
+): ComponentStatusType {
   // Status is now in metadata - this is kept for backward compatibility
   return 'draft';
 }
@@ -29,7 +31,7 @@ export function getAIComponentStatus(_componentSlug: string): ComponentStatusTyp
 /**
  * @deprecated Use getStatusMessage from component-status.ts instead.
  */
- 
+
 export function getAIComponentStatusMessage(_componentSlug: string): string {
   return getStatusMessage('draft');
 }

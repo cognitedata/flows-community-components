@@ -1,6 +1,11 @@
 import { Link } from 'react-router-dom';
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/aura/card';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/aura/card';
 
 export default function TemplatesPage() {
   return (
@@ -12,7 +17,9 @@ export default function TemplatesPage() {
               <CardTitle>Shift handover app</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-muted-foreground">Open the shift handover template</p>
+              <p className="text-sm text-muted-foreground">
+                Open the shift handover template
+              </p>
             </CardContent>
           </Card>
         </Link>

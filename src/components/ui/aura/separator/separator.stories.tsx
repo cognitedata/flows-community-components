@@ -38,12 +38,16 @@ export const Default: Story = {
     <div className="w-75">
       <div className="space-y-1">
         <h4 className="text-sm font-medium">Section Title</h4>
-        <p className="text-sm text-muted-foreground">Some content above the separator.</p>
+        <p className="text-sm text-muted-foreground">
+          Some content above the separator.
+        </p>
       </div>
       <Separator className="my-4" />
       <div className="space-y-1">
         <h4 className="text-sm font-medium">Another Section</h4>
-        <p className="text-sm text-muted-foreground">Some content below the separator.</p>
+        <p className="text-sm text-muted-foreground">
+          Some content below the separator.
+        </p>
       </div>
     </div>
   ),
@@ -113,7 +117,10 @@ export const InNavigation: Story = {
         Home
       </a>
       <Separator orientation="vertical" />
-      <a href="/products" className="hover:text-foreground text-muted-foreground">
+      <a
+        href="/products"
+        className="hover:text-foreground text-muted-foreground"
+      >
         Products
       </a>
       <Separator orientation="vertical" />
@@ -121,7 +128,10 @@ export const InNavigation: Story = {
         About
       </a>
       <Separator orientation="vertical" />
-      <a href="/contact" className="hover:text-foreground text-muted-foreground">
+      <a
+        href="/contact"
+        className="hover:text-foreground text-muted-foreground"
+      >
         Contact
       </a>
     </nav>
@@ -179,7 +189,9 @@ export const WithText: Story = {
           <Separator className="w-full" />
         </div>
         <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-background px-2 text-muted-foreground">Or continue with</span>
+          <span className="bg-background px-2 text-muted-foreground">
+            Or continue with
+          </span>
         </div>
       </div>
     </div>
@@ -193,17 +205,23 @@ export const InList: Story = {
     <div className="w-75 rounded-lg border">
       <div className="p-4">
         <h4 className="font-medium">Notifications</h4>
-        <p className="text-sm text-muted-foreground">Manage your notification settings.</p>
+        <p className="text-sm text-muted-foreground">
+          Manage your notification settings.
+        </p>
       </div>
       <Separator />
       <div className="p-4">
         <h4 className="font-medium">Privacy</h4>
-        <p className="text-sm text-muted-foreground">Control your privacy preferences.</p>
+        <p className="text-sm text-muted-foreground">
+          Control your privacy preferences.
+        </p>
       </div>
       <Separator />
       <div className="p-4">
         <h4 className="font-medium">Security</h4>
-        <p className="text-sm text-muted-foreground">Update your security settings.</p>
+        <p className="text-sm text-muted-foreground">
+          Update your security settings.
+        </p>
       </div>
     </div>
   ),
@@ -238,8 +256,8 @@ export const Accessibility: Story = {
       <div>
         <h3 className="text-sm font-medium mb-2">Semantic role</h3>
         <p className="text-sm text-muted-foreground mb-4">
-          Separators use the ARIA separator role, making them recognizable to assistive
-          technologies.
+          Separators use the ARIA separator role, making them recognizable to
+          assistive technologies.
         </p>
         <div className="space-y-2">
           <p className="text-sm">Content Section 1</p>
@@ -253,7 +271,10 @@ export const Accessibility: Story = {
         <p className="text-sm text-muted-foreground mb-4">
           Screen readers announce vertical separators between navigation items.
         </p>
-        <nav className="flex h-5 items-center space-x-4 text-sm" aria-label="Main navigation">
+        <nav
+          className="flex h-5 items-center space-x-4 text-sm"
+          aria-label="Main navigation"
+        >
           <a href="/home">Home</a>
           <Separator orientation="vertical" />
           <a href="/about">About</a>
@@ -271,7 +292,9 @@ export const VisualRegression: Story = {
   render: () => (
     <div className="space-y-8 p-4 w-88">
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">Horizontal</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          Horizontal
+        </h3>
         <div className="space-y-4">
           <p className="text-sm">Content above</p>
           <Separator />
@@ -280,7 +303,9 @@ export const VisualRegression: Story = {
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">Vertical</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          Vertical
+        </h3>
         <div className="flex h-5 items-center space-x-4 text-sm">
           <span>Item 1</span>
           <Separator orientation="vertical" />

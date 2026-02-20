@@ -5,27 +5,46 @@ const imgTypeImageSizeDefault =
   'http://localhost:3845/assets/a07b0b43d6f080949cc7f3e45da3ec90c1c42f92.png';
 // const img =
 //   "http://localhost:3845/assets/a482367d3127ae749627dc4cbb0adaf47834bdd7.svg";
-const imgTopology2 = 'http://localhost:3845/assets/26347d22dcd6781316ce094700faadc58102588a.svg';
-const imgTopology3 = 'http://localhost:3845/assets/f90f0f15273c08a98520b501bb19b7518d2744b0.svg';
-const imgTopology4 = 'http://localhost:3845/assets/199898fcba893ba407aa8cfabb956f68cde006ff.svg';
-const img1 = 'http://localhost:3845/assets/c4bfcc05b2211762ea829ca4a806bcb4a3dfa19e.svg';
-const img2 = 'http://localhost:3845/assets/3fec8c298019092682cedf903bfdb0203f8813b5.svg';
-const img3 = 'http://localhost:3845/assets/f48ce899873eebc39fc0921ca45250dc471e1d01.svg';
-const img4 = 'http://localhost:3845/assets/235bf13cdfca825048356b4cae927cfd183f046b.svg';
-const img5 = 'http://localhost:3845/assets/de7cf65f60aab3ac0b655e708139c0c19046565f.svg';
-const img6 = 'http://localhost:3845/assets/b96cbc2a708534eb48dac13417d5bcc678f3f675.svg';
-const img7 = 'http://localhost:3845/assets/abaa8a46b70b0bdc88f95b355ac5ceb86660a04c.svg';
-const img8 = 'http://localhost:3845/assets/4276c7a6280b37db680ace60276af1b66d26d8d6.svg';
-const img9 = 'http://localhost:3845/assets/58066f2c55b15ca729c58bc0afdf1d6f5c6c5545.svg';
-const img10 = 'http://localhost:3845/assets/b77e301d4b6c5f4efafb40e832a13241149c3fe4.svg';
-const img11 = 'http://localhost:3845/assets/03702018f2ae85551243231639427bb5c0e1a196.svg';
-const img12 = 'http://localhost:3845/assets/d1fac7b12a61fa668df5dd4b9f5fdc6638b3b585.svg';
-const img13 = 'http://localhost:3845/assets/067b42a5ff10e1b090eb685c55f729502d4d54a1.svg';
-const img14 = 'http://localhost:3845/assets/b8bb4e3256225889c3de1ddcafd44dc991c4d5c2.svg';
-const img15 = 'http://localhost:3845/assets/9061c0695495d0b2a2e291b21fae9536790582ad.svg';
+const imgTopology2 =
+  'http://localhost:3845/assets/26347d22dcd6781316ce094700faadc58102588a.svg';
+const imgTopology3 =
+  'http://localhost:3845/assets/f90f0f15273c08a98520b501bb19b7518d2744b0.svg';
+const imgTopology4 =
+  'http://localhost:3845/assets/199898fcba893ba407aa8cfabb956f68cde006ff.svg';
+const img1 =
+  'http://localhost:3845/assets/c4bfcc05b2211762ea829ca4a806bcb4a3dfa19e.svg';
+const img2 =
+  'http://localhost:3845/assets/3fec8c298019092682cedf903bfdb0203f8813b5.svg';
+const img3 =
+  'http://localhost:3845/assets/f48ce899873eebc39fc0921ca45250dc471e1d01.svg';
+const img4 =
+  'http://localhost:3845/assets/235bf13cdfca825048356b4cae927cfd183f046b.svg';
+const img5 =
+  'http://localhost:3845/assets/de7cf65f60aab3ac0b655e708139c0c19046565f.svg';
+const img6 =
+  'http://localhost:3845/assets/b96cbc2a708534eb48dac13417d5bcc678f3f675.svg';
+const img7 =
+  'http://localhost:3845/assets/abaa8a46b70b0bdc88f95b355ac5ceb86660a04c.svg';
+const img8 =
+  'http://localhost:3845/assets/4276c7a6280b37db680ace60276af1b66d26d8d6.svg';
+const img9 =
+  'http://localhost:3845/assets/58066f2c55b15ca729c58bc0afdf1d6f5c6c5545.svg';
+const img10 =
+  'http://localhost:3845/assets/b77e301d4b6c5f4efafb40e832a13241149c3fe4.svg';
+const img11 =
+  'http://localhost:3845/assets/03702018f2ae85551243231639427bb5c0e1a196.svg';
+const img12 =
+  'http://localhost:3845/assets/d1fac7b12a61fa668df5dd4b9f5fdc6638b3b585.svg';
+const img13 =
+  'http://localhost:3845/assets/067b42a5ff10e1b090eb685c55f729502d4d54a1.svg';
+const img14 =
+  'http://localhost:3845/assets/b8bb4e3256225889c3de1ddcafd44dc991c4d5c2.svg';
+const img15 =
+  'http://localhost:3845/assets/9061c0695495d0b2a2e291b21fae9536790582ad.svg';
 // const img16 = "http://localhost:3845/assets/611e78d64d2fff8ccf810c1eddd971ffefca2ce8.svg"
 // const imgGroup = "http://localhost:3845/assets/f9d31d2f53f5d97c70c4b0614d2391b0dc820b61.svg"
-const imgGroup1 = 'http://localhost:3845/assets/f65132dd01c167ee216d358a38bea72b98012743.svg';
+const imgGroup1 =
+  'http://localhost:3845/assets/f65132dd01c167ee216d358a38bea72b98012743.svg';
 // const imgGroup2 = "http://localhost:3845/assets/9678c041f7dc6546a0108b3c115d9fe78e5328f5.svg"
 // const imgGroup3 = "http://localhost:3845/assets/6c967e71715ee3ec52718ed84525e8629c9cfb96.svg"
 // const img17 = "http://localhost:3845/assets/8f3c3bbe8ca1b996d19fbcb23029d1699c045009.svg"
@@ -60,10 +79,17 @@ interface AvatarProps {
   size?: 'Default' | 'Small' | 'Large';
 }
 
-function Avatar({ avatarText = 'PJ', type = 'Indigo', size = 'Small' }: AvatarProps) {
+function Avatar({
+  avatarText = 'PJ',
+  type = 'Indigo',
+  size = 'Small',
+}: AvatarProps) {
   if (type === 'Image' && size === 'Default') {
     return (
-      <div className="relative rounded-[4px] size-full" data-name="Type=Image, Size=Default">
+      <div
+        className="relative rounded-[4px] size-full"
+        data-name="Type=Image, Size=Default"
+      >
         <img
           alt=""
           className="absolute inset-0 max-w-none object-50%-50% object-cover pointer-events-none rounded-[4px] size-full"
@@ -152,21 +178,33 @@ export function EosFigmaFrame() {
         <div className="flex-none rotate-[240deg]">
           <div className="relative h-[959.102px] w-[943.068px]">
             <div className="absolute inset-[-0.16%]">
-              <img alt="" className="block max-w-none size-full" src={imgTopology2} />
+              <img
+                alt=""
+                className="block max-w-none size-full"
+                src={imgTopology2}
+              />
             </div>
           </div>
         </div>
       </div>
       <div className="pointer-events-none absolute left-[648.32px] top-[490.45px] h-[959.102px] w-[943.068px]">
         <div className="absolute inset-[-0.16%]">
-          <img alt="" className="block max-w-none size-full" src={imgTopology3} />
+          <img
+            alt=""
+            className="block max-w-none size-full"
+            src={imgTopology3}
+          />
         </div>
       </div>
       <div className="pointer-events-none absolute left-[176.39px] top-[-553.69px] h-[1302.131px] w-[1296.263px] flex items-center justify-center">
         <div className="flex-none rotate-[330deg]">
           <div className="relative h-[959.102px] w-[943.068px]">
             <div className="absolute inset-[-0.16%]">
-              <img alt="" className="block max-w-none size-full" src={imgTopology4} />
+              <img
+                alt=""
+                className="block max-w-none size-full"
+                src={imgTopology4}
+              />
             </div>
           </div>
         </div>
@@ -186,7 +224,9 @@ export function EosFigmaFrame() {
                 <img alt="" className="block max-w-none size-full" src={img2} />
               </div>
             </div>
-            <div className="text-[14px] font-medium text-[#161a29]">Overview</div>
+            <div className="text-[14px] font-medium text-[#161a29]">
+              Overview
+            </div>
           </div>
           <div className="flex h-[32px] items-center gap-2 rounded-[2px] px-2">
             <div className="relative size-4">
@@ -202,7 +242,9 @@ export function EosFigmaFrame() {
                 <img alt="" className="block max-w-none size-full" src={img4} />
               </div>
             </div>
-            <div className="text-[14px] font-medium text-slate-400">App library</div>
+            <div className="text-[14px] font-medium text-slate-400">
+              App library
+            </div>
           </div>
         </div>
         <div className="flex items-center gap-2">
@@ -259,21 +301,33 @@ export function EosFigmaFrame() {
                   <div className="grid place-items-center rounded-[4px] size-[32px]">
                     <div className="relative size-4">
                       <div className="absolute inset-[9.38%_12.5%]">
-                        <img alt="" className="block max-w-none size-full" src={img8} />
+                        <img
+                          alt=""
+                          className="block max-w-none size-full"
+                          src={img8}
+                        />
                       </div>
                     </div>
                   </div>
                   <div className="grid place-items-center rounded-[4px] size-[32px]">
                     <div className="relative size-4">
                       <div className="absolute inset-[6.25%]">
-                        <img alt="" className="block max-w-none size-full" src={img9} />
+                        <img
+                          alt=""
+                          className="block max-w-none size-full"
+                          src={img9}
+                        />
                       </div>
                     </div>
                   </div>
                   <div className="grid place-items-center rounded-[4px] size-[32px]">
                     <div className="relative size-4">
                       <div className="absolute inset-[6.25%]">
-                        <img alt="" className="block max-w-none size-full" src={img10} />
+                        <img
+                          alt=""
+                          className="block max-w-none size-full"
+                          src={img10}
+                        />
                       </div>
                     </div>
                   </div>
@@ -282,14 +336,22 @@ export function EosFigmaFrame() {
                   <div className="grid place-items-center rounded-[4px] size-[32px]">
                     <div className="relative size-4">
                       <div className="absolute inset-[6.25%_18.75%]">
-                        <img alt="" className="block max-w-none size-full" src={img11} />
+                        <img
+                          alt=""
+                          className="block max-w-none size-full"
+                          src={img11}
+                        />
                       </div>
                     </div>
                   </div>
                   <div className="grid place-items-center rounded-[4px] size-[32px] bg-slate-400">
                     <div className="relative size-4">
                       <div className="absolute inset-[6.25%]">
-                        <img alt="" className="block max-w-none size-full" src={img12} />
+                        <img
+                          alt=""
+                          className="block max-w-none size-full"
+                          src={img12}
+                        />
                       </div>
                     </div>
                   </div>
@@ -299,26 +361,44 @@ export function EosFigmaFrame() {
 
             <div className="mt-2 flex items-center justify-center gap-2">
               <div className="flex h-[32px] items-center gap-2 rounded-[4px] bg-[#0c0f17] px-3">
-                <div className="text-[14px] text-[#fefeff]">Incident investigation</div>
+                <div className="text-[14px] text-[#fefeff]">
+                  Incident investigation
+                </div>
                 <div className="relative size-4">
                   <div className="absolute inset-[38.75%_20%_26.25%_20%]">
-                    <img alt="" className="block max-w-none size-full" src={img13} />
+                    <img
+                      alt=""
+                      className="block max-w-none size-full"
+                      src={img13}
+                    />
                   </div>
                 </div>
               </div>
               <div className="flex h-[32px] items-center gap-2 rounded-[4px] bg-[#0c0f17] px-3">
-                <div className="text-[14px] text-[#fefeff]">Analyze and act</div>
+                <div className="text-[14px] text-[#fefeff]">
+                  Analyze and act
+                </div>
                 <div className="relative size-4">
                   <div className="absolute inset-[38.75%_20%_26.25%_20%]">
-                    <img alt="" className="block max-w-none size-full" src={img13} />
+                    <img
+                      alt=""
+                      className="block max-w-none size-full"
+                      src={img13}
+                    />
                   </div>
                 </div>
               </div>
               <div className="flex h-[32px] items-center gap-2 rounded-[4px] bg-[#0c0f17] px-3">
-                <div className="text-[14px] text-[#fefeff]">Optimize maintenance</div>
+                <div className="text-[14px] text-[#fefeff]">
+                  Optimize maintenance
+                </div>
                 <div className="relative size-4">
                   <div className="absolute inset-[38.75%_20%_26.25%_20%]">
-                    <img alt="" className="block max-w-none size-full" src={img13} />
+                    <img
+                      alt=""
+                      className="block max-w-none size-full"
+                      src={img13}
+                    />
                   </div>
                 </div>
               </div>
@@ -330,10 +410,16 @@ export function EosFigmaFrame() {
         <div className="w-full">
           <div className="mb-3 flex items-center justify-between">
             <div className="flex h-[32px] items-center gap-2 rounded-[4px] px-3">
-              <div className="text-[14px] text-[#fefeff]">Executive overview</div>
+              <div className="text-[14px] text-[#fefeff]">
+                Executive overview
+              </div>
               <div className="relative size-4">
                 <div className="absolute inset-[38.75%_20%_26.25%_20%]">
-                  <img alt="" className="block max-w-none size-full" src={img13} />
+                  <img
+                    alt=""
+                    className="block max-w-none size-full"
+                    src={img13}
+                  />
                 </div>
               </div>
             </div>
@@ -341,7 +427,11 @@ export function EosFigmaFrame() {
               <div className="flex h-[32px] items-center gap-2 rounded-[4px] px-3">
                 <div className="relative size-4">
                   <div className="absolute inset-[21.875%]">
-                    <img alt="" className="block max-w-none size-full" src={img14} />
+                    <img
+                      alt=""
+                      className="block max-w-none size-full"
+                      src={img14}
+                    />
                   </div>
                 </div>
                 <div className="text-[14px] text-[#fefeff]">Add</div>
@@ -349,7 +439,11 @@ export function EosFigmaFrame() {
               <div className="flex h-[32px] items-center gap-2 rounded-[4px] px-3">
                 <div className="relative size-4">
                   <div className="absolute inset-[6.25%]">
-                    <img alt="" className="block max-w-none size-full" src={img15} />
+                    <img
+                      alt=""
+                      className="block max-w-none size-full"
+                      src={img15}
+                    />
                   </div>
                 </div>
                 <div className="text-[14px] text-[#fefeff]">Edit</div>
@@ -365,12 +459,18 @@ export function EosFigmaFrame() {
                 <div className="text-sm font-medium text-[#fefeff]">
                   Energy efficiency vs target
                 </div>
-                <div className="ml-auto text-xs text-slate-400">Last 6 months</div>
+                <div className="ml-auto text-xs text-slate-400">
+                  Last 6 months
+                </div>
               </div>
               <div className="mt-2">
                 <div className="relative h-[120px] w-full">
                   <div className="absolute inset-0">
-                    <img alt="chart" src={imgGroup1} className="block max-w-none" />
+                    <img
+                      alt="chart"
+                      src={imgGroup1}
+                      className="block max-w-none"
+                    />
                   </div>
                 </div>
               </div>

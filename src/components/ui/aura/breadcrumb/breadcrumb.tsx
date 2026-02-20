@@ -72,7 +72,12 @@ function BreadcrumbItem({ className, ...props }: ComponentProps<'li'>) {
  *   <BreadcrumbLink href="/projects">Projects</BreadcrumbLink>
  * </BreadcrumbItem>
  */
-function BreadcrumbLink({ className, render, children, ...props }: useRender.ComponentProps<'a'>) {
+function BreadcrumbLink({
+  className,
+  render,
+  children,
+  ...props
+}: useRender.ComponentProps<'a'>) {
   return useRender({
     defaultTagName: 'a',
     props: mergeProps<'a'>(
@@ -163,7 +168,10 @@ function BreadcrumbPage({
  *   </DropdownMenu>
  * </BreadcrumbItem>
  */
-function BreadcrumbPageButton({ className, ...props }: ComponentProps<'button'>) {
+function BreadcrumbPageButton({
+  className,
+  ...props
+}: ComponentProps<'button'>) {
   return (
     <button
       data-slot="breadcrumb-page-button"
@@ -195,7 +203,11 @@ function BreadcrumbPageButton({ className, ...props }: ComponentProps<'button'>)
  *   </DropdownMenu>
  * </BreadcrumbEllipsis>
  */
-function BreadcrumbEllipsisButton({ className, children, ...props }: ComponentProps<'button'>) {
+function BreadcrumbEllipsisButton({
+  className,
+  children,
+  ...props
+}: ComponentProps<'button'>) {
   return (
     <button
       data-slot="breadcrumb-ellipsis-button"
@@ -231,7 +243,11 @@ function BreadcrumbEllipsisButton({ className, children, ...props }: ComponentPr
  *   <IconChevronRight className="size-4" />
  * </BreadcrumbSeparator>
  */
-function BreadcrumbSeparator({ children, className, ...props }: ComponentProps<'li'>) {
+function BreadcrumbSeparator({
+  children,
+  className,
+  ...props
+}: ComponentProps<'li'>) {
   return (
     <li
       data-slot="breadcrumb-separator"
@@ -264,7 +280,11 @@ function BreadcrumbSeparator({ children, className, ...props }: ComponentProps<'
  *   </DropdownMenu>
  * </BreadcrumbEllipsis>
  */
-function BreadcrumbEllipsis({ children, className, ...props }: ComponentProps<'li'>) {
+function BreadcrumbEllipsis({
+  children,
+  className,
+  ...props
+}: ComponentProps<'li'>) {
   return (
     <li
       data-slot="breadcrumb-ellipsis"

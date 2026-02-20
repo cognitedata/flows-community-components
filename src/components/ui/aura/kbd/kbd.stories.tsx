@@ -128,7 +128,9 @@ export const WithIcons: Story = {
   render: () => (
     <div className="space-y-4">
       <div className="flex items-center gap-2">
-        <span className="text-sm text-muted-foreground w-32">Command palette:</span>
+        <span className="text-sm text-muted-foreground w-32">
+          Command palette:
+        </span>
         <KbdGroup>
           <Kbd>
             <IconCommand className="size-3" />
@@ -143,7 +145,9 @@ export const WithIcons: Story = {
         </Kbd>
       </div>
       <div className="flex items-center gap-2">
-        <span className="text-sm text-muted-foreground w-32">Navigate down:</span>
+        <span className="text-sm text-muted-foreground w-32">
+          Navigate down:
+        </span>
         <Kbd>
           <IconArrowDown className="size-3" />
         </Kbd>
@@ -231,7 +235,9 @@ export const InContext: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await expect(canvas.getByText(/Press/)).toBeInTheDocument();
-    await expect(canvas.getByText(/to open the command palette/)).toBeInTheDocument();
+    await expect(
+      canvas.getByText(/to open the command palette/)
+    ).toBeInTheDocument();
     await expect(canvas.getByText(/Use/)).toBeInTheDocument();
     await expect(canvas.getByText(/to confirm or/)).toBeInTheDocument();
     await expect(canvas.getByText(/to cancel/)).toBeInTheDocument();
@@ -346,7 +352,9 @@ export const VisualRegression: Story = {
   render: () => (
     <div className="space-y-6 p-4">
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">Single Keys</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          Single Keys
+        </h3>
         <div className="flex gap-2">
           <Kbd>A</Kbd>
           <Kbd>⌘</Kbd>
@@ -356,7 +364,9 @@ export const VisualRegression: Story = {
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">Key Groups</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          Key Groups
+        </h3>
         <div className="flex gap-4">
           <KbdGroup>
             <Kbd>⌘</Kbd>
@@ -371,7 +381,9 @@ export const VisualRegression: Story = {
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">With Icons</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          With Icons
+        </h3>
         <div className="flex gap-2">
           <Kbd>
             <IconCommand className="size-3" />
@@ -383,7 +395,9 @@ export const VisualRegression: Story = {
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">Inline Usage</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          Inline Usage
+        </h3>
         <p className="text-sm">
           Press <Kbd>⌘</Kbd> <Kbd>K</Kbd> to search
         </p>

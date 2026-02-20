@@ -16,7 +16,15 @@ type TextShimmerProps = {
   className?: string;
   duration?: number;
   spread?: number;
-  variant?: 'default' | 'nordic' | 'aurora' | 'dusk' | 'equinox' | 'summer' | 'spring' | 'fall';
+  variant?:
+    | 'default'
+    | 'nordic'
+    | 'aurora'
+    | 'dusk'
+    | 'equinox'
+    | 'summer'
+    | 'spring'
+    | 'fall';
 };
 
 const MotionP = motion.p;
@@ -37,13 +45,24 @@ const motionComponentMap = {
 
 const ShimmerComponent = forwardRef<ComponentRef<'p'>, TextShimmerProps>(
   (
-    { children, as: Component = 'p', className, duration = 2, spread = 2, variant = 'default' },
+    {
+      children,
+      as: Component = 'p',
+      className,
+      duration = 2,
+      spread = 2,
+      variant = 'default',
+    },
     ref
   ) => {
     const MotionComponent =
-      motionComponentMap[Component as keyof typeof motionComponentMap] || MotionP;
+      motionComponentMap[Component as keyof typeof motionComponentMap] ||
+      MotionP;
 
-    const dynamicSpread = useMemo(() => (children?.length ?? 0) * spread, [children, spread]);
+    const dynamicSpread = useMemo(
+      () => (children?.length ?? 0) * spread,
+      [children, spread]
+    );
 
     const backgroundImage = useMemo(() => {
       const shimmerBg =
@@ -76,7 +95,10 @@ const ShimmerComponent = forwardRef<ComponentRef<'p'>, TextShimmerProps>(
         animate={{
           backgroundPosition: ['100% center, center', '0% center, center'],
         }}
-        className={cn('relative inline-block bg-clip-text text-transparent rounded-md', className)}
+        className={cn(
+          'relative inline-block bg-clip-text text-transparent rounded-md',
+          className
+        )}
         style={
           {
             '--spread': `${dynamicSpread}px`,

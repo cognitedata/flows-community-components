@@ -33,10 +33,13 @@ const alertVariants = cva(
   {
     variants: {
       variant: {
-        default: 'bg-undefined-alternative text-card-foreground [&>svg]:text-undefined-foreground',
-        secondary: 'bg-neutral-alternative text-foreground [&>svg]:text-neutral-foreground',
+        default:
+          'bg-undefined-alternative text-card-foreground [&>svg]:text-undefined-foreground',
+        secondary:
+          'bg-neutral-alternative text-foreground [&>svg]:text-neutral-foreground',
         warning: 'bg-warning-alternative [&>svg]:text-warning-foreground',
-        error: 'bg-destructive-alternative text-foreground [&>svg]:text-destructive-foreground',
+        error:
+          'bg-destructive-alternative text-foreground [&>svg]:text-destructive-foreground',
       },
     },
     defaultVariants: {
@@ -54,7 +57,15 @@ type AlertProps = ComponentProps<'div'> &
 
 const Alert = forwardRef<ComponentRef<'div'>, AlertProps>(
   (
-    { className, variant = 'default', visible, defaultVisible = true, onClose, children, ...props },
+    {
+      className,
+      variant = 'default',
+      visible,
+      defaultVisible = true,
+      onClose,
+      children,
+      ...props
+    },
     ref
   ) => {
     const [show, setShow] = useControllableState({
@@ -68,7 +79,9 @@ const Alert = forwardRef<ComponentRef<'div'>, AlertProps>(
     }
 
     return (
-      <AlertContext.Provider value={{ show, setShow, variant: variant as AlertVariant }}>
+      <AlertContext.Provider
+        value={{ show, setShow, variant: variant as AlertVariant }}
+      >
         <div
           ref={ref}
           data-slot="alert"
@@ -142,36 +155,40 @@ const AlertActions = forwardRef<ComponentRef<'div'>, ComponentProps<'div'>>(
     <div
       ref={ref}
       data-slot="alert-actions"
-      className={cn('col-start-2 flex flex-wrap items-start gap-2 pt-1', className)}
+      className={cn(
+        'col-start-2 flex flex-wrap items-start gap-2 pt-1',
+        className
+      )}
       {...props}
     />
   )
 );
 AlertActions.displayName = 'AlertActions';
 
-const AlertButton = forwardRef<ComponentRef<'button'>, ComponentProps<'button'>>(
-  ({ className, ...props }, ref) => {
-    const { variant } = useContext(AlertContext);
+const AlertButton = forwardRef<
+  ComponentRef<'button'>,
+  ComponentProps<'button'>
+>(({ className, ...props }, ref) => {
+  const { variant } = useContext(AlertContext);
 
-    const hoverClasses: Record<AlertVariant, string> = {
-      default: 'hover:bg-undefined-hover',
-      secondary: 'hover:bg-neutral-hover',
-      warning: 'hover:bg-warning-hover',
-      error: 'hover:bg-destructive-hover',
-    };
+  const hoverClasses: Record<AlertVariant, string> = {
+    default: 'hover:bg-undefined-hover',
+    secondary: 'hover:bg-neutral-hover',
+    warning: 'hover:bg-warning-hover',
+    error: 'hover:bg-destructive-hover',
+  };
 
-    return (
-      <Button
-        ref={ref}
-        data-slot="alert-button"
-        variant="ghost"
-        size="sm"
-        className={cn('text-foreground', hoverClasses[variant], className)}
-        {...props}
-      />
-    );
-  }
-);
+  return (
+    <Button
+      ref={ref}
+      data-slot="alert-button"
+      variant="ghost"
+      size="sm"
+      className={cn('text-foreground', hoverClasses[variant], className)}
+      {...props}
+    />
+  );
+});
 AlertButton.displayName = 'AlertButton';
 
 const AlertClose = forwardRef<ComponentRef<'button'>, ComponentProps<'button'>>(
@@ -204,4 +221,11 @@ const AlertClose = forwardRef<ComponentRef<'button'>, ComponentProps<'button'>>(
 );
 AlertClose.displayName = 'AlertClose';
 
-export { Alert, AlertTitle, AlertDescription, AlertActions, AlertButton, AlertClose };
+export {
+  Alert,
+  AlertTitle,
+  AlertDescription,
+  AlertActions,
+  AlertButton,
+  AlertClose,
+};

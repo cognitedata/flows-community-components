@@ -1,5 +1,10 @@
 import { IconAlertTriangle, IconChevronDown } from '@tabler/icons-react';
-import { type ComponentProps, type ReactNode, createContext, useContext } from 'react';
+import {
+  type ComponentProps,
+  type ReactNode,
+  createContext,
+  useContext,
+} from 'react';
 
 import { cn } from '../../../../lib/utils';
 
@@ -12,7 +17,6 @@ import {
 } from '@/components/ui/aura/collapsible';
 import { HelperText } from '@/components/ui/aura/helper-text';
 
-
 type ApprovalType = {
   approved?: boolean;
   [key: string]: unknown;
@@ -23,7 +27,9 @@ type ConfirmationContextValue = {
   state: string;
 };
 
-const ConfirmationContext = createContext<ConfirmationContextValue | null>(null);
+const ConfirmationContext = createContext<ConfirmationContextValue | null>(
+  null
+);
 
 const useConfirmation = () => {
   const context = useContext(ConfirmationContext);
@@ -73,7 +79,9 @@ export const Confirmation = ({
         )}
         {...props}
       >
-        <Collapsible className="flex flex-col gap-2 overflow-hidden">{children}</Collapsible>
+        <Collapsible className="flex flex-col gap-2 overflow-hidden">
+          {children}
+        </Collapsible>
         {helperTextToRender}
       </Alert>
     </ConfirmationContext.Provider>
@@ -104,9 +112,14 @@ export const ConfirmationContentTrigger = ({
   />
 );
 
-export type ConfirmationContentProps = ComponentProps<typeof CollapsibleContent>;
+export type ConfirmationContentProps = ComponentProps<
+  typeof CollapsibleContent
+>;
 
-export const ConfirmationContent = ({ className, ...props }: ConfirmationContentProps) => (
+export const ConfirmationContent = ({
+  className,
+  ...props
+}: ConfirmationContentProps) => (
   <CollapsibleContent className={cn('px-3', className)} {...props} />
 );
 
@@ -129,13 +142,17 @@ export type ConfirmationAcceptedProps = {
   children?: ReactNode;
 };
 
-export const ConfirmationAccepted = ({ children }: ConfirmationAcceptedProps) => {
+export const ConfirmationAccepted = ({
+  children,
+}: ConfirmationAcceptedProps) => {
   const { approval, state } = useConfirmation();
 
   // Only show when approved and in response states
   if (
     !approval?.approved ||
-    (state !== 'approval-responded' && state !== 'output-denied' && state !== 'output-available')
+    (state !== 'approval-responded' &&
+      state !== 'output-denied' &&
+      state !== 'output-available')
   ) {
     return null;
   }
@@ -147,13 +164,17 @@ export type ConfirmationRejectedProps = {
   children?: ReactNode;
 };
 
-export const ConfirmationRejected = ({ children }: ConfirmationRejectedProps) => {
+export const ConfirmationRejected = ({
+  children,
+}: ConfirmationRejectedProps) => {
   const { approval, state } = useConfirmation();
 
   // Only show when rejected and in response states
   if (
     approval?.approved !== false ||
-    (state !== 'approval-responded' && state !== 'output-denied' && state !== 'output-available')
+    (state !== 'approval-responded' &&
+      state !== 'output-denied' &&
+      state !== 'output-available')
   ) {
     return null;
   }
@@ -163,7 +184,10 @@ export const ConfirmationRejected = ({ children }: ConfirmationRejectedProps) =>
 
 export type ConfirmationActionsProps = ComponentProps<'div'>;
 
-export const ConfirmationActions = ({ className, ...props }: ConfirmationActionsProps) => {
+export const ConfirmationActions = ({
+  className,
+  ...props
+}: ConfirmationActionsProps) => {
   const { state } = useConfirmation();
 
   // Only show when approval is requested
@@ -172,7 +196,10 @@ export const ConfirmationActions = ({ className, ...props }: ConfirmationActions
   }
 
   return (
-    <div className={cn('flex items-center justify-end gap-2 self-end', className)} {...props} />
+    <div
+      className={cn('flex items-center justify-end gap-2 self-end', className)}
+      {...props}
+    />
   );
 };
 

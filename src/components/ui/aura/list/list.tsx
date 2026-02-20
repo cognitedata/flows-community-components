@@ -9,7 +9,6 @@ import {
   useContext,
 } from 'react';
 
-
 import { cn } from '../../../../lib/utils';
 
 type HeadingElement = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
@@ -88,7 +87,10 @@ const isListItemIconElement = (child: ReactNode) => {
   const childType = child.type;
   const displayName = (() => {
     if (typeof childType === 'function') {
-      return (childType as { displayName?: string; name?: string }).displayName ?? childType.name;
+      return (
+        (childType as { displayName?: string; name?: string }).displayName ??
+        childType.name
+      );
     }
 
     if (typeof childType === 'object' && childType) {
@@ -97,7 +99,11 @@ const isListItemIconElement = (child: ReactNode) => {
         render?: { displayName?: string; name?: string };
       };
 
-      return typedChild.displayName ?? typedChild.render?.displayName ?? typedChild.render?.name;
+      return (
+        typedChild.displayName ??
+        typedChild.render?.displayName ??
+        typedChild.render?.name
+      );
     }
 
     return undefined;
@@ -114,7 +120,10 @@ const isListItemStatusElement = (child: ReactNode) => {
   const childType = child.type;
   const displayName = (() => {
     if (typeof childType === 'function') {
-      return (childType as { displayName?: string; name?: string }).displayName ?? childType.name;
+      return (
+        (childType as { displayName?: string; name?: string }).displayName ??
+        childType.name
+      );
     }
 
     if (typeof childType === 'object' && childType) {
@@ -123,7 +132,11 @@ const isListItemStatusElement = (child: ReactNode) => {
         render?: { displayName?: string; name?: string };
       };
 
-      return typedChild.displayName ?? typedChild.render?.displayName ?? typedChild.render?.name;
+      return (
+        typedChild.displayName ??
+        typedChild.render?.displayName ??
+        typedChild.render?.name
+      );
     }
 
     return undefined;
@@ -140,7 +153,10 @@ const isListItemDescriptionElement = (child: ReactNode) => {
   const childType = child.type;
   const displayName = (() => {
     if (typeof childType === 'function') {
-      return (childType as { displayName?: string; name?: string }).displayName ?? childType.name;
+      return (
+        (childType as { displayName?: string; name?: string }).displayName ??
+        childType.name
+      );
     }
 
     if (typeof childType === 'object' && childType) {
@@ -149,13 +165,19 @@ const isListItemDescriptionElement = (child: ReactNode) => {
         render?: { displayName?: string; name?: string };
       };
 
-      return typedChild.displayName ?? typedChild.render?.displayName ?? typedChild.render?.name;
+      return (
+        typedChild.displayName ??
+        typedChild.render?.displayName ??
+        typedChild.render?.name
+      );
     }
 
     return undefined;
   })();
 
-  return childType === ListItemDescription || displayName === 'ListItemDescription';
+  return (
+    childType === ListItemDescription || displayName === 'ListItemDescription'
+  );
 };
 
 const DefaultListItemIcon = ({ variant }: { variant: ListItemVariant }) => {
@@ -225,11 +247,18 @@ const DefaultListItemIcon = ({ variant }: { variant: ListItemVariant }) => {
 /**
  * List container for unordered content.
  */
-const List = forwardRef<HTMLUListElement, ComponentProps<'ul'>>(({ className, ...props }, ref) => {
-  return (
-    <ul ref={ref} data-slot="list" className={cn('flex flex-col gap-3', className)} {...props} />
-  );
-});
+const List = forwardRef<HTMLUListElement, ComponentProps<'ul'>>(
+  ({ className, ...props }, ref) => {
+    return (
+      <ul
+        ref={ref}
+        data-slot="list"
+        className={cn('flex flex-col gap-3', className)}
+        {...props}
+      />
+    );
+  }
+);
 List.displayName = 'List';
 
 /**
@@ -269,43 +298,48 @@ ListDescription.displayName = 'ListDescription';
 /**
  * List item container with optional status variants.
  */
-const ListItem = forwardRef<HTMLLIElement, ComponentProps<'li'> & { variant?: ListItemVariant }>(
-  ({ className, variant, children, ...props }, ref) => {
-    const childItems = Children.toArray(children);
-    const hasIconSlot = childItems.some((child) => isListItemIconElement(child));
-    const hasStatusSlot = childItems.some((child) => isListItemStatusElement(child));
-    const hasDescriptionSlot = childItems.some((child) => isListItemDescriptionElement(child));
-    const shouldInsertIcon = Boolean(variant) && !hasIconSlot;
-    const resolvedChildren = shouldInsertIcon
-      ? [<ListItemIcon key="list-item-icon" />, ...childItems]
-      : childItems;
-    const hasIcon = hasIconSlot || shouldInsertIcon;
+const ListItem = forwardRef<
+  HTMLLIElement,
+  ComponentProps<'li'> & { variant?: ListItemVariant }
+>(({ className, variant, children, ...props }, ref) => {
+  const childItems = Children.toArray(children);
+  const hasIconSlot = childItems.some((child) => isListItemIconElement(child));
+  const hasStatusSlot = childItems.some((child) =>
+    isListItemStatusElement(child)
+  );
+  const hasDescriptionSlot = childItems.some((child) =>
+    isListItemDescriptionElement(child)
+  );
+  const shouldInsertIcon = Boolean(variant) && !hasIconSlot;
+  const resolvedChildren = shouldInsertIcon
+    ? [<ListItemIcon key="list-item-icon" />, ...childItems]
+    : childItems;
+  const hasIcon = hasIconSlot || shouldInsertIcon;
 
-    return (
-      <ListItemContext.Provider value={{ variant, hasIcon }}>
-        <li
-          ref={ref}
-          data-slot="list-item"
-          data-variant={variant}
-          className={cn(
-            'grid w-full items-start gap-x-2 rounded p-0.5',
-            // Add row gap only if there's a description (multiple rows)
-            hasDescriptionSlot && 'gap-y-1',
-            // Determine grid columns based on what slots are present
-            hasIcon && hasStatusSlot && 'grid-cols-[auto_minmax(0,1fr)_auto]', // icon | content | status
-            hasIcon && !hasStatusSlot && 'grid-cols-[auto_minmax(0,1fr)]', // icon | content
-            !hasIcon && hasStatusSlot && 'grid-cols-[minmax(0,1fr)_auto]', // content | status
-            !hasIcon && !hasStatusSlot && 'grid-cols-[minmax(0,1fr)]', // just content
-            className
-          )}
-          {...props}
-        >
-          {resolvedChildren}
-        </li>
-      </ListItemContext.Provider>
-    );
-  }
-);
+  return (
+    <ListItemContext.Provider value={{ variant, hasIcon }}>
+      <li
+        ref={ref}
+        data-slot="list-item"
+        data-variant={variant}
+        className={cn(
+          'grid w-full items-start gap-x-2 rounded p-0.5',
+          // Add row gap only if there's a description (multiple rows)
+          hasDescriptionSlot && 'gap-y-1',
+          // Determine grid columns based on what slots are present
+          hasIcon && hasStatusSlot && 'grid-cols-[auto_minmax(0,1fr)_auto]', // icon | content | status
+          hasIcon && !hasStatusSlot && 'grid-cols-[auto_minmax(0,1fr)]', // icon | content
+          !hasIcon && hasStatusSlot && 'grid-cols-[minmax(0,1fr)_auto]', // content | status
+          !hasIcon && !hasStatusSlot && 'grid-cols-[minmax(0,1fr)]', // just content
+          className
+        )}
+        {...props}
+      >
+        {resolvedChildren}
+      </li>
+    </ListItemContext.Provider>
+  );
+});
 ListItem.displayName = 'ListItem';
 
 /**
@@ -330,7 +364,10 @@ const ListItemIcon = forwardRef<
       )}
       {...props}
     >
-      {children ?? (resolvedVariant ? <DefaultListItemIcon variant={resolvedVariant} /> : null)}
+      {children ??
+        (resolvedVariant ? (
+          <DefaultListItemIcon variant={resolvedVariant} />
+        ) : null)}
     </span>
   );
 });

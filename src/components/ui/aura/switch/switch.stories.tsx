@@ -139,7 +139,11 @@ export const Controlled: Story = {
     return (
       <div className="space-y-4">
         <div className="flex items-center space-x-2">
-          <Switch id="controlled-switch" checked={enabled} onCheckedChange={setEnabled} />
+          <Switch
+            id="controlled-switch"
+            checked={enabled}
+            onCheckedChange={setEnabled}
+          />
           <Label htmlFor="controlled-switch">Airplane Mode</Label>
         </div>
         <div className="flex gap-2">
@@ -158,7 +162,9 @@ export const Controlled: Story = {
             Disable
           </button>
         </div>
-        <p className="text-sm text-muted-foreground">Status: {enabled ? 'Enabled' : 'Disabled'}</p>
+        <p className="text-sm text-muted-foreground">
+          Status: {enabled ? 'Enabled' : 'Disabled'}
+        </p>
       </div>
     );
   },
@@ -181,18 +187,21 @@ export const SettingsForm: Story = {
       marketing: false,
       analytics: true,
     });
-    const updateSetting = (key: keyof typeof settings) => (checked: boolean) => {
-      setSettings((prev) => ({
-        ...prev,
-        [key]: checked,
-      }));
-    };
+    const updateSetting =
+      (key: keyof typeof settings) => (checked: boolean) => {
+        setSettings((prev) => ({
+          ...prev,
+          [key]: checked,
+        }));
+      };
     return (
       <div className="w-[300px] space-y-6">
         <div className="flex items-center justify-between">
           <div className="space-y-0.5">
             <Label htmlFor="notifications">Push Notifications</Label>
-            <p className="text-xs text-muted-foreground">Receive notifications on your device.</p>
+            <p className="text-xs text-muted-foreground">
+              Receive notifications on your device.
+            </p>
           </div>
           <Switch
             id="notifications"
@@ -203,14 +212,22 @@ export const SettingsForm: Story = {
         <div className="flex items-center justify-between">
           <div className="space-y-0.5">
             <Label htmlFor="emails">Email Notifications</Label>
-            <p className="text-xs text-muted-foreground">Receive updates via email.</p>
+            <p className="text-xs text-muted-foreground">
+              Receive updates via email.
+            </p>
           </div>
-          <Switch id="emails" checked={settings.emails} onCheckedChange={updateSetting('emails')} />
+          <Switch
+            id="emails"
+            checked={settings.emails}
+            onCheckedChange={updateSetting('emails')}
+          />
         </div>
         <div className="flex items-center justify-between">
           <div className="space-y-0.5">
             <Label htmlFor="marketing">Marketing Emails</Label>
-            <p className="text-xs text-muted-foreground">Receive promotional content.</p>
+            <p className="text-xs text-muted-foreground">
+              Receive promotional content.
+            </p>
           </div>
           <Switch
             id="marketing"
@@ -221,7 +238,9 @@ export const SettingsForm: Story = {
         <div className="flex items-center justify-between">
           <div className="space-y-0.5">
             <Label htmlFor="analytics">Usage Analytics</Label>
-            <p className="text-xs text-muted-foreground">Help improve our product.</p>
+            <p className="text-xs text-muted-foreground">
+              Help improve our product.
+            </p>
           </div>
           <Switch
             id="analytics"
@@ -272,7 +291,9 @@ export const VisualRegression: Story = {
   render: () => (
     <div className="space-y-6 p-4">
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">All States</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          All States
+        </h3>
         <div className="flex flex-wrap gap-6">
           <div className="flex items-center space-x-2">
             <Switch id="vr-off" />
@@ -298,7 +319,9 @@ export const VisualRegression: Story = {
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">Without Labels</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          Without Labels
+        </h3>
         <div className="flex gap-4">
           <Switch aria-label="Option 1" />
           <Switch aria-label="Option 2" defaultChecked />

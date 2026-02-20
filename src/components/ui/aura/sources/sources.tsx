@@ -1,10 +1,12 @@
 import { IconMist } from '@tabler/icons-react';
 import type { ComponentProps, ReactNode } from 'react';
 
-
 import { cn } from '../../../../lib/utils';
 
-import { InlineCitation, InlineCitationLink } from '@/components/ui/aura/inline-citation';
+import {
+  InlineCitation,
+  InlineCitationLink,
+} from '@/components/ui/aura/inline-citation';
 
 type SourcesProps = Omit<ComponentProps<'div'>, 'title'> & {
   title?: ReactNode | boolean;
@@ -12,10 +14,15 @@ type SourcesProps = Omit<ComponentProps<'div'>, 'title'> & {
 
 const Sources = ({ className, title, children, ...props }: SourcesProps) => {
   const hideTitle = title === false || title === 'false';
-  const titleNode = title === undefined || title === true ? <SourcesTitle /> : title;
+  const titleNode =
+    title === undefined || title === true ? <SourcesTitle /> : title;
 
   return (
-    <div data-slot="sources" className={cn('flex flex-col gap-2', className)} {...props}>
+    <div
+      data-slot="sources"
+      className={cn('flex flex-col gap-2', className)}
+      {...props}
+    >
       {!hideTitle ? titleNode : null}
       <div data-slot="sources-items" className="flex flex-wrap gap-2">
         {children}
@@ -28,7 +35,12 @@ type SourcesTitleProps = ComponentProps<'div'> & {
   title?: string;
 };
 
-const SourcesTitle = ({ className, title = 'Sources', children, ...props }: SourcesTitleProps) => (
+const SourcesTitle = ({
+  className,
+  title = 'Sources',
+  children,
+  ...props
+}: SourcesTitleProps) => (
   <div
     data-slot="sources-title"
     className={cn(

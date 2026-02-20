@@ -115,7 +115,9 @@ export const Basic: Story = {
     <ArtifactCount className="w-md">
       <ArtifactCountHeader>
         <ArtifactCountCount variant="warning">3</ArtifactCountCount>
-        <span className="text-base font-medium leading-5 tracking-tightest">Active alarms</span>
+        <span className="text-base font-medium leading-5 tracking-tightest">
+          Active alarms
+        </span>
       </ArtifactCountHeader>
       <ArtifactCountSeparator />
       <ArtifactCountFooter>
@@ -180,7 +182,9 @@ export const WithChart: Story = {
       const interval = setInterval(() => {
         setCurrentData((prevData) => {
           const newData = [...prevData];
-          const lastTime = new Date(newData[newData.length - 1].timestamp + 5 * 60 * 1000);
+          const lastTime = new Date(
+            newData[newData.length - 1].timestamp + 5 * 60 * 1000
+          );
           let newTemp = newData[newData.length - 1].temperature;
           newTemp += (Math.random() - 0.5) * 3;
           newTemp = Math.max(60, Math.min(110, newTemp));
@@ -201,11 +205,14 @@ export const WithChart: Story = {
     }, []);
     const currentTemp = currentData[currentData.length - 1]?.temperature || 0;
     const avgTemp =
-      currentData.reduce((sum, item) => sum + item.temperature, 0) / currentData.length;
+      currentData.reduce((sum, item) => sum + item.temperature, 0) /
+      currentData.length;
     return (
       <ArtifactCount className="w-md gap-2">
         <ArtifactCountHeader className="items-end">
-          <ArtifactCountCount variant="default">{currentTemp}</ArtifactCountCount>
+          <ArtifactCountCount variant="default">
+            {currentTemp}
+          </ArtifactCountCount>
           <div className="flex flex-1 items-end justify-between">
             <div className="flex flex-col">
               <span className="text-base font-medium">Bar</span>
@@ -215,7 +222,10 @@ export const WithChart: Story = {
           </div>
         </ArtifactCountHeader>
         <ArtifactCountContent className="p-0">
-          <ChartContainer config={temperatureChartConfig} className="h-48 w-full">
+          <ChartContainer
+            config={temperatureChartConfig}
+            className="h-48 w-full"
+          >
             <LineChart
               accessibilityLayer
               data={currentData}
@@ -279,12 +289,18 @@ export const WithChart: Story = {
                   backgroundColor: 'hsl(239 84% 67%)',
                 }}
               />
-              <span className="text-muted-foreground">Current: {currentTemp}°C</span>
+              <span className="text-muted-foreground">
+                Current: {currentTemp}°C
+              </span>
             </div>
-            <span className="text-muted-foreground">4h Average: {avgTemp.toFixed(1)}°C</span>
+            <span className="text-muted-foreground">
+              4h Average: {avgTemp.toFixed(1)}°C
+            </span>
           </ArtifactCountFooterLeft>
           <ArtifactCountFooterRight>
-            <span className="text-xs text-muted-foreground">Updates every 5 minutes</span>
+            <span className="text-xs text-muted-foreground">
+              Updates every 5 minutes
+            </span>
           </ArtifactCountFooterRight>
         </ArtifactCountFooter>
       </ArtifactCount>
@@ -304,9 +320,15 @@ export const Interactive: Story = {
         </ArtifactCountHeader>
         <ArtifactCountSeparator />
         <ArtifactCountFooter className="text-muted-foreground">
-          <ArtifactCountFooterLeft>Last updated just now</ArtifactCountFooterLeft>
+          <ArtifactCountFooterLeft>
+            Last updated just now
+          </ArtifactCountFooterLeft>
           <ArtifactCountFooterRight>
-            <Button size="sm" variant="secondary" onClick={() => setValue((prev) => prev + 1)}>
+            <Button
+              size="sm"
+              variant="secondary"
+              onClick={() => setValue((prev) => prev + 1)}
+            >
               Increase
             </Button>
           </ArtifactCountFooterRight>
@@ -365,7 +387,9 @@ export const EdgeCaseLongText: Story = {
         <ArtifactCountFooterLeft>
           Critical: 24 • High: 56 • Medium: 48 • Low: 12
         </ArtifactCountFooterLeft>
-        <ArtifactCountFooterRight>Rolling total based on last 24 hours</ArtifactCountFooterRight>
+        <ArtifactCountFooterRight>
+          Rolling total based on last 24 hours
+        </ArtifactCountFooterRight>
       </ArtifactCountFooter>
     </ArtifactCount>
   ),
@@ -380,7 +404,9 @@ export const EdgeCaseSpecialCharacters: Story = {
         <ArtifactCountCount variant="critical">99+</ArtifactCountCount>
         <div className="flex flex-1 items-end justify-between">
           <div className="flex flex-col">
-            <span className="text-base font-medium">Alerts: ΔP &gt; 5%, ΔT &lt; 0</span>
+            <span className="text-base font-medium">
+              Alerts: ΔP &gt; 5%, ΔT &lt; 0
+            </span>
             <ArtifactCountTag>Unit: V-192 • Line A/B</ArtifactCountTag>
           </div>
           <ArtifactCountTag>Since 08:15 — Shift 2</ArtifactCountTag>
@@ -388,7 +414,9 @@ export const EdgeCaseSpecialCharacters: Story = {
       </ArtifactCountHeader>
       <ArtifactCountSeparator />
       <ArtifactCountFooter className="text-muted-foreground">
-        <ArtifactCountFooterLeft>Notes: “Overheat” — check valve #4</ArtifactCountFooterLeft>
+        <ArtifactCountFooterLeft>
+          Notes: “Overheat” — check valve #4
+        </ArtifactCountFooterLeft>
         <ArtifactCountFooterRight>Notify on-call ⚠️</ArtifactCountFooterRight>
       </ArtifactCountFooter>
     </ArtifactCount>
@@ -467,7 +495,9 @@ export const Playground: PlaygroundStory = {
   render: (args) => (
     <ArtifactCount className={args.className}>
       <ArtifactCountHeader className="items-end">
-        <ArtifactCountCount variant={args.variant}>{args.count}</ArtifactCountCount>
+        <ArtifactCountCount variant={args.variant}>
+          {args.count}
+        </ArtifactCountCount>
         <div className="flex flex-1 items-end justify-between">
           <div className="flex flex-col">
             <span className="text-base font-medium">{args.title}</span>

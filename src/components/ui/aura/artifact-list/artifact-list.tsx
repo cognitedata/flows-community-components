@@ -1,8 +1,18 @@
-import { Children, type ComponentProps, type ComponentRef, forwardRef } from 'react';
+import {
+  Children,
+  type ComponentProps,
+  type ComponentRef,
+  forwardRef,
+} from 'react';
 
 import { cn } from '../../../../lib/utils';
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/aura/card';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/aura/card';
 import {
   List,
   ListItem,
@@ -18,13 +28,19 @@ import {
  * Uses List primitives directly for item content - no wrapper needed for
  * ListItemTitle, ListItemDescription, ListItemStatus, or ListItemIcon.
  */
-const ArtifactList = forwardRef<ComponentRef<typeof Card>, ComponentProps<typeof Card>>(
-  ({ className, ...props }, ref) => {
-    return (
-      <Card ref={ref} data-slot="artifact-list" className={cn('gap-3', className)} {...props} />
-    );
-  }
-);
+const ArtifactList = forwardRef<
+  ComponentRef<typeof Card>,
+  ComponentProps<typeof Card>
+>(({ className, ...props }, ref) => {
+  return (
+    <Card
+      ref={ref}
+      data-slot="artifact-list"
+      className={cn('gap-3', className)}
+      {...props}
+    />
+  );
+});
 ArtifactList.displayName = 'ArtifactList';
 
 const ArtifactListHeader = forwardRef<
@@ -54,31 +70,38 @@ const ArtifactListTitle = forwardRef<
   ComponentRef<typeof CardTitle>,
   ComponentProps<typeof CardTitle>
 >(({ className, ...props }, ref) => {
-  return <CardTitle ref={ref} className={cn('text-base font-medium', className)} {...props} />;
+  return (
+    <CardTitle
+      ref={ref}
+      className={cn('text-base font-medium', className)}
+      {...props}
+    />
+  );
 });
 ArtifactListTitle.displayName = 'ArtifactListTitle';
 
-const ArtifactListContent = forwardRef<ComponentRef<typeof List>, ComponentProps<typeof List>>(
-  ({ className, children, ...props }, ref) => {
-    const childArray = Children.toArray(children);
-    const hasChildren = childArray.length > 0;
+const ArtifactListContent = forwardRef<
+  ComponentRef<typeof List>,
+  ComponentProps<typeof List>
+>(({ className, children, ...props }, ref) => {
+  const childArray = Children.toArray(children);
+  const hasChildren = childArray.length > 0;
 
-    return (
-      <CardContent
-        data-slot="artifact-list-content"
-        className={cn('[[data-slot=artifact-list-header]+&]:pt-0')}
-      >
-        <List ref={ref} className={className} {...props}>
-          {hasChildren ? (
-            children
-          ) : (
-            <div className="text-sm text-muted-foreground">No data yet</div>
-          )}
-        </List>
-      </CardContent>
-    );
-  }
-);
+  return (
+    <CardContent
+      data-slot="artifact-list-content"
+      className={cn('[[data-slot=artifact-list-header]+&]:pt-0')}
+    >
+      <List ref={ref} className={className} {...props}>
+        {hasChildren ? (
+          children
+        ) : (
+          <div className="text-sm text-muted-foreground">No data yet</div>
+        )}
+      </List>
+    </CardContent>
+  );
+});
 ArtifactListContent.displayName = 'ArtifactListContent';
 
 const ArtifactListOrdered = forwardRef<
@@ -96,11 +119,12 @@ const ArtifactListOrdered = forwardRef<
 });
 ArtifactListOrdered.displayName = 'ArtifactListOrdered';
 
-const ArtifactListItem = forwardRef<ComponentRef<typeof ListItem>, ComponentProps<typeof ListItem>>(
-  (props, ref) => {
-    return <ListItem ref={ref} data-slot="artifact-list-item" {...props} />;
-  }
-);
+const ArtifactListItem = forwardRef<
+  ComponentRef<typeof ListItem>,
+  ComponentProps<typeof ListItem>
+>((props, ref) => {
+  return <ListItem ref={ref} data-slot="artifact-list-item" {...props} />;
+});
 ArtifactListItem.displayName = 'ArtifactListItem';
 
 export {

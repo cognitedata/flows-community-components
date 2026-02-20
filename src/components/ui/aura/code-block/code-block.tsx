@@ -11,7 +11,12 @@ import {
 } from 'react';
 import type { BundledLanguage } from 'shiki';
 
-import { cn, escapeHtml, highlightCode, isStorybookTestEnv } from '../../../../lib/utils';
+import {
+  cn,
+  escapeHtml,
+  highlightCode,
+  isStorybookTestEnv,
+} from '../../../../lib/utils';
 import { Button } from '../button';
 
 type CodeBlockProps = HTMLAttributes<HTMLDivElement> & {
@@ -151,45 +156,48 @@ type CodeBlockCopyButtonProps = ComponentProps<typeof Button> & {
   timeout?: number;
 };
 
-const CodeBlockCopyButton = forwardRef<ComponentRef<typeof Button>, CodeBlockCopyButtonProps>(
-  ({ onCopy, onError, timeout = 2000, children, className, ...props }, ref) => {
-    const [isCopied, setIsCopied] = useState(false);
-    const { copyText } = useContext(CodeBlockContext);
+const CodeBlockCopyButton = forwardRef<
+  ComponentRef<typeof Button>,
+  CodeBlockCopyButtonProps
+>(({ onCopy, onError, timeout = 2000, children, className, ...props }, ref) => {
+  const [isCopied, setIsCopied] = useState(false);
+  const { copyText } = useContext(CodeBlockContext);
 
-    const copyToClipboard = async () => {
-      if (typeof window === 'undefined' || !navigator?.clipboard?.writeText) {
-        onError?.(new Error('Clipboard API not available'));
-        return;
-      }
+  const copyToClipboard = async () => {
+    if (typeof window === 'undefined' || !navigator?.clipboard?.writeText) {
+      onError?.(new Error('Clipboard API not available'));
+      return;
+    }
 
-      try {
-        await navigator.clipboard.writeText(copyText);
-        setIsCopied(true);
-        onCopy?.();
-        setTimeout(() => setIsCopied(false), timeout);
-      } catch (error: unknown) {
-        console.warn('Clipboard write failed:', error);
-        onError?.(error instanceof Error ? error : new Error('Clipboard write failed'));
-      }
-    };
+    try {
+      await navigator.clipboard.writeText(copyText);
+      setIsCopied(true);
+      onCopy?.();
+      setTimeout(() => setIsCopied(false), timeout);
+    } catch (error: unknown) {
+      console.warn('Clipboard write failed:', error);
+      onError?.(
+        error instanceof Error ? error : new Error('Clipboard write failed')
+      );
+    }
+  };
 
-    const Icon = isCopied ? IconCheck : IconCopy;
+  const Icon = isCopied ? IconCheck : IconCopy;
 
-    return (
-      <Button
-        ref={ref}
-        data-slot="code-block-copy-button"
-        className={cn('shrink-0', className)}
-        onClick={copyToClipboard}
-        size="icon"
-        variant="secondary"
-        {...props}
-      >
-        {children ?? <Icon size={14} />}
-      </Button>
-    );
-  }
-);
+  return (
+    <Button
+      ref={ref}
+      data-slot="code-block-copy-button"
+      className={cn('shrink-0', className)}
+      onClick={copyToClipboard}
+      size="icon"
+      variant="secondary"
+      {...props}
+    >
+      {children ?? <Icon size={14} />}
+    </Button>
+  );
+});
 CodeBlockCopyButton.displayName = 'CodeBlockCopyButton';
 
 type CodeBlockCollapseButtonProps = ComponentProps<typeof Button>;
@@ -198,7 +206,8 @@ const CodeBlockCollapseButton = forwardRef<
   ComponentRef<typeof Button>,
   CodeBlockCollapseButtonProps
 >(({ children, className, ...props }, ref) => {
-  const { isCollapsed, setIsCollapsed, lineCount } = useContext(CodeBlockContext);
+  const { isCollapsed, setIsCollapsed, lineCount } =
+    useContext(CodeBlockContext);
 
   if (lineCount <= 1) {
     return null;

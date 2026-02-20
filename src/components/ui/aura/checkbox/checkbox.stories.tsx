@@ -190,7 +190,9 @@ export const Controlled: Story = {
             Toggle
           </button>
         </div>
-        <p className="text-sm text-muted-foreground">Checked: {checked ? 'true' : 'false'}</p>
+        <p className="text-sm text-muted-foreground">
+          Checked: {checked ? 'true' : 'false'}
+        </p>
       </div>
     );
   },
@@ -207,11 +209,17 @@ export const Controlled: Story = {
 };
 export const Indeterminate: Story = {
   render: function IndeterminateCheckbox() {
-    const [checked, setChecked] = useState<boolean | 'indeterminate'>('indeterminate');
+    const [checked, setChecked] = useState<boolean | 'indeterminate'>(
+      'indeterminate'
+    );
     return (
       <div className="space-y-4">
         <div className="flex items-center space-x-2">
-          <Checkbox id="indeterminate" checked={checked} onCheckedChange={setChecked} />
+          <Checkbox
+            id="indeterminate"
+            checked={checked}
+            onCheckedChange={setChecked}
+          />
           <Label htmlFor="indeterminate">Select all items</Label>
         </div>
         <div className="flex gap-2">
@@ -237,7 +245,9 @@ export const Indeterminate: Story = {
             Indeterminate
           </button>
         </div>
-        <p className="text-sm text-muted-foreground">State: {String(checked)}</p>
+        <p className="text-sm text-muted-foreground">
+          State: {String(checked)}
+        </p>
       </div>
     );
   },
@@ -253,7 +263,9 @@ export const CheckboxGroup: Story = {
     return (
       <div className="space-y-4">
         <fieldset className="space-y-3">
-          <legend className="text-sm font-medium">Notification preferences</legend>
+          <legend className="text-sm font-medium">
+            Notification preferences
+          </legend>
           <div className="flex items-center space-x-2">
             <Checkbox
               id="email"
@@ -279,7 +291,9 @@ export const CheckboxGroup: Story = {
             <Label htmlFor="push">Push notifications</Label>
           </div>
         </fieldset>
-        <p className="text-sm text-muted-foreground">Selected: {selected.join(', ') || 'None'}</p>
+        <p className="text-sm text-muted-foreground">
+          Selected: {selected.join(', ') || 'None'}
+        </p>
       </div>
     );
   },
@@ -304,7 +318,8 @@ export const WithValidation: Story = {
       <div className="flex items-center space-x-2">
         <Checkbox id="terms" required />
         <Label htmlFor="terms">
-          I agree to the terms and conditions <span className="text-red-500">*</span>
+          I agree to the terms and conditions{' '}
+          <span className="text-red-500">*</span>
         </Label>
       </div>
       <button
@@ -355,7 +370,9 @@ export const VisualRegression: Story = {
   render: () => (
     <div className="space-y-6 p-4">
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">All States</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          All States
+        </h3>
         <div className="flex flex-wrap gap-6">
           <div className="flex items-center space-x-2">
             <Checkbox id="vr-unchecked" />
@@ -381,7 +398,9 @@ export const VisualRegression: Story = {
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">Without Labels</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          Without Labels
+        </h3>
         <div className="flex gap-4">
           <Checkbox aria-label="Option 1" />
           <Checkbox aria-label="Option 2" defaultChecked />

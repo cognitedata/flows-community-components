@@ -12,7 +12,11 @@ import {
   CommandItem,
   CommandList,
 } from '@/components/ui/aura/command';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/aura/popover';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/aura/popover';
 
 const frameworks = [
   {
@@ -154,7 +158,8 @@ export const ComboboxCustom = forwardRef<HTMLButtonElement, ComboboxProps>(
               {...props}
             >
               {selectedValue
-                ? options.find((option) => option.value === selectedValue)?.label
+                ? options.find((option) => option.value === selectedValue)
+                    ?.label
                 : placeholder}
               <IconCaretUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
             </Button>
@@ -167,11 +172,17 @@ export const ComboboxCustom = forwardRef<HTMLButtonElement, ComboboxProps>(
               <CommandEmpty>{emptyText}</CommandEmpty>
               <CommandGroup>
                 {options.map((option) => (
-                  <CommandItem key={option.value} value={option.value} onSelect={handleValueChange}>
+                  <CommandItem
+                    key={option.value}
+                    value={option.value}
+                    onSelect={handleValueChange}
+                  >
                     <IconCheck
                       className={cn(
                         'mr-2 h-4 w-4',
-                        selectedValue === option.value ? 'opacity-100' : 'opacity-0'
+                        selectedValue === option.value
+                          ? 'opacity-100'
+                          : 'opacity-0'
                       )}
                     />
                     {option.label}

@@ -23,7 +23,11 @@ export default function CogDocsPageComponent() {
       <div className="space-y-8">
         {/* Navigation */}
         <div className="flex items-center gap-4">
-          <Button variant="secondary" size="sm" onClick={() => navigate('/cogdocs')}>
+          <Button
+            variant="secondary"
+            size="sm"
+            onClick={() => navigate('/cogdocs')}
+          >
             <IconArrowLeft className="h-4 w-4 mr-2" />
             Back to CogDocs
           </Button>

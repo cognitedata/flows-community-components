@@ -1,4 +1,10 @@
-import { IconArrowRight, IconCode, IconPalette, IconSparkles, IconX } from '@tabler/icons-react';
+import {
+  IconArrowRight,
+  IconCode,
+  IconPalette,
+  IconSparkles,
+  IconX,
+} from '@tabler/icons-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import type React from 'react';
 import { type RefObject, useEffect, useId, useRef, useState } from 'react';
@@ -23,7 +29,8 @@ const featureCards: FeatureCard[] = [
   {
     id: 'theming',
     title: 'Aurora lime theming',
-    description: 'Dynamic color system with intelligent light/dark mode switching',
+    description:
+      'Dynamic color system with intelligent light/dark mode switching',
     icon: <IconPalette className="h-6 w-6 text-primary drop-shadow-sm" />,
     badge: '18 color palettes',
     ctaText: 'Explore colors',
@@ -31,9 +38,10 @@ const featureCards: FeatureCard[] = [
     content: () => (
       <div className="space-y-4">
         <p className="text-foreground/80 leading-relaxed">
-          The Aurora lime color system is the foundation of our design language. Built with
-          intelligent theming capabilities, it automatically adapts to light, dark, and
-          high-contrast modes while maintaining perfect accessibility standards.
+          The Aurora lime color system is the foundation of our design language.
+          Built with intelligent theming capabilities, it automatically adapts
+          to light, dark, and high-contrast modes while maintaining perfect
+          accessibility standards.
         </p>
         <div className="space-y-3">
           <h4 className="font-semibold text-foreground/90">Key Features:</h4>
@@ -61,22 +69,24 @@ const featureCards: FeatureCard[] = [
           </ul>
         </div>
         <div className="grid grid-cols-4 gap-2 mt-6">
-          {['Aurora lime', 'Glacier mist', 'Mountain fjord', 'Midnight'].map((color, i) => (
-            <div key={color} className="text-center">
-              <div
-                className={`w-full h-8 rounded mb-1 ${
-                  i === 0
-                    ? 'bg-primary'
-                    : i === 1
-                      ? 'bg-blue-500'
-                      : i === 2
-                        ? 'bg-slate-500'
-                        : 'bg-zinc-800'
-                }`}
-              />
-              <span className="text-xs text-foreground/60">{color}</span>
-            </div>
-          ))}
+          {['Aurora lime', 'Glacier mist', 'Mountain fjord', 'Midnight'].map(
+            (color, i) => (
+              <div key={color} className="text-center">
+                <div
+                  className={`w-full h-8 rounded mb-1 ${
+                    i === 0
+                      ? 'bg-primary'
+                      : i === 1
+                        ? 'bg-blue-500'
+                        : i === 2
+                          ? 'bg-slate-500'
+                          : 'bg-zinc-800'
+                  }`}
+                />
+                <span className="text-xs text-foreground/60">{color}</span>
+              </div>
+            )
+          )}
         </div>
       </div>
     ),
@@ -92,11 +102,14 @@ const featureCards: FeatureCard[] = [
     content: () => (
       <div className="space-y-4">
         <p className="text-foreground/80 leading-relaxed">
-          Our component library is built on the solid foundation of ShadCN and Base UI, providing
-          accessible, composable, and customizable components that scale with your project.
+          Our component library is built on the solid foundation of ShadCN and
+          Base UI, providing accessible, composable, and customizable components
+          that scale with your project.
         </p>
         <div className="space-y-3">
-          <h4 className="font-semibold text-foreground/90">Component Categories:</h4>
+          <h4 className="font-semibold text-foreground/90">
+            Component Categories:
+          </h4>
           <div className="grid grid-cols-2 gap-3 text-sm">
             <div className="space-y-2">
               <h5 className="font-medium text-foreground/80">Interactive</h5>
@@ -119,9 +132,17 @@ const featureCards: FeatureCard[] = [
           </div>
         </div>
         <div className="bg-muted/30 rounded-lg p-4 mt-6">
-          <h5 className="font-medium text-foreground/90 mb-2">Built with Modern Standards</h5>
+          <h5 className="font-medium text-foreground/90 mb-2">
+            Built with Modern Standards
+          </h5>
           <div className="flex flex-wrap gap-2">
-            {['TypeScript', 'Base UI', 'Tailwind CSS', 'Framer Motion', 'React 19'].map((tech) => (
+            {[
+              'TypeScript',
+              'Base UI',
+              'Tailwind CSS',
+              'Framer Motion',
+              'React 19',
+            ].map((tech) => (
               <Badge key={tech} variant="secondary" className="text-xs">
                 {tech}
               </Badge>
@@ -134,7 +155,8 @@ const featureCards: FeatureCard[] = [
   {
     id: 'sandbox',
     title: 'AI-powered sandbox',
-    description: 'Generate custom components with AI assistance using your design system',
+    description:
+      'Generate custom components with AI assistance using your design system',
     icon: <IconSparkles className="h-6 w-6 text-primary drop-shadow-sm" />,
     badge: 'Gemini powered',
     ctaText: 'Try sandbox',
@@ -142,12 +164,15 @@ const featureCards: FeatureCard[] = [
     content: () => (
       <div className="space-y-4">
         <p className="text-foreground/80 leading-relaxed">
-          Our AI-powered sandbox leverages Google&apos;s Gemini AI to help you build custom
-          components using your existing design system. Simply describe what you need, and watch as
-          AI generates production-ready code.
+          Our AI-powered sandbox leverages Google&apos;s Gemini AI to help you
+          build custom components using your existing design system. Simply
+          describe what you need, and watch as AI generates production-ready
+          code.
         </p>
         <div className="space-y-3">
-          <h4 className="font-semibold text-foreground/90">Sandbox Features:</h4>
+          <h4 className="font-semibold text-foreground/90">
+            Sandbox Features:
+          </h4>
           <ul className="space-y-2 text-sm text-foreground/70">
             <li className="flex items-center gap-2">
               <div className="w-1.5 h-1.5 bg-primary rounded-full" />
@@ -172,7 +197,9 @@ const featureCards: FeatureCard[] = [
           </ul>
         </div>
         <div className="bg-linear-to-r from-primary/10 to-primary/5 rounded-lg p-4 mt-6">
-          <h5 className="font-medium text-foreground/90 mb-2">Try These Examples</h5>
+          <h5 className="font-medium text-foreground/90 mb-2">
+            Try These Examples
+          </h5>
           <div className="space-y-2 text-sm text-foreground/70">
             <p>&quot;Create a pricing card with three tiers&quot;</p>
             <p>&quot;Build a dashboard header with navigation&quot;</p>
@@ -300,7 +327,10 @@ export function ExpandableFeatureCards() {
                   <Button
                     className="w-full"
                     render={
-                      <Link to={active.ctaLink} className="flex items-center justify-center gap-2">
+                      <Link
+                        to={active.ctaLink}
+                        className="flex items-center justify-center gap-2"
+                      >
                         {active.ctaText}
                         <IconArrowRight className="h-4 w-4" />
                       </Link>

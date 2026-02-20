@@ -39,11 +39,21 @@ const meta: Meta<typeof Shimmer> = {
     },
     variant: {
       control: 'select',
-      options: ['default', 'nordic', 'aurora', 'dusk', 'equinox', 'summer', 'spring', 'fall'],
+      options: [
+        'default',
+        'nordic',
+        'aurora',
+        'dusk',
+        'equinox',
+        'summer',
+        'spring',
+        'fall',
+      ],
       table: {
         category: 'Variants/Styling',
         type: {
-          summary: 'default | nordic | aurora | dusk | equinox | summer | spring | fall',
+          summary:
+            'default | nordic | aurora | dusk | equinox | summer | spring | fall',
         },
         defaultValue: {
           summary: 'default',
@@ -125,7 +135,9 @@ export const GradientVariants: Story = {
       'Fall gradient',
     ];
     await Promise.all(
-      variants.map((variant) => expect(canvas.getByText(variant)).toBeInTheDocument())
+      variants.map((variant) =>
+        expect(canvas.getByText(variant)).toBeInTheDocument()
+      )
     );
   },
   render: () => (
@@ -212,7 +224,9 @@ export const AnimationDurations: Story = {
       'Very slow (4 seconds)',
     ];
     await Promise.all(
-      durations.map((duration) => expect(canvas.getByText(duration)).toBeInTheDocument())
+      durations.map((duration) =>
+        expect(canvas.getByText(duration)).toBeInTheDocument()
+      )
     );
   },
   render: () => (
@@ -237,7 +251,9 @@ export const SpreadValues: Story = {
       'Very wide spread (4)',
     ];
     await Promise.all(
-      spreads.map((spread) => expect(canvas.getByText(spread)).toBeInTheDocument())
+      spreads.map((spread) =>
+        expect(canvas.getByText(spread)).toBeInTheDocument()
+      )
     );
   },
   render: () => (
@@ -271,12 +287,12 @@ export const LongText: Story = {
   render: () => (
     <div className="w-full flex flex-col items-start gap-4 max-w-md">
       <Shimmer>
-        This is a longer piece of text that demonstrates how the shimmer effect works with extended
-        content.
+        This is a longer piece of text that demonstrates how the shimmer effect
+        works with extended content.
       </Shimmer>
       <Shimmer variant="aurora">
-        The shimmer animation smoothly transitions across the entire length of the text, creating an
-        engaging loading effect.
+        The shimmer animation smoothly transitions across the entire length of
+        the text, creating an engaging loading effect.
       </Shimmer>
     </div>
   ),
@@ -296,13 +312,16 @@ export const InlineUsage: Story = {
       'configuration',
     ];
     await Promise.all(
-      inlineTexts.map((text) => expect(canvas.getByText(text)).toBeInTheDocument())
+      inlineTexts.map((text) =>
+        expect(canvas.getByText(text)).toBeInTheDocument()
+      )
     );
   },
   render: () => (
     <div className="w-full flex flex-col items-start gap-4 max-w-md">
       <p className="text-base">
-        Your request is <Shimmer as="span">processing</Shimmer> and will be ready shortly.
+        Your request is <Shimmer as="span">processing</Shimmer> and will be
+        ready shortly.
       </p>
       <p className="text-base">
         Status:{' '}
@@ -326,9 +345,15 @@ export const CustomStyling: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const styledTexts = ['Large bold text', 'Small muted text', 'Medium semibold text'];
+    const styledTexts = [
+      'Large bold text',
+      'Small muted text',
+      'Medium semibold text',
+    ];
     await Promise.all(
-      styledTexts.map((text) => expect(canvas.getByText(text)).toBeInTheDocument())
+      styledTexts.map((text) =>
+        expect(canvas.getByText(text)).toBeInTheDocument()
+      )
     );
   },
   render: () => (
@@ -359,20 +384,32 @@ export const LoadingStates: Story = {
         name: /System Status/i,
       })
     ).toBeInTheDocument();
-    await expect(canvas.getByText('Analyzing input parameters...')).toBeInTheDocument();
-    await expect(canvas.getByText('Data synchronization in progress')).toBeInTheDocument();
+    await expect(
+      canvas.getByText('Analyzing input parameters...')
+    ).toBeInTheDocument();
+    await expect(
+      canvas.getByText('Data synchronization in progress')
+    ).toBeInTheDocument();
     await waitFor(
       () => {
-        expect(canvas.getByText('Input parameters analyzed.')).toBeInTheDocument();
-        expect(canvas.getByText('Data synchronization complete.')).toBeInTheDocument();
+        expect(
+          canvas.getByText('Input parameters analyzed.')
+        ).toBeInTheDocument();
+        expect(
+          canvas.getByText('Data synchronization complete.')
+        ).toBeInTheDocument();
       },
       {
         timeout: 4000,
       }
     );
     await waitFor(() => {
-      expect(canvas.queryByText('Analyzing input parameters...')).not.toBeInTheDocument();
-      expect(canvas.queryByText('Data synchronization in progress')).not.toBeInTheDocument();
+      expect(
+        canvas.queryByText('Analyzing input parameters...')
+      ).not.toBeInTheDocument();
+      expect(
+        canvas.queryByText('Data synchronization in progress')
+      ).not.toBeInTheDocument();
     });
   },
   render: function LoadingStatesStory() {
@@ -394,7 +431,9 @@ export const LoadingStates: Story = {
               <Shimmer variant="nordic">Finalizing results...</Shimmer>
             </>
           ) : (
-            <p className="text-sm text-muted-foreground">Input parameters analyzed.</p>
+            <p className="text-sm text-muted-foreground">
+              Input parameters analyzed.
+            </p>
           )}
         </div>
         <div className="space-y-2">
@@ -406,7 +445,9 @@ export const LoadingStates: Story = {
                 Data synchronization in progress
               </Shimmer>
             ) : (
-              <span className="text-green-500 font-medium">Data synchronization complete.</span>
+              <span className="text-green-500 font-medium">
+                Data synchronization complete.
+              </span>
             )}
           </p>
           <p className="text-sm">

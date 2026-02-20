@@ -40,31 +40,38 @@ export const shadows: Shadow[] = [
     cssVar: '--shadow-default',
     tailwindClass: 'shadow-default',
     value: '0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px 0 rgba(0, 0, 0, 0.04)',
-    valueDark: '0 1px 3px 0 rgba(0, 0, 0, 0.25), 0 1px 2px 0 rgba(0, 0, 0, 0.2)',
+    valueDark:
+      '0 1px 3px 0 rgba(0, 0, 0, 0.25), 0 1px 2px 0 rgba(0, 0, 0, 0.2)',
     usage: 'Menus, popovers, hover cards, dropdown menus',
   },
   {
     name: 'shadow-md',
     cssVar: '--shadow-md',
     tailwindClass: 'shadow-md',
-    value: '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.04)',
-    valueDark: '0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2)',
+    value:
+      '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.04)',
+    valueDark:
+      '0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2)',
     usage: 'Toast notifications (sonner), temporary elements',
   },
   {
     name: 'shadow-lg',
     cssVar: '--shadow-lg',
     tailwindClass: 'shadow-lg',
-    value: '0 10px 15px -3px rgba(0, 0, 0, 0.06), 0 4px 6px -2px rgba(0, 0, 0, 0.04)',
-    valueDark: '0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.2)',
+    value:
+      '0 10px 15px -3px rgba(0, 0, 0, 0.06), 0 4px 6px -2px rgba(0, 0, 0, 0.04)',
+    valueDark:
+      '0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.2)',
     usage: 'Modals and dialogs without backdrop overlay',
   },
   {
     name: 'shadow-xl',
     cssVar: '--shadow-xl',
     tailwindClass: 'shadow-xl',
-    value: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.06)',
-    valueDark: '0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 10px 10px -5px rgba(0, 0, 0, 0.4)',
+    value:
+      '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.06)',
+    valueDark:
+      '0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 10px 10px -5px rgba(0, 0, 0, 0.4)',
     usage: 'Modals and dialogs with backdrop overlay, highest elevation',
   },
 ];
@@ -339,9 +346,13 @@ export function getRadius(name: string): BorderRadius | undefined {
 /**
  * Get focus ring classes for a given variant
  */
-export function getFocusRingClasses(variant: 'default' | 'destructive' = 'default'): string {
+export function getFocusRingClasses(
+  variant: 'default' | 'destructive' = 'default'
+): string {
   const ring = focusRings.find((r) =>
-    variant === 'destructive' ? r.name === 'focus-destructive' : r.name === 'focus'
+    variant === 'destructive'
+      ? r.name === 'focus-destructive'
+      : r.name === 'focus'
   );
   return ring?.tailwindClasses ?? '';
 }

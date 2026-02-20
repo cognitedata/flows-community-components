@@ -1,6 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, screen, userEvent, waitFor, within } from '@storybook/test';
-import { IconChartLine, IconCube, IconGauge, IconReportAnalytics } from '@tabler/icons-react';
+import {
+  IconChartLine,
+  IconCube,
+  IconGauge,
+  IconReportAnalytics,
+} from '@tabler/icons-react';
 
 import {
   Card,
@@ -16,7 +21,10 @@ import {
 
 import { Badge } from '@/components/ui/aura/badge';
 import { Button } from '@/components/ui/aura/button';
-import { DropdownMenuItem, DropdownMenuSeparator } from '@/components/ui/aura/dropdown-menu';
+import {
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+} from '@/components/ui/aura/dropdown-menu';
 const meta: Meta<typeof Card> = {
   title: 'Primitives/Card',
   component: Card,
@@ -89,7 +97,9 @@ export const WithTextFooter: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await expect(canvas.getByText('21PT1019')).toBeInTheDocument();
-    await expect(canvas.getByText('Pressure over last 24 hours')).toBeInTheDocument();
+    await expect(
+      canvas.getByText('Pressure over last 24 hours')
+    ).toBeInTheDocument();
     await expect(
       canvas.getByText('Trending up by 5.2% this month', {
         exact: false,
@@ -108,7 +118,9 @@ export const WithTextFooter: Story = {
         <div className="flex items-center text-sm font-medium text-foreground tracking-normal">
           Trending up by 5.2% this month <IconChartLine size={16} />
         </div>
-        <div className="text-sm font-normal text-muted-foreground tracking-normal">No alerts</div>
+        <div className="text-sm font-normal text-muted-foreground tracking-normal">
+          No alerts
+        </div>
       </CardFooter>
     </Card>
   ),
@@ -127,7 +139,9 @@ export const WithBadgeInHeader: Story = {
       name: /view scene/i,
     });
     await expect(footerButton).toBeInTheDocument();
-    await expect(canvas.getByText('Model ID: 4602269428617841')).toBeInTheDocument();
+    await expect(
+      canvas.getByText('Model ID: 4602269428617841')
+    ).toBeInTheDocument();
   },
   render: () => (
     <Card className="w-full max-w-sm">
@@ -164,7 +178,8 @@ export const WithHover: Story = {
     const canvas = within(canvasElement);
     const cardTitle = canvas.getByText('Title');
     await expect(cardTitle).toBeInTheDocument();
-    const card = cardTitle.closest('[data-slot="card"]') ?? cardTitle.parentElement;
+    const card =
+      cardTitle.closest('[data-slot="card"]') ?? cardTitle.parentElement;
     if (card) {
       await userEvent.hover(card);
     }
@@ -181,13 +196,17 @@ export const WithHover: Story = {
         <CardDescription>Subtitle</CardDescription>
       </CardHeader>
       <CardContent className="gap-2">
-        <div className="text-base text-secondary-foreground tracking-tightest">Description</div>
+        <div className="text-base text-secondary-foreground tracking-tightest">
+          Description
+        </div>
       </CardContent>
       <CardFooter className="gap-1 flex-col">
         <div className="flex items-center text-sm font-medium text-foreground tracking-normal">
           Trending up by 5.2% this month <IconChartLine size={16} />
         </div>
-        <div className="text-sm font-normal text-muted-foreground tracking-normal">No alerts</div>
+        <div className="text-sm font-normal text-muted-foreground tracking-normal">
+          No alerts
+        </div>
       </CardFooter>
     </Card>
   ),
@@ -246,7 +265,9 @@ export const WithActions: Story = {
     <Card className="w-96">
       <CardHeader>
         <CardTitle>Card with Actions</CardTitle>
-        <CardDescription>This card has a dropdown menu with actions</CardDescription>
+        <CardDescription>
+          This card has a dropdown menu with actions
+        </CardDescription>
         <CardHeaderRight>
           <CardActions>
             <DropdownMenuItem>
@@ -256,7 +277,9 @@ export const WithActions: Story = {
             <DropdownMenuItem>Edit configuration</DropdownMenuItem>
             <DropdownMenuItem>Duplicate</DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem variant="destructive">Delete card</DropdownMenuItem>
+            <DropdownMenuItem variant="destructive">
+              Delete card
+            </DropdownMenuItem>
           </CardActions>
         </CardHeaderRight>
       </CardHeader>
@@ -312,7 +335,9 @@ export const WithIconAndActions: Story = {
         </CardHeaderRight>
       </CardHeader>
       <CardContent>
-        <p className="text-sm text-muted-foreground">Model ID: 4602269428617841</p>
+        <p className="text-sm text-muted-foreground">
+          Model ID: 4602269428617841
+        </p>
       </CardContent>
     </Card>
   ),
@@ -325,7 +350,9 @@ export const WithHeaderRightBadge: Story = {
     <Card className="w-96">
       <CardHeader>
         <CardTitle>Custom Header Element</CardTitle>
-        <CardDescription>Badge positioned in top-right using CardHeaderRight</CardDescription>
+        <CardDescription>
+          Badge positioned in top-right using CardHeaderRight
+        </CardDescription>
         <CardHeaderRight>
           <Badge variant="fjord" className="h-fit">
             New
@@ -334,8 +361,8 @@ export const WithHeaderRightBadge: Story = {
       </CardHeader>
       <CardContent>
         <p className="text-sm text-muted-foreground">
-          CardHeaderRight provides a predictable slot for any custom element in the top-right
-          corner.
+          CardHeaderRight provides a predictable slot for any custom element in
+          the top-right corner.
         </p>
       </CardContent>
     </Card>
@@ -363,7 +390,8 @@ export const WithIconAndHeaderRight: Story = {
       </CardHeader>
       <CardContent>
         <p className="text-sm text-muted-foreground">
-          All three grid columns are active: icon, content, and custom right element.
+          All three grid columns are active: icon, content, and custom right
+          element.
         </p>
       </CardContent>
     </Card>
@@ -377,7 +405,9 @@ export const ContentOnly: Story = {
     const canvas = within(canvasElement);
     await expect(canvas.getByText('Content Only Card')).toBeInTheDocument();
     await expect(
-      canvas.getByText('This card contains only content without a header or footer section.')
+      canvas.getByText(
+        'This card contains only content without a header or footer section.'
+      )
     ).toBeInTheDocument();
   },
   render: () => (
@@ -466,8 +496,8 @@ export const SemanticHeadings: Story = {
         </CardHeader>
         <CardContent>
           <p className="text-sm text-muted-foreground">
-            When your card represents a major section of content, use <code>as="h2"</code> for
-            proper document hierarchy.
+            When your card represents a major section of content, use{' '}
+            <code>as="h2"</code> for proper document hierarchy.
           </p>
         </CardContent>
       </Card>
@@ -475,12 +505,14 @@ export const SemanticHeadings: Story = {
       <Card>
         <CardHeader>
           <CardTitle>Default Heading (h3)</CardTitle>
-          <CardDescription>CardTitle defaults to h3 when no "as" prop is provided</CardDescription>
+          <CardDescription>
+            CardTitle defaults to h3 when no "as" prop is provided
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <p className="text-sm text-muted-foreground">
-            The default is <code>&lt;h3&gt;</code>, which works well for most card use cases in a
-            typical page hierarchy.
+            The default is <code>&lt;h3&gt;</code>, which works well for most
+            card use cases in a typical page hierarchy.
           </p>
         </CardContent>
       </Card>
@@ -492,8 +524,9 @@ export const SemanticHeadings: Story = {
         </CardHeader>
         <CardContent>
           <p className="text-sm text-muted-foreground">
-            When cards are nested within sections, use <code>as="h4"</code>, <code>as="h5"</code>,
-            or <code>as="h6"</code> to maintain semantic structure.
+            When cards are nested within sections, use <code>as="h4"</code>,{' '}
+            <code>as="h5"</code>, or <code>as="h6"</code> to maintain semantic
+            structure.
           </p>
         </CardContent>
       </Card>
@@ -513,7 +546,9 @@ export const Playground: Story = {
           </Badge>
         </CardIcon>
         <CardTitle>Playground Card</CardTitle>
-        <CardDescription>Experiment with card props using the controls below</CardDescription>
+        <CardDescription>
+          Experiment with card props using the controls below
+        </CardDescription>
         <CardHeaderRight>
           <Badge variant="nordic" className="h-fit">
             New
@@ -522,8 +557,8 @@ export const Playground: Story = {
       </CardHeader>
       <CardContent>
         <p className="text-sm text-muted-foreground">
-          This is an interactive playground. Try changing the className or other props using the
-          controls panel to see how the card responds.
+          This is an interactive playground. Try changing the className or other
+          props using the controls panel to see how the card responds.
         </p>
       </CardContent>
       <CardFooter className="gap-2">

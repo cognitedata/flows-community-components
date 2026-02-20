@@ -33,7 +33,11 @@ export type ToolUIPart = {
   input?: unknown;
   output?: unknown;
   errorText?: string;
-  state?: 'input-streaming' | 'input-available' | 'output-available' | 'output-error';
+  state?:
+    | 'input-streaming'
+    | 'input-available'
+    | 'output-available'
+    | 'output-error';
 };
 
 export type MessageUIPart = TextUIPart | FileUIPart | ToolUIPart;

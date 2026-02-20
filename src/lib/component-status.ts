@@ -24,8 +24,10 @@ export type ComponentStatus = ComponentStatusType;
  * This function returns 'draft' for all components.
  * Use the status field from ComponentMeta instead.
  */
- 
-export function getComponentStatus(_componentSlug: string): ComponentStatusType {
+
+export function getComponentStatus(
+  _componentSlug: string
+): ComponentStatusType {
   // Status is now in metadata - this is kept for backward compatibility
   // Always returns 'draft' as the safe default
   return 'draft';
@@ -74,7 +76,7 @@ export function getStatusMessage(status: ComponentStatusType): string {
 /**
  * @deprecated Use getStatusMessage instead.
  */
- 
+
 export function getComponentStatusMessage(_componentSlug: string): string {
   return getStatusMessage('draft');
 }

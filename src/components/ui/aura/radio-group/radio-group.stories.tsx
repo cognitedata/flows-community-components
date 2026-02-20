@@ -121,21 +121,27 @@ export const WithDescription: Story = {
         <RadioGroupItem value="default" id="d1" className="mt-1" />
         <div className="grid gap-0.5">
           <Label htmlFor="d1">Default</Label>
-          <p className="text-xs text-muted-foreground">Standard spacing and sizing.</p>
+          <p className="text-xs text-muted-foreground">
+            Standard spacing and sizing.
+          </p>
         </div>
       </div>
       <div className="flex items-start space-x-2">
         <RadioGroupItem value="comfortable" id="d2" className="mt-1" />
         <div className="grid gap-0.5">
           <Label htmlFor="d2">Comfortable</Label>
-          <p className="text-xs text-muted-foreground">More space for easier reading.</p>
+          <p className="text-xs text-muted-foreground">
+            More space for easier reading.
+          </p>
         </div>
       </div>
       <div className="flex items-start space-x-2">
         <RadioGroupItem value="compact" id="d3" className="mt-1" />
         <div className="grid gap-0.5">
           <Label htmlFor="d3">Compact</Label>
-          <p className="text-xs text-muted-foreground">Condensed layout for more content.</p>
+          <p className="text-xs text-muted-foreground">
+            Condensed layout for more content.
+          </p>
         </div>
       </div>
     </RadioGroup>
@@ -340,7 +346,9 @@ export const VisualRegression: Story = {
   render: () => (
     <div className="space-y-8 p-4">
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">Vertical</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          Vertical
+        </h3>
         <RadioGroup defaultValue="opt1">
           <div className="flex items-center space-x-2">
             <RadioGroupItem value="opt1" id="vr1" />
@@ -354,7 +362,9 @@ export const VisualRegression: Story = {
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">Horizontal</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          Horizontal
+        </h3>
         <RadioGroup defaultValue="opt1" className="flex gap-4">
           <div className="flex items-center space-x-2">
             <RadioGroupItem value="opt1" id="vrh1" />
@@ -372,7 +382,9 @@ export const VisualRegression: Story = {
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">Disabled</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          Disabled
+        </h3>
         <RadioGroup defaultValue="opt1" disabled>
           <div className="flex items-center space-x-2">
             <RadioGroupItem value="opt1" id="vrd1" />

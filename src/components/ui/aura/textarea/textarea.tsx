@@ -42,7 +42,9 @@ const Textarea = forwardRef<ComponentRef<'textarea'>, TextareaProps>(
       return String(initialValue).length;
     });
 
-    const charCount = isControlled ? String(props.value ?? '').length : uncontrolledCharCount;
+    const charCount = isControlled
+      ? String(props.value ?? '').length
+      : uncontrolledCharCount;
 
     const isOverLimit = maxChars !== undefined && charCount > maxChars;
     const isInvalid = !!errorMessage || isOverLimit;
@@ -79,7 +81,9 @@ const Textarea = forwardRef<ComponentRef<'textarea'>, TextareaProps>(
         {errorMessage && <HelperText isError>{errorMessage}</HelperText>}
         {maxChars !== undefined && (
           <HelperText isError={isOverLimit}>
-            {isOverLimit ? overLimitMessage : charactersLeftMessage(maxChars - charCount)}
+            {isOverLimit
+              ? overLimitMessage
+              : charactersLeftMessage(maxChars - charCount)}
           </HelperText>
         )}
       </>

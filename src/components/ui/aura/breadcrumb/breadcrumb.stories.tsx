@@ -121,7 +121,9 @@ export const WithEllipsisDropdown: Story = {
     await expect(homeLink).toHaveAttribute('href', '/');
     const canvasLink = canvas.getByText('Canvas');
     await expect(canvasLink).toHaveAttribute('href', '/canvas');
-    const ellipsisButton = canvasElement.querySelector('[data-slot="breadcrumb-ellipsis"] button');
+    const ellipsisButton = canvasElement.querySelector(
+      '[data-slot="breadcrumb-ellipsis"] button'
+    );
     await expect(ellipsisButton).toBeInTheDocument();
     const currentPage = canvas.getByText('Test canvas');
     await expect(currentPage).toBeInTheDocument();
@@ -276,9 +278,15 @@ export const LongPath: Story = {
     const teamsLink = canvas.getByText('Teams');
     await expect(teamsLink).toHaveAttribute('href', '/organization/teams');
     const engineeringLink = canvas.getByText('Engineering');
-    await expect(engineeringLink).toHaveAttribute('href', '/organization/teams/engineering');
+    await expect(engineeringLink).toHaveAttribute(
+      'href',
+      '/organization/teams/engineering'
+    );
     const projectsLink = canvas.getByText('Projects');
-    await expect(projectsLink).toHaveAttribute('href', '/organization/teams/engineering/projects');
+    await expect(projectsLink).toHaveAttribute(
+      'href',
+      '/organization/teams/engineering/projects'
+    );
     const currentPage = canvas.getByText('Q1 2024 Planning');
     await expect(currentPage).toBeInTheDocument();
     await expect(currentPage).toHaveAttribute('aria-current', 'page');
@@ -299,11 +307,15 @@ export const LongPath: Story = {
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-          <BreadcrumbLink href="/organization/teams/engineering">Engineering</BreadcrumbLink>
+          <BreadcrumbLink href="/organization/teams/engineering">
+            Engineering
+          </BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-          <BreadcrumbLink href="/organization/teams/engineering/projects">Projects</BreadcrumbLink>
+          <BreadcrumbLink href="/organization/teams/engineering/projects">
+            Projects
+          </BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
@@ -389,7 +401,9 @@ export const Interactive: Story = {
     const navLinks = within(nav).getAllByRole('link');
     await expect(navLinks.length).toBeGreaterThan(0);
     const buttons = canvas.getAllByRole('button');
-    const settingsButton = buttons.find((btn) => btn.textContent?.includes('Settings'));
+    const settingsButton = buttons.find((btn) =>
+      btn.textContent?.includes('Settings')
+    );
     if (settingsButton) {
       await userEvent.click(settingsButton);
     }
@@ -464,7 +478,9 @@ export const Interactive: Story = {
           </BreadcrumbList>
         </Breadcrumb>
         <div className="flex flex-wrap gap-2 pt-2 border-t">
-          <p className="text-xs text-muted-foreground w-full mb-1">Navigate to:</p>
+          <p className="text-xs text-muted-foreground w-full mb-1">
+            Navigate to:
+          </p>
           {navigationOptions.map((option) => (
             <button
               key={option.label}
@@ -536,7 +552,9 @@ export const StyleComparison: Story = {
             <BreadcrumbItem>
               <DropdownMenu>
                 <DropdownMenuTrigger
-                  render={<BreadcrumbPageButton>Test canvas</BreadcrumbPageButton>}
+                  render={
+                    <BreadcrumbPageButton>Test canvas</BreadcrumbPageButton>
+                  }
                 />
                 <DropdownMenuContent align="start" className="w-[280px] p-0">
                   <div className="p-1">
@@ -587,7 +605,9 @@ export const ConstrainedContainer: Story = {
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbLink href="/projects/design">Design System</BreadcrumbLink>
+            <BreadcrumbLink href="/projects/design">
+              Design System
+            </BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
@@ -603,9 +623,13 @@ export const LongItemNames: Story = {
     const canvas = within(canvasElement);
     const homeLink = canvas.getByText('Home');
     await expect(homeLink).toBeInTheDocument();
-    const longLink = canvas.getByText('Department of Engineering and Technology Services');
+    const longLink = canvas.getByText(
+      'Department of Engineering and Technology Services'
+    );
     await expect(longLink).toHaveAttribute('href', '/department');
-    const longPage = canvas.getByText('Enterprise Resource Planning System Implementation Project');
+    const longPage = canvas.getByText(
+      'Enterprise Resource Planning System Implementation Project'
+    );
     await expect(longPage).toBeInTheDocument();
     await expect(longPage).toHaveAttribute('aria-current', 'page');
   },
@@ -733,7 +757,9 @@ export const SmallContainerManyLongItems: Story = {
     await expect(nav).toBeInTheDocument();
     const homeLink = canvas.getByText('Home');
     await expect(homeLink).toHaveAttribute('href', '/');
-    const ellipsisButton = canvasElement.querySelector('[data-slot="breadcrumb-ellipsis"] button');
+    const ellipsisButton = canvasElement.querySelector(
+      '[data-slot="breadcrumb-ellipsis"] button'
+    );
     await expect(ellipsisButton).toBeInTheDocument();
     const longLink = canvas.getByText('Frontend Development Team');
     await expect(longLink).toHaveAttribute('href', '/team');
@@ -753,14 +779,20 @@ export const SmallContainerManyLongItems: Story = {
             <DropdownMenu>
               <DropdownMenuTrigger render={<BreadcrumbEllipsisButton />} />
               <DropdownMenuContent>
-                <DropdownMenuItem render={<a href="/organization">Organization Management</a>} />
-                <DropdownMenuItem render={<a href="/department">Engineering Department</a>} />
+                <DropdownMenuItem
+                  render={<a href="/organization">Organization Management</a>}
+                />
+                <DropdownMenuItem
+                  render={<a href="/department">Engineering Department</a>}
+                />
               </DropdownMenuContent>
             </DropdownMenu>
           </BreadcrumbEllipsis>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbLink href="/team">Frontend Development Team</BreadcrumbLink>
+            <BreadcrumbLink href="/team">
+              Frontend Development Team
+            </BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>

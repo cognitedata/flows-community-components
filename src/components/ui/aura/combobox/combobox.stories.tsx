@@ -27,7 +27,11 @@ import {
 } from '@/components/ui/aura/command';
 import { HelperText } from '@/components/ui/aura/helper-text';
 import { Label } from '@/components/ui/aura/label';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/aura/popover';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/aura/popover';
 
 const meta: Meta<typeof Popover> = {
   title: 'Primitives/Combobox',
@@ -176,11 +180,17 @@ export const Basic: Story = {
     await expect(trigger).toHaveAttribute('aria-expanded', 'false');
     await expect(trigger).toHaveTextContent('Michael Jordan');
     await userEvent.click(trigger);
-    const searchInput = (await body.findByPlaceholderText('Search users...', undefined, {
-      timeout: 1000,
-    })) as HTMLInputElement;
+    const searchInput = (await body.findByPlaceholderText(
+      'Search users...',
+      undefined,
+      {
+        timeout: 1000,
+      }
+    )) as HTMLInputElement;
     await expect(trigger).toHaveAttribute('aria-expanded', 'true');
-    const commandList = canvasElement.ownerDocument.querySelector('[data-slot="command-list"]');
+    const commandList = canvasElement.ownerDocument.querySelector(
+      '[data-slot="command-list"]'
+    );
     await expect(commandList).toBeInTheDocument();
     await expect(commandList).toHaveTextContent('Dennis Rodman');
     await expect(commandList).toHaveTextContent('Michael Jordan');
@@ -207,7 +217,11 @@ export const Basic: Story = {
                   variant="outline"
                   role="combobox"
                   aria-expanded={open}
-                  aria-label={selectedUser ? `Selected user: ${selectedUser.label}` : 'Select user'}
+                  aria-label={
+                    selectedUser
+                      ? `Selected user: ${selectedUser.label}`
+                      : 'Select user'
+                  }
                   className="w-full justify-between"
                 >
                   <div className="flex items-center gap-2">
@@ -219,7 +233,9 @@ export const Basic: Story = {
                         </span>
                       </>
                     ) : (
-                      <span className="text-sm text-muted-foreground">Select user...</span>
+                      <span className="text-sm text-muted-foreground">
+                        Select user...
+                      </span>
                     )}
                   </div>
                   <IconSelector className="h-4 w-4 opacity-50" />
@@ -283,7 +299,9 @@ export const WithAddNew: Story = {
     const body = within(canvasElement.ownerDocument.body);
     const trigger = canvas.getByRole('combobox');
     await userEvent.click(trigger);
-    const searchInput = (await body.findByPlaceholderText('Search users...')) as HTMLInputElement;
+    const searchInput = (await body.findByPlaceholderText(
+      'Search users...'
+    )) as HTMLInputElement;
     await userEvent.clear(searchInput);
     await userEvent.type(searchInput, 'Steve Kerr');
     await body.findByRole('button', {
@@ -301,7 +319,9 @@ export const WithAddNew: Story = {
     );
     const canAddUser =
       searchValue.trim() &&
-      !userList.some((user) => user.label.toLowerCase() === searchValue.toLowerCase().trim());
+      !userList.some(
+        (user) => user.label.toLowerCase() === searchValue.toLowerCase().trim()
+      );
     const handleAddUser = () => {
       if (!canAddUser) return;
       const newUser = {
@@ -332,7 +352,11 @@ export const WithAddNew: Story = {
                   variant="outline"
                   role="combobox"
                   aria-expanded={open}
-                  aria-label={selectedUser ? `Selected user: ${selectedUser.label}` : 'Select user'}
+                  aria-label={
+                    selectedUser
+                      ? `Selected user: ${selectedUser.label}`
+                      : 'Select user'
+                  }
                   className="w-full justify-between"
                 >
                   <div className="flex items-center gap-2">
@@ -344,14 +368,19 @@ export const WithAddNew: Story = {
                         </span>
                       </>
                     ) : (
-                      <span className="text-sm text-muted-foreground">Select user...</span>
+                      <span className="text-sm text-muted-foreground">
+                        Select user...
+                      </span>
                     )}
                   </div>
                   <IconSelector className="h-4 w-4 opacity-50" />
                 </Button>
               }
             />
-            <PopoverContent className="w-95 p-0" aria-label="User selection with add new">
+            <PopoverContent
+              className="w-95 p-0"
+              aria-label="User selection with add new"
+            >
               <Command shouldFilter={false}>
                 <CommandInput
                   placeholder="Search users..."
@@ -367,13 +396,19 @@ export const WithAddNew: Story = {
                           key={user.value}
                           value={user.value}
                           onSelect={(currentValue) => {
-                            setValue(currentValue === value ? '' : currentValue);
+                            setValue(
+                              currentValue === value ? '' : currentValue
+                            );
                             setOpen(false);
                           }}
                           className="flex justify-between h-9 pr-0"
                         >
                           <div className="flex items-center">
-                            <Avatar sizes="xxsm" variant="fjord" className="mr-2">
+                            <Avatar
+                              sizes="xxsm"
+                              variant="fjord"
+                              className="mr-2"
+                            >
                               <AvatarFallback>{user.initials}</AvatarFallback>
                             </Avatar>
                             <span className="flex-1 text-base tracking-tightest font-normal text-foreground pr-1.5">
@@ -401,7 +436,11 @@ export const WithAddNew: Story = {
                 </CommandList>
                 {canAddUser && (
                   <div className="p-2 border-t">
-                    <Button variant="secondary" className="w-full h-9" onClick={handleAddUser}>
+                    <Button
+                      variant="secondary"
+                      className="w-full h-9"
+                      onClick={handleAddUser}
+                    >
                       <IconPlus className="h-3.5 w-3.5 " />
                       Add {searchValue.trim()}
                     </Button>
@@ -427,7 +466,9 @@ export const MultiSelect: Story = {
     await expect(trigger).toHaveTextContent('Observation');
     await userEvent.click(trigger);
     await body.findByPlaceholderText('Search data type...');
-    const commandItems = canvasElement.ownerDocument.querySelectorAll('[data-slot="command-item"]');
+    const commandItems = canvasElement.ownerDocument.querySelectorAll(
+      '[data-slot="command-item"]'
+    );
     if (commandItems[0]) {
       await userEvent.click(commandItems[0] as Element);
     }
@@ -435,20 +476,30 @@ export const MultiSelect: Story = {
   },
   render: function MultiSelectStory() {
     const [open, setOpen] = useState(false);
-    const [selectedValues, setSelectedValues] = useState<string[]>(['event', 'observation']);
+    const [selectedValues, setSelectedValues] = useState<string[]>([
+      'event',
+      'observation',
+    ]);
     const [searchValue, setSearchValue] = useState('');
     const filteredDataTypes = dataTypes.filter((type) =>
       type.label.toLowerCase().includes(searchValue.toLowerCase())
     );
-    const selectedDataTypes = dataTypes.filter((type) => selectedValues.includes(type.value));
+    const selectedDataTypes = dataTypes.filter((type) =>
+      selectedValues.includes(type.value)
+    );
     const visibleSelected = selectedDataTypes.slice(0, 2);
     const remainingCount = selectedDataTypes.length - 2;
     const handleToggle = (value: string) => {
       setSelectedValues((prev) =>
-        prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value]
+        prev.includes(value)
+          ? prev.filter((v) => v !== value)
+          : [...prev, value]
       );
     };
-    const handleRemove = (value: string, e: React.MouseEvent | React.KeyboardEvent) => {
+    const handleRemove = (
+      value: string,
+      e: React.MouseEvent | React.KeyboardEvent
+    ) => {
       e.stopPropagation();
       e.preventDefault();
       setSelectedValues((prev) => prev.filter((v) => v !== value));
@@ -497,17 +548,24 @@ export const MultiSelect: Story = {
                       </Badge>
                     ))}
                     {remainingCount > 0 && (
-                      <span className="text-sm text-muted-foreground">+ {remainingCount} more</span>
+                      <span className="text-sm text-muted-foreground">
+                        + {remainingCount} more
+                      </span>
                     )}
                     {selectedDataTypes.length === 0 && (
-                      <span className="text-sm text-muted-foreground">Select data types...</span>
+                      <span className="text-sm text-muted-foreground">
+                        Select data types...
+                      </span>
                     )}
                   </div>
                   <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
                 </Button>
               }
             />
-            <PopoverContent className="w-95 p-0" aria-label="Data type selection">
+            <PopoverContent
+              className="w-95 p-0"
+              aria-label="Data type selection"
+            >
               <Command shouldFilter={false}>
                 <CommandInput
                   placeholder="Search data type..."
@@ -530,7 +588,10 @@ export const MultiSelect: Story = {
                             {type.label}
                           </span>
                           <IconCheck
-                            className={cn('mr-2 h-4 w-4', isSelected ? 'opacity-100' : 'opacity-0')}
+                            className={cn(
+                              'mr-2 h-4 w-4',
+                              isSelected ? 'opacity-100' : 'opacity-0'
+                            )}
                           />
                         </CommandItem>
                       );
@@ -560,11 +621,15 @@ export const WithCheckboxes: Story = {
       );
       expect(commandItems.length).toBeGreaterThanOrEqual(5);
     });
-    const checkboxes = canvasElement.ownerDocument.querySelectorAll('[data-slot="checkbox"]');
+    const checkboxes = canvasElement.ownerDocument.querySelectorAll(
+      '[data-slot="checkbox"]'
+    );
     expect(checkboxes[0]).toHaveAttribute('data-checked');
     expect(checkboxes[1]).toHaveAttribute('data-checked');
     expect(checkboxes[2]).not.toHaveAttribute('data-checked');
-    const commandItems = canvasElement.ownerDocument.querySelectorAll('[data-slot="command-item"]');
+    const commandItems = canvasElement.ownerDocument.querySelectorAll(
+      '[data-slot="command-item"]'
+    );
     await userEvent.click(commandItems[2] as Element);
     await waitFor(() => {
       expect(trigger).toHaveTextContent('3 selected');
@@ -572,14 +637,19 @@ export const WithCheckboxes: Story = {
   },
   render: function WithCheckboxesStory() {
     const [open, setOpen] = useState(false);
-    const [selectedValues, setSelectedValues] = useState<string[]>(['notifications', 'marketing']);
+    const [selectedValues, setSelectedValues] = useState<string[]>([
+      'notifications',
+      'marketing',
+    ]);
     const [searchValue, setSearchValue] = useState('');
     const filteredOptions = options.filter((option) =>
       option.label.toLowerCase().includes(searchValue.toLowerCase())
     );
     const handleToggle = (value: string) => {
       setSelectedValues((prev) =>
-        prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value]
+        prev.includes(value)
+          ? prev.filter((v) => v !== value)
+          : [...prev, value]
       );
     };
     const selectedLabels = options
@@ -608,7 +678,10 @@ export const WithCheckboxes: Story = {
                 </Button>
               }
             />
-            <PopoverContent className="w-95 p-0" aria-label="Preferences selection">
+            <PopoverContent
+              className="w-95 p-0"
+              aria-label="Preferences selection"
+            >
               <Command shouldFilter={false}>
                 <CommandInput
                   placeholder="Search preferences..."
@@ -668,17 +741,23 @@ export const KeyboardNavigation: Story = {
       });
     });
     await waitFor(() => {
-      const input = canvasElement.ownerDocument.querySelector('[data-slot="command-input"]');
+      const input = canvasElement.ownerDocument.querySelector(
+        '[data-slot="command-input"]'
+      );
       expect(input).toBeInTheDocument();
     });
     await userEvent.keyboard('{ArrowDown}');
     await waitFor(() => {
-      const selectedItem = canvasElement.ownerDocument.querySelector('[data-selected="true"]');
+      const selectedItem = canvasElement.ownerDocument.querySelector(
+        '[data-selected="true"]'
+      );
       expect(selectedItem).toBeInTheDocument();
     });
     await userEvent.keyboard('{Escape}');
     await waitFor(() => {
-      const input = canvasElement.ownerDocument.querySelector('[data-slot="command-input"]');
+      const input = canvasElement.ownerDocument.querySelector(
+        '[data-slot="command-input"]'
+      );
       expect(input).not.toBeInTheDocument();
     });
   },
@@ -698,10 +777,16 @@ export const KeyboardNavigation: Story = {
                   variant="outline"
                   role="combobox"
                   aria-expanded={open}
-                  aria-label={selectedUser ? `Selected user: ${selectedUser.label}` : 'Select user'}
+                  aria-label={
+                    selectedUser
+                      ? `Selected user: ${selectedUser.label}`
+                      : 'Select user'
+                  }
                   className="w-full justify-between"
                 >
-                  <span>{selectedUser ? selectedUser.label : 'Select user...'}</span>
+                  <span>
+                    {selectedUser ? selectedUser.label : 'Select user...'}
+                  </span>
                   <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
                 </Button>
               }
@@ -771,7 +856,9 @@ export const EmptyState: Story = {
                   aria-label="Select user"
                   className="w-full justify-between"
                 >
-                  <span className="text-sm text-muted-foreground">Select user...</span>
+                  <span className="text-sm text-muted-foreground">
+                    Select user...
+                  </span>
                   <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
                 </Button>
               }
@@ -802,7 +889,9 @@ export const Disabled: Story = {
     await expect(trigger).toHaveAttribute('aria-expanded', 'false');
     const styles = window.getComputedStyle(trigger);
     expect(styles.pointerEvents).toBe('none');
-    expect(body.queryByPlaceholderText('Search users...')).not.toBeInTheDocument();
+    expect(
+      body.queryByPlaceholderText('Search users...')
+    ).not.toBeInTheDocument();
   },
   render: function DisabledStory() {
     const [open, setOpen] = useState(false);
@@ -821,7 +910,9 @@ export const Disabled: Story = {
                   className="w-full justify-between"
                   disabled
                 >
-                  <span className="text-sm text-muted-foreground">Select user...</span>
+                  <span className="text-sm text-muted-foreground">
+                    Select user...
+                  </span>
                   <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
                 </Button>
               }
@@ -873,10 +964,16 @@ export const WithError: Story = {
                 role="combobox"
                 aria-expanded={open}
                 aria-invalid={true}
-                aria-label={selectedUser ? `Selected user: ${selectedUser.label}` : 'Select user'}
+                aria-label={
+                  selectedUser
+                    ? `Selected user: ${selectedUser.label}`
+                    : 'Select user'
+                }
                 className="w-full justify-between aria-invalid:border-destructive-foreground aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40"
               >
-                <span>{selectedUser ? selectedUser.label : 'Select user...'}</span>
+                <span>
+                  {selectedUser ? selectedUser.label : 'Select user...'}
+                </span>
                 <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
               </Button>
             }
@@ -932,7 +1029,9 @@ export const ComplexInteractive: Story = {
       );
       expect(commandItems.length).toBeGreaterThanOrEqual(10);
     });
-    const commandItems = canvasElement.ownerDocument.querySelectorAll('[data-slot="command-item"]');
+    const commandItems = canvasElement.ownerDocument.querySelectorAll(
+      '[data-slot="command-item"]'
+    );
     await userEvent.click(commandItems[0] as Element);
     await waitFor(() => {
       expect(trigger).toHaveTextContent('Menu item 1');
@@ -971,10 +1070,16 @@ export const ComplexInteractive: Story = {
                 variant="outline"
                 role="combobox"
                 aria-expanded={open}
-                aria-label={selectedItem ? `Selected view: ${selectedItem.label}` : 'Select view'}
+                aria-label={
+                  selectedItem
+                    ? `Selected view: ${selectedItem.label}`
+                    : 'Select view'
+                }
                 className="w-full justify-between"
               >
-                <span>{selectedItem ? selectedItem.label : 'Select view...'}</span>
+                <span>
+                  {selectedItem ? selectedItem.label : 'Select view...'}
+                </span>
                 <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
               </Button>
             }
@@ -986,7 +1091,10 @@ export const ComplexInteractive: Story = {
                 <CommandGroup className="px-1 pt-0 pb-1 mt-1">
                   <CommandEmpty>No view found.</CommandEmpty>
                 </CommandGroup>
-                <CommandGroup heading="Section label" className="px-1 pt-0 pb-1 mt-1">
+                <CommandGroup
+                  heading="Section label"
+                  className="px-1 pt-0 pb-1 mt-1"
+                >
                   {menuItems.map((item) => (
                     <CommandItem
                       key={item.value}
@@ -1001,7 +1109,10 @@ export const ComplexInteractive: Story = {
                   ))}
                 </CommandGroup>
                 <CommandSeparator />
-                <CommandGroup heading="Section label" className="px-1 pt-0 pb-1 mt-1">
+                <CommandGroup
+                  heading="Section label"
+                  className="px-1 pt-0 pb-1 mt-1"
+                >
                   {secondMenuItems.map((item) => (
                     <CommandItem
                       key={item.value}
@@ -1043,7 +1154,11 @@ export const Playground: Story = {
                   variant="outline"
                   role="combobox"
                   aria-expanded={open}
-                  aria-label={selectedUser ? `Selected user: ${selectedUser.label}` : 'Select user'}
+                  aria-label={
+                    selectedUser
+                      ? `Selected user: ${selectedUser.label}`
+                      : 'Select user'
+                  }
                   className="w-full justify-between"
                 >
                   <div className="flex items-center gap-2">
@@ -1055,7 +1170,9 @@ export const Playground: Story = {
                         </span>
                       </>
                     ) : (
-                      <span className="text-sm text-muted-foreground">Select user...</span>
+                      <span className="text-sm text-muted-foreground">
+                        Select user...
+                      </span>
                     )}
                   </div>
                   <IconSelector className="h-4 w-4 opacity-50" />

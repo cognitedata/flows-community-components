@@ -1,7 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
 
-import { Reasoning, ReasoningContent, ReasoningHeader, ReasoningItem } from './reasoning';
+import {
+  Reasoning,
+  ReasoningContent,
+  ReasoningHeader,
+  ReasoningItem,
+} from './reasoning';
 
 import {
   Tool,
@@ -157,7 +162,9 @@ export const IndustrialWorkflow: Story = {
     }
     await waitFor(() => {
       const firstPanelId = firstTool.getAttribute('aria-controls');
-      const firstPanel = firstPanelId ? document.getElementById(firstPanelId) : null;
+      const firstPanel = firstPanelId
+        ? document.getElementById(firstPanelId)
+        : null;
       expect(firstTool).toHaveAttribute('data-panel-open');
       expect(firstPanel).toBeTruthy();
       if (!firstPanel) {
@@ -174,7 +181,9 @@ export const IndustrialWorkflow: Story = {
     }
     await waitFor(() => {
       const secondPanelId = secondTool.getAttribute('aria-controls');
-      const secondPanel = secondPanelId ? document.getElementById(secondPanelId) : null;
+      const secondPanel = secondPanelId
+        ? document.getElementById(secondPanelId)
+        : null;
       expect(secondPanel).toBeTruthy();
       if (!secondPanel) {
         return;
@@ -457,7 +466,9 @@ export const ManyToolCalls: Story = {
     const canvas = within(canvasElement);
     const toolButtons = await canvas.findAllByRole('button');
     await expect(toolButtons.length).toBe(6);
-    await expect(canvas.getByText('Complex Analysis Workflow')).toBeInTheDocument();
+    await expect(
+      canvas.getByText('Complex Analysis Workflow')
+    ).toBeInTheDocument();
     if (!toolButtons[0].hasAttribute('data-panel-open')) {
       await userEvent.click(toolButtons[0]);
     }
@@ -481,7 +492,10 @@ export const LongContent: Story = {
       <ReasoningContent>
         <ReasoningItem>
           <Tool>
-            <ToolHeader title="Fetch detailed sensor readings" type="tool-call" />
+            <ToolHeader
+              title="Fetch detailed sensor readings"
+              type="tool-call"
+            />
             <ToolContent>
               <ToolInput
                 input={{
@@ -604,7 +618,9 @@ export const CustomHeaders: Story = {
         <ReasoningHeader>
           <span className="flex items-center gap-2">
             <span>Processing</span>
-            <span className="text-xs bg-muted px-1.5 py-0.5 rounded">3 steps</span>
+            <span className="text-xs bg-muted px-1.5 py-0.5 rounded">
+              3 steps
+            </span>
           </span>
         </ReasoningHeader>
         <ReasoningContent>
@@ -717,7 +733,9 @@ export const Accessibility: Story = {
       await userEvent.keyboard('{Enter}');
     }
     await waitFor(() => {
-      expect(canvas.getAllByText('Parameters').length).toBeGreaterThanOrEqual(1);
+      expect(canvas.getAllByText('Parameters').length).toBeGreaterThanOrEqual(
+        1
+      );
       expect(canvasElement.textContent).toContain('api');
     });
     toolButtons[1].focus();
@@ -726,7 +744,9 @@ export const Accessibility: Story = {
       await userEvent.keyboard(' ');
     }
     await waitFor(() => {
-      expect(canvas.getAllByText('Parameters').length).toBeGreaterThanOrEqual(2);
+      expect(canvas.getAllByText('Parameters').length).toBeGreaterThanOrEqual(
+        2
+      );
       expect(canvasElement.textContent).toContain('comprehensive');
     });
   },
@@ -735,7 +755,9 @@ export const VisualRegression: Story = {
   render: () => (
     <div className="space-y-8 p-4">
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">Single Tool</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          Single Tool
+        </h3>
         <Reasoning>
           <ReasoningHeader />
           <ReasoningContent>
@@ -762,7 +784,9 @@ export const VisualRegression: Story = {
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">Multiple Tools</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          Multiple Tools
+        </h3>
         <Reasoning>
           <ReasoningHeader />
           <ReasoningContent>
@@ -807,7 +831,9 @@ export const VisualRegression: Story = {
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">With Error</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          With Error
+        </h3>
         <Reasoning>
           <ReasoningHeader />
           <ReasoningContent>
@@ -820,7 +846,10 @@ export const VisualRegression: Story = {
                       test: true,
                     }}
                   />
-                  <ToolOutput output={undefined} errorText="Connection failed" />
+                  <ToolOutput
+                    output={undefined}
+                    errorText="Connection failed"
+                  />
                 </ToolContent>
               </Tool>
             </ReasoningItem>

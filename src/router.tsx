@@ -2,7 +2,6 @@ import { Outlet, createBrowserRouter } from 'react-router-dom';
 
 import { RootLayout } from './layouts/RootLayout';
 import { SectionLayout } from './layouts/SectionLayout';
-
 // Pages
 import AIComponentPage from './pages/ai/components/ComponentPage';
 import AIPage from './pages/ai/Page';
@@ -29,7 +28,6 @@ import ShiftHandoverAppPage from './pages/templates/shift-handover-app/Page';
 import TokensPage from './pages/tokens/Page';
 import UseCasesPage from './pages/use-cases/Page';
 
- 
 function RootLayoutWrapper() {
   return (
     <RootLayout>
@@ -38,7 +36,6 @@ function RootLayoutWrapper() {
   );
 }
 
- 
 function SectionLayoutWrapper() {
   return (
     <SectionLayout>
@@ -106,7 +103,10 @@ export const router = createBrowserRouter(
         // Other pages without section layout
         { path: 'blocks', element: <BlocksPage /> },
         { path: 'templates', element: <TemplatesPage /> },
-        { path: 'templates/shift-handover-app', element: <ShiftHandoverAppPage /> },
+        {
+          path: 'templates/shift-handover-app',
+          element: <ShiftHandoverAppPage />,
+        },
         // Also support /eos/shift-handover-app as seen in the source
         { path: 'eos/shift-handover-app', element: <ShiftHandoverAppPage /> },
         { path: 'tokens', element: <TokensPage /> },

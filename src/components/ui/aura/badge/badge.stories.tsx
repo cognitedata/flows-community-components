@@ -164,8 +164,8 @@ export const AllVariants: Story = {
           Decorative Variants (Filled Only)
         </p>
         <p className="text-xs text-muted-foreground mb-3">
-          These variants are decorative and do not convey semantic meaning. They are filled-only and
-          cannot be outlined.
+          These variants are decorative and do not convey semantic meaning. They
+          are filled-only and cannot be outlined.
         </p>
         <div className="flex flex-wrap gap-2">
           <Badge variant="mountain">Mountain</Badge>
@@ -178,10 +178,12 @@ export const AllVariants: Story = {
       </div>
 
       <div>
-        <p className="text-sm font-medium text-foreground mb-3">Semantic Variants (Filled)</p>
+        <p className="text-sm font-medium text-foreground mb-3">
+          Semantic Variants (Filled)
+        </p>
         <p className="text-xs text-muted-foreground mb-3">
-          These variants convey meaning and support both filled and outlined styles. Icons are
-          included to demonstrate common usage patterns.
+          These variants convey meaning and support both filled and outlined
+          styles. Icons are included to demonstrate common usage patterns.
         </p>
         <div className="flex flex-wrap gap-2">
           <Badge variant="inProgress">
@@ -208,11 +210,13 @@ export const AllVariants: Story = {
       </div>
 
       <div>
-        <p className="text-sm font-medium text-foreground mb-3">Semantic Variants (Outlined)</p>
+        <p className="text-sm font-medium text-foreground mb-3">
+          Semantic Variants (Outlined)
+        </p>
         <p className="text-xs text-muted-foreground mb-3">
-          Outlined variants use borders instead of backgrounds, with standard foreground colors for
-          better contrast on transparent backgrounds. Only semantic variants support outline
-          styling.
+          Outlined variants use borders instead of backgrounds, with standard
+          foreground colors for better contrast on transparent backgrounds. Only
+          semantic variants support outline styling.
         </p>
         <div className="flex flex-wrap gap-2">
           <Badge variant="inProgress" outline>
@@ -239,10 +243,12 @@ export const AllVariants: Story = {
       </div>
 
       <div>
-        <p className="text-sm font-medium text-foreground mb-3">Size Variants</p>
+        <p className="text-sm font-medium text-foreground mb-3">
+          Size Variants
+        </p>
         <p className="text-xs text-muted-foreground mb-3">
-          Badges support two size variants: default (for text content) and icon (compact size for
-          icon-only badges).
+          Badges support two size variants: default (for text content) and icon
+          (compact size for icon-only badges).
         </p>
         <div className="flex flex-wrap items-center gap-2">
           <Badge variant="success" size="default">
@@ -263,10 +269,12 @@ export const AllVariants: Story = {
       </div>
 
       <div>
-        <p className="text-sm font-medium text-foreground mb-3">Dot Indicator</p>
+        <p className="text-sm font-medium text-foreground mb-3">
+          Dot Indicator
+        </p>
         <p className="text-xs text-muted-foreground mb-3">
-          Dot variant displays as a circular indicator, useful for status indicators and
-          notifications.
+          Dot variant displays as a circular indicator, useful for status
+          indicators and notifications.
         </p>
         <div className="flex flex-wrap items-center gap-2">
           <Badge variant="success" dot />
@@ -285,7 +293,9 @@ export const AllVariants: Story = {
     const canvas = within(canvasElement);
     const mountainBadge = canvas.getByText('Mountain');
     await expect(mountainBadge).toBeInTheDocument();
-    await expect(mountainBadge).toHaveClass('bg-decorative-background-mountain');
+    await expect(mountainBadge).toHaveClass(
+      'bg-decorative-background-mountain'
+    );
     const fjordBadge = canvas.getByText('Fjord');
     await expect(fjordBadge).toBeInTheDocument();
     await expect(fjordBadge).toHaveClass('bg-decorative-background-fjord');
@@ -301,9 +311,11 @@ export const AllVariants: Story = {
     });
     expect(filledSuccessElement).toBeDefined();
     expect(filledSuccessElement?.classList.contains('bg-success')).toBe(true);
-    expect(filledSuccessElement?.classList.contains('text-success-foreground-alternate')).toBe(
-      true
-    );
+    expect(
+      filledSuccessElement?.classList.contains(
+        'text-success-foreground-alternate'
+      )
+    ).toBe(true);
     const errorBadges = canvas.getAllByText('Error');
     await expect(errorBadges.length).toBeGreaterThanOrEqual(2);
     const filledErrorElement = errorBadges.find((badge) => {
@@ -313,16 +325,20 @@ export const AllVariants: Story = {
     });
     expect(filledErrorElement).toBeDefined();
     expect(filledErrorElement?.classList.contains('bg-destructive')).toBe(true);
-    expect(filledErrorElement?.classList.contains('text-destructive-foreground-alternate')).toBe(
-      true
-    );
+    expect(
+      filledErrorElement?.classList.contains(
+        'text-destructive-foreground-alternate'
+      )
+    ).toBe(true);
     const outlinedSuccessElements = successBadges.filter((badge) =>
       badge.classList.contains('border-border')
     );
     await expect(outlinedSuccessElements.length).toBeGreaterThan(0);
     const outlinedSuccess = outlinedSuccessElements[0];
     expect(outlinedSuccess.classList.contains('border-border')).toBe(true);
-    expect(outlinedSuccess.classList.contains('text-success-foreground')).toBe(true);
+    expect(outlinedSuccess.classList.contains('text-success-foreground')).toBe(
+      true
+    );
     expect(outlinedSuccess.classList.contains('bg-success')).toBe(false);
     const allBadges = canvasElement.querySelectorAll('[data-slot="badge"]');
     await expect(allBadges.length).toBeGreaterThanOrEqual(16);
@@ -760,7 +776,9 @@ export const IconSizes: Story = {
   render: () => (
     <div className="flex flex-col gap-6">
       <div>
-        <p className="text-sm text-muted-foreground mb-3">Default size with text + icon</p>
+        <p className="text-sm text-muted-foreground mb-3">
+          Default size with text + icon
+        </p>
         <div className="flex flex-wrap gap-2">
           <Badge variant="mountain">
             <IconHexagon className="size-3" />
@@ -826,7 +844,8 @@ export const IconSizes: Story = {
   play: async ({ canvasElement }) => {
     const badges = canvasElement.querySelectorAll('[data-slot="badge"]');
     const iconSizeBadges = Array.from(badges).filter(
-      (badge) => badge.classList.contains('px-1.5') && badge.classList.contains('py-1')
+      (badge) =>
+        badge.classList.contains('px-1.5') && badge.classList.contains('py-1')
     );
     iconSizeBadges.forEach((badge) => {
       expect(badge).toHaveClass('px-1.5');
@@ -907,7 +926,11 @@ export const ClickInteraction: Story = {
     const [clicked, setClicked] = useState(false);
     return (
       <div className="flex flex-wrap gap-4 items-center">
-        <Badge variant="closable" onClick={() => setClicked(!clicked)} className="cursor-pointer">
+        <Badge
+          variant="closable"
+          onClick={() => setClicked(!clicked)}
+          className="cursor-pointer"
+        >
           {clicked ? 'Clicked!' : 'Click me'}
           <IconX className="size-3" />
         </Badge>
@@ -1113,8 +1136,8 @@ export const EdgeCaseLongText: Story = {
   render: () => (
     <div className="flex flex-col gap-2 max-w-md">
       <Badge variant="fjord">
-        This is an extremely long badge text that should demonstrate how the component handles
-        lengthy content
+        This is an extremely long badge text that should demonstrate how the
+        component handles lengthy content
       </Badge>
       <Badge variant="aurora" className="max-w-xs">
         Constrained width with very long text that might wrap or truncate

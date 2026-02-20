@@ -104,7 +104,9 @@ export const WithDefaultSlot: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await expect(canvas.getByText('Default content slot')).toBeInTheDocument();
-    await expect(canvas.queryByText('Active content slot')).not.toBeInTheDocument();
+    await expect(
+      canvas.queryByText('Active content slot')
+    ).not.toBeInTheDocument();
   },
   render: function WithDefaultSlotStory() {
     return (
@@ -127,7 +129,9 @@ export const WithActiveSlot: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await expect(canvas.getByText('Active content slot')).toBeInTheDocument();
-    await expect(canvas.queryByText('Default content slot')).not.toBeInTheDocument();
+    await expect(
+      canvas.queryByText('Default content slot')
+    ).not.toBeInTheDocument();
   },
   render: function WithActiveSlotStory() {
     return (
@@ -206,7 +210,9 @@ export const CustomStyling: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText('Custom background colour')).toBeInTheDocument();
+    await expect(
+      canvas.getByText('Custom background colour')
+    ).toBeInTheDocument();
     await expect(canvas.getByText('Primary border')).toBeInTheDocument();
     await expect(canvas.getByText('Solid border')).toBeInTheDocument();
   },
@@ -214,7 +220,9 @@ export const CustomStyling: Story = {
     return (
       <div className="space-y-4 w-100">
         <SwapSlot className="h-20 bg-accent/50">
-          <span className="text-sm text-muted-foreground">Custom background colour</span>
+          <span className="text-sm text-muted-foreground">
+            Custom background colour
+          </span>
         </SwapSlot>
         <SwapSlot className="h-24 border-2 border-primary">
           <span className="text-sm text-muted-foreground">Primary border</span>
@@ -282,7 +290,9 @@ export const PriorityOrder: Story = {
     return (
       <div className="space-y-4 w-100">
         <div className="space-y-2">
-          <h3 className="font-semibold text-sm">1. With all three (activeSlot wins)</h3>
+          <h3 className="font-semibold text-sm">
+            1. With all three (activeSlot wins)
+          </h3>
           <SwapSlot
             defaultSlot={<span>Default Slot</span>}
             activeSlot={<span className="text-success">Active Slot</span>}
@@ -365,8 +375,8 @@ export const WithComplexContent: Story = {
                 <Badge variant="archived">Inactive</Badge>
               </div>
               <p className="text-sm text-muted-foreground">
-                This is the default slot with complex content including badges and multiple text
-                elements.
+                This is the default slot with complex content including badges
+                and multiple text elements.
               </p>
             </div>
           }

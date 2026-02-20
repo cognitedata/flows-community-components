@@ -25,7 +25,11 @@ const config: StorybookConfig = {
     // Otherwise use /aura/storybook for production builds, / for development
     const basePath =
       process.env.STORYBOOK_BASE_PATH ||
-      (process.env.CI ? '/' : configType === 'PRODUCTION' ? '/aura/storybook' : '/');
+      (process.env.CI
+        ? '/'
+        : configType === 'PRODUCTION'
+          ? '/aura/storybook'
+          : '/');
 
     return mergeConfig(config, {
       base: basePath,

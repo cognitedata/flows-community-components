@@ -10,9 +10,5 @@
  *   Toggle
  * </Toggle>
  */
-export {
-  Toggle,
-   
-  toggleVariants,
-} from './toggle';
+export { Toggle, toggleVariants } from './toggle';
 export { ToggleMetadata } from './toggle.metadata';

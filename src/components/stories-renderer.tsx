@@ -18,7 +18,10 @@ interface StoryEntry {
 // Use import.meta.glob to let Vite know about all stories files at build time
 // Using eager: true ensures modules are loaded at build time and included in production bundle
 // This follows Storybook's recommended pattern for portable stories
-const storiesModules = import.meta.glob('@/components/ui/aura/*/*.stories.tsx', { eager: true });
+const storiesModules = import.meta.glob(
+  '@/components/ui/aura/*/*.stories.tsx',
+  { eager: true }
+);
 
 // Create slug-to-module mapping at module load time
 const storiesBySlug = new Map<string, Record<string, unknown>>();
@@ -77,7 +80,10 @@ export function StoriesRenderer({ slug }: StoriesRendererProps) {
             slug.toLowerCase().includes(s.toLowerCase())
         );
 
-        console.error('[StoriesRenderer] Story module not found for slug:', slug);
+        console.error(
+          '[StoriesRenderer] Story module not found for slug:',
+          slug
+        );
 
         const errorMessage =
           similarSlugs.length > 0
@@ -96,10 +102,9 @@ export function StoriesRenderer({ slug }: StoriesRendererProps) {
         // composeStories expects a module with default export (meta) and named exports (stories)
         let composed: Record<string, ComponentType>;
         try {
-          composed = composeStories(module as Parameters<typeof composeStories>[0]) as Record<
-            string,
-            ComponentType
-          >;
+          composed = composeStories(
+            module as Parameters<typeof composeStories>[0]
+          ) as Record<string, ComponentType>;
 
           // If composeStories returns empty, try to manually extract stories
           if (Object.keys(composed).length === 0) {
@@ -166,8 +171,12 @@ export function StoriesRenderer({ slug }: StoriesRendererProps) {
           })
           // Sort by parameters.order if present, otherwise alphabetically
           .sort((a, b) => {
-            const storyA = module[a.key] as { parameters?: { order?: number } } | undefined;
-            const storyB = module[b.key] as { parameters?: { order?: number } } | undefined;
+            const storyA = module[a.key] as
+              | { parameters?: { order?: number } }
+              | undefined;
+            const storyB = module[b.key] as
+              | { parameters?: { order?: number } }
+              | undefined;
 
             const orderA = storyA?.parameters?.order ?? 999;
             const orderB = storyB?.parameters?.order ?? 999;
@@ -192,7 +201,11 @@ export function StoriesRenderer({ slug }: StoriesRendererProps) {
         }
       } catch (err) {
         if (!cancelled) {
-          console.error('[StoriesRenderer] Failed to load stories for slug:', slug, err);
+          console.error(
+            '[StoriesRenderer] Failed to load stories for slug:',
+            slug,
+            err
+          );
           setError(
             `Failed to load stories for "${slug}". ${err instanceof Error ? err.message : 'Unknown error'}.`
           );

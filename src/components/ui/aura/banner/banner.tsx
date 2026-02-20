@@ -23,31 +23,33 @@ type BannerContextProps = {
   variant: BannerVariant;
 };
 
- 
 export const BannerContext = createContext<BannerContextProps>({
   show: true,
   setShow: () => {},
   variant: 'default',
 });
 
-const bannerVariants = cva('flex w-full min-h-11 items-center gap-2 px-3.5 py-2', {
-  variants: {
-    variant: {
-      default: 'bg-mountain text-foreground',
-      neutral: 'bg-neutral text-foreground',
-      destructive: 'bg-destructive text-foreground',
-      warning: 'bg-warning text-foreground',
+const bannerVariants = cva(
+  'flex w-full min-h-11 items-center gap-2 px-3.5 py-2',
+  {
+    variants: {
+      variant: {
+        default: 'bg-mountain text-foreground',
+        neutral: 'bg-neutral text-foreground',
+        destructive: 'bg-destructive text-foreground',
+        warning: 'bg-warning text-foreground',
+      },
+      inset: {
+        true: 'rounded-lg',
+        false: '',
+      },
     },
-    inset: {
-      true: 'rounded-lg',
-      false: '',
+    defaultVariants: {
+      variant: 'default',
+      inset: false,
     },
-  },
-  defaultVariants: {
-    variant: 'default',
-    inset: false,
-  },
-});
+  }
+);
 
 export type BannerProps = HTMLAttributes<HTMLDivElement> &
   VariantProps<typeof bannerVariants> & {
@@ -81,7 +83,9 @@ export const Banner = forwardRef<HTMLDivElement, BannerProps>(
     }
 
     return (
-      <BannerContext.Provider value={{ show, setShow, variant: variant as BannerVariant }}>
+      <BannerContext.Provider
+        value={{ show, setShow, variant: variant as BannerVariant }}
+      >
         <div
           ref={ref}
           data-slot="banner"
@@ -110,7 +114,10 @@ export const BannerIcon = forwardRef<HTMLDivElement, BannerIconProps>(
       <div
         ref={ref}
         data-slot="banner-icon"
-        className={cn(variant === 'neutral' && 'text-neutral-foreground', className)}
+        className={cn(
+          variant === 'neutral' && 'text-neutral-foreground',
+          className
+        )}
         {...props}
       >
         <Icon size={16} />
@@ -140,7 +147,10 @@ export const BannerStatus = forwardRef<HTMLSpanElement, BannerStatusProps>(
   ({ outline = true, variant, className, ...props }, ref) => {
     const { variant: bannerVariant } = useContext(BannerContext);
 
-    const variantMap: Record<BannerVariant, 'default' | 'warning' | 'error' | 'inProgress'> = {
+    const variantMap: Record<
+      BannerVariant,
+      'default' | 'warning' | 'error' | 'inProgress'
+    > = {
       default: 'default',
       neutral: 'inProgress',
       destructive: 'error',
@@ -194,7 +204,11 @@ export const BannerAction = forwardRef<HTMLButtonElement, BannerActionProps>(
       <Button
         ref={ref}
         data-slot="banner-action"
-        className={cn('shrink-0 text-foreground', hoverClasses[bannerVariant], className)}
+        className={cn(
+          'shrink-0 text-foreground',
+          hoverClasses[bannerVariant],
+          className
+        )}
         size={size}
         variant={variant}
         {...props}
@@ -210,7 +224,9 @@ export const BannerClose = forwardRef<HTMLButtonElement, BannerCloseProps>(
   ({ variant = 'ghost', onClick, className, ...props }, ref) => {
     const { setShow, variant: bannerVariant } = useContext(BannerContext);
 
-    type ButtonClickHandler = NonNullable<ComponentProps<typeof Button>['onClick']>;
+    type ButtonClickHandler = NonNullable<
+      ComponentProps<typeof Button>['onClick']
+    >;
     const handleClick = (e: Parameters<ButtonClickHandler>[0]) => {
       setShow(false);
       onClick?.(e);

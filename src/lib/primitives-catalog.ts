@@ -797,10 +797,9 @@ const RAW_PRIMITIVES_CATALOG: PrimitiveCatalogSeed[] = [
   },
 ];
 
-const metadataModules = import.meta.glob<{ [key: string]: { status?: ComponentStatusType } }>(
-  '@/components/ui/aura/*/*.metadata.ts',
-  { eager: true }
-);
+const metadataModules = import.meta.glob<{
+  [key: string]: { status?: ComponentStatusType };
+}>('@/components/ui/aura/*/*.metadata.ts', { eager: true });
 
 function toPascalCase(slug: string): string {
   return slug
@@ -810,7 +809,9 @@ function toPascalCase(slug: string): string {
     .join('');
 }
 
-function getStatusFromMetadata(seed: PrimitiveCatalogSeed): ComponentStatusType {
+function getStatusFromMetadata(
+  seed: PrimitiveCatalogSeed
+): ComponentStatusType {
   const candidates = [seed.slug, ...(seed.aliases ?? [])];
   for (const candidate of candidates) {
     const metadataPath = `/src/components/ui/aura/${candidate}/${candidate}.metadata.ts`;
@@ -825,31 +826,40 @@ function getStatusFromMetadata(seed: PrimitiveCatalogSeed): ComponentStatusType 
   return 'draft';
 }
 
-export const PRIMITIVES_CATALOG: PrimitiveCatalogEntry[] = RAW_PRIMITIVES_CATALOG.map((seed) => ({
-  ...seed,
-  status: getStatusFromMetadata(seed),
-  figmaAvailability: seed.figmaUrl ? 'yes' : 'unknown',
-}));
+export const PRIMITIVES_CATALOG: PrimitiveCatalogEntry[] =
+  RAW_PRIMITIVES_CATALOG.map((seed) => ({
+    ...seed,
+    status: getStatusFromMetadata(seed),
+    figmaAvailability: seed.figmaUrl ? 'yes' : 'unknown',
+  }));
 
 export function getPrimitiveCatalogBySection(
   section: PrimitiveCatalogSection
 ): PrimitiveCatalogEntry[] {
-  return PRIMITIVES_CATALOG.filter((entry) => entry.section === section).sort((a, b) =>
-    a.name.localeCompare(b.name)
+  return PRIMITIVES_CATALOG.filter((entry) => entry.section === section).sort(
+    (a, b) => a.name.localeCompare(b.name)
   );
 }
 
-export function getPrimitiveCatalogEntry(slug: string): PrimitiveCatalogEntry | null {
+export function getPrimitiveCatalogEntry(
+  slug: string
+): PrimitiveCatalogEntry | null {
   const normalizedSlug = slug.toLowerCase();
   return (
     PRIMITIVES_CATALOG.find((entry) => {
       if (entry.slug === normalizedSlug) return true;
-      return entry.aliases?.some((alias) => alias.toLowerCase() === normalizedSlug) ?? false;
+      return (
+        entry.aliases?.some(
+          (alias) => alias.toLowerCase() === normalizedSlug
+        ) ?? false
+      );
     }) || null
   );
 }
 
-export function getPrimitiveFigmaLabel(availability: PrimitiveFigmaAvailability): string {
+export function getPrimitiveFigmaLabel(
+  availability: PrimitiveFigmaAvailability
+): string {
   switch (availability) {
     case 'yes':
       return 'Figma';
@@ -858,7 +868,9 @@ export function getPrimitiveFigmaLabel(availability: PrimitiveFigmaAvailability)
   }
 }
 
-export function getPrimitiveFigmaBadgeProps(availability: PrimitiveFigmaAvailability): {
+export function getPrimitiveFigmaBadgeProps(
+  availability: PrimitiveFigmaAvailability
+): {
   variant: PrimitiveBadgeVariant;
   outline: boolean;
   className?: string;
@@ -866,10 +878,17 @@ export function getPrimitiveFigmaBadgeProps(availability: PrimitiveFigmaAvailabi
   if (availability === 'yes') {
     return { variant: 'gray', outline: true };
   }
-  return { variant: 'gray', outline: true, className: 'border-dashed opacity-75' };
+  return {
+    variant: 'gray',
+    outline: true,
+    className: 'border-dashed opacity-75',
+  };
 }
 
-export function getPrimitiveGaLabel(required: boolean | null, product: 'Eos' | 'Dune'): string {
+export function getPrimitiveGaLabel(
+  required: boolean | null,
+  product: 'Eos' | 'Dune'
+): string {
   if (required === true) return `${product} GA: Required`;
   if (required === false) return `${product} GA: Not required`;
   return `${product} GA: Unknown`;
@@ -881,10 +900,17 @@ export function getPrimitiveGaBadgeProps(required: boolean | null): {
   className?: string;
 } {
   if (required === true) return { variant: 'success', outline: true };
-  if (required === false) return { variant: 'gray', outline: true, className: 'opacity-80' };
-  return { variant: 'gray', outline: true, className: 'border-dashed opacity-80' };
+  if (required === false)
+    return { variant: 'gray', outline: true, className: 'opacity-80' };
+  return {
+    variant: 'gray',
+    outline: true,
+    className: 'border-dashed opacity-80',
+  };
 }
 
-export function getPrimitiveFigmaUrl(entry: PrimitiveCatalogEntry): string | null {
+export function getPrimitiveFigmaUrl(
+  entry: PrimitiveCatalogEntry
+): string | null {
   return entry.figmaUrl || null;
 }

@@ -16,8 +16,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/aura/select';
-import { getComponentStatusClasses, getStatusLabel } from '@/lib/component-status';
-import { COMPONENT_STATUS_ORDER, type ComponentStatusType } from '@/lib/component-status-config';
+import {
+  getComponentStatusClasses,
+  getStatusLabel,
+} from '@/lib/component-status';
+import {
+  COMPONENT_STATUS_ORDER,
+  type ComponentStatusType,
+} from '@/lib/component-status-config';
 import { cn } from '@/lib/utils';
 
 type CatalogItem = {
@@ -47,7 +53,12 @@ type CatalogIndexProps = {
 };
 
 type GroupByOption = 'none' | 'status' | 'ga';
-type FilterByOption = 'all' | ComponentStatusType | 'ga-eos' | 'ga-dune' | 'ga-both';
+type FilterByOption =
+  | 'all'
+  | ComponentStatusType
+  | 'ga-eos'
+  | 'ga-dune'
+  | 'ga-both';
 
 const GA_FILTERS: Array<{
   id: Extract<FilterByOption, 'ga-eos' | 'ga-dune' | 'ga-both'>;
@@ -57,7 +68,8 @@ const GA_FILTERS: Array<{
   {
     id: 'ga-both',
     label: 'Both (Eos + Dune)',
-    match: (entry) => entry.eosGaRequired === true && entry.duneGaRequired === true,
+    match: (entry) =>
+      entry.eosGaRequired === true && entry.duneGaRequired === true,
   },
   {
     id: 'ga-eos',
@@ -79,17 +91,26 @@ function isStatusFilter(value: FilterByOption): value is ComponentStatusType {
   return value !== 'all' && !value.startsWith('ga-');
 }
 
-export function CatalogIndex({ title, description, sections, storageKey }: CatalogIndexProps) {
+export function CatalogIndex({
+  title,
+  description,
+  sections,
+  storageKey,
+}: CatalogIndexProps) {
   const [groupBy, setGroupBy] = useState<GroupByOption>('none');
   const [filterBy, setFilterBy] = useState<FilterByOption>('all');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
-  const groupByLabel = groupBy === 'status' ? 'Status' : groupBy === 'ga' ? 'GA required' : 'None';
+  const groupByLabel =
+    groupBy === 'status' ? 'Status' : groupBy === 'ga' ? 'GA required' : 'None';
   const filterByLabel = (() => {
     if (filterBy === 'all') {
       return 'All items';
     }
     if (filterBy.startsWith('ga-')) {
-      return GA_FILTERS.find((filter) => filter.id === filterBy)?.label ?? 'GA required';
+      return (
+        GA_FILTERS.find((filter) => filter.id === filterBy)?.label ??
+        'GA required'
+      );
     }
     if (isStatusFilter(filterBy)) {
       return getStatusLabel(filterBy);
@@ -114,9 +135,15 @@ export function CatalogIndex({ title, description, sections, storageKey }: Catal
     window.localStorage.setItem(storageKey, viewMode);
   }, [storageKey, viewMode]);
 
-  const allItems = useMemo(() => sections.flatMap((section) => section.items), [sections]);
+  const allItems = useMemo(
+    () => sections.flatMap((section) => section.items),
+    [sections]
+  );
   const hasGaData = useMemo(
-    () => allItems.some((entry) => entry.eosGaRequired != null || entry.duneGaRequired != null),
+    () =>
+      allItems.some(
+        (entry) => entry.eosGaRequired != null || entry.duneGaRequired != null
+      ),
     [allItems]
   );
   const availableStatuses = useMemo(() => {
@@ -144,10 +171,14 @@ export function CatalogIndex({ title, description, sections, storageKey }: Catal
     }
     if (filterBy.startsWith('ga-')) {
       const matcher = GA_FILTERS.find((filter) => filter.id === filterBy);
-      return matcher ? entries.filter((entry) => matcher.match(entry)) : entries;
+      return matcher
+        ? entries.filter((entry) => matcher.match(entry))
+        : entries;
     }
     if (isStatusFilter(filterBy)) {
-      return entries.filter((entry) => resolveStatus(entry.status) === filterBy);
+      return entries.filter(
+        (entry) => resolveStatus(entry.status) === filterBy
+      );
     }
     return entries;
   };
@@ -161,12 +192,18 @@ export function CatalogIndex({ title, description, sections, storageKey }: Catal
         return (
           <Link key={entry.id} to={entry.href} className="block">
             <Card className={cardClassName}>
-              <CardContent className={cn('p-2', viewMode === 'grid' && 'flex-1')}>
+              <CardContent
+                className={cn('p-2', viewMode === 'grid' && 'flex-1')}
+              >
                 {viewMode === 'list' ? (
                   <div className="flex items-center gap-3 text-sm">
                     <div className="flex min-w-0 flex-1 items-center gap-3">
-                      <span className="font-medium text-foreground truncate">{entry.name}</span>
-                      <span className="text-muted-foreground truncate">{entry.description}</span>
+                      <span className="font-medium text-foreground truncate">
+                        {entry.name}
+                      </span>
+                      <span className="text-muted-foreground truncate">
+                        {entry.description}
+                      </span>
                     </div>
                     {entry.comingSoon && (
                       <span className="text-xs uppercase tracking-wide text-muted-foreground font-medium">
@@ -177,13 +214,17 @@ export function CatalogIndex({ title, description, sections, storageKey }: Catal
                       {getStatusLabel(status)}
                     </Badge>
                     {entry.footer && (
-                      <div className="inline-flex items-center gap-1 shrink-0">{entry.footer}</div>
+                      <div className="inline-flex items-center gap-1 shrink-0">
+                        {entry.footer}
+                      </div>
                     )}
                   </div>
                 ) : (
                   <div className="space-y-2">
                     <div className="flex items-center justify-between gap-2">
-                      <div className="text-foreground font-medium">{entry.name}</div>
+                      <div className="text-foreground font-medium">
+                        {entry.name}
+                      </div>
                       <Badge variant="secondary" className={statusClasses}>
                         {getStatusLabel(status)}
                       </Badge>
@@ -193,7 +234,9 @@ export function CatalogIndex({ title, description, sections, storageKey }: Catal
                         Placeholder
                       </p>
                     )}
-                    <p className="text-sm text-muted-foreground">{entry.description}</p>
+                    <p className="text-sm text-muted-foreground">
+                      {entry.description}
+                    </p>
                   </div>
                 )}
               </CardContent>
@@ -216,28 +259,32 @@ export function CatalogIndex({ title, description, sections, storageKey }: Catal
           id: 'ga-both',
           title: 'Both (Eos + Dune)',
           items: entries.filter(
-            (entry) => entry.eosGaRequired === true && entry.duneGaRequired === true
+            (entry) =>
+              entry.eosGaRequired === true && entry.duneGaRequired === true
           ),
         },
         {
           id: 'ga-eos',
           title: 'Eos required',
           items: entries.filter(
-            (entry) => entry.eosGaRequired === true && entry.duneGaRequired !== true
+            (entry) =>
+              entry.eosGaRequired === true && entry.duneGaRequired !== true
           ),
         },
         {
           id: 'ga-dune',
           title: 'Dune required',
           items: entries.filter(
-            (entry) => entry.duneGaRequired === true && entry.eosGaRequired !== true
+            (entry) =>
+              entry.duneGaRequired === true && entry.eosGaRequired !== true
           ),
         },
         {
           id: 'ga-other',
           title: 'Other',
           items: entries.filter(
-            (entry) => entry.eosGaRequired !== true && entry.duneGaRequired !== true
+            (entry) =>
+              entry.eosGaRequired !== true && entry.duneGaRequired !== true
           ),
         },
       ];
@@ -251,7 +298,9 @@ export function CatalogIndex({ title, description, sections, storageKey }: Catal
                   <h3 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
                     {group.title}
                   </h3>
-                  <span className="text-xs text-muted-foreground">{group.items.length}</span>
+                  <span className="text-xs text-muted-foreground">
+                    {group.items.length}
+                  </span>
                 </div>
                 {renderCards(group.items)}
               </div>
@@ -264,7 +313,9 @@ export function CatalogIndex({ title, description, sections, storageKey }: Catal
     return (
       <div className="space-y-6">
         {COMPONENT_STATUS_ORDER.map((status) => {
-          const groupedEntries = entries.filter((entry) => resolveStatus(entry.status) === status);
+          const groupedEntries = entries.filter(
+            (entry) => resolveStatus(entry.status) === status
+          );
           if (groupedEntries.length === 0) {
             return null;
           }
@@ -275,7 +326,9 @@ export function CatalogIndex({ title, description, sections, storageKey }: Catal
                 <h3 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
                   {getStatusLabel(status)}
                 </h3>
-                <span className="text-xs text-muted-foreground">{groupedEntries.length}</span>
+                <span className="text-xs text-muted-foreground">
+                  {groupedEntries.length}
+                </span>
               </div>
               {renderCards(groupedEntries)}
             </div>
@@ -290,14 +343,19 @@ export function CatalogIndex({ title, description, sections, storageKey }: Catal
       <div className="space-y-12">
         <div>
           <h1 className="text-4xl font-bold tracking-tight">{title}</h1>
-          {description && <p className="text-lg text-muted-foreground mt-2">{description}</p>}
+          {description && (
+            <p className="text-lg text-muted-foreground mt-2">{description}</p>
+          )}
         </div>
 
         <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div className="flex flex-wrap gap-4">
             <div className="space-y-2">
               <Label>Group by</Label>
-              <Select value={groupBy} onValueChange={(value) => setGroupBy(value as GroupByOption)}>
+              <Select
+                value={groupBy}
+                onValueChange={(value) => setGroupBy(value as GroupByOption)}
+              >
                 <SelectTrigger className="min-w-44 bg-transparent">
                   <span className="truncate text-sm font-medium text-foreground">
                     {groupByLabel}
@@ -364,7 +422,11 @@ export function CatalogIndex({ title, description, sections, storageKey }: Catal
                   <SelectGroup>
                     <SelectLabel>GA requirement</SelectLabel>
                     {GA_FILTERS.map((filter) => (
-                      <SelectItem key={filter.id} value={filter.id} disabled={!hasGaData}>
+                      <SelectItem
+                        key={filter.id}
+                        value={filter.id}
+                        disabled={!hasGaData}
+                      >
                         {filter.label}
                       </SelectItem>
                     ))}
@@ -399,10 +461,14 @@ export function CatalogIndex({ title, description, sections, storageKey }: Catal
             {(section.title || section.description) && (
               <div>
                 {section.title && (
-                  <h2 className="text-2xl font-bold tracking-tight">{section.title}</h2>
+                  <h2 className="text-2xl font-bold tracking-tight">
+                    {section.title}
+                  </h2>
                 )}
                 {section.description && (
-                  <p className="text-muted-foreground mt-1">{section.description}</p>
+                  <p className="text-muted-foreground mt-1">
+                    {section.description}
+                  </p>
                 )}
               </div>
             )}

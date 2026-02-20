@@ -33,7 +33,11 @@ import {
   SidebarTrigger,
 } from './sidebar';
 
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/aura/avatar';
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from '@/components/ui/aura/avatar';
 const meta: Meta<typeof Sidebar> = {
   title: 'Primitives/Sidebar',
   component: Sidebar,
@@ -216,14 +220,19 @@ export const Basic: Story = {
                 </SidebarMenu>
                 <div className="flex items-center gap-2">
                   <Avatar sizes="default">
-                    <AvatarImage src="/user-avatar2.png" alt="Elizabeth Fitzgerald" />
+                    <AvatarImage
+                      src="/user-avatar2.png"
+                      alt="Elizabeth Fitzgerald"
+                    />
                     <AvatarFallback>EF</AvatarFallback>
                   </Avatar>
                   <div className="flex flex-col min-w-0">
                     <div className="text-sm font-medium text-sidebar-foreground truncate">
                       Elizabeth Fitzgerald
                     </div>
-                    <div className="text-xs text-sidebar-foreground/70 truncate">AkerBP</div>
+                    <div className="text-xs text-sidebar-foreground/70 truncate">
+                      AkerBP
+                    </div>
                   </div>
                 </div>
               </div>
@@ -234,8 +243,8 @@ export const Basic: Story = {
             <div className="mt-4">
               <h1 className="text-2xl font-bold mb-4">Main Content</h1>
               <p className="text-muted-foreground">
-                This is the main content area. The sidebar header and footer remain visible while
-                the content scrolls.
+                This is the main content area. The sidebar header and footer
+                remain visible while the content scrolls.
               </p>
             </div>
           </div>
@@ -364,14 +373,19 @@ export const Collapsed: Story = {
                 </SidebarMenu>
                 <div className="flex items-center gap-2">
                   <Avatar sizes="default">
-                    <AvatarImage src="/user-avatar2.png" alt="Elizabeth Fitzgerald" />
+                    <AvatarImage
+                      src="/user-avatar2.png"
+                      alt="Elizabeth Fitzgerald"
+                    />
                     <AvatarFallback>EF</AvatarFallback>
                   </Avatar>
                   <div className="flex flex-col min-w-0">
                     <div className="text-sm font-medium text-sidebar-foreground truncate">
                       Elizabeth Fitzgerald
                     </div>
-                    <div className="text-xs text-sidebar-foreground/70 truncate">AkerBP</div>
+                    <div className="text-xs text-sidebar-foreground/70 truncate">
+                      AkerBP
+                    </div>
                   </div>
                 </div>
               </div>
@@ -382,8 +396,8 @@ export const Collapsed: Story = {
             <div className="mt-4">
               <h1 className="text-2xl font-bold mb-4">Main Content</h1>
               <p className="text-muted-foreground">
-                This is the main content area. The sidebar header and footer remain visible while
-                the content scrolls.
+                This is the main content area. The sidebar header and footer
+                remain visible while the content scrolls.
               </p>
             </div>
           </div>
@@ -466,14 +480,19 @@ export const MinimalContent: Story = {
                 </SidebarMenu>
                 <div className="flex items-center gap-2">
                   <Avatar sizes="default">
-                    <AvatarImage src="/user-avatar2.png" alt="Elizabeth Fitzgerald" />
+                    <AvatarImage
+                      src="/user-avatar2.png"
+                      alt="Elizabeth Fitzgerald"
+                    />
                     <AvatarFallback>EF</AvatarFallback>
                   </Avatar>
                   <div className="flex flex-col min-w-0">
                     <div className="text-sm font-medium text-sidebar-foreground truncate">
                       Elizabeth Fitzgerald
                     </div>
-                    <div className="text-xs text-sidebar-foreground/70 truncate">AkerBP</div>
+                    <div className="text-xs text-sidebar-foreground/70 truncate">
+                      AkerBP
+                    </div>
                   </div>
                 </div>
               </div>

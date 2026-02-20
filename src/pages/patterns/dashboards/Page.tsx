@@ -255,12 +255,28 @@ function EquipmentUptimeChart() {
           >
             <defs>
               <linearGradient id="fillUptime" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="hsl(239 84% 67%)" stopOpacity={0.8} />
-                <stop offset="95%" stopColor="hsl(239 84% 67%)" stopOpacity={0.1} />
+                <stop
+                  offset="5%"
+                  stopColor="hsl(239 84% 67%)"
+                  stopOpacity={0.8}
+                />
+                <stop
+                  offset="95%"
+                  stopColor="hsl(239 84% 67%)"
+                  stopOpacity={0.1}
+                />
               </linearGradient>
               <linearGradient id="fillDowntime" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="hsl(239 84% 85%)" stopOpacity={0.9} />
-                <stop offset="95%" stopColor="hsl(239 84% 85%)" stopOpacity={0.2} />
+                <stop
+                  offset="5%"
+                  stopColor="hsl(239 84% 85%)"
+                  stopOpacity={0.9}
+                />
+                <stop
+                  offset="95%"
+                  stopColor="hsl(239 84% 85%)"
+                  stopOpacity={0.2}
+                />
               </linearGradient>
             </defs>
             <CartesianGrid vertical={false} />
@@ -279,7 +295,10 @@ function EquipmentUptimeChart() {
               domain={[0, 100]}
               tickFormatter={(value) => `${value}%`}
             />
-            <ChartTooltip cursor={false} content={<ChartTooltipContent indicator="dot" />} />
+            <ChartTooltip
+              cursor={false}
+              content={<ChartTooltipContent indicator="dot" />}
+            />
             <Area
               dataKey="downtime"
               type="natural"
@@ -309,7 +328,8 @@ function EquipmentUptimeChart() {
           <span className="text-muted-foreground">
             Average uptime:{' '}
             {(
-              chartData.reduce((sum, item) => sum + item.uptimePercent, 0) / chartData.length
+              chartData.reduce((sum, item) => sum + item.uptimePercent, 0) /
+              chartData.length
             ).toFixed(1)}
             % over 3 months
           </span>
@@ -337,7 +357,9 @@ function TemperatureSensorChart() {
     const interval = setInterval(() => {
       setCurrentData((prevData) => {
         const newData = [...prevData];
-        const lastTime = new Date(newData[newData.length - 1].timestamp + 5 * 60 * 1000);
+        const lastTime = new Date(
+          newData[newData.length - 1].timestamp + 5 * 60 * 1000
+        );
 
         // Generate new temperature reading
         let newTemp = newData[newData.length - 1].temperature;
@@ -364,7 +386,9 @@ function TemperatureSensorChart() {
   }, []);
 
   const currentTemp = currentData[currentData.length - 1]?.temperature || 0;
-  const avgTemp = currentData.reduce((sum, item) => sum + item.temperature, 0) / currentData.length;
+  const avgTemp =
+    currentData.reduce((sum, item) => sum + item.temperature, 0) /
+    currentData.length;
 
   return (
     <Card className="w-full rounded-[4px]">
@@ -442,11 +466,17 @@ function TemperatureSensorChart() {
                 className="w-3 h-3 rounded-full"
                 style={{ backgroundColor: 'hsl(239 84% 67%)' }}
               />
-              <span className="text-muted-foreground">Current: {currentTemp}°C</span>
+              <span className="text-muted-foreground">
+                Current: {currentTemp}°C
+              </span>
             </div>
-            <span className="text-muted-foreground">4h Average: {avgTemp.toFixed(1)}°C</span>
+            <span className="text-muted-foreground">
+              4h Average: {avgTemp.toFixed(1)}°C
+            </span>
           </div>
-          <span className="text-xs text-muted-foreground">Updates every 5 minutes</span>
+          <span className="text-xs text-muted-foreground">
+            Updates every 5 minutes
+          </span>
         </div>
       </CardContent>
     </Card>
@@ -466,7 +496,10 @@ function AssetHealthChart() {
     return () => clearTimeout(timer);
   }, []);
 
-  const totalAssets = assetHealthData.reduce((sum, item) => sum + item.count, 0);
+  const totalAssets = assetHealthData.reduce(
+    (sum, item) => sum + item.count,
+    0
+  );
 
   const renderCustomLabel = (props: PieLabelRenderProps) => {
     return `${props.value}%`;
@@ -485,29 +518,97 @@ function AssetHealthChart() {
         <ChartContainer config={assetHealthConfig} className="h-[250px]">
           <PieChart key={animationKey}>
             <defs>
-              <linearGradient id="healthyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="hsl(142 76% 36%)" stopOpacity={1} />
-                <stop offset="100%" stopColor="hsl(142 76% 26%)" stopOpacity={1} />
+              <linearGradient
+                id="healthyGradient"
+                x1="0%"
+                y1="0%"
+                x2="100%"
+                y2="100%"
+              >
+                <stop
+                  offset="0%"
+                  stopColor="hsl(142 76% 36%)"
+                  stopOpacity={1}
+                />
+                <stop
+                  offset="100%"
+                  stopColor="hsl(142 76% 26%)"
+                  stopOpacity={1}
+                />
               </linearGradient>
-              <linearGradient id="warningGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <linearGradient
+                id="warningGradient"
+                x1="0%"
+                y1="0%"
+                x2="100%"
+                y2="100%"
+              >
                 <stop offset="0%" stopColor="hsl(45 93% 47%)" stopOpacity={1} />
-                <stop offset="100%" stopColor="hsl(45 93% 35%)" stopOpacity={1} />
+                <stop
+                  offset="100%"
+                  stopColor="hsl(45 93% 35%)"
+                  stopOpacity={1}
+                />
               </linearGradient>
-              <linearGradient id="criticalGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <linearGradient
+                id="criticalGradient"
+                x1="0%"
+                y1="0%"
+                x2="100%"
+                y2="100%"
+              >
                 <stop offset="0%" stopColor="hsl(0 84% 60%)" stopOpacity={1} />
-                <stop offset="100%" stopColor="hsl(0 84% 45%)" stopOpacity={1} />
+                <stop
+                  offset="100%"
+                  stopColor="hsl(0 84% 45%)"
+                  stopOpacity={1}
+                />
               </linearGradient>
-              <linearGradient id="healthyHoverGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="hsl(142 76% 46%)" stopOpacity={1} />
-                <stop offset="100%" stopColor="hsl(142 76% 36%)" stopOpacity={1} />
+              <linearGradient
+                id="healthyHoverGradient"
+                x1="0%"
+                y1="0%"
+                x2="100%"
+                y2="100%"
+              >
+                <stop
+                  offset="0%"
+                  stopColor="hsl(142 76% 46%)"
+                  stopOpacity={1}
+                />
+                <stop
+                  offset="100%"
+                  stopColor="hsl(142 76% 36%)"
+                  stopOpacity={1}
+                />
               </linearGradient>
-              <linearGradient id="warningHoverGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <linearGradient
+                id="warningHoverGradient"
+                x1="0%"
+                y1="0%"
+                x2="100%"
+                y2="100%"
+              >
                 <stop offset="0%" stopColor="hsl(45 93% 57%)" stopOpacity={1} />
-                <stop offset="100%" stopColor="hsl(45 93% 47%)" stopOpacity={1} />
+                <stop
+                  offset="100%"
+                  stopColor="hsl(45 93% 47%)"
+                  stopOpacity={1}
+                />
               </linearGradient>
-              <linearGradient id="criticalHoverGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <linearGradient
+                id="criticalHoverGradient"
+                x1="0%"
+                y1="0%"
+                x2="100%"
+                y2="100%"
+              >
                 <stop offset="0%" stopColor="hsl(0 84% 70%)" stopOpacity={1} />
-                <stop offset="100%" stopColor="hsl(0 84% 60%)" stopOpacity={1} />
+                <stop
+                  offset="100%"
+                  stopColor="hsl(0 84% 60%)"
+                  stopOpacity={1}
+                />
               </linearGradient>
             </defs>
             <Pie
@@ -526,11 +627,20 @@ function AssetHealthChart() {
               onMouseLeave={() => setHoveredIndex(-1)}
             >
               {assetHealthData.map((entry, index) => {
-                const getGradientId = (entryName: string, isHovered: boolean) => {
+                const getGradientId = (
+                  entryName: string,
+                  isHovered: boolean
+                ) => {
                   const gradientMap = {
-                    Healthy: isHovered ? 'healthyHoverGradient' : 'healthyGradient',
-                    Warning: isHovered ? 'warningHoverGradient' : 'warningGradient',
-                    Critical: isHovered ? 'criticalHoverGradient' : 'criticalGradient',
+                    Healthy: isHovered
+                      ? 'healthyHoverGradient'
+                      : 'healthyGradient',
+                    Warning: isHovered
+                      ? 'warningHoverGradient'
+                      : 'warningGradient',
+                    Critical: isHovered
+                      ? 'criticalHoverGradient'
+                      : 'criticalGradient',
                   };
                   return `url(#${gradientMap[entryName as keyof typeof gradientMap]})`;
                 };
@@ -576,9 +686,15 @@ function AssetHealthChart() {
         {/* Legend */}
         <div className="mt-4 space-y-2">
           {assetHealthData.map((item) => (
-            <div key={item.name} className="flex items-center justify-between text-sm">
+            <div
+              key={item.name}
+              className="flex items-center justify-between text-sm"
+            >
               <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded-full" style={{ backgroundColor: item.color }} />
+                <div
+                  className="w-3 h-3 rounded-full"
+                  style={{ backgroundColor: item.color }}
+                />
                 <span>{item.name}</span>
               </div>
               <div className="flex items-center gap-2 text-muted-foreground">
@@ -618,7 +734,8 @@ export default function DashboardsBlock() {
             <div>
               <h1 className="text-3xl font-bold tracking-tight">Dashboards</h1>
               <p className="text-lg text-muted-foreground">
-                Modern data visualization cards with animations and interactive elements
+                Modern data visualization cards with animations and interactive
+                elements
               </p>
             </div>
           </div>

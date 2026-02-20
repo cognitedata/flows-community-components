@@ -6,7 +6,11 @@ import { cn } from '../../../../lib/utils';
 
 import { Button } from '@/components/ui/aura/button';
 import { Calendar } from '@/components/ui/aura/calendar';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/aura/popover';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/aura/popover';
 
 export function DatePicker() {
   const [date, setDate] = useState<Date>();
@@ -28,7 +32,12 @@ export function DatePicker() {
         }
       />
       <PopoverContent className="w-auto p-0" align="start">
-        <Calendar mode="single" selected={date} onSelect={setDate} initialFocus />
+        <Calendar
+          mode="single"
+          selected={date}
+          onSelect={setDate}
+          initialFocus
+        />
       </PopoverContent>
     </Popover>
   );
@@ -73,12 +82,21 @@ export function DatePickerCustom({
             disabled={disabled}
           >
             <IconCalendar className="mr-2 h-4 w-4" />
-            {selectedDate ? format(selectedDate, 'PPP') : <span>{placeholder}</span>}
+            {selectedDate ? (
+              format(selectedDate, 'PPP')
+            ) : (
+              <span>{placeholder}</span>
+            )}
           </Button>
         }
       />
       <PopoverContent className="w-auto p-0" align="start">
-        <Calendar mode="single" selected={selectedDate} onSelect={handleDateChange} initialFocus />
+        <Calendar
+          mode="single"
+          selected={selectedDate}
+          onSelect={handleDateChange}
+          initialFocus
+        />
       </PopoverContent>
     </Popover>
   );
@@ -147,7 +165,12 @@ export function DateRangePicker({
         }
       />
       <PopoverContent className="w-auto p-0" align="start">
-        <Calendar mode="range" selected={selectedRange} onSelect={handleRangeChange} initialFocus />
+        <Calendar
+          mode="range"
+          selected={selectedRange}
+          onSelect={handleRangeChange}
+          initialFocus
+        />
       </PopoverContent>
     </Popover>
   );

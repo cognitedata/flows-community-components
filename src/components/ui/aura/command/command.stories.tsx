@@ -105,7 +105,8 @@ export const Dialog: Story = {
     return (
       <div className="space-y-4">
         <p className="text-sm text-muted-foreground">
-          Press <kbd className="rounded bg-muted px-2 py-1 text-xs">⌘K</kbd> or use the button.
+          Press <kbd className="rounded bg-muted px-2 py-1 text-xs">⌘K</kbd> or
+          use the button.
         </p>
         <Button variant="outline" onClick={() => setOpen(true)}>
           Open Command Palette
@@ -144,14 +145,18 @@ export const Dialog: Story = {
       expect(dialog).toBeInTheDocument();
     });
     const dialog = document.querySelector('[data-slot="command-dialog"]');
-    const input = within(dialog as HTMLElement).getByPlaceholderText('Type a command or search...');
+    const input = within(dialog as HTMLElement).getByPlaceholderText(
+      'Type a command or search...'
+    );
     await expect(input).toBeInTheDocument();
     const calendarItem = within(dialog as HTMLElement).getByRole('option', {
       name: /calendar/i,
     });
     await userEvent.click(calendarItem);
     await waitFor(() => {
-      expect(canvas.queryByTestId('command-dialog-content')).not.toBeInTheDocument();
+      expect(
+        canvas.queryByTestId('command-dialog-content')
+      ).not.toBeInTheDocument();
     });
   },
 };
@@ -444,9 +449,12 @@ export const AsyncSearch: Story = {
       }
       setIsLoading(true);
       await new Promise((resolve) => setTimeout(resolve, 500));
-      const mockResults = ['John Doe', 'Jane Smith', 'Johnny Appleseed', 'John Johnson'].filter(
-        (name) => name.toLowerCase().includes(query.toLowerCase())
-      );
+      const mockResults = [
+        'John Doe',
+        'Jane Smith',
+        'Johnny Appleseed',
+        'John Johnson',
+      ].filter((name) => name.toLowerCase().includes(query.toLowerCase()));
       setResults(mockResults);
       setIsLoading(false);
     };
@@ -488,7 +496,9 @@ export const AsyncSearch: Story = {
     await userEvent.type(input, 'jane');
     await waitFor(
       () => {
-        expect(canvas.queryByText('Searching...') || canvas.queryByText('Jane Smith')).toBeTruthy();
+        expect(
+          canvas.queryByText('Searching...') || canvas.queryByText('Jane Smith')
+        ).toBeTruthy();
       },
       {
         timeout: 3000,

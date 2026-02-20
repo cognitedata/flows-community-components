@@ -17,19 +17,21 @@ type HeadingElement = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
  * Supports composition with CardHeader, CardContent, and CardFooter sub-components.
  * Uses flexbox layout with rounded corners and hover effects.
  */
-const Card = forwardRef<HTMLDivElement, ComponentProps<'div'>>(({ className, ...props }, ref) => {
-  return (
-    <div
-      ref={ref}
-      data-slot="card"
-      className={cn(
-        'bg-card text-card-foreground flex flex-col rounded-lg hover:bg-accent',
-        className
-      )}
-      {...props}
-    />
-  );
-});
+const Card = forwardRef<HTMLDivElement, ComponentProps<'div'>>(
+  ({ className, ...props }, ref) => {
+    return (
+      <div
+        ref={ref}
+        data-slot="card"
+        className={cn(
+          'bg-card text-card-foreground flex flex-col rounded-lg hover:bg-accent',
+          className
+        )}
+        {...props}
+      />
+    );
+  }
+);
 Card.displayName = 'Card';
 
 /**
@@ -88,22 +90,23 @@ CardIcon.displayName = 'CardIcon';
  * <CardTitle as="h2">Section Title</CardTitle>
  * <CardTitle>Default (h3)</CardTitle>
  */
-const CardTitle = forwardRef<HTMLHeadingElement, ComponentProps<'h3'> & { as?: HeadingElement }>(
-  ({ className, as: Tag = 'h3', ...props }, ref) => {
-    return (
-      <Tag
-        ref={ref}
-        data-slot="card-title"
-        className={cn(
-          'tracking-tightest text-foreground font-semibold text-lg row-start-1',
-          'group-has-data-[slot=card-icon]/card-header:col-start-2',
-          className
-        )}
-        {...props}
-      />
-    );
-  }
-);
+const CardTitle = forwardRef<
+  HTMLHeadingElement,
+  ComponentProps<'h3'> & { as?: HeadingElement }
+>(({ className, as: Tag = 'h3', ...props }, ref) => {
+  return (
+    <Tag
+      ref={ref}
+      data-slot="card-title"
+      className={cn(
+        'tracking-tightest text-foreground font-semibold text-lg row-start-1',
+        'group-has-data-[slot=card-icon]/card-header:col-start-2',
+        className
+      )}
+      {...props}
+    />
+  );
+});
 CardTitle.displayName = 'CardTitle';
 
 /**
@@ -139,7 +142,10 @@ const CardHeaderRight = forwardRef<HTMLDivElement, ComponentProps<'div'>>(
       <div
         ref={ref}
         data-slot="card-header-right"
-        className={cn('row-span-2 row-start-1 self-start justify-self-end', className)}
+        className={cn(
+          'row-span-2 row-start-1 self-start justify-self-end',
+          className
+        )}
         {...props}
       />
     );
@@ -181,7 +187,14 @@ CardActions.displayName = 'CardActions';
  */
 const CardContent = forwardRef<HTMLDivElement, ComponentProps<'div'>>(
   ({ className, ...props }, ref) => {
-    return <div ref={ref} data-slot="card-content" className={cn('p-4', className)} {...props} />;
+    return (
+      <div
+        ref={ref}
+        data-slot="card-content"
+        className={cn('p-4', className)}
+        {...props}
+      />
+    );
   }
 );
 CardContent.displayName = 'CardContent';

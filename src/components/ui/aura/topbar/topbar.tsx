@@ -7,16 +7,21 @@ import { Button } from '@/components/ui/aura/button';
 import { SidebarInset, SidebarProvider } from '@/components/ui/aura/sidebar';
 
 // Topbar wrapper component
-const Topbar = forwardRef<HTMLDivElement, ComponentProps<'div'>>(({ className, ...props }, ref) => {
-  return (
-    <div
-      ref={ref}
-      data-slot="topbar"
-      className={cn('flex h-11 w-full items-center border-b bg-background px-3 py-2', className)}
-      {...props}
-    />
-  );
-});
+const Topbar = forwardRef<HTMLDivElement, ComponentProps<'div'>>(
+  ({ className, ...props }, ref) => {
+    return (
+      <div
+        ref={ref}
+        data-slot="topbar"
+        className={cn(
+          'flex h-11 w-full items-center border-b bg-background px-3 py-2',
+          className
+        )}
+        {...props}
+      />
+    );
+  }
+);
 Topbar.displayName = 'Topbar';
 
 // Topbar left section (for breadcrumbs)
@@ -104,16 +109,31 @@ const TopbarBreadcrumbs = forwardRef<
   ComponentRef<typeof Breadcrumb>,
   ComponentProps<typeof Breadcrumb>
 >(({ className, ...props }, ref) => {
-  return <Breadcrumb ref={ref} data-slot="topbar-breadcrumbs" className={className} {...props} />;
+  return (
+    <Breadcrumb
+      ref={ref}
+      data-slot="topbar-breadcrumbs"
+      className={className}
+      {...props}
+    />
+  );
 });
 TopbarBreadcrumbs.displayName = 'TopbarBreadcrumbs';
 
 // Topbar action button wrapper
-const TopbarAction = forwardRef<HTMLButtonElement, ComponentProps<typeof Button>>(
-  ({ className, ...props }, ref) => {
-    return <Button ref={ref} data-slot="topbar-action" className={className} {...props} />;
-  }
-);
+const TopbarAction = forwardRef<
+  HTMLButtonElement,
+  ComponentProps<typeof Button>
+>(({ className, ...props }, ref) => {
+  return (
+    <Button
+      ref={ref}
+      data-slot="topbar-action"
+      className={className}
+      {...props}
+    />
+  );
+});
 TopbarAction.displayName = 'TopbarAction';
 
 export {

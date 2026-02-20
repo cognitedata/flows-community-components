@@ -121,7 +121,9 @@ export const TaskList: Story = {
       <ListItem variant="error">
         <ListItemTitle>Pump seal replacement</ListItemTitle>
         <ListItemStatus>Overdue</ListItemStatus>
-        <ListItemDescription>P-401A requires new mechanical seal</ListItemDescription>
+        <ListItemDescription>
+          P-401A requires new mechanical seal
+        </ListItemDescription>
       </ListItem>
       <ListItem variant="now">
         <ListItemTitle>Valve calibration</ListItemTitle>
@@ -307,7 +309,9 @@ export const Interactive: Story = {
             onClick={() => toggleItem(item.id)}
           >
             <ListItemTitle>{item.label}</ListItemTitle>
-            <ListItemStatus>{item.active ? 'Active' : 'Inactive'}</ListItemStatus>
+            <ListItemStatus>
+              {item.active ? 'Active' : 'Inactive'}
+            </ListItemStatus>
             <ListItemDescription>{item.value}</ListItemDescription>
           </ListItem>
         ))}
@@ -356,7 +360,9 @@ export const EdgeCaseLongText: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText(/This is an extremely long title/)).toBeInTheDocument();
+    await expect(
+      canvas.getByText(/This is an extremely long title/)
+    ).toBeInTheDocument();
   },
   render: () => (
     <List>
@@ -366,8 +372,9 @@ export const EdgeCaseLongText: Story = {
         </ListItemTitle>
         <ListItemStatus>Status</ListItemStatus>
         <ListItemDescription>
-          This description is also quite long and contains a lot of text that needs to be handled
-          gracefully by the component layout without breaking the design.
+          This description is also quite long and contains a lot of text that
+          needs to be handled gracefully by the component layout without
+          breaking the design.
         </ListItemDescription>
       </ListItem>
       <ListItem>
@@ -383,10 +390,18 @@ export const WithCustomIcons: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText('Pump 3 cavitation detected')).toBeInTheDocument();
-    await expect(canvas.getByText('Compressor C-5 surge events')).toBeInTheDocument();
-    await expect(canvas.getByText('Boiler steam leak near header B')).toBeInTheDocument();
-    const icons = canvasElement.querySelectorAll('[data-slot="list-item-icon"] svg');
+    await expect(
+      canvas.getByText('Pump 3 cavitation detected')
+    ).toBeInTheDocument();
+    await expect(
+      canvas.getByText('Compressor C-5 surge events')
+    ).toBeInTheDocument();
+    await expect(
+      canvas.getByText('Boiler steam leak near header B')
+    ).toBeInTheDocument();
+    const icons = canvasElement.querySelectorAll(
+      '[data-slot="list-item-icon"] svg'
+    );
     await expect(icons.length).toBeGreaterThanOrEqual(3);
   },
   render: () => (
@@ -421,9 +436,9 @@ export const WithCustomIcons: Story = {
         </ListItemIcon>
         <ListItemTitle>Pump 3 cavitation detected</ListItemTitle>
         <ListItemDescription>
-          Suction pressure oscillations and elevated noise on P-003 during night shift; cavitation
-          likely from low NPSH/blocked strainer. Next step: inspect/clean suction strainer and raise
-          tank level 20cm.
+          Suction pressure oscillations and elevated noise on P-003 during night
+          shift; cavitation likely from low NPSH/blocked strainer. Next step:
+          inspect/clean suction strainer and raise tank level 20cm.
         </ListItemDescription>
       </ListItem>
 
@@ -457,9 +472,9 @@ export const WithCustomIcons: Story = {
         </ListItemIcon>
         <ListItemTitle>Compressor C-5 surge events</ListItemTitle>
         <ListItemDescription>
-          Three start-up surge spikes with sluggish anti-surge valve response; control loop
-          tuning/valve stiction suspected. Next step: Stroke-test ASV, retune PID, and verify
-          transmitter calibration.
+          Three start-up surge spikes with sluggish anti-surge valve response;
+          control loop tuning/valve stiction suspected. Next step: Stroke-test
+          ASV, retune PID, and verify transmitter calibration.
         </ListItemDescription>
       </ListItem>
 
@@ -493,9 +508,9 @@ export const WithCustomIcons: Story = {
         </ListItemIcon>
         <ListItemTitle>Boiler steam leak near header B</ListItemTitle>
         <ListItemDescription>
-          Ultrasonic survey indicates continuous hiss with elevated condensate returns; small steam
-          leak wasting energy. Next step: tag exact location, plan hot repair window, and quantify
-          loss after fix.
+          Ultrasonic survey indicates continuous hiss with elevated condensate
+          returns; small steam leak wasting energy. Next step: tag exact
+          location, plan hot repair window, and quantify loss after fix.
         </ListItemDescription>
       </ListItem>
     </List>
@@ -516,7 +531,9 @@ export const EdgeCaseSingleItem: Story = {
     <List>
       <ListItem variant="now">
         <ListItemTitle>Only item</ListItemTitle>
-        <ListItemDescription>This is the only item in the list</ListItemDescription>
+        <ListItemDescription>
+          This is the only item in the list
+        </ListItemDescription>
       </ListItem>
     </List>
   ),
@@ -528,8 +545,12 @@ export const EdgeCaseMixedContent: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await expect(canvas.getByText('Title only')).toBeInTheDocument();
-    await expect(canvas.getByText('Title with description')).toBeInTheDocument();
-    await expect(canvas.getByText('Title with status only')).toBeInTheDocument();
+    await expect(
+      canvas.getByText('Title with description')
+    ).toBeInTheDocument();
+    await expect(
+      canvas.getByText('Title with status only')
+    ).toBeInTheDocument();
     await expect(canvas.getByText('Complete item')).toBeInTheDocument();
   },
   render: () => (
@@ -539,7 +560,9 @@ export const EdgeCaseMixedContent: Story = {
       </ListItem>
       <ListItem>
         <ListItemTitle>Title with description</ListItemTitle>
-        <ListItemDescription>Has a description but no status</ListItemDescription>
+        <ListItemDescription>
+          Has a description but no status
+        </ListItemDescription>
       </ListItem>
       <ListItem variant="now">
         <ListItemTitle>Title with status only</ListItemTitle>
@@ -548,7 +571,9 @@ export const EdgeCaseMixedContent: Story = {
       <ListItem variant="completed">
         <ListItemTitle>Complete item</ListItemTitle>
         <ListItemStatus>Done</ListItemStatus>
-        <ListItemDescription>Has both description and status</ListItemDescription>
+        <ListItemDescription>
+          Has both description and status
+        </ListItemDescription>
       </ListItem>
     </List>
   ),
@@ -599,9 +624,16 @@ export const EdgeCaseManyItems: Story = {
           length: 20,
         },
         (_, i) => (
-          <ListItem key={i} variant={i % 4 === 0 ? 'completed' : i % 3 === 0 ? 'now' : 'upcoming'}>
+          <ListItem
+            key={i}
+            variant={
+              i % 4 === 0 ? 'completed' : i % 3 === 0 ? 'now' : 'upcoming'
+            }
+          >
             <ListItemTitle>Item {i + 1}</ListItemTitle>
-            <ListItemDescription>Description for item {i + 1}</ListItemDescription>
+            <ListItemDescription>
+              Description for item {i + 1}
+            </ListItemDescription>
             <ListItemStatus>Status {i + 1}</ListItemStatus>
           </ListItem>
         )
@@ -623,7 +655,9 @@ export const EdgeCaseSpecialCharacters: Story = {
     <List>
       <ListItem>
         <ListItemTitle>Temperature: 85°C</ListItemTitle>
-        <ListItemDescription>Celsius measurement with degree symbol</ListItemDescription>
+        <ListItemDescription>
+          Celsius measurement with degree symbol
+        </ListItemDescription>
       </ListItem>
       <ListItem>
         <ListItemTitle>Pressure: 120 ± 5 bar</ListItemTitle>
@@ -631,11 +665,15 @@ export const EdgeCaseSpecialCharacters: Story = {
       </ListItem>
       <ListItem>
         <ListItemTitle>Flow rate: 45 m³/h</ListItemTitle>
-        <ListItemDescription>Cubic meter per hour with superscript</ListItemDescription>
+        <ListItemDescription>
+          Cubic meter per hour with superscript
+        </ListItemDescription>
       </ListItem>
       <ListItem>
         <ListItemTitle>Status: ✓ Passed</ListItemTitle>
-        <ListItemDescription>Check mark and emoji: ✓ ✗ ⚠️ 🔧</ListItemDescription>
+        <ListItemDescription>
+          Check mark and emoji: ✓ ✗ ⚠️ 🔧
+        </ListItemDescription>
       </ListItem>
     </List>
   ),
@@ -648,7 +686,9 @@ export const EdgeCaseNoVariant: Story = {
     const canvas = within(canvasElement);
     await expect(canvas.getByText('Plain item 1')).toBeInTheDocument();
     await expect(canvas.getByText('Plain item 2')).toBeInTheDocument();
-    const icons = canvasElement.querySelectorAll('[data-slot="list-item-icon"]');
+    const icons = canvasElement.querySelectorAll(
+      '[data-slot="list-item-icon"]'
+    );
     await expect(icons.length).toBe(0);
   },
   render: () => (
@@ -673,9 +713,9 @@ export const Playground: Story = {
     order: 99,
   },
   render: function PlaygroundStory() {
-    const [variant, setVariant] = useState<'upcoming' | 'now' | 'completed' | 'error' | undefined>(
-      'now'
-    );
+    const [variant, setVariant] = useState<
+      'upcoming' | 'now' | 'completed' | 'error' | undefined
+    >('now');
     const [showDescription, setShowDescription] = useState(true);
     const [showStatus, setShowStatus] = useState(true);
     const [itemCount, setItemCount] = useState(3);
@@ -691,7 +731,11 @@ export const Playground: Story = {
               className="px-3 py-2 border rounded"
               value={variant ?? 'none'}
               onChange={(e) =>
-                setVariant(e.target.value === 'none' ? undefined : (e.target.value as any))
+                setVariant(
+                  e.target.value === 'none'
+                    ? undefined
+                    : (e.target.value as any)
+                )
               }
             >
               <option value="none">None</option>
@@ -712,7 +756,9 @@ export const Playground: Story = {
               max="10"
               className="px-3 py-2 border rounded w-20"
               value={itemCount}
-              onChange={(e) => setItemCount(Number.parseInt(e.target.value) || 1)}
+              onChange={(e) =>
+                setItemCount(Number.parseInt(e.target.value) || 1)
+              }
             />
           </div>
           <div className="flex items-end gap-4">
@@ -744,7 +790,9 @@ export const Playground: Story = {
               <ListItem key={i} variant={variant}>
                 <ListItemTitle>Item {i + 1}</ListItemTitle>
                 {showDescription && (
-                  <ListItemDescription>Description for item {i + 1}</ListItemDescription>
+                  <ListItemDescription>
+                    Description for item {i + 1}
+                  </ListItemDescription>
                 )}
                 {showStatus && <ListItemStatus>Status {i + 1}</ListItemStatus>}
               </ListItem>

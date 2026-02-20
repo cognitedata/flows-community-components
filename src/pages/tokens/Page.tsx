@@ -124,8 +124,17 @@ function CopyButton({ text }: { text: string }) {
   };
 
   return (
-    <Button size="sm" variant="ghost" onClick={handleCopy} className="h-8 w-8 p-0">
-      {copied ? <Check className="h-3 w-3 text-green-500" /> : <Copy className="h-3 w-3" />}
+    <Button
+      size="sm"
+      variant="ghost"
+      onClick={handleCopy}
+      className="h-8 w-8 p-0"
+    >
+      {copied ? (
+        <Check className="h-3 w-3 text-green-500" />
+      ) : (
+        <Copy className="h-3 w-3" />
+      )}
     </Button>
   );
 }
@@ -144,8 +153,9 @@ export default function TokensPage() {
           <div className="text-center space-y-4">
             <h1 className="text-3xl md:text-4xl font-bold">Design tokens</h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              The foundational elements of our design system. Colors, typography, and spacing tokens
-              ensure consistency across all digital experiences.
+              The foundational elements of our design system. Colors,
+              typography, and spacing tokens ensure consistency across all
+              digital experiences.
             </p>
             <Button>
               <Download className="mr-2 h-4 w-4" />
@@ -158,7 +168,8 @@ export default function TokensPage() {
             <div className="text-center space-y-2">
               <h2 className="text-2xl font-bold">Color palette</h2>
               <p className="text-muted-foreground">
-                Our carefully crafted color system supports both light and dark themes
+                Our carefully crafted color system supports both light and dark
+                themes
               </p>
             </div>
 
@@ -166,7 +177,9 @@ export default function TokensPage() {
               {Object.entries(colors).map(([category, colorArray]) => (
                 <Card key={category}>
                   <CardHeader>
-                    <CardTitle className="capitalize">{category} colors</CardTitle>
+                    <CardTitle className="capitalize">
+                      {category} colors
+                    </CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="grid grid-cols-2 md:grid-cols-5 lg:grid-cols-10 gap-3">
@@ -181,7 +194,9 @@ export default function TokensPage() {
                             style={{ backgroundColor: color.hex }}
                           />
                           <div className="space-y-1">
-                            <div className="text-xs font-medium">{color.name}</div>
+                            <div className="text-xs font-medium">
+                              {color.name}
+                            </div>
                             <div className="flex items-center justify-between">
                               <div className="text-xs text-muted-foreground font-mono">
                                 {color.hex.toUpperCase()}
@@ -203,7 +218,8 @@ export default function TokensPage() {
             <div className="text-center space-y-2">
               <h2 className="text-2xl font-bold">Typography scale</h2>
               <p className="text-muted-foreground">
-                A harmonious type scale that ensures readable and accessible content
+                A harmonious type scale that ensures readable and accessible
+                content
               </p>
             </div>
 
@@ -269,8 +285,13 @@ export default function TokensPage() {
                       className="flex items-center justify-between p-4 border rounded-lg"
                     >
                       <div className="flex items-center space-x-4">
-                        <div className="text-sm font-medium w-12">{space.name}</div>
-                        <div className="bg-primary/20 h-4 rounded" style={{ width: space.value }} />
+                        <div className="text-sm font-medium w-12">
+                          {space.name}
+                        </div>
+                        <div
+                          className="bg-primary/20 h-4 rounded"
+                          style={{ width: space.value }}
+                        />
                         <div className="text-sm text-muted-foreground">
                           {space.value} ({space.pixels})
                         </div>
@@ -296,7 +317,9 @@ export default function TokensPage() {
               <Card>
                 <CardHeader>
                   <CardTitle>Design tokens</CardTitle>
-                  <CardDescription>JSON file with all design tokens</CardDescription>
+                  <CardDescription>
+                    JSON file with all design tokens
+                  </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <Button className="w-full">
@@ -309,7 +332,9 @@ export default function TokensPage() {
               <Card>
                 <CardHeader>
                   <CardTitle>Figma library</CardTitle>
-                  <CardDescription>Complete Figma design system file</CardDescription>
+                  <CardDescription>
+                    Complete Figma design system file
+                  </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <Button className="w-full">
@@ -322,7 +347,9 @@ export default function TokensPage() {
               <Card>
                 <CardHeader>
                   <CardTitle>CSS variables</CardTitle>
-                  <CardDescription>Ready-to-use CSS custom properties</CardDescription>
+                  <CardDescription>
+                    Ready-to-use CSS custom properties
+                  </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <Button className="w-full">

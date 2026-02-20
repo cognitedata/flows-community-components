@@ -118,7 +118,11 @@ export const WithCharacterLimit: Story = {
   render: () => (
     <div className="grid w-full gap-1.5">
       <Label htmlFor="bio">Bio</Label>
-      <Textarea id="bio" placeholder="Tell us about yourself..." maxChars={100} />
+      <Textarea
+        id="bio"
+        placeholder="Tell us about yourself..."
+        maxChars={100}
+      />
     </div>
   ),
   parameters: {
@@ -227,7 +231,9 @@ export const Controlled: Story = {
             Set text
           </button>
         </div>
-        <p className="text-sm text-muted-foreground">Length: {value.length} characters</p>
+        <p className="text-sm text-muted-foreground">
+          Length: {value.length} characters
+        </p>
       </div>
     );
   },
@@ -309,11 +315,17 @@ export const EdgeCases: Story = {
       </div>
       <div className="grid w-full items-center gap-1">
         <Label htmlFor="edge-unicode">Unicode characters</Label>
-        <Textarea id="edge-unicode" defaultValue="中文字符 مرحبا Привет नमस्ते" />
+        <Textarea
+          id="edge-unicode"
+          defaultValue="中文字符 مرحبا Привет नमस्ते"
+        />
       </div>
       <div className="grid w-full items-center gap-1">
         <Label htmlFor="edge-whitespace">Whitespace handling</Label>
-        <Textarea id="edge-whitespace" defaultValue="   Spaces before and after   " />
+        <Textarea
+          id="edge-whitespace"
+          defaultValue="   Spaces before and after   "
+        />
       </div>
       <div className="grid w-full items-center gap-1">
         <Label htmlFor="edge-placeholder">Very long placeholder</Label>
@@ -363,9 +375,14 @@ export const VisualRegression: Story = {
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">With Limit</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          With Limit
+        </h3>
         <Textarea placeholder="Limited..." maxChars={50} />
-        <Textarea defaultValue="This is over the character limit for testing" maxChars={20} />
+        <Textarea
+          defaultValue="This is over the character limit for testing"
+          maxChars={20}
+        />
       </div>
     </div>
   ),

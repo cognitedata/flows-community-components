@@ -1,6 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
-import { IconActivity, IconChartLine, IconGauge, IconHistory } from '@tabler/icons-react';
+import {
+  IconActivity,
+  IconChartLine,
+  IconGauge,
+  IconHistory,
+} from '@tabler/icons-react';
 import { useState } from 'react';
 
 import {
@@ -15,7 +20,9 @@ import {
   Suggestions,
 } from './suggestion';
 const getOpenSelectContent = () =>
-  document.querySelector('[data-slot="select-content"][data-open]') as HTMLElement | null;
+  document.querySelector(
+    '[data-slot="select-content"][data-open]'
+  ) as HTMLElement | null;
 const waitForSelectContentOpen = async () => {
   await waitFor(
     () => {
@@ -138,9 +145,18 @@ export const Basic: Story = {
     };
     return (
       <div className="flex flex-wrap gap-2 max-w-[80%]">
-        <Suggestion suggestion="AI prompt suggestion 1" onClick={handleSuggestion} />
-        <Suggestion suggestion="AI prompt suggestion 2" onClick={handleSuggestion} />
-        <Suggestion suggestion="AI prompt suggestion 3" onClick={handleSuggestion} />
+        <Suggestion
+          suggestion="AI prompt suggestion 1"
+          onClick={handleSuggestion}
+        />
+        <Suggestion
+          suggestion="AI prompt suggestion 2"
+          onClick={handleSuggestion}
+        />
+        <Suggestion
+          suggestion="AI prompt suggestion 3"
+          onClick={handleSuggestion}
+        />
       </div>
     );
   },
@@ -174,7 +190,11 @@ export const ButtonVariants: Story = {
           variant="ghost"
           onClick={handleSuggestion}
         />
-        <Suggestion suggestion="Outline variant" variant="outline" onClick={handleSuggestion} />
+        <Suggestion
+          suggestion="Outline variant"
+          variant="outline"
+          onClick={handleSuggestion}
+        />
       </div>
     );
   },
@@ -189,7 +209,9 @@ export const SelectMode: Story = {
     await expect(
       within(document.body).getByText('Show me the pressure on valve 10')
     ).toBeInTheDocument();
-    const item = within(document.body).getByText('Show me the pressure on valve 10');
+    const item = within(document.body).getByText(
+      'Show me the pressure on valve 10'
+    );
     await userEvent.click(item);
     await waitForSelectContentClosed();
   },
@@ -243,9 +265,15 @@ export const KeyboardInteractions: Story = {
           <SuggestionValue placeholder="Use keyboard to navigate..." />
         </SuggestionTrigger>
         <SuggestionContent>
-          <SuggestionItem icon={<IconGauge className="size-4" />}>First option</SuggestionItem>
-          <SuggestionItem icon={<IconActivity className="size-4" />}>Second option</SuggestionItem>
-          <SuggestionItem icon={<IconChartLine className="size-4" />}>Third option</SuggestionItem>
+          <SuggestionItem icon={<IconGauge className="size-4" />}>
+            First option
+          </SuggestionItem>
+          <SuggestionItem icon={<IconActivity className="size-4" />}>
+            Second option
+          </SuggestionItem>
+          <SuggestionItem icon={<IconChartLine className="size-4" />}>
+            Third option
+          </SuggestionItem>
         </SuggestionContent>
       </Suggestion>
     );
@@ -298,11 +326,15 @@ export const InteractiveSelect: Story = {
     await waitForSelectContentOpen();
     const content = getOpenSelectContent();
     expect(content).toBeInTheDocument();
-    const item = within(content as HTMLElement).getByText("What's the status of pump 3?");
+    const item = within(content as HTMLElement).getByText(
+      "What's the status of pump 3?"
+    );
     await userEvent.click(item);
     await waitFor(
       () => {
-        const selectionText = canvas.getByText(/Last selected: What's the status of pump 3\?/);
+        const selectionText = canvas.getByText(
+          /Last selected: What's the status of pump 3\?/
+        );
         expect(selectionText).toBeInTheDocument();
       },
       {
@@ -321,7 +353,11 @@ export const InteractiveSelect: Story = {
         <Suggestion onValueChange={handleSuggestion}>
           <SuggestionTrigger aria-label="Select a query">
             <SuggestionValue
-              placeholder={selectedValue ? `Selected: ${selectedValue}` : 'Select a query...'}
+              placeholder={
+                selectedValue
+                  ? `Selected: ${selectedValue}`
+                  : 'Select a query...'
+              }
             />
           </SuggestionTrigger>
           <SuggestionContent>
@@ -337,7 +373,9 @@ export const InteractiveSelect: Story = {
           </SuggestionContent>
         </Suggestion>
         {selectedValue && (
-          <p className="text-sm text-muted-foreground">Last selected: {selectedValue}</p>
+          <p className="text-sm text-muted-foreground">
+            Last selected: {selectedValue}
+          </p>
         )}
       </div>
     );

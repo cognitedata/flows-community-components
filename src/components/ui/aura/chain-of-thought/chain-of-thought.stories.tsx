@@ -117,7 +117,9 @@ export const Controlled: Story = {
           </button>
         </div>
         <ChainOfThought open={open} onOpenChange={setOpen}>
-          <ChainOfThoughtHeader>Controlled Chain of Thought</ChainOfThoughtHeader>
+          <ChainOfThoughtHeader>
+            Controlled Chain of Thought
+          </ChainOfThoughtHeader>
           <ChainOfThoughtContent>
             <ChainOfThoughtStep label="This chain of thought is controlled externally.">
               This chain of thought is controlled externally.
@@ -137,17 +139,18 @@ export const DetailedSteps: Story = {
       <ChainOfThoughtHeader>Analyzing Code</ChainOfThoughtHeader>
       <ChainOfThoughtContent>
         <ChainOfThoughtStep label="Understanding the Problem">
-          <strong>Understanding the Problem:</strong> The user wants to implement a sorting function
-          that handles edge cases like empty arrays and duplicates.
+          <strong>Understanding the Problem:</strong> The user wants to
+          implement a sorting function that handles edge cases like empty arrays
+          and duplicates.
         </ChainOfThoughtStep>
         <ChainOfThoughtStep label="Evaluating Algorithms">
-          <strong>Evaluating Algorithms:</strong> QuickSort offers O(n log n) average case,
-          MergeSort guarantees O(n log n) but uses more memory, and the built-in sort method is
-          well-optimized for most cases.
+          <strong>Evaluating Algorithms:</strong> QuickSort offers O(n log n)
+          average case, MergeSort guarantees O(n log n) but uses more memory,
+          and the built-in sort method is well-optimized for most cases.
         </ChainOfThoughtStep>
         <ChainOfThoughtStep label="Implementation Decision">
-          <strong>Implementation Decision:</strong> Recommending the built-in sort with a custom
-          comparator for simplicity and maintainability.
+          <strong>Implementation Decision:</strong> Recommending the built-in
+          sort with a custom comparator for simplicity and maintainability.
         </ChainOfThoughtStep>
       </ChainOfThoughtContent>
     </ChainOfThought>
@@ -192,7 +195,8 @@ export const SingleStep: Story = {
       <ChainOfThoughtHeader>Quick Thought</ChainOfThoughtHeader>
       <ChainOfThoughtContent>
         <ChainOfThoughtStep label="The answer to this question is straightforward based on the documentation.">
-          The answer to this question is straightforward based on the documentation.
+          The answer to this question is straightforward based on the
+          documentation.
         </ChainOfThoughtStep>
       </ChainOfThoughtContent>
     </ChainOfThought>
@@ -202,22 +206,32 @@ export const VisualRegression: Story = {
   render: () => (
     <div className="space-y-8 p-4">
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">Collapsed</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          Collapsed
+        </h3>
         <ChainOfThought>
           <ChainOfThoughtHeader>Collapsed Thinking</ChainOfThoughtHeader>
           <ChainOfThoughtContent>
-            <ChainOfThoughtStep label="Hidden content">Hidden content</ChainOfThoughtStep>
+            <ChainOfThoughtStep label="Hidden content">
+              Hidden content
+            </ChainOfThoughtStep>
           </ChainOfThoughtContent>
         </ChainOfThought>
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">Expanded</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          Expanded
+        </h3>
         <ChainOfThought defaultOpen>
           <ChainOfThoughtHeader>Expanded Thinking</ChainOfThoughtHeader>
           <ChainOfThoughtContent>
-            <ChainOfThoughtStep label="First step">First step</ChainOfThoughtStep>
-            <ChainOfThoughtStep label="Second step">Second step</ChainOfThoughtStep>
+            <ChainOfThoughtStep label="First step">
+              First step
+            </ChainOfThoughtStep>
+            <ChainOfThoughtStep label="Second step">
+              Second step
+            </ChainOfThoughtStep>
           </ChainOfThoughtContent>
         </ChainOfThought>
       </div>
@@ -237,9 +251,15 @@ export const Playground: Story = {
     <ChainOfThought {...args}>
       <ChainOfThoughtHeader>Playground</ChainOfThoughtHeader>
       <ChainOfThoughtContent>
-        <ChainOfThoughtStep label="Playground step 1">Playground step 1</ChainOfThoughtStep>
-        <ChainOfThoughtStep label="Playground step 2">Playground step 2</ChainOfThoughtStep>
-        <ChainOfThoughtStep label="Playground step 3">Playground step 3</ChainOfThoughtStep>
+        <ChainOfThoughtStep label="Playground step 1">
+          Playground step 1
+        </ChainOfThoughtStep>
+        <ChainOfThoughtStep label="Playground step 2">
+          Playground step 2
+        </ChainOfThoughtStep>
+        <ChainOfThoughtStep label="Playground step 3">
+          Playground step 3
+        </ChainOfThoughtStep>
       </ChainOfThoughtContent>
     </ChainOfThought>
   ),

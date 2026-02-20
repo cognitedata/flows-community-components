@@ -103,7 +103,10 @@ function SidebarProvider({
   // Adds a keyboard shortcut to toggle the sidebar.
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === SIDEBAR_KEYBOARD_SHORTCUT && (event.metaKey || event.ctrlKey)) {
+      if (
+        event.key === SIDEBAR_KEYBOARD_SHORTCUT &&
+        (event.metaKey || event.ctrlKey)
+      ) {
         event.preventDefault();
         toggleSidebar();
       }
@@ -247,7 +250,11 @@ function Sidebar({
   );
 }
 
-function SidebarTrigger({ className, onClick, ...props }: ComponentProps<typeof Button>) {
+function SidebarTrigger({
+  className,
+  onClick,
+  ...props
+}: ComponentProps<typeof Button>) {
   const { toggleSidebar } = useSidebar();
 
   return (
@@ -319,7 +326,10 @@ function SidebarInput({ className, ...props }: ComponentProps<typeof Input>) {
   );
 }
 
-function SidebarSeparator({ className, ...props }: ComponentProps<typeof Separator>) {
+function SidebarSeparator({
+  className,
+  ...props
+}: ComponentProps<typeof Separator>) {
   return (
     <Separator
       data-slot="sidebar-separator"
@@ -561,7 +571,9 @@ function SidebarMenuSkeleton({
       className={cn('flex h-8 items-center gap-2 px-2', className)}
       {...props}
     >
-      {showIcon && <Skeleton className="size-4" data-sidebar="menu-skeleton-icon" />}
+      {showIcon && (
+        <Skeleton className="size-4" data-sidebar="menu-skeleton-icon" />
+      )}
       <Skeleton
         className="h-4 max-w-(--skeleton-width) flex-1"
         data-sidebar="menu-skeleton-text"
@@ -643,7 +655,10 @@ function SidebarBrand({ className, ...props }: React.ComponentProps<'div'>) {
 }
 
 // Sidebar Project Selector component
-function SidebarProjectSelector({ className, ...props }: React.ComponentProps<'button'>) {
+function SidebarProjectSelector({
+  className,
+  ...props
+}: React.ComponentProps<'button'>) {
   return (
     <button
       data-slot="sidebar-project-selector"
@@ -660,7 +675,10 @@ function SidebarProjectSelector({ className, ...props }: React.ComponentProps<'b
 }
 
 // Sidebar Search component (copy of ProjectSelector for now)
-function SidebarSearch({ className, ...props }: React.ComponentProps<'button'>) {
+function SidebarSearch({
+  className,
+  ...props
+}: React.ComponentProps<'button'>) {
   return (
     <button
       data-slot="sidebar-search"
@@ -713,18 +731,34 @@ function SidebarSection({
 
 // Sidebar Main Pages component
 function SidebarMainPages(props: React.ComponentProps<'div'>) {
-  return <SidebarSection data-slot="sidebar-main-pages" data-sidebar="main-pages" {...props} />;
+  return (
+    <SidebarSection
+      data-slot="sidebar-main-pages"
+      data-sidebar="main-pages"
+      {...props}
+    />
+  );
 }
 
 // Sidebar Pinned Apps (Big Swap Slot) component
 function SidebarPinnedApps(props: React.ComponentProps<'div'>) {
-  return <SidebarSection data-slot="sidebar-pinned-apps" data-sidebar="pinned-apps" {...props} />;
+  return (
+    <SidebarSection
+      data-slot="sidebar-pinned-apps"
+      data-sidebar="pinned-apps"
+      {...props}
+    />
+  );
 }
 
 // Sidebar General Pages component
 function SidebarGeneralPages(props: React.ComponentProps<'div'>) {
   return (
-    <SidebarSection data-slot="sidebar-general-pages" data-sidebar="general-pages" {...props} />
+    <SidebarSection
+      data-slot="sidebar-general-pages"
+      data-sidebar="general-pages"
+      {...props}
+    />
   );
 }
 
@@ -734,7 +768,10 @@ function SidebarHeader({ className, ...props }: React.ComponentProps<'div'>) {
     <div
       data-slot="sidebar-header"
       data-sidebar="header"
-      className={cn('flex flex-col gap-1 group-data-[collapsible=icon]:gap-1', className)}
+      className={cn(
+        'flex flex-col gap-1 group-data-[collapsible=icon]:gap-1',
+        className
+      )}
       {...props}
     />
   );
@@ -746,19 +783,28 @@ function SidebarFooter({ className, ...props }: React.ComponentProps<'div'>) {
     <div
       data-slot="sidebar-footer"
       data-sidebar="footer"
-      className={cn('flex items-center gap-2 group-data-[collapsible=icon]:mt-3', className)}
+      className={cn(
+        'flex items-center gap-2 group-data-[collapsible=icon]:mt-3',
+        className
+      )}
       {...props}
     />
   );
 }
 
 // Sidebar Footer component (used both inside Header and as standalone)
-function SidebarHeaderInsert({ className, ...props }: React.ComponentProps<'div'>) {
+function SidebarHeaderInsert({
+  className,
+  ...props
+}: React.ComponentProps<'div'>) {
   return (
     <div
       data-slot="sidebar-header-insert"
       data-sidebar="header"
-      className={cn('flex items-center gap-2 group-data-[collapsible=icon]:mb-3', className)}
+      className={cn(
+        'flex items-center gap-2 group-data-[collapsible=icon]:mb-3',
+        className
+      )}
       {...props}
     />
   );
@@ -800,6 +846,5 @@ export {
   SidebarSeparator,
   SidebarTrigger,
   SidebarUserProfile,
-   
   useSidebar,
 };

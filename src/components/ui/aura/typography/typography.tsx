@@ -291,7 +291,9 @@ export type TypographyItem = (typeof typographyScale)[number];
 /**
  * Get all typography items for a specific section
  */
-export function getTypographyBySection(section: TypographySection): TypographyItem[] {
+export function getTypographyBySection(
+  section: TypographySection
+): TypographyItem[] {
   return typographyScale.filter((t) => t.section === section);
 }
 
@@ -302,7 +304,9 @@ export function findTypography(
   name: string,
   section?: TypographySection
 ): TypographyItem | undefined {
-  return typographyScale.find((t) => t.name === name && (!section || t.section === section));
+  return typographyScale.find(
+    (t) => t.name === name && (!section || t.section === section)
+  );
 }
 
 /**
@@ -605,7 +609,8 @@ export const typographyPatterns = {
     name: 'AI Chat Response',
     description:
       'Typography hierarchy for AI-generated responses within a chat interface. Uses a modest scale appropriate for content that is subordinate to the chat UI. Includes vertical rhythm (margins) for natural reading flow.',
-    context: 'Used by MessageResponse component with Streamdown for markdown rendering',
+    context:
+      'Used by MessageResponse component with Streamdown for markdown rendering',
     elements: [
       {
         role: 'h1',
@@ -634,18 +639,21 @@ export const typographyPatterns = {
       },
       {
         role: 'ul',
-        class: 'ml-8.25 mb-3 pt-2 pl-0 pb-0 list-disc text-base font-normal tracking-tightest',
+        class:
+          'ml-8.25 mb-3 pt-2 pl-0 pb-0 list-disc text-base font-normal tracking-tightest',
         description: 'Unordered list (12px bottom, 8px top padding)',
       },
       {
         role: 'ol',
-        class: 'ml-8.25 mb-3 pt-2 pl-0 pb-0 list-decimal text-base font-normal tracking-tightest',
+        class:
+          'ml-8.25 mb-3 pt-2 pl-0 pb-0 list-decimal text-base font-normal tracking-tightest',
         description: 'Ordered list (12px bottom, 8px top padding)',
       },
       {
         role: 'li',
         class: 'py-0',
-        description: 'List item (no vertical padding, spacing controlled by parent)',
+        description:
+          'List item (no vertical padding, spacing controlled by parent)',
       },
       {
         role: 'blockquote',
@@ -670,12 +678,14 @@ export const typographyPatterns = {
       },
       {
         role: 'a',
-        class: 'text-foreground-link no-underline hover:underline underline-offset-4',
+        class:
+          'text-foreground-link no-underline hover:underline underline-offset-4',
         description: 'Hyperlink',
       },
       {
         role: 'code (inline)',
-        class: 'relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold',
+        class:
+          'relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold',
         description: 'Inline code snippet',
       },
     ],
@@ -756,12 +766,14 @@ export const typographyPatterns = {
       },
       {
         role: 'blockquote',
-        class: 'my-4 pl-4 border-l-2 border-l-border text-base text-muted-foreground italic',
+        class:
+          'my-4 pl-4 border-l-2 border-l-border text-base text-muted-foreground italic',
         description: 'Quoted text (16px vertical, thicker left border)',
       },
       {
         role: 'code (inline)',
-        class: 'relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold',
+        class:
+          'relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold',
         description: 'Inline code snippet',
       },
     ],

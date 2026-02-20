@@ -8,7 +8,10 @@ import { InstallationCommand } from '@/components/installation-command';
 import { StoriesRenderer } from '@/components/stories-renderer';
 import { Badge } from '@/components/ui/aura/badge';
 import { Button } from '@/components/ui/aura/button';
-import { type AIComponentMeta, getAIComponentMeta } from '@/lib/ai-component-registry';
+import {
+  type AIComponentMeta,
+  getAIComponentMeta,
+} from '@/lib/ai-component-registry';
 import {
   type ComponentStatusType,
   getComponentStatusClasses,
@@ -137,7 +140,8 @@ export default function AIComponentPage() {
   const statusLabel = getStatusLabel(componentStatus);
   const statusMessage = getStatusMessage(componentStatus);
   const description =
-    meta?.description || 'AI element component for building conversational interfaces';
+    meta?.description ||
+    'AI element component for building conversational interfaces';
   const storybookUrl = `https://cognitedata.github.io/aura/storybook/?path=/docs/ai-${toStorybookSlug(componentName)}--docs`;
 
   return (
@@ -155,7 +159,9 @@ export default function AIComponentPage() {
         <div className="space-y-4">
           <div className="flex items-start justify-between gap-4 mb-2">
             <div className="flex min-w-0 flex-wrap items-center gap-3">
-              <h1 className="text-3xl font-bold tracking-tight">{componentName}</h1>
+              <h1 className="text-3xl font-bold tracking-tight">
+                {componentName}
+              </h1>
               <Badge variant="inProgress" outline>
                 AI Element
               </Badge>
@@ -187,13 +193,14 @@ export default function AIComponentPage() {
             </div>
           </div>
           <p className="text-lg text-muted-foreground">{description}</p>
-          {componentStatus !== 'stable' && componentStatus !== 'ready-for-ga' && (
-            <div className={`p-4 rounded-lg border ${statusClasses}`}>
-              <p className="text-sm">
-                <strong>Note:</strong> {statusMessage}
-              </p>
-            </div>
-          )}
+          {componentStatus !== 'stable' &&
+            componentStatus !== 'ready-for-ga' && (
+              <div className={`p-4 rounded-lg border ${statusClasses}`}>
+                <p className="text-sm">
+                  <strong>Note:</strong> {statusMessage}
+                </p>
+              </div>
+            )}
         </div>
 
         {/* Examples Section */}
@@ -205,7 +212,11 @@ export default function AIComponentPage() {
         {/* Installation Section */}
         <section>
           <h2 className="text-2xl font-bold mb-6">Installation</h2>
-          <InstallationCommand component={slug} dependencies={[]} componentCode="" />
+          <InstallationCommand
+            component={slug}
+            dependencies={[]}
+            componentCode=""
+          />
         </section>
 
         {/* Guidelines Section */}
@@ -213,7 +224,9 @@ export default function AIComponentPage() {
           <h2 className="text-2xl font-bold mb-6">Guidelines</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-3">
-              <h3 className="font-semibold text-green-700 dark:text-green-400">Do</h3>
+              <h3 className="font-semibold text-green-700 dark:text-green-400">
+                Do
+              </h3>
               <div className="p-4 rounded-lg border bg-green-50 border-green-200 dark:bg-green-950/20 dark:border-green-800">
                 <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
                   <li>Use consistent styling across AI components.</li>
@@ -224,7 +237,9 @@ export default function AIComponentPage() {
               </div>
             </div>
             <div className="space-y-3">
-              <h3 className="font-semibold text-red-700 dark:text-red-400">Don&apos;t</h3>
+              <h3 className="font-semibold text-red-700 dark:text-red-400">
+                Don&apos;t
+              </h3>
               <div className="p-4 rounded-lg border bg-red-50 border-red-200 dark:bg-red-950/20 dark:border-red-800">
                 <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
                   <li>Don&apos;t forget to handle error states.</li>

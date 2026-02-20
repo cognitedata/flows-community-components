@@ -20,7 +20,14 @@ const meta: Meta<typeof Button> = {
   argTypes: {
     variant: {
       control: 'select',
-      options: ['default', 'destructive', 'secondary', 'outline', 'ghost', 'link'],
+      options: [
+        'default',
+        'destructive',
+        'secondary',
+        'outline',
+        'ghost',
+        'link',
+      ],
       table: {
         category: 'Variants/Styling',
         type: {
@@ -218,7 +225,14 @@ export const AllVariants: Story = {
 };
 export const MainComponent: Story = {
   render: () => {
-    const variants = ['default', 'secondary', 'outline', 'ghost', 'destructive', 'link'] as const;
+    const variants = [
+      'default',
+      'secondary',
+      'outline',
+      'ghost',
+      'destructive',
+      'link',
+    ] as const;
     const sizePairs = [
       {
         label: 'default',
@@ -232,16 +246,21 @@ export const MainComponent: Story = {
     ] as const;
     const activeWrapperClassByVariant = {
       default: '[&>button]:bg-primary-hover dark:[&>button]:bg-primary-hover',
-      secondary: '[&>button]:bg-secondary-hover dark:[&>button]:bg-secondary-hover',
+      secondary:
+        '[&>button]:bg-secondary-hover dark:[&>button]:bg-secondary-hover',
       outline: '[&>button]:bg-accent dark:[&>button]:bg-input/50',
       ghost: '[&>button]:bg-accent dark:[&>button]:bg-accent/50',
-      destructive: '[&>button]:bg-destructive-hover dark:[&>button]:bg-destructive-hover',
+      destructive:
+        '[&>button]:bg-destructive-hover dark:[&>button]:bg-destructive-hover',
       link: '[&>button]:bg-accent/50 dark:[&>button]:bg-accent/30 [&>button]:underline',
     } as const;
     return (
       <div className="flex flex-wrap gap-3 flex-col w-full">
         {variants.map((variant) => (
-          <div key={variant} className="flex flex-wrap items-center gap-3 w-full">
+          <div
+            key={variant}
+            className="flex flex-wrap items-center gap-3 w-full"
+          >
             {sizePairs.map(({ label }) => (
               <div key={`${variant}-${label}`} className="contents">
                 <Button variant={variant} size={label}>
@@ -494,7 +513,9 @@ export const ClickInteraction: Story = {
     const [count, setCount] = useState(0);
     return (
       <div className="flex flex-col items-center gap-4">
-        <Button onClick={() => setCount((c) => c + 1)}>Clicked {count} times</Button>
+        <Button onClick={() => setCount((c) => c + 1)}>
+          Clicked {count} times
+        </Button>
         <div className="text-sm text-muted-foreground">Count: {count}</div>
       </div>
     );
@@ -637,7 +658,9 @@ export const VisualRegression: Story = {
   render: () => (
     <div className="flex flex-col gap-8 p-8">
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">All Variants</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          All Variants
+        </h3>
         <div className="flex flex-wrap gap-3">
           <Button variant="default">Default</Button>
           <Button variant="secondary">Secondary</Button>
@@ -649,7 +672,9 @@ export const VisualRegression: Story = {
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">All Sizes</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          All Sizes
+        </h3>
         <div className="flex flex-wrap items-center gap-3">
           <Button size="sm">Small</Button>
           <Button size="default">Default</Button>
@@ -658,7 +683,9 @@ export const VisualRegression: Story = {
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">Disabled States</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          Disabled States
+        </h3>
         <div className="flex flex-wrap gap-3">
           <Button disabled>Default Disabled</Button>
           <Button variant="secondary" disabled>
@@ -674,7 +701,9 @@ export const VisualRegression: Story = {
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">Icon Buttons</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          Icon Buttons
+        </h3>
         <div className="flex flex-wrap items-center gap-3">
           <Button size="icon-sm" variant="outline" aria-label="Small icon">
             <IconPlus className="size-4" />
@@ -689,7 +718,9 @@ export const VisualRegression: Story = {
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">With Icons</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          With Icons
+        </h3>
         <div className="flex flex-wrap gap-3">
           <Button>
             <IconPlus className="size-4" />
@@ -707,7 +738,9 @@ export const VisualRegression: Story = {
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">Loading States</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          Loading States
+        </h3>
         <div className="flex flex-wrap gap-3">
           <Button disabled>
             <IconLoader2 className="size-4 animate-spin" />
@@ -751,13 +784,15 @@ export const EdgeCaseLongText: Story = {
   render: () => (
     <div className="flex flex-col gap-4 max-w-md">
       <Button>
-        This is a button with an extremely long text that should demonstrate how the button handles
-        overflow and wrapping
+        This is a button with an extremely long text that should demonstrate how
+        the button handles overflow and wrapping
       </Button>
       <Button variant="outline" className="max-w-50">
         This text is constrained and will wrap
       </Button>
-      <Button size="sm">Small button with really long text content that might cause issues</Button>
+      <Button size="sm">
+        Small button with really long text content that might cause issues
+      </Button>
     </div>
   ),
   parameters: {
@@ -869,7 +904,8 @@ export const EdgeCaseNestedElements: Story = {
   render: () => (
     <div className="flex flex-col gap-4">
       <Button>
-        <span className="font-bold">Bold</span> and <span className="italic">italic</span>
+        <span className="font-bold">Bold</span> and{' '}
+        <span className="italic">italic</span>
       </Button>
       <Button variant="outline">
         <div className="flex items-center gap-2">
@@ -907,7 +943,9 @@ export const EdgeCaseWidthConstraints: Story = {
         </Button>
       </div>
       <div className="w-full max-w-36 border border-dashed border-gray-300 p-2">
-        <Button className="w-full truncate">Very long text that will be truncated</Button>
+        <Button className="w-full truncate">
+          Very long text that will be truncated
+        </Button>
       </div>
       <div className="flex gap-2 w-50 border border-dashed border-gray-300 p-2">
         <Button className="flex-1">Button 1</Button>
@@ -953,7 +991,9 @@ export const EdgeCaseIconOnly: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const labeledIconButton = canvas.getByLabelText('Icon button with label');
-    const labeledSettingsButton = canvas.getByLabelText('Settings with proper label');
+    const labeledSettingsButton = canvas.getByLabelText(
+      'Settings with proper label'
+    );
     await expect(labeledIconButton).toBeInTheDocument();
     await expect(labeledSettingsButton).toBeInTheDocument();
     await userEvent.click(labeledIconButton);
@@ -962,21 +1002,33 @@ export const EdgeCaseIconOnly: Story = {
 export const EdgeCaseRapidStateChanges: Story = {
   render: function RapidStateChanges() {
     const [disabled, setDisabled] = useState(false);
-    const [variant, setVariant] = useState<'default' | 'destructive'>('default');
+    const [variant, setVariant] = useState<'default' | 'destructive'>(
+      'default'
+    );
     const [count, setCount] = useState(0);
     return (
       <div className="flex flex-col gap-4">
-        <Button variant={variant} disabled={disabled} onClick={() => setCount((c) => c + 1)}>
+        <Button
+          variant={variant}
+          disabled={disabled}
+          onClick={() => setCount((c) => c + 1)}
+        >
           Clicked {count} times
         </Button>
         <div className="flex gap-2">
-          <Button size="sm" variant="outline" onClick={() => setDisabled(!disabled)}>
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={() => setDisabled(!disabled)}
+          >
             Toggle Disabled
           </Button>
           <Button
             size="sm"
             variant="outline"
-            onClick={() => setVariant((v) => (v === 'default' ? 'destructive' : 'default'))}
+            onClick={() =>
+              setVariant((v) => (v === 'default' ? 'destructive' : 'default'))
+            }
           >
             Toggle Variant
           </Button>

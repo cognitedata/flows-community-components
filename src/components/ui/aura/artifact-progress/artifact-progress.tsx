@@ -13,11 +13,19 @@ import { Progress } from '@/components/ui/aura/progress';
 
 type ArtifactProgressProps = ComponentProps<typeof Card>;
 
-const ArtifactProgress = forwardRef<React.ElementRef<typeof Card>, ArtifactProgressProps>(
-  ({ className, ...props }, ref) => {
-    return <Card ref={ref} data-slot="artifact-progress" className={cn(className)} {...props} />;
-  }
-);
+const ArtifactProgress = forwardRef<
+  React.ElementRef<typeof Card>,
+  ArtifactProgressProps
+>(({ className, ...props }, ref) => {
+  return (
+    <Card
+      ref={ref}
+      data-slot="artifact-progress"
+      className={cn(className)}
+      {...props}
+    />
+  );
+});
 
 ArtifactProgress.displayName = 'ArtifactProgress';
 
@@ -82,20 +90,26 @@ type ArtifactProgressBarProps = ComponentProps<typeof Progress> & {
   className?: string;
 };
 
-const ArtifactProgressBar = forwardRef<HTMLDivElement, ArtifactProgressBarProps>(
-  ({ value, className, ...props }, ref) => {
-    return (
-      <div
-        ref={ref}
-        data-slot="artifact-progress-bar"
-        className={cn('px-4 py-4.5 w-full flex items-center justify-between gap-2', className)}
-      >
-        <Progress value={value} {...props} />
-        <span className="text-muted-foreground text-sm leading-4.5 tracking-tight">{value}%</span>
-      </div>
-    );
-  }
-);
+const ArtifactProgressBar = forwardRef<
+  HTMLDivElement,
+  ArtifactProgressBarProps
+>(({ value, className, ...props }, ref) => {
+  return (
+    <div
+      ref={ref}
+      data-slot="artifact-progress-bar"
+      className={cn(
+        'px-4 py-4.5 w-full flex items-center justify-between gap-2',
+        className
+      )}
+    >
+      <Progress value={value} {...props} />
+      <span className="text-muted-foreground text-sm leading-4.5 tracking-tight">
+        {value}%
+      </span>
+    </div>
+  );
+});
 
 ArtifactProgressBar.displayName = 'ArtifactProgressBar';
 

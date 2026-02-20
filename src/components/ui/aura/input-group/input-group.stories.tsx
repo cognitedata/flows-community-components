@@ -165,7 +165,10 @@ export const WithTextarea: Story = {
       <InputGroupAddon align="block-start">
         <InputGroupText>Description</InputGroupText>
       </InputGroupAddon>
-      <InputGroupTextarea placeholder="Enter a detailed description..." rows={4} />
+      <InputGroupTextarea
+        placeholder="Enter a detailed description..."
+        rows={4}
+      />
       <InputGroupAddon align="block-end">
         <InputGroupButton size="sm" variant="default">
           <IconSend className="size-4" />
@@ -243,7 +246,9 @@ export const WithError: Story = {
             aria-invalid={true}
           />
         </InputGroup>
-        <p className="text-destructive-foreground text-sm">Please enter a valid email address</p>
+        <p className="text-destructive-foreground text-sm">
+          Please enter a valid email address
+        </p>
       </div>
       <div className="space-y-1">
         <Label htmlFor="error-textarea">Comment</Label>
@@ -255,7 +260,9 @@ export const WithError: Story = {
             aria-invalid={true}
           />
         </InputGroup>
-        <p className="text-destructive-foreground text-sm">Comment is required</p>
+        <p className="text-destructive-foreground text-sm">
+          Comment is required
+        </p>
       </div>
     </div>
   ),
@@ -469,7 +476,9 @@ export const VisualRegression: Story = {
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">With Text</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          With Text
+        </h3>
         <InputGroup>
           <InputGroupAddon align="inline-start">
             <InputGroupText>https://</InputGroupText>
@@ -479,7 +488,9 @@ export const VisualRegression: Story = {
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">With Buttons</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          With Buttons
+        </h3>
         <InputGroup>
           <InputGroupInput placeholder="Search..." />
           <InputGroupAddon align="inline-end">
@@ -489,14 +500,18 @@ export const VisualRegression: Story = {
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">Textarea</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          Textarea
+        </h3>
         <InputGroup>
           <InputGroupTextarea placeholder="Message..." rows={3} />
         </InputGroup>
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">Disabled</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          Disabled
+        </h3>
         <InputGroup data-disabled="true">
           <InputGroupInput placeholder="Disabled" disabled />
         </InputGroup>

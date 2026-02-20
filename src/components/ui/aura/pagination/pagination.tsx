@@ -16,7 +16,6 @@ import {
   useState,
 } from 'react';
 
-
 import { cn } from '../../../../lib/utils';
 
 import { Button } from '@/components/ui/aura/button';
@@ -29,22 +28,25 @@ const PaginationSizeContext = createContext<PaginationSize>('default');
 
 const usePaginationSize = () => useContext(PaginationSizeContext);
 
-const paginationLinkVariants = cva('text-base font-medium leading-5 tracking-tightest', {
-  variants: {
-    size: {
-      default: '',
-      small: 'text-sm leading-4.5 tracking-tight',
+const paginationLinkVariants = cva(
+  'text-base font-medium leading-5 tracking-tightest',
+  {
+    variants: {
+      size: {
+        default: '',
+        small: 'text-sm leading-4.5 tracking-tight',
+      },
+      active: {
+        true: 'bg-toggled text-toggled-foreground hover:bg-toggled-hover hover:text-toggled-foreground',
+        false: '',
+      },
     },
-    active: {
-      true: 'bg-toggled text-toggled-foreground hover:bg-toggled-hover hover:text-toggled-foreground',
-      false: '',
+    defaultVariants: {
+      size: 'default',
+      active: false,
     },
-  },
-  defaultVariants: {
-    size: 'default',
-    active: false,
-  },
-});
+  }
+);
 
 const paginationEllipsisVariants = cva('flex items-center justify-center', {
   variants: {
@@ -121,7 +123,14 @@ PaginationContent.displayName = 'PaginationContent';
  */
 const PaginationItem = forwardRef<HTMLLIElement, ComponentProps<'li'>>(
   ({ className, ...props }, ref) => {
-    return <li ref={ref} data-slot="pagination-item" className={cn(className)} {...props} />;
+    return (
+      <li
+        ref={ref}
+        data-slot="pagination-item"
+        className={cn(className)}
+        {...props}
+      />
+    );
   }
 );
 PaginationItem.displayName = 'PaginationItem';
@@ -140,7 +149,10 @@ const PaginationStatus = forwardRef<
     <output
       ref={ref}
       data-slot="pagination-status"
-      className={cn(paginationStatusVariants({ size: resolvedSize }), className)}
+      className={cn(
+        paginationStatusVariants({ size: resolvedSize }),
+        className
+      )}
       {...props}
     />
   );
@@ -221,133 +233,153 @@ PaginationLink.displayName = 'PaginationLink';
 /**
  * Pagination control to jump to the first page.
  */
-const PaginationFirst = forwardRef<HTMLAnchorElement, Omit<PaginationLinkProps, 'isActive'>>(
-  ({ className, size, ...props }, ref) => {
-    const inheritedSize = usePaginationSize();
-    const resolvedSize = size ?? inheritedSize;
-    const { buttonSize, radiusClass } = getPaginationButtonStyles(resolvedSize);
-    const { isDisabled, ...linkProps } = props;
+const PaginationFirst = forwardRef<
+  HTMLAnchorElement,
+  Omit<PaginationLinkProps, 'isActive'>
+>(({ className, size, ...props }, ref) => {
+  const inheritedSize = usePaginationSize();
+  const resolvedSize = size ?? inheritedSize;
+  const { buttonSize, radiusClass } = getPaginationButtonStyles(resolvedSize);
+  const { isDisabled, ...linkProps } = props;
 
-    return (
-      <Button
-        variant="ghost"
-        size={buttonSize}
-        data-slot="pagination-first"
-        className={cn(radiusClass, isDisabled && 'pointer-events-none opacity-50', className)}
-        render={
-          <a
-            ref={ref}
-            aria-label="Go to first page"
-            aria-disabled={isDisabled || undefined}
-            tabIndex={isDisabled ? -1 : undefined}
-            {...linkProps}
-          >
-            <IconChevronsLeft />
-          </a>
-        }
-      />
-    );
-  }
-);
+  return (
+    <Button
+      variant="ghost"
+      size={buttonSize}
+      data-slot="pagination-first"
+      className={cn(
+        radiusClass,
+        isDisabled && 'pointer-events-none opacity-50',
+        className
+      )}
+      render={
+        <a
+          ref={ref}
+          aria-label="Go to first page"
+          aria-disabled={isDisabled || undefined}
+          tabIndex={isDisabled ? -1 : undefined}
+          {...linkProps}
+        >
+          <IconChevronsLeft />
+        </a>
+      }
+    />
+  );
+});
 PaginationFirst.displayName = 'PaginationFirst';
 
 /**
  * Pagination control to navigate to the previous page.
  */
-const PaginationPrevious = forwardRef<HTMLAnchorElement, Omit<PaginationLinkProps, 'isActive'>>(
-  ({ className, size, ...props }, ref) => {
-    const inheritedSize = usePaginationSize();
-    const resolvedSize = size ?? inheritedSize;
-    const { buttonSize, radiusClass } = getPaginationButtonStyles(resolvedSize);
-    const { isDisabled, ...linkProps } = props;
+const PaginationPrevious = forwardRef<
+  HTMLAnchorElement,
+  Omit<PaginationLinkProps, 'isActive'>
+>(({ className, size, ...props }, ref) => {
+  const inheritedSize = usePaginationSize();
+  const resolvedSize = size ?? inheritedSize;
+  const { buttonSize, radiusClass } = getPaginationButtonStyles(resolvedSize);
+  const { isDisabled, ...linkProps } = props;
 
-    return (
-      <Button
-        variant="ghost"
-        size={buttonSize}
-        data-slot="pagination-previous"
-        className={cn(radiusClass, isDisabled && 'pointer-events-none opacity-50', className)}
-        render={
-          <a
-            ref={ref}
-            aria-label="Go to previous page"
-            aria-disabled={isDisabled || undefined}
-            tabIndex={isDisabled ? -1 : undefined}
-            {...linkProps}
-          >
-            <IconChevronLeft />
-          </a>
-        }
-      />
-    );
-  }
-);
+  return (
+    <Button
+      variant="ghost"
+      size={buttonSize}
+      data-slot="pagination-previous"
+      className={cn(
+        radiusClass,
+        isDisabled && 'pointer-events-none opacity-50',
+        className
+      )}
+      render={
+        <a
+          ref={ref}
+          aria-label="Go to previous page"
+          aria-disabled={isDisabled || undefined}
+          tabIndex={isDisabled ? -1 : undefined}
+          {...linkProps}
+        >
+          <IconChevronLeft />
+        </a>
+      }
+    />
+  );
+});
 PaginationPrevious.displayName = 'PaginationPrevious';
 
 /**
  * Pagination control to navigate to the next page.
  */
-const PaginationNext = forwardRef<HTMLAnchorElement, Omit<PaginationLinkProps, 'isActive'>>(
-  ({ className, size, ...props }, ref) => {
-    const inheritedSize = usePaginationSize();
-    const resolvedSize = size ?? inheritedSize;
-    const { buttonSize, radiusClass } = getPaginationButtonStyles(resolvedSize);
-    const { isDisabled, ...linkProps } = props;
+const PaginationNext = forwardRef<
+  HTMLAnchorElement,
+  Omit<PaginationLinkProps, 'isActive'>
+>(({ className, size, ...props }, ref) => {
+  const inheritedSize = usePaginationSize();
+  const resolvedSize = size ?? inheritedSize;
+  const { buttonSize, radiusClass } = getPaginationButtonStyles(resolvedSize);
+  const { isDisabled, ...linkProps } = props;
 
-    return (
-      <Button
-        variant="ghost"
-        size={buttonSize}
-        data-slot="pagination-next"
-        className={cn(radiusClass, isDisabled && 'pointer-events-none opacity-50', className)}
-        render={
-          <a
-            ref={ref}
-            aria-label="Go to next page"
-            aria-disabled={isDisabled || undefined}
-            tabIndex={isDisabled ? -1 : undefined}
-            {...linkProps}
-          >
-            <IconChevronRight />
-          </a>
-        }
-      />
-    );
-  }
-);
+  return (
+    <Button
+      variant="ghost"
+      size={buttonSize}
+      data-slot="pagination-next"
+      className={cn(
+        radiusClass,
+        isDisabled && 'pointer-events-none opacity-50',
+        className
+      )}
+      render={
+        <a
+          ref={ref}
+          aria-label="Go to next page"
+          aria-disabled={isDisabled || undefined}
+          tabIndex={isDisabled ? -1 : undefined}
+          {...linkProps}
+        >
+          <IconChevronRight />
+        </a>
+      }
+    />
+  );
+});
 PaginationNext.displayName = 'PaginationNext';
 
 /**
  * Pagination control to jump to the last page.
  */
-const PaginationLast = forwardRef<HTMLAnchorElement, Omit<PaginationLinkProps, 'isActive'>>(
-  ({ className, size, ...props }, ref) => {
-    const inheritedSize = usePaginationSize();
-    const resolvedSize = size ?? inheritedSize;
-    const { buttonSize, radiusClass } = getPaginationButtonStyles(resolvedSize);
-    const { isDisabled, ...linkProps } = props;
+const PaginationLast = forwardRef<
+  HTMLAnchorElement,
+  Omit<PaginationLinkProps, 'isActive'>
+>(({ className, size, ...props }, ref) => {
+  const inheritedSize = usePaginationSize();
+  const resolvedSize = size ?? inheritedSize;
+  const { buttonSize, radiusClass } = getPaginationButtonStyles(resolvedSize);
+  const { isDisabled, ...linkProps } = props;
 
-    return (
-      <Button
-        variant="ghost"
-        size={buttonSize}
-        data-slot="pagination-last"
-        className={cn(radiusClass, isDisabled && 'pointer-events-none opacity-50', className)}
-        render={
-          <a
-            ref={ref}
-            aria-label="Go to last page"
-            aria-disabled={isDisabled || undefined}
-            tabIndex={isDisabled ? -1 : undefined}
-            {...linkProps}
-          >
-            <IconChevronsRight />
-          </a>
-        }
-      />
-    );
-  }
-);
+  return (
+    <Button
+      variant="ghost"
+      size={buttonSize}
+      data-slot="pagination-last"
+      className={cn(
+        radiusClass,
+        isDisabled && 'pointer-events-none opacity-50',
+        className
+      )}
+      render={
+        <a
+          ref={ref}
+          aria-label="Go to last page"
+          aria-disabled={isDisabled || undefined}
+          tabIndex={isDisabled ? -1 : undefined}
+          {...linkProps}
+        >
+          <IconChevronsRight />
+        </a>
+      }
+    />
+  );
+});
 PaginationLast.displayName = 'PaginationLast';
 
 /**
@@ -365,7 +397,10 @@ const PaginationEllipsis = forwardRef<
       ref={ref}
       aria-hidden
       data-slot="pagination-ellipsis"
-      className={cn(paginationEllipsisVariants({ size: resolvedSize }), className)}
+      className={cn(
+        paginationEllipsisVariants({ size: resolvedSize }),
+        className
+      )}
       {...props}
     >
       <IconDots className="h-4 w-4" />
@@ -380,14 +415,23 @@ type PaginationTeleportProps = {
   totalPages: number;
   onPageChange: (page: number) => void;
   size?: PaginationSize;
-} & Omit<ComponentProps<typeof Input>, 'size' | 'value' | 'onChange' | 'children' | 'type'>;
+} & Omit<
+  ComponentProps<typeof Input>,
+  'size' | 'value' | 'onChange' | 'children' | 'type'
+>;
 
 /**
  * Pagination teleport input - allows direct page number entry.
  * The entire "1/100" is an input, but only the current page number is editable.
  */
-const PaginationTeleport = forwardRef<HTMLInputElement, PaginationTeleportProps>(
-  ({ className, currentPage, totalPages, onPageChange, size, ...props }, ref) => {
+const PaginationTeleport = forwardRef<
+  HTMLInputElement,
+  PaginationTeleportProps
+>(
+  (
+    { className, currentPage, totalPages, onPageChange, size, ...props },
+    ref
+  ) => {
     const inheritedSize = usePaginationSize();
     const resolvedSize = size ?? inheritedSize;
     const [editingValue, setEditingValue] = useState('');
@@ -402,7 +446,9 @@ const PaginationTeleport = forwardRef<HTMLInputElement, PaginationTeleportProps>
       className
     );
 
-    const displayValue = isEditing ? editingValue : `${currentPage}/${totalPages}`;
+    const displayValue = isEditing
+      ? editingValue
+      : `${currentPage}/${totalPages}`;
 
     const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
       setIsEditing(true);
@@ -467,35 +513,37 @@ PaginationTeleport.displayName = 'PaginationTeleport';
  * Pagination results per page container.
  * Automatically wraps content in a list item (li).
  */
-const PaginationResultsPerPage = forwardRef<HTMLLIElement, ComponentProps<'li'>>(
-  ({ className, ...props }, ref) => {
-    return (
-      <li
-        ref={ref}
-        data-slot="pagination-results-per-page"
-        className={cn('flex items-center gap-2 pl-4', className)}
-        {...props}
-      />
-    );
-  }
-);
+const PaginationResultsPerPage = forwardRef<
+  HTMLLIElement,
+  ComponentProps<'li'>
+>(({ className, ...props }, ref) => {
+  return (
+    <li
+      ref={ref}
+      data-slot="pagination-results-per-page"
+      className={cn('flex items-center gap-2 pl-4', className)}
+      {...props}
+    />
+  );
+});
 PaginationResultsPerPage.displayName = 'PaginationResultsPerPage';
 
 /**
  * Pagination results per page label.
  */
-const PaginationResultsPerPageLabel = forwardRef<HTMLSpanElement, ComponentProps<'span'>>(
-  ({ className, ...props }, ref) => {
-    return (
-      <span
-        ref={ref}
-        data-slot="pagination-results-per-page-label"
-        className={cn('text-sm text-muted-foreground', className)}
-        {...props}
-      />
-    );
-  }
-);
+const PaginationResultsPerPageLabel = forwardRef<
+  HTMLSpanElement,
+  ComponentProps<'span'>
+>(({ className, ...props }, ref) => {
+  return (
+    <span
+      ref={ref}
+      data-slot="pagination-results-per-page-label"
+      className={cn('text-sm text-muted-foreground', className)}
+      {...props}
+    />
+  );
+});
 PaginationResultsPerPageLabel.displayName = 'PaginationResultsPerPageLabel';
 
 export {

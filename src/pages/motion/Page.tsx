@@ -18,17 +18,20 @@ import {
 const principles = [
   {
     title: 'Purpose',
-    description: 'Every animation should have a clear purpose and enhance the user experience',
+    description:
+      'Every animation should have a clear purpose and enhance the user experience',
     icon: '',
   },
   {
     title: 'Personality',
-    description: 'Motion should reflect the brand personality while maintaining professionalism',
+    description:
+      'Motion should reflect the brand personality while maintaining professionalism',
     icon: '',
   },
   {
     title: 'Performance',
-    description: 'Animations should be smooth, lightweight, and respect user preferences',
+    description:
+      'Animations should be smooth, lightweight, and respect user preferences',
     icon: '',
   },
 ];
@@ -69,13 +72,20 @@ function AnimationDemo({
     <Card>
       <CardHeader className="flex flex-row items-center justify-between">
         <CardTitle className="text-lg">{title}</CardTitle>
-        <Button size="sm" variant="outline" onClick={() => setKey((prev) => prev + 1)}>
+        <Button
+          size="sm"
+          variant="outline"
+          onClick={() => setKey((prev) => prev + 1)}
+        >
           <RotateCcw className="h-3 w-3 mr-1" />
           Replay
         </Button>
       </CardHeader>
       <CardContent>
-        <div key={key} className="flex items-center justify-center h-24 bg-muted/30 rounded-lg">
+        <div
+          key={key}
+          className="flex items-center justify-center h-24 bg-muted/30 rounded-lg"
+        >
           {children}
         </div>
       </CardContent>
@@ -98,10 +108,13 @@ export default function MotionPage() {
         >
           {/* Header */}
           <div className="text-center space-y-4">
-            <h1 className="text-3xl md:text-4xl font-bold">Motion guidelines</h1>
+            <h1 className="text-3xl md:text-4xl font-bold">
+              Motion guidelines
+            </h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Thoughtful motion design creates delightful experiences that guide users and provide
-              feedback while maintaining performance and accessibility.
+              Thoughtful motion design creates delightful experiences that guide
+              users and provide feedback while maintaining performance and
+              accessibility.
             </p>
           </div>
 
@@ -110,7 +123,8 @@ export default function MotionPage() {
             <div className="text-center space-y-2">
               <h2 className="text-2xl font-bold">Motion principles</h2>
               <p className="text-muted-foreground">
-                Core guidelines that inform all motion decisions in our design system
+                Core guidelines that inform all motion decisions in our design
+                system
               </p>
             </div>
 
@@ -127,7 +141,9 @@ export default function MotionPage() {
                       <CardTitle>{principle.title}</CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <p className="text-muted-foreground">{principle.description}</p>
+                      <p className="text-muted-foreground">
+                        {principle.description}
+                      </p>
                     </CardContent>
                   </Card>
                 </motion.div>
@@ -239,7 +255,8 @@ export default function MotionPage() {
                 <CardHeader>
                   <CardTitle>Easing comparison</CardTitle>
                   <CardDescription>
-                    Click on different easing functions to see how they affect motion
+                    Click on different easing functions to see how they affect
+                    motion
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">
@@ -247,7 +264,9 @@ export default function MotionPage() {
                     {easings.map((easing, index) => (
                       <Button
                         key={easing.name}
-                        variant={selectedEasing === index ? 'default' : 'outline'}
+                        variant={
+                          selectedEasing === index ? 'default' : 'outline'
+                        }
                         onClick={() => setSelectedEasing(index)}
                       >
                         {easing.name}
@@ -380,15 +399,22 @@ export default function MotionPage() {
                     </li>
                     <li className="flex items-start space-x-2">
                       <span className="text-primary mt-1">•</span>
-                      <span>Provide pause/stop controls for long animations</span>
+                      <span>
+                        Provide pause/stop controls for long animations
+                      </span>
                     </li>
                     <li className="flex items-start space-x-2">
                       <span className="text-primary mt-1">•</span>
-                      <span>Avoid animations that flash more than 3 times per second</span>
+                      <span>
+                        Avoid animations that flash more than 3 times per second
+                      </span>
                     </li>
                     <li className="flex items-start space-x-2">
                       <span className="text-primary mt-1">•</span>
-                      <span>Ensure animations don&apos;t interfere with content reading</span>
+                      <span>
+                        Ensure animations don&apos;t interfere with content
+                        reading
+                      </span>
                     </li>
                   </ul>
                 </CardContent>
