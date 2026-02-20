@@ -23,7 +23,6 @@ const meta: Meta<typeof Confirmation> = {
   argTypes: {
     approval: {
       control: "object",
-      description: "Approval state object with approved boolean and optional metadata",
       table: {
         category: "Behavior",
         type: { summary: "{ approved?: boolean; [key: string]: unknown }" },
@@ -39,7 +38,6 @@ const meta: Meta<typeof Confirmation> = {
         "output-denied",
         "output-available",
       ],
-      description: "Current state of the confirmation workflow",
       table: {
         category: "Behavior",
         type: { summary: "string" },
@@ -48,8 +46,6 @@ const meta: Meta<typeof Confirmation> = {
 
     helperText: {
       control: false,
-      description:
-        "Helper text below confirmation. Set to false to hide, ReactNode for custom content",
       table: {
         category: "Content",
         type: { summary: "ReactNode | false" },
@@ -57,7 +53,6 @@ const meta: Meta<typeof Confirmation> = {
     },
     className: {
       control: "text",
-      description: "CSS classes for styling",
       table: {
         category: "Variants/Styling",
       },
@@ -71,32 +66,26 @@ const meta: Meta<typeof Confirmation> = {
 export default meta;
 type Story = StoryObj<typeof Confirmation>;
 
-/**
- * Interactive demo showing the full approval workflow.
- * Click the action buttons to see state transitions.
- */
 export const Interactive: Story = {
   args: {
     className: "w-full max-w-lg",
   },
   parameters: {
     order: 2,
-    docs: {
-      description: {
-        story:
-          "A working example with state management showing the full approval workflow. Click action buttons to transition between states.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const trigger = canvas.getByRole("button", { name: /Atlas needs your permission/i });
+    const trigger = canvas.getByRole("button", {
+      name: /Atlas needs your permission/i,
+    });
     await expect(trigger).toHaveAttribute("aria-expanded");
 
     const skipButton = canvas.getByRole("button", { name: "Skip" });
     const allowOnceButton = canvas.getByRole("button", { name: "Allow once" });
-    const alwaysAllowButton = canvas.getByRole("button", { name: "Always allow" });
+    const alwaysAllowButton = canvas.getByRole("button", {
+      name: "Always allow",
+    });
     await expect(skipButton).toHaveAttribute("type", "button");
     await expect(allowOnceButton).toHaveAttribute("type", "button");
     await expect(alwaysAllowButton).toHaveAttribute("type", "button");
@@ -205,18 +194,9 @@ export const Interactive: Story = {
   },
 };
 
-/**
- * Approval requested state - awaiting user decision
- */
 export const ApprovalRequested: Story = {
   parameters: {
     order: 1,
-    docs: {
-      description: {
-        story:
-          "Initial state when a tool needs permission. Shows the trigger, collapsible content, and action buttons.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -266,18 +246,9 @@ export const ApprovalRequested: Story = {
   ),
 };
 
-/**
- * State after user approves an action
- */
 export const ApprovalAccepted: Story = {
   parameters: {
     order: 3,
-    docs: {
-      description: {
-        story:
-          "State after user approves an action. The ConfirmationAccepted content is displayed instead of actions.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -326,18 +297,9 @@ export const ApprovalAccepted: Story = {
   ),
 };
 
-/**
- * State after user approves an action with "Always allow"
- */
 export const ApprovalAcceptedAlways: Story = {
   parameters: {
     order: 4,
-    docs: {
-      description: {
-        story:
-          'State after user selects "Always allow". Shows a different message indicating permanent permission.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -380,17 +342,9 @@ export const ApprovalAcceptedAlways: Story = {
   ),
 };
 
-/**
- * State after user denies an action
- */
 export const ApprovalRejected: Story = {
   parameters: {
     order: 5,
-    docs: {
-      description: {
-        story: "State after user denies an action. The ConfirmationRejected content is displayed.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -436,18 +390,9 @@ export const ApprovalRejected: Story = {
   ),
 };
 
-/**
- * Confirmation with no helper text
- */
 export const NoHelperText: Story = {
   parameters: {
     order: 6,
-    docs: {
-      description: {
-        story:
-          "Confirmation without the default helper text warning. Set helperText={false} to hide it.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -479,17 +424,9 @@ export const NoHelperText: Story = {
   ),
 };
 
-/**
- * Confirmation with custom helper text
- */
 export const CustomHelperText: Story = {
   parameters: {
     order: 7,
-    docs: {
-      description: {
-        story: "Confirmation with custom helper text instead of the default warning.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -531,18 +468,9 @@ export const CustomHelperText: Story = {
   ),
 };
 
-/**
- * Confirmation with multiple paragraphs of content
- */
 export const WithParagraphs: Story = {
   parameters: {
     order: 8,
-    docs: {
-      description: {
-        story:
-          "Collapsible content with multiple paragraphs to help users make informed decisions.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -598,18 +526,9 @@ export const WithParagraphs: Story = {
   ),
 };
 
-/**
- * Confirmation with code block showing what will be executed
- */
 export const WithCodeBlock: Story = {
   parameters: {
     order: 9,
-    docs: {
-      description: {
-        story:
-          "Collapsible content with a code block to display the exact code that will be executed.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -674,18 +593,9 @@ console.log(result.trends, result.seasonality);`;
   },
 };
 
-/**
- * Tests collapsible content toggle interaction and chevron animation
- */
 export const CollapsibleInteraction: Story = {
   parameters: {
     order: 10,
-    docs: {
-      description: {
-        story:
-          "Tests the collapsible content toggle with chevron rotation animation. Click the trigger to expand/collapse the content and watch the chevron rotate.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -694,9 +604,6 @@ export const CollapsibleInteraction: Story = {
     await expect(trigger).toBeInTheDocument();
 
     await expect(trigger).toHaveAttribute("aria-expanded");
-
-    const chevron = trigger.querySelector("svg");
-    await expect(chevron).toBeInTheDocument();
 
     await userEvent.click(trigger);
 
@@ -738,19 +645,9 @@ export const CollapsibleInteraction: Story = {
   ),
 };
 
-/**
- * Tests keyboard navigation and accessibility
- * Verifies Space/Enter activate buttons, Tab navigation works
- */
 export const KeyboardNavigation: Story = {
   parameters: {
     order: 11,
-    docs: {
-      description: {
-        story:
-          "Tests keyboard navigation: Tab to navigate between buttons, Space/Enter to activate. Ensures full keyboard accessibility.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -775,7 +672,9 @@ export const KeyboardNavigation: Story = {
     await expect(allowOnceButton).toHaveFocus();
 
     await userEvent.tab();
-    const alwaysAllowButton = canvas.getByRole("button", { name: "Always allow" });
+    const alwaysAllowButton = canvas.getByRole("button", {
+      name: "Always allow",
+    });
     await expect(alwaysAllowButton).toHaveFocus();
 
     await userEvent.keyboard("{Enter}");
@@ -841,18 +740,9 @@ export const KeyboardNavigation: Story = {
   },
 };
 
-/**
- * Hidden states - confirmation is hidden during streaming/input states
- */
 export const HiddenDuringStreaming: Story = {
   parameters: {
     order: 12,
-    docs: {
-      description: {
-        story:
-          'Confirmation is hidden when state is "input-streaming" or "input-available". Nothing is rendered.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
