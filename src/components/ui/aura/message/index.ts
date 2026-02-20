@@ -16,5 +16,5 @@ export {
   MessageAttachment,
   MessageAttachments,
   MessageToolbar,
-} from "./message";
-export { MessageMetadata } from "./message.metadata";
+} from './message';
+export { MessageMetadata } from './message.metadata';

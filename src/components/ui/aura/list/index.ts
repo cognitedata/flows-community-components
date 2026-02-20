@@ -1,17 +1,3 @@
-import {
-  List,
-  ListDescription,
-  ListDescriptionDetails,
-  ListDescriptionTerm,
-  ListItem,
-  ListItemDescription,
-  ListItemIcon,
-  ListItemStatus,
-  ListItemTitle,
-  ListOrdered,
-} from "./list";
-import { ListMetadata } from "./list.metadata";
-
 export {
   List,
   ListDescription,
@@ -23,5 +9,5 @@ export {
   ListItemStatus,
   ListItemTitle,
   ListOrdered,
-  ListMetadata,
-};
+} from './list';
+export { ListMetadata } from './list.metadata';

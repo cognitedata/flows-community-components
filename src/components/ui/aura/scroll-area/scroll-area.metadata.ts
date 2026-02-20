@@ -1,7 +1,7 @@
-import type { ComponentMeta } from "../../../../lib/types";
+import type { ComponentMeta } from '../../../../lib/types';
 
 export const ScrollAreaMetadata: ComponentMeta = {
-  name: "ScrollArea",
-  status: "draft",
-  description: "A custom scrollable area built on Base UI Scroll Area.",
+  name: 'ScrollArea',
+  status: 'draft',
+  description: 'A custom scrollable area built on Base UI Scroll Area.',
 };

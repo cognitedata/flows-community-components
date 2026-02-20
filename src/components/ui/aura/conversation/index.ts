@@ -11,7 +11,12 @@ import {
   ConversationContent,
   ConversationEmptyState,
   ConversationScrollButton,
-} from "./conversation";
+} from './conversation';
 
-export { Conversation, ConversationContent, ConversationEmptyState, ConversationScrollButton };
-export { ConversationMetadata } from "./conversation.metadata";
+export {
+  Conversation,
+  ConversationContent,
+  ConversationEmptyState,
+  ConversationScrollButton,
+};
+export { ConversationMetadata } from './conversation.metadata';

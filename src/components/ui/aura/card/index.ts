@@ -16,5 +16,5 @@ export {
   CardActions,
   CardDescription,
   CardContent,
-} from "./card";
-export { CardMetadata } from "./card.metadata";
+} from './card';
+export { CardMetadata } from './card.metadata';
