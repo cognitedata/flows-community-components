@@ -1,11 +1,8 @@
 import { Accordion as AccordionPrimitive } from "@base-ui/react/accordion";
-import { IconChevronDown } from "@tabler/icons-react";
-import { type ComponentProps, forwardRef, useMemo } from "react";
+import { type Icon, IconChevronDown } from "@tabler/icons-react";
+import { type ComponentProps, type ComponentRef, forwardRef, useMemo } from "react";
 
-import { cn } from "@/lib/utils";
-import type { Icon } from "@tabler/icons-react";
-
-type AccordionType = "single" | "multiple";
+import { cn } from "../../../../lib/utils";
 
 type AccordionCommonProps = Omit<
   ComponentProps<typeof AccordionPrimitive.Root>,
@@ -29,55 +26,73 @@ type AccordionMultipleProps = {
 
 type AccordionProps = AccordionCommonProps & (AccordionSingleProps | AccordionMultipleProps);
 
-const Accordion = forwardRef<React.ElementRef<typeof AccordionPrimitive.Root>, AccordionProps>(
+const Accordion = forwardRef<ComponentRef<typeof AccordionPrimitive.Root>, AccordionProps>(
   (props, ref) => {
-    const { type = "single" } = props;
-    const multiple = type === "multiple";
+    if (props.type === "multiple") {
+      const { type: _type, value, defaultValue, onValueChange, ...rootProps } = props;
 
-    const { collapsible = false } = (props as AccordionSingleProps) ?? {};
+      const controlledValue = useMemo<string[] | undefined>(() => {
+        if (value === undefined) return undefined;
+        return value;
+      }, [value]);
+
+      const uncontrolledDefaultValue = useMemo<string[] | undefined>(() => {
+        if (defaultValue === undefined) return undefined;
+        return defaultValue;
+      }, [defaultValue]);
+
+      return (
+        <AccordionPrimitive.Root
+          ref={ref}
+          data-slot="accordion"
+          multiple
+          value={controlledValue}
+          defaultValue={uncontrolledDefaultValue}
+          onValueChange={(nextValue) => {
+            if (!onValueChange) return;
+            const filtered = nextValue.filter((next): next is string => next != null);
+            onValueChange(filtered);
+          }}
+          {...rootProps}
+        />
+      );
+    }
+
     const {
       type: _type,
-      collapsible: _collapsible,
+      collapsible = false,
       value,
       defaultValue,
       onValueChange,
       ...rootProps
-    } = props as any;
+    } = props;
 
-    const controlledValue = useMemo(() => {
+    const controlledValue = useMemo<string[] | undefined>(() => {
       if (value === undefined) return undefined;
-      if (multiple) return Array.isArray(value) ? value : [value];
       if (value === "") return [];
       return [value];
-    }, [multiple, value]);
+    }, [value]);
 
-    const uncontrolledDefaultValue = useMemo(() => {
+    const uncontrolledDefaultValue = useMemo<string[] | undefined>(() => {
       if (defaultValue === undefined) return undefined;
-      if (multiple) return Array.isArray(defaultValue) ? defaultValue : [defaultValue];
       if (defaultValue === "") return [];
       return [defaultValue];
-    }, [defaultValue, multiple]);
+    }, [defaultValue]);
 
     return (
       <AccordionPrimitive.Root
         ref={ref}
         data-slot="accordion"
-        multiple={multiple}
-        value={controlledValue as any}
-        defaultValue={uncontrolledDefaultValue as any}
+        multiple={false}
+        value={controlledValue}
+        defaultValue={uncontrolledDefaultValue}
         onValueChange={(nextValue, details) => {
-          if (multiple) {
-            onValueChange?.(nextValue.filter((v: unknown) => v != null) as any);
-            return;
-          }
-
-          if (collapsible === false && nextValue.length === 0) {
+          if (!onValueChange) return;
+          if (!collapsible && nextValue.length === 0) {
             details.cancel();
             return;
           }
-
-          const next = nextValue[0];
-          onValueChange?.((next ?? "") as any);
+          onValueChange(nextValue[0] ?? "");
         }}
         {...rootProps}
       />
@@ -87,7 +102,7 @@ const Accordion = forwardRef<React.ElementRef<typeof AccordionPrimitive.Root>, A
 Accordion.displayName = "Accordion";
 
 const AccordionItem = forwardRef<
-  React.ElementRef<typeof AccordionPrimitive.Item>,
+  ComponentRef<typeof AccordionPrimitive.Item>,
   AccordionPrimitive.Item.Props
 >(({ className, ...props }, ref) => {
   return (
@@ -102,7 +117,7 @@ const AccordionItem = forwardRef<
 AccordionItem.displayName = "AccordionItem";
 
 const AccordionTrigger = forwardRef<
-  React.ElementRef<typeof AccordionPrimitive.Trigger>,
+  ComponentRef<typeof AccordionPrimitive.Trigger>,
   AccordionPrimitive.Trigger.Props & {
     icon?: Icon;
   }
@@ -134,7 +149,7 @@ const AccordionTrigger = forwardRef<
 AccordionTrigger.displayName = "AccordionTrigger";
 
 const AccordionContent = forwardRef<
-  React.ElementRef<typeof AccordionPrimitive.Panel>,
+  ComponentRef<typeof AccordionPrimitive.Panel>,
   AccordionPrimitive.Panel.Props
 >(({ className, children, ...props }, ref) => {
   return (

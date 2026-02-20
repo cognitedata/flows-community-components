@@ -13,12 +13,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/aura/select";
-import {
-  PRIMITIVE_PROGRESS_STATUS_ORDER,
-  type PrimitiveProgressStatus,
-  getPrimitiveProgressBadgeProps,
-  getPrimitiveProgressLabel,
-} from "@/lib/primitives-catalog";
+import { getComponentStatusClasses, getStatusLabel } from "@/lib/component-status";
+import { COMPONENT_STATUS_ORDER, type ComponentStatusType } from "@/lib/component-status-config";
 import { cn } from "@/lib/utils";
 import { type ReactNode, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
@@ -28,7 +24,7 @@ type CatalogItem = {
   name: string;
   description: string;
   href: string;
-  progressStatus?: PrimitiveProgressStatus;
+  status?: ComponentStatusType;
   comingSoon?: boolean;
   eosGaRequired?: boolean | null;
   duneGaRequired?: boolean | null;
@@ -50,7 +46,7 @@ type CatalogIndexProps = {
 };
 
 type GroupByOption = "none" | "status" | "ga";
-type FilterByOption = "all" | PrimitiveProgressStatus | "ga-eos" | "ga-dune" | "ga-both";
+type FilterByOption = "all" | ComponentStatusType | "ga-eos" | "ga-dune" | "ga-both";
 
 const GA_FILTERS: Array<{
   id: Extract<FilterByOption, "ga-eos" | "ga-dune" | "ga-both">;
@@ -74,11 +70,11 @@ const GA_FILTERS: Array<{
   },
 ];
 
-function resolveStatus(status?: PrimitiveProgressStatus): PrimitiveProgressStatus {
-  return status ?? "untracked";
+function resolveStatus(status?: ComponentStatusType): ComponentStatusType {
+  return status ?? "draft";
 }
 
-function isStatusFilter(value: FilterByOption): value is PrimitiveProgressStatus {
+function isStatusFilter(value: FilterByOption): value is ComponentStatusType {
   return value !== "all" && !value.startsWith("ga-");
 }
 
@@ -95,7 +91,7 @@ export function CatalogIndex({ title, description, sections, storageKey }: Catal
       return GA_FILTERS.find((filter) => filter.id === filterBy)?.label ?? "GA required";
     }
     if (isStatusFilter(filterBy)) {
-      return getPrimitiveProgressLabel(filterBy);
+      return getStatusLabel(filterBy);
     }
     return "All items";
   })();
@@ -123,9 +119,9 @@ export function CatalogIndex({ title, description, sections, storageKey }: Catal
     [allItems]
   );
   const availableStatuses = useMemo(() => {
-    const statuses = new Set<PrimitiveProgressStatus>();
-    allItems.forEach((entry) => statuses.add(resolveStatus(entry.progressStatus)));
-    return PRIMITIVE_PROGRESS_STATUS_ORDER.filter((status) => statuses.has(status));
+    const statuses = new Set<ComponentStatusType>();
+    allItems.forEach((entry) => statuses.add(resolveStatus(entry.status)));
+    return COMPONENT_STATUS_ORDER.filter((status) => statuses.has(status));
   }, [allItems]);
 
   const gridClassName =
@@ -134,7 +130,7 @@ export function CatalogIndex({ title, description, sections, storageKey }: Catal
       : "flex flex-col gap-3";
 
   const cardClassName = cn(
-    "transition-colors hover:border-primary",
+    "transition-colors hover:border-primary flex flex-col",
     viewMode === "grid" && "h-full",
     "[&_[data-slot=card-header]]:px-2 [&_[data-slot=card-header]]:pt-2 [&_[data-slot=card-header]]:[.border-b]:pb-3",
     "[&_[data-slot=card-content]]:p-2",
@@ -150,7 +146,7 @@ export function CatalogIndex({ title, description, sections, storageKey }: Catal
       return matcher ? entries.filter((entry) => matcher.match(entry)) : entries;
     }
     if (isStatusFilter(filterBy)) {
-      return entries.filter((entry) => resolveStatus(entry.progressStatus) === filterBy);
+      return entries.filter((entry) => resolveStatus(entry.status) === filterBy);
     }
     return entries;
   };
@@ -158,13 +154,13 @@ export function CatalogIndex({ title, description, sections, storageKey }: Catal
   const renderCards = (entries: CatalogItem[]) => (
     <div className={gridClassName}>
       {entries.map((entry) => {
-        const status = resolveStatus(entry.progressStatus);
-        const badgeProps = getPrimitiveProgressBadgeProps(status);
+        const status = resolveStatus(entry.status);
+        const statusClasses = getComponentStatusClasses(status);
 
         return (
           <Link key={entry.id} to={entry.href} className="block">
             <Card className={cardClassName}>
-              <CardContent className="p-2">
+              <CardContent className={cn("p-2", viewMode === "grid" && "flex-1")}>
                 {viewMode === "list" ? (
                   <div className="flex items-center gap-3 text-sm">
                     <div className="flex min-w-0 flex-1 items-center gap-3">
@@ -176,24 +172,19 @@ export function CatalogIndex({ title, description, sections, storageKey }: Catal
                         Placeholder
                       </span>
                     )}
-                    <Badge
-                      variant={badgeProps.variant}
-                      outline={badgeProps.outline}
-                      className={badgeProps.className}
-                    >
-                      {getPrimitiveProgressLabel(status)}
+                    <Badge variant="secondary" className={statusClasses}>
+                      {getStatusLabel(status)}
                     </Badge>
+                    {entry.footer && (
+                      <div className="inline-flex items-center gap-1 shrink-0">{entry.footer}</div>
+                    )}
                   </div>
                 ) : (
                   <div className="space-y-2">
                     <div className="flex items-center justify-between gap-2">
                       <div className="text-foreground font-medium">{entry.name}</div>
-                      <Badge
-                        variant={badgeProps.variant}
-                        outline={badgeProps.outline}
-                        className={badgeProps.className}
-                      >
-                        {getPrimitiveProgressLabel(status)}
+                      <Badge variant="secondary" className={statusClasses}>
+                        {getStatusLabel(status)}
                       </Badge>
                     </div>
                     {entry.comingSoon && (
@@ -271,10 +262,8 @@ export function CatalogIndex({ title, description, sections, storageKey }: Catal
 
     return (
       <div className="space-y-6">
-        {PRIMITIVE_PROGRESS_STATUS_ORDER.map((status) => {
-          const groupedEntries = entries.filter(
-            (entry) => resolveStatus(entry.progressStatus) === status
-          );
+        {COMPONENT_STATUS_ORDER.map((status) => {
+          const groupedEntries = entries.filter((entry) => resolveStatus(entry.status) === status);
           if (groupedEntries.length === 0) {
             return null;
           }
@@ -283,7 +272,7 @@ export function CatalogIndex({ title, description, sections, storageKey }: Catal
             <div key={status} className="space-y-3">
               <div className="flex items-center justify-between">
                 <h3 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                  {getPrimitiveProgressLabel(status)}
+                  {getStatusLabel(status)}
                 </h3>
                 <span className="text-xs text-muted-foreground">{groupedEntries.length}</span>
               </div>
@@ -366,7 +355,7 @@ export function CatalogIndex({ title, description, sections, storageKey }: Catal
                     <SelectLabel>Status</SelectLabel>
                     {availableStatuses.map((status) => (
                       <SelectItem key={status} value={status}>
-                        {getPrimitiveProgressLabel(status)}
+                        {getStatusLabel(status)}
                       </SelectItem>
                     ))}
                   </SelectGroup>

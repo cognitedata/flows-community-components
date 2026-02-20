@@ -1,7 +1,7 @@
 import { PreviewCard as PreviewCardPrimitive } from "@base-ui/react/preview-card";
 import { type ComponentRef, createContext, forwardRef, useContext } from "react";
 
-import { cn, getPortalContainer } from "@/lib/utils";
+import { cn, getPortalContainer } from "../../../../lib/utils";
 
 type HoverCardDelay = {
   openDelay?: number;

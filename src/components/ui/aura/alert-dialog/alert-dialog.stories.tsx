@@ -1,8 +1,8 @@
 import { Button } from "@/components/ui/aura/button";
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, screen, userEvent, waitFor, within } from "@storybook/test";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { IconAlertTriangle, IconCheck, IconTrash } from "@tabler/icons-react";
 import { useState } from "react";
+import { expect, screen, userEvent, waitFor, within } from "storybook/test";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -14,38 +14,39 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "./alert-dialog";
-
 const meta: Meta<typeof AlertDialog> = {
   title: "Primitives/Alert Dialog",
   component: AlertDialog,
   tags: ["autodocs"],
   argTypes: {
-    // State
     open: {
       control: "boolean",
-      description: "Controlled open state",
       table: {
         category: "State",
-        type: { summary: "boolean" },
+        type: {
+          summary: "boolean",
+        },
       },
     },
     defaultOpen: {
       control: "boolean",
-      description: "Default open state (uncontrolled)",
       table: {
         category: "State",
-        type: { summary: "boolean" },
-        defaultValue: { summary: "false" },
+        type: {
+          summary: "boolean",
+        },
+        defaultValue: {
+          summary: "false",
+        },
       },
     },
-
-    // Events
     onOpenChange: {
       action: "openChange",
-      description: "Callback when open state changes",
       table: {
         category: "Events",
-        type: { summary: "(open: boolean) => void" },
+        type: {
+          summary: "(open: boolean) => void",
+        },
       },
     },
   },
@@ -53,21 +54,11 @@ const meta: Meta<typeof AlertDialog> = {
     layout: "centered",
   },
 };
-
 export default meta;
 type Story = StoryObj<typeof AlertDialog>;
-
-/**
- * Default alert dialog with confirmation pattern.
- */
 export const Default: Story = {
   parameters: {
     order: 1,
-    docs: {
-      description: {
-        story: "Default alert dialog for confirming critical actions.",
-      },
-    },
   },
   render: () => (
     <AlertDialog>
@@ -88,36 +79,25 @@ export const Default: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Click trigger to open dialog
-    const trigger = canvas.getByRole("button", { name: /open dialog/i });
+    const trigger = canvas.getByRole("button", {
+      name: /open dialog/i,
+    });
     await userEvent.click(trigger);
-
-    // Wait for dialog to appear
     const dialog = await screen.findByRole("alertdialog");
     expect(dialog).toBeInTheDocument();
-
-    // Verify title and description
-    const title = within(dialog).getByRole("heading", { name: "Are you sure?" });
+    const title = within(dialog).getByRole("heading", {
+      name: "Are you sure?",
+    });
     await expect(title).toBeInTheDocument();
-
-    // Click cancel to close
-    const cancelButton = within(dialog).getByRole("button", { name: /Cancel/i });
+    const cancelButton = within(dialog).getByRole("button", {
+      name: /Cancel/i,
+    });
     await userEvent.click(cancelButton);
   },
 };
-
-/**
- * Destructive action confirmation dialog.
- */
 export const DestructiveAction: Story = {
   parameters: {
     order: 2,
-    docs: {
-      description: {
-        story: "Alert dialog for destructive actions like account deletion.",
-      },
-    },
   },
   render: () => (
     <AlertDialog>
@@ -147,18 +127,9 @@ export const DestructiveAction: Story = {
     </AlertDialog>
   ),
 };
-
-/**
- * Export data confirmation dialog.
- */
 export const ExportData: Story = {
   parameters: {
     order: 3,
-    docs: {
-      description: {
-        story: "Alert dialog for confirming data export.",
-      },
-    },
   },
   render: () => (
     <AlertDialog>
@@ -179,18 +150,9 @@ export const ExportData: Story = {
     </AlertDialog>
   ),
 };
-
-/**
- * Dialog with icon in action button.
- */
 export const WithIcon: Story = {
   parameters: {
     order: 4,
-    docs: {
-      description: {
-        story: "Alert dialog with icon in the action button.",
-      },
-    },
   },
   render: () => (
     <AlertDialog>
@@ -213,18 +175,9 @@ export const WithIcon: Story = {
     </AlertDialog>
   ),
 };
-
-/**
- * Warning dialog with custom styling.
- */
 export const Warning: Story = {
   parameters: {
     order: 5,
-    docs: {
-      description: {
-        story: "Warning dialog with icon in the title.",
-      },
-    },
   },
   render: () => (
     <AlertDialog>
@@ -255,18 +208,9 @@ export const Warning: Story = {
     </AlertDialog>
   ),
 };
-
-/**
- * Single action dialog (informational).
- */
 export const InformationalSingleAction: Story = {
   parameters: {
     order: 6,
-    docs: {
-      description: {
-        story: "Informational dialog with only a single acknowledge button.",
-      },
-    },
   },
   render: () => (
     <AlertDialog>
@@ -286,22 +230,12 @@ export const InformationalSingleAction: Story = {
     </AlertDialog>
   ),
 };
-
-/**
- * Controlled dialog with external state.
- */
 export const Controlled: Story = {
   parameters: {
     order: 7,
-    docs: {
-      description: {
-        story: "Dialog with externally controlled open state.",
-      },
-    },
   },
   render: function ControlledAlertDialog() {
     const [open, setOpen] = useState(false);
-
     return (
       <div className="space-y-4">
         <div className="flex gap-2">
@@ -330,50 +264,34 @@ export const Controlled: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Click open button
-    const openButton = canvas.getByRole("button", { name: /open dialog/i });
+    const openButton = canvas.getByRole("button", {
+      name: /open dialog/i,
+    });
     await userEvent.click(openButton);
-
-    // Verify dialog opened
     const dialog = await screen.findByRole("alertdialog");
     expect(dialog).toBeInTheDocument();
-
-    // Click cancel to close
-    const cancelButton = within(dialog).getByRole("button", { name: /Cancel/i });
+    const cancelButton = within(dialog).getByRole("button", {
+      name: /Cancel/i,
+    });
     await userEvent.click(cancelButton);
-
-    // Verify dialog closed
     await waitFor(() => {
       expect(screen.queryByRole("alertdialog")).not.toBeInTheDocument();
     });
   },
 };
-
-/**
- * Dialog with async action.
- */
 export const AsyncAction: Story = {
   parameters: {
     order: 8,
-    docs: {
-      description: {
-        story: "Dialog with async action showing loading state.",
-      },
-    },
   },
   render: function AsyncAlertDialog() {
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(false);
-
     const handleAction = async () => {
       setLoading(true);
-      // Simulate async operation
       await new Promise((resolve) => setTimeout(resolve, 2000));
       setLoading(false);
       setOpen(false);
     };
-
     return (
       <AlertDialog open={open} onOpenChange={setOpen}>
         <AlertDialogTrigger render={<Button>Save Changes</Button>} />
@@ -395,18 +313,9 @@ export const AsyncAction: Story = {
     );
   },
 };
-
-/**
- * Visual regression testing.
- */
 export const VisualRegression: Story = {
   parameters: {
     order: 9,
-    docs: {
-      description: {
-        story: "Dialog opened by default for visual regression testing.",
-      },
-    },
     chromatic: {
       disableSnapshot: false,
     },
@@ -430,62 +339,44 @@ export const VisualRegression: Story = {
     </div>
   ),
 };
-
-/**
- * Keyboard navigation testing.
- * Demonstrates ESC to close, Tab navigation, and Enter to confirm.
- */
 export const KeyboardNavigation: Story = {
   parameters: {
     order: 10,
-    docs: {
-      description: {
-        story:
-          "Tests keyboard accessibility: ESC key closes the dialog, Tab navigates between buttons, and Enter confirms the action.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Open dialog
-    const trigger = canvas.getByRole("button", { name: /open dialog/i });
+    const trigger = canvas.getByRole("button", {
+      name: /open dialog/i,
+    });
     await userEvent.click(trigger);
-
-    // Wait for dialog to appear
     const dialog = await screen.findByRole("alertdialog");
     expect(dialog).toBeInTheDocument();
-
-    // Test Tab navigation - should focus on action button (primary action) first
     await userEvent.keyboard("{Tab}");
-    const actionButton = within(dialog).getByRole("button", { name: /confirm/i });
-    const cancelButton = within(dialog).getByRole("button", { name: /cancel/i });
+    const actionButton = within(dialog).getByRole("button", {
+      name: /confirm/i,
+    });
+    const cancelButton = within(dialog).getByRole("button", {
+      name: /cancel/i,
+    });
     await waitFor(() => {
       expect([actionButton, cancelButton]).toContain(dialog.ownerDocument.activeElement);
     });
-
-    // Tab again; focus should remain within the dialog
     await userEvent.keyboard("{Tab}");
     await waitFor(() => {
       const activeElement = dialog.ownerDocument.activeElement;
       expect(activeElement).not.toBeNull();
       expect(dialog.contains(activeElement)).toBe(true);
     });
-
-    // Test ESC to close
     await userEvent.keyboard("{Escape}");
     await waitFor(() => {
       expect(screen.queryByRole("alertdialog")).not.toBeInTheDocument();
     });
-
-    // Reopen for Enter key test
     await userEvent.click(trigger);
     const reopenedDialog = await screen.findByRole("alertdialog");
-
-    // Focus action button and press Enter
-    const confirmButton = within(reopenedDialog).getByRole("button", { name: /confirm/i });
+    const confirmButton = within(reopenedDialog).getByRole("button", {
+      name: /confirm/i,
+    });
     await userEvent.click(confirmButton);
-    // Dialog should close after action
     await waitFor(() => {
       expect(screen.queryByRole("alertdialog")).not.toBeInTheDocument();
     });
@@ -511,43 +402,26 @@ export const KeyboardNavigation: Story = {
     );
   },
 };
-
-/**
- * Dialog with long content.
- * Tests overflow and scrolling behavior with very long title and description.
- */
 export const LongContent: Story = {
   parameters: {
     order: 11,
-    docs: {
-      description: {
-        story:
-          "Dialog with very long title and description to test overflow handling and scrolling behavior.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Open dialog
-    const trigger = canvas.getByRole("button", { name: /open dialog/i });
+    const trigger = canvas.getByRole("button", {
+      name: /open dialog/i,
+    });
     await userEvent.click(trigger);
-
-    // Wait for dialog to appear
     const dialog = await screen.findByRole("alertdialog");
     expect(dialog).toBeInTheDocument();
-
-    // Verify long content is rendered
     await expect(
-      within(dialog).getByRole("heading", { name: /This is a very long title/i })
+      within(dialog).getByRole("heading", {
+        name: /This is a very long title/i,
+      })
     ).toBeInTheDocument();
-
     await expect(
       within(dialog).getByText(/This is an extremely long description/i)
     ).toBeInTheDocument();
-
-    // Verify dialog is scrollable if needed
-    // The original test just checked for presence, which is already confirmed by finding the dialog.
     await expect(dialog).toBeInTheDocument();
   },
   render: function LongContentStory() {
@@ -578,41 +452,27 @@ export const LongContent: Story = {
     );
   },
 };
-
-/**
- * Dialog with no description.
- * Minimal dialog with only a title and action buttons.
- */
 export const NoDescription: Story = {
   parameters: {
     order: 12,
-    docs: {
-      description: {
-        story: "Minimal alert dialog with only a title and action buttons, no description text.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Open dialog
-    const trigger = canvas.getByRole("button", { name: /open dialog/i });
+    const trigger = canvas.getByRole("button", {
+      name: /open dialog/i,
+    });
     await userEvent.click(trigger);
-
-    // Wait for dialog to appear
     const dialog = await screen.findByRole("alertdialog");
     expect(dialog).toBeInTheDocument();
-
-    // Verify title exists
-    const title = within(dialog).getByRole("heading", { name: "Are you sure?" });
+    const title = within(dialog).getByRole("heading", {
+      name: "Are you sure?",
+    });
     await expect(title).toBeInTheDocument();
-
-    // Verify description does NOT exist
     const description = dialog.querySelector('[data-slot="alert-dialog-description"]');
     await expect(description).not.toBeInTheDocument();
-
-    // Verify buttons exist
-    const cancelButton = within(dialog).getByRole("button", { name: /Cancel/i });
+    const cancelButton = within(dialog).getByRole("button", {
+      name: /Cancel/i,
+    });
     await expect(cancelButton).toBeInTheDocument();
   },
   render: function NoDescriptionStory() {
@@ -632,41 +492,26 @@ export const NoDescription: Story = {
     );
   },
 };
-
-/**
- * Dialog with disabled buttons.
- * Demonstrates disabled state on action and cancel buttons.
- */
 export const DisabledButtons: Story = {
   parameters: {
     order: 13,
-    docs: {
-      description: {
-        story:
-          "Dialog with disabled buttons. Useful for preventing actions during loading states or when conditions aren&apos;t met.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Open dialog
-    const trigger = canvas.getByRole("button", { name: /open dialog/i });
+    const trigger = canvas.getByRole("button", {
+      name: /open dialog/i,
+    });
     await userEvent.click(trigger);
-
-    // Wait for dialog to appear
     const dialog = await screen.findByRole("alertdialog");
     expect(dialog).toBeInTheDocument();
-
-    // Verify disabled cancel button
-    const cancelButton = within(dialog).getByRole("button", { name: /Cancel/i });
+    const cancelButton = within(dialog).getByRole("button", {
+      name: /Cancel/i,
+    });
     await expect(cancelButton).toBeDisabled();
-
-    // Verify disabled action button
-    const actionButton = within(dialog).getByRole("button", { name: /Save/i });
+    const actionButton = within(dialog).getByRole("button", {
+      name: /Save/i,
+    });
     await expect(actionButton).toBeDisabled();
-
-    // Verify buttons have disabled attribute
     await expect(cancelButton).toHaveAttribute("disabled");
     await expect(actionButton).toHaveAttribute("disabled");
   },
@@ -691,21 +536,12 @@ export const DisabledButtons: Story = {
     );
   },
 };
-
-/**
- * Interactive playground.
- */
 export const Playground: Story = {
   args: {
     defaultOpen: false,
   },
   parameters: {
     order: 99,
-    docs: {
-      description: {
-        story: "Interactive playground - use controls to experiment with dialog props.",
-      },
-    },
   },
   render: (args) => (
     <AlertDialog {...args}>

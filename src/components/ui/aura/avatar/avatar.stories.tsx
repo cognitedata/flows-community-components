@@ -7,12 +7,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/aura/dropdown-menu";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/aura/hover-card";
-import { getStorybookImagePath } from "@/lib/utils";
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor, within } from "@storybook/test";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { IconHeart, IconRobot, IconStar, IconUser, IconWheel } from "@tabler/icons-react";
 import { useState } from "react";
-
+import { expect, userEvent, waitFor, within } from "storybook/test";
+import { getStorybookImagePath } from "../../../../lib/utils";
 const meta: Meta<typeof Avatar> = {
   title: "Primitives/Avatar",
   component: Avatar,
@@ -21,37 +20,42 @@ const meta: Meta<typeof Avatar> = {
     variant: {
       control: "select",
       options: ["default", "nordic", "aurora", "fjord", "dusk", "orange", "sky", "overflow"],
-      description: "The color scheme variant of the avatar",
       table: {
         category: "Appearance",
-        type: { summary: "string" },
-        defaultValue: { summary: "default" },
+        type: {
+          summary: "string",
+        },
+        defaultValue: {
+          summary: "default",
+        },
       },
     },
     sizes: {
       control: "select",
       options: ["default", "xsm", "xxsm"],
-      description: "The size of the avatar",
       table: {
         category: "Appearance",
-        type: { summary: "string" },
-        defaultValue: { summary: "default" },
+        type: {
+          summary: "string",
+        },
+        defaultValue: {
+          summary: "default",
+        },
       },
     },
     className: {
       control: "text",
-      description: "Additional CSS classes",
       table: {
         category: "Styling",
       },
     },
-
     onClick: {
       action: "clicked",
-      description: "Callback fired when avatar is clicked",
       table: {
         category: "Events",
-        type: { summary: "(event: MouseEvent) => void" },
+        type: {
+          summary: "(event: MouseEvent) => void",
+        },
       },
     },
   },
@@ -62,13 +66,8 @@ const meta: Meta<typeof Avatar> = {
     },
   },
 };
-
 export default meta;
 type Story = StoryObj<typeof Avatar>;
-
-/**
- * Basic avatar with initials fallback.
- */
 export const Basic: Story = {
   render: () => (
     <Avatar variant="default" sizes="default">
@@ -77,25 +76,14 @@ export const Basic: Story = {
   ),
   parameters: {
     order: 1,
-    docs: {
-      description: {
-        story:
-          "Basic avatar displaying user initials. The fallback shows when no image is provided.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const avatar = canvasElement.querySelector('[data-slot="avatar"]');
     await expect(avatar).toBeInTheDocument();
-
     const fallback = canvasElement.querySelector('[data-slot="avatar-fallback"]');
     await expect(fallback).toHaveTextContent("AB");
   },
 };
-
-/**
- * Avatar with an icon instead of initials.
- */
 export const WithIcon: Story = {
   render: () => (
     <Avatar variant="fjord" sizes="default">
@@ -106,25 +94,14 @@ export const WithIcon: Story = {
   ),
   parameters: {
     order: 2,
-    docs: {
-      description: {
-        story:
-          "Avatar displaying an icon instead of initials. Useful for system users, bots, or special entities.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const avatar = canvasElement.querySelector('[data-slot="avatar"]');
     await expect(avatar).toBeInTheDocument();
-
     const icon = avatar?.querySelector("svg");
     await expect(icon).toBeInTheDocument();
   },
 };
-
-/**
- * Avatar with an image and fallback.
- */
 export const WithImage: Story = {
   render: () => (
     <Avatar variant="default" sizes="default">
@@ -134,35 +111,25 @@ export const WithImage: Story = {
   ),
   parameters: {
     order: 3,
-    docs: {
-      description: {
-        story:
-          "Avatar with an image. Falls back to initials if the image fails to load. Hover to see the darkening effect.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const avatar = canvasElement.querySelector('[data-slot="avatar"]');
     await expect(avatar).toBeInTheDocument();
-
     await waitFor(
       () => {
         const found = canvasElement.querySelector('[data-slot="avatar-image"]');
         expect(found).toBeInTheDocument();
         return found;
       },
-      { timeout: 2000 }
+      {
+        timeout: 2000,
+      }
     );
-
     if (avatar) {
       await userEvent.hover(avatar as Element);
     }
   },
 };
-
-/**
- * All color variants with initials.
- */
 export const AllVariants: Story = {
   render: () => (
     <div className="flex items-center gap-4">
@@ -194,25 +161,14 @@ export const AllVariants: Story = {
   ),
   parameters: {
     order: 4,
-    docs: {
-      description: {
-        story:
-          'All available color variants. Each variant serves different semantic or decorative purposes. The overflow variant is special for showing "+N" indicators.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
     await expect(avatars.length).toBe(8);
-
     const fallbacks = canvasElement.querySelectorAll('[data-slot="avatar-fallback"]');
     await expect(fallbacks.length).toBe(8);
   },
 };
-
-/**
- * All color variants with icons.
- */
 export const AllVariantsWithIcons: Story = {
   render: () => (
     <div className="flex items-center gap-4">
@@ -255,25 +211,14 @@ export const AllVariantsWithIcons: Story = {
   ),
   parameters: {
     order: 5,
-    docs: {
-      description: {
-        story:
-          "All color variants displaying icons. Useful for differentiating user types, roles, or entities.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
     await expect(avatars.length).toBe(7);
-
     const icons = canvasElement.querySelectorAll('[data-slot="avatar-icon"]');
     await expect(icons.length).toBe(7);
   },
 };
-
-/**
- * All size variants.
- */
 export const AllSizes: Story = {
   render: () => (
     <div className="flex items-center gap-4">
@@ -290,29 +235,54 @@ export const AllSizes: Story = {
   ),
   parameters: {
     order: 6,
-    docs: {
-      description: {
-        story: "Choose available sizes based on context and space constraints.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
     await expect(avatars.length).toBe(3);
-
     const large = canvasElement.querySelector('[class*="size-9"]');
     const medium = canvasElement.querySelector('[class*="size-7"]');
     const small = canvasElement.querySelector('[class*="size-5"]');
-
     await expect(large).toBeInTheDocument();
     await expect(medium).toBeInTheDocument();
     await expect(small).toBeInTheDocument();
   },
 };
-
-/**
- * Avatars with images at different sizes.
- */
+export const IconAllSizes: Story = {
+  render: () => (
+    <div className="flex items-center gap-4">
+      <Avatar variant="nordic" sizes="default">
+        <AvatarIcon>
+          <IconUser />
+        </AvatarIcon>
+      </Avatar>
+      <Avatar variant="nordic" sizes="xsm">
+        <AvatarIcon>
+          <IconUser />
+        </AvatarIcon>
+      </Avatar>
+      <Avatar variant="nordic" sizes="xxsm">
+        <AvatarIcon>
+          <IconUser />
+        </AvatarIcon>
+      </Avatar>
+    </div>
+  ),
+  parameters: {
+    order: 7,
+  },
+  play: async ({ canvasElement }) => {
+    const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
+    await expect(avatars.length).toBe(3);
+    const icons = canvasElement.querySelectorAll("svg");
+    await expect(icons.length).toBe(3);
+    const large = canvasElement.querySelector('[class*="size-9"]');
+    const medium = canvasElement.querySelector('[class*="size-7"]');
+    const small = canvasElement.querySelector('[class*="size-5"]');
+    await expect(large).toBeInTheDocument();
+    await expect(medium).toBeInTheDocument();
+    await expect(small).toBeInTheDocument();
+  },
+};
 export const ImagesAllSizes: Story = {
   render: () => (
     <div className="flex items-center gap-4">
@@ -331,18 +301,11 @@ export const ImagesAllSizes: Story = {
     </div>
   ),
   parameters: {
-    order: 7,
-    docs: {
-      description: {
-        story:
-          "Avatar images at all sizes with fallback text. Hover to see the darkening effect on images.",
-      },
-    },
+    order: 8,
   },
   play: async ({ canvasElement }) => {
     const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
     await expect(avatars.length).toBe(3);
-
     const images = await waitFor(
       () => {
         const found = canvasElement.querySelectorAll('[data-slot="avatar-image"]');
@@ -351,21 +314,17 @@ export const ImagesAllSizes: Story = {
         }
         return found;
       },
-      { timeout: 5000 }
+      {
+        timeout: 5000,
+      }
     );
-
     expect(images.length).toBe(3);
-
     const firstAvatar = avatars[0];
     if (firstAvatar) {
       await userEvent.hover(firstAvatar as Element);
     }
   },
 };
-
-/**
- * Avatar group with stacked avatars and overflow indicator.
- */
 export const AvatarGroup: Story = {
   render: () => (
     <div className="flex items-center">
@@ -448,21 +407,13 @@ export const AvatarGroup: Story = {
     </div>
   ),
   parameters: {
-    order: 8,
-    docs: {
-      description: {
-        story:
-          "Stacked avatar group with negative margins and borders. The overflow avatar (+4) shows additional users in a hover card.",
-      },
-    },
+    order: 9,
   },
   play: async ({ canvasElement }) => {
     const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
     await expect(avatars.length).toBeGreaterThanOrEqual(4);
-
     const fallbacks = canvasElement.querySelectorAll('[data-slot="avatar-fallback"]');
     const overflow = Array.from(fallbacks).find((fb) => fb.textContent?.includes("+4"));
-
     if (overflow) {
       const overflowAvatar = overflow.closest('[data-slot="avatar"]');
       if (overflowAvatar) {
@@ -475,10 +426,6 @@ export const AvatarGroup: Story = {
     }
   },
 };
-
-/**
- * Small avatar group.
- */
 export const AvatarGroupSmall: Story = {
   render: () => (
     <div className="flex items-center">
@@ -541,32 +488,20 @@ export const AvatarGroupSmall: Story = {
     </div>
   ),
   parameters: {
-    order: 9,
-    docs: {
-      description: {
-        story:
-          "Compact avatar group using the xsm size. Perfect for tight spaces or showing larger groups.",
-      },
-    },
+    order: 22,
   },
   play: async ({ canvasElement }) => {
     const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
     await expect(avatars.length).toBeGreaterThanOrEqual(4);
-
     const smallAvatars = Array.from(avatars).filter((avatar) =>
       avatar.className.includes("size-7")
     );
     await expect(smallAvatars.length).toBeGreaterThan(0);
   },
 };
-
-/**
- * Interactive click handler.
- */
 export const ClickInteraction: Story = {
   render: function AvatarClickTest() {
     const [clicked, setClicked] = useState<string | null>(null);
-
     return (
       <div className="flex flex-col items-center gap-4">
         <div className="flex items-center gap-4">
@@ -587,34 +522,20 @@ export const ClickInteraction: Story = {
     );
   },
   parameters: {
-    order: 10,
-    docs: {
-      description: {
-        story:
-          "Interactive avatars with click handlers. Avatars inherit the cursor-pointer class and can be clicked.",
-      },
-    },
+    order: 22,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     const avatar1 = canvas.getByTestId("avatar-1");
     const avatar2 = canvas.getByTestId("avatar-2");
     const clickedText = canvas.getByTestId("clicked-avatar");
-
     await expect(clickedText).toHaveTextContent("Click an avatar");
-
     await userEvent.click(avatar1);
     await expect(clickedText).toHaveTextContent("Clicked: User 1");
-
     await userEvent.click(avatar2);
     await expect(clickedText).toHaveTextContent("Clicked: User 2");
   },
 };
-
-/**
- * Accessibility - alt text for images.
- */
 export const Accessibility: Story = {
   render: () => (
     <div className="flex flex-col gap-4">
@@ -639,13 +560,7 @@ export const Accessibility: Story = {
     </div>
   ),
   parameters: {
-    order: 11,
-    docs: {
-      description: {
-        story:
-          "Avatars with proper alt text for accessibility. Always include meaningful alt text for avatar images.",
-      },
-    },
+    order: 22,
   },
   play: async ({ canvasElement }) => {
     const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
@@ -669,10 +584,6 @@ export const Accessibility: Story = {
     }
   },
 };
-
-/**
- * Edge case: Empty fallback text.
- */
 export const EdgeCaseEmpty: Story = {
   render: () => (
     <div className="flex items-center gap-4">
@@ -688,29 +599,15 @@ export const EdgeCaseEmpty: Story = {
     </div>
   ),
   parameters: {
-    order: 12,
-    docs: {
-      description: {
-        story:
-          "Edge case: Avatars with empty fallback text. They still render with the background color but no content.",
-      },
-    },
+    order: 22,
   },
   play: async ({ canvasElement }) => {
     const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
     await expect(avatars.length).toBe(3);
-
     const fallbacks = canvasElement.querySelectorAll('[data-slot="avatar-fallback"]');
     await expect(fallbacks.length).toBe(3);
   },
 };
-
-/**
- * Edge case: Text overflow with varying character counts.
- * Shows how avatars handle different text lengths. Text beyond 2-3 characters
- * will overflow and be clipped. Consider limiting input or using smaller font
- * sizes for longer text.
- */
 export const EdgeCaseLongText: Story = {
   render: () => (
     <div className="flex flex-col gap-6">
@@ -774,28 +671,17 @@ export const EdgeCaseLongText: Story = {
     </div>
   ),
   parameters: {
-    order: 13,
-    docs: {
-      description: {
-        story:
-          "Edge case: Avatars with varying text lengths. Text beyond 2-3 characters will overflow. Consider limiting input to 1-2 characters or using smaller font sizes (text-xs) for longer text.",
-      },
-    },
+    order: 22,
   },
   play: async ({ canvasElement }) => {
     const fallbacks = canvasElement.querySelectorAll('[data-slot="avatar-fallback"]');
     await expect(fallbacks.length).toBeGreaterThanOrEqual(3);
-
     const longTextAvatars = Array.from(fallbacks).filter((fb) =>
       fb.textContent?.includes("ABCDEFGH")
     );
     await expect(longTextAvatars.length).toBeGreaterThanOrEqual(3);
   },
 };
-
-/**
- * Edge case: Special characters and unicode.
- */
 export const EdgeCaseSpecialCharacters: Story = {
   render: () => (
     <div className="flex items-center gap-4">
@@ -817,33 +703,21 @@ export const EdgeCaseSpecialCharacters: Story = {
     </div>
   ),
   parameters: {
-    order: 14,
-    docs: {
-      description: {
-        story:
-          "Edge case: Avatars with emojis, special characters, and unicode from various languages.",
-      },
-    },
+    order: 22,
   },
   play: async ({ canvasElement }) => {
     const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
     await expect(avatars.length).toBe(5);
-
     const emojiFallback = Array.from(
       canvasElement.querySelectorAll('[data-slot="avatar-fallback"]')
     ).find((el) => el.textContent?.includes("🎨"));
     await expect(emojiFallback).toBeInTheDocument();
-
     const chineseFallback = Array.from(
       canvasElement.querySelectorAll('[data-slot="avatar-fallback"]')
     ).find((el) => el.textContent?.includes("中文"));
     await expect(chineseFallback).toBeInTheDocument();
   },
 };
-
-/**
- * Edge case: Single character.
- */
 export const EdgeCaseSingleCharacter: Story = {
   render: () => (
     <div className="flex items-center gap-4">
@@ -859,27 +733,16 @@ export const EdgeCaseSingleCharacter: Story = {
     </div>
   ),
   parameters: {
-    order: 15,
-    docs: {
-      description: {
-        story:
-          "Edge case: Avatars with single character fallback. Common for minimalist designs or single-name users.",
-      },
-    },
+    order: 22,
   },
   play: async ({ canvasElement }) => {
     const fallbacks = canvasElement.querySelectorAll('[data-slot="avatar-fallback"]');
     await expect(fallbacks.length).toBe(3);
-
     await expect(fallbacks[0]).toHaveTextContent("A");
     await expect(fallbacks[1]).toHaveTextContent("Z");
     await expect(fallbacks[2]).toHaveTextContent("M");
   },
 };
-
-/**
- * Edge case: Numbers as fallback.
- */
 export const EdgeCaseNumbers: Story = {
   render: () => (
     <div className="flex items-center gap-4">
@@ -898,28 +761,17 @@ export const EdgeCaseNumbers: Story = {
     </div>
   ),
   parameters: {
-    order: 16,
-    docs: {
-      description: {
-        story:
-          "Edge case: Avatars with numbers. Useful for rankings, counts, or numbered entities.",
-      },
-    },
+    order: 22,
   },
   play: async ({ canvasElement }) => {
     const fallbacks = canvasElement.querySelectorAll('[data-slot="avatar-fallback"]');
     await expect(fallbacks.length).toBe(4);
-
     await expect(fallbacks[0]).toHaveTextContent("1");
     await expect(fallbacks[1]).toHaveTextContent("42");
     await expect(fallbacks[2]).toHaveTextContent("999");
     await expect(fallbacks[3]).toHaveTextContent("+99");
   },
 };
-
-/**
- * Edge case: Mixed content (very small sizes with text).
- */
 export const EdgeCaseTinyWithText: Story = {
   render: () => (
     <div className="flex items-center gap-4">
@@ -935,26 +787,15 @@ export const EdgeCaseTinyWithText: Story = {
     </div>
   ),
   parameters: {
-    order: 17,
-    docs: {
-      description: {
-        story:
-          "Edge case: Very small avatars (xxsm - 20px) with increasing text lengths. Text may overflow or be cut off.",
-      },
-    },
+    order: 22,
   },
   play: async ({ canvasElement }) => {
     const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
     await expect(avatars.length).toBe(3);
-
     const tinyAvatars = Array.from(avatars).filter((avatar) => avatar.className.includes("size-5"));
     await expect(tinyAvatars.length).toBe(3);
   },
 };
-
-/**
- * Edge case: Failed image loading.
- */
 export const EdgeCaseFailedImage: Story = {
   render: () => (
     <div className="flex items-center gap-4">
@@ -973,30 +814,17 @@ export const EdgeCaseFailedImage: Story = {
     </div>
   ),
   parameters: {
-    order: 18,
-    docs: {
-      description: {
-        story:
-          "Edge case: Avatars with images that fail to load. The fallback text displays instead, demonstrating graceful degradation.",
-      },
-    },
+    order: 22,
   },
   play: async ({ canvasElement }) => {
     const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
     await expect(avatars.length).toBe(3);
-
     const canvas = within(canvasElement);
     await expect(await canvas.findByText("FL")).toBeInTheDocument();
     await expect(await canvas.findByText("ER")).toBeInTheDocument();
     await expect(await canvas.findByText("BR")).toBeInTheDocument();
   },
 };
-
-/**
- * Overflow avatar with dropdown menu showing additional users.
- * Demonstrates how to display additional avatars in a menu when
- * there are too many to show in the main group.
- */
 export const OverflowAvatarWithMenu: Story = {
   render: () => (
     <div className="flex flex-col gap-4">
@@ -1101,20 +929,12 @@ export const OverflowAvatarWithMenu: Story = {
     </div>
   ),
   parameters: {
-    order: 19,
-    docs: {
-      description: {
-        story:
-          "Overflow avatar with dropdown menu showing additional users. Click the +4 avatar to see the list of additional users.",
-      },
-    },
+    order: 22,
   },
   play: async ({ canvasElement }) => {
     const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
     await expect(avatars.length).toBeGreaterThanOrEqual(4);
-
     const trigger = canvasElement.querySelector('[data-slot="dropdown-menu-trigger"]');
-
     if (trigger) {
       await userEvent.click(trigger as Element);
       const menu = await within(canvasElement.ownerDocument.body).findByRole("menu");
@@ -1124,10 +944,6 @@ export const OverflowAvatarWithMenu: Story = {
     }
   },
 };
-
-/**
- * Edge case: Nested complex icons.
- */
 export const EdgeCaseComplexIcons: Story = {
   render: () => (
     <div className="flex items-center gap-4">
@@ -1156,27 +972,16 @@ export const EdgeCaseComplexIcons: Story = {
     </div>
   ),
   parameters: {
-    order: 20,
-    docs: {
-      description: {
-        story:
-          "Edge case: Avatars with complex nested content in AvatarIcon, including multiple icons, custom SVGs, and text.",
-      },
-    },
+    order: 22,
   },
   play: async ({ canvasElement }) => {
     const avatarIcons = canvasElement.querySelectorAll('[data-slot="avatar-icon"]');
     await expect(avatarIcons.length).toBe(3);
-
     const firstIcon = avatarIcons[0];
     const stars = firstIcon.querySelectorAll("svg");
     await expect(stars.length).toBeGreaterThanOrEqual(2);
   },
 };
-
-/**
- * Visual regression testing - comprehensive overview.
- */
 export const VisualRegression: Story = {
   render: () => (
     <div className="flex flex-col gap-8 p-8">
@@ -1316,22 +1121,12 @@ export const VisualRegression: Story = {
     </div>
   ),
   parameters: {
-    order: 21,
-    docs: {
-      description: {
-        story:
-          "Comprehensive visual overview of all avatar variants, sizes, and edge cases for visual regression testing in Chromatic.",
-      },
-    },
+    order: 22,
     chromatic: {
       disableSnapshot: false,
     },
   },
 };
-
-/**
- * Interactive playground for testing different configurations.
- */
 export const Playground: Story = {
   render: (args) => (
     <Avatar {...args}>
@@ -1344,11 +1139,5 @@ export const Playground: Story = {
   },
   parameters: {
     order: 99,
-    docs: {
-      description: {
-        story:
-          "Interactive playground - use the controls below to experiment with all available avatar props and variants.",
-      },
-    },
   },
 };

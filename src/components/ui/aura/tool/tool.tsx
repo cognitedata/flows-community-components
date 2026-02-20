@@ -1,21 +1,14 @@
 import type { ComponentProps, ComponentRef, ReactNode } from "react";
-import { forwardRef, isValidElement } from "react";
+import { forwardRef } from "react";
 
-import { IconSelector as ChevronsUpDown } from "@tabler/icons-react";
+import { IconSelector } from "@tabler/icons-react";
 
-import { Button } from "@/components/ui/aura/button";
-import {
-  CodeBlock,
-  CodeBlockCollapseButton,
-  CodeBlockCopyButton,
-} from "@/components/ui/aura/code-block";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/aura/collapsible";
-import type { ToolUIPart } from "@/lib/ai/types";
-import { cn } from "@/lib/utils";
+import type { ToolUIPart } from "../../../../lib/ai/types";
+import { cn } from "../../../../lib/utils";
+import { Badge } from "../badge";
+import { Button } from "../button";
+import { CodeBlock, CodeBlockCollapseButton, CodeBlockCopyButton } from "../code-block";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "../collapsible";
 
 type ToolProps = ComponentProps<typeof Collapsible>;
 
@@ -37,10 +30,11 @@ Tool.displayName = "Tool";
 type ToolHeaderProps = Omit<ComponentProps<typeof CollapsibleTrigger>, "type"> & {
   title?: string;
   type: ToolUIPart["type"];
+  hasError?: boolean;
 };
 
 const ToolHeader = forwardRef<ComponentRef<typeof CollapsibleTrigger>, ToolHeaderProps>(
-  ({ className, title, type, ...props }, ref) => (
+  ({ className, title, type, hasError = false, ...props }, ref) => (
     <CollapsibleTrigger
       ref={ref}
       data-slot="tool-header"
@@ -51,7 +45,14 @@ const ToolHeader = forwardRef<ComponentRef<typeof CollapsibleTrigger>, ToolHeade
           className="w-full justify-between text-base leading-5 tracking-tighter"
         >
           <span>{title ?? type.split("-").slice(1).join("-")}</span>
-          <ChevronsUpDown className="h-4 w-4" />
+          <div className="flex items-center gap-2">
+            {hasError ? (
+              <Badge outline className="bg-background text-destructive-foreground border-border">
+                Error
+              </Badge>
+            ) : null}
+            <IconSelector className="h-4 w-4" />
+          </div>
         </Button>
       }
       {...props}
@@ -111,21 +112,51 @@ const ToolOutput = forwardRef<HTMLDivElement, ToolOutputProps>(
       return null;
     }
 
-    const codeContent =
-      typeof output === "object" && !isValidElement(output)
-        ? JSON.stringify(output, null, 2)
-        : typeof output === "string"
-          ? output
-          : undefined;
+    let outputElement: ReactNode = null;
+    if (typeof output === "string") {
+      outputElement = (
+        <CodeBlock code={output} language="json" collapsed>
+          <CodeBlockCopyButton />
+          <CodeBlockCollapseButton />
+        </CodeBlock>
+      );
+    } else if (output === null || output === undefined) {
+      outputElement = null;
+    } else if (typeof output === "object") {
+      outputElement = (
+        <CodeBlock code={JSON.stringify(output, null, 2)} language="json" collapsed>
+          <CodeBlockCopyButton />
+          <CodeBlockCollapseButton />
+        </CodeBlock>
+      );
+    } else if (
+      typeof output === "number" ||
+      typeof output === "boolean" ||
+      typeof output === "bigint"
+    ) {
+      outputElement = (
+        <CodeBlock code={String(output)} language="json" collapsed>
+          <CodeBlockCopyButton />
+          <CodeBlockCollapseButton />
+        </CodeBlock>
+      );
+    }
 
-    const outputElement = codeContent ? (
-      <CodeBlock code={codeContent} language="json" collapsed>
-        <CodeBlockCopyButton />
-        <CodeBlockCollapseButton />
-      </CodeBlock>
-    ) : (
-      <div>{output as ReactNode}</div>
-    );
+    if (errorText) {
+      return (
+        <div
+          ref={ref}
+          data-slot="tool-output"
+          className={cn("space-y-2 px-3.25", className)}
+          {...props}
+        >
+          <div className="flex flex-col gap-2 text-sm">
+            <span className="font-medium text-destructive-foreground">ERROR</span>
+            <span className="text-foreground">{errorText}</span>
+          </div>
+        </div>
+      );
+    }
 
     return (
       <div
@@ -135,15 +166,9 @@ const ToolOutput = forwardRef<HTMLDivElement, ToolOutputProps>(
         {...props}
       >
         <h4 className="text-sm font-medium uppercase tracking-wide text-muted-foreground">
-          {errorText ? "Error" : "Result"}
+          Result
         </h4>
-        <div
-          className={cn(
-            "overflow-x-auto rounded-md text-xs [&_table]:w-full",
-            errorText ? "bg-destructive/10 text-destructive" : "bg-muted/50 text-foreground"
-          )}
-        >
-          {errorText && <div>{errorText}</div>}
+        <div className="overflow-x-auto rounded-md bg-muted/50 text-xs text-foreground [&_table]:w-full">
           {outputElement}
         </div>
       </div>

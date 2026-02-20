@@ -1,8 +1,8 @@
 "use client";
 
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, within } from "@storybook/test";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useEffect, useState } from "react";
+import { expect, within } from "storybook/test";
 import {
   ArtifactProgress,
   ArtifactProgressBar,
@@ -11,25 +11,19 @@ import {
   ArtifactProgressHeader,
   ArtifactProgressTitle,
 } from "./artifact-progress";
-
 const meta: Meta<typeof ArtifactProgress> = {
   title: "Primitives/Artifact - Progress",
   component: ArtifactProgress,
   tags: ["autodocs", "ai-elements"],
   argTypes: {
-    // Display
     className: {
       control: "text",
-      description: "CSS classes for styling the card wrapper",
       table: {
         category: "Display",
       },
     },
-
-    // HTML attributes
     children: {
       control: false,
-      description: "Compositional children (Header, Content, Footer)",
       table: {
         category: "Content",
       },
@@ -39,43 +33,23 @@ const meta: Meta<typeof ArtifactProgress> = {
     layout: "centered",
   },
 };
-
 export default meta;
 type Story = StoryObj<typeof ArtifactProgress>;
-
-/**
- * Basic artifact progress with title, description, progress bar, and footer
- * Uses auto-generated aria-label since context is already in visible title/description
- */
 export const Basic: Story = {
   args: {
     className: "w-96",
   },
   parameters: {
     order: 1,
-    docs: {
-      description: {
-        story:
-          "Basic progress artifact showing task completion with header and footer. Uses auto-generated aria-label ('Progress: 32%') since the visible title and description already provide context.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Check that title is rendered
     const title = canvas.getByText("Progress title");
     await expect(title).toBeInTheDocument();
-
-    // Check that description is rendered
     const description = canvas.getByText("8 of 12 tasks complete");
     await expect(description).toBeInTheDocument();
-
-    // Check that percentage is rendered
     const percentage = canvas.getByText("32%");
     await expect(percentage).toBeInTheDocument();
-
-    // Check that footer is rendered
     const footer = canvas.getByText("On track for completion by Friday");
     await expect(footer).toBeInTheDocument();
   },
@@ -90,36 +64,21 @@ export const Basic: Story = {
     </ArtifactProgress>
   ),
 };
-
-/**
- * Custom styling with overridden default classes
- */
 export const CustomStyling: Story = {
   args: {
     className: "w-96",
   },
   parameters: {
     order: 2,
-    docs: {
-      description: {
-        story: "Demonstrates how to override default styles with custom classes.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Check that custom styled title is rendered
     const title = canvas.getByText("Custom Styled Title");
     await expect(title).toBeInTheDocument();
     await expect(title).toHaveClass("text-lg");
-
-    // Check that custom description is rendered
     const description = canvas.getByText("Custom description styling");
     await expect(description).toBeInTheDocument();
     await expect(description).toHaveClass("text-xs", "italic");
-
-    // Check that percentage is rendered
     const percentage = canvas.getByText("75%");
     await expect(percentage).toBeInTheDocument();
   },
@@ -136,32 +95,16 @@ export const CustomStyling: Story = {
     </ArtifactProgress>
   ),
 };
-
-/**
- * Custom aria-label for specific context
- */
 export const CustomAriaLabel: Story = {
   parameters: {
     order: 3,
-    docs: {
-      description: {
-        story:
-          "Demonstrates when and how to override the auto-generated aria-label to provide more specific context about what's being tracked.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Check both examples are rendered
     await expect(canvas.getByText("Auto-generated label")).toBeInTheDocument();
     await expect(canvas.getByText("Custom label")).toBeInTheDocument();
-
-    // Check that both progress bars are rendered
     const progressBars = canvas.getAllByRole("progressbar");
     await expect(progressBars).toHaveLength(2);
-
-    // Check the custom aria-label
     await expect(progressBars[1]).toHaveAccessibleName("Document upload progress: 60%");
   },
   render: () => (
@@ -190,31 +133,16 @@ export const CustomAriaLabel: Story = {
     </div>
   ),
 };
-
-/**
- * Different progress values
- * Uses auto-generated aria-labels since visible labels provide context
- */
 export const ProgressValues: Story = {
   parameters: {
     order: 4,
-    docs: {
-      description: {
-        story:
-          "Shows different progress percentages from 0% to 100%. Uses auto-generated aria-labels since each artifact has descriptive visible titles and descriptions.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Check all progress values are rendered
     await expect(canvas.getByText("0%")).toBeInTheDocument();
     await expect(canvas.getByText("50%")).toBeInTheDocument();
     await expect(canvas.getByText("90%")).toBeInTheDocument();
     await expect(canvas.getByText("100%")).toBeInTheDocument();
-
-    // Check all titles are rendered
     await expect(canvas.getByText("Just Started")).toBeInTheDocument();
     await expect(canvas.getByText("In Progress")).toBeInTheDocument();
     await expect(canvas.getByText("Nearly Done")).toBeInTheDocument();
@@ -260,35 +188,18 @@ export const ProgressValues: Story = {
     </div>
   ),
 };
-
-/**
- * Without footer
- * Uses auto-generated aria-label since title provides context
- */
 export const WithoutFooter: Story = {
   args: {
     className: "w-96",
   },
   parameters: {
     order: 5,
-    docs: {
-      description: {
-        story:
-          "Progress artifact without a footer section. Uses auto-generated aria-label since the visible title provides sufficient context.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Check that header content is rendered
     await expect(canvas.getByText("Data Processing")).toBeInTheDocument();
     await expect(canvas.getByText("Processing 450 of 1000 records")).toBeInTheDocument();
-
-    // Check that progress is rendered
     await expect(canvas.getByText("45%")).toBeInTheDocument();
-
-    // Verify no footer is present by checking the container doesn't have footer text
     const container = canvasElement;
     expect(container.textContent).not.toContain("On track");
   },
@@ -302,34 +213,17 @@ export const WithoutFooter: Story = {
     </ArtifactProgress>
   ),
 };
-
-/**
- * Without header
- * Uses custom aria-label since there's no visible title for context
- */
 export const WithoutHeader: Story = {
   args: {
     className: "w-96",
   },
   parameters: {
     order: 6,
-    docs: {
-      description: {
-        story:
-          "Minimal progress artifact with just the progress bar and footer. Uses a custom aria-label ('File upload progress: 67%') since there's no header/title to provide context.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Check that progress is rendered
     await expect(canvas.getByText("67%")).toBeInTheDocument();
-
-    // Check that footer is rendered
     await expect(canvas.getByText("Upload in progress")).toBeInTheDocument();
-
-    // Verify no header is present
     const container = canvasElement;
     expect(container.textContent).not.toContain("Progress title");
   },
@@ -340,31 +234,16 @@ export const WithoutHeader: Story = {
     </ArtifactProgress>
   ),
 };
-
-/**
- * Minimal version with only progress
- * Demonstrates auto-generated aria-label as the simplest use case
- */
 export const Minimal: Story = {
   args: {
     className: "w-96",
   },
   parameters: {
     order: 7,
-    docs: {
-      description: {
-        story:
-          "Simplest form with only the progress bar. Uses auto-generated aria-label ('Progress: 55%') for basic accessibility.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Check that only progress is rendered
     await expect(canvas.getByText("55%")).toBeInTheDocument();
-
-    // Verify no header or footer
     const container = canvasElement;
     expect(container.textContent).not.toContain("Progress title");
     expect(container.textContent).not.toContain("On track");
@@ -375,44 +254,24 @@ export const Minimal: Story = {
     </ArtifactProgress>
   ),
 };
-
-/**
- * Interactive progress simulation
- */
 export const Interactive: Story = {
   args: {
     className: "w-96",
   },
   parameters: {
     order: 8,
-    docs: {
-      description: {
-        story:
-          "Simulates progress incrementing over time. Progress automatically increases from 0 to 100.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Check that title is rendered
     await expect(canvas.getByText("Deployment Status")).toBeInTheDocument();
-
-    // Check initial state shows 0%
     await expect(canvas.getByText("0%")).toBeInTheDocument();
-
-    // Wait a bit and check that progress has incremented
     await new Promise((resolve) => setTimeout(resolve, 500));
-
-    // Should no longer be at 0%
     const percentageText = canvas.getByText(/%$/);
     const value = Number.parseInt(percentageText.textContent || "0");
     expect(value).toBeGreaterThan(0);
   },
   render: function InteractiveProgressStory() {
     const [progress, setProgress] = useState(0);
-
-    // Simulate progress incrementing
     useEffect(() => {
       const interval = setInterval(() => {
         setProgress((prev) => {
@@ -423,13 +282,10 @@ export const Interactive: Story = {
           return prev + 1;
         });
       }, 100);
-
       return () => clearInterval(interval);
     }, []);
-
     const tasksComplete = Math.floor((progress / 100) * 15);
     const status = progress === 0 ? "Not started" : progress === 100 ? "Complete!" : "In progress";
-
     return (
       <ArtifactProgress className="w-96">
         <ArtifactProgressHeader>
@@ -444,34 +300,19 @@ export const Interactive: Story = {
     );
   },
 };
-
-/**
- * Custom content padding
- * Uses auto-generated aria-label when visible content provides context
- */
 export const CustomPadding: Story = {
   args: {
     className: "w-96",
   },
   parameters: {
     order: 9,
-    docs: {
-      description: {
-        story:
-          "Demonstrates custom padding on the progress bar. Uses auto-generated aria-label since the visible title provides context.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Check all elements are rendered
     await expect(canvas.getByText("Custom Padding")).toBeInTheDocument();
     await expect(canvas.getByText("With extra padding")).toBeInTheDocument();
     await expect(canvas.getByText("40%")).toBeInTheDocument();
     await expect(canvas.getByText("More space around progress")).toBeInTheDocument();
-
-    // Find the content wrapper and verify it has custom padding classes
     const progressContent = canvasElement.querySelector(".px-8.py-8");
     expect(progressContent).toBeInTheDocument();
   },

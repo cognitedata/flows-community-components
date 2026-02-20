@@ -20,9 +20,12 @@ interface ComponentStatusNotificationProps {
 const STATUS_ICONS: Record<ComponentStatusType, typeof IconCircleCheck> = {
   draft: IconAlertCircle,
   planned: IconClock,
+  pattern: IconStar,
   "shadcn-ui": IconStar,
   experimental: IconFlask,
   deprecated: IconBan,
+  "needs-discussion": IconAlertCircle,
+  "imported-from-fusion": IconStar,
   "in-progress-storybook": IconClock,
   "in-progress-code-review": IconClock,
   "in-progress-chromatic": IconClock,

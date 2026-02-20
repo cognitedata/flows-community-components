@@ -1,13 +1,4 @@
-import { Button } from "@/components/ui/aura/button";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/aura/select";
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, within } from "@storybook/test";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
   IconAlignCenter,
   IconAlignLeft,
@@ -22,8 +13,10 @@ import {
   IconUnderline,
 } from "@tabler/icons-react";
 import { useState } from "react";
+import { expect, userEvent, within } from "storybook/test";
+import { Button } from "../button";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../select";
 import { ButtonGroup, ButtonGroupSeparator, ButtonGroupText } from "./button-group";
-
 const meta: Meta<typeof ButtonGroup> = {
   title: "Primitives/Button Group",
   component: ButtonGroup,
@@ -32,15 +25,17 @@ const meta: Meta<typeof ButtonGroup> = {
     orientation: {
       control: "select",
       options: ["horizontal", "vertical"],
-      description: "The orientation of the button group",
       table: {
         category: "Variants/Styling",
-        type: { summary: "horizontal | vertical" },
-        defaultValue: { summary: "horizontal" },
+        type: {
+          summary: "horizontal | vertical",
+        },
+        defaultValue: {
+          summary: "horizontal",
+        },
       },
     },
     children: {
-      description: "The buttons and content within the group",
       table: {
         category: "Content",
       },
@@ -50,13 +45,8 @@ const meta: Meta<typeof ButtonGroup> = {
     layout: "centered",
   },
 };
-
 export default meta;
 type Story = StoryObj<typeof ButtonGroup>;
-
-/**
- * Basic horizontal button group with multiple actions.
- */
 export const Default: Story = {
   render: () => (
     <ButtonGroup>
@@ -67,29 +57,17 @@ export const Default: Story = {
   ),
   parameters: {
     order: 1,
-    docs: {
-      description: {
-        story: "Default horizontal button group for grouping related actions together.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     const group = canvas.getByRole("group");
     await expect(group).toBeInTheDocument();
-
     const buttons = await canvas.findAllByRole("button");
     await expect(buttons).toHaveLength(3);
-
     await userEvent.click(buttons[1]);
     await expect(buttons[1]).toHaveFocus();
   },
 };
-
-/**
- * Vertical button group for stacked layouts.
- */
 export const Vertical: Story = {
   render: () => (
     <ButtonGroup orientation="vertical">
@@ -100,26 +78,15 @@ export const Vertical: Story = {
   ),
   parameters: {
     order: 2,
-    docs: {
-      description: {
-        story: "Vertical orientation for button groups in sidebar or narrow layouts.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     const group = canvas.getByRole("group");
     await expect(group).toHaveAttribute("data-orientation", "vertical");
-
     const buttons = await canvas.findAllByRole("button");
     await expect(buttons).toHaveLength(3);
   },
 };
-
-/**
- * Side-by-side comparison of orientations.
- */
 export const AllOrientations: Story = {
   render: () => (
     <div className="flex flex-col gap-8">
@@ -143,25 +110,15 @@ export const AllOrientations: Story = {
   ),
   parameters: {
     order: 3,
-    docs: {
-      description: {
-        story: "Comparison of horizontal and vertical orientations.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     const groups = canvas.getAllByRole("group");
     await expect(groups).toHaveLength(2);
     await expect(groups[0]).toHaveAttribute("data-orientation", "horizontal");
     await expect(groups[1]).toHaveAttribute("data-orientation", "vertical");
   },
 };
-
-/**
- * Button group with icon-only buttons.
- */
 export const WithIcons: Story = {
   render: () => (
     <ButtonGroup>
@@ -178,26 +135,15 @@ export const WithIcons: Story = {
   ),
   parameters: {
     order: 4,
-    docs: {
-      description: {
-        story: "Icon-only buttons grouped together for compact toolbars.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     const buttons = await canvas.findAllByRole("button");
     await expect(buttons).toHaveLength(3);
-
     const group = canvas.getByRole("group");
     await expect(group).toBeInTheDocument();
   },
 };
-
-/**
- * Button group with text labels.
- */
 export const WithText: Story = {
   render: () => (
     <ButtonGroup>
@@ -212,26 +158,15 @@ export const WithText: Story = {
   ),
   parameters: {
     order: 5,
-    docs: {
-      description: {
-        story: "Button group with text labels for additional context.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     const text = canvas.getByText("Font");
     await expect(text).toBeInTheDocument();
-
     const buttons = await canvas.findAllByRole("button");
     await expect(buttons).toHaveLength(2);
   },
 };
-
-/**
- * Button group with separators for visual grouping.
- */
 export const WithSeparators: Story = {
   render: () => (
     <ButtonGroup>
@@ -255,26 +190,15 @@ export const WithSeparators: Story = {
   ),
   parameters: {
     order: 6,
-    docs: {
-      description: {
-        story: "Separators help visually group related actions within a button group.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     const separator = canvas.getByRole("separator");
     await expect(separator).toBeInTheDocument();
-
     const buttons = await canvas.findAllByRole("button");
     await expect(buttons).toHaveLength(5);
   },
 };
-
-/**
- * Mixed button group with text, buttons, and separators.
- */
 export const Mixed: Story = {
   render: () => (
     <ButtonGroup>
@@ -291,35 +215,31 @@ export const Mixed: Story = {
   ),
   parameters: {
     order: 7,
-    docs: {
-      description: {
-        story: "Combining text labels, buttons, and separators for complex toolbars.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     const label = canvas.getByText("Pages");
     await expect(label).toBeInTheDocument();
-
     const buttons = await canvas.findAllByRole("button");
     await expect(buttons).toHaveLength(2);
-
     const separator = canvas.getByRole("separator");
     await expect(separator).toBeInTheDocument();
   },
 };
-
 const pageOptions = [
-  { label: "Page 1", value: "page-1" },
-  { label: "Page 2", value: "page-2" },
-  { label: "Page 3", value: "page-3" },
+  {
+    label: "Page 1",
+    value: "page-1",
+  },
+  {
+    label: "Page 2",
+    value: "page-2",
+  },
+  {
+    label: "Page 3",
+    value: "page-3",
+  },
 ];
-
-/**
- * Button group with Select component.
- */
 export const WithSelect: Story = {
   render: () => (
     <ButtonGroup>
@@ -344,26 +264,17 @@ export const WithSelect: Story = {
   ),
   parameters: {
     order: 8,
-    docs: {
-      description: {
-        story: "Button groups can include Select components for pagination or filtering.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     const select = canvas.getByRole("combobox");
     await expect(select).toBeInTheDocument();
-
-    const button = canvas.getByRole("button", { name: /copy/i });
+    const button = canvas.getByRole("button", {
+      name: /copy/i,
+    });
     await expect(button).toBeInTheDocument();
   },
 };
-
-/**
- * Button group with different variants.
- */
 export const MixedVariants: Story = {
   render: () => (
     <ButtonGroup>
@@ -379,26 +290,15 @@ export const MixedVariants: Story = {
   ),
   parameters: {
     order: 9,
-    docs: {
-      description: {
-        story: "Button groups can contain buttons with different variants.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     const buttons = await canvas.findAllByRole("button");
     await expect(buttons).toHaveLength(2);
-
     await userEvent.click(buttons[0]);
     await expect(buttons[0]).toHaveFocus();
   },
 };
-
-/**
- * Vertical button group with icons and text.
- */
 export const VerticalWithIcons: Story = {
   render: () => (
     <ButtonGroup orientation="vertical">
@@ -418,30 +318,18 @@ export const VerticalWithIcons: Story = {
   ),
   parameters: {
     order: 10,
-    docs: {
-      description: {
-        story: "Vertical button group with icons and text labels.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     const group = canvas.getByRole("group");
     await expect(group).toHaveAttribute("data-orientation", "vertical");
-
     const buttons = await canvas.findAllByRole("button");
     await expect(buttons).toHaveLength(3);
   },
 };
-
-/**
- * Interactive button group with state.
- */
 export const Interactive: Story = {
   render: function InteractiveButtonGroup() {
     const [selected, setSelected] = useState<"left" | "center" | "right">("left");
-
     return (
       <div className="flex flex-col items-center gap-4">
         <ButtonGroup>
@@ -470,29 +358,17 @@ export const Interactive: Story = {
   },
   parameters: {
     order: 11,
-    docs: {
-      description: {
-        story: "Interactive button group with selection state.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     const buttons = await canvas.findAllByRole("button");
     await expect(buttons).toHaveLength(3);
-
     await userEvent.click(buttons[1]);
     await expect(canvas.getByText("Selected: center")).toBeInTheDocument();
-
     await userEvent.click(buttons[2]);
     await expect(canvas.getByText("Selected: right")).toBeInTheDocument();
   },
 };
-
-/**
- * Keyboard navigation and accessibility.
- */
 export const Accessibility: Story = {
   render: () => (
     <ButtonGroup>
@@ -503,35 +379,21 @@ export const Accessibility: Story = {
   ),
   parameters: {
     order: 12,
-    docs: {
-      description: {
-        story: "Keyboard navigation with Tab key to move between buttons in the group.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     const buttons = await canvas.findAllByRole("button");
     await expect(buttons).toHaveLength(3);
-
     const group = canvas.getByRole("group");
     await expect(group).toBeInTheDocument();
-
     buttons[0].focus();
     await expect(buttons[0]).toHaveFocus();
-
     await userEvent.tab();
     await expect(buttons[1]).toHaveFocus();
-
     await userEvent.tab();
     await expect(buttons[2]).toHaveFocus();
   },
 };
-
-/**
- * Visual regression baseline.
- */
 export const VisualRegression: Story = {
   render: () => (
     <div className="flex flex-col gap-6">
@@ -561,20 +423,11 @@ export const VisualRegression: Story = {
   ),
   parameters: {
     order: 13,
-    docs: {
-      description: {
-        story: "Visual regression test showing various button group configurations.",
-      },
-    },
     chromatic: {
       disableSnapshot: false,
     },
   },
 };
-
-/**
- * Button group with disabled buttons.
- */
 export const WithDisabled: Story = {
   render: () => (
     <ButtonGroup>
@@ -587,24 +440,14 @@ export const WithDisabled: Story = {
   ),
   parameters: {
     order: 14,
-    docs: {
-      description: {
-        story: "Button groups can contain disabled buttons.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     const buttons = await canvas.findAllByRole("button");
     await expect(buttons).toHaveLength(3);
     await expect(buttons[1]).toBeDisabled();
   },
 };
-
-/**
- * Single button in group.
- */
 export const SingleButton: Story = {
   render: () => (
     <ButtonGroup>
@@ -613,23 +456,13 @@ export const SingleButton: Story = {
   ),
   parameters: {
     order: 15,
-    docs: {
-      description: {
-        story: "Edge case with a single button in the group.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     const buttons = await canvas.findAllByRole("button");
     await expect(buttons).toHaveLength(1);
   },
 };
-
-/**
- * Many buttons in horizontal group.
- */
 export const ManyButtons: Story = {
   render: () => (
     <ButtonGroup>
@@ -661,23 +494,13 @@ export const ManyButtons: Story = {
   ),
   parameters: {
     order: 16,
-    docs: {
-      description: {
-        story: "Button group with many items for pagination or numbering.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     const buttons = await canvas.findAllByRole("button");
     await expect(buttons).toHaveLength(8);
   },
 };
-
-/**
- * Button group with long text labels.
- */
 export const LongText: Story = {
   render: () => (
     <div className="max-w-md">
@@ -693,24 +516,14 @@ export const LongText: Story = {
   ),
   parameters: {
     order: 17,
-    docs: {
-      description: {
-        story: "Button group with long text labels testing overflow behavior.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     const buttons = await canvas.findAllByRole("button");
     await expect(buttons).toHaveLength(2);
     await expect(buttons[0]).toHaveTextContent(/Very Long Button Label/i);
   },
 };
-
-/**
- * Interactive playground for testing.
- */
 export const Playground: Story = {
   args: {
     orientation: "horizontal",
@@ -724,10 +537,5 @@ export const Playground: Story = {
   ),
   parameters: {
     order: 99,
-    docs: {
-      description: {
-        story: "Interactive playground for testing button group configurations.",
-      },
-    },
   },
 };

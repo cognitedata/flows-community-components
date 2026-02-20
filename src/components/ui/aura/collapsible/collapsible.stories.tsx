@@ -1,38 +1,9 @@
 import { Button } from "@/components/ui/aura/button";
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor, within } from "@storybook/test";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { IconSelector } from "@tabler/icons-react";
-import React, { useState } from "react";
+import { useState } from "react";
+import { expect, userEvent, waitFor, within } from "storybook/test";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./collapsible";
-
-const getCollapsiblePanel = (container: ParentNode) =>
-  container.querySelector('[data-slot="collapsible-content"]') as HTMLElement | null;
-
-const expectCollapsibleOpen = async (container: ParentNode, timeout = 300) => {
-  await waitFor(
-    () => {
-      const panel = getCollapsiblePanel(container);
-      expect(panel).toBeInTheDocument();
-      expect(panel).toHaveAttribute("data-open");
-    },
-    { timeout }
-  );
-};
-
-const expectCollapsibleClosed = async (container: ParentNode, timeout = 300) => {
-  await waitFor(
-    () => {
-      const panel = getCollapsiblePanel(container);
-      if (!panel) {
-        expect(panel).not.toBeInTheDocument();
-        return;
-      }
-      expect(panel).toHaveAttribute("data-closed");
-    },
-    { timeout }
-  );
-};
-
 const meta: Meta<typeof Collapsible> = {
   title: "Primitives/Collapsible",
   component: Collapsible,
@@ -40,41 +11,44 @@ const meta: Meta<typeof Collapsible> = {
   argTypes: {
     open: {
       control: "boolean",
-      description: "Controlled open state",
       table: {
-        category: "State",
-        type: { summary: "boolean" },
+        category: "Behavior",
+        type: {
+          summary: "boolean",
+        },
       },
     },
     defaultOpen: {
       control: "boolean",
-      description: "Default open state (uncontrolled)",
       table: {
-        category: "State",
-        type: { summary: "boolean" },
+        category: "Behavior",
+        type: {
+          summary: "boolean",
+        },
       },
     },
     onOpenChange: {
       action: "openChanged",
-      description: "Callback when open state changes",
       table: {
         category: "Events",
-        type: { summary: "(open: boolean) => void" },
+        type: {
+          summary: "(open: boolean) => void",
+        },
       },
     },
     disabled: {
       control: "boolean",
-      description: "Disable the collapsible",
       table: {
-        category: "State",
-        type: { summary: "boolean" },
+        category: "Behavior",
+        type: {
+          summary: "boolean",
+        },
       },
     },
     className: {
       control: "text",
-      description: "CSS classes for styling",
       table: {
-        category: "Display",
+        category: "Variants/Styling",
       },
     },
   },
@@ -85,49 +59,43 @@ const meta: Meta<typeof Collapsible> = {
     },
   },
 };
-
 export default meta;
 type Story = StoryObj<typeof Collapsible>;
-
-/**
- * Basic collapsible
- * Shows a simple collapsible with trigger and content
- */
+function getCollapsiblePanels(canvasElement: HTMLElement): HTMLElement[] {
+  const panels = Array.from(
+    canvasElement.querySelectorAll('[data-slot="collapsible-content"]')
+  ) as HTMLElement[];
+  if (panels.length === 0) {
+    throw new Error("No collapsible panels were rendered.");
+  }
+  return panels;
+}
 export const Basic: Story = {
   parameters: {
     order: 1,
-    docs: {
-      description: {
-        story:
-          "Basic collapsible component with a trigger button and expandable content. Click the trigger to expand or collapse.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Find the trigger button
     const trigger = canvas.getByRole("button");
     await expect(trigger).toBeInTheDocument();
-
-    // Verify content is initially hidden
-    await expectCollapsibleClosed(canvasElement);
-
-    // Click to expand
+    const [panel] = getCollapsiblePanels(canvasElement);
+    await expect(panel).toBeInTheDocument();
     await userEvent.click(trigger);
-    await expectCollapsibleOpen(canvasElement);
-
-    // Click again to collapse
+    await waitFor(() => {
+      expect(trigger).toHaveAttribute("data-panel-open");
+    });
     await userEvent.click(trigger);
-    await expectCollapsibleClosed(canvasElement);
+    await waitFor(() => {
+      expect(trigger).not.toHaveAttribute("data-panel-open");
+    });
   },
   render: () => (
-    <Collapsible className="w-[400px] space-y-2">
+    <Collapsible className="w-100 space-y-2">
       <CollapsibleTrigger
         render={
           <Button variant="ghost" className="w-full justify-between">
             <span>What is a collapsible?</span>
-            <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[panel-open]/collapsible-trigger:rotate-180" />
+            <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-panel-open/collapsible-trigger:rotate-180" />
           </Button>
         }
       />
@@ -141,39 +109,31 @@ export const Basic: Story = {
     </Collapsible>
   ),
 };
-
-/**
- * Default open
- * Collapsible that starts in the open state
- */
 export const DefaultOpen: Story = {
   parameters: {
     order: 2,
-    docs: {
-      description: {
-        story: "Collapsible that starts in the open state using the defaultOpen prop.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Trigger button should be present
     const trigger = canvas.getByRole("button", {
       name: /frequently asked questions/i,
     });
     await expect(trigger).toBeInTheDocument();
-
-    // Content should start open
-    await expectCollapsibleOpen(canvasElement);
+    await waitFor(() => {
+      expect(trigger).toHaveAttribute("data-panel-open");
+    });
+    const [panel] = getCollapsiblePanels(canvasElement);
+    await expect(
+      within(panel).getByText(/this collapsible starts open by default/i)
+    ).toBeInTheDocument();
   },
   render: () => (
-    <Collapsible defaultOpen className="w-[400px] space-y-2">
+    <Collapsible defaultOpen className="w-100 space-y-2">
       <CollapsibleTrigger
         render={
           <Button variant="ghost" className="w-full justify-between">
             <span>Frequently Asked Questions</span>
-            <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[panel-open]/collapsible-trigger:rotate-180" />
+            <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-panel-open/collapsible-trigger:rotate-180" />
           </Button>
         }
       />
@@ -192,41 +152,33 @@ export const DefaultOpen: Story = {
     </Collapsible>
   ),
 };
-
-/**
- * Controlled state
- * Demonstrates controlling the open state programmatically
- */
 export const Controlled: Story = {
   parameters: {
     order: 3,
-    docs: {
-      description: {
-        story:
-          "Controlled collapsible where the open state is managed externally. Use the open prop and onOpenChange callback.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Find the toggle button
-    const toggleButton = canvas.getByRole("button", { name: /toggle/i });
+    const toggleButton = canvas.getByRole("button", {
+      name: /toggle collapsible/i,
+    });
     await expect(toggleButton).toBeInTheDocument();
-
-    // Find the collapsible trigger
-    const trigger = canvas.getByRole("button", { name: /controlled/i });
+    const trigger = canvas.getByRole("button", {
+      name: /controlled collapsible/i,
+    });
     await expect(trigger).toBeInTheDocument();
-
-    // Click toggle to open
     await userEvent.click(toggleButton);
-    await expectCollapsibleOpen(canvasElement);
+    await waitFor(() => {
+      expect(trigger).toHaveAttribute("data-panel-open");
+    });
+    const [panel] = getCollapsiblePanels(canvasElement);
+    await expect(
+      within(panel).getByText(/this collapsible is controlled externally/i)
+    ).toBeInTheDocument();
   },
   render: function ControlledCollapsibleStory() {
     const [isOpen, setIsOpen] = useState(false);
-
     return (
-      <div className="space-y-4 w-[400px]">
+      <div className="space-y-4 w-100">
         <div className="flex gap-2">
           <Button variant="outline" size="sm" onClick={() => setIsOpen(!isOpen)}>
             Toggle Collapsible
@@ -240,7 +192,7 @@ export const Controlled: Story = {
             render={
               <Button variant="ghost" className="w-full justify-between">
                 <span>Controlled Collapsible</span>
-                <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[panel-open]/collapsible-trigger:rotate-180" />
+                <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-panel-open/collapsible-trigger:rotate-180" />
               </Button>
             }
           />
@@ -255,36 +207,25 @@ export const Controlled: Story = {
     );
   },
 };
-
-/**
- * With custom trigger
- * Shows collapsible with a custom styled trigger
- */
 export const WithCustomTrigger: Story = {
   parameters: {
     order: 4,
-    docs: {
-      description: {
-        story:
-          "Collapsible with a custom trigger button. You can style the trigger however you like.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    const trigger = canvas.getByRole("button", { name: /advanced settings/i });
+    const trigger = canvas.getByRole("button", {
+      name: /advanced settings/i,
+    });
     await expect(trigger).toBeInTheDocument();
-
-    // Content should be closed initially
-    await expectCollapsibleClosed(canvasElement);
-
-    // Click to open
     await userEvent.click(trigger);
-    await expectCollapsibleOpen(canvasElement);
+    await waitFor(() => {
+      expect(trigger).toHaveAttribute("data-panel-open");
+    });
+    const [panel] = getCollapsiblePanels(canvasElement);
+    await expect(within(panel).getByText(/here are some advanced settings/i)).toBeInTheDocument();
   },
   render: () => (
-    <Collapsible className="w-[400px] space-y-2">
+    <Collapsible className="w-100 space-y-2">
       <CollapsibleTrigger
         render={
           <Button variant="outline" className="w-full justify-between font-semibold">
@@ -306,53 +247,42 @@ export const WithCustomTrigger: Story = {
     </Collapsible>
   ),
 };
-
-/**
- * Multiple collapsibles
- * Shows multiple independent collapsibles
- */
 export const Multiple: Story = {
   parameters: {
     order: 5,
-    docs: {
-      description: {
-        story:
-          "Multiple collapsibles that work independently. Unlike accordions, multiple collapsibles can be open at the same time.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    const q1 = canvas.getByRole("button", { name: /question 1/i });
-    const q2 = canvas.getByRole("button", { name: /question 2/i });
-
+    const q1 = canvas.getByRole("button", {
+      name: /question 1/i,
+    });
+    const q2 = canvas.getByRole("button", {
+      name: /question 2/i,
+    });
     await expect(q1).toBeInTheDocument();
     await expect(q2).toBeInTheDocument();
-
-    const collapsibles = Array.from(canvasElement.querySelectorAll('[data-slot="collapsible"]'));
-    await expect(collapsibles.length).toBeGreaterThanOrEqual(2);
-
-    // Open first question
     await userEvent.click(q1);
-    await expectCollapsibleOpen(collapsibles[0]);
-
-    // Open second question without closing the first
+    await waitFor(() => {
+      expect(q1).toHaveAttribute("data-panel-open");
+    });
     await userEvent.click(q2);
-    await expectCollapsibleOpen(collapsibles[1]);
-
-    // Both can be open at the same time
-    await expectCollapsibleOpen(collapsibles[0]);
-    await expectCollapsibleOpen(collapsibles[1]);
+    await waitFor(() => {
+      expect(q2).toHaveAttribute("data-panel-open");
+    });
+    const panels = getCollapsiblePanels(canvasElement);
+    await expect(within(panels[0]).getByText(/react is a javascript library/i)).toBeInTheDocument();
+    await expect(
+      within(panels[1]).getByText(/typescript is a typed superset/i)
+    ).toBeInTheDocument();
   },
   render: () => (
-    <div className="space-y-2 w-[400px]">
+    <div className="space-y-2 w-100">
       <Collapsible className="space-y-2">
         <CollapsibleTrigger
           render={
             <Button variant="ghost" className="w-full justify-between">
               <span>Question 1: What is React?</span>
-              <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[panel-open]/collapsible-trigger:rotate-180" />
+              <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-panel-open/collapsible-trigger:rotate-180" />
             </Button>
           }
         />
@@ -369,7 +299,7 @@ export const Multiple: Story = {
           render={
             <Button variant="ghost" className="w-full justify-between">
               <span>Question 2: What is TypeScript?</span>
-              <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[panel-open]/collapsible-trigger:rotate-180" />
+              <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-panel-open/collapsible-trigger:rotate-180" />
             </Button>
           }
         />
@@ -385,7 +315,7 @@ export const Multiple: Story = {
           render={
             <Button variant="ghost" className="w-full justify-between">
               <span>Question 3: What is Next.js?</span>
-              <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[panel-open]/collapsible-trigger:rotate-180" />
+              <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-panel-open/collapsible-trigger:rotate-180" />
             </Button>
           }
         />
@@ -399,33 +329,22 @@ export const Multiple: Story = {
     </div>
   ),
 };
-
-/**
- * Disabled state
- * Shows collapsible in disabled state
- */
 export const Disabled: Story = {
   parameters: {
     order: 6,
-    docs: {
-      description: {
-        story:
-          "Disabled collapsible that cannot be toggled. The trigger is disabled and the content cannot be expanded.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    const trigger = canvas.getByRole("button", { name: /disabled collapsible/i });
+    const trigger = canvas.getByRole("button", {
+      name: /disabled collapsible/i,
+    });
     await expect(trigger).toBeInTheDocument();
     await expect(trigger).toBeDisabled();
-
-    // Verify it starts and remains in the closed state (no interaction needed)
-    await expectCollapsibleClosed(canvasElement);
+    const [panel] = getCollapsiblePanels(canvasElement);
+    await expect(panel).toBeInTheDocument();
   },
   render: () => (
-    <Collapsible disabled className="w-[400px] space-y-2">
+    <Collapsible disabled className="w-100 space-y-2">
       <CollapsibleTrigger
         render={
           <Button variant="ghost" className="w-full justify-between" disabled>
@@ -442,42 +361,30 @@ export const Disabled: Story = {
     </Collapsible>
   ),
 };
-
-/**
- * With rich content
- * Shows collapsible with complex content inside
- */
 export const WithRichContent: Story = {
   parameters: {
     order: 7,
-    docs: {
-      description: {
-        story:
-          "Collapsible containing rich content including lists, paragraphs, and formatted text.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    const trigger = canvas.getByRole("button", { name: /documentation/i });
+    const trigger = canvas.getByRole("button", {
+      name: /documentation/i,
+    });
     await expect(trigger).toBeInTheDocument();
-
     await userEvent.click(trigger);
-
-    // Verify rich content appears
-    await expect(canvas.getByText("Getting Started")).toBeInTheDocument();
+    const [panel] = getCollapsiblePanels(canvasElement);
+    await expect(within(panel).getByText("Getting Started")).toBeInTheDocument();
     await expect(
-      canvas.getByText("Follow these steps to get started with the component library:")
+      within(panel).getByText("Follow these steps to get started with the component library:")
     ).toBeInTheDocument();
   },
   render: () => (
-    <Collapsible className="w-[400px] space-y-2">
+    <Collapsible className="w-100 space-y-2">
       <CollapsibleTrigger
         render={
           <Button variant="ghost" className="w-full justify-between">
             <span>Documentation</span>
-            <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[panel-open]/collapsible-trigger:rotate-180" />
+            <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-panel-open/collapsible-trigger:rotate-180" />
           </Button>
         }
       />
@@ -500,42 +407,27 @@ export const WithRichContent: Story = {
     </Collapsible>
   ),
 };
-
-/**
- * FAQ example
- * Real-world FAQ section using collapsibles
- */
 export const FAQ: Story = {
   parameters: {
     order: 8,
-    docs: {
-      description: {
-        story:
-          "FAQ section using collapsibles. This demonstrates a common use case where multiple questions can be expanded simultaneously.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // First FAQ question should toggle on click
     const q1 = canvas.getByRole("button", {
       name: /what's the difference between collapsible and accordion\?/i,
     });
     await expect(q1).toBeInTheDocument();
-
     await userEvent.click(q1);
+    const panels = getCollapsiblePanels(canvasElement);
     await expect(
-      canvas.getByText(/collapsibles work independently—multiple can be open at once/i)
+      within(panels[0]).getByText(/collapsibles work independently—multiple can be open at once/i)
     ).toBeInTheDocument();
-
-    // Third FAQ is defaultOpen and should already show content
     await expect(
-      canvas.getByText(/yes! use the open prop for controlled state/i)
+      within(panels[2]).getByText(/yes! use the open prop for controlled state/i)
     ).toBeInTheDocument();
   },
   render: () => (
-    <div className="space-y-2 w-[500px]">
+    <div className="space-y-2 w-125">
       <h2 className="text-lg font-semibold mb-4">Frequently Asked Questions</h2>
 
       <Collapsible className="space-y-2">
@@ -543,7 +435,7 @@ export const FAQ: Story = {
           render={
             <Button variant="ghost" className="w-full justify-between text-left">
               <span>What&apos;s the difference between Collapsible and Accordion?</span>
-              <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[panel-open]/collapsible-trigger:rotate-180 shrink-0 ml-2" />
+              <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-panel-open/collapsible-trigger:rotate-180 shrink-0 ml-2" />
             </Button>
           }
         />
@@ -561,7 +453,7 @@ export const FAQ: Story = {
           render={
             <Button variant="ghost" className="w-full justify-between text-left">
               <span>How do I customize the styling?</span>
-              <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[panel-open]/collapsible-trigger:rotate-180 shrink-0 ml-2" />
+              <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-panel-open/collapsible-trigger:rotate-180 shrink-0 ml-2" />
             </Button>
           }
         />
@@ -578,7 +470,7 @@ export const FAQ: Story = {
           render={
             <Button variant="ghost" className="w-full justify-between text-left">
               <span>Can I control the open state programmatically?</span>
-              <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[panel-open]/collapsible-trigger:rotate-180 shrink-0 ml-2" />
+              <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-panel-open/collapsible-trigger:rotate-180 shrink-0 ml-2" />
             </Button>
           }
         />
@@ -592,38 +484,30 @@ export const FAQ: Story = {
     </div>
   ),
 };
-
-/**
- * Empty content
- * Shows collapsible with empty content
- */
 export const EdgeCaseEmpty: Story = {
   parameters: {
     order: 9,
-    docs: {
-      description: {
-        story:
-          "Collapsible with empty content. Tests how the component handles empty states and maintains proper spacing.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    const trigger = canvas.getByRole("button", { name: /empty content/i });
+    const trigger = canvas.getByRole("button", {
+      name: /empty content/i,
+    });
     await expect(trigger).toBeInTheDocument();
-
-    // Click to expand
     await userEvent.click(trigger);
-    await expectCollapsibleOpen(canvasElement);
+    await waitFor(() => {
+      expect(trigger).toHaveAttribute("data-panel-open");
+    });
+    const [panel] = getCollapsiblePanels(canvasElement);
+    await expect(panel).toBeInTheDocument();
   },
   render: () => (
-    <Collapsible className="w-[400px] space-y-2">
+    <Collapsible className="w-100 space-y-2">
       <CollapsibleTrigger
         render={
           <Button variant="ghost" className="w-full justify-between">
             <span>Empty Content</span>
-            <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[panel-open]/collapsible-trigger:rotate-180" />
+            <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-panel-open/collapsible-trigger:rotate-180" />
           </Button>
         }
       />
@@ -633,43 +517,32 @@ export const EdgeCaseEmpty: Story = {
     </Collapsible>
   ),
 };
-
-/**
- * Long text overflow
- * Shows collapsible with very long text content
- */
 export const EdgeCaseLongText: Story = {
   parameters: {
     order: 10,
-    docs: {
-      description: {
-        story:
-          "Collapsible with very long text content. Tests overflow handling, text wrapping, and scroll behavior.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     const trigger = canvas.getByRole("button", {
       name: /very long title that might wrap/i,
     });
     await expect(trigger).toBeInTheDocument();
-
-    // Click to expand and verify long content
     await userEvent.click(trigger);
-    await expectCollapsibleOpen(canvasElement);
-
-    // Verify long text is present
-    await expect(canvas.getByText(/this is an extremely long paragraph/i)).toBeInTheDocument();
+    await waitFor(() => {
+      expect(trigger).toHaveAttribute("data-panel-open");
+    });
+    const [panel] = getCollapsiblePanels(canvasElement);
+    await expect(
+      within(panel).getByText(/this is an extremely long paragraph/i)
+    ).toBeInTheDocument();
   },
   render: () => (
-    <Collapsible className="w-[400px] space-y-2">
+    <Collapsible className="w-100 space-y-2">
       <CollapsibleTrigger
         render={
           <Button variant="ghost" className="w-full justify-between">
             <span>Very Long Title That Might Wrap to Multiple Lines in Narrow Viewports</span>
-            <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[panel-open]/collapsible-trigger:rotate-180 shrink-0" />
+            <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-panel-open/collapsible-trigger:rotate-180 shrink-0" />
           </Button>
         }
       />

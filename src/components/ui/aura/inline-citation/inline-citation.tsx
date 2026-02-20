@@ -1,54 +1,76 @@
-import { Badge } from "@/components/ui/aura/badge";
-import {
-  Carousel,
-  type CarouselApi,
-  CarouselContent,
-  CarouselItem,
-} from "@/components/ui/aura/carousel";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/aura/hover-card";
-import { cn, getHostname } from "@/lib/utils";
 import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
-import type { ComponentType } from "react";
 import {
   type ComponentProps,
+  type ComponentRef,
+  type ComponentType,
   createContext,
+  forwardRef,
   startTransition,
   useCallback,
   useContext,
   useEffect,
   useState,
 } from "react";
+import { Carousel, type CarouselApi, CarouselContent, CarouselItem } from "../carousel";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "../hover-card";
 
-export type InlineCitationProps = ComponentProps<"span">;
+import { cn, getHostname } from "../../../../lib/utils";
+import { Badge } from "../badge";
 
-export const InlineCitation = ({ className, ...props }: InlineCitationProps) => (
-  <span className={cn("group inline-flex items-center gap-1", className)} {...props} />
+type InlineCitationProps = ComponentProps<"span">;
+
+const InlineCitation = forwardRef<ComponentRef<"span">, InlineCitationProps>(
+  ({ className, ...props }, ref) => (
+    <span
+      ref={ref}
+      data-slot="inline-citation"
+      className={cn("group inline-flex items-center gap-1", className)}
+      {...props}
+    />
+  )
+);
+InlineCitation.displayName = "InlineCitation";
+
+type InlineCitationGroupProps = ComponentProps<"div">;
+
+const InlineCitationGroup = forwardRef<ComponentRef<"div">, InlineCitationGroupProps>(
+  ({ className, ...props }, ref) => (
+    <div
+      ref={ref}
+      data-slot="inline-citation-group"
+      className={cn("flex flex-wrap gap-2", className)}
+      {...props}
+    />
+  )
+);
+InlineCitationGroup.displayName = "InlineCitationGroup";
+
+type InlineCitationTextProps = ComponentProps<"span">;
+
+const InlineCitationText = forwardRef<ComponentRef<"span">, InlineCitationTextProps>(
+  ({ className, ...props }, ref) => (
+    <span
+      ref={ref}
+      data-slot="inline-citation-text"
+      className={cn("transition-colors group-hover:bg-accent", className)}
+      {...props}
+    />
+  )
+);
+InlineCitationText.displayName = "InlineCitationText";
+
+type InlineCitationCardProps = ComponentProps<typeof HoverCard>;
+
+const InlineCitationCard = (props: InlineCitationCardProps) => (
+  <HoverCard data-slot="inline-citation-card" closeDelay={0} openDelay={0} {...props} />
 );
 
-export type InlineCitationGroupProps = ComponentProps<"div">;
-
-export const InlineCitationGroup = ({ className, ...props }: InlineCitationGroupProps) => (
-  <div className={cn("flex flex-wrap gap-2", className)} {...props} />
-);
-
-export type InlineCitationTextProps = ComponentProps<"span">;
-
-export const InlineCitationText = ({ className, ...props }: InlineCitationTextProps) => (
-  <span className={cn("transition-colors group-hover:bg-accent", className)} {...props} />
-);
-
-export type InlineCitationCardProps = ComponentProps<typeof HoverCard>;
-
-export const InlineCitationCard = (props: InlineCitationCardProps) => (
-  <HoverCard closeDelay={0} openDelay={0} {...props} />
-);
-
-export type InlineCitationCardTriggerProps = ComponentProps<typeof Badge> & {
+type InlineCitationCardTriggerProps = ComponentProps<typeof Badge> & {
   sources: string[];
   icon?: ComponentType<{ className?: string }>;
 };
 
-export const InlineCitationCardTrigger = ({
+const InlineCitationCardTrigger = ({
   sources,
   icon: Icon,
   className,
@@ -58,6 +80,7 @@ export const InlineCitationCardTrigger = ({
     <HoverCardTrigger
       render={
         <Badge
+          data-slot="inline-citation-card-trigger"
           className={cn(
             "ml-1 inline-flex items-center justify-center rounded-md border border-transparent bg-decorative-background-fjord px-1 text-sm leading-4.5 font-medium text-decorative-foreground-fjord whitespace-nowrap gap-1 transition-[color,box-shadow]",
             "[&>svg]:size-3 [&>svg]:pointer-events-none",
@@ -79,10 +102,14 @@ export const InlineCitationCardTrigger = ({
   );
 };
 
-export type InlineCitationCardBodyProps = ComponentProps<"div">;
+type InlineCitationCardBodyProps = ComponentProps<"div">;
 
-export const InlineCitationCardBody = ({ className, ...props }: InlineCitationCardBodyProps) => (
-  <HoverCardContent className={cn("relative w-80 p-0", className)} {...props} />
+const InlineCitationCardBody = ({ className, ...props }: InlineCitationCardBodyProps) => (
+  <HoverCardContent
+    data-slot="inline-citation-card-body"
+    className={cn("relative w-80 p-0", className)}
+    {...props}
+  />
 );
 
 const CarouselApiContext = createContext<CarouselApi | undefined>(undefined);
@@ -92,61 +119,69 @@ const useCarouselApi = () => {
   return context;
 };
 
-export type InlineCitationCarouselProps = ComponentProps<typeof Carousel>;
+type InlineCitationCarouselProps = ComponentProps<typeof Carousel>;
 
-export const InlineCitationCarousel = ({
-  className,
-  children,
-  ...props
-}: InlineCitationCarouselProps) => {
+const InlineCitationCarousel = ({ className, children, ...props }: InlineCitationCarouselProps) => {
   const [api, setApi] = useState<CarouselApi>();
 
   return (
     <CarouselApiContext.Provider value={api}>
-      <Carousel className={cn("w-full", className)} setApi={setApi} {...props}>
+      <Carousel
+        data-slot="inline-citation-carousel"
+        className={cn("w-full", className)}
+        setApi={setApi}
+        {...props}
+      >
         {children}
       </Carousel>
     </CarouselApiContext.Provider>
   );
 };
 
-export type InlineCitationCarouselContentProps = ComponentProps<"div">;
+type InlineCitationCarouselContentProps = ComponentProps<"div">;
 
-export const InlineCitationCarouselContent = (props: InlineCitationCarouselContentProps) => (
-  <CarouselContent {...props} />
+const InlineCitationCarouselContent = (props: InlineCitationCarouselContentProps) => (
+  <CarouselContent data-slot="inline-citation-carousel-content" {...props} />
 );
 
-export type InlineCitationCarouselItemProps = ComponentProps<"div">;
+type InlineCitationCarouselItemProps = ComponentProps<"div">;
 
-export const InlineCitationCarouselItem = ({
-  className,
-  ...props
-}: InlineCitationCarouselItemProps) => (
-  <CarouselItem className={cn("w-full space-y-2 p-4 pl-8", className)} {...props} />
+const InlineCitationCarouselItem = forwardRef<ComponentRef<"div">, InlineCitationCarouselItemProps>(
+  ({ className, ...props }, ref) => (
+    <CarouselItem
+      ref={ref}
+      data-slot="inline-citation-carousel-item"
+      className={cn("w-full space-y-2 p-4 pl-8", className)}
+      {...props}
+    />
+  )
 );
+InlineCitationCarouselItem.displayName = "InlineCitationCarouselItem";
 
-export type InlineCitationCarouselHeaderProps = ComponentProps<"div">;
+type InlineCitationCarouselHeaderProps = ComponentProps<"div">;
 
-export const InlineCitationCarouselHeader = ({
-  className,
-  ...props
-}: InlineCitationCarouselHeaderProps) => (
+const InlineCitationCarouselHeader = forwardRef<
+  ComponentRef<"div">,
+  InlineCitationCarouselHeaderProps
+>(({ className, ...props }, ref) => (
   <div
+    ref={ref}
+    data-slot="inline-citation-carousel-header"
     className={cn(
       "flex items-center justify-between gap-2 rounded-t-md bg-secondary p-2",
       className
     )}
     {...props}
   />
-);
+));
+InlineCitationCarouselHeader.displayName = "InlineCitationCarouselHeader";
 
-export type InlineCitationCarouselIndexProps = ComponentProps<"div">;
+type InlineCitationCarouselIndexProps = ComponentProps<"div">;
 
-export const InlineCitationCarouselIndex = ({
-  children,
-  className,
-  ...props
-}: InlineCitationCarouselIndexProps) => {
+const InlineCitationCarouselIndex = forwardRef<
+  ComponentRef<"div">,
+  InlineCitationCarouselIndexProps
+>(({ children, className, ...props }, ref) => {
   const api = useCarouselApi();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
@@ -156,7 +191,6 @@ export const InlineCitationCarouselIndex = ({
       return;
     }
 
-    // Use startTransition to avoid synchronous setState in effect
     startTransition(() => {
       setCount(api.scrollSnapList().length);
       setCurrent(api.selectedScrollSnap() + 1);
@@ -169,6 +203,8 @@ export const InlineCitationCarouselIndex = ({
 
   return (
     <div
+      ref={ref}
+      data-slot="inline-citation-carousel-index"
       className={cn(
         "flex flex-1 items-center justify-end px-3 py-1 text-muted-foreground text-xs",
         className
@@ -178,14 +214,15 @@ export const InlineCitationCarouselIndex = ({
       {children ?? `${current}/${count}`}
     </div>
   );
-};
+});
+InlineCitationCarouselIndex.displayName = "InlineCitationCarouselIndex";
 
-export type InlineCitationCarouselPrevProps = ComponentProps<"button">;
+type InlineCitationCarouselPrevProps = ComponentProps<"button">;
 
-export const InlineCitationCarouselPrev = ({
-  className,
-  ...props
-}: InlineCitationCarouselPrevProps) => {
+const InlineCitationCarouselPrev = forwardRef<
+  ComponentRef<"button">,
+  InlineCitationCarouselPrevProps
+>(({ className, ...props }, ref) => {
   const api = useCarouselApi();
 
   const handleClick = useCallback(() => {
@@ -196,6 +233,8 @@ export const InlineCitationCarouselPrev = ({
 
   return (
     <button
+      ref={ref}
+      data-slot="inline-citation-carousel-prev"
       aria-label="Previous"
       className={cn("shrink-0", className)}
       onClick={handleClick}
@@ -205,14 +244,15 @@ export const InlineCitationCarouselPrev = ({
       <IconArrowLeft className="size-4 text-muted-foreground" />
     </button>
   );
-};
+});
+InlineCitationCarouselPrev.displayName = "InlineCitationCarouselPrev";
 
-export type InlineCitationCarouselNextProps = ComponentProps<"button">;
+type InlineCitationCarouselNextProps = ComponentProps<"button">;
 
-export const InlineCitationCarouselNext = ({
-  className,
-  ...props
-}: InlineCitationCarouselNextProps) => {
+const InlineCitationCarouselNext = forwardRef<
+  ComponentRef<"button">,
+  InlineCitationCarouselNextProps
+>(({ className, ...props }, ref) => {
   const api = useCarouselApi();
 
   const handleClick = useCallback(() => {
@@ -223,6 +263,8 @@ export const InlineCitationCarouselNext = ({
 
   return (
     <button
+      ref={ref}
+      data-slot="inline-citation-carousel-next"
       aria-label="Next"
       className={cn("shrink-0", className)}
       onClick={handleClick}
@@ -232,105 +274,125 @@ export const InlineCitationCarouselNext = ({
       <IconArrowRight className="size-4 text-muted-foreground" />
     </button>
   );
-};
+});
+InlineCitationCarouselNext.displayName = "InlineCitationCarouselNext";
 
-export type InlineCitationSourceProps = ComponentProps<"div"> & {
+type InlineCitationSourceProps = ComponentProps<"div"> & {
   title?: string;
   url?: string;
   description?: string;
 };
 
-export const InlineCitationSource = ({
-  title,
-  url,
-  description,
-  className,
-  children,
-  ...props
-}: InlineCitationSourceProps) => (
-  <div className={cn("space-y-1", className)} {...props}>
-    {title && <h4 className="truncate font-medium text-sm leading-tight">{title}</h4>}
-    {url && <p className="truncate break-all text-muted-foreground text-xs">{url}</p>}
-    {description && (
-      <p className="line-clamp-3 text-muted-foreground text-sm leading-relaxed">{description}</p>
-    )}
-    {children}
-  </div>
+const InlineCitationSource = forwardRef<ComponentRef<"div">, InlineCitationSourceProps>(
+  ({ title, url, description, className, children, ...props }, ref) => (
+    <div
+      ref={ref}
+      data-slot="inline-citation-source"
+      className={cn("space-y-1", className)}
+      {...props}
+    >
+      {title && <h4 className="truncate font-medium text-sm leading-tight">{title}</h4>}
+      {url && <p className="truncate break-all text-muted-foreground text-xs">{url}</p>}
+      {description && (
+        <p className="line-clamp-3 text-muted-foreground text-sm leading-relaxed">{description}</p>
+      )}
+      {children}
+    </div>
+  )
 );
+InlineCitationSource.displayName = "InlineCitationSource";
 
-export type InlineCitationQuoteProps = ComponentProps<"blockquote">;
+type InlineCitationQuoteProps = ComponentProps<"blockquote">;
 
-export const InlineCitationQuote = ({
-  children,
-  className,
-  ...props
-}: InlineCitationQuoteProps) => (
-  <blockquote
-    className={cn("border-muted border-l-2 pl-3 text-muted-foreground text-sm italic", className)}
-    {...props}
-  >
-    {children}
-  </blockquote>
+const InlineCitationQuote = forwardRef<ComponentRef<"blockquote">, InlineCitationQuoteProps>(
+  ({ children, className, ...props }, ref) => (
+    <blockquote
+      ref={ref}
+      data-slot="inline-citation-quote"
+      className={cn("border-muted border-l-2 pl-3 text-muted-foreground text-sm italic", className)}
+      {...props}
+    >
+      {children}
+    </blockquote>
+  )
 );
+InlineCitationQuote.displayName = "InlineCitationQuote";
 
-export type InlineCitationLinkProps = Omit<ComponentProps<"a">, "target"> & {
+type InlineCitationLinkProps = Omit<ComponentProps<"a">, "target"> & {
   target?: "_blank" | "_self";
   icon?: ComponentType<{ className?: string }>;
   variant?: "mountain" | "nordic" | "fjord";
 };
 
-export const InlineCitationLink = ({
-  href,
-  target = "_self",
-  icon: Icon,
-  variant = "mountain",
-  className,
-  children,
-  ...props
-}: InlineCitationLinkProps) => {
-  let hostname = "unknown";
-  if (href) {
-    try {
-      // Only parse absolute URLs, not relative URLs or fragments
-      if (href.startsWith("http://") || href.startsWith("https://")) {
-        hostname = new URL(href).hostname;
-      } else {
+const InlineCitationLink = forwardRef<ComponentRef<"a">, InlineCitationLinkProps>(
+  (
+    { href, target = "_self", icon: Icon, variant = "mountain", className, children, ...props },
+    ref
+  ) => {
+    let hostname = "unknown";
+    if (href) {
+      try {
+        if (href.startsWith("http://") || href.startsWith("https://")) {
+          hostname = new URL(href).hostname;
+        } else {
+          hostname = href;
+        }
+      } catch {
         hostname = href;
       }
-    } catch {
-      // If URL parsing fails, use the href as-is or fallback
-      hostname = href;
     }
-  }
 
-  const variantStyles = {
-    mountain:
-      "bg-decorative-background-mountain hover:bg-decorative-background-hover-mountain text-decorative-foreground-mountain",
-    nordic:
-      "bg-decorative-background-nordic hover:bg-decorative-background-hover-nordic text-decorative-foreground-nordic",
-    fjord:
-      "bg-decorative-background-fjord hover:bg-decorative-background-hover-fjord text-decorative-foreground-fjord",
-  };
+    const variantStyles = {
+      mountain:
+        "bg-decorative-background-mountain hover:bg-decorative-background-hover-mountain text-decorative-foreground-mountain",
+      nordic:
+        "bg-decorative-background-nordic hover:bg-decorative-background-hover-nordic text-decorative-foreground-nordic",
+      fjord:
+        "bg-decorative-background-fjord hover:bg-decorative-background-hover-fjord text-decorative-foreground-fjord",
+    };
 
-  return (
-    <a
-      href={href}
-      target={target}
-      rel={target === "_blank" ? "noopener noreferrer" : undefined}
-      className="inline-flex items-stretch"
-      {...props}
-    >
-      <Badge
-        className={cn(
-          "inline-flex items-center justify-center rounded-md border border-transparent px-1 text-sm leading-4.5 font-medium whitespace-nowrap gap-1 transition-colors",
-          "[&>svg]:size-3 [&>svg]:pointer-events-none",
-          variantStyles[variant],
-          className
-        )}
+    return (
+      <a
+        ref={ref}
+        href={href}
+        target={target}
+        rel={target === "_blank" ? "noopener noreferrer" : undefined}
+        className="inline-flex items-stretch"
+        {...props}
       >
-        {Icon && <Icon className="size-3" />}
-        {children ?? hostname}
-      </Badge>
-    </a>
-  );
+        <Badge
+          data-slot="inline-citation-link"
+          className={cn(
+            "inline-flex items-center justify-center rounded-md border border-transparent px-1 text-sm leading-4.5 font-medium whitespace-nowrap gap-1 transition-colors",
+            "[&>svg]:size-3 [&>svg]:pointer-events-none",
+            variantStyles[variant],
+            className
+          )}
+        >
+          {Icon && <Icon className="size-3" />}
+          {children ?? hostname}
+        </Badge>
+      </a>
+    );
+  }
+);
+InlineCitationLink.displayName = "InlineCitationLink";
+
+export {
+  InlineCitation,
+  InlineCitationGroup,
+  InlineCitationText,
+  InlineCitationCard,
+  InlineCitationCardTrigger,
+  InlineCitationCardBody,
+  InlineCitationCarousel,
+  InlineCitationCarouselContent,
+  InlineCitationCarouselItem,
+  InlineCitationCarouselHeader,
+  InlineCitationCarouselIndex,
+  InlineCitationCarouselPrev,
+  InlineCitationCarouselNext,
+  InlineCitationSource,
+  InlineCitationQuote,
+  InlineCitationLink,
 };
