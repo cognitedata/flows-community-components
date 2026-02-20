@@ -1,7 +1,7 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor, within } from "@storybook/test";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { IconCheck, IconCopy } from "@tabler/icons-react";
 import { useEffect, useRef, useState } from "react";
+import { expect, userEvent, waitFor, within } from "storybook/test";
 import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from "../input-group";
 import { Label } from "../label";
 import { Input, PasswordInput } from "./input";

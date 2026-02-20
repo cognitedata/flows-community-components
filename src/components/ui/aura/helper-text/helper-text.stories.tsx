@@ -1,7 +1,7 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, within } from "@storybook/test";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { IconAlertTriangle, IconBulb, IconCircleCheck, IconInfoCircle } from "@tabler/icons-react";
 import { useState } from "react";
+import { expect, userEvent, within } from "storybook/test";
 
 import { Button } from "../button";
 import { Input } from "../input";

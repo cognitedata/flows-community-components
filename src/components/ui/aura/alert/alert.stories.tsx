@@ -1,5 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor, within } from "@storybook/test";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
   IconAlertHexagon,
   IconAlertTriangle,
@@ -9,6 +8,7 @@ import {
   IconUser,
 } from "@tabler/icons-react";
 import { useState } from "react";
+import { expect, userEvent, waitFor, within } from "storybook/test";
 import { Alert, AlertActions, AlertButton, AlertDescription, AlertTitle } from "./alert";
 const meta: Meta<typeof Alert> = {
   title: "Primitives/Alert",

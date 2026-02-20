@@ -16,10 +16,10 @@ import {
   usePromptInputController,
 } from "@/components/ui/aura/prompt-input";
 import { Suggestion } from "@/components/ui/aura/suggestion";
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor, within } from "@storybook/test";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { IconCopy, IconDownload, IconRefresh, IconTool, IconWheel } from "@tabler/icons-react";
 import { useState } from "react";
+import { expect, userEvent, waitFor, within } from "storybook/test";
 import {
   Conversation,
   ConversationContent,

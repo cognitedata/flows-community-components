@@ -1,8 +1,8 @@
 "use client";
 
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, within } from "@storybook/test";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useEffect, useState } from "react";
+import { expect, within } from "storybook/test";
 import {
   ArtifactProgress,
   ArtifactProgressBar,
