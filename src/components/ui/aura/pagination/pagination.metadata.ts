@@ -1,9 +1,9 @@
-import type { ComponentMeta } from "../../../../lib/types";
+import type { ComponentMeta } from '../../../../lib/types';
 
 export const PaginationMetadata: ComponentMeta = {
-  name: "Pagination",
-  status: "in-progress-code-review",
-  description: "A pagination component for navigating multi-page content.",
+  name: 'Pagination',
+  status: 'in-progress-code-review',
+  description: 'A pagination component for navigating multi-page content.',
   llmUsage:
-    "Use `<Pagination>` with `<PaginationContent>`, `<PaginationItem>`, and `<PaginationLink>` for page navigation.",
+    'Use `<Pagination>` with `<PaginationContent>`, `<PaginationItem>`, and `<PaginationLink>` for page navigation.',
 };

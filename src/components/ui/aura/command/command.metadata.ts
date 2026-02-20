@@ -1,9 +1,10 @@
-import type { ComponentMeta } from "../../../../lib/types";
+import type { ComponentMeta } from '../../../../lib/types';
 
 export const CommandMetadata: ComponentMeta = {
-  name: "Command",
-  status: "in-progress-code-review",
-  description: "A command menu component for searchable command palettes, built with cmdk.",
+  name: 'Command',
+  status: 'in-progress-code-review',
+  description:
+    'A command menu component for searchable command palettes, built with cmdk.',
   llmUsage:
-    "Use `<Command>` with `<CommandInput>`, `<CommandList>`, and `<CommandItem>` for command palettes.",
+    'Use `<Command>` with `<CommandInput>`, `<CommandList>`, and `<CommandItem>` for command palettes.',
 };

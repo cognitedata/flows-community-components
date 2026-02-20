@@ -1,11 +1,20 @@
-import { IconAlertTriangle, IconChevronDown } from "@tabler/icons-react";
-import { type ComponentProps, type ReactNode, createContext, useContext } from "react";
+import { IconAlertTriangle, IconChevronDown } from '@tabler/icons-react';
+import {
+  type ComponentProps,
+  type ReactNode,
+  createContext,
+  useContext,
+} from 'react';
 
-import { cn } from "../../../../lib/utils";
-import { Alert } from "../alert";
-import { Button } from "../button";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "../collapsible";
-import { HelperText } from "../helper-text";
+import { cn } from '../../../../lib/utils';
+import { Alert } from '../alert';
+import { Button } from '../button';
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from '../collapsible';
+import { HelperText } from '../helper-text';
 
 type Approval = {
   approved?: boolean;
@@ -17,13 +26,15 @@ type ConfirmationContextValue = {
   state: string;
 };
 
-const ConfirmationContext = createContext<ConfirmationContextValue | null>(null);
+const ConfirmationContext = createContext<ConfirmationContextValue | null>(
+  null
+);
 
 function useConfirmation() {
   const context = useContext(ConfirmationContext);
 
   if (!context) {
-    throw new Error("Confirmation components must be used within Confirmation");
+    throw new Error('Confirmation components must be used within Confirmation');
   }
 
   return context;
@@ -43,7 +54,7 @@ const Confirmation = ({
   children,
   ...props
 }: ConfirmationProps) => {
-  if (!approval || state === "input-streaming" || state === "input-available") {
+  if (!approval || state === 'input-streaming' || state === 'input-available') {
     return null;
   }
 
@@ -54,7 +65,7 @@ const Confirmation = ({
   );
 
   const helperTextToRender =
-    state !== "approval-requested" || helperText === false
+    state !== 'approval-requested' || helperText === false
       ? null
       : (helperText ?? defaultHelperText);
 
@@ -63,7 +74,7 @@ const Confirmation = ({
       <Alert
         data-slot="confirmation"
         className={cn(
-          "flex flex-col gap-2 p-3 bg-background text-foreground border-none",
+          'flex flex-col gap-2 p-3 bg-background text-foreground border-none',
           className
         )}
         {...props}
@@ -93,7 +104,7 @@ const ConfirmationContentTrigger = ({
         data-slot="confirmation-content-trigger"
         variant="ghost"
         className={cn(
-          "group/collapsible-trigger w-full justify-between text-base leading-5 tracking-tighter",
+          'group/collapsible-trigger w-full justify-between text-base leading-5 tracking-tighter',
           className
         )}
         {...props}
@@ -107,10 +118,13 @@ const ConfirmationContentTrigger = ({
 
 type ConfirmationContentProps = ComponentProps<typeof CollapsibleContent>;
 
-const ConfirmationContent = ({ className, ...props }: ConfirmationContentProps) => (
+const ConfirmationContent = ({
+  className,
+  ...props
+}: ConfirmationContentProps) => (
   <CollapsibleContent
     data-slot="confirmation-content"
-    className={cn("px-3", className)}
+    className={cn('px-3', className)}
     {...props}
   />
 );
@@ -122,7 +136,7 @@ type ConfirmationRequestProps = {
 const ConfirmationRequest = ({ children }: ConfirmationRequestProps) => {
   const { state } = useConfirmation();
 
-  if (state !== "approval-requested") {
+  if (state !== 'approval-requested') {
     return null;
   }
 
@@ -138,7 +152,9 @@ const ConfirmationAccepted = ({ children }: ConfirmationAcceptedProps) => {
 
   if (
     !approval?.approved ||
-    (state !== "approval-responded" && state !== "output-denied" && state !== "output-available")
+    (state !== 'approval-responded' &&
+      state !== 'output-denied' &&
+      state !== 'output-available')
   ) {
     return null;
   }
@@ -159,7 +175,9 @@ const ConfirmationRejected = ({ children }: ConfirmationRejectedProps) => {
 
   if (
     approval?.approved !== false ||
-    (state !== "approval-responded" && state !== "output-denied" && state !== "output-available")
+    (state !== 'approval-responded' &&
+      state !== 'output-denied' &&
+      state !== 'output-available')
   ) {
     return null;
   }
@@ -171,19 +189,22 @@ const ConfirmationRejected = ({ children }: ConfirmationRejectedProps) => {
   );
 };
 
-type ConfirmationActionsProps = ComponentProps<"div">;
+type ConfirmationActionsProps = ComponentProps<'div'>;
 
-const ConfirmationActions = ({ className, ...props }: ConfirmationActionsProps) => {
+const ConfirmationActions = ({
+  className,
+  ...props
+}: ConfirmationActionsProps) => {
   const { state } = useConfirmation();
 
-  if (state !== "approval-requested") {
+  if (state !== 'approval-requested') {
     return null;
   }
 
   return (
     <div
       data-slot="confirmation-actions"
-      className={cn("flex items-center justify-end gap-2 self-end", className)}
+      className={cn('flex items-center justify-end gap-2 self-end', className)}
       {...props}
     />
   );
