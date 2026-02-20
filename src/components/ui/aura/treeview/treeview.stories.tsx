@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, waitFor, within } from 'storybook/test';
 import {
   IconFile,
   IconFileText,
@@ -7,43 +6,40 @@ import {
   IconSettings,
 } from '@tabler/icons-react';
 import { useState } from 'react';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
 
-import { Tree, TreeItem } from '@/components/ui/aura/tree';
+import { TreeView, TreeViewItem } from '.';
 
-const meta: Meta<typeof Tree> = {
-  title: 'Primitives/Tree',
-  component: Tree,
+const meta: Meta<typeof TreeView> = {
+  title: 'Primitives/TreeView',
+  component: TreeView,
   tags: ['autodocs'],
   argTypes: {
     expanded: {
       control: false,
-      description: 'Controlled expanded items (array of values)',
       table: {
-        category: 'State',
+        category: 'Behavior',
         type: { summary: 'string[]' },
       },
     },
     defaultExpanded: {
       control: false,
-      description: 'Default expanded items for uncontrolled mode',
       table: {
-        category: 'State',
+        category: 'Behavior',
         type: { summary: 'string[]' },
       },
     },
     type: {
       control: 'radio',
       options: ['single', 'multiple'],
-      description: 'Single or multiple expansion mode',
       table: {
-        category: 'State',
+        category: 'Behavior',
         defaultValue: { summary: 'multiple' },
       },
     },
 
     onExpandedChange: {
       action: 'expandedChanged',
-      description: 'Callback when expanded items change',
       table: {
         category: 'Events',
         type: { summary: '(expanded: string[]) => void' },
@@ -52,34 +48,22 @@ const meta: Meta<typeof Tree> = {
 
     className: {
       control: 'text',
-      description: 'CSS classes for styling',
       table: {
-        category: 'Display',
+        category: 'Variants/Styling',
       },
     },
   },
   parameters: {
     layout: 'centered',
-    docs: {
-      description: {
-        component:
-          'A hierarchical tree view with collapsible nodes and optional status indicators.',
-      },
-    },
   },
 };
 
 export default meta;
-type Story = StoryObj<typeof Tree>;
+type Story = StoryObj<typeof TreeView>;
 
 export const Basic: Story = {
   parameters: {
     order: 1,
-    docs: {
-      description: {
-        story: 'Simple tree with expandable nodes.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -92,32 +76,27 @@ export const Basic: Story = {
     await expect(documentsButton).toHaveAttribute('data-state', 'closed');
   },
   render: () => (
-    <Tree className="w-75">
-      <TreeItem value="documents" label="Documents">
-        <TreeItem value="design" label="Design">
-          <TreeItem value="wireframes" label="wireframes.fig" />
-          <TreeItem value="mockups" label="mockups.fig" />
-        </TreeItem>
-        <TreeItem value="reports" label="Reports">
-          <TreeItem value="q1-report" label="Q1 Report.pdf" />
-          <TreeItem value="q2-report" label="Q2 Report.pdf" />
-        </TreeItem>
-      </TreeItem>
-      <TreeItem value="downloads" label="Downloads">
-        <TreeItem value="archive" label="archive.zip" />
-      </TreeItem>
-    </Tree>
+    <TreeView className="w-75">
+      <TreeViewItem value="documents" label="Documents">
+        <TreeViewItem value="design" label="Design">
+          <TreeViewItem value="wireframes" label="wireframes.fig" />
+          <TreeViewItem value="mockups" label="mockups.fig" />
+        </TreeViewItem>
+        <TreeViewItem value="reports" label="Reports">
+          <TreeViewItem value="q1-report" label="Q1 Report.pdf" />
+          <TreeViewItem value="q2-report" label="Q2 Report.pdf" />
+        </TreeViewItem>
+      </TreeViewItem>
+      <TreeViewItem value="downloads" label="Downloads">
+        <TreeViewItem value="archive" label="archive.zip" />
+      </TreeViewItem>
+    </TreeView>
   ),
 };
 
 export const WithStatusIndicators: Story = {
   parameters: {
     order: 2,
-    docs: {
-      description: {
-        story: 'Status indicators bubble up from children to parents.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -147,27 +126,22 @@ export const WithStatusIndicators: Story = {
     await expect(badges.length).toBe(3);
   },
   render: () => (
-    <Tree defaultExpanded={['process-21', 'feed-system']} className="w-75">
-      <TreeItem value="process-21" label="Process unit 21">
-        <TreeItem value="feed-system" label="Feed system">
-          <TreeItem value="pump-a" label="Feed Pump A" status="warning" />
-          <TreeItem value="pump-b" label="Feed Pump B" />
-        </TreeItem>
-        <TreeItem value="drain-system" label="Drain system" />
-      </TreeItem>
-      <TreeItem value="process-22" label="Process unit 22" />
-    </Tree>
+    <TreeView defaultExpanded={['process-21', 'feed-system']} className="w-75">
+      <TreeViewItem value="process-21" label="Process unit 21">
+        <TreeViewItem value="feed-system" label="Feed system">
+          <TreeViewItem value="pump-a" label="Feed Pump A" status="warning" />
+          <TreeViewItem value="pump-b" label="Feed Pump B" />
+        </TreeViewItem>
+        <TreeViewItem value="drain-system" label="Drain system" />
+      </TreeViewItem>
+      <TreeViewItem value="process-22" label="Process unit 22" />
+    </TreeView>
   ),
 };
 
 export const ErrorPriority: Story = {
   parameters: {
     order: 3,
-    docs: {
-      description: {
-        story: 'Error status takes priority over warning when statuses merge.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -183,45 +157,43 @@ export const ErrorPriority: Story = {
     await expect(utils).not.toHaveAttribute('data-status');
   },
   render: () => (
-    <Tree defaultExpanded={['src', 'components']} className="w-88">
-      <TreeItem value="src" label="src" icon={IconFolder}>
-        <TreeItem value="components" label="components" icon={IconFolder}>
-          <TreeItem value="button" label="Button.tsx" icon={IconFile} />
-          <TreeItem
+    <TreeView defaultExpanded={['src', 'components']} className="w-88">
+      <TreeViewItem value="src" label="src" icon={IconFolder}>
+        <TreeViewItem value="components" label="components" icon={IconFolder}>
+          <TreeViewItem value="button" label="Button.tsx" icon={IconFile} />
+          <TreeViewItem
             value="input"
             label="Input.tsx"
             icon={IconFile}
             status="warning"
           />
-          <TreeItem
+          <TreeViewItem
             value="modal"
             label="Modal.tsx"
             icon={IconFile}
             status="error"
           />
-        </TreeItem>
-        <TreeItem value="utils" label="utils" icon={IconFolder}>
-          <TreeItem value="helpers" label="helpers.ts" icon={IconFile} />
-          <TreeItem value="constants" label="constants.ts" icon={IconFile} />
-        </TreeItem>
-        <TreeItem value="app" label="App.tsx" icon={IconFile} />
-        <TreeItem value="index" label="index.tsx" icon={IconFile} />
-      </TreeItem>
-      <TreeItem value="package" label="package.json" icon={IconFileText} />
-      <TreeItem value="readme" label="README.md" icon={IconFileText} />
-    </Tree>
+        </TreeViewItem>
+        <TreeViewItem value="utils" label="utils" icon={IconFolder}>
+          <TreeViewItem value="helpers" label="helpers.ts" icon={IconFile} />
+          <TreeViewItem
+            value="constants"
+            label="constants.ts"
+            icon={IconFile}
+          />
+        </TreeViewItem>
+        <TreeViewItem value="app" label="App.tsx" icon={IconFile} />
+        <TreeViewItem value="index" label="index.tsx" icon={IconFile} />
+      </TreeViewItem>
+      <TreeViewItem value="package" label="package.json" icon={IconFileText} />
+      <TreeViewItem value="readme" label="README.md" icon={IconFileText} />
+    </TreeView>
   ),
 };
 
 export const Controlled: Story = {
   parameters: {
     order: 4,
-    docs: {
-      description: {
-        story:
-          'Tree with externally controlled expanded state using `expanded` and `onExpandedChange`.',
-      },
-    },
   },
   render: function ControlledStory() {
     const [expanded, setExpanded] = useState<string[]>(['root']);
@@ -231,21 +203,21 @@ export const Controlled: Story = {
         <div className="text-sm text-muted-foreground">
           Expanded: {expanded.join(', ') || 'none'}
         </div>
-        <Tree
+        <TreeView
           expanded={expanded}
           onExpandedChange={setExpanded}
           className="w-75"
         >
-          <TreeItem value="root" label="Root">
-            <TreeItem value="branch-1" label="Branch 1">
-              <TreeItem value="leaf-1a" label="Leaf 1A" />
-              <TreeItem value="leaf-1b" label="Leaf 1B" />
-            </TreeItem>
-            <TreeItem value="branch-2" label="Branch 2">
-              <TreeItem value="leaf-2a" label="Leaf 2A" />
-            </TreeItem>
-          </TreeItem>
-        </Tree>
+          <TreeViewItem value="root" label="Root">
+            <TreeViewItem value="branch-1" label="Branch 1">
+              <TreeViewItem value="leaf-1a" label="Leaf 1A" />
+              <TreeViewItem value="leaf-1b" label="Leaf 1B" />
+            </TreeViewItem>
+            <TreeViewItem value="branch-2" label="Branch 2">
+              <TreeViewItem value="leaf-2a" label="Leaf 2A" />
+            </TreeViewItem>
+          </TreeViewItem>
+        </TreeView>
       </div>
     );
   },
@@ -254,11 +226,6 @@ export const Controlled: Story = {
 export const SingleExpand: Story = {
   parameters: {
     order: 5,
-    docs: {
-      description: {
-        story: 'With `type="single"`, only one item can be expanded at a time.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -272,63 +239,53 @@ export const SingleExpand: Story = {
     await expect(folderB).toHaveAttribute('data-state', 'open');
   },
   render: () => (
-    <Tree type="single" className="w-75">
-      <TreeItem value="folder-a" label="Folder A">
-        <TreeItem value="file-a1" label="File A1" />
-        <TreeItem value="file-a2" label="File A2" />
-      </TreeItem>
-      <TreeItem value="folder-b" label="Folder B">
-        <TreeItem value="file-b1" label="File B1" />
-        <TreeItem value="file-b2" label="File B2" />
-      </TreeItem>
-      <TreeItem value="folder-c" label="Folder C">
-        <TreeItem value="file-c1" label="File C1" />
-      </TreeItem>
-    </Tree>
+    <TreeView type="single" className="w-75">
+      <TreeViewItem value="folder-a" label="Folder A">
+        <TreeViewItem value="file-a1" label="File A1" />
+        <TreeViewItem value="file-a2" label="File A2" />
+      </TreeViewItem>
+      <TreeViewItem value="folder-b" label="Folder B">
+        <TreeViewItem value="file-b1" label="File B1" />
+        <TreeViewItem value="file-b2" label="File B2" />
+      </TreeViewItem>
+      <TreeViewItem value="folder-c" label="Folder C">
+        <TreeViewItem value="file-c1" label="File C1" />
+      </TreeViewItem>
+    </TreeView>
   ),
 };
 
 export const DeepNesting: Story = {
   parameters: {
     order: 6,
-    docs: {
-      description: {
-        story: 'Deep nesting with indentation and horizontal scroll.',
-      },
-    },
   },
   render: () => (
-    <Tree
+    <TreeView
       defaultExpanded={['level-1', 'level-2', 'level-3', 'level-4', 'level-5']}
       className="w-75"
     >
-      <TreeItem value="level-1" label="Level 1">
-        <TreeItem value="level-2" label="Level 2">
-          <TreeItem value="level-3" label="Level 3">
-            <TreeItem value="level-4" label="Level 4">
-              <TreeItem value="level-5" label="Level 5">
-                <TreeItem
+      <TreeViewItem value="level-1" label="Level 1">
+        <TreeViewItem value="level-2" label="Level 2">
+          <TreeViewItem value="level-3" label="Level 3">
+            <TreeViewItem value="level-4" label="Level 4">
+              <TreeViewItem value="level-5" label="Level 5">
+                <TreeViewItem
                   value="level-6"
                   label="Level 6 - Deep leaf"
                   status="warning"
                 />
-              </TreeItem>
-            </TreeItem>
-          </TreeItem>
-        </TreeItem>
-      </TreeItem>
-    </Tree>
+              </TreeViewItem>
+            </TreeViewItem>
+          </TreeViewItem>
+        </TreeViewItem>
+      </TreeViewItem>
+    </TreeView>
   ),
 };
 
 export const WithIcons: Story = {
   parameters: {
     order: 7,
-    docs: {
-      description: {
-        story: 'Tree items with icons.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -336,27 +293,26 @@ export const WithIcons: Story = {
     await expect(triggers.length).toBeGreaterThan(0);
   },
   render: () => (
-    <Tree defaultExpanded={['project', 'src']} className="w-88">
-      <TreeItem value="project" label="my-project" icon={IconFolder}>
-        <TreeItem value="src" label="src" icon={IconFolder}>
-          <TreeItem value="app" label="App.tsx" icon={IconFile} />
-          <TreeItem value="index" label="index.tsx" icon={IconFile} />
-        </TreeItem>
-        <TreeItem value="config" label="settings.json" icon={IconSettings} />
-        <TreeItem value="readme" label="README.md" icon={IconFileText} />
-      </TreeItem>
-    </Tree>
+    <TreeView defaultExpanded={['project', 'src']} className="w-88">
+      <TreeViewItem value="project" label="my-project" icon={IconFolder}>
+        <TreeViewItem value="src" label="src" icon={IconFolder}>
+          <TreeViewItem value="app" label="App.tsx" icon={IconFile} />
+          <TreeViewItem value="index" label="index.tsx" icon={IconFile} />
+        </TreeViewItem>
+        <TreeViewItem
+          value="config"
+          label="settings.json"
+          icon={IconSettings}
+        />
+        <TreeViewItem value="readme" label="README.md" icon={IconFileText} />
+      </TreeViewItem>
+    </TreeView>
   ),
 };
 
 export const RTLSupport: Story = {
   parameters: {
     order: 8,
-    docs: {
-      description: {
-        story: 'Tree with right-to-left layout support.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -365,23 +321,27 @@ export const RTLSupport: Story = {
   },
   render: () => (
     <div dir="rtl" className="w-88">
-      <Tree defaultExpanded={['folder-1', 'subfolder-1']}>
-        <TreeItem value="folder-1" label="مجلد المستندات">
-          <TreeItem value="subfolder-1" label="التقارير الشهرية">
-            <TreeItem
+      <TreeView defaultExpanded={['folder-1', 'subfolder-1']}>
+        <TreeViewItem value="folder-1" label="مجلد المستندات">
+          <TreeViewItem value="subfolder-1" label="التقارير الشهرية">
+            <TreeViewItem
               value="file-1a"
               label="تقرير يناير.pdf"
               status="warning"
             />
-            <TreeItem value="file-1b" label="تقرير فبراير.pdf" />
-            <TreeItem value="file-1c" label="تقرير مارس.pdf" status="error" />
-          </TreeItem>
-          <TreeItem value="file-1" label="ملاحظات.txt" />
-        </TreeItem>
-        <TreeItem value="folder-2" label="التنزيلات">
-          <TreeItem value="file-3" label="أرشيف.zip" />
-        </TreeItem>
-      </Tree>
+            <TreeViewItem value="file-1b" label="تقرير فبراير.pdf" />
+            <TreeViewItem
+              value="file-1c"
+              label="تقرير مارس.pdf"
+              status="error"
+            />
+          </TreeViewItem>
+          <TreeViewItem value="file-1" label="ملاحظات.txt" />
+        </TreeViewItem>
+        <TreeViewItem value="folder-2" label="التنزيلات">
+          <TreeViewItem value="file-3" label="أرشيف.zip" />
+        </TreeViewItem>
+      </TreeView>
     </div>
   ),
 };
@@ -389,11 +349,6 @@ export const RTLSupport: Story = {
 export const ClickableLeafNodes: Story = {
   parameters: {
     order: 9,
-    docs: {
-      description: {
-        story: 'Clickable leaf nodes with actions.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -418,28 +373,28 @@ export const ClickableLeafNodes: Story = {
 
     return (
       <div className="space-y-4">
-        <Tree className="w-88">
-          <TreeItem value="navigation" label="Navigation" icon={IconFolder}>
-            <TreeItem
+        <TreeView className="w-88">
+          <TreeViewItem value="navigation" label="Navigation" icon={IconFolder}>
+            <TreeViewItem
               value="dashboard"
               label="Dashboard"
               icon={IconFile}
               onClick={() => setClicked('dashboard')}
             />
-            <TreeItem
+            <TreeViewItem
               value="settings"
               label="Settings"
               icon={IconSettings}
               onClick={() => setClicked('settings')}
             />
-            <TreeItem
+            <TreeViewItem
               value="reports"
               label="Reports"
               icon={IconFileText}
               onClick={() => setClicked('reports')}
             />
-          </TreeItem>
-        </Tree>
+          </TreeViewItem>
+        </TreeView>
         {clicked && (
           <div className="text-sm text-muted-foreground">
             Clicked: {clicked}
@@ -453,33 +408,23 @@ export const ClickableLeafNodes: Story = {
 export const DisabledItems: Story = {
   parameters: {
     order: 10,
-    docs: {
-      description: {
-        story: 'Tree items can be disabled to prevent interaction.',
-      },
-    },
   },
   render: () => (
-    <Tree className="w-75">
-      <TreeItem value="active" label="Active folder">
-        <TreeItem value="file-1" label="Available file" />
-        <TreeItem value="file-2" label="Locked file" disabled />
-      </TreeItem>
-      <TreeItem value="archived" label="Archived folder" disabled>
-        <TreeItem value="old-file" label="Old file" />
-      </TreeItem>
-    </Tree>
+    <TreeView className="w-75">
+      <TreeViewItem value="active" label="Active folder">
+        <TreeViewItem value="file-1" label="Available file" />
+        <TreeViewItem value="file-2" label="Locked file" disabled />
+      </TreeViewItem>
+      <TreeViewItem value="archived" label="Archived folder" disabled>
+        <TreeViewItem value="old-file" label="Old file" />
+      </TreeViewItem>
+    </TreeView>
   ),
 };
 
 export const LongLabels: Story = {
   parameters: {
     order: 11,
-    docs: {
-      description: {
-        story: 'Long labels truncate within the tree row.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -492,34 +437,29 @@ export const LongLabels: Story = {
     ).toBeInTheDocument();
   },
   render: () => (
-    <Tree defaultExpanded={['long-parent']} className="w-75">
-      <TreeItem
+    <TreeView defaultExpanded={['long-parent']} className="w-75">
+      <TreeViewItem
         value="long-parent"
         label="This is a very long parent folder name that should be truncated when it exceeds the available width"
       >
-        <TreeItem
+        <TreeViewItem
           value="long-child-1"
           label="extremely-long-file-name-that-goes-on-and-on-and-should-definitely-truncate.tsx"
         />
-        <TreeItem
+        <TreeViewItem
           value="long-child-2"
           label="another-deeply-nested-file-with-an-absurdly-long-name-for-testing-purposes.config.ts"
           status="warning"
         />
-      </TreeItem>
-      <TreeItem value="short" label="Short name" />
-    </Tree>
+      </TreeViewItem>
+      <TreeViewItem value="short" label="Short name" />
+    </TreeView>
   ),
 };
 
 export const ParentWithOwnStatus: Story = {
   parameters: {
     order: 12,
-    docs: {
-      description: {
-        story: 'Parent status merges with child statuses by severity.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -536,35 +476,33 @@ export const ParentWithOwnStatus: Story = {
     );
   },
   render: () => (
-    <Tree defaultExpanded={['parent-system', 'standalone']} className="w-75">
-      <TreeItem
+    <TreeView
+      defaultExpanded={['parent-system', 'standalone']}
+      className="w-75"
+    >
+      <TreeViewItem
         value="parent-system"
         label="System (own warning)"
         status="warning"
       >
-        <TreeItem value="child-ok" label="Subsystem A" />
-        <TreeItem value="child-error" label="Subsystem B" status="error" />
-      </TreeItem>
-      <TreeItem
+        <TreeViewItem value="child-ok" label="Subsystem A" />
+        <TreeViewItem value="child-error" label="Subsystem B" status="error" />
+      </TreeViewItem>
+      <TreeViewItem
         value="standalone"
         label="System (own warning, children OK)"
         status="warning"
       >
-        <TreeItem value="sub-1" label="Subsystem 1" />
-        <TreeItem value="sub-2" label="Subsystem 2" />
-      </TreeItem>
-    </Tree>
+        <TreeViewItem value="sub-1" label="Subsystem 1" />
+        <TreeViewItem value="sub-2" label="Subsystem 2" />
+      </TreeViewItem>
+    </TreeView>
   ),
 };
 
 export const EmptyTree: Story = {
   parameters: {
     order: 13,
-    docs: {
-      description: {
-        story: 'Empty tree container with no items.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -574,18 +512,12 @@ export const EmptyTree: Story = {
     const items = canvas.queryAllByRole('treeitem');
     await expect(items.length).toBe(0);
   },
-  render: () => <Tree className="w-75" />,
+  render: () => <TreeView className="w-75" />,
 };
 
 export const ManySiblings: Story = {
   parameters: {
     order: 14,
-    docs: {
-      description: {
-        story:
-          'A flat list of sibling items to verify rendering and scrolling behavior.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -599,29 +531,24 @@ export const ManySiblings: Story = {
     await expect(leaves.length).toBe(25);
   },
   render: () => (
-    <Tree className="w-75">
-      <TreeItem value="logs" label="Log entries">
+    <TreeView className="w-75">
+      <TreeViewItem value="logs" label="Log entries">
         {Array.from({ length: 25 }, (_, i) => (
-          <TreeItem
+          <TreeViewItem
             key={`log-${i + 1}`}
             value={`log-${i + 1}`}
             label={`Log entry ${String(i + 1).padStart(3, '0')}`}
             status={i === 4 ? 'warning' : i === 19 ? 'error' : undefined}
           />
         ))}
-      </TreeItem>
-    </Tree>
+      </TreeViewItem>
+    </TreeView>
   ),
 };
 
 export const RootLevelLeaves: Story = {
   parameters: {
     order: 15,
-    docs: {
-      description: {
-        story: 'Root-level leaf items without parent folders.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -633,28 +560,23 @@ export const RootLevelLeaves: Story = {
     await expect(triggers.length).toBe(4);
   },
   render: () => (
-    <Tree className="w-75">
-      <TreeItem value="readme" label="README.md" icon={IconFileText} />
-      <TreeItem value="package" label="package.json" icon={IconFile} />
-      <TreeItem
+    <TreeView className="w-75">
+      <TreeViewItem value="readme" label="README.md" icon={IconFileText} />
+      <TreeViewItem value="package" label="package.json" icon={IconFile} />
+      <TreeViewItem
         value="tsconfig"
         label="tsconfig.json"
         icon={IconFile}
         status="warning"
       />
-      <TreeItem value="license" label="LICENSE" icon={IconFileText} />
-    </Tree>
+      <TreeViewItem value="license" label="LICENSE" icon={IconFileText} />
+    </TreeView>
   ),
 };
 
 export const NarrowViewport: Story = {
   parameters: {
     order: 16,
-    docs: {
-      description: {
-        story: 'Narrow container with horizontal overflow.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -663,22 +585,24 @@ export const NarrowViewport: Story = {
   },
   render: () => (
     <div className="w-48 rounded-md border border-dashed border-muted-foreground/25 p-2">
-      <Tree defaultExpanded={['narrow-1', 'narrow-2', 'narrow-3', 'narrow-4']}>
-        <TreeItem value="narrow-1" label="Projects" icon={IconFolder}>
-          <TreeItem value="narrow-2" label="Frontend" icon={IconFolder}>
-            <TreeItem value="narrow-3" label="Components" icon={IconFolder}>
-              <TreeItem value="narrow-4" label="Forms" icon={IconFolder}>
-                <TreeItem
+      <TreeView
+        defaultExpanded={['narrow-1', 'narrow-2', 'narrow-3', 'narrow-4']}
+      >
+        <TreeViewItem value="narrow-1" label="Projects" icon={IconFolder}>
+          <TreeViewItem value="narrow-2" label="Frontend" icon={IconFolder}>
+            <TreeViewItem value="narrow-3" label="Components" icon={IconFolder}>
+              <TreeViewItem value="narrow-4" label="Forms" icon={IconFolder}>
+                <TreeViewItem
                   value="narrow-leaf"
                   label="DatePicker.tsx"
                   icon={IconFile}
                   status="warning"
                 />
-              </TreeItem>
-            </TreeItem>
-          </TreeItem>
-        </TreeItem>
-      </Tree>
+              </TreeViewItem>
+            </TreeViewItem>
+          </TreeViewItem>
+        </TreeViewItem>
+      </TreeView>
     </div>
   ),
 };
@@ -686,11 +610,6 @@ export const NarrowViewport: Story = {
 export const DisabledWithStatus: Story = {
   parameters: {
     order: 17,
-    docs: {
-      description: {
-        story: 'Disabled items with status badges.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -707,31 +626,38 @@ export const DisabledWithStatus: Story = {
     await expect(disabledTrigger).toHaveAttribute('aria-disabled', 'true');
   },
   render: () => (
-    <Tree defaultExpanded={['enabled-parent']} className="w-75">
-      <TreeItem value="enabled-parent" label="Active system">
-        <TreeItem value="active-item" label="Online sensor" status="warning" />
-        <TreeItem
+    <TreeView defaultExpanded={['enabled-parent']} className="w-75">
+      <TreeViewItem value="enabled-parent" label="Active system">
+        <TreeViewItem
+          value="active-item"
+          label="Online sensor"
+          status="warning"
+        />
+        <TreeViewItem
           value="disabled-leaf"
           label="Offline sensor"
           status="error"
           disabled
         />
-      </TreeItem>
-      <TreeItem value="disabled-parent" label="Decommissioned system" disabled>
-        <TreeItem value="old-sensor" label="Legacy sensor" status="warning" />
-      </TreeItem>
-    </Tree>
+      </TreeViewItem>
+      <TreeViewItem
+        value="disabled-parent"
+        label="Decommissioned system"
+        disabled
+      >
+        <TreeViewItem
+          value="old-sensor"
+          label="Legacy sensor"
+          status="warning"
+        />
+      </TreeViewItem>
+    </TreeView>
   ),
 };
 
 export const ClickableParentNodes: Story = {
   parameters: {
     order: 18,
-    docs: {
-      description: {
-        story: 'Clickable parent nodes with onClick handlers.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -746,18 +672,18 @@ export const ClickableParentNodes: Story = {
 
     return (
       <div className="space-y-4">
-        <Tree className="w-88">
-          <TreeItem
+        <TreeView className="w-88">
+          <TreeViewItem
             value="project"
             label="Project"
             icon={IconFolder}
             onClick={() => setClicked('project')}
           >
-            <TreeItem value="src" label="src" icon={IconFolder}>
-              <TreeItem value="index" label="index.ts" icon={IconFile} />
-            </TreeItem>
-          </TreeItem>
-        </Tree>
+            <TreeViewItem value="src" label="src" icon={IconFolder}>
+              <TreeViewItem value="index" label="index.ts" icon={IconFile} />
+            </TreeViewItem>
+          </TreeViewItem>
+        </TreeView>
         {clicked && (
           <div className="text-sm text-muted-foreground">
             Clicked: {clicked}
@@ -771,11 +697,6 @@ export const ClickableParentNodes: Story = {
 export const DynamicItems: Story = {
   parameters: {
     order: 19,
-    docs: {
-      description: {
-        story: 'Items can be added and removed at runtime.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -829,11 +750,11 @@ export const DynamicItems: Story = {
         >
           Add sensor
         </button>
-        <Tree defaultExpanded={['sensors']} className="w-88">
-          <TreeItem value="sensors" label="Sensor array">
-            <TreeItem value="stable" label="Stable sensor" />
+        <TreeView defaultExpanded={['sensors']} className="w-88">
+          <TreeViewItem value="sensors" label="Sensor array">
+            <TreeViewItem value="stable" label="Stable sensor" />
             {items.map((item) => (
-              <TreeItem
+              <TreeViewItem
                 key={item.value}
                 value={item.value}
                 label={`${item.label} - click to remove`}
@@ -843,8 +764,8 @@ export const DynamicItems: Story = {
                 }
               />
             ))}
-          </TreeItem>
-        </Tree>
+          </TreeViewItem>
+        </TreeView>
       </div>
     );
   },

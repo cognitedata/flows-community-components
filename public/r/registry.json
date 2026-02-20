@@ -1846,16 +1846,22 @@
       ]
     },
     {
-      "name": "tree",
+      "name": "treeview",
       "type": "registry:component",
-      "title": "Tree",
+      "title": "TreeView",
       "description": "A hierarchical tree view component for displaying nested data structures with collapsible nodes and status indicators that bubble up from children to parents.",
-      "dependencies": ["@base-ui/react/collapsible", "@tabler/icons-react"],
-      "registryDependencies": ["@aura/css", "@aura/badge"],
+      "dependencies": [
+        "@base-ui/react/collapsible",
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/badge"
+      ],
       "files": [
         {
-          "path": "src/components/ui/aura/tree/tree.tsx",
-          "target": "src/components/ui/aura/tree.tsx",
+          "path": "src/components/ui/aura/treeview/treeview.tsx",
+          "target": "src/components/ui/aura/treeview.tsx",
           "type": "registry:component"
         },
         {
