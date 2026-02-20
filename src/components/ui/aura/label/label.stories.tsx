@@ -1,10 +1,10 @@
 "use client";
 
-import { Input } from "@/components/ui/aura/input";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, within } from "@storybook/test";
 import { IconAsterisk } from "@tabler/icons-react";
 import { type ChangeEvent, useState } from "react";
+import { Input } from "../input";
 import { Label } from "./label";
 const meta: Meta<typeof Label> = {
   title: "Primitives/Label",
