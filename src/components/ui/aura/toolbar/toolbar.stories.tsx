@@ -8,7 +8,7 @@ const meta: Meta<typeof Toolbar> = {
     className: {
       control: "text",
       table: {
-        category: "Styling",
+        category: "Variants/Styling",
       },
     },
   },
@@ -19,6 +19,9 @@ const meta: Meta<typeof Toolbar> = {
 export default meta;
 type Story = StoryObj<typeof Toolbar>;
 export const Default: Story = {
+  parameters: {
+    order: 1,
+  },
   render: () => (
     <div className="p-4 border rounded-md bg-muted/20">
       <p className="text-sm text-muted-foreground text-center">
@@ -33,6 +36,9 @@ export const Default: Story = {
   ),
 };
 export const UsageExample: Story = {
+  parameters: {
+    order: 2,
+  },
   render: () => (
     <div className="p-4 border rounded-md space-y-4 max-w-md">
       <h3 className="font-medium">Usage with ReactFlow</h3>
