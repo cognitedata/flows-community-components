@@ -1,7 +1,21 @@
-import { Avatar, AvatarFallback } from "@/components/ui/aura/avatar";
-import { Badge } from "@/components/ui/aura/badge";
-import { Button } from "@/components/ui/aura/button";
-import { Checkbox } from "@/components/ui/aura/checkbox";
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import {
+  IconCheck,
+  IconGrid3x3,
+  IconPlus,
+  IconSelector,
+  IconUser,
+  IconX,
+} from '@tabler/icons-react';
+import { useState } from 'react';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
+
+import { cn } from '../../../../lib/utils';
+
+import { Avatar, AvatarFallback } from '@/components/ui/aura/avatar';
+import { Badge } from '@/components/ui/aura/badge';
+import { Button } from '@/components/ui/aura/button';
+import { Checkbox } from '@/components/ui/aura/checkbox';
 import {
   Command,
   CommandEmpty,
@@ -10,74 +24,67 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-} from "@/components/ui/aura/command";
-import { HelperText } from "@/components/ui/aura/helper-text";
-import { Label } from "@/components/ui/aura/label";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/aura/popover";
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor, within } from "@storybook/test";
+} from '@/components/ui/aura/command';
+import { HelperText } from '@/components/ui/aura/helper-text';
+import { Label } from '@/components/ui/aura/label';
 import {
-  IconCheck,
-  IconGrid3x3,
-  IconPlus,
-  IconSelector,
-  IconUser,
-  IconX,
-} from "@tabler/icons-react";
-import { useState } from "react";
-import { cn } from "../../../../lib/utils";
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/aura/popover';
+
 const meta: Meta<typeof Popover> = {
-  title: "Primitives/Combobox",
+  title: 'Primitives/Combobox',
   component: Popover,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     open: {
-      control: "boolean",
+      control: 'boolean',
       table: {
-        category: "State",
+        category: 'State',
         type: {
-          summary: "boolean",
+          summary: 'boolean',
         },
       },
     },
     defaultOpen: {
-      control: "boolean",
+      control: 'boolean',
       table: {
-        category: "State",
+        category: 'State',
         type: {
-          summary: "boolean",
+          summary: 'boolean',
         },
         defaultValue: {
-          summary: "false",
+          summary: 'false',
         },
       },
     },
     modal: {
-      control: "boolean",
+      control: 'boolean',
       table: {
-        category: "Behavior",
+        category: 'Behavior',
         type: {
-          summary: "boolean",
+          summary: 'boolean',
         },
         defaultValue: {
-          summary: "true",
+          summary: 'true',
         },
       },
     },
     onOpenChange: {
-      action: "openChanged",
+      action: 'openChanged',
       table: {
-        category: "Events",
+        category: 'Events',
         type: {
-          summary: "(open: boolean) => void",
+          summary: '(open: boolean) => void',
         },
       },
     },
   },
   parameters: {
-    layout: "centered",
+    layout: 'centered',
     actions: {
-      handles: ["openChanged"],
+      handles: ['openChanged'],
     },
   },
 };
@@ -85,80 +92,80 @@ export default meta;
 type Story = StoryObj<typeof Popover>;
 const users = [
   {
-    value: "dennis-rodman",
-    label: "Dennis Rodman",
-    initials: "DR",
-    position: "Power forward",
+    value: 'dennis-rodman',
+    label: 'Dennis Rodman',
+    initials: 'DR',
+    position: 'Power forward',
   },
   {
-    value: "luc-longley",
-    label: "Luc Longley",
-    initials: "LL",
-    position: "Center",
+    value: 'luc-longley',
+    label: 'Luc Longley',
+    initials: 'LL',
+    position: 'Center',
   },
   {
-    value: "michael-jordan",
-    label: "Michael Jordan",
-    initials: "MJ",
-    position: "Shooting guard",
+    value: 'michael-jordan',
+    label: 'Michael Jordan',
+    initials: 'MJ',
+    position: 'Shooting guard',
   },
   {
-    value: "ron-harper",
-    label: "Ron Harper",
-    initials: "RH",
-    position: "Point guard",
+    value: 'ron-harper',
+    label: 'Ron Harper',
+    initials: 'RH',
+    position: 'Point guard',
   },
   {
-    value: "scottie-pippen",
-    label: "Scottie Pippen",
-    initials: "SP",
-    position: "Small forward",
+    value: 'scottie-pippen',
+    label: 'Scottie Pippen',
+    initials: 'SP',
+    position: 'Small forward',
   },
 ];
 
 const dataTypes = [
   {
-    value: "asset",
-    label: "Asset",
+    value: 'asset',
+    label: 'Asset',
   },
   {
-    value: "event",
-    label: "Event",
+    value: 'event',
+    label: 'Event',
   },
   {
-    value: "observation",
-    label: "Observation",
+    value: 'observation',
+    label: 'Observation',
   },
   {
-    value: "time-series",
-    label: "Time series",
+    value: 'time-series',
+    label: 'Time series',
   },
   {
-    value: "work-order",
-    label: "Work order",
+    value: 'work-order',
+    label: 'Work order',
   },
 ];
 
 const options = [
   {
-    value: "notifications",
-    label: "Email notifications",
+    value: 'notifications',
+    label: 'Email notifications',
   },
   {
-    value: "marketing",
-    label: "Marketing emails",
+    value: 'marketing',
+    label: 'Marketing emails',
   },
   {
-    value: "updates",
-    label: "Product updates",
+    value: 'updates',
+    label: 'Product updates',
   },
   {
-    value: "security",
-    label: "Security alerts",
+    value: 'security',
+    label: 'Security alerts',
   },
   {
-    value: "newsletter",
-    label: "Newsletter",
+    value: 'newsletter',
+    label: 'Newsletter',
   },
 ];
 export const Basic: Story = {
@@ -168,29 +175,35 @@ export const Basic: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const body = within(canvasElement.ownerDocument.body);
-    const trigger = canvas.getByRole("combobox");
+    const trigger = canvas.getByRole('combobox');
     await expect(trigger).toBeInTheDocument();
-    await expect(trigger).toHaveAttribute("aria-expanded", "false");
-    await expect(trigger).toHaveTextContent("Michael Jordan");
+    await expect(trigger).toHaveAttribute('aria-expanded', 'false');
+    await expect(trigger).toHaveTextContent('Michael Jordan');
     await userEvent.click(trigger);
-    const searchInput = (await body.findByPlaceholderText("Search users...", undefined, {
-      timeout: 1000,
-    })) as HTMLInputElement;
-    await expect(trigger).toHaveAttribute("aria-expanded", "true");
-    const commandList = canvasElement.ownerDocument.querySelector('[data-slot="command-list"]');
+    const searchInput = (await body.findByPlaceholderText(
+      'Search users...',
+      undefined,
+      {
+        timeout: 1000,
+      }
+    )) as HTMLInputElement;
+    await expect(trigger).toHaveAttribute('aria-expanded', 'true');
+    const commandList = canvasElement.ownerDocument.querySelector(
+      '[data-slot="command-list"]'
+    );
     await expect(commandList).toBeInTheDocument();
-    await expect(commandList).toHaveTextContent("Dennis Rodman");
-    await expect(commandList).toHaveTextContent("Michael Jordan");
-    await expect(commandList).toHaveTextContent("Scottie Pippen");
-    await userEvent.type(searchInput, "Dennis");
+    await expect(commandList).toHaveTextContent('Dennis Rodman');
+    await expect(commandList).toHaveTextContent('Michael Jordan');
+    await expect(commandList).toHaveTextContent('Scottie Pippen');
+    await userEvent.type(searchInput, 'Dennis');
     await waitFor(() => {
-      expect(commandList).toHaveTextContent("Dennis Rodman");
-      expect(commandList).not.toHaveTextContent("Michael Jordan");
+      expect(commandList).toHaveTextContent('Dennis Rodman');
+      expect(commandList).not.toHaveTextContent('Michael Jordan');
     });
   },
   render: function BasicStory() {
     const [open, setOpen] = useState(false);
-    const [value, setValue] = useState("michael-jordan");
+    const [value, setValue] = useState('michael-jordan');
     const selectedUser = users.find((user) => user.value === value);
     return (
       <div className="flex flex-col gap-3">
@@ -204,7 +217,11 @@ export const Basic: Story = {
                   variant="outline"
                   role="combobox"
                   aria-expanded={open}
-                  aria-label={selectedUser ? `Selected user: ${selectedUser.label}` : "Select user"}
+                  aria-label={
+                    selectedUser
+                      ? `Selected user: ${selectedUser.label}`
+                      : 'Select user'
+                  }
                   className="w-full justify-between"
                 >
                   <div className="flex items-center gap-2">
@@ -216,7 +233,9 @@ export const Basic: Story = {
                         </span>
                       </>
                     ) : (
-                      <span className="text-sm text-muted-foreground">Select user...</span>
+                      <span className="text-sm text-muted-foreground">
+                        Select user...
+                      </span>
                     )}
                   </div>
                   <IconSelector className="h-4 w-4 opacity-50" />
@@ -234,7 +253,7 @@ export const Basic: Story = {
                         key={user.value}
                         value={user.value}
                         onSelect={(currentValue) => {
-                          setValue(currentValue === value ? "" : currentValue);
+                          setValue(currentValue === value ? '' : currentValue);
                           setOpen(false);
                         }}
                         className="flex justify-between h-9 pr-0"
@@ -252,8 +271,8 @@ export const Basic: Story = {
                         </div>
                         <IconCheck
                           className={cn(
-                            "mr-2 h-4 w-4",
-                            value === user.value ? "opacity-100" : "opacity-0"
+                            'mr-2 h-4 w-4',
+                            value === user.value ? 'opacity-100' : 'opacity-0'
                           )}
                         />
                       </CommandItem>
@@ -278,44 +297,48 @@ export const WithAddNew: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const body = within(canvasElement.ownerDocument.body);
-    const trigger = canvas.getByRole("combobox");
+    const trigger = canvas.getByRole('combobox');
     await userEvent.click(trigger);
-    const searchInput = (await body.findByPlaceholderText("Search users...")) as HTMLInputElement;
+    const searchInput = (await body.findByPlaceholderText(
+      'Search users...'
+    )) as HTMLInputElement;
     await userEvent.clear(searchInput);
-    await userEvent.type(searchInput, "Steve Kerr");
-    await body.findByRole("button", {
-      name: "Add Steve Kerr",
+    await userEvent.type(searchInput, 'Steve Kerr');
+    await body.findByRole('button', {
+      name: 'Add Steve Kerr',
     });
   },
   render: function WithAddNewStory() {
     const [open, setOpen] = useState(false);
-    const [value, setValue] = useState("michael-jordan");
+    const [value, setValue] = useState('michael-jordan');
     const [userList, setUserList] = useState(users);
-    const [searchValue, setSearchValue] = useState("");
+    const [searchValue, setSearchValue] = useState('');
     const selectedUser = userList.find((user) => user.value === value);
     const filteredUsers = userList.filter((user) =>
       user.label.toLowerCase().includes(searchValue.toLowerCase())
     );
     const canAddUser =
       searchValue.trim() &&
-      !userList.some((user) => user.label.toLowerCase() === searchValue.toLowerCase().trim());
+      !userList.some(
+        (user) => user.label.toLowerCase() === searchValue.toLowerCase().trim()
+      );
     const handleAddUser = () => {
       if (!canAddUser) return;
       const newUser = {
-        value: searchValue.toLowerCase().replace(/\s+/g, "-"),
+        value: searchValue.toLowerCase().replace(/\s+/g, '-'),
         label: searchValue.trim(),
         initials: searchValue
           .trim()
-          .split(" ")
+          .split(' ')
           .map((n) => n[0])
-          .join("")
+          .join('')
           .toUpperCase()
           .slice(0, 2),
-        position: "Player",
+        position: 'Player',
       };
       setUserList([...userList, newUser]);
       setValue(newUser.value);
-      setSearchValue("");
+      setSearchValue('');
     };
     return (
       <div className="flex flex-col gap-3">
@@ -329,7 +352,11 @@ export const WithAddNew: Story = {
                   variant="outline"
                   role="combobox"
                   aria-expanded={open}
-                  aria-label={selectedUser ? `Selected user: ${selectedUser.label}` : "Select user"}
+                  aria-label={
+                    selectedUser
+                      ? `Selected user: ${selectedUser.label}`
+                      : 'Select user'
+                  }
                   className="w-full justify-between"
                 >
                   <div className="flex items-center gap-2">
@@ -341,14 +368,19 @@ export const WithAddNew: Story = {
                         </span>
                       </>
                     ) : (
-                      <span className="text-sm text-muted-foreground">Select user...</span>
+                      <span className="text-sm text-muted-foreground">
+                        Select user...
+                      </span>
                     )}
                   </div>
                   <IconSelector className="h-4 w-4 opacity-50" />
                 </Button>
               }
             />
-            <PopoverContent className="w-95 p-0" aria-label="User selection with add new">
+            <PopoverContent
+              className="w-95 p-0"
+              aria-label="User selection with add new"
+            >
               <Command shouldFilter={false}>
                 <CommandInput
                   placeholder="Search users..."
@@ -364,13 +396,19 @@ export const WithAddNew: Story = {
                           key={user.value}
                           value={user.value}
                           onSelect={(currentValue) => {
-                            setValue(currentValue === value ? "" : currentValue);
+                            setValue(
+                              currentValue === value ? '' : currentValue
+                            );
                             setOpen(false);
                           }}
                           className="flex justify-between h-9 pr-0"
                         >
                           <div className="flex items-center">
-                            <Avatar sizes="xxsm" variant="fjord" className="mr-2">
+                            <Avatar
+                              sizes="xxsm"
+                              variant="fjord"
+                              className="mr-2"
+                            >
                               <AvatarFallback>{user.initials}</AvatarFallback>
                             </Avatar>
                             <span className="flex-1 text-base tracking-tightest font-normal text-foreground pr-1.5">
@@ -382,8 +420,8 @@ export const WithAddNew: Story = {
                           </div>
                           <IconCheck
                             className={cn(
-                              "mr-2 h-4 w-4",
-                              value === user.value ? "opacity-100" : "opacity-0"
+                              'mr-2 h-4 w-4',
+                              value === user.value ? 'opacity-100' : 'opacity-0'
                             )}
                           />
                         </CommandItem>
@@ -398,7 +436,11 @@ export const WithAddNew: Story = {
                 </CommandList>
                 {canAddUser && (
                   <div className="p-2 border-t">
-                    <Button variant="secondary" className="w-full h-9" onClick={handleAddUser}>
+                    <Button
+                      variant="secondary"
+                      className="w-full h-9"
+                      onClick={handleAddUser}
+                    >
                       <IconPlus className="h-3.5 w-3.5 " />
                       Add {searchValue.trim()}
                     </Button>
@@ -419,33 +461,45 @@ export const MultiSelect: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const body = within(canvasElement.ownerDocument.body);
-    const trigger = canvas.getByRole("combobox");
-    await expect(trigger).toHaveTextContent("Event");
-    await expect(trigger).toHaveTextContent("Observation");
+    const trigger = canvas.getByRole('combobox');
+    await expect(trigger).toHaveTextContent('Event');
+    await expect(trigger).toHaveTextContent('Observation');
     await userEvent.click(trigger);
-    await body.findByPlaceholderText("Search data type...");
-    const commandItems = canvasElement.ownerDocument.querySelectorAll('[data-slot="command-item"]');
+    await body.findByPlaceholderText('Search data type...');
+    const commandItems = canvasElement.ownerDocument.querySelectorAll(
+      '[data-slot="command-item"]'
+    );
     if (commandItems[0]) {
       await userEvent.click(commandItems[0] as Element);
     }
-    await body.findByPlaceholderText("Search data type...");
+    await body.findByPlaceholderText('Search data type...');
   },
   render: function MultiSelectStory() {
     const [open, setOpen] = useState(false);
-    const [selectedValues, setSelectedValues] = useState<string[]>(["event", "observation"]);
-    const [searchValue, setSearchValue] = useState("");
+    const [selectedValues, setSelectedValues] = useState<string[]>([
+      'event',
+      'observation',
+    ]);
+    const [searchValue, setSearchValue] = useState('');
     const filteredDataTypes = dataTypes.filter((type) =>
       type.label.toLowerCase().includes(searchValue.toLowerCase())
     );
-    const selectedDataTypes = dataTypes.filter((type) => selectedValues.includes(type.value));
+    const selectedDataTypes = dataTypes.filter((type) =>
+      selectedValues.includes(type.value)
+    );
     const visibleSelected = selectedDataTypes.slice(0, 2);
     const remainingCount = selectedDataTypes.length - 2;
     const handleToggle = (value: string) => {
       setSelectedValues((prev) =>
-        prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value]
+        prev.includes(value)
+          ? prev.filter((v) => v !== value)
+          : [...prev, value]
       );
     };
-    const handleRemove = (value: string, e: React.MouseEvent | React.KeyboardEvent) => {
+    const handleRemove = (
+      value: string,
+      e: React.MouseEvent | React.KeyboardEvent
+    ) => {
       e.stopPropagation();
       e.preventDefault();
       setSelectedValues((prev) => prev.filter((v) => v !== value));
@@ -481,7 +535,7 @@ export const MultiSelect: Story = {
                             e.preventDefault();
                           }}
                           onKeyDown={(e) => {
-                            if (e.key === "Enter" || e.key === " ") {
+                            if (e.key === 'Enter' || e.key === ' ') {
                               e.preventDefault();
                               handleRemove(type.value, e);
                             }
@@ -494,17 +548,24 @@ export const MultiSelect: Story = {
                       </Badge>
                     ))}
                     {remainingCount > 0 && (
-                      <span className="text-sm text-muted-foreground">+ {remainingCount} more</span>
+                      <span className="text-sm text-muted-foreground">
+                        + {remainingCount} more
+                      </span>
                     )}
                     {selectedDataTypes.length === 0 && (
-                      <span className="text-sm text-muted-foreground">Select data types...</span>
+                      <span className="text-sm text-muted-foreground">
+                        Select data types...
+                      </span>
                     )}
                   </div>
                   <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
                 </Button>
               }
             />
-            <PopoverContent className="w-95 p-0" aria-label="Data type selection">
+            <PopoverContent
+              className="w-95 p-0"
+              aria-label="Data type selection"
+            >
               <Command shouldFilter={false}>
                 <CommandInput
                   placeholder="Search data type..."
@@ -527,7 +588,10 @@ export const MultiSelect: Story = {
                             {type.label}
                           </span>
                           <IconCheck
-                            className={cn("mr-2 h-4 w-4", isSelected ? "opacity-100" : "opacity-0")}
+                            className={cn(
+                              'mr-2 h-4 w-4',
+                              isSelected ? 'opacity-100' : 'opacity-0'
+                            )}
                           />
                         </CommandItem>
                       );
@@ -548,8 +612,8 @@ export const WithCheckboxes: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const trigger = canvas.getByRole("combobox");
-    await expect(trigger).toHaveTextContent("2 selected");
+    const trigger = canvas.getByRole('combobox');
+    await expect(trigger).toHaveTextContent('2 selected');
     await userEvent.click(trigger);
     await waitFor(() => {
       const commandItems = canvasElement.ownerDocument.querySelectorAll(
@@ -557,26 +621,35 @@ export const WithCheckboxes: Story = {
       );
       expect(commandItems.length).toBeGreaterThanOrEqual(5);
     });
-    const checkboxes = canvasElement.ownerDocument.querySelectorAll('[data-slot="checkbox"]');
-    expect(checkboxes[0]).toHaveAttribute("data-checked");
-    expect(checkboxes[1]).toHaveAttribute("data-checked");
-    expect(checkboxes[2]).not.toHaveAttribute("data-checked");
-    const commandItems = canvasElement.ownerDocument.querySelectorAll('[data-slot="command-item"]');
+    const checkboxes = canvasElement.ownerDocument.querySelectorAll(
+      '[data-slot="checkbox"]'
+    );
+    expect(checkboxes[0]).toHaveAttribute('data-checked');
+    expect(checkboxes[1]).toHaveAttribute('data-checked');
+    expect(checkboxes[2]).not.toHaveAttribute('data-checked');
+    const commandItems = canvasElement.ownerDocument.querySelectorAll(
+      '[data-slot="command-item"]'
+    );
     await userEvent.click(commandItems[2] as Element);
     await waitFor(() => {
-      expect(trigger).toHaveTextContent("3 selected");
+      expect(trigger).toHaveTextContent('3 selected');
     });
   },
   render: function WithCheckboxesStory() {
     const [open, setOpen] = useState(false);
-    const [selectedValues, setSelectedValues] = useState<string[]>(["notifications", "marketing"]);
-    const [searchValue, setSearchValue] = useState("");
+    const [selectedValues, setSelectedValues] = useState<string[]>([
+      'notifications',
+      'marketing',
+    ]);
+    const [searchValue, setSearchValue] = useState('');
     const filteredOptions = options.filter((option) =>
       option.label.toLowerCase().includes(searchValue.toLowerCase())
     );
     const handleToggle = (value: string) => {
       setSelectedValues((prev) =>
-        prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value]
+        prev.includes(value)
+          ? prev.filter((v) => v !== value)
+          : [...prev, value]
       );
     };
     const selectedLabels = options
@@ -599,13 +672,16 @@ export const WithCheckboxes: Story = {
                   <span className="text-sm text-muted-foreground">
                     {selectedLabels.length > 0
                       ? `${selectedLabels.length} selected`
-                      : "Select preferences..."}
+                      : 'Select preferences...'}
                   </span>
                   <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
                 </Button>
               }
             />
-            <PopoverContent className="w-95 p-0" aria-label="Preferences selection">
+            <PopoverContent
+              className="w-95 p-0"
+              aria-label="Preferences selection"
+            >
               <Command shouldFilter={false}>
                 <CommandInput
                   placeholder="Search preferences..."
@@ -650,39 +726,44 @@ export const KeyboardNavigation: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const body = within(canvasElement.ownerDocument.body);
-    const trigger = canvas.getByRole("combobox");
+    const trigger = canvas.getByRole('combobox');
     trigger.focus();
     await expect(trigger).toHaveFocus();
-    await userEvent.keyboard("{Enter}");
+    await userEvent.keyboard('{Enter}');
     await waitFor(() => {
-      if (trigger.getAttribute("aria-expanded") !== "true") {
-        throw new Error("Combobox did not open via keyboard.");
+      if (trigger.getAttribute('aria-expanded') !== 'true') {
+        throw new Error('Combobox did not open via keyboard.');
       }
     }).catch(async () => {
       await userEvent.click(trigger);
       await waitFor(() => {
-        expect(trigger).toHaveAttribute("aria-expanded", "true");
+        expect(trigger).toHaveAttribute('aria-expanded', 'true');
       });
     });
     await waitFor(() => {
-      const input = canvasElement.ownerDocument.querySelector('[data-slot="command-input"]');
+      const input = canvasElement.ownerDocument.querySelector(
+        '[data-slot="command-input"]'
+      );
       expect(input).toBeInTheDocument();
     });
-    await userEvent.keyboard("{ArrowDown}");
+    await userEvent.keyboard('{ArrowDown}');
     await waitFor(() => {
-      const selectedItem = canvasElement.ownerDocument.querySelector('[data-selected="true"]');
+      const selectedItem = canvasElement.ownerDocument.querySelector(
+        '[data-selected="true"]'
+      );
       expect(selectedItem).toBeInTheDocument();
     });
-    await userEvent.keyboard("{Escape}");
+    await userEvent.keyboard('{Escape}');
     await waitFor(() => {
-      const input = canvasElement.ownerDocument.querySelector('[data-slot="command-input"]');
+      const input = canvasElement.ownerDocument.querySelector(
+        '[data-slot="command-input"]'
+      );
       expect(input).not.toBeInTheDocument();
     });
   },
   render: function KeyboardNavigationStory() {
     const [open, setOpen] = useState(false);
-    const [value, setValue] = useState("");
+    const [value, setValue] = useState('');
     const simpleUsers = users.slice(0, 3);
     const selectedUser = simpleUsers.find((user) => user.value === value);
     return (
@@ -696,10 +777,16 @@ export const KeyboardNavigation: Story = {
                   variant="outline"
                   role="combobox"
                   aria-expanded={open}
-                  aria-label={selectedUser ? `Selected user: ${selectedUser.label}` : "Select user"}
+                  aria-label={
+                    selectedUser
+                      ? `Selected user: ${selectedUser.label}`
+                      : 'Select user'
+                  }
                   className="w-full justify-between"
                 >
-                  <span>{selectedUser ? selectedUser.label : "Select user..."}</span>
+                  <span>
+                    {selectedUser ? selectedUser.label : 'Select user...'}
+                  </span>
                   <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
                 </Button>
               }
@@ -715,7 +802,7 @@ export const KeyboardNavigation: Story = {
                         key={user.value}
                         value={user.value}
                         onSelect={(currentValue) => {
-                          setValue(currentValue === value ? "" : currentValue);
+                          setValue(currentValue === value ? '' : currentValue);
                           setOpen(false);
                         }}
                         className="flex items-center gap-2 h-9"
@@ -726,8 +813,8 @@ export const KeyboardNavigation: Story = {
                         </span>
                         <IconCheck
                           className={cn(
-                            "mr-2 h-4 w-4",
-                            value === user.value ? "opacity-100" : "opacity-0"
+                            'mr-2 h-4 w-4',
+                            value === user.value ? 'opacity-100' : 'opacity-0'
                           )}
                         />
                       </CommandItem>
@@ -749,9 +836,9 @@ export const EmptyState: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const body = within(canvasElement.ownerDocument.body);
-    const trigger = canvas.getByRole("combobox");
+    const trigger = canvas.getByRole('combobox');
     await userEvent.click(trigger);
-    await body.findByText("No users available");
+    await body.findByText('No users available');
   },
   render: function EmptyStateStory() {
     const [open, setOpen] = useState(false);
@@ -769,7 +856,9 @@ export const EmptyState: Story = {
                   aria-label="Select user"
                   className="w-full justify-between"
                 >
-                  <span className="text-sm text-muted-foreground">Select user...</span>
+                  <span className="text-sm text-muted-foreground">
+                    Select user...
+                  </span>
                   <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
                 </Button>
               }
@@ -795,12 +884,14 @@ export const Disabled: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const body = within(canvasElement.ownerDocument.body);
-    const trigger = canvas.getByRole("combobox");
+    const trigger = canvas.getByRole('combobox');
     await expect(trigger).toBeDisabled();
-    await expect(trigger).toHaveAttribute("aria-expanded", "false");
+    await expect(trigger).toHaveAttribute('aria-expanded', 'false');
     const styles = window.getComputedStyle(trigger);
-    expect(styles.pointerEvents).toBe("none");
-    expect(body.queryByPlaceholderText("Search users...")).not.toBeInTheDocument();
+    expect(styles.pointerEvents).toBe('none');
+    expect(
+      body.queryByPlaceholderText('Search users...')
+    ).not.toBeInTheDocument();
   },
   render: function DisabledStory() {
     const [open, setOpen] = useState(false);
@@ -819,7 +910,9 @@ export const Disabled: Story = {
                   className="w-full justify-between"
                   disabled
                 >
-                  <span className="text-sm text-muted-foreground">Select user...</span>
+                  <span className="text-sm text-muted-foreground">
+                    Select user...
+                  </span>
                   <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
                 </Button>
               }
@@ -846,14 +939,14 @@ export const WithError: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const trigger = canvas.getByRole("combobox");
-    await expect(trigger).toHaveAttribute("aria-invalid", "true");
-    const helperText = canvas.getByText("Please select a user");
+    const trigger = canvas.getByRole('combobox');
+    await expect(trigger).toHaveAttribute('aria-invalid', 'true');
+    const helperText = canvas.getByText('Please select a user');
     await expect(helperText).toBeInTheDocument();
   },
   render: function WithErrorStory() {
     const [open, setOpen] = useState(false);
-    const [value, setValue] = useState("");
+    const [value, setValue] = useState('');
     const selectedUser = users.find((user) => user.value === value);
     return (
       <div className="grid w-full max-w-sm items-center gap-1">
@@ -871,10 +964,16 @@ export const WithError: Story = {
                 role="combobox"
                 aria-expanded={open}
                 aria-invalid={true}
-                aria-label={selectedUser ? `Selected user: ${selectedUser.label}` : "Select user"}
+                aria-label={
+                  selectedUser
+                    ? `Selected user: ${selectedUser.label}`
+                    : 'Select user'
+                }
                 className="w-full justify-between aria-invalid:border-destructive-foreground aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40"
               >
-                <span>{selectedUser ? selectedUser.label : "Select user..."}</span>
+                <span>
+                  {selectedUser ? selectedUser.label : 'Select user...'}
+                </span>
                 <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
               </Button>
             }
@@ -890,7 +989,7 @@ export const WithError: Story = {
                       key={user.value}
                       value={user.value}
                       onSelect={(currentValue) => {
-                        setValue(currentValue === value ? "" : currentValue);
+                        setValue(currentValue === value ? '' : currentValue);
                         setOpen(false);
                       }}
                       className="flex items-center gap-2 h-9"
@@ -900,8 +999,8 @@ export const WithError: Story = {
                       </span>
                       <IconCheck
                         className={cn(
-                          "mr-2 h-4 w-4",
-                          value === user.value ? "opacity-100" : "opacity-0"
+                          'mr-2 h-4 w-4',
+                          value === user.value ? 'opacity-100' : 'opacity-0'
                         )}
                       />
                     </CommandItem>
@@ -922,7 +1021,7 @@ export const ComplexInteractive: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const trigger = canvas.getByRole("combobox");
+    const trigger = canvas.getByRole('combobox');
     await userEvent.click(trigger);
     await waitFor(() => {
       const commandItems = canvasElement.ownerDocument.querySelectorAll(
@@ -930,15 +1029,17 @@ export const ComplexInteractive: Story = {
       );
       expect(commandItems.length).toBeGreaterThanOrEqual(10);
     });
-    const commandItems = canvasElement.ownerDocument.querySelectorAll('[data-slot="command-item"]');
+    const commandItems = canvasElement.ownerDocument.querySelectorAll(
+      '[data-slot="command-item"]'
+    );
     await userEvent.click(commandItems[0] as Element);
     await waitFor(() => {
-      expect(trigger).toHaveTextContent("Menu item 1");
+      expect(trigger).toHaveTextContent('Menu item 1');
     });
   },
   render: function ComplexInteractiveStory() {
     const [open, setOpen] = useState(false);
-    const [value, setValue] = useState("");
+    const [value, setValue] = useState('');
     const menuItems = Array.from(
       {
         length: 5,
@@ -969,10 +1070,16 @@ export const ComplexInteractive: Story = {
                 variant="outline"
                 role="combobox"
                 aria-expanded={open}
-                aria-label={selectedItem ? `Selected view: ${selectedItem.label}` : "Select view"}
+                aria-label={
+                  selectedItem
+                    ? `Selected view: ${selectedItem.label}`
+                    : 'Select view'
+                }
                 className="w-full justify-between"
               >
-                <span>{selectedItem ? selectedItem.label : "Select view..."}</span>
+                <span>
+                  {selectedItem ? selectedItem.label : 'Select view...'}
+                </span>
                 <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
               </Button>
             }
@@ -984,13 +1091,16 @@ export const ComplexInteractive: Story = {
                 <CommandGroup className="px-1 pt-0 pb-1 mt-1">
                   <CommandEmpty>No view found.</CommandEmpty>
                 </CommandGroup>
-                <CommandGroup heading="Section label" className="px-1 pt-0 pb-1 mt-1">
+                <CommandGroup
+                  heading="Section label"
+                  className="px-1 pt-0 pb-1 mt-1"
+                >
                   {menuItems.map((item) => (
                     <CommandItem
                       key={item.value}
                       value={item.value}
                       onSelect={(currentValue) => {
-                        setValue(currentValue === value ? "" : currentValue);
+                        setValue(currentValue === value ? '' : currentValue);
                         setOpen(false);
                       }}
                     >
@@ -999,13 +1109,16 @@ export const ComplexInteractive: Story = {
                   ))}
                 </CommandGroup>
                 <CommandSeparator />
-                <CommandGroup heading="Section label" className="px-1 pt-0 pb-1 mt-1">
+                <CommandGroup
+                  heading="Section label"
+                  className="px-1 pt-0 pb-1 mt-1"
+                >
                   {secondMenuItems.map((item) => (
                     <CommandItem
                       key={item.value}
                       value={item.value}
                       onSelect={(currentValue) => {
-                        setValue(currentValue === value ? "" : currentValue);
+                        setValue(currentValue === value ? '' : currentValue);
                         setOpen(false);
                       }}
                     >
@@ -1028,7 +1141,7 @@ export const Playground: Story = {
   },
   render: function PlaygroundStory() {
     const [open, setOpen] = useState(false);
-    const [value, setValue] = useState("michael-jordan");
+    const [value, setValue] = useState('michael-jordan');
     const selectedUser = users.find((user) => user.value === value);
     return (
       <div className="flex flex-col gap-3">
@@ -1041,7 +1154,11 @@ export const Playground: Story = {
                   variant="outline"
                   role="combobox"
                   aria-expanded={open}
-                  aria-label={selectedUser ? `Selected user: ${selectedUser.label}` : "Select user"}
+                  aria-label={
+                    selectedUser
+                      ? `Selected user: ${selectedUser.label}`
+                      : 'Select user'
+                  }
                   className="w-full justify-between"
                 >
                   <div className="flex items-center gap-2">
@@ -1053,7 +1170,9 @@ export const Playground: Story = {
                         </span>
                       </>
                     ) : (
-                      <span className="text-sm text-muted-foreground">Select user...</span>
+                      <span className="text-sm text-muted-foreground">
+                        Select user...
+                      </span>
                     )}
                   </div>
                   <IconSelector className="h-4 w-4 opacity-50" />
@@ -1071,7 +1190,7 @@ export const Playground: Story = {
                         key={user.value}
                         value={user.value}
                         onSelect={(currentValue) => {
-                          setValue(currentValue === value ? "" : currentValue);
+                          setValue(currentValue === value ? '' : currentValue);
                           setOpen(false);
                         }}
                         className="flex justify-between h-9 pr-0"
@@ -1089,8 +1208,8 @@ export const Playground: Story = {
                         </div>
                         <IconCheck
                           className={cn(
-                            "mr-2 h-4 w-4",
-                            value === user.value ? "opacity-100" : "opacity-0"
+                            'mr-2 h-4 w-4',
+                            value === user.value ? 'opacity-100' : 'opacity-0'
                           )}
                         />
                       </CommandItem>

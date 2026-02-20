@@ -5,8 +5,8 @@ import {
   AlertClose,
   AlertDescription,
   AlertTitle,
-} from "./alert";
-import { AlertMetadata } from "./alert.metadata";
+} from './alert';
+import { AlertMetadata } from './alert.metadata';
 
 export {
   Alert,

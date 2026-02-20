@@ -1,7 +1,7 @@
-import { TopbarVisibility } from "@/components/TopbarVisibility";
-import { Navigation } from "@/components/navigation";
-import { ThemeProvider } from "@/components/theme-provider";
-import { Toaster } from "@/components/ui/aura/sonner-toast";
+import { Navigation } from '@/components/navigation';
+import { ThemeProvider } from '@/components/theme-provider';
+import { TopbarVisibility } from '@/components/TopbarVisibility';
+import { Toaster } from '@/components/ui/aura/sonner-toast';
 
 interface RootLayoutProps {
   children: React.ReactNode;
@@ -14,7 +14,7 @@ export function RootLayout({ children }: RootLayoutProps) {
       defaultTheme="dark"
       enableSystem
       disableTransitionOnChange
-      themes={["light", "dark"]}
+      themes={['light', 'dark']}
     >
       <div className="relative flex min-h-screen flex-col">
         <TopbarVisibility>
