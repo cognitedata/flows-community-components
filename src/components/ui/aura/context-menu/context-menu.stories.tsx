@@ -28,9 +28,12 @@ const meta: Meta<typeof ContextMenu> = {
 export default meta;
 type Story = StoryObj<typeof ContextMenu>;
 export const Default: Story = {
+  parameters: {
+    order: 1,
+  },
   render: () => (
     <ContextMenu>
-      <ContextMenuTrigger className="flex h-[150px] w-[300px] items-center justify-center rounded-md border border-dashed text-sm">
+      <ContextMenuTrigger className="flex h-36 w-75 items-center justify-center rounded-md border border-dashed text-sm">
         Right click here
       </ContextMenuTrigger>
       <ContextMenuContent className="w-64">
@@ -53,21 +56,22 @@ export const Default: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const body = within(canvasElement.ownerDocument.body);
     const trigger = canvas.getByText("Right click here");
     await userEvent.pointer({
       target: trigger,
       keys: "[MouseRight]",
     });
-    await waitFor(() => {
-      const menu = document.querySelector('[data-slot="context-menu-content"]');
-      expect(menu).toBeInTheDocument();
-    });
+    await body.findByRole("menu");
   },
 };
 export const WithSubmenus: Story = {
+  parameters: {
+    order: 2,
+  },
   render: () => (
     <ContextMenu>
-      <ContextMenuTrigger className="flex h-[150px] w-[300px] items-center justify-center rounded-md border border-dashed text-sm">
+      <ContextMenuTrigger className="flex h-36 w-75 items-center justify-center rounded-md border border-dashed text-sm">
         Right click here
       </ContextMenuTrigger>
       <ContextMenuContent className="w-64">
@@ -98,13 +102,16 @@ export const WithSubmenus: Story = {
   ),
 };
 export const WithCheckboxItems: Story = {
+  parameters: {
+    order: 3,
+  },
   render: function CheckboxContextMenu() {
     const [showStatusBar, setShowStatusBar] = useState(true);
     const [showActivityBar, setShowActivityBar] = useState(false);
     const [showPanel, setShowPanel] = useState(false);
     return (
       <ContextMenu>
-        <ContextMenuTrigger className="flex h-[150px] w-[300px] items-center justify-center rounded-md border border-dashed text-sm">
+        <ContextMenuTrigger className="flex h-36 w-75 items-center justify-center rounded-md border border-dashed text-sm">
           Right click here
         </ContextMenuTrigger>
         <ContextMenuContent className="w-64">
@@ -125,11 +132,14 @@ export const WithCheckboxItems: Story = {
   },
 };
 export const WithRadioGroup: Story = {
+  parameters: {
+    order: 4,
+  },
   render: function RadioContextMenu() {
     const [person, setPerson] = useState("pedro");
     return (
       <ContextMenu>
-        <ContextMenuTrigger className="flex h-[150px] w-[300px] items-center justify-center rounded-md border border-dashed text-sm">
+        <ContextMenuTrigger className="flex h-36 w-75 items-center justify-center rounded-md border border-dashed text-sm">
           Right click here
         </ContextMenuTrigger>
         <ContextMenuContent className="w-64">
@@ -146,9 +156,12 @@ export const WithRadioGroup: Story = {
   },
 };
 export const WithDestructiveItem: Story = {
+  parameters: {
+    order: 5,
+  },
   render: () => (
     <ContextMenu>
-      <ContextMenuTrigger className="flex h-[150px] w-[300px] items-center justify-center rounded-md border border-dashed text-sm">
+      <ContextMenuTrigger className="flex h-36 w-75 items-center justify-center rounded-md border border-dashed text-sm">
         Right click here
       </ContextMenuTrigger>
       <ContextMenuContent className="w-64">
@@ -165,9 +178,12 @@ export const WithDestructiveItem: Story = {
   ),
 };
 export const WithDisabledItems: Story = {
+  parameters: {
+    order: 6,
+  },
   render: () => (
     <ContextMenu>
-      <ContextMenuTrigger className="flex h-[150px] w-[300px] items-center justify-center rounded-md border border-dashed text-sm">
+      <ContextMenuTrigger className="flex h-36 w-75 items-center justify-center rounded-md border border-dashed text-sm">
         Right click here
       </ContextMenuTrigger>
       <ContextMenuContent className="w-64">
@@ -182,11 +198,14 @@ export const WithDisabledItems: Story = {
   ),
 };
 export const FileManagerExample: Story = {
+  parameters: {
+    order: 7,
+  },
   render: function FileManagerContextMenu() {
     const [viewMode, setViewMode] = useState("list");
     return (
       <ContextMenu>
-        <ContextMenuTrigger className="flex h-[200px] w-[400px] items-center justify-center rounded-md border border-dashed text-sm bg-muted/20">
+        <ContextMenuTrigger className="flex h-50 w-100 items-center justify-center rounded-md border border-dashed text-sm bg-muted/20">
           <div className="text-center">
             <p className="font-medium">File Manager Area</p>
             <p className="text-muted-foreground text-xs">Right click for options</p>
@@ -234,10 +253,16 @@ export const FileManagerExample: Story = {
   },
 };
 export const VisualRegression: Story = {
+  parameters: {
+    order: 8,
+    chromatic: {
+      disableSnapshot: false,
+    },
+  },
   render: () => (
     <div className="p-4">
       <ContextMenu>
-        <ContextMenuTrigger className="flex h-[100px] w-[200px] items-center justify-center rounded-md border border-dashed text-sm">
+        <ContextMenuTrigger className="flex h-25 w-50 items-center justify-center rounded-md border border-dashed text-sm">
           Right click here
         </ContextMenuTrigger>
         <ContextMenuContent className="w-48">
@@ -249,16 +274,14 @@ export const VisualRegression: Story = {
       </ContextMenu>
     </div>
   ),
-  parameters: {
-    chromatic: {
-      disableSnapshot: false,
-    },
-  },
 };
 export const Playground: Story = {
+  parameters: {
+    order: 99,
+  },
   render: () => (
     <ContextMenu>
-      <ContextMenuTrigger className="flex h-[150px] w-[300px] items-center justify-center rounded-md border border-dashed text-sm">
+      <ContextMenuTrigger className="flex h-36 w-75 items-center justify-center rounded-md border border-dashed text-sm">
         Right click to open menu
       </ContextMenuTrigger>
       <ContextMenuContent className="w-64">
