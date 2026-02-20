@@ -198,9 +198,8 @@ export const WithCodeBlock: Story = {
         /Can you show me how to analyze vibration data using TypeScript\?/i
       )
     ).toBeInTheDocument();
-    await expect(canvasElement.textContent ?? '').toMatch(
-      /analyzeVibrationData/i
-    );
+    const codeBlock = canvasElement.querySelector('[data-code-block]');
+    await expect(codeBlock).toBeTruthy();
     const buttons = await canvas.findAllByRole('button');
     await expect(buttons.length).toBe(4);
   },
