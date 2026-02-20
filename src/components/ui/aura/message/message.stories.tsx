@@ -101,7 +101,7 @@ export const Default: Story = {
             There are abnormal vibration levels on{' '}
             <InlineCitation>
               <InlineCitationLink
-                href="https://example.com/pump/21PT1019"
+                href="https://cognite.test/pump/21PT1019"
                 target="_blank"
                 icon={IconHash}
                 variant="nordic"
@@ -124,7 +124,7 @@ export const Default: Story = {
             I analyzed the sensor data and found that vibration levels on{' '}
             <InlineCitation>
               <InlineCitationLink
-                href="https://example.com/pump/21PT1019"
+                href="https://cognite.test/pump/21PT1019"
                 target="_blank"
                 icon={IconHash}
                 variant="nordic"
@@ -138,7 +138,7 @@ export const Default: Story = {
           <div className="flex flex-row gap-2">
             <InlineCitation>
               <InlineCitationLink
-                href="https://example.com/chart/timeline"
+                href="https://cognite.test/chart/timeline"
                 target="_blank"
                 icon={IconTimeline}
               >
@@ -147,7 +147,7 @@ export const Default: Story = {
             </InlineCitation>
             <InlineCitation>
               <InlineCitationLink
-                href="https://example.com/image/image1.jpg"
+                href="https://cognite.test/image/image1.jpg"
                 target="_blank"
                 icon={IconPhoto}
               >
@@ -156,7 +156,7 @@ export const Default: Story = {
             </InlineCitation>
             <InlineCitation>
               <InlineCitationLink
-                href="https://example.com/documentation.pdf"
+                href="https://cognite.test/documentation.pdf"
                 target="_blank"
                 icon={IconFile}
               >
@@ -295,7 +295,7 @@ export const MessageResponseStreamdown: Story = {
 
 This is a paragraph with **bold text**, *italic text*, and \`inline code\`. You can also combine **_bold and italic_** together.
 
-Here's a [link to documentation](https://example.com) that demonstrates anchor styling.
+Here's a [link to documentation](https://cognite.test) that demonstrates anchor styling.
 
 ---
 
