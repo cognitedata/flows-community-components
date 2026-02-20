@@ -1,7 +1,7 @@
-import type { ComponentMeta } from "@/lib/component-examples";
+import type { ComponentMeta } from '@/lib/component-examples';
 
 export const TypographyMetadata: ComponentMeta = {
-  name: "Typography",
-  status: "in-progress-design-conformance",
-  description: "Text styles and scales",
+  name: 'Typography',
+  status: 'in-progress-design-conformance',
+  description: 'Text styles and scales',
 };

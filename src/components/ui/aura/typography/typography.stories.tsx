@@ -1,7 +1,9 @@
-import { CodeBlock } from "@/components/ui/aura/code-block";
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, within } from "@storybook/test";
-import { getTypographyBySection, typographyPatterns, typographyScale } from "./typography";
+import type { Meta, StoryObj } from '@storybook/react';
+import { expect, within } from '@storybook/test';
+
+import { getTypographyBySection, typographyPatterns, typographyScale } from './typography';
+
+import { CodeBlock } from '@/components/ui/aura/code-block';
 
 /**
  * # Aura Typography System
@@ -30,10 +32,10 @@ import { getTypographyBySection, typographyPatterns, typographyScale } from "./t
  * ```
  */
 const meta: Meta = {
-  title: "Foundations/Typography",
-  tags: ["autodocs"],
+  title: 'Foundations/Typography',
+  tags: ['autodocs'],
   parameters: {
-    layout: "padded",
+    layout: 'padded',
   },
 };
 
@@ -53,7 +55,7 @@ export const TextScale: Story = {
     docs: {
       description: {
         story:
-          "Displays all 20 text typography variants using the Inter font family. Each variant shows the name, Tailwind class, sample text, and usage guidance.",
+          'Displays all 20 text typography variants using the Inter font family. Each variant shows the name, Tailwind class, sample text, and usage guidance.',
       },
     },
   },
@@ -61,21 +63,21 @@ export const TextScale: Story = {
     const canvas = within(canvasElement);
 
     // Verify all text variants are rendered
-    const textVariants = getTypographyBySection("Text");
+    const textVariants = getTypographyBySection('Text');
     await expect(textVariants.length).toBe(20);
 
     // Check that sample text is rendered for each variant
-    const sampleTexts = canvas.getAllByText("The quick brown fox jumps over the lazy dog.");
+    const sampleTexts = canvas.getAllByText('The quick brown fox jumps over the lazy dog.');
     await expect(sampleTexts.length).toBe(textVariants.length);
 
     // Verify specific variants exist
-    await expect(canvas.getByText("xxs/normal")).toBeInTheDocument();
-    await expect(canvas.getByText("5xl/medium")).toBeInTheDocument();
-    await expect(canvas.getByText("text-base font-normal")).toBeInTheDocument();
+    await expect(canvas.getByText('xxs/normal')).toBeInTheDocument();
+    await expect(canvas.getByText('5xl/medium')).toBeInTheDocument();
+    await expect(canvas.getByText('text-base font-normal')).toBeInTheDocument();
   },
   render: () => (
     <div className="space-y-6" data-testid="text-scale">
-      {getTypographyBySection("Text").map((t) => (
+      {getTypographyBySection('Text').map((t) => (
         <div
           key={`${t.name}-${t.fontWeight}`}
           className="border-b border-border pb-4 last:border-b-0"
@@ -104,7 +106,7 @@ export const MarketingScale: Story = {
     docs: {
       description: {
         story:
-          "Displays all 4 marketing typography variants using the Space Grotesk font family. Use for hero sections, landing pages, and sign-in screens.",
+          'Displays all 4 marketing typography variants using the Space Grotesk font family. Use for hero sections, landing pages, and sign-in screens.',
       },
     },
   },
@@ -112,19 +114,19 @@ export const MarketingScale: Story = {
     const canvas = within(canvasElement);
 
     // Verify all marketing variants are rendered
-    const marketingVariants = getTypographyBySection("Marketing");
+    const marketingVariants = getTypographyBySection('Marketing');
     await expect(marketingVariants.length).toBe(4);
 
     // Check that sample text is rendered for each variant
-    const sampleTexts = canvas.getAllByText("The quick brown fox jumps over the lazy dog.");
+    const sampleTexts = canvas.getAllByText('The quick brown fox jumps over the lazy dog.');
     await expect(sampleTexts.length).toBe(marketingVariants.length);
 
     // Verify marketing font class is present
-    await expect(canvas.getByText("font-marketing text-5xl font-bold")).toBeInTheDocument();
+    await expect(canvas.getByText('font-marketing text-5xl font-bold')).toBeInTheDocument();
   },
   render: () => (
     <div className="space-y-6" data-testid="marketing-scale">
-      {getTypographyBySection("Marketing").map((t) => (
+      {getTypographyBySection('Marketing').map((t) => (
         <div
           key={`${t.name}-${t.fontWeight}`}
           className="border-b border-border pb-4 last:border-b-0"
@@ -153,7 +155,7 @@ export const CodeScale: Story = {
     docs: {
       description: {
         story:
-          "Displays all 3 code typography variants using the Source Code Pro monospace font. Use for code blocks, inline code, and terminal output.",
+          'Displays all 3 code typography variants using the Source Code Pro monospace font. Use for code blocks, inline code, and terminal output.',
       },
     },
   },
@@ -161,7 +163,7 @@ export const CodeScale: Story = {
     const canvas = within(canvasElement);
 
     // Verify all code variants are rendered
-    const codeVariants = getTypographyBySection("Code");
+    const codeVariants = getTypographyBySection('Code');
     await expect(codeVariants.length).toBe(3);
 
     // Check that code sample text is rendered
@@ -169,11 +171,11 @@ export const CodeScale: Story = {
     await expect(sampleTexts.length).toBe(codeVariants.length);
 
     // Verify monospace font class is present
-    await expect(canvas.getByText("font-mono text-sm font-medium")).toBeInTheDocument();
+    await expect(canvas.getByText('font-mono text-sm font-medium')).toBeInTheDocument();
   },
   render: () => (
     <div className="space-y-6" data-testid="code-scale">
-      {getTypographyBySection("Code").map((t) => (
+      {getTypographyBySection('Code').map((t) => (
         <div
           key={t.name}
           className="border-b border-border pb-4 last:border-b-0"
@@ -206,7 +208,7 @@ export const Hierarchy: Story = {
     docs: {
       description: {
         story:
-          "Demonstrates how different typography scales create visual hierarchy when stacked together. Shows the rhythm from 4xl headings down to xxs labels.",
+          'Demonstrates how different typography scales create visual hierarchy when stacked together. Shows the rhythm from 4xl headings down to xxs labels.',
       },
     },
   },
@@ -214,15 +216,15 @@ export const Hierarchy: Story = {
     const canvas = within(canvasElement);
 
     // Verify hierarchy structure exists
-    await expect(canvas.getByText("Page Title (4xl/medium)")).toBeInTheDocument();
+    await expect(canvas.getByText('Page Title (4xl/medium)')).toBeInTheDocument();
     await expect(canvas.getByText(/Subtitle explaining the page purpose/)).toBeInTheDocument();
     await expect(canvas.getByText(/Body text that makes up/)).toBeInTheDocument();
     await expect(canvas.getByText(/Secondary information or metadata/)).toBeInTheDocument();
     await expect(canvas.getByText(/Fine print or label/)).toBeInTheDocument();
 
     // Verify correct heading level
-    const heading = canvas.getByRole("heading", { level: 1 });
-    await expect(heading).toHaveTextContent("Page Title (4xl/medium)");
+    const heading = canvas.getByRole('heading', { level: 1 });
+    await expect(heading).toHaveTextContent('Page Title (4xl/medium)');
   },
   render: () => (
     <article className="max-w-2xl space-y-4" data-testid="hierarchy">
@@ -250,7 +252,7 @@ export const Hierarchy: Story = {
  * Use at the top of pages to establish context.
  */
 export const PageHeaderPattern: Story = {
-  name: "Pattern: Page Header",
+  name: 'Pattern: Page Header',
   render: () => (
     <header className="space-y-2 border-b border-border pb-6">
       <h1 className="text-4xl font-medium">Settings</h1>
@@ -265,7 +267,7 @@ export const PageHeaderPattern: Story = {
  * Card pattern showing title, description, and metadata together.
  */
 export const CardPattern: Story = {
-  name: "Pattern: Card",
+  name: 'Pattern: Card',
   render: () => (
     <div className="rounded-lg border border-border p-6 max-w-sm space-y-2">
       <h3 className="text-lg font-medium">Project Alpha</h3>
@@ -281,13 +283,13 @@ export const CardPattern: Story = {
  * List item pattern with primary and secondary text.
  */
 export const ListItemPattern: Story = {
-  name: "Pattern: List Item",
+  name: 'Pattern: List Item',
   render: () => (
     <div className="max-w-md divide-y divide-border">
       {[
-        { title: "Design Review", secondary: "Due tomorrow" },
-        { title: "API Integration", secondary: "In progress" },
-        { title: "User Testing", secondary: "Scheduled for next week" },
+        { title: 'Design Review', secondary: 'Due tomorrow' },
+        { title: 'API Integration', secondary: 'In progress' },
+        { title: 'User Testing', secondary: 'Scheduled for next week' },
       ].map((item) => (
         <div key={item.title} className="flex flex-col py-3">
           <span className="text-base font-medium">{item.title}</span>
@@ -302,7 +304,7 @@ export const ListItemPattern: Story = {
  * Form field pattern with label, input placeholder, and helper text.
  */
 export const FormFieldPattern: Story = {
-  name: "Pattern: Form Field",
+  name: 'Pattern: Form Field',
   render: () => (
     <div className="space-y-6 max-w-sm">
       <div className="space-y-1.5">
@@ -339,7 +341,7 @@ export const FormFieldPattern: Story = {
  * Article body showing long-form content structure.
  */
 export const ArticleBodyPattern: Story = {
-  name: "Pattern: Article Body",
+  name: 'Pattern: Article Body',
   render: () => (
     <article className="max-w-prose space-y-6">
       <header>
@@ -383,7 +385,7 @@ export const ArticleBodyPattern: Story = {
  * Marketing hero section for landing pages.
  */
 export const MarketingHeroPattern: Story = {
-  name: "Pattern: Marketing Hero",
+  name: 'Pattern: Marketing Hero',
   render: () => (
     <div className="text-center space-y-6 max-w-3xl mx-auto py-16">
       <h1 className="font-marketing text-5xl font-bold">Build faster with Aura</h1>
@@ -413,7 +415,7 @@ export const MarketingHeroPattern: Story = {
  * Data table pattern showing header and cell typography.
  */
 export const DataTablePattern: Story = {
-  name: "Pattern: Data Table",
+  name: 'Pattern: Data Table',
   render: () => (
     <div className="rounded-lg border border-border overflow-hidden">
       <table className="w-full">
@@ -432,9 +434,9 @@ export const DataTablePattern: Story = {
         </thead>
         <tbody className="divide-y divide-border">
           {[
-            { name: "Project Alpha", status: "Active", date: "Jan 7, 2026" },
-            { name: "Project Beta", status: "Draft", date: "Jan 5, 2026" },
-            { name: "Project Gamma", status: "Archived", date: "Dec 28, 2025" },
+            { name: 'Project Alpha', status: 'Active', date: 'Jan 7, 2026' },
+            { name: 'Project Beta', status: 'Draft', date: 'Jan 5, 2026' },
+            { name: 'Project Gamma', status: 'Archived', date: 'Dec 28, 2025' },
           ].map((row) => (
             <tr key={row.name}>
               <td className="text-sm font-normal px-4 py-3">{row.name}</td>
@@ -455,12 +457,12 @@ export const DataTablePattern: Story = {
  * This pattern is used by the MessageResponse component with Streamdown for markdown rendering.
  */
 export const AIChatResponsePattern: Story = {
-  name: "Pattern: AI Chat Response",
+  name: 'Pattern: AI Chat Response',
   parameters: {
     docs: {
       description: {
         story:
-          "Demonstrates typography hierarchy for AI-generated responses within a chat interface. Uses a modest scale (h1=text-xl, h2=text-lg) appropriate for content subordinate to the chat UI. Includes vertical rhythm (margins) for natural reading flow. Used by MessageResponse component.",
+          'Demonstrates typography hierarchy for AI-generated responses within a chat interface. Uses a modest scale (h1=text-xl, h2=text-lg) appropriate for content subordinate to the chat UI. Includes vertical rhythm (margins) for natural reading flow. Used by MessageResponse component.',
       },
     },
   },
@@ -475,10 +477,10 @@ export const AIChatResponsePattern: Story = {
         <ul className="ml-8.25 mb-3 pt-2 pl-0 pb-0 list-disc text-base font-normal tracking-tightest">
           <li className="py-0">Generate an API key from your dashboard</li>
           <li className="py-0">
-            Include it in the{" "}
+            Include it in the{' '}
             <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">
               Authorization
-            </code>{" "}
+            </code>{' '}
             header
           </li>
           <li className="py-0">Make requests to the API endpoint</li>
@@ -491,12 +493,12 @@ export const AIChatResponsePattern: Story = {
         <hr className="my-4 border-border" />
         <h3 className="text-base font-medium tracking-tighter mt-4 mb-1">Example Request</h3>
         <p className="text-base font-normal leading-7 tracking-tightest mt-2 mb-3">
-          Here&apos;s how to make your first request using{" "}
+          Here&apos;s how to make your first request using{' '}
           <strong className="font-medium">fetch</strong> or <em className="italic">curl</em>. The
           API returns JSON responses with proper error handling.
         </p>
         <p className="text-base font-normal leading-7 tracking-tightest mt-2 mb-3">
-          For more details, visit the{" "}
+          For more details, visit the{' '}
           <a
             className="text-foreground-link no-underline hover:underline underline-offset-4"
             href="https://example.com"
@@ -516,12 +518,12 @@ export const AIChatResponsePattern: Story = {
  * Designed for full-page documentation, guides, or long-form articles where content is primary.
  */
 export const DocumentationPagePattern: Story = {
-  name: "Pattern: Documentation Page",
+  name: 'Pattern: Documentation Page',
   parameters: {
     docs: {
       description: {
         story:
-          "Demonstrates typography hierarchy for standalone documentation or article pages. Uses a larger scale (h1=text-4xl, h2=text-2xl) appropriate for primary content that dominates the page. Suitable for full-page docs, guides, or long-form articles.",
+          'Demonstrates typography hierarchy for standalone documentation or article pages. Uses a larger scale (h1=text-4xl, h2=text-2xl) appropriate for primary content that dominates the page. Suitable for full-page docs, guides, or long-form articles.',
       },
     },
   },
@@ -551,19 +553,19 @@ export const DocumentationPagePattern: Story = {
       </p>
 
       <blockquote className="my-4 pl-4 border-l-2 border-l-border text-base text-muted-foreground italic">
-        Remember to add your config file to{" "}
+        Remember to add your config file to{' '}
         <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold not-italic">
           .gitignore
-        </code>{" "}
+        </code>{' '}
         if it contains sensitive information.
       </blockquote>
 
       <h4 className="text-lg font-medium mt-4 mb-1">Environment Variables</h4>
       <p className="text-base font-normal leading-7 mt-0 mb-4">
-        Set up your environment variables in a{" "}
+        Set up your environment variables in a{' '}
         <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">
           .env
-        </code>{" "}
+        </code>{' '}
         file. Never commit this file to your repository.
       </p>
 
@@ -593,13 +595,13 @@ export const DocumentationPagePattern: Story = {
  * and all Code styles (sm/md/lg).
  */
 export const FullPageExample: Story = {
-  name: "Example: Full Page",
+  name: 'Example: Full Page',
   parameters: {
-    layout: "fullscreen",
+    layout: 'fullscreen',
     docs: {
       description: {
         story:
-          "A comprehensive page example using ALL 27 typography styles. Includes marketing hero sections, page headers, article content, metrics, data tables, forms, and footer. Tests that all font families (Inter, Space Grotesk, Source Code Pro) and all size/weight combinations are present.",
+          'A comprehensive page example using ALL 27 typography styles. Includes marketing hero sections, page headers, article content, metrics, data tables, forms, and footer. Tests that all font families (Inter, Space Grotesk, Source Code Pro) and all size/weight combinations are present.',
       },
     },
   },
@@ -607,25 +609,25 @@ export const FullPageExample: Story = {
     const canvas = within(canvasElement);
 
     // Test Marketing Typography (Space Grotesk)
-    await expect(canvas.getByText("Build beautiful interfaces faster")).toBeInTheDocument();
+    await expect(canvas.getByText('Build beautiful interfaces faster')).toBeInTheDocument();
     await expect(
-      canvas.getByText("The complete design system for modern applications")
+      canvas.getByText('The complete design system for modern applications')
     ).toBeInTheDocument();
-    await expect(canvas.getByText("Trusted by thousands of developers")).toBeInTheDocument();
+    await expect(canvas.getByText('Trusted by thousands of developers')).toBeInTheDocument();
 
     // Test Page Headers (5xl, 4xl variants)
-    await expect(canvas.getByText("Documentation")).toBeInTheDocument();
-    await expect(canvas.getByText("Everything you need")).toBeInTheDocument();
-    await expect(canvas.getByText("Getting Started Guide")).toBeInTheDocument();
+    await expect(canvas.getByText('Documentation')).toBeInTheDocument();
+    await expect(canvas.getByText('Everything you need')).toBeInTheDocument();
+    await expect(canvas.getByText('Getting Started Guide')).toBeInTheDocument();
 
     // Test Article Content (2xl, xl, base variants)
-    await expect(canvas.getByText("Core Concepts")).toBeInTheDocument();
+    await expect(canvas.getByText('Core Concepts')).toBeInTheDocument();
     await expect(canvas.getByText(/All components are fully accessible/)).toBeInTheDocument();
 
     // Test Metrics Section (xs font-normal for chart labels)
-    await expect(canvas.getByText("Usage Analytics")).toBeInTheDocument();
-    await expect(canvas.getByText("Downloads")).toBeInTheDocument();
-    await expect(canvas.getByText("2.4M")).toBeInTheDocument();
+    await expect(canvas.getByText('Usage Analytics')).toBeInTheDocument();
+    await expect(canvas.getByText('Downloads')).toBeInTheDocument();
+    await expect(canvas.getByText('2.4M')).toBeInTheDocument();
 
     // Test Code Examples (all three code sizes)
     await expect(canvas.getByText(/Small \(14px\)/)).toBeInTheDocument();
@@ -633,16 +635,16 @@ export const FullPageExample: Story = {
     await expect(canvas.getByText(/Large \(18px\)/)).toBeInTheDocument();
 
     // Test Data Table
-    await expect(canvas.getByText("Recent Updates")).toBeInTheDocument();
-    await expect(canvas.getByRole("table")).toBeInTheDocument();
+    await expect(canvas.getByText('Recent Updates')).toBeInTheDocument();
+    await expect(canvas.getByRole('table')).toBeInTheDocument();
 
     // Test Form Elements
-    await expect(canvas.getByTestId("subscribe-form")).toBeInTheDocument();
-    await expect(canvas.getByPlaceholderText("you@example.com")).toBeInTheDocument();
+    await expect(canvas.getByTestId('subscribe-form')).toBeInTheDocument();
+    await expect(canvas.getByPlaceholderText('you@example.com')).toBeInTheDocument();
 
     // Test Footer
-    await expect(canvas.getByText("© 2026 Aura Design System")).toBeInTheDocument();
-    await expect(canvas.getByText("GitHub")).toBeInTheDocument();
+    await expect(canvas.getByText('© 2026 Aura Design System')).toBeInTheDocument();
+    await expect(canvas.getByText('GitHub')).toBeInTheDocument();
 
     // Verify total typography scale count
     await expect(typographyScale.length).toBe(27);
@@ -698,10 +700,10 @@ export const FullPageExample: Story = {
           </p>
           <div className="grid grid-cols-4 gap-6">
             {[
-              { label: "Downloads", value: "2.4M", change: "+12%" },
-              { label: "Active Projects", value: "18.2K", change: "+8%" },
-              { label: "Contributors", value: "342", change: "+24%" },
-              { label: "Components", value: "127", change: "+6%" },
+              { label: 'Downloads', value: '2.4M', change: '+12%' },
+              { label: 'Active Projects', value: '18.2K', change: '+8%' },
+              { label: 'Contributors', value: '342', change: '+24%' },
+              { label: 'Components', value: '127', change: '+6%' },
             ].map((metric) => (
               <div key={metric.label} className="text-center">
                 <p className="text-xs font-normal text-muted-foreground mb-1">{metric.label}</p>
@@ -758,21 +760,21 @@ export const FullPageExample: Story = {
                   <li>
                     <span className="font-medium">Inter</span>
                     <span className="text-muted-foreground">
-                      {" "}
+                      {' '}
                       — Primary text for UI elements and body copy
                     </span>
                   </li>
                   <li>
                     <span className="font-medium">Space Grotesk</span>
                     <span className="text-muted-foreground">
-                      {" "}
+                      {' '}
                       — Marketing headlines and display text
                     </span>
                   </li>
                   <li>
                     <span className="font-mono text-sm font-medium">Source Code Pro</span>
                     <span className="text-muted-foreground">
-                      {" "}
+                      {' '}
                       — Code blocks and technical content
                     </span>
                   </li>
@@ -804,7 +806,7 @@ export const FullPageExample: Story = {
                     </p>
                     <div className="rounded-md bg-muted p-3">
                       <code className="font-mono text-base font-medium">
-                        import {"{ Button }"} from &apos;@aura/ui&apos;
+                        import {'{ Button }'} from &apos;@aura/ui&apos;
                       </code>
                     </div>
                   </div>
@@ -986,12 +988,12 @@ export const FullPageExample: Story = {
  * Quick reference table showing all Tailwind classes at a glance.
  */
 export const TailwindClassReference: Story = {
-  name: "Reference: All Classes",
+  name: 'Reference: All Classes',
   parameters: {
     docs: {
       description: {
         story:
-          "A complete reference table of all 27 typography variants with their Tailwind classes, organised by section (Text, Marketing, Code).",
+          'A complete reference table of all 27 typography variants with their Tailwind classes, organised by section (Text, Marketing, Code).',
       },
     },
   },
@@ -999,28 +1001,28 @@ export const TailwindClassReference: Story = {
     const canvas = within(canvasElement);
 
     // Verify table structure
-    const table = canvas.getByRole("table");
+    const table = canvas.getByRole('table');
     await expect(table).toBeInTheDocument();
 
     // Verify headers
-    await expect(canvas.getByText("Section")).toBeInTheDocument();
-    await expect(canvas.getByText("Name")).toBeInTheDocument();
-    await expect(canvas.getByText("Tailwind Class")).toBeInTheDocument();
-    await expect(canvas.getByText("Usage")).toBeInTheDocument();
+    await expect(canvas.getByText('Section')).toBeInTheDocument();
+    await expect(canvas.getByText('Name')).toBeInTheDocument();
+    await expect(canvas.getByText('Tailwind Class')).toBeInTheDocument();
+    await expect(canvas.getByText('Usage')).toBeInTheDocument();
 
     // Verify all 27 rows are rendered (plus header row)
-    const rows = canvas.getAllByRole("row");
+    const rows = canvas.getAllByRole('row');
     await expect(rows.length).toBe(typographyScale.length + 1);
 
     // Verify sections are present
-    await expect(canvas.getAllByText("Text").length).toBeGreaterThan(0);
-    await expect(canvas.getAllByText("Marketing").length).toBeGreaterThan(0);
-    await expect(canvas.getAllByText("Code").length).toBeGreaterThan(0);
+    await expect(canvas.getAllByText('Text').length).toBeGreaterThan(0);
+    await expect(canvas.getAllByText('Marketing').length).toBeGreaterThan(0);
+    await expect(canvas.getAllByText('Code').length).toBeGreaterThan(0);
 
     // Verify specific classes are rendered
-    await expect(canvas.getByText("text-2xs font-normal")).toBeInTheDocument();
-    await expect(canvas.getByText("font-marketing text-5xl font-bold")).toBeInTheDocument();
-    await expect(canvas.getByText("font-mono text-lg font-medium")).toBeInTheDocument();
+    await expect(canvas.getByText('text-2xs font-normal')).toBeInTheDocument();
+    await expect(canvas.getByText('font-marketing text-5xl font-bold')).toBeInTheDocument();
+    await expect(canvas.getByText('font-mono text-lg font-medium')).toBeInTheDocument();
   },
   render: () => (
     <div className="overflow-x-auto" data-testid="tailwind-reference">
@@ -1056,12 +1058,12 @@ export const TailwindClassReference: Story = {
  * Pattern reference showing all available composition patterns.
  */
 export const PatternReference: Story = {
-  name: "Reference: All Patterns",
+  name: 'Reference: All Patterns',
   parameters: {
     docs: {
       description: {
         story:
-          "A reference of all typography composition patterns with their element roles and Tailwind classes. Use these patterns as recipes for common UI layouts.",
+          'A reference of all typography composition patterns with their element roles and Tailwind classes. Use these patterns as recipes for common UI layouts.',
       },
     },
   },
@@ -1073,20 +1075,20 @@ export const PatternReference: Story = {
     await expect(patternCount).toBe(10);
 
     // Verify specific patterns exist
-    await expect(canvas.getByText("Page Header")).toBeInTheDocument();
-    await expect(canvas.getByText("Section Header")).toBeInTheDocument();
-    await expect(canvas.getByText("Card")).toBeInTheDocument();
-    await expect(canvas.getByText("List Item")).toBeInTheDocument();
-    await expect(canvas.getByText("Form Field")).toBeInTheDocument();
-    await expect(canvas.getByText("Article Body")).toBeInTheDocument();
-    await expect(canvas.getByText("Marketing Hero")).toBeInTheDocument();
-    await expect(canvas.getByText("Data Table")).toBeInTheDocument();
-    await expect(canvas.getByText("AI Chat Response")).toBeInTheDocument();
-    await expect(canvas.getByText("Documentation Page")).toBeInTheDocument();
+    await expect(canvas.getByText('Page Header')).toBeInTheDocument();
+    await expect(canvas.getByText('Section Header')).toBeInTheDocument();
+    await expect(canvas.getByText('Card')).toBeInTheDocument();
+    await expect(canvas.getByText('List Item')).toBeInTheDocument();
+    await expect(canvas.getByText('Form Field')).toBeInTheDocument();
+    await expect(canvas.getByText('Article Body')).toBeInTheDocument();
+    await expect(canvas.getByText('Marketing Hero')).toBeInTheDocument();
+    await expect(canvas.getByText('Data Table')).toBeInTheDocument();
+    await expect(canvas.getByText('AI Chat Response')).toBeInTheDocument();
+    await expect(canvas.getByText('Documentation Page')).toBeInTheDocument();
 
     // Verify element roles are shown
-    await expect(canvas.getAllByText("title:").length).toBeGreaterThan(0);
-    await expect(canvas.getAllByText("Elements").length).toBe(patternCount);
+    await expect(canvas.getAllByText('title:').length).toBeGreaterThan(0);
+    await expect(canvas.getAllByText('Elements').length).toBe(patternCount);
   },
   render: () => (
     <div className="space-y-8" data-testid="pattern-reference">
@@ -1105,7 +1107,7 @@ export const PatternReference: Story = {
             <div className="flex flex-wrap gap-2">
               {pattern.elements.map((el) => (
                 <div key={el.role} className="text-xs bg-muted px-2 py-1 rounded">
-                  <span className="font-medium">{el.role}:</span>{" "}
+                  <span className="font-medium">{el.role}:</span>{' '}
                   <code className="font-mono">{el.class}</code>
                 </div>
               ))}

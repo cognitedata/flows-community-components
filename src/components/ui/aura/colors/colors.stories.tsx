@@ -1,5 +1,6 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, within } from "@storybook/test";
+import type { Meta, StoryObj } from '@storybook/react';
+import { expect, within } from '@storybook/test';
+
 import {
   type ColorPalette,
   colorExamples,
@@ -7,7 +8,7 @@ import {
   colorPatterns,
   getColorsByCategory,
   semanticTokens,
-} from "./colors";
+} from './colors';
 
 /**
  * # Aura Color System
@@ -45,10 +46,10 @@ import {
  * ```
  */
 const meta: Meta = {
-  title: "Foundations/Colors",
-  tags: ["autodocs"],
+  title: 'Foundations/Colors',
+  tags: ['autodocs'],
   parameters: {
-    layout: "padded",
+    layout: 'padded',
   },
 };
 
@@ -109,7 +110,7 @@ export const BasePalettes: Story = {
     docs: {
       description: {
         story:
-          "Base colour palettes form the foundation of the UI. Mountain is the primary neutral ramp, while Fjord provides a cooler alternative.",
+          'Base colour palettes form the foundation of the UI. Mountain is the primary neutral ramp, while Fjord provides a cooler alternative.',
       },
     },
   },
@@ -117,20 +118,20 @@ export const BasePalettes: Story = {
     const canvas = within(canvasElement);
 
     // Verify both base palettes are rendered
-    const basePalettes = getColorsByCategory("base");
+    const basePalettes = getColorsByCategory('base');
     await expect(basePalettes.length).toBe(2);
 
     // Check palette names
-    await expect(canvas.getByText("Mountain")).toBeInTheDocument();
-    await expect(canvas.getByText("Fjord")).toBeInTheDocument();
+    await expect(canvas.getByText('Mountain')).toBeInTheDocument();
+    await expect(canvas.getByText('Fjord')).toBeInTheDocument();
 
     // Verify Mountain has the extended stops (white, black)
-    await expect(canvas.getByText("white")).toBeInTheDocument();
-    await expect(canvas.getByText("black")).toBeInTheDocument();
+    await expect(canvas.getByText('white')).toBeInTheDocument();
+    await expect(canvas.getByText('black')).toBeInTheDocument();
   },
   render: () => (
     <div className="space-y-8" data-testid="base-palettes">
-      {getColorsByCategory("base").map((palette) => (
+      {getColorsByCategory('base').map((palette) => (
         <PaletteDisplay key={palette.name} palette={palette} />
       ))}
     </div>
@@ -146,23 +147,23 @@ export const DecorativePalettes: Story = {
     docs: {
       description: {
         story:
-          "Decorative palettes add visual interest without semantic meaning. Use for charts, illustrations, and brand expression.",
+          'Decorative palettes add visual interest without semantic meaning. Use for charts, illustrations, and brand expression.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const decorativePalettes = getColorsByCategory("decorative");
+    const decorativePalettes = getColorsByCategory('decorative');
     await expect(decorativePalettes.length).toBe(3);
 
-    await expect(canvas.getByText("Nordic")).toBeInTheDocument();
-    await expect(canvas.getByText("Aurora")).toBeInTheDocument();
-    await expect(canvas.getByText("Dusk")).toBeInTheDocument();
+    await expect(canvas.getByText('Nordic')).toBeInTheDocument();
+    await expect(canvas.getByText('Aurora')).toBeInTheDocument();
+    await expect(canvas.getByText('Dusk')).toBeInTheDocument();
   },
   render: () => (
     <div className="space-y-8" data-testid="decorative-palettes">
-      {getColorsByCategory("decorative").map((palette) => (
+      {getColorsByCategory('decorative').map((palette) => (
         <PaletteDisplay key={palette.name} palette={palette} />
       ))}
     </div>
@@ -178,24 +179,24 @@ export const SemanticPalettes: Story = {
     docs: {
       description: {
         story:
-          "Semantic palettes communicate meaning. Red for errors, Amber for warnings, Green for success, Blue for information.",
+          'Semantic palettes communicate meaning. Red for errors, Amber for warnings, Green for success, Blue for information.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const semanticPalettes = getColorsByCategory("semantic");
+    const semanticPalettes = getColorsByCategory('semantic');
     await expect(semanticPalettes.length).toBe(4);
 
-    await expect(canvas.getByText("Red")).toBeInTheDocument();
-    await expect(canvas.getByText("Amber")).toBeInTheDocument();
-    await expect(canvas.getByText("Green")).toBeInTheDocument();
-    await expect(canvas.getByText("Blue")).toBeInTheDocument();
+    await expect(canvas.getByText('Red')).toBeInTheDocument();
+    await expect(canvas.getByText('Amber')).toBeInTheDocument();
+    await expect(canvas.getByText('Green')).toBeInTheDocument();
+    await expect(canvas.getByText('Blue')).toBeInTheDocument();
   },
   render: () => (
     <div className="space-y-8" data-testid="semantic-palettes">
-      {getColorsByCategory("semantic").map((palette) => (
+      {getColorsByCategory('semantic').map((palette) => (
         <PaletteDisplay key={palette.name} palette={palette} />
       ))}
     </div>
@@ -211,25 +212,25 @@ export const ExtendedPalettes: Story = {
     docs: {
       description: {
         story:
-          "Extended palettes provide additional colours for charts, illustrations, and decorative elements when base palettes are insufficient.",
+          'Extended palettes provide additional colours for charts, illustrations, and decorative elements when base palettes are insufficient.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const extendedPalettes = getColorsByCategory("extended");
+    const extendedPalettes = getColorsByCategory('extended');
     await expect(extendedPalettes.length).toBe(5);
 
-    await expect(canvas.getByText("Sky")).toBeInTheDocument();
-    await expect(canvas.getByText("Orange")).toBeInTheDocument();
-    await expect(canvas.getByText("Yellow")).toBeInTheDocument();
-    await expect(canvas.getByText("Gray")).toBeInTheDocument();
-    await expect(canvas.getByText("Pink")).toBeInTheDocument();
+    await expect(canvas.getByText('Sky')).toBeInTheDocument();
+    await expect(canvas.getByText('Orange')).toBeInTheDocument();
+    await expect(canvas.getByText('Yellow')).toBeInTheDocument();
+    await expect(canvas.getByText('Gray')).toBeInTheDocument();
+    await expect(canvas.getByText('Pink')).toBeInTheDocument();
   },
   render: () => (
     <div className="space-y-8" data-testid="extended-palettes">
-      {getColorsByCategory("extended").map((palette) => (
+      {getColorsByCategory('extended').map((palette) => (
         <PaletteDisplay key={palette.name} palette={palette} />
       ))}
     </div>
@@ -249,7 +250,7 @@ export const SemanticTokens: Story = {
     docs: {
       description: {
         story:
-          "Semantic tokens are theme-aware CSS variables that adapt to light and dark mode. Use these for all standard UI elements.",
+          'Semantic tokens are theme-aware CSS variables that adapt to light and dark mode. Use these for all standard UI elements.',
       },
     },
   },
@@ -260,10 +261,10 @@ export const SemanticTokens: Story = {
     await expect(semanticTokens.length).toBeGreaterThan(10);
 
     // Verify key tokens are displayed
-    await expect(canvas.getByText("background")).toBeInTheDocument();
-    await expect(canvas.getByText("foreground")).toBeInTheDocument();
-    await expect(canvas.getByText("primary")).toBeInTheDocument();
-    await expect(canvas.getByText("destructive")).toBeInTheDocument();
+    await expect(canvas.getByText('background')).toBeInTheDocument();
+    await expect(canvas.getByText('foreground')).toBeInTheDocument();
+    await expect(canvas.getByText('primary')).toBeInTheDocument();
+    await expect(canvas.getByText('destructive')).toBeInTheDocument();
   },
   render: () => (
     <div className="space-y-6" data-testid="semantic-tokens">
@@ -304,22 +305,22 @@ export const SemanticTokens: Story = {
  * Status indicator patterns showing success, warning, error, and info states.
  */
 export const StatusIndicators: Story = {
-  name: "Pattern: Status Indicators",
+  name: 'Pattern: Status Indicators',
   parameters: {
     docs: {
       description: {
         story:
-          "Colour patterns for communicating status. Use consistent colour coding across your application.",
+          'Colour patterns for communicating status. Use consistent colour coding across your application.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await expect(canvas.getByTestId("status-success")).toBeInTheDocument();
-    await expect(canvas.getByTestId("status-warning")).toBeInTheDocument();
-    await expect(canvas.getByTestId("status-error")).toBeInTheDocument();
-    await expect(canvas.getByTestId("status-info")).toBeInTheDocument();
+    await expect(canvas.getByTestId('status-success')).toBeInTheDocument();
+    await expect(canvas.getByTestId('status-warning')).toBeInTheDocument();
+    await expect(canvas.getByTestId('status-error')).toBeInTheDocument();
+    await expect(canvas.getByTestId('status-info')).toBeInTheDocument();
   },
   render: () => (
     <div className="space-y-4" data-testid="status-indicators">
@@ -341,21 +342,21 @@ export const StatusIndicators: Story = {
  * Text hierarchy patterns showing primary, secondary, disabled, and link text.
  */
 export const TextHierarchy: Story = {
-  name: "Pattern: Text Hierarchy",
+  name: 'Pattern: Text Hierarchy',
   parameters: {
     docs: {
       description: {
-        story: "Colour patterns for establishing text importance and visual hierarchy.",
+        story: 'Colour patterns for establishing text importance and visual hierarchy.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await expect(canvas.getByText("Primary Text")).toBeInTheDocument();
-    await expect(canvas.getByText("Secondary Text")).toBeInTheDocument();
-    await expect(canvas.getByText("Disabled Text")).toBeInTheDocument();
-    await expect(canvas.getByText("Link Text")).toBeInTheDocument();
+    await expect(canvas.getByText('Primary Text')).toBeInTheDocument();
+    await expect(canvas.getByText('Secondary Text')).toBeInTheDocument();
+    await expect(canvas.getByText('Disabled Text')).toBeInTheDocument();
+    await expect(canvas.getByText('Link Text')).toBeInTheDocument();
   },
   render: () => (
     <div className="space-y-4" data-testid="text-hierarchy">
@@ -383,21 +384,21 @@ export const TextHierarchy: Story = {
  * Background layer patterns showing page, surface, subtle, and hover backgrounds.
  */
 export const BackgroundLayers: Story = {
-  name: "Pattern: Background Layers",
+  name: 'Pattern: Background Layers',
   parameters: {
     docs: {
       description: {
-        story: "Colour patterns for creating depth and visual layering in interfaces.",
+        story: 'Colour patterns for creating depth and visual layering in interfaces.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await expect(canvas.getByText("Page Background")).toBeInTheDocument();
-    await expect(canvas.getByText("Card Surface")).toBeInTheDocument();
-    await expect(canvas.getByText("Subtle/Muted")).toBeInTheDocument();
-    await expect(canvas.getByText("Hover/Accent")).toBeInTheDocument();
+    await expect(canvas.getByText('Page Background')).toBeInTheDocument();
+    await expect(canvas.getByText('Card Surface')).toBeInTheDocument();
+    await expect(canvas.getByText('Subtle/Muted')).toBeInTheDocument();
+    await expect(canvas.getByText('Hover/Accent')).toBeInTheDocument();
   },
   render: () => (
     <div className="space-y-4" data-testid="background-layers">
@@ -425,21 +426,21 @@ export const BackgroundLayers: Story = {
  * Data visualisation colour sequences for charts and graphs.
  */
 export const DataVisualisationColors: Story = {
-  name: "Pattern: Data Visualisation",
+  name: 'Pattern: Data Visualisation',
   parameters: {
     docs: {
       description: {
         story:
-          "Colour sequences optimised for charts, graphs, and data visualisation. Includes categorical, sequential, and diverging palettes.",
+          'Colour sequences optimised for charts, graphs, and data visualisation. Includes categorical, sequential, and diverging palettes.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await expect(canvas.getByTestId("dataviz-categorical")).toBeInTheDocument();
-    await expect(canvas.getByTestId("dataviz-sequential")).toBeInTheDocument();
-    await expect(canvas.getByTestId("dataviz-diverging")).toBeInTheDocument();
+    await expect(canvas.getByTestId('dataviz-categorical')).toBeInTheDocument();
+    await expect(canvas.getByTestId('dataviz-sequential')).toBeInTheDocument();
+    await expect(canvas.getByTestId('dataviz-diverging')).toBeInTheDocument();
   },
   render: () => (
     <div className="space-y-6" data-testid="data-visualisation">
@@ -468,12 +469,12 @@ export const DataVisualisationColors: Story = {
  * Complete reference of all colour palettes with their CSS variables.
  */
 export const AllPalettesReference: Story = {
-  name: "Reference: All Palettes",
+  name: 'Reference: All Palettes',
   parameters: {
     docs: {
       description: {
         story:
-          "A complete reference of all 14 colour palettes organised by category with their CSS variable names.",
+          'A complete reference of all 14 colour palettes organised by category with their CSS variable names.',
       },
     },
   },
@@ -481,17 +482,17 @@ export const AllPalettesReference: Story = {
     const canvas = within(canvasElement);
 
     // Verify all categories are present using testids
-    await expect(canvas.getByTestId("category-base")).toBeInTheDocument();
-    await expect(canvas.getByTestId("category-decorative")).toBeInTheDocument();
-    await expect(canvas.getByTestId("category-semantic")).toBeInTheDocument();
-    await expect(canvas.getByTestId("category-extended")).toBeInTheDocument();
+    await expect(canvas.getByTestId('category-base')).toBeInTheDocument();
+    await expect(canvas.getByTestId('category-decorative')).toBeInTheDocument();
+    await expect(canvas.getByTestId('category-semantic')).toBeInTheDocument();
+    await expect(canvas.getByTestId('category-extended')).toBeInTheDocument();
 
     // Verify total palette count
     await expect(colorPalettes.length).toBe(14);
   },
   render: () => (
     <div className="space-y-12" data-testid="all-palettes-reference">
-      {(["base", "decorative", "semantic", "extended"] as const).map((category) => (
+      {(['base', 'decorative', 'semantic', 'extended'] as const).map((category) => (
         <section key={category} data-testid={`category-${category}`}>
           <h2 className="text-2xl font-medium capitalize mb-6">{category}</h2>
           <div className="space-y-8">
@@ -509,23 +510,23 @@ export const AllPalettesReference: Story = {
  * Reference table showing all semantic tokens with their light and dark values.
  */
 export const TokensReference: Story = {
-  name: "Reference: All Tokens",
+  name: 'Reference: All Tokens',
   parameters: {
     docs: {
       description: {
         story:
-          "A complete reference of all semantic tokens with their light/dark mode values and usage guidelines.",
+          'A complete reference of all semantic tokens with their light/dark mode values and usage guidelines.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const table = canvas.getByRole("table");
+    const table = canvas.getByRole('table');
     await expect(table).toBeInTheDocument();
 
     // Verify all tokens are rendered
-    const rows = canvas.getAllByRole("row");
+    const rows = canvas.getAllByRole('row');
     await expect(rows.length).toBe(semanticTokens.length + 1);
   },
   render: () => (
@@ -568,23 +569,23 @@ export const TokensReference: Story = {
  * Code examples for common colour usage patterns.
  */
 export const CodeExamples: Story = {
-  name: "Reference: Code Examples",
+  name: 'Reference: Code Examples',
   parameters: {
     docs: {
       description: {
         story:
-          "Copy-paste ready code examples for common colour usage patterns including buttons, alerts, cards, forms, and badges.",
+          'Copy-paste ready code examples for common colour usage patterns including buttons, alerts, cards, forms, and badges.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await expect(canvas.getByTestId("example-buttons")).toBeInTheDocument();
-    await expect(canvas.getByTestId("example-alerts")).toBeInTheDocument();
-    await expect(canvas.getByTestId("example-cards")).toBeInTheDocument();
-    await expect(canvas.getByTestId("example-forms")).toBeInTheDocument();
-    await expect(canvas.getByTestId("example-badges")).toBeInTheDocument();
+    await expect(canvas.getByTestId('example-buttons')).toBeInTheDocument();
+    await expect(canvas.getByTestId('example-alerts')).toBeInTheDocument();
+    await expect(canvas.getByTestId('example-cards')).toBeInTheDocument();
+    await expect(canvas.getByTestId('example-forms')).toBeInTheDocument();
+    await expect(canvas.getByTestId('example-badges')).toBeInTheDocument();
   },
   render: () => (
     <div className="space-y-8" data-testid="code-examples">

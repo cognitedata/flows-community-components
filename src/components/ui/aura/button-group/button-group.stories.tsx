@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, within } from "@storybook/test";
+import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, within } from '@storybook/test';
 import {
   IconAlignCenter,
   IconAlignLeft,
@@ -12,36 +12,38 @@ import {
   IconPlus,
   IconTrash,
   IconUnderline,
-} from "@tabler/icons-react";
-import { useState } from "react";
-import { Button } from "../button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../select";
-import { ButtonGroup, ButtonGroupSeparator, ButtonGroupText } from "./button-group";
+} from '@tabler/icons-react';
+import { useState } from 'react';
+
+import { Button } from '../button';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../select';
+
+import { ButtonGroup, ButtonGroupSeparator, ButtonGroupText } from './button-group';
 
 const meta: Meta<typeof ButtonGroup> = {
-  title: "Primitives/Button Group",
+  title: 'Primitives/Button Group',
   component: ButtonGroup,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     orientation: {
-      control: "select",
-      options: ["horizontal", "vertical"],
-      description: "The orientation of the button group",
+      control: 'select',
+      options: ['horizontal', 'vertical'],
+      description: 'The orientation of the button group',
       table: {
-        category: "Variants/Styling",
-        type: { summary: "horizontal | vertical" },
-        defaultValue: { summary: "horizontal" },
+        category: 'Variants/Styling',
+        type: { summary: 'horizontal | vertical' },
+        defaultValue: { summary: 'horizontal' },
       },
     },
     children: {
-      description: "The buttons and content within the group",
+      description: 'The buttons and content within the group',
       table: {
-        category: "Content",
+        category: 'Content',
       },
     },
   },
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
 };
 
@@ -63,17 +65,17 @@ export const Default: Story = {
     order: 1,
     docs: {
       description: {
-        story: "Default horizontal button group for grouping related actions together.",
+        story: 'Default horizontal button group for grouping related actions together.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const group = canvas.getByRole("group");
+    const group = canvas.getByRole('group');
     await expect(group).toBeInTheDocument();
 
-    const buttons = await canvas.findAllByRole("button");
+    const buttons = await canvas.findAllByRole('button');
     await expect(buttons).toHaveLength(3);
 
     await userEvent.click(buttons[1]);
@@ -96,17 +98,17 @@ export const Vertical: Story = {
     order: 2,
     docs: {
       description: {
-        story: "Vertical orientation for button groups in sidebar or narrow layouts.",
+        story: 'Vertical orientation for button groups in sidebar or narrow layouts.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const group = canvas.getByRole("group");
-    await expect(group).toHaveAttribute("data-orientation", "vertical");
+    const group = canvas.getByRole('group');
+    await expect(group).toHaveAttribute('data-orientation', 'vertical');
 
-    const buttons = await canvas.findAllByRole("button");
+    const buttons = await canvas.findAllByRole('button');
     await expect(buttons).toHaveLength(3);
   },
 };
@@ -139,17 +141,17 @@ export const AllOrientations: Story = {
     order: 3,
     docs: {
       description: {
-        story: "Comparison of horizontal and vertical orientations.",
+        story: 'Comparison of horizontal and vertical orientations.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const groups = canvas.getAllByRole("group");
+    const groups = canvas.getAllByRole('group');
     await expect(groups).toHaveLength(2);
-    await expect(groups[0]).toHaveAttribute("data-orientation", "horizontal");
-    await expect(groups[1]).toHaveAttribute("data-orientation", "vertical");
+    await expect(groups[0]).toHaveAttribute('data-orientation', 'horizontal');
+    await expect(groups[1]).toHaveAttribute('data-orientation', 'vertical');
   },
 };
 
@@ -174,17 +176,17 @@ export const WithIcons: Story = {
     order: 4,
     docs: {
       description: {
-        story: "Icon-only buttons grouped together for compact toolbars.",
+        story: 'Icon-only buttons grouped together for compact toolbars.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const buttons = await canvas.findAllByRole("button");
+    const buttons = await canvas.findAllByRole('button');
     await expect(buttons).toHaveLength(3);
 
-    const group = canvas.getByRole("group");
+    const group = canvas.getByRole('group');
     await expect(group).toBeInTheDocument();
   },
 };
@@ -208,17 +210,17 @@ export const WithText: Story = {
     order: 5,
     docs: {
       description: {
-        story: "Button group with text labels for additional context.",
+        story: 'Button group with text labels for additional context.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const text = canvas.getByText("Font");
+    const text = canvas.getByText('Font');
     await expect(text).toBeInTheDocument();
 
-    const buttons = await canvas.findAllByRole("button");
+    const buttons = await canvas.findAllByRole('button');
     await expect(buttons).toHaveLength(2);
   },
 };
@@ -251,17 +253,17 @@ export const WithSeparators: Story = {
     order: 6,
     docs: {
       description: {
-        story: "Separators help visually group related actions within a button group.",
+        story: 'Separators help visually group related actions within a button group.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const separator = canvas.getByRole("separator");
+    const separator = canvas.getByRole('separator');
     await expect(separator).toBeInTheDocument();
 
-    const buttons = await canvas.findAllByRole("button");
+    const buttons = await canvas.findAllByRole('button');
     await expect(buttons).toHaveLength(5);
   },
 };
@@ -287,28 +289,28 @@ export const Mixed: Story = {
     order: 7,
     docs: {
       description: {
-        story: "Combining text labels, buttons, and separators for complex toolbars.",
+        story: 'Combining text labels, buttons, and separators for complex toolbars.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const label = canvas.getByText("Pages");
+    const label = canvas.getByText('Pages');
     await expect(label).toBeInTheDocument();
 
-    const buttons = await canvas.findAllByRole("button");
+    const buttons = await canvas.findAllByRole('button');
     await expect(buttons).toHaveLength(2);
 
-    const separator = canvas.getByRole("separator");
+    const separator = canvas.getByRole('separator');
     await expect(separator).toBeInTheDocument();
   },
 };
 
 const pageOptions = [
-  { label: "Page 1", value: "page-1" },
-  { label: "Page 2", value: "page-2" },
-  { label: "Page 3", value: "page-3" },
+  { label: 'Page 1', value: 'page-1' },
+  { label: 'Page 2', value: 'page-2' },
+  { label: 'Page 3', value: 'page-3' },
 ];
 
 /**
@@ -340,17 +342,17 @@ export const WithSelect: Story = {
     order: 8,
     docs: {
       description: {
-        story: "Button groups can include Select components for pagination or filtering.",
+        story: 'Button groups can include Select components for pagination or filtering.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const select = canvas.getByRole("combobox");
+    const select = canvas.getByRole('combobox');
     await expect(select).toBeInTheDocument();
 
-    const button = canvas.getByRole("button", { name: /copy/i });
+    const button = canvas.getByRole('button', { name: /copy/i });
     await expect(button).toBeInTheDocument();
   },
 };
@@ -375,14 +377,14 @@ export const MixedVariants: Story = {
     order: 9,
     docs: {
       description: {
-        story: "Button groups can contain buttons with different variants.",
+        story: 'Button groups can contain buttons with different variants.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const buttons = await canvas.findAllByRole("button");
+    const buttons = await canvas.findAllByRole('button');
     await expect(buttons).toHaveLength(2);
 
     await userEvent.click(buttons[0]);
@@ -414,17 +416,17 @@ export const VerticalWithIcons: Story = {
     order: 10,
     docs: {
       description: {
-        story: "Vertical button group with icons and text labels.",
+        story: 'Vertical button group with icons and text labels.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const group = canvas.getByRole("group");
-    await expect(group).toHaveAttribute("data-orientation", "vertical");
+    const group = canvas.getByRole('group');
+    await expect(group).toHaveAttribute('data-orientation', 'vertical');
 
-    const buttons = await canvas.findAllByRole("button");
+    const buttons = await canvas.findAllByRole('button');
     await expect(buttons).toHaveLength(3);
   },
 };
@@ -434,26 +436,26 @@ export const VerticalWithIcons: Story = {
  */
 export const Interactive: Story = {
   render: function InteractiveButtonGroup() {
-    const [selected, setSelected] = useState<"left" | "center" | "right">("left");
+    const [selected, setSelected] = useState<'left' | 'center' | 'right'>('left');
 
     return (
       <div className="flex flex-col items-center gap-4">
         <ButtonGroup>
           <Button
-            variant={selected === "left" ? "default" : "outline"}
-            onClick={() => setSelected("left")}
+            variant={selected === 'left' ? 'default' : 'outline'}
+            onClick={() => setSelected('left')}
           >
             <IconAlignLeft className="size-4" />
           </Button>
           <Button
-            variant={selected === "center" ? "default" : "outline"}
-            onClick={() => setSelected("center")}
+            variant={selected === 'center' ? 'default' : 'outline'}
+            onClick={() => setSelected('center')}
           >
             <IconAlignCenter className="size-4" />
           </Button>
           <Button
-            variant={selected === "right" ? "default" : "outline"}
-            onClick={() => setSelected("right")}
+            variant={selected === 'right' ? 'default' : 'outline'}
+            onClick={() => setSelected('right')}
           >
             <IconAlignRight className="size-4" />
           </Button>
@@ -466,21 +468,21 @@ export const Interactive: Story = {
     order: 11,
     docs: {
       description: {
-        story: "Interactive button group with selection state.",
+        story: 'Interactive button group with selection state.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const buttons = await canvas.findAllByRole("button");
+    const buttons = await canvas.findAllByRole('button');
     await expect(buttons).toHaveLength(3);
 
     await userEvent.click(buttons[1]);
-    await expect(canvas.getByText("Selected: center")).toBeInTheDocument();
+    await expect(canvas.getByText('Selected: center')).toBeInTheDocument();
 
     await userEvent.click(buttons[2]);
-    await expect(canvas.getByText("Selected: right")).toBeInTheDocument();
+    await expect(canvas.getByText('Selected: right')).toBeInTheDocument();
   },
 };
 
@@ -499,17 +501,17 @@ export const Accessibility: Story = {
     order: 12,
     docs: {
       description: {
-        story: "Keyboard navigation with Tab key to move between buttons in the group.",
+        story: 'Keyboard navigation with Tab key to move between buttons in the group.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const buttons = await canvas.findAllByRole("button");
+    const buttons = await canvas.findAllByRole('button');
     await expect(buttons).toHaveLength(3);
 
-    const group = canvas.getByRole("group");
+    const group = canvas.getByRole('group');
     await expect(group).toBeInTheDocument();
 
     buttons[0].focus();
@@ -557,7 +559,7 @@ export const VisualRegression: Story = {
     order: 13,
     docs: {
       description: {
-        story: "Visual regression test showing various button group configurations.",
+        story: 'Visual regression test showing various button group configurations.',
       },
     },
     chromatic: {
@@ -583,14 +585,14 @@ export const WithDisabled: Story = {
     order: 14,
     docs: {
       description: {
-        story: "Button groups can contain disabled buttons.",
+        story: 'Button groups can contain disabled buttons.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const buttons = await canvas.findAllByRole("button");
+    const buttons = await canvas.findAllByRole('button');
     await expect(buttons).toHaveLength(3);
     await expect(buttons[1]).toBeDisabled();
   },
@@ -609,14 +611,14 @@ export const SingleButton: Story = {
     order: 15,
     docs: {
       description: {
-        story: "Edge case with a single button in the group.",
+        story: 'Edge case with a single button in the group.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const buttons = await canvas.findAllByRole("button");
+    const buttons = await canvas.findAllByRole('button');
     await expect(buttons).toHaveLength(1);
   },
 };
@@ -657,14 +659,14 @@ export const ManyButtons: Story = {
     order: 16,
     docs: {
       description: {
-        story: "Button group with many items for pagination or numbering.",
+        story: 'Button group with many items for pagination or numbering.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const buttons = await canvas.findAllByRole("button");
+    const buttons = await canvas.findAllByRole('button');
     await expect(buttons).toHaveLength(8);
   },
 };
@@ -689,14 +691,14 @@ export const LongText: Story = {
     order: 17,
     docs: {
       description: {
-        story: "Button group with long text labels testing overflow behavior.",
+        story: 'Button group with long text labels testing overflow behavior.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const buttons = await canvas.findAllByRole("button");
+    const buttons = await canvas.findAllByRole('button');
     await expect(buttons).toHaveLength(2);
     await expect(buttons[0]).toHaveTextContent(/Very Long Button Label/i);
   },
@@ -707,7 +709,7 @@ export const LongText: Story = {
  */
 export const Playground: Story = {
   args: {
-    orientation: "horizontal",
+    orientation: 'horizontal',
   },
   render: (args) => (
     <ButtonGroup {...args}>
@@ -720,7 +722,7 @@ export const Playground: Story = {
     order: 99,
     docs: {
       description: {
-        story: "Interactive playground for testing button group configurations.",
+        story: 'Interactive playground for testing button group configurations.',
       },
     },
   },

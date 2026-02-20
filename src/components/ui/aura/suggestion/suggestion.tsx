@@ -1,15 +1,3 @@
-import { Button } from "@/components/ui/aura/button";
-import { ScrollArea, ScrollBar } from "@/components/ui/aura/scroll-area";
-import {
-  Select,
-  SelectContent as SelectContentPrimitive,
-  SelectGroup as SelectGroupPrimitive,
-  SelectItem as SelectItemPrimitive,
-  SelectLabel as SelectLabelPrimitive,
-  SelectSeparator as SelectSeparatorPrimitive,
-  SelectTrigger as SelectTriggerPrimitive,
-  SelectValue as SelectValuePrimitive,
-} from "@/components/ui/aura/select";
 import {
   Children,
   type ComponentProps,
@@ -20,14 +8,28 @@ import {
   useContext,
   useMemo,
   useState,
-} from "react";
-import { cn } from "../../../../lib/utils";
+} from 'react';
+
+import { cn } from '../../../../lib/utils';
+
+import { Button } from '@/components/ui/aura/button';
+import { ScrollArea, ScrollBar } from '@/components/ui/aura/scroll-area';
+import {
+  Select,
+  SelectContent as SelectContentPrimitive,
+  SelectGroup as SelectGroupPrimitive,
+  SelectItem as SelectItemPrimitive,
+  SelectLabel as SelectLabelPrimitive,
+  SelectSeparator as SelectSeparatorPrimitive,
+  SelectTrigger as SelectTriggerPrimitive,
+  SelectValue as SelectValuePrimitive,
+} from '@/components/ui/aura/select';
 
 export type SuggestionsProps = ComponentProps<typeof ScrollArea>;
 
 export const Suggestions = ({ className, children, ...props }: SuggestionsProps) => (
   <ScrollArea className="w-full overflow-x-auto whitespace-nowrap" {...props}>
-    <div className={cn("flex w-max flex-nowrap items-center gap-2", className)}>{children}</div>
+    <div className={cn('flex w-max flex-nowrap items-center gap-2', className)}>{children}</div>
     <ScrollBar className="hidden" orientation="horizontal" />
   </ScrollArea>
 );
@@ -42,7 +44,7 @@ const SuggestionContext = createContext<SuggestionContextValue | null>(null);
 const useSuggestion = () => {
   const context = useContext(SuggestionContext);
   if (!context) {
-    throw new Error("Suggestion components must be used within Suggestion");
+    throw new Error('Suggestion components must be used within Suggestion');
   }
   return context;
 };
@@ -60,15 +62,15 @@ const hasSuggestionTrigger = (children: ReactNode): boolean => {
 
 // Main Suggestion component with dual modes
 export type SuggestionProps =
-  | (Omit<ComponentProps<typeof Button>, "onClick"> & {
+  | (Omit<ComponentProps<typeof Button>, 'onClick'> & {
       suggestion: string;
       onClick?: (suggestion: string) => void;
       onValueChange?: never;
       /** Only ghost and outline variants are supported. Suggestions are designed to have secondary backgrounds with primary text. */
-      variant?: "ghost" | "outline";
-      size?: "sm" | "default" | "lg" | "icon";
+      variant?: 'ghost' | 'outline';
+      size?: 'sm' | 'default' | 'lg' | 'icon';
     })
-  | (ComponentProps<"div"> & {
+  | (ComponentProps<'div'> & {
       suggestion?: never;
       onClick?: never;
       onValueChange?: (value: string) => void;
@@ -108,13 +110,13 @@ export const Suggestion = (props: SuggestionProps) => {
   // Button mode (original behaviour)
   if (!isSelectMode && suggestion) {
     const {
-      variant = "ghost",
-      size = "sm",
+      variant = 'ghost',
+      size = 'sm',
       ...buttonProps
     } = restProps as {
-      variant?: "ghost" | "outline";
-      size?: "sm" | "default" | "lg" | "icon";
-    } & Omit<ComponentProps<typeof Button>, "onClick" | "variant" | "size">;
+      variant?: 'ghost' | 'outline';
+      size?: 'sm' | 'default' | 'lg' | 'icon';
+    } & Omit<ComponentProps<typeof Button>, 'onClick' | 'variant' | 'size'>;
 
     const handleClick = () => {
       onClick?.(suggestion);
@@ -123,7 +125,7 @@ export const Suggestion = (props: SuggestionProps) => {
     return (
       <Button
         className={cn(
-          "min-h-9 h-auto bg-background text-sm leading-4.5 tracking-normal px-3 py-2.25",
+          'min-h-9 h-auto bg-background text-sm leading-4.5 tracking-normal px-3 py-2.25',
           className
         )}
         onClick={handleClick}
@@ -138,7 +140,7 @@ export const Suggestion = (props: SuggestionProps) => {
   }
 
   // Select mode - cast to div props
-  const divProps = restProps as ComponentProps<"div">;
+  const divProps = restProps as ComponentProps<'div'>;
 
   return (
     <SuggestionContext.Provider value={suggestionContext}>
@@ -159,7 +161,7 @@ export const SuggestionTrigger = ({ className, children, ...props }: SuggestionT
   return (
     <SelectTriggerPrimitive
       className={cn(
-        "min-w-0 bg-background text-foreground text-sm leading-4.5 tracking-normal font-medium px-3 py-2.25 border-transparent focus-visible:border-ring [&_svg]:opacity-100",
+        'min-w-0 bg-background text-foreground text-sm leading-4.5 tracking-normal font-medium px-3 py-2.25 border-transparent focus-visible:border-ring [&_svg]:opacity-100',
         className
       )}
       {...props}
@@ -169,7 +171,7 @@ export const SuggestionTrigger = ({ className, children, ...props }: SuggestionT
   );
 };
 
-export type SuggestionValueProps = Omit<ComponentProps<typeof SelectValuePrimitive>, "icon">;
+export type SuggestionValueProps = Omit<ComponentProps<typeof SelectValuePrimitive>, 'icon'>;
 
 export const SuggestionValue = ({ className, ...props }: SuggestionValueProps) => {
   return <SelectValuePrimitive className={className} {...props} />;
@@ -180,7 +182,7 @@ export type SuggestionContentProps = ComponentProps<typeof SelectContentPrimitiv
 export const SuggestionContent = ({
   className,
   children,
-  align = "start",
+  align = 'start',
   ...props
 }: SuggestionContentProps) => {
   return (
@@ -190,7 +192,7 @@ export const SuggestionContent = ({
   );
 };
 
-export type SuggestionItemProps = Omit<ComponentProps<typeof SelectItemPrimitive>, "value"> & {
+export type SuggestionItemProps = Omit<ComponentProps<typeof SelectItemPrimitive>, 'value'> & {
   icon?: ReactNode;
 };
 
@@ -199,7 +201,7 @@ export const SuggestionItem = ({ className, children, icon, ...props }: Suggesti
 
   // Extract text content from children to use as value
   const textValue = useMemo(() => {
-    if (typeof children === "string") {
+    if (typeof children === 'string') {
       return children;
     }
     // For complex children, try to extract text

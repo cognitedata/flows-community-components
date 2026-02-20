@@ -21,7 +21,7 @@ export {
   ConfirmationRejected,
   ConfirmationActions,
   ConfirmationAction,
-} from "./confirmation";
+} from './confirmation';
 export type {
   ConfirmationProps,
   ConfirmationContentTriggerProps,
@@ -31,5 +31,5 @@ export type {
   ConfirmationRejectedProps,
   ConfirmationActionsProps,
   ConfirmationActionProps,
-} from "./confirmation";
-export { ConfirmationMetadata } from "./confirmation.metadata";
+} from './confirmation';
+export { ConfirmationMetadata } from './confirmation.metadata';

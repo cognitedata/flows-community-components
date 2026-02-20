@@ -1,3 +1,15 @@
+import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
+import { IconCopy, IconDownload, IconRefresh, IconTool, IconWheel } from '@tabler/icons-react';
+import { useState } from 'react';
+
+import {
+  Conversation,
+  ConversationContent,
+  ConversationEmptyState,
+  ConversationScrollButton,
+} from './conversation';
+
 import {
   Message,
   MessageAction,
@@ -5,7 +17,7 @@ import {
   MessageAvatar,
   MessageAvatarIcon,
   MessageContent,
-} from "@/components/ui/aura/message";
+} from '@/components/ui/aura/message';
 import {
   PromptInput,
   PromptInputBody,
@@ -14,38 +26,28 @@ import {
   PromptInputSubmit,
   PromptInputTextarea,
   usePromptInputController,
-} from "@/components/ui/aura/prompt-input";
-import { Suggestion } from "@/components/ui/aura/suggestion";
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor, within } from "@storybook/test";
-import { IconCopy, IconDownload, IconRefresh, IconTool, IconWheel } from "@tabler/icons-react";
-import { useState } from "react";
-import {
-  Conversation,
-  ConversationContent,
-  ConversationEmptyState,
-  ConversationScrollButton,
-} from "./conversation";
+} from '@/components/ui/aura/prompt-input';
+import { Suggestion } from '@/components/ui/aura/suggestion';
 
 const meta: Meta<typeof Conversation> = {
-  title: "AI/Conversation",
+  title: 'AI/Conversation',
   component: Conversation,
-  tags: ["autodocs", "ai-elements"],
+  tags: ['autodocs', 'ai-elements'],
   argTypes: {
     // Display
     className: {
-      control: "text",
-      description: "Additional CSS classes for custom styling",
+      control: 'text',
+      description: 'Additional CSS classes for custom styling',
       table: {
-        category: "Display",
+        category: 'Display',
       },
     },
     children: {
       control: false,
-      description: "Conversation content, typically ConversationContent with messages",
+      description: 'Conversation content, typically ConversationContent with messages',
       table: {
-        category: "Display",
-        type: { summary: "ReactNode" },
+        category: 'Display',
+        type: { summary: 'ReactNode' },
       },
     },
 
@@ -54,34 +56,34 @@ const meta: Meta<typeof Conversation> = {
       control: false,
       description: "Initial scroll behavior ('instant' | 'smooth' | 'auto')",
       table: {
-        category: "Behavior",
-        type: { summary: "ScrollBehavior" },
-        defaultValue: { summary: "smooth" },
+        category: 'Behavior',
+        type: { summary: 'ScrollBehavior' },
+        defaultValue: { summary: 'smooth' },
       },
     },
     resize: {
       control: false,
       description: "Scroll behavior on resize ('instant' | 'smooth' | 'auto')",
       table: {
-        category: "Behavior",
-        type: { summary: "ScrollBehavior" },
-        defaultValue: { summary: "smooth" },
+        category: 'Behavior',
+        type: { summary: 'ScrollBehavior' },
+        defaultValue: { summary: 'smooth' },
       },
     },
 
     // Accessibility
     role: {
       control: false,
-      description: "ARIA role for the conversation container",
+      description: 'ARIA role for the conversation container',
       table: {
-        category: "Accessibility",
-        type: { summary: "string" },
-        defaultValue: { summary: "log" },
+        category: 'Accessibility',
+        type: { summary: 'string' },
+        defaultValue: { summary: 'log' },
       },
     },
   },
   parameters: {
-    layout: "fullscreen",
+    layout: 'fullscreen',
   },
   decorators: [
     (Story) => (
@@ -103,7 +105,7 @@ export const Default: Story = {
     docs: {
       description: {
         story:
-          "Barebones AI chat container with industrial pump monitoring conversation. Tests message rendering, accessibility, and scroll-to-bottom button behaviour. Scroll UP to see the scroll button appear.",
+          'Barebones AI chat container with industrial pump monitoring conversation. Tests message rendering, accessibility, and scroll-to-bottom button behaviour. Scroll UP to see the scroll button appear.',
       },
     },
   },
@@ -115,11 +117,11 @@ export const Default: Story = {
     await expect(conversationContainer).toBeInTheDocument();
 
     // Verify multiple messages exist
-    const messages = canvasElement.querySelectorAll("[data-message]");
+    const messages = canvasElement.querySelectorAll('[data-message]');
     await expect(messages.length).toBeGreaterThanOrEqual(8);
 
     // Test accessibility: verify action buttons have proper accessible names
-    const copyButtons = canvas.getAllByRole("button", { name: /copy/i });
+    const copyButtons = canvas.getAllByRole('button', { name: /copy/i });
     await expect(copyButtons.length).toBeGreaterThan(0);
 
     // Verify message structure and content
@@ -140,7 +142,7 @@ export const Default: Story = {
       await new Promise((resolve) => setTimeout(resolve, 100));
 
       // Check if scroll button appears
-      const scrollButton = canvasElement.querySelector("button.rounded-full");
+      const scrollButton = canvasElement.querySelector('button.rounded-full');
       if (scrollButton) {
         await expect(scrollButton).toBeInTheDocument();
         await expect(scrollButton).toBeVisible();
@@ -151,7 +153,7 @@ export const Default: Story = {
         // Verify button disappears after scrolling to bottom
         await waitFor(
           async () => {
-            const buttonAfterClick = canvasElement.querySelector("button.rounded-full");
+            const buttonAfterClick = canvasElement.querySelector('button.rounded-full');
             await expect(buttonAfterClick).not.toBeInTheDocument();
           },
           { timeout: 2000 }
@@ -324,7 +326,7 @@ export const EmptyState: Story = {
     docs: {
       description: {
         story:
-          "Conversation container with empty state when no messages exist yet. Tests accessibility of empty state presentation.",
+          'Conversation container with empty state when no messages exist yet. Tests accessibility of empty state presentation.',
       },
     },
   },
@@ -336,15 +338,15 @@ export const EmptyState: Story = {
     await expect(conversationContainer).toBeInTheDocument();
 
     // Verify empty state title and description
-    const title = canvas.getByText("Start a conversation");
+    const title = canvas.getByText('Start a conversation');
     await expect(title).toBeInTheDocument();
-    await expect(title.tagName).toBe("H3");
+    await expect(title.tagName).toBe('H3');
 
     const description = canvas.getByText(/Ask me anything about your industrial equipment/i);
     await expect(description).toBeInTheDocument();
 
     // Verify no messages exist
-    const messages = canvasElement.querySelectorAll("[data-message]");
+    const messages = canvasElement.querySelectorAll('[data-message]');
     await expect(messages.length).toBe(0);
   },
   render: () => (
@@ -367,7 +369,7 @@ export const SuggestionsAutoSubmit: Story = {
     docs: {
       description: {
         story:
-          "Empty state with suggestions that automatically submit to the conversation when clicked. Click a suggestion to see it appear as a user message.",
+          'Empty state with suggestions that automatically submit to the conversation when clicked. Click a suggestion to see it appear as a user message.',
       },
     },
   },
@@ -375,7 +377,7 @@ export const SuggestionsAutoSubmit: Story = {
     const canvas = within(canvasElement);
 
     // Verify suggestions exist
-    const suggestions = canvas.getAllByRole("button");
+    const suggestions = canvas.getAllByRole('button');
     await expect(suggestions.length).toBeGreaterThanOrEqual(3);
 
     // Click the first suggestion
@@ -384,7 +386,7 @@ export const SuggestionsAutoSubmit: Story = {
     // Verify a message appears
     await waitFor(
       async () => {
-        const messages = canvasElement.querySelectorAll("[data-message]");
+        const messages = canvasElement.querySelectorAll('[data-message]');
         await expect(messages.length).toBeGreaterThanOrEqual(1);
       },
       { timeout: 1000 }
@@ -393,7 +395,7 @@ export const SuggestionsAutoSubmit: Story = {
   render: () => {
     const SuggestionsAutoSubmitDemo = () => {
       const [submitted, setSubmitted] = useState(false);
-      const [userMessage, setUserMessage] = useState("");
+      const [userMessage, setUserMessage] = useState('');
 
       const handleSuggestion = (value: string) => {
         setUserMessage(value);
@@ -445,7 +447,7 @@ export const SuggestionsFillInput: Story = {
     docs: {
       description: {
         story:
-          "Empty state with suggestions that populate the prompt input when clicked, ready to be edited or submitted. Click a suggestion to see it appear in the input below.",
+          'Empty state with suggestions that populate the prompt input when clicked, ready to be edited or submitted. Click a suggestion to see it appear in the input below.',
       },
     },
   },
@@ -453,7 +455,7 @@ export const SuggestionsFillInput: Story = {
     const canvas = within(canvasElement);
 
     // Verify suggestions exist
-    const suggestions = canvas.getAllByRole("button");
+    const suggestions = canvas.getAllByRole('button');
     await expect(suggestions.length).toBeGreaterThanOrEqual(3);
 
     // Click the first suggestion
@@ -462,8 +464,8 @@ export const SuggestionsFillInput: Story = {
     // Verify the textarea is filled
     await waitFor(
       async () => {
-        const textarea = canvas.getByRole("textbox");
-        await expect(textarea).toHaveValue("What equipment requires maintenance this week?");
+        const textarea = canvas.getByRole('textbox');
+        await expect(textarea).toHaveValue('What equipment requires maintenance this week?');
       },
       { timeout: 1000 }
     );
@@ -530,7 +532,7 @@ export const MixedMessageTypes: Story = {
     docs: {
       description: {
         story:
-          "Conversation with mixed message types: user messages, assistant responses with avatars, and messages with various action buttons. Tests visual consistency and accessibility across message types.",
+          'Conversation with mixed message types: user messages, assistant responses with avatars, and messages with various action buttons. Tests visual consistency and accessibility across message types.',
       },
     },
   },
@@ -542,7 +544,7 @@ export const MixedMessageTypes: Story = {
     await expect(conversationContainer).toBeInTheDocument();
 
     // Verify both user and assistant messages
-    const messages = canvasElement.querySelectorAll("[data-message]");
+    const messages = canvasElement.querySelectorAll('[data-message]');
     await expect(messages.length).toBeGreaterThanOrEqual(4);
 
     // Verify avatars only on assistant messages
@@ -551,7 +553,7 @@ export const MixedMessageTypes: Story = {
     await expect(avatars.length).toBeLessThan(messages.length);
 
     // Test accessibility of action buttons
-    const copyButtons = canvas.getAllByRole("button", { name: /copy/i });
+    const copyButtons = canvas.getAllByRole('button', { name: /copy/i });
     await expect(copyButtons.length).toBeGreaterThan(0);
 
     // Verify buttons are keyboard accessible
@@ -633,7 +635,7 @@ export const KeyboardNavigation: Story = {
     docs: {
       description: {
         story:
-          "Tests keyboard navigation through message action buttons. Verifies all interactive elements are keyboard accessible and have proper focus management.",
+          'Tests keyboard navigation through message action buttons. Verifies all interactive elements are keyboard accessible and have proper focus management.',
       },
     },
   },
@@ -641,7 +643,7 @@ export const KeyboardNavigation: Story = {
     const canvas = within(canvasElement);
 
     // Verify all buttons are accessible
-    const allButtons = canvas.getAllByRole("button");
+    const allButtons = canvas.getAllByRole('button');
     await expect(allButtons.length).toBeGreaterThan(0);
 
     // Test Tab navigation through buttons
@@ -650,7 +652,7 @@ export const KeyboardNavigation: Story = {
     await expect(firstButton).toHaveFocus();
 
     // Verify button has accessible name
-    const copyButton = canvas.getAllByRole("button", { name: /copy/i })[0];
+    const copyButton = canvas.getAllByRole('button', { name: /copy/i })[0];
     await expect(copyButton).toBeInTheDocument();
 
     // Test keyboard activation (Space or Enter should work)
@@ -658,10 +660,10 @@ export const KeyboardNavigation: Story = {
     await expect(copyButton).toHaveFocus();
 
     // Verify all action buttons have accessible names (via sr-only text or aria-label)
-    const retryButton = canvas.getByRole("button", { name: /retry/i });
+    const retryButton = canvas.getByRole('button', { name: /retry/i });
     await expect(retryButton).toBeInTheDocument();
 
-    const downloadButton = canvas.getByRole("button", { name: /download/i });
+    const downloadButton = canvas.getByRole('button', { name: /download/i });
     await expect(downloadButton).toBeInTheDocument();
   },
   render: () => (
@@ -709,7 +711,7 @@ export const VeryLongConversation: Story = {
     docs: {
       description: {
         story:
-          "Stress test with 40 messages to thoroughly test scrolling behaviour, performance, and the scroll-to-bottom button. Tests rendering of many messages without performance degradation.",
+          'Stress test with 40 messages to thoroughly test scrolling behaviour, performance, and the scroll-to-bottom button. Tests rendering of many messages without performance degradation.',
       },
     },
   },
@@ -721,11 +723,11 @@ export const VeryLongConversation: Story = {
     await expect(conversationContainer).toBeInTheDocument();
 
     // Verify many messages exist (20 pairs = 40 messages)
-    const messages = canvasElement.querySelectorAll("[data-message]");
+    const messages = canvasElement.querySelectorAll('[data-message]');
     await expect(messages.length).toBeGreaterThanOrEqual(30);
 
     // Verify message structure consistency - each assistant message has action buttons
-    const copyButtons = canvas.getAllByRole("button", { name: /copy/i });
+    const copyButtons = canvas.getAllByRole('button', { name: /copy/i });
     await expect(copyButtons.length).toBeGreaterThan(10);
 
     // Test scrolling and button appearance (optional - depends on overflow)
@@ -738,11 +740,11 @@ export const VeryLongConversation: Story = {
       await new Promise((resolve) => setTimeout(resolve, 100));
 
       // Check if scroll button appears
-      const scrollButton = canvasElement.querySelector("button.rounded-full");
+      const scrollButton = canvasElement.querySelector('button.rounded-full');
       if (scrollButton) {
         await expect(scrollButton).toBeInTheDocument();
         await expect(scrollButton).toBeVisible();
-        await expect(scrollButton).toHaveAttribute("type", "button");
+        await expect(scrollButton).toHaveAttribute('type', 'button');
       }
     }
   },
@@ -763,7 +765,7 @@ export const VeryLongConversation: Story = {
                   </MessageAvatarIcon>
                 </MessageAvatar>
               )}
-              <MessageContent className={isResponse ? "flex flex-col gap-2" : undefined}>
+              <MessageContent className={isResponse ? 'flex flex-col gap-2' : undefined}>
                 <span>
                   {isResponse
                     ? `Analysis ${messageNum}: Sensor readings from pump 21PT101${messageNum} indicate normal operating conditions. Vibration levels at 3.${messageNum} mm/s, temperature at 7${messageNum}°C. All parameters within acceptable ranges.`
@@ -805,7 +807,7 @@ export const SingleMessage: Story = {
     const canvas = within(canvasElement);
 
     // Verify exactly one message
-    const messages = canvasElement.querySelectorAll("[data-message]");
+    const messages = canvasElement.querySelectorAll('[data-message]');
     await expect(messages.length).toBe(1);
 
     // Verify the message content
@@ -817,7 +819,7 @@ export const SingleMessage: Story = {
     await expect(conversationContainer).toBeInTheDocument();
 
     // Verify scroll button doesn't appear (no overflow, so ConversationScrollButton is hidden)
-    const scrollButton = canvasElement.querySelector("button.rounded-full");
+    const scrollButton = canvasElement.querySelector('button.rounded-full');
     await expect(scrollButton).not.toBeInTheDocument();
   },
   render: () => (
@@ -840,15 +842,13 @@ export const ShortContainer: Story = {
     docs: {
       description: {
         story:
-          "Conversation in a shorter 300px container. Tests that scroll button appears with less content and verifies responsive behaviour in constrained spaces.",
+          'Conversation in a shorter 300px container. Tests that scroll button appears with less content and verifies responsive behaviour in constrained spaces.',
       },
     },
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
     // Verify messages exist
-    const messages = canvasElement.querySelectorAll("[data-message]");
+    const messages = canvasElement.querySelectorAll('[data-message]');
     await expect(messages.length).toBeGreaterThan(2);
 
     // Verify ARIA role
@@ -869,11 +869,11 @@ export const ShortContainer: Story = {
       await new Promise((resolve) => setTimeout(resolve, 100));
 
       // Check if scroll button appears
-      const scrollButton = canvasElement.querySelector("button.rounded-full");
+      const scrollButton = canvasElement.querySelector('button.rounded-full');
       if (scrollButton) {
         await expect(scrollButton).toBeInTheDocument();
         await expect(scrollButton).toBeVisible();
-        await expect(scrollButton).toHaveAttribute("type", "button");
+        await expect(scrollButton).toHaveAttribute('type', 'button');
       }
     }
   },
@@ -992,7 +992,7 @@ export const WithMessages: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Conversation with multiple messages.",
+        story: 'Conversation with multiple messages.',
       },
     },
   },
@@ -1027,7 +1027,7 @@ export const CustomEmptyStateFromMain: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Custom empty state with action buttons.",
+        story: 'Custom empty state with action buttons.',
       },
     },
   },
@@ -1065,7 +1065,7 @@ export const SimpleLongConversation: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Long conversation with many messages (auto-scrolls to bottom).",
+        story: 'Long conversation with many messages (auto-scrolls to bottom).',
       },
     },
   },
@@ -1098,7 +1098,7 @@ export const VisualRegressionFromMain: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Conversation for visual regression testing.",
+        story: 'Conversation for visual regression testing.',
       },
     },
     chromatic: {
@@ -1124,7 +1124,7 @@ export const PlaygroundFromMain: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Interactive conversation example.",
+        story: 'Interactive conversation example.',
       },
     },
   },

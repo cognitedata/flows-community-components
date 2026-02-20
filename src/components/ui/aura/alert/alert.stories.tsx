@@ -1,12 +1,5 @@
-import {
-  Alert,
-  AlertActions,
-  AlertButton,
-  AlertDescription,
-  AlertTitle,
-} from "@/components/ui/aura/alert";
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor, within } from "@storybook/test";
+import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
 import {
   IconAlertHexagon,
   IconAlertTriangle,
@@ -14,59 +7,67 @@ import {
   IconCheck,
   IconInfoCircle,
   IconUser,
-} from "@tabler/icons-react";
-import { useState } from "react";
+} from '@tabler/icons-react';
+import { useState } from 'react';
+
+import {
+  Alert,
+  AlertActions,
+  AlertButton,
+  AlertDescription,
+  AlertTitle,
+} from '@/components/ui/aura/alert';
 
 const meta: Meta<typeof Alert> = {
-  title: "Primitives/Alert",
+  title: 'Primitives/Alert',
   component: Alert,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     variant: {
-      control: "select",
-      options: ["default", "secondary", "warning", "error"],
-      description: "The visual style variant of the alert",
+      control: 'select',
+      options: ['default', 'secondary', 'warning', 'error'],
+      description: 'The visual style variant of the alert',
       table: {
-        category: "Variants/Styling",
+        category: 'Variants/Styling',
         type: { summary: '"default" | "secondary" | "warning" | "error"' },
-        defaultValue: { summary: "default" },
+        defaultValue: { summary: 'default' },
       },
     },
     className: {
-      control: "text",
-      description: "Additional CSS classes",
+      control: 'text',
+      description: 'Additional CSS classes',
       table: {
-        category: "Variants/Styling",
+        category: 'Variants/Styling',
       },
     },
     visible: {
-      control: "boolean",
-      description: "Controlled visibility state",
+      control: 'boolean',
+      description: 'Controlled visibility state',
       table: {
-        category: "Behavior",
-        type: { summary: "boolean" },
+        category: 'Behavior',
+        type: { summary: 'boolean' },
       },
     },
     defaultVisible: {
-      control: "boolean",
-      description: "Default visibility state (uncontrolled)",
+      control: 'boolean',
+      description: 'Default visibility state (uncontrolled)',
       table: {
-        category: "Behavior",
-        type: { summary: "boolean" },
-        defaultValue: { summary: "true" },
+        category: 'Behavior',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'true' },
       },
     },
     onClose: {
-      action: "closed",
-      description: "Callback fired when alert is closed",
+      action: 'closed',
+      description: 'Callback fired when alert is closed',
       table: {
-        category: "Events",
-        type: { summary: "() => void" },
+        category: 'Events',
+        type: { summary: '() => void' },
       },
     },
   },
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
   decorators: [
     (Story) => (
@@ -100,17 +101,17 @@ export const Basic: Story = {
     order: 1,
     docs: {
       description: {
-        story: "Default alert style with informational content.",
+        story: 'Default alert style with informational content.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const alert = canvas.getByRole("alert");
+    const alert = canvas.getByRole('alert');
     await expect(alert).toBeInTheDocument();
-    const title = canvas.getByText("Account verification required");
+    const title = canvas.getByText('Account verification required');
     await expect(title).toBeInTheDocument();
-    const button = await canvas.findByRole("button", { name: /verify account/i });
+    const button = await canvas.findByRole('button', { name: /verify account/i });
     await expect(button).toBeInTheDocument();
   },
 };
@@ -146,23 +147,23 @@ export const Dismissible: Story = {
     order: 2,
     docs: {
       description: {
-        story: "Alert with a close button. Provide onClose prop to show the close button.",
+        story: 'Alert with a close button. Provide onClose prop to show the close button.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const closeButton = await canvas.findByRole("button", { name: /close/i });
+    const closeButton = await canvas.findByRole('button', { name: /close/i });
     await expect(closeButton).toBeInTheDocument();
     await userEvent.click(closeButton);
     await waitFor(() => {
-      const alert = canvas.queryByRole("alert");
+      const alert = canvas.queryByRole('alert');
       expect(alert).not.toBeInTheDocument();
     });
-    const showButton = await canvas.findByRole("button", { name: /show alert again/i });
+    const showButton = await canvas.findByRole('button', { name: /show alert again/i });
     await userEvent.click(showButton);
     await waitFor(() => {
-      const alert = canvas.queryByRole("alert");
+      const alert = canvas.queryByRole('alert');
       expect(alert).toBeInTheDocument();
     });
   },
@@ -187,15 +188,15 @@ export const Secondary: Story = {
     order: 3,
     docs: {
       description: {
-        story: "Secondary variant for less prominent notifications.",
+        story: 'Secondary variant for less prominent notifications.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const alert = canvas.getByRole("alert");
+    const alert = canvas.getByRole('alert');
     await expect(alert).toBeInTheDocument();
-    await expect(await canvas.findByRole("button", { name: /update/i })).toBeInTheDocument();
+    await expect(await canvas.findByRole('button', { name: /update/i })).toBeInTheDocument();
   },
 };
 
@@ -219,14 +220,14 @@ export const Warning: Story = {
     order: 4,
     docs: {
       description: {
-        story: "Warning variant for cautionary messages that need attention.",
+        story: 'Warning variant for cautionary messages that need attention.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText("Storage almost full")).toBeInTheDocument();
-    await expect(await canvas.findByRole("button", { name: /upgrade plan/i })).toBeInTheDocument();
+    await expect(canvas.getByText('Storage almost full')).toBeInTheDocument();
+    await expect(await canvas.findByRole('button', { name: /upgrade plan/i })).toBeInTheDocument();
   },
 };
 
@@ -248,14 +249,14 @@ export const ErrorAlert: Story = {
     order: 5,
     docs: {
       description: {
-        story: "Error variant for critical issues that need immediate attention.",
+        story: 'Error variant for critical issues that need immediate attention.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText("Unable to connect data")).toBeInTheDocument();
-    await expect(await canvas.findByRole("button", { name: /try again/i })).toBeInTheDocument();
+    await expect(canvas.getByText('Unable to connect data')).toBeInTheDocument();
+    await expect(await canvas.findByRole('button', { name: /try again/i })).toBeInTheDocument();
   },
 };
 
@@ -291,13 +292,13 @@ export const AllVariants: Story = {
     order: 6,
     docs: {
       description: {
-        story: "All available alert variants for comparison.",
+        story: 'All available alert variants for comparison.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const alerts = await canvas.findAllByRole("alert");
+    const alerts = await canvas.findAllByRole('alert');
     await expect(alerts).toHaveLength(4);
   },
 };
@@ -316,7 +317,7 @@ export const DescriptionOnly: Story = {
     order: 7,
     docs: {
       description: {
-        story: "Alert can be used with just a description when a title is not needed.",
+        story: 'Alert can be used with just a description when a title is not needed.',
       },
     },
   },
@@ -343,13 +344,13 @@ export const Success: Story = {
     order: 8,
     docs: {
       description: {
-        story: "Success-style alert using the default variant with a green check icon.",
+        story: 'Success-style alert using the default variant with a green check icon.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText("Changes saved successfully")).toBeInTheDocument();
+    await expect(canvas.getByText('Changes saved successfully')).toBeInTheDocument();
   },
 };
 
@@ -374,14 +375,14 @@ export const MultipleActions: Story = {
     order: 9,
     docs: {
       description: {
-        story: "Alert with multiple action buttons for user choice.",
+        story: 'Alert with multiple action buttons for user choice.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const extendButton = await canvas.findByRole("button", { name: /extend session/i });
-    const logoutButton = await canvas.findByRole("button", { name: /log out/i });
+    const extendButton = await canvas.findByRole('button', { name: /extend session/i });
+    const logoutButton = await canvas.findByRole('button', { name: /log out/i });
     await expect(extendButton).toBeInTheDocument();
     await expect(logoutButton).toBeInTheDocument();
   },
@@ -419,7 +420,7 @@ export const ControlledVisibility: Story = {
             This alert&apos;s visibility is controlled externally.
           </AlertDescription>
         </Alert>
-        <p className="text-sm text-muted-foreground">Visible: {visible ? "true" : "false"}</p>
+        <p className="text-sm text-muted-foreground">Visible: {visible ? 'true' : 'false'}</p>
       </div>
     );
   },
@@ -427,24 +428,24 @@ export const ControlledVisibility: Story = {
     order: 10,
     docs: {
       description: {
-        story: "Alert visibility can be controlled externally using the visible prop.",
+        story: 'Alert visibility can be controlled externally using the visible prop.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    let alert = canvas.queryByRole("alert");
+    let alert = canvas.queryByRole('alert');
     await expect(alert).toBeInTheDocument();
-    const hideButton = await canvas.findByRole("button", { name: "Hide" });
+    const hideButton = await canvas.findByRole('button', { name: 'Hide' });
     await userEvent.click(hideButton);
     await waitFor(() => {
-      alert = canvas.queryByRole("alert");
+      alert = canvas.queryByRole('alert');
       expect(alert).not.toBeInTheDocument();
     });
-    const showButton = await canvas.findByRole("button", { name: "Show" });
+    const showButton = await canvas.findByRole('button', { name: 'Show' });
     await userEvent.click(showButton);
     await waitFor(() => {
-      alert = canvas.queryByRole("alert");
+      alert = canvas.queryByRole('alert');
       expect(alert).toBeInTheDocument();
     });
   },
@@ -476,7 +477,7 @@ export const EdgeCaseLongText: Story = {
     order: 11,
     docs: {
       description: {
-        story: "Long title and description to verify wrapping and layout stability.",
+        story: 'Long title and description to verify wrapping and layout stability.',
       },
     },
   },
@@ -509,7 +510,7 @@ export const EdgeCaseSpecialCharacters: Story = {
     order: 12,
     docs: {
       description: {
-        story: "Alert with special characters: quotes, apostrophes, unicode, and symbols.",
+        story: 'Alert with special characters: quotes, apostrophes, unicode, and symbols.',
       },
     },
   },
@@ -555,19 +556,19 @@ export const Accessibility: Story = {
     order: 13,
     docs: {
       description: {
-        story: "Demonstrates accessible alert: role=alert, labeled close button, keyboard support.",
+        story: 'Demonstrates accessible alert: role=alert, labeled close button, keyboard support.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const alertRegion = canvas.getByRole("alert");
+    const alertRegion = canvas.getByRole('alert');
     await expect(alertRegion).toBeInTheDocument();
-    const closeButton = await canvas.findByRole("button", { name: /close/i });
+    const closeButton = await canvas.findByRole('button', { name: /close/i });
     await expect(closeButton).toBeInTheDocument();
     await userEvent.click(closeButton);
     await waitFor(() => {
-      expect(canvas.queryByRole("alert")).not.toBeInTheDocument();
+      expect(canvas.queryByRole('alert')).not.toBeInTheDocument();
     });
   },
 };
@@ -627,7 +628,7 @@ export const VisualRegression: Story = {
     order: 14,
     docs: {
       description: {
-        story: "Comprehensive visual overview for regression testing.",
+        story: 'Comprehensive visual overview for regression testing.',
       },
     },
     chromatic: {
@@ -663,7 +664,7 @@ export const Playground: Story = {
     order: 99,
     docs: {
       description: {
-        story: "Interactive playground - use controls to experiment with alert props.",
+        story: 'Interactive playground - use controls to experiment with alert props.',
       },
     },
   },

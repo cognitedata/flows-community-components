@@ -1,5 +1,6 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/aura/card";
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
+
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/aura/card';
 
 export default function TemplatesPage() {
   return (

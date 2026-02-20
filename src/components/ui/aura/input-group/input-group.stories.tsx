@@ -1,10 +1,10 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor, within } from "@storybook/test";
-import { IconCheck, IconSearch, IconSend, IconX } from "@tabler/icons-react";
-import { useState } from "react";
-import { Button } from "../button";
-import { Kbd } from "../kbd";
-import { Label } from "../label";
+import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
+import { IconCheck, IconSearch, IconSend, IconX } from '@tabler/icons-react';
+import { useState } from 'react';
+
+import { Kbd } from '../kbd';
+import { Label } from '../label';
 import {
   PromptInput,
   PromptInputAttachment,
@@ -14,7 +14,8 @@ import {
   PromptInputSubmit,
   PromptInputTextarea,
   PromptInputTools,
-} from "../prompt-input";
+} from '../prompt-input';
+
 import {
   InputGroup,
   InputGroupAddon,
@@ -22,23 +23,23 @@ import {
   InputGroupInput,
   InputGroupText,
   InputGroupTextarea,
-} from "./input-group";
+} from './input-group';
 
 const meta: Meta<typeof InputGroup> = {
-  title: "Primitives/Input Group",
+  title: 'Primitives/Input Group',
   component: InputGroup,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     className: {
-      control: "text",
-      description: "Additional CSS classes",
+      control: 'text',
+      description: 'Additional CSS classes',
       table: {
-        category: "Variants/Styling",
+        category: 'Variants/Styling',
       },
     },
   },
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
   decorators: [
     (Story) => (
@@ -68,17 +69,17 @@ export const Basic: Story = {
     order: 1,
     docs: {
       description: {
-        story: "Basic input group with a search icon on the left.",
+        story: 'Basic input group with a search icon on the left.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const input = canvas.getByPlaceholderText("Search...");
+    const input = canvas.getByPlaceholderText('Search...');
     await expect(input).toBeInTheDocument();
 
-    await userEvent.type(input, "test query");
-    await expect(input).toHaveValue("test query");
+    await userEvent.type(input, 'test query');
+    await expect(input).toHaveValue('test query');
   },
 };
 
@@ -98,7 +99,7 @@ export const InlineEnd: Story = {
     order: 2,
     docs: {
       description: {
-        story: "Input with keyboard shortcut indicator on the right.",
+        story: 'Input with keyboard shortcut indicator on the right.',
       },
     },
   },
@@ -128,7 +129,7 @@ export const WithText: Story = {
     order: 3,
     docs: {
       description: {
-        story: "Input groups with text prefixes and suffixes.",
+        story: 'Input groups with text prefixes and suffixes.',
       },
     },
   },
@@ -167,7 +168,7 @@ export const WithButtons: Story = {
     order: 4,
     docs: {
       description: {
-        story: "Input groups with action buttons.",
+        story: 'Input groups with action buttons.',
       },
     },
   },
@@ -189,7 +190,7 @@ export const BlockStart: Story = {
     order: 5,
     docs: {
       description: {
-        story: "Input with label positioned at the top.",
+        story: 'Input with label positioned at the top.',
       },
     },
   },
@@ -211,7 +212,7 @@ export const BlockEnd: Story = {
     order: 6,
     docs: {
       description: {
-        story: "Input with helper text positioned at the bottom.",
+        story: 'Input with helper text positioned at the bottom.',
       },
     },
   },
@@ -239,7 +240,7 @@ export const WithTextarea: Story = {
     order: 7,
     docs: {
       description: {
-        story: "Input group with a textarea and submit button.",
+        story: 'Input group with a textarea and submit button.',
       },
     },
   },
@@ -272,7 +273,7 @@ export const Complex: Story = {
     order: 8,
     docs: {
       description: {
-        story: "Input group with multiple addons and controls.",
+        story: 'Input group with multiple addons and controls.',
       },
     },
   },
@@ -302,13 +303,13 @@ export const Disabled: Story = {
     order: 9,
     docs: {
       description: {
-        story: "Disabled input groups with reduced opacity.",
+        story: 'Disabled input groups with reduced opacity.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const inputs = canvas.getAllByRole("textbox");
+    const inputs = canvas.getAllByRole('textbox');
     for (const input of inputs) {
       await expect(input).toBeDisabled();
     }
@@ -351,7 +352,7 @@ export const WithError: Story = {
     order: 10,
     docs: {
       description: {
-        story: "Input groups with error state and messages.",
+        story: 'Input groups with error state and messages.',
       },
     },
   },
@@ -362,7 +363,7 @@ export const WithError: Story = {
  */
 export const Interactive: Story = {
   render: function InteractiveInputGroup() {
-    const [value, setValue] = useState("");
+    const [value, setValue] = useState('');
     const maxLength = 100;
 
     return (
@@ -388,7 +389,7 @@ export const Interactive: Story = {
               disabled={value.length === 0}
               onClick={() => {
                 alert(`Posted: ${value}`);
-                setValue("");
+                setValue('');
               }}
             >
               Post
@@ -402,22 +403,22 @@ export const Interactive: Story = {
     order: 11,
     docs: {
       description: {
-        story: "Interactive input group with real-time character counter.",
+        story: 'Interactive input group with real-time character counter.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const textarea = canvas.getByPlaceholderText("What's happening?");
-    const button = canvas.getByText("Post");
+    const button = canvas.getByText('Post');
 
     await expect(button).toBeDisabled();
 
-    await userEvent.type(textarea, "Hello world!");
-    await expect(textarea).toHaveValue("Hello world!");
+    await userEvent.type(textarea, 'Hello world!');
+    await expect(textarea).toHaveValue('Hello world!');
 
     await waitFor(() => {
-      expect(canvas.getByText("12/100")).toBeInTheDocument();
+      expect(canvas.getByText('12/100')).toBeInTheDocument();
     });
 
     await expect(button).toBeEnabled();
@@ -431,7 +432,7 @@ export const PromptInputExample: Story = {
   render: () => (
     <PromptInput
       onSubmit={(message) => {
-        console.log("Submitted:", message);
+        console.log('Submitted:', message);
       }}
       helperText={false}
     >
@@ -452,17 +453,17 @@ export const PromptInputExample: Story = {
     docs: {
       description: {
         story:
-          "InputGroup is the foundation for PromptInput, providing the container and focus management.",
+          'InputGroup is the foundation for PromptInput, providing the container and focus management.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const textarea = canvas.getByPlaceholderText("Ask me anything...");
+    const textarea = canvas.getByPlaceholderText('Ask me anything...');
     await expect(textarea).toBeInTheDocument();
 
-    await userEvent.type(textarea, "Test message");
-    await expect(textarea).toHaveValue("Test message");
+    await userEvent.type(textarea, 'Test message');
+    await expect(textarea).toHaveValue('Test message');
   },
 };
 
@@ -517,7 +518,7 @@ export const AllAlignments: Story = {
     order: 13,
     docs: {
       description: {
-        story: "All four alignment options for InputGroupAddon.",
+        story: 'All four alignment options for InputGroupAddon.',
       },
     },
   },
@@ -586,7 +587,7 @@ export const EdgeCases: Story = {
     order: 14,
     docs: {
       description: {
-        story: "Edge cases including empty inputs, long text, and multiple buttons.",
+        story: 'Edge cases including empty inputs, long text, and multiple buttons.',
       },
     },
   },
@@ -654,7 +655,7 @@ export const VisualRegression: Story = {
     order: 15,
     docs: {
       description: {
-        story: "Comprehensive visual overview for regression testing.",
+        story: 'Comprehensive visual overview for regression testing.',
       },
     },
     chromatic: {
@@ -689,7 +690,7 @@ export const Playground: Story = {
     order: 99,
     docs: {
       description: {
-        story: "Interactive playground - compose your own input group.",
+        story: 'Interactive playground - compose your own input group.',
       },
     },
   },

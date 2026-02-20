@@ -1,26 +1,3 @@
-import { Badge } from "@/components/ui/aura/badge";
-import {
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/aura/breadcrumb";
-import { Button } from "@/components/ui/aura/button";
-import { Card, CardContent } from "@/components/ui/aura/card";
-import {
-  CodeBlock,
-  CodeBlockCollapseButton,
-  CodeBlockCopyButton,
-} from "@/components/ui/aura/code-block";
-import {
-  Topbar,
-  TopbarBreadcrumbs,
-  TopbarCenter,
-  TopbarLeft,
-  TopbarRight,
-} from "@/components/ui/aura/topbar";
-import { AIChatDemo } from "@/lib/ai-examples/ai-chat-demo";
 import {
   IconAlertCircle,
   IconAlertTriangle,
@@ -31,9 +8,33 @@ import {
   IconPhoto,
   IconTrendingDown,
   IconTrendingUp,
-} from "@tabler/icons-react";
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+} from '@tabler/icons-react';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+
+import { Badge } from '@/components/ui/aura/badge';
+import {
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from '@/components/ui/aura/breadcrumb';
+import { Button } from '@/components/ui/aura/button';
+import { Card, CardContent } from '@/components/ui/aura/card';
+import {
+  CodeBlock,
+  CodeBlockCollapseButton,
+  CodeBlockCopyButton,
+} from '@/components/ui/aura/code-block';
+import {
+  Topbar,
+  TopbarBreadcrumbs,
+  TopbarCenter,
+  TopbarLeft,
+  TopbarRight,
+} from '@/components/ui/aura/topbar';
+import { AIChatDemo } from '@/lib/ai-examples/ai-chat-demo';
 
 // Static heatmap data for dashboard demos
 const heatmapData = Array.from({ length: 35 }).map(() => Math.floor(Math.random() * 4));
@@ -56,12 +57,12 @@ const heatmapData = Array.from({ length: 35 }).map(() => Math.floor(Math.random(
  * All breakpoints use a consistent 12-column grid for maximum flexibility.
  */
 const breakpoints = [
-  { name: "base", min: 0, max: 639, columns: 12, prefix: "(none)" },
-  { name: "2xl", min: 640, max: 767, columns: 12, prefix: "@2xl:" },
-  { name: "3xl", min: 768, max: 1023, columns: 12, prefix: "@3xl:" },
-  { name: "5xl", min: 1024, max: 1279, columns: 12, prefix: "@5xl:" },
-  { name: "7xl", min: 1280, max: 1535, columns: 12, prefix: "@7xl:" },
-  { name: "8xl", min: 1536, max: Number.POSITIVE_INFINITY, columns: 12, prefix: "@8xl:" },
+  { name: 'base', min: 0, max: 639, columns: 12, prefix: '(none)' },
+  { name: '2xl', min: 640, max: 767, columns: 12, prefix: '@2xl:' },
+  { name: '3xl', min: 768, max: 1023, columns: 12, prefix: '@3xl:' },
+  { name: '5xl', min: 1024, max: 1279, columns: 12, prefix: '@5xl:' },
+  { name: '7xl', min: 1280, max: 1535, columns: 12, prefix: '@7xl:' },
+  { name: '8xl', min: 1536, max: Number.POSITIVE_INFINITY, columns: 12, prefix: '@8xl:' },
 ];
 
 /**
@@ -83,19 +84,19 @@ const breakpoints = [
  * - Prevents excessively wide layouts on large screens
  */
 const maxWidths = [
-  { breakpoint: "base", class: "max-w-2xl", description: "640px (mobile)" },
+  { breakpoint: 'base', class: 'max-w-2xl', description: '640px (mobile)' },
   {
-    breakpoint: "@2xl:",
-    class: "max-w-2xl",
-    description: "640px (small tablet)",
+    breakpoint: '@2xl:',
+    class: 'max-w-2xl',
+    description: '640px (small tablet)',
   },
-  { breakpoint: "@3xl:", class: "max-w-3xl", description: "768px (tablet)" },
-  { breakpoint: "@5xl:", class: "max-w-5xl", description: "1024px (laptop)" },
-  { breakpoint: "@7xl:", class: "max-w-7xl", description: "1280px (desktop)" },
+  { breakpoint: '@3xl:', class: 'max-w-3xl', description: '768px (tablet)' },
+  { breakpoint: '@5xl:', class: 'max-w-5xl', description: '1024px (laptop)' },
+  { breakpoint: '@7xl:', class: 'max-w-7xl', description: '1280px (desktop)' },
   {
-    breakpoint: "@8xl:",
-    class: "max-w-8xl",
-    description: "1536px (wide desktop)",
+    breakpoint: '@8xl:',
+    class: 'max-w-8xl',
+    description: '1536px (wide desktop)',
   },
 ];
 
@@ -163,8 +164,8 @@ function InteractiveDemos({
   demoType,
   setDemoType,
 }: {
-  demoType: "chat" | "dashboard1" | "dashboard2";
-  setDemoType: (type: "chat" | "dashboard1" | "dashboard2") => void;
+  demoType: 'chat' | 'dashboard1' | 'dashboard2';
+  setDemoType: (type: 'chat' | 'dashboard1' | 'dashboard2') => void;
 }) {
   const [width, setWidth] = useState(1200);
   const [showGrid, setShowGrid] = useState(false);
@@ -184,45 +185,45 @@ function InteractiveDemos({
       // Validate width is within slider range
       if (parsedWidth >= 280 && parsedWidth <= 1600) {
         // Map 'ai-chat' to internal 'chat' type
-        const demoType = type === "ai-chat" ? "chat" : type;
-        setDemoType(demoType as "chat" | "dashboard1" | "dashboard2");
+        const demoType = type === 'ai-chat' ? 'chat' : type;
+        setDemoType(demoType as 'chat' | 'dashboard1' | 'dashboard2');
         setWidth(parsedWidth);
 
         // Scroll to demo section after state is set
         setTimeout(() => {
-          const element = document.getElementById("interactive-demo");
+          const element = document.getElementById('interactive-demo');
           if (element) {
             element.scrollIntoView({
-              behavior: "smooth",
-              block: "start",
+              behavior: 'smooth',
+              block: 'start',
             });
           }
         }, 100);
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+     
   }, [setDemoType]); // setDemoType is stable, but we only want to run once on mount
 
   // Keyboard shortcut for grid toggle (Ctrl/Cmd + G)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.ctrlKey || e.metaKey) && e.key === "g") {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'g') {
         e.preventDefault();
         setShowGrid((prev) => !prev);
       }
     };
 
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
   const getCurrentBreakpoint = () => {
-    if (width >= 1536) return "8xl";
-    if (width >= 1280) return "7xl";
-    if (width >= 1024) return "5xl";
-    if (width >= 768) return "3xl";
-    if (width >= 640) return "2xl";
-    return "base";
+    if (width >= 1536) return '8xl';
+    if (width >= 1280) return '7xl';
+    if (width >= 1024) return '5xl';
+    if (width >= 768) return '3xl';
+    if (width >= 640) return '2xl';
+    return 'base';
   };
 
   return (
@@ -235,22 +236,22 @@ function InteractiveDemos({
           </label>
           <div className="flex gap-2">
             <Button
-              onClick={() => setDemoType("dashboard1")}
-              variant={demoType === "dashboard1" ? "default" : "ghost"}
+              onClick={() => setDemoType('dashboard1')}
+              variant={demoType === 'dashboard1' ? 'default' : 'ghost'}
               size="sm"
             >
               Dashboard 1
             </Button>
             <Button
-              onClick={() => setDemoType("dashboard2")}
-              variant={demoType === "dashboard2" ? "default" : "ghost"}
+              onClick={() => setDemoType('dashboard2')}
+              variant={demoType === 'dashboard2' ? 'default' : 'ghost'}
               size="sm"
             >
               Dashboard 2
             </Button>
             <Button
-              onClick={() => setDemoType("chat")}
-              variant={demoType === "chat" ? "default" : "ghost"}
+              onClick={() => setDemoType('chat')}
+              variant={demoType === 'chat' ? 'default' : 'ghost'}
               size="sm"
             >
               AI Chat
@@ -260,7 +261,7 @@ function InteractiveDemos({
             variant="outline"
             size="sm"
             onClick={() => {
-              const hashType = demoType === "chat" ? "ai-chat" : demoType;
+              const hashType = demoType === 'chat' ? 'ai-chat' : demoType;
               const url = `${window.location.origin}${window.location.pathname}#${hashType}-${width}`;
               navigator.clipboard.writeText(url);
               setLinkCopied(true);
@@ -268,7 +269,7 @@ function InteractiveDemos({
             }}
             className="ml-auto"
           >
-            {linkCopied ? "Copied!" : "Share breakpoint"}
+            {linkCopied ? 'Copied!' : 'Share breakpoint'}
           </Button>
         </div>
 
@@ -298,12 +299,12 @@ function InteractiveDemos({
             className="px-3 py-1.5 text-xs rounded-md bg-muted hover:bg-muted/80 transition-colors flex items-center gap-2"
           >
             <kbd className="px-1.5 py-0.5 bg-background rounded text-[10px] border">
-              {navigator.platform.includes("Mac") ? "⌘" : "Ctrl"}+G
+              {navigator.platform.includes('Mac') ? '⌘' : 'Ctrl'}+G
             </kbd>
-            {showGrid ? "Hide" : "Show"} Grid
+            {showGrid ? 'Hide' : 'Show'} Grid
           </button>
           <span className="text-xs text-muted-foreground">
-            Press {navigator.platform.includes("Mac") ? "Cmd" : "Ctrl"}+G to toggle grid overlay
+            Press {navigator.platform.includes('Mac') ? 'Cmd' : 'Ctrl'}+G to toggle grid overlay
           </span>
         </div>
       </div>
@@ -312,9 +313,9 @@ function InteractiveDemos({
       <div className="bg-foreground/10 rounded-lg p-2">
         <div
           className="@container bg-background rounded-lg overflow-hidden transition-all duration-300 mx-auto relative"
-          style={{ width: `${width}px`, maxWidth: "100%" }}
+          style={{ width: `${width}px`, maxWidth: '100%' }}
         >
-          {demoType === "dashboard1" || demoType === "dashboard2" ? (
+          {demoType === 'dashboard1' || demoType === 'dashboard2' ? (
             <>
               {/* TopBar spanning full width before grid */}
               <Topbar>
@@ -352,7 +353,7 @@ function InteractiveDemos({
                   </div>
                 )}
 
-                {demoType === "dashboard1" ? (
+                {demoType === 'dashboard1' ? (
                   <>
                     {/* Dashboard 1: Unified Grid - Status Cards */}
 
@@ -457,7 +458,7 @@ function InteractiveDemos({
                         <div className="h-2 bg-muted rounded-full overflow-hidden">
                           <div
                             className="h-full bg-primary rounded-full"
-                            style={{ width: "67%" }}
+                            style={{ width: '67%' }}
                           />
                         </div>
                         <div className="text-xs text-muted-foreground mt-2">
@@ -698,7 +699,7 @@ function InteractiveDemos({
 
       {/* Legend */}
       <div className="flex flex-wrap gap-4 text-sm">
-        {(demoType === "dashboard1" || demoType === "dashboard2") && (
+        {(demoType === 'dashboard1' || demoType === 'dashboard2') && (
           <>
             <div className="flex items-center gap-2">
               <div className="w-4 h-4 bg-background border border-border rounded" />
@@ -724,7 +725,7 @@ function InteractiveDemos({
 function CodeExample({
   demoType,
 }: {
-  demoType: "chat" | "dashboard1" | "dashboard2";
+  demoType: 'chat' | 'dashboard1' | 'dashboard2';
 }) {
   // Dashboard 1 Layout - Unified grid pattern
   const dashboard1Code = `<div className="@container">
@@ -793,7 +794,7 @@ function CodeExample({
 
   return (
     <div className="space-y-6">
-      {demoType === "dashboard1" && (
+      {demoType === 'dashboard1' && (
         <div>
           <h3 className="text-lg font-semibold mb-2">Dashboard 1: Unified Grid</h3>
           <p className="text-sm text-muted-foreground mb-3">
@@ -806,7 +807,7 @@ function CodeExample({
           </CodeBlock>
         </div>
       )}
-      {demoType === "dashboard2" && (
+      {demoType === 'dashboard2' && (
         <div>
           <h3 className="text-lg font-semibold mb-2">Dashboard 2: Main + Sidebar</h3>
           <p className="text-sm text-muted-foreground mb-3">
@@ -820,7 +821,7 @@ function CodeExample({
           </CodeBlock>
         </div>
       )}
-      {demoType === "chat" && (
+      {demoType === 'chat' && (
         <div>
           <h3 className="text-lg font-semibold mb-2">AI Chat Layout</h3>
           <p className="text-sm text-muted-foreground mb-3">
@@ -831,7 +832,7 @@ function CodeExample({
             <CodeBlockCollapseButton />
           </CodeBlock>
           <p className="text-sm text-muted-foreground mt-3">
-            For complete implementation details and examples, see the{" "}
+            For complete implementation details and examples, see the{' '}
             <Link to="/ai/conversation" className="text-primary hover:underline">
               Conversation component documentation
             </Link>
@@ -889,7 +890,7 @@ function KeyConcepts() {
 }
 
 export default function LayoutsPage() {
-  const [demoType, setDemoType] = useState<"chat" | "dashboard1" | "dashboard2">("dashboard1");
+  const [demoType, setDemoType] = useState<'chat' | 'dashboard1' | 'dashboard2'>('dashboard1');
 
   return (
     <div className="space-y-12">

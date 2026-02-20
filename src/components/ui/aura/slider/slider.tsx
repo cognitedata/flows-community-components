@@ -1,11 +1,11 @@
-import { Slider as SliderPrimitive } from "@base-ui/react/slider";
-import { useCallback, useMemo } from "react";
+import { Slider as SliderPrimitive } from '@base-ui/react/slider';
+import { useCallback, useMemo } from 'react';
 
-import { cn } from "../../../../lib/utils";
+import { cn } from '../../../../lib/utils';
 
 type SliderProps = Omit<
   SliderPrimitive.Root.Props<readonly number[]>,
-  "value" | "defaultValue" | "onValueChange"
+  'value' | 'defaultValue' | 'onValueChange'
 > & {
   value?: number[];
   defaultValue?: number[];
@@ -42,7 +42,7 @@ function Slider({
       min={min}
       max={max}
       className={cn(
-        "data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full",
+        'data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full',
         className
       )}
       thumbAlignment="edge"

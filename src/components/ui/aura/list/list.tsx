@@ -1,3 +1,4 @@
+import { cva } from 'class-variance-authority';
 import {
   Children,
   type ComponentProps,
@@ -6,14 +7,13 @@ import {
   forwardRef,
   isValidElement,
   useContext,
-} from "react";
+} from 'react';
 
-import { cva } from "class-variance-authority";
 
-import { cn } from "../../../../lib/utils";
+import { cn } from '../../../../lib/utils';
 
-type HeadingElement = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
-type ListItemVariant = "upcoming" | "now" | "completed" | "error";
+type HeadingElement = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+type ListItemVariant = 'upcoming' | 'now' | 'completed' | 'error';
 
 type ListItemContextValue = {
   variant?: ListItemVariant;
@@ -24,59 +24,59 @@ const ListItemContext = createContext<ListItemContextValue>({
   hasIcon: false,
 });
 
-const listItemIconVariants = cva("", {
+const listItemIconVariants = cva('', {
   variants: {
     variant: {
-      upcoming: "text-muted-foreground",
-      now: "text-card-foreground",
-      completed: "text-muted-foreground",
-      error: "text-destructive-foreground",
+      upcoming: 'text-muted-foreground',
+      now: 'text-card-foreground',
+      completed: 'text-muted-foreground',
+      error: 'text-destructive-foreground',
     },
   },
   defaultVariants: {
-    variant: "upcoming",
+    variant: 'upcoming',
   },
 });
 
-const listItemTitleVariants = cva("", {
+const listItemTitleVariants = cva('', {
   variants: {
     variant: {
-      upcoming: "text-muted-foreground",
-      now: "text-foreground",
-      completed: "text-muted-foreground",
-      error: "text-foreground",
+      upcoming: 'text-muted-foreground',
+      now: 'text-foreground',
+      completed: 'text-muted-foreground',
+      error: 'text-foreground',
     },
   },
   defaultVariants: {
-    variant: "now",
+    variant: 'now',
   },
 });
 
-const listItemDescriptionVariants = cva("", {
+const listItemDescriptionVariants = cva('', {
   variants: {
     variant: {
-      upcoming: "text-muted-foreground",
-      now: "text-muted-foreground",
-      completed: "text-muted-foreground",
-      error: "text-muted-foreground",
+      upcoming: 'text-muted-foreground',
+      now: 'text-muted-foreground',
+      completed: 'text-muted-foreground',
+      error: 'text-muted-foreground',
     },
   },
   defaultVariants: {
-    variant: "now",
+    variant: 'now',
   },
 });
 
-const listItemStatusVariants = cva("", {
+const listItemStatusVariants = cva('', {
   variants: {
     variant: {
-      upcoming: "text-muted-foreground",
-      now: "text-muted-foreground",
-      completed: "text-muted-foreground",
-      error: "text-destructive-foreground",
+      upcoming: 'text-muted-foreground',
+      now: 'text-muted-foreground',
+      completed: 'text-muted-foreground',
+      error: 'text-destructive-foreground',
     },
   },
   defaultVariants: {
-    variant: "now",
+    variant: 'now',
   },
 });
 
@@ -87,11 +87,11 @@ const isListItemIconElement = (child: ReactNode) => {
 
   const childType = child.type;
   const displayName = (() => {
-    if (typeof childType === "function") {
+    if (typeof childType === 'function') {
       return (childType as { displayName?: string; name?: string }).displayName ?? childType.name;
     }
 
-    if (typeof childType === "object" && childType) {
+    if (typeof childType === 'object' && childType) {
       const typedChild = childType as {
         displayName?: string;
         render?: { displayName?: string; name?: string };
@@ -103,7 +103,7 @@ const isListItemIconElement = (child: ReactNode) => {
     return undefined;
   })();
 
-  return childType === ListItemIcon || displayName === "ListItemIcon";
+  return childType === ListItemIcon || displayName === 'ListItemIcon';
 };
 
 const isListItemStatusElement = (child: ReactNode) => {
@@ -113,11 +113,11 @@ const isListItemStatusElement = (child: ReactNode) => {
 
   const childType = child.type;
   const displayName = (() => {
-    if (typeof childType === "function") {
+    if (typeof childType === 'function') {
       return (childType as { displayName?: string; name?: string }).displayName ?? childType.name;
     }
 
-    if (typeof childType === "object" && childType) {
+    if (typeof childType === 'object' && childType) {
       const typedChild = childType as {
         displayName?: string;
         render?: { displayName?: string; name?: string };
@@ -129,7 +129,7 @@ const isListItemStatusElement = (child: ReactNode) => {
     return undefined;
   })();
 
-  return childType === ListItemStatus || displayName === "ListItemStatus";
+  return childType === ListItemStatus || displayName === 'ListItemStatus';
 };
 
 const isListItemDescriptionElement = (child: ReactNode) => {
@@ -139,11 +139,11 @@ const isListItemDescriptionElement = (child: ReactNode) => {
 
   const childType = child.type;
   const displayName = (() => {
-    if (typeof childType === "function") {
+    if (typeof childType === 'function') {
       return (childType as { displayName?: string; name?: string }).displayName ?? childType.name;
     }
 
-    if (typeof childType === "object" && childType) {
+    if (typeof childType === 'object' && childType) {
       const typedChild = childType as {
         displayName?: string;
         render?: { displayName?: string; name?: string };
@@ -155,11 +155,11 @@ const isListItemDescriptionElement = (child: ReactNode) => {
     return undefined;
   })();
 
-  return childType === ListItemDescription || displayName === "ListItemDescription";
+  return childType === ListItemDescription || displayName === 'ListItemDescription';
 };
 
 const DefaultListItemIcon = ({ variant }: { variant: ListItemVariant }) => {
-  if (variant === "completed") {
+  if (variant === 'completed') {
     return (
       <svg
         aria-hidden="true"
@@ -177,7 +177,7 @@ const DefaultListItemIcon = ({ variant }: { variant: ListItemVariant }) => {
     );
   }
 
-  if (variant === "now") {
+  if (variant === 'now') {
     return (
       <svg
         aria-hidden="true"
@@ -193,7 +193,7 @@ const DefaultListItemIcon = ({ variant }: { variant: ListItemVariant }) => {
     );
   }
 
-  if (variant === "error") {
+  if (variant === 'error') {
     return (
       <svg
         aria-hidden="true"
@@ -225,51 +225,51 @@ const DefaultListItemIcon = ({ variant }: { variant: ListItemVariant }) => {
 /**
  * List container for unordered content.
  */
-const List = forwardRef<HTMLUListElement, ComponentProps<"ul">>(({ className, ...props }, ref) => {
+const List = forwardRef<HTMLUListElement, ComponentProps<'ul'>>(({ className, ...props }, ref) => {
   return (
-    <ul ref={ref} data-slot="list" className={cn("flex flex-col gap-3", className)} {...props} />
+    <ul ref={ref} data-slot="list" className={cn('flex flex-col gap-3', className)} {...props} />
   );
 });
-List.displayName = "List";
+List.displayName = 'List';
 
 /**
  * List container for ordered content.
  */
-const ListOrdered = forwardRef<HTMLOListElement, ComponentProps<"ol">>(
+const ListOrdered = forwardRef<HTMLOListElement, ComponentProps<'ol'>>(
   ({ className, ...props }, ref) => {
     return (
       <ol
         ref={ref}
         data-slot="list-ordered"
-        className={cn("flex flex-col gap-3", className)}
+        className={cn('flex flex-col gap-3', className)}
         {...props}
       />
     );
   }
 );
-ListOrdered.displayName = "ListOrdered";
+ListOrdered.displayName = 'ListOrdered';
 
 /**
  * List container for description list content.
  */
-const ListDescription = forwardRef<HTMLDListElement, ComponentProps<"dl">>(
+const ListDescription = forwardRef<HTMLDListElement, ComponentProps<'dl'>>(
   ({ className, ...props }, ref) => {
     return (
       <dl
         ref={ref}
         data-slot="list-description"
-        className={cn("flex flex-col gap-3", className)}
+        className={cn('flex flex-col gap-3', className)}
         {...props}
       />
     );
   }
 );
-ListDescription.displayName = "ListDescription";
+ListDescription.displayName = 'ListDescription';
 
 /**
  * List item container with optional status variants.
  */
-const ListItem = forwardRef<HTMLLIElement, ComponentProps<"li"> & { variant?: ListItemVariant }>(
+const ListItem = forwardRef<HTMLLIElement, ComponentProps<'li'> & { variant?: ListItemVariant }>(
   ({ className, variant, children, ...props }, ref) => {
     const childItems = Children.toArray(children);
     const hasIconSlot = childItems.some((child) => isListItemIconElement(child));
@@ -288,14 +288,14 @@ const ListItem = forwardRef<HTMLLIElement, ComponentProps<"li"> & { variant?: Li
           data-slot="list-item"
           data-variant={variant}
           className={cn(
-            "grid w-full items-start gap-x-2 rounded p-0.5",
+            'grid w-full items-start gap-x-2 rounded p-0.5',
             // Add row gap only if there's a description (multiple rows)
-            hasDescriptionSlot && "gap-y-1",
+            hasDescriptionSlot && 'gap-y-1',
             // Determine grid columns based on what slots are present
-            hasIcon && hasStatusSlot && "grid-cols-[auto_minmax(0,1fr)_auto]", // icon | content | status
-            hasIcon && !hasStatusSlot && "grid-cols-[auto_minmax(0,1fr)]", // icon | content
-            !hasIcon && hasStatusSlot && "grid-cols-[minmax(0,1fr)_auto]", // content | status
-            !hasIcon && !hasStatusSlot && "grid-cols-[minmax(0,1fr)]", // just content
+            hasIcon && hasStatusSlot && 'grid-cols-[auto_minmax(0,1fr)_auto]', // icon | content | status
+            hasIcon && !hasStatusSlot && 'grid-cols-[auto_minmax(0,1fr)]', // icon | content
+            !hasIcon && hasStatusSlot && 'grid-cols-[minmax(0,1fr)_auto]', // content | status
+            !hasIcon && !hasStatusSlot && 'grid-cols-[minmax(0,1fr)]', // just content
             className
           )}
           {...props}
@@ -306,14 +306,14 @@ const ListItem = forwardRef<HTMLLIElement, ComponentProps<"li"> & { variant?: Li
     );
   }
 );
-ListItem.displayName = "ListItem";
+ListItem.displayName = 'ListItem';
 
 /**
  * Icon slot for list items, supports default state icons.
  */
 const ListItemIcon = forwardRef<
   HTMLSpanElement,
-  ComponentProps<"span"> & { variant?: ListItemVariant; children?: ReactNode }
+  ComponentProps<'span'> & { variant?: ListItemVariant; children?: ReactNode }
 >(({ className, variant, children, ...props }, ref) => {
   const { variant: contextVariant } = useContext(ListItemContext);
   const resolvedVariant = variant ?? contextVariant;
@@ -324,7 +324,7 @@ const ListItemIcon = forwardRef<
       data-slot="list-item-icon"
       aria-hidden="true"
       className={cn(
-        "col-start-1 row-span-2 flex h-4 w-4 items-center justify-center text-muted-foreground",
+        'col-start-1 row-span-2 flex h-4 w-4 items-center justify-center text-muted-foreground',
         listItemIconVariants({ variant: resolvedVariant }),
         className
       )}
@@ -334,7 +334,7 @@ const ListItemIcon = forwardRef<
     </span>
   );
 });
-ListItemIcon.displayName = "ListItemIcon";
+ListItemIcon.displayName = 'ListItemIcon';
 
 /**
  * Title slot for list items.
@@ -346,8 +346,8 @@ ListItemIcon.displayName = "ListItemIcon";
  */
 const ListItemTitle = forwardRef<
   HTMLHeadingElement,
-  ComponentProps<"h3"> & { as?: HeadingElement }
->(({ className, as: Tag = "h3", ...props }, ref) => {
+  ComponentProps<'h3'> & { as?: HeadingElement }
+>(({ className, as: Tag = 'h3', ...props }, ref) => {
   const { variant, hasIcon } = useContext(ListItemContext);
 
   return (
@@ -355,8 +355,8 @@ const ListItemTitle = forwardRef<
       ref={ref}
       data-slot="list-item-title"
       className={cn(
-        "row-start-1 flex items-center gap-2 text-sm font-medium leading-4.5",
-        hasIcon ? "col-start-2" : "col-start-1",
+        'row-start-1 flex items-center gap-2 text-sm font-medium leading-4.5',
+        hasIcon ? 'col-start-2' : 'col-start-1',
         listItemTitleVariants({ variant }),
         className
       )}
@@ -364,12 +364,12 @@ const ListItemTitle = forwardRef<
     />
   );
 });
-ListItemTitle.displayName = "ListItemTitle";
+ListItemTitle.displayName = 'ListItemTitle';
 
 /**
  * Description slot for list items.
  */
-const ListItemDescription = forwardRef<HTMLDivElement, ComponentProps<"div">>(
+const ListItemDescription = forwardRef<HTMLDivElement, ComponentProps<'div'>>(
   ({ className, ...props }, ref) => {
     const { variant, hasIcon } = useContext(ListItemContext);
 
@@ -378,8 +378,8 @@ const ListItemDescription = forwardRef<HTMLDivElement, ComponentProps<"div">>(
         ref={ref}
         data-slot="list-item-description"
         className={cn(
-          "row-start-2 text-sm leading-4.5 text-muted-foreground",
-          hasIcon ? "col-start-2" : "col-start-1",
+          'row-start-2 text-sm leading-4.5 text-muted-foreground',
+          hasIcon ? 'col-start-2' : 'col-start-1',
           listItemDescriptionVariants({ variant }),
           className
         )}
@@ -388,12 +388,12 @@ const ListItemDescription = forwardRef<HTMLDivElement, ComponentProps<"div">>(
     );
   }
 );
-ListItemDescription.displayName = "ListItemDescription";
+ListItemDescription.displayName = 'ListItemDescription';
 
 /**
  * Status slot for list items.
  */
-const ListItemStatus = forwardRef<HTMLSpanElement, ComponentProps<"span">>(
+const ListItemStatus = forwardRef<HTMLSpanElement, ComponentProps<'span'>>(
   ({ className, ...props }, ref) => {
     const { variant, hasIcon } = useContext(ListItemContext);
 
@@ -402,9 +402,9 @@ const ListItemStatus = forwardRef<HTMLSpanElement, ComponentProps<"span">>(
         ref={ref}
         data-slot="list-item-status"
         className={cn(
-          "row-start-1 text-sm font-medium leading-4.5 text-muted-foreground",
-          hasIcon ? "col-start-3" : "col-start-2",
-          "justify-self-end text-right whitespace-nowrap",
+          'row-start-1 text-sm font-medium leading-4.5 text-muted-foreground',
+          hasIcon ? 'col-start-3' : 'col-start-2',
+          'justify-self-end text-right whitespace-nowrap',
           listItemStatusVariants({ variant }),
           className
         )}
@@ -413,41 +413,41 @@ const ListItemStatus = forwardRef<HTMLSpanElement, ComponentProps<"span">>(
     );
   }
 );
-ListItemStatus.displayName = "ListItemStatus";
+ListItemStatus.displayName = 'ListItemStatus';
 
 /**
  * Term slot for description lists.
  */
-const ListDescriptionTerm = forwardRef<HTMLElement, ComponentProps<"dt">>(
+const ListDescriptionTerm = forwardRef<HTMLElement, ComponentProps<'dt'>>(
   ({ className, ...props }, ref) => {
     return (
       <dt
         ref={ref}
         data-slot="list-description-term"
-        className={cn("text-sm font-medium leading-4.5", className)}
+        className={cn('text-sm font-medium leading-4.5', className)}
         {...props}
       />
     );
   }
 );
-ListDescriptionTerm.displayName = "ListDescriptionTerm";
+ListDescriptionTerm.displayName = 'ListDescriptionTerm';
 
 /**
  * Details slot for description lists.
  */
-const ListDescriptionDetails = forwardRef<HTMLElement, ComponentProps<"dd">>(
+const ListDescriptionDetails = forwardRef<HTMLElement, ComponentProps<'dd'>>(
   ({ className, ...props }, ref) => {
     return (
       <dd
         ref={ref}
         data-slot="list-description-details"
-        className={cn("text-sm leading-4.5 text-muted-foreground", className)}
+        className={cn('text-sm leading-4.5 text-muted-foreground', className)}
         {...props}
       />
     );
   }
 );
-ListDescriptionDetails.displayName = "ListDescriptionDetails";
+ListDescriptionDetails.displayName = 'ListDescriptionDetails';
 
 export {
   List,

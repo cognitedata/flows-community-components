@@ -1,13 +1,13 @@
-import { Menu as MenuPrimitive } from "@base-ui/react/menu";
-import { IconCheck, IconChevronRight } from "@tabler/icons-react";
-import { type ComponentProps, type ComponentRef, type HTMLAttributes, forwardRef } from "react";
+import { Menu as MenuPrimitive } from '@base-ui/react/menu';
+import { IconCheck, IconChevronRight } from '@tabler/icons-react';
+import { type ComponentProps, type ComponentRef, type HTMLAttributes, forwardRef } from 'react';
 
-import { cn, getPortalContainer } from "../../../../lib/utils";
+import { cn, getPortalContainer } from '../../../../lib/utils';
 
 function DropdownMenu({ ...props }: MenuPrimitive.Root.Props) {
   return <MenuPrimitive.Root data-slot="dropdown-menu" {...props} />;
 }
-DropdownMenu.displayName = "DropdownMenu";
+DropdownMenu.displayName = 'DropdownMenu';
 
 function DropdownMenuPortal({ ...props }: MenuPrimitive.Portal.Props) {
   return (
@@ -18,7 +18,7 @@ function DropdownMenuPortal({ ...props }: MenuPrimitive.Portal.Props) {
     />
   );
 }
-DropdownMenuPortal.displayName = "DropdownMenuPortal";
+DropdownMenuPortal.displayName = 'DropdownMenuPortal';
 
 function DropdownMenuTrigger({ children, ...props }: MenuPrimitive.Trigger.Props) {
   return (
@@ -27,17 +27,17 @@ function DropdownMenuTrigger({ children, ...props }: MenuPrimitive.Trigger.Props
     </MenuPrimitive.Trigger>
   );
 }
-DropdownMenuTrigger.displayName = "DropdownMenuTrigger";
+DropdownMenuTrigger.displayName = 'DropdownMenuTrigger';
 
 function DropdownMenuContent({
-  align = "start",
+  align = 'start',
   alignOffset = 0,
-  side = "bottom",
+  side = 'bottom',
   sideOffset = 4,
   className,
   ...props
 }: MenuPrimitive.Popup.Props &
-  Pick<MenuPrimitive.Positioner.Props, "align" | "alignOffset" | "side" | "sideOffset">) {
+  Pick<MenuPrimitive.Positioner.Props, 'align' | 'alignOffset' | 'side' | 'sideOffset'>) {
   return (
     <DropdownMenuPortal>
       <MenuPrimitive.Positioner
@@ -50,7 +50,7 @@ function DropdownMenuContent({
         <MenuPrimitive.Popup
           data-slot="dropdown-menu-content"
           className={cn(
-            "bg-popover text-popover-foreground p-1 data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 max-h-(--available-height) min-w-32 origin-(--transform-origin) overflow-x-hidden overflow-y-auto rounded-lg border shadow-md outline-none",
+            'bg-popover text-popover-foreground p-1 data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 max-h-(--available-height) min-w-32 origin-(--transform-origin) overflow-x-hidden overflow-y-auto rounded-lg border shadow-md outline-none',
             className
           )}
           {...props}
@@ -59,20 +59,20 @@ function DropdownMenuContent({
     </DropdownMenuPortal>
   );
 }
-DropdownMenuContent.displayName = "DropdownMenuContent";
+DropdownMenuContent.displayName = 'DropdownMenuContent';
 
 function DropdownMenuGroup({ ...props }: MenuPrimitive.Group.Props) {
   return <MenuPrimitive.Group data-slot="dropdown-menu-group" {...props} />;
 }
-DropdownMenuGroup.displayName = "DropdownMenuGroup";
+DropdownMenuGroup.displayName = 'DropdownMenuGroup';
 
 const DropdownMenuItem = forwardRef<
   ComponentRef<typeof MenuPrimitive.Item>,
   MenuPrimitive.Item.Props & {
     inset?: boolean;
-    variant?: "default" | "destructive";
+    variant?: 'default' | 'destructive';
   }
->(({ className, inset, variant = "default", children, ...props }, ref) => {
+>(({ className, inset, variant = 'default', children, ...props }, ref) => {
   return (
     <MenuPrimitive.Item
       ref={ref}
@@ -89,7 +89,7 @@ const DropdownMenuItem = forwardRef<
     </MenuPrimitive.Item>
   );
 });
-DropdownMenuItem.displayName = "DropdownMenuItem";
+DropdownMenuItem.displayName = 'DropdownMenuItem';
 
 const DropdownMenuCheckboxItem = forwardRef<
   ComponentRef<typeof MenuPrimitive.CheckboxItem>,
@@ -115,12 +115,12 @@ const DropdownMenuCheckboxItem = forwardRef<
     </MenuPrimitive.CheckboxItem>
   );
 });
-DropdownMenuCheckboxItem.displayName = "DropdownMenuCheckboxItem";
+DropdownMenuCheckboxItem.displayName = 'DropdownMenuCheckboxItem';
 
 function DropdownMenuRadioGroup({ ...props }: MenuPrimitive.RadioGroup.Props) {
   return <MenuPrimitive.RadioGroup data-slot="dropdown-menu-radio-group" {...props} />;
 }
-DropdownMenuRadioGroup.displayName = "DropdownMenuRadioGroup";
+DropdownMenuRadioGroup.displayName = 'DropdownMenuRadioGroup';
 
 const DropdownMenuRadioItem = forwardRef<
   ComponentRef<typeof MenuPrimitive.RadioItem>,
@@ -145,7 +145,7 @@ const DropdownMenuRadioItem = forwardRef<
     </MenuPrimitive.RadioItem>
   );
 });
-DropdownMenuRadioItem.displayName = "DropdownMenuRadioItem";
+DropdownMenuRadioItem.displayName = 'DropdownMenuRadioItem';
 
 const DropdownMenuLabel = forwardRef<
   ComponentRef<typeof MenuPrimitive.GroupLabel>,
@@ -159,23 +159,23 @@ const DropdownMenuLabel = forwardRef<
       data-slot="dropdown-menu-label"
       data-inset={inset}
       className={cn(
-        "-mx-1 -mt-1 mb-1 px-2 py-1.5 text-sm border-b border-border font-medium data-inset:pl-8 text-popover-foreground dark:text-popover-foreground",
+        '-mx-1 -mt-1 mb-1 px-2 py-1.5 text-sm border-b border-border font-medium data-inset:pl-8 text-popover-foreground dark:text-popover-foreground',
         className
       )}
       {...props}
     />
   );
 });
-DropdownMenuLabel.displayName = "DropdownMenuLabel";
+DropdownMenuLabel.displayName = 'DropdownMenuLabel';
 
-const DropdownMenuHeader = forwardRef<ComponentRef<"div">, HTMLAttributes<HTMLDivElement>>(
+const DropdownMenuHeader = forwardRef<ComponentRef<'div'>, HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => {
     return (
       <div
         ref={ref}
         data-slot="dropdown-menu-header"
         className={cn(
-          "-mx-1 -mt-1 mb-1 flex flex-row items-center gap-2 border-b border-border px-2 py-2 pointer-events-none",
+          '-mx-1 -mt-1 mb-1 flex flex-row items-center gap-2 border-b border-border px-2 py-2 pointer-events-none',
           className
         )}
         {...props}
@@ -183,7 +183,7 @@ const DropdownMenuHeader = forwardRef<ComponentRef<"div">, HTMLAttributes<HTMLDi
     );
   }
 );
-DropdownMenuHeader.displayName = "DropdownMenuHeader";
+DropdownMenuHeader.displayName = 'DropdownMenuHeader';
 
 const DropdownMenuSeparator = forwardRef<
   ComponentRef<typeof MenuPrimitive.Separator>,
@@ -193,31 +193,31 @@ const DropdownMenuSeparator = forwardRef<
     <MenuPrimitive.Separator
       ref={ref}
       data-slot="dropdown-menu-separator"
-      className={cn("bg-border -mx-1 my-1 h-px", className)}
+      className={cn('bg-border -mx-1 my-1 h-px', className)}
       {...props}
     />
   );
 });
-DropdownMenuSeparator.displayName = "DropdownMenuSeparator";
+DropdownMenuSeparator.displayName = 'DropdownMenuSeparator';
 
-const DropdownMenuShortcut = forwardRef<ComponentRef<"span">, HTMLAttributes<HTMLSpanElement>>(
+const DropdownMenuShortcut = forwardRef<ComponentRef<'span'>, HTMLAttributes<HTMLSpanElement>>(
   ({ className, ...props }, ref) => {
     return (
       <span
         ref={ref}
         data-slot="dropdown-menu-shortcut"
-        className={cn("text-muted-foreground ml-auto text-xs tracking-widest", className)}
+        className={cn('text-muted-foreground ml-auto text-xs tracking-widest', className)}
         {...props}
       />
     );
   }
 );
-DropdownMenuShortcut.displayName = "DropdownMenuShortcut";
+DropdownMenuShortcut.displayName = 'DropdownMenuShortcut';
 
 function DropdownMenuSub({ ...props }: MenuPrimitive.SubmenuRoot.Props) {
   return <MenuPrimitive.SubmenuRoot data-slot="dropdown-menu-sub" {...props} />;
 }
-DropdownMenuSub.displayName = "DropdownMenuSub";
+DropdownMenuSub.displayName = 'DropdownMenuSub';
 
 const DropdownMenuSubTrigger = forwardRef<
   ComponentRef<typeof MenuPrimitive.SubmenuTrigger>,
@@ -241,12 +241,12 @@ const DropdownMenuSubTrigger = forwardRef<
     </MenuPrimitive.SubmenuTrigger>
   );
 });
-DropdownMenuSubTrigger.displayName = "DropdownMenuSubTrigger";
+DropdownMenuSubTrigger.displayName = 'DropdownMenuSubTrigger';
 
 function DropdownMenuSubContent({
-  align = "start",
+  align = 'start',
   alignOffset = -3,
-  side = "right",
+  side = 'right',
   sideOffset = 0,
   className,
   ...props
@@ -254,7 +254,7 @@ function DropdownMenuSubContent({
   return (
     <DropdownMenuContent
       data-slot="dropdown-menu-sub-content"
-      className={cn("min-w-32 w-auto", className)}
+      className={cn('min-w-32 w-auto', className)}
       align={align}
       alignOffset={alignOffset}
       side={side}
@@ -263,16 +263,16 @@ function DropdownMenuSubContent({
     />
   );
 }
-DropdownMenuSubContent.displayName = "DropdownMenuSubContent";
+DropdownMenuSubContent.displayName = 'DropdownMenuSubContent';
 
-const DropdownMenuSectionLabel = forwardRef<ComponentRef<"div">, HTMLAttributes<HTMLDivElement>>(
+const DropdownMenuSectionLabel = forwardRef<ComponentRef<'div'>, HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => {
     return (
       <div
         ref={ref}
         data-slot="dropdown-menu-section-label"
         className={cn(
-          "px-2 py-1 text-sm text-muted-foreground dark:text-muted-foreground",
+          'px-2 py-1 text-sm text-muted-foreground dark:text-muted-foreground',
           className
         )}
         {...props}
@@ -280,7 +280,7 @@ const DropdownMenuSectionLabel = forwardRef<ComponentRef<"div">, HTMLAttributes<
     );
   }
 );
-DropdownMenuSectionLabel.displayName = "DropdownMenuSectionLabel";
+DropdownMenuSectionLabel.displayName = 'DropdownMenuSectionLabel';
 
 export {
   DropdownMenu,

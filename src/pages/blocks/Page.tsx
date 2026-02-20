@@ -1,45 +1,46 @@
-import { Badge } from "@/components/ui/aura/badge";
-import { Button } from "@/components/ui/aura/button";
+import {
+  IconArrowRight as ArrowRight,
+  IconChartBar as BarChart3,
+  IconMessageCircle as MessageSquare,
+  IconUsers as Users,
+} from '@tabler/icons-react';
+import { Link } from 'react-router-dom';
+
+import { Badge } from '@/components/ui/aura/badge';
+import { Button } from '@/components/ui/aura/button';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/aura/card";
-import {
-  IconArrowRight as ArrowRight,
-  IconChartBar as BarChart3,
-  IconMessageCircle as MessageSquare,
-  IconUsers as Users,
-} from "@tabler/icons-react";
-import { Link } from "react-router-dom";
+} from '@/components/ui/aura/card';
 
 const blockCategories = [
   {
     icon: MessageSquare,
-    title: "Agent chat",
+    title: 'Agent chat',
     description:
-      "Interactive AI chat interfaces with real-time responses, typing indicators, and message threading.",
-    href: "/patterns/agent-chat",
-    features: ["Typing indicators", "Message threading", "AI responses", "Code highlighting"],
-    status: "Interactive",
+      'Interactive AI chat interfaces with real-time responses, typing indicators, and message threading.',
+    href: '/patterns/agent-chat',
+    features: ['Typing indicators', 'Message threading', 'AI responses', 'Code highlighting'],
+    status: 'Interactive',
   },
   {
     icon: BarChart3,
-    title: "Dashboards",
-    description: "Dynamic data visualization blocks with charts, KPIs, and real-time updates.",
-    href: "/patterns/dashboards",
-    features: ["Live charts", "KPI cards", "Data filtering", "Responsive layouts"],
-    status: "Interactive",
+    title: 'Dashboards',
+    description: 'Dynamic data visualization blocks with charts, KPIs, and real-time updates.',
+    href: '/patterns/dashboards',
+    features: ['Live charts', 'KPI cards', 'Data filtering', 'Responsive layouts'],
+    status: 'Interactive',
   },
   {
     icon: Users,
-    title: "Shift handover",
-    description: "Collaborative workflow blocks for team transitions and task management.",
-    href: "/eos/shift-handover-app",
-    features: ["Task lists", "Team updates", "Status tracking", "Notifications"],
-    status: "Interactive",
+    title: 'Shift handover',
+    description: 'Collaborative workflow blocks for team transitions and task management.',
+    href: '/eos/shift-handover-app',
+    features: ['Task lists', 'Team updates', 'Status tracking', 'Notifications'],
+    status: 'Interactive',
   },
 ];
 

@@ -1,7 +1,8 @@
-import { composeStories } from "@storybook/react";
-import type React from "react";
-import { type ComponentType, useEffect, useState } from "react";
-import { ExamplePreview } from "./example-preview";
+import { composeStories } from '@storybook/react';
+import type React from 'react';
+import { type ComponentType, useEffect, useState } from 'react';
+
+import { ExamplePreview } from './example-preview';
 
 interface StoriesRendererProps {
   slug: string;
@@ -17,7 +18,7 @@ interface StoryEntry {
 // Use import.meta.glob to let Vite know about all stories files at build time
 // Using eager: true ensures modules are loaded at build time and included in production bundle
 // This follows Storybook's recommended pattern for portable stories
-const storiesModules = import.meta.glob("@/components/ui/aura/*/*.stories.tsx", { eager: true });
+const storiesModules = import.meta.glob('@/components/ui/aura/*/*.stories.tsx', { eager: true });
 
 // Create slug-to-module mapping at module load time
 const storiesBySlug = new Map<string, Record<string, unknown>>();
@@ -37,7 +38,7 @@ for (const [path, module] of Object.entries(storiesModules)) {
  */
 function storyKeyToTitle(key: string): string {
   return key
-    .replace(/([A-Z])/g, " $1")
+    .replace(/([A-Z])/g, ' $1')
     .replace(/^./, (str) => str.toUpperCase())
     .trim();
 }
@@ -76,12 +77,12 @@ export function StoriesRenderer({ slug }: StoriesRendererProps) {
             slug.toLowerCase().includes(s.toLowerCase())
         );
 
-        console.error("[StoriesRenderer] Story module not found for slug:", slug);
+        console.error('[StoriesRenderer] Story module not found for slug:', slug);
 
         const errorMessage =
           similarSlugs.length > 0
-            ? `No stories file found for "${slug}". Did you mean: ${similarSlugs.slice(0, 3).join(", ")}?`
-            : `No stories file found for "${slug}". Available: ${availableSlugs.slice(0, 5).join(", ")}${availableSlugs.length > 5 ? "..." : ""}`;
+            ? `No stories file found for "${slug}". Did you mean: ${similarSlugs.slice(0, 3).join(', ')}?`
+            : `No stories file found for "${slug}". Available: ${availableSlugs.slice(0, 5).join(', ')}${availableSlugs.length > 5 ? '...' : ''}`;
 
         setError(errorMessage);
         return;
@@ -90,11 +91,6 @@ export function StoriesRenderer({ slug }: StoriesRendererProps) {
       try {
         // Module is already loaded with eager: true, just need to use it
         const module = storiesModule as Record<string, unknown>;
-
-        // Get all story keys (will be alphabetical after bundling)
-        const allKeys = Object.keys(module).filter(
-          (key) => key !== "default" && key !== "__esModule" && !key.startsWith("_")
-        );
 
         // Compose stories using Storybook's portable stories API
         // composeStories expects a module with default export (meta) and named exports (stories)
@@ -112,10 +108,10 @@ export function StoriesRenderer({ slug }: StoriesRendererProps) {
             // Filter out default, __esModule, and other non-story exports
             const storyKeys = moduleKeys.filter(
               (key) =>
-                key !== "default" &&
-                key !== "__esModule" &&
-                !key.startsWith("_") &&
-                typeof module[key] === "object"
+                key !== 'default' &&
+                key !== '__esModule' &&
+                !key.startsWith('_') &&
+                typeof module[key] === 'object'
             );
 
             if (storyKeys.length > 0) {
@@ -125,7 +121,7 @@ export function StoriesRenderer({ slug }: StoriesRendererProps) {
                 const story = module[key] as {
                   render?: () => React.ReactElement;
                 };
-                if (story && typeof story.render === "function") {
+                if (story && typeof story.render === 'function') {
                   composed[key] = story.render as ComponentType;
                 }
               }
@@ -133,7 +129,7 @@ export function StoriesRenderer({ slug }: StoriesRendererProps) {
           }
         } catch (composeError) {
           console.error(
-            "[StoriesRenderer] Failed to compose stories for slug:",
+            '[StoriesRenderer] Failed to compose stories for slug:',
             slug,
             composeError
           );
@@ -186,7 +182,7 @@ export function StoriesRenderer({ slug }: StoriesRendererProps) {
           });
 
         if (storyEntries.length === 0) {
-          console.error("[StoriesRenderer] No stories found for slug:", slug);
+          console.error('[StoriesRenderer] No stories found for slug:', slug);
           setError(`No stories found in ${slug}.stories.tsx.`);
           return;
         }
@@ -196,9 +192,9 @@ export function StoriesRenderer({ slug }: StoriesRendererProps) {
         }
       } catch (err) {
         if (!cancelled) {
-          console.error("[StoriesRenderer] Failed to load stories for slug:", slug, err);
+          console.error('[StoriesRenderer] Failed to load stories for slug:', slug, err);
           setError(
-            `Failed to load stories for "${slug}". ${err instanceof Error ? err.message : "Unknown error"}.`
+            `Failed to load stories for "${slug}". ${err instanceof Error ? err.message : 'Unknown error'}.`
           );
         }
       }

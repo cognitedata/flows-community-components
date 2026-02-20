@@ -1,7 +1,8 @@
-import { setProjectAnnotations } from "@storybook/react";
-import * as preview from "./preview";
+import { setProjectAnnotations } from '@storybook/react';
 
-if (typeof window !== "undefined") {
+import * as preview from './preview';
+
+if (typeof window !== 'undefined') {
   (window as Window & { __STORYBOOK_TEST__?: boolean }).__STORYBOOK_TEST__ = true;
 }
 

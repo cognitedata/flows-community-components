@@ -1,10 +1,11 @@
-import { Badge } from "@/components/ui/aura/badge";
-import { Button } from "@/components/ui/aura/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/aura/card";
-import { Input } from "@/components/ui/aura/input";
-import { Label } from "@/components/ui/aura/label";
-import { IconAlertTriangle, IconPlayerPlay } from "@tabler/icons-react";
-import React from "react";
+import { IconAlertTriangle, IconPlayerPlay } from '@tabler/icons-react';
+import React from 'react';
+
+import { Badge } from '@/components/ui/aura/badge';
+import { Button } from '@/components/ui/aura/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/aura/card';
+import { Input } from '@/components/ui/aura/input';
+import { Label } from '@/components/ui/aura/label';
 
 interface PresetComponentRendererProps {
   code: string;
@@ -142,38 +143,38 @@ function detectComponentPattern(code: string): keyof typeof presetComponents | n
   const lowerCode = code.toLowerCase();
 
   // Check for pricing-related patterns
-  if (lowerCode.includes("pricing") || lowerCode.includes("price") || lowerCode.includes("plan")) {
-    return "PricingCard";
+  if (lowerCode.includes('pricing') || lowerCode.includes('price') || lowerCode.includes('plan')) {
+    return 'PricingCard';
   }
 
   // Check for profile-related patterns
-  if (lowerCode.includes("profile") || lowerCode.includes("user") || lowerCode.includes("avatar")) {
-    return "UserProfile";
+  if (lowerCode.includes('profile') || lowerCode.includes('user') || lowerCode.includes('avatar')) {
+    return 'UserProfile';
   }
 
   // Check for dashboard/stats patterns
   if (
-    lowerCode.includes("dashboard") ||
-    lowerCode.includes("stats") ||
-    lowerCode.includes("metric") ||
-    lowerCode.includes("revenue")
+    lowerCode.includes('dashboard') ||
+    lowerCode.includes('stats') ||
+    lowerCode.includes('metric') ||
+    lowerCode.includes('revenue')
   ) {
-    return "StatsWidget";
+    return 'StatsWidget';
   }
 
   // Check for form patterns
-  if (lowerCode.includes("form") || (lowerCode.includes("input") && lowerCode.includes("label"))) {
-    return "ContactForm";
+  if (lowerCode.includes('form') || (lowerCode.includes('input') && lowerCode.includes('label'))) {
+    return 'ContactForm';
   }
 
   // Check for card with header
-  if (lowerCode.includes("cardheader") || lowerCode.includes("cardtitle")) {
-    return "CardWithHeader";
+  if (lowerCode.includes('cardheader') || lowerCode.includes('cardtitle')) {
+    return 'CardWithHeader';
   }
 
   // Check for basic card
-  if (lowerCode.includes("card") && lowerCode.includes("cardcontent")) {
-    return "BasicCard";
+  if (lowerCode.includes('card') && lowerCode.includes('cardcontent')) {
+    return 'BasicCard';
   }
 
   return null;

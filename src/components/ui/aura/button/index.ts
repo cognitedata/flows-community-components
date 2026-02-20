@@ -2,5 +2,5 @@
 export {
   Button,
   buttonVariants,
-} from "./button";
-export { ButtonMetadata } from "./button.metadata";
+} from './button';
+export { ButtonMetadata } from './button.metadata';

@@ -1,12 +1,12 @@
-import { type ComponentProps, type ComponentRef, forwardRef } from "react";
+import { Progress as ProgressPrimitive } from '@base-ui/react/progress';
+import { type ComponentRef, forwardRef } from 'react';
 
-import { Progress as ProgressPrimitive } from "@base-ui/react/progress";
-import { cn } from "../../../../lib/utils";
+import { cn } from '../../../../lib/utils';
 
 const Progress = forwardRef<
   ComponentRef<typeof ProgressPrimitive.Root>,
   ProgressPrimitive.Root.Props & { max?: number }
->(({ className, value = 0, max = 100, "aria-label": ariaLabel, ...props }, ref) => {
+>(({ className, value = 0, max = 100, 'aria-label': ariaLabel, ...props }, ref) => {
   const safeValue = value ?? 0;
   const percentage = (safeValue * 100) / max;
   const defaultAriaLabel = `Progress: ${Math.round(percentage)}%`;
@@ -15,7 +15,7 @@ const Progress = forwardRef<
     <ProgressPrimitive.Root
       ref={ref}
       data-slot="progress"
-      className={cn("w-full", className)}
+      className={cn('w-full', className)}
       value={safeValue}
       max={max}
       aria-label={ariaLabel ?? defaultAriaLabel}
@@ -24,7 +24,7 @@ const Progress = forwardRef<
       <ProgressPrimitive.Track
         data-slot="progress-track"
         className={cn(
-          "bg-accent text-accent-foreground relative h-2 w-full overflow-hidden rounded-full",
+          'bg-accent text-accent-foreground relative h-2 w-full overflow-hidden rounded-full',
           className
         )}
       >
@@ -38,6 +38,6 @@ const Progress = forwardRef<
   );
 });
 
-Progress.displayName = "Progress";
+Progress.displayName = 'Progress';
 
 export { Progress };

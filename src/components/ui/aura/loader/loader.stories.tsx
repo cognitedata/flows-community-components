@@ -1,34 +1,35 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, within } from "@storybook/test";
+import type { Meta, StoryObj } from '@storybook/react';
+import { expect, within } from '@storybook/test';
 
-import { Button } from "@/components/ui/aura/button";
+import { Loader } from './loader';
 
-import { Loader } from "./loader";
+import { Button } from '@/components/ui/aura/button';
+
 
 const meta: Meta<typeof Loader> = {
-  title: "AI/Loader",
+  title: 'AI/Loader',
   component: Loader,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     size: {
-      control: "number",
-      description: "Size of the loader in pixels",
+      control: 'number',
+      description: 'Size of the loader in pixels',
       table: {
-        category: "Variants/Styling",
-        type: { summary: "number" },
-        defaultValue: { summary: "16" },
+        category: 'Variants/Styling',
+        type: { summary: 'number' },
+        defaultValue: { summary: '16' },
       },
     },
     className: {
-      control: "text",
-      description: "Additional CSS classes",
+      control: 'text',
+      description: 'Additional CSS classes',
       table: {
-        category: "Variants/Styling",
+        category: 'Variants/Styling',
       },
     },
   },
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
 };
 
@@ -44,13 +45,13 @@ export const Default: Story = {
     order: 1,
     docs: {
       description: {
-        story: "Default spinning loader.",
+        story: 'Default spinning loader.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const loader = canvas.getByLabelText("Loading");
+    const loader = canvas.getByLabelText('Loading');
     await expect(loader).toBeInTheDocument();
   },
 };
@@ -87,7 +88,7 @@ export const Sizes: Story = {
     order: 2,
     docs: {
       description: {
-        story: "Loader in different sizes.",
+        story: 'Loader in different sizes.',
       },
     },
   },
@@ -117,7 +118,7 @@ export const InButton: Story = {
     order: 3,
     docs: {
       description: {
-        story: "Loader used inside buttons to indicate loading state.",
+        story: 'Loader used inside buttons to indicate loading state.',
       },
     },
   },
@@ -150,7 +151,7 @@ export const WithText: Story = {
     order: 4,
     docs: {
       description: {
-        story: "Loader displayed alongside text.",
+        story: 'Loader displayed alongside text.',
       },
     },
   },
@@ -172,7 +173,7 @@ export const Centered: Story = {
     order: 5,
     docs: {
       description: {
-        story: "Loader centered in a container.",
+        story: 'Loader centered in a container.',
       },
     },
   },
@@ -199,7 +200,7 @@ export const InCard: Story = {
     order: 6,
     docs: {
       description: {
-        story: "Loader displayed in a card with skeleton content.",
+        story: 'Loader displayed in a card with skeleton content.',
       },
     },
   },
@@ -227,7 +228,7 @@ export const Overlay: Story = {
     order: 7,
     docs: {
       description: {
-        story: "Loader as an overlay on content.",
+        story: 'Loader as an overlay on content.',
       },
     },
   },
@@ -250,7 +251,7 @@ export const CustomColors: Story = {
     order: 8,
     docs: {
       description: {
-        story: "Loader with custom colors using className.",
+        story: 'Loader with custom colors using className.',
       },
     },
   },
@@ -274,7 +275,7 @@ export const Inline: Story = {
     order: 9,
     docs: {
       description: {
-        story: "Loader used inline within text.",
+        story: 'Loader used inline within text.',
       },
     },
   },
@@ -320,7 +321,7 @@ export const Accessibility: Story = {
     order: 10,
     docs: {
       description: {
-        story: "Loader with proper ARIA attributes for screen readers.",
+        story: 'Loader with proper ARIA attributes for screen readers.',
       },
     },
   },
@@ -373,7 +374,7 @@ export const VisualRegression: Story = {
     order: 11,
     docs: {
       description: {
-        story: "Visual overview of loader variations.",
+        story: 'Visual overview of loader variations.',
       },
     },
     chromatic: {
@@ -394,7 +395,7 @@ export const Playground: Story = {
     order: 99,
     docs: {
       description: {
-        story: "Interactive playground - use controls to experiment with loader props.",
+        story: 'Interactive playground - use controls to experiment with loader props.',
       },
     },
   },

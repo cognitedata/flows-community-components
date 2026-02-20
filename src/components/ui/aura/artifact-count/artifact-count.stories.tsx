@@ -1,16 +1,8 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor, within } from "@storybook/test";
-import { type ComponentProps, useEffect, useState } from "react";
+import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
+import { type ComponentProps, useEffect, useState } from 'react';
+import { CartesianGrid, Line, LineChart, XAxis, YAxis } from 'recharts';
 
-import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts";
-
-import { Button } from "@/components/ui/aura/button";
-import {
-  type ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from "@/components/ui/aura/chart";
 import {
   ArtifactCount,
   ArtifactCountContent,
@@ -22,42 +14,50 @@ import {
   ArtifactCountHeader,
   ArtifactCountSeparator,
   ArtifactCountTag,
-} from "./artifact-count";
+} from './artifact-count';
+
+import { Button } from '@/components/ui/aura/button';
+import {
+  type ChartConfig,
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from '@/components/ui/aura/chart';
 
 const meta: Meta<typeof ArtifactCount> = {
-  title: "Primitives/Artifact - Count",
+  title: 'Primitives/Artifact - Count',
   component: ArtifactCount,
-  tags: ["autodocs", "ai-elements"],
+  tags: ['autodocs', 'ai-elements'],
   argTypes: {
     // Display
     className: {
-      control: "text",
-      description: "CSS classes for styling the card wrapper",
+      control: 'text',
+      description: 'CSS classes for styling the card wrapper',
       table: {
-        category: "Variants / Styling",
-        type: { summary: "string" },
+        category: 'Variants / Styling',
+        type: { summary: 'string' },
       },
     },
 
     // Content
     children: {
       control: false,
-      description: "Compositional children (Header, Content, Footer)",
+      description: 'Compositional children (Header, Content, Footer)',
       table: {
-        category: "Content",
-        type: { summary: "ReactNode" },
+        category: 'Content',
+        type: { summary: 'ReactNode' },
       },
     },
   },
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
 };
 
 export default meta;
 type Story = StoryObj<typeof ArtifactCount>;
 type PlaygroundArgs = ComponentProps<typeof ArtifactCount> & {
-  variant: "default" | "warning" | "critical";
+  variant: 'default' | 'warning' | 'critical';
   count: string;
   title: string;
   tag: string;
@@ -99,9 +99,9 @@ const generateTemperatureData = () => {
     temperature = Math.max(60, Math.min(110, temperature));
 
     data.push({
-      time: time.toLocaleTimeString("en-US", {
-        hour: "2-digit",
-        minute: "2-digit",
+      time: time.toLocaleTimeString('en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
         hour12: false,
       }),
       temperature: Math.round(temperature * 10) / 10,
@@ -116,8 +116,8 @@ const temperatureData = generateTemperatureData();
 
 const temperatureChartConfig = {
   temperature: {
-    label: "Temperature",
-    color: "hsl(239 84% 67%)",
+    label: 'Temperature',
+    color: 'hsl(239 84% 67%)',
   },
 } satisfies ChartConfig;
 
@@ -129,16 +129,16 @@ export const Basic: Story = {
     order: 1,
     docs: {
       description: {
-        story: "Count widget with a headline count and breakdown summary.",
+        story: 'Count widget with a headline count and breakdown summary.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText("Active alarms")).toBeInTheDocument();
-    await expect(canvas.getByText("Critical:")).toBeInTheDocument();
-    await expect(canvas.getByText("High:")).toBeInTheDocument();
-    await expect(canvas.getByText("Medium:")).toBeInTheDocument();
+    await expect(canvas.getByText('Active alarms')).toBeInTheDocument();
+    await expect(canvas.getByText('Critical:')).toBeInTheDocument();
+    await expect(canvas.getByText('High:')).toBeInTheDocument();
+    await expect(canvas.getByText('Medium:')).toBeInTheDocument();
   },
   render: () => (
     <ArtifactCount className="w-md">
@@ -173,15 +173,15 @@ export const WithFooter: Story = {
     order: 2,
     docs: {
       description: {
-        story: "Count artifact with a separator and footer context.",
+        story: 'Count artifact with a separator and footer context.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText("Temperature")).toBeInTheDocument();
-    await expect(canvas.getByText("Min: 384°C")).toBeInTheDocument();
-    await expect(canvas.getByText("Max: 390°C")).toBeInTheDocument();
+    await expect(canvas.getByText('Temperature')).toBeInTheDocument();
+    await expect(canvas.getByText('Min: 384°C')).toBeInTheDocument();
+    await expect(canvas.getByText('Max: 390°C')).toBeInTheDocument();
   },
   render: () => (
     <ArtifactCount className="w-md">
@@ -212,14 +212,14 @@ export const WithChart: Story = {
     order: 3,
     docs: {
       description: {
-        story: "Count artifact with title, tag, and interactive real-time chart.",
+        story: 'Count artifact with title, tag, and interactive real-time chart.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText("Bar")).toBeInTheDocument();
-    await expect(canvas.getByText("V-192")).toBeInTheDocument();
+    await expect(canvas.getByText('Bar')).toBeInTheDocument();
+    await expect(canvas.getByText('V-192')).toBeInTheDocument();
   },
   render: function WithChartRender() {
     const [currentData, setCurrentData] = useState(temperatureData);
@@ -239,9 +239,9 @@ export const WithChart: Story = {
           // Remove oldest data point and add new one
           newData.shift();
           newData.push({
-            time: lastTime.toLocaleTimeString("en-US", {
-              hour: "2-digit",
-              minute: "2-digit",
+            time: lastTime.toLocaleTimeString('en-US', {
+              hour: '2-digit',
+              minute: '2-digit',
               hour12: false,
             }),
             temperature: Math.round(newTemp * 10) / 10,
@@ -290,16 +290,16 @@ export const WithChart: Story = {
                 tickLine={false}
                 axisLine={false}
                 tickMargin={8}
-                domain={["dataMin - 5", "dataMax + 5"]}
+                domain={['dataMin - 5', 'dataMax + 5']}
                 tickFormatter={(value) => `${value}°C`}
               />
               <ChartTooltip
-                cursor={{ stroke: "hsl(239 84% 67%)", strokeWidth: 1 }}
+                cursor={{ stroke: 'hsl(239 84% 67%)', strokeWidth: 1 }}
                 content={
                   <ChartTooltipContent
                     indicator="dot"
                     labelFormatter={(value) => `Time: ${value}`}
-                    formatter={(value) => [`${value}°C`, "Temperature"]}
+                    formatter={(value) => [`${value}°C`, 'Temperature']}
                   />
                 }
               />
@@ -309,7 +309,7 @@ export const WithChart: Story = {
                 stroke="hsl(239 84% 67%)"
                 strokeWidth={2}
                 dot={false}
-                activeDot={{ r: 4, stroke: "hsl(239 84% 67%)", strokeWidth: 2 }}
+                activeDot={{ r: 4, stroke: 'hsl(239 84% 67%)', strokeWidth: 2 }}
                 animationDuration={300}
               />
             </LineChart>
@@ -320,7 +320,7 @@ export const WithChart: Story = {
             <div className="flex items-center gap-2">
               <div
                 className="h-3 w-3 rounded-full"
-                style={{ backgroundColor: "hsl(239 84% 67%)" }}
+                style={{ backgroundColor: 'hsl(239 84% 67%)' }}
               />
               <span className="text-muted-foreground">Current: {currentTemp}°C</span>
             </div>
@@ -343,7 +343,7 @@ export const Interactive: Story = {
     order: 4,
     docs: {
       description: {
-        story: "Stateful count that updates when the button is pressed.",
+        story: 'Stateful count that updates when the button is pressed.',
       },
     },
   },
@@ -369,11 +369,11 @@ export const Interactive: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const button = canvas.getByRole("button", { name: "Increase" });
+    const button = canvas.getByRole('button', { name: 'Increase' });
     await userEvent.click(button);
     await waitFor(
       () => {
-        expect(canvas.getByText("393°C")).toBeInTheDocument();
+        expect(canvas.getByText('393°C')).toBeInTheDocument();
       },
       { timeout: 300 }
     );
@@ -388,7 +388,7 @@ export const EdgeCaseEmpty: Story = {
     order: 5,
     docs: {
       description: {
-        story: "Minimal shell with just a count to validate layout defaults.",
+        story: 'Minimal shell with just a count to validate layout defaults.',
       },
     },
   },
@@ -409,7 +409,7 @@ export const EdgeCaseLongText: Story = {
     order: 6,
     docs: {
       description: {
-        story: "Long titles and footer text to confirm wrapping behavior.",
+        story: 'Long titles and footer text to confirm wrapping behavior.',
       },
     },
   },
@@ -446,7 +446,7 @@ export const EdgeCaseSpecialCharacters: Story = {
     order: 7,
     docs: {
       description: {
-        story: "Special characters and emoji to validate glyph rendering.",
+        story: 'Special characters and emoji to validate glyph rendering.',
       },
     },
   },
@@ -476,62 +476,62 @@ export const EdgeCaseSpecialCharacters: Story = {
  */
 export const Playground: PlaygroundStory = {
   args: {
-    className: "w-md",
-    variant: "default",
-    count: "392°C",
-    title: "Temperature",
-    tag: "V-192",
-    footerLeft: "Min: 384°C",
-    footerRight: "Max: 390°C",
+    className: 'w-md',
+    variant: 'default',
+    count: '392°C',
+    title: 'Temperature',
+    tag: 'V-192',
+    footerLeft: 'Min: 384°C',
+    footerRight: 'Max: 390°C',
   },
   argTypes: {
     variant: {
-      control: "select",
-      options: ["default", "warning", "critical"],
-      description: "Variant for the count chip",
+      control: 'select',
+      options: ['default', 'warning', 'critical'],
+      description: 'Variant for the count chip',
       table: {
-        category: "Variants / Styling",
+        category: 'Variants / Styling',
         type: { summary: "'default' | 'warning' | 'critical'" },
       },
     },
     count: {
-      control: "text",
-      description: "Primary count value",
+      control: 'text',
+      description: 'Primary count value',
       table: {
-        category: "Content",
-        type: { summary: "string" },
+        category: 'Content',
+        type: { summary: 'string' },
       },
     },
     title: {
-      control: "text",
-      description: "Header title text",
+      control: 'text',
+      description: 'Header title text',
       table: {
-        category: "Content",
-        type: { summary: "string" },
+        category: 'Content',
+        type: { summary: 'string' },
       },
     },
     tag: {
-      control: "text",
-      description: "Header tag text",
+      control: 'text',
+      description: 'Header tag text',
       table: {
-        category: "Content",
-        type: { summary: "string" },
+        category: 'Content',
+        type: { summary: 'string' },
       },
     },
     footerLeft: {
-      control: "text",
-      description: "Left footer text",
+      control: 'text',
+      description: 'Left footer text',
       table: {
-        category: "Content",
-        type: { summary: "string" },
+        category: 'Content',
+        type: { summary: 'string' },
       },
     },
     footerRight: {
-      control: "text",
-      description: "Right footer text",
+      control: 'text',
+      description: 'Right footer text',
       table: {
-        category: "Content",
-        type: { summary: "string" },
+        category: 'Content',
+        type: { summary: 'string' },
       },
     },
   },
@@ -540,7 +540,7 @@ export const Playground: PlaygroundStory = {
     docs: {
       description: {
         story:
-          "Interactive playground for experimenting with ArtifactCount layout and count status. Use the controls panel to adjust content and the count variant.",
+          'Interactive playground for experimenting with ArtifactCount layout and count status. Use the controls panel to adjust content and the count variant.',
       },
     },
   },

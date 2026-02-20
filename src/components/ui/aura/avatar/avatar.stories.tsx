@@ -1,64 +1,66 @@
-import { Avatar, AvatarFallback, AvatarIcon, AvatarImage } from "@/components/ui/aura/avatar";
+import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
+import { IconHeart, IconRobot, IconStar, IconUser, IconWheel } from '@tabler/icons-react';
+import { useState } from 'react';
+
+import { getStorybookImagePath } from '../../../../lib/utils';
+
+import { Avatar, AvatarFallback, AvatarIcon, AvatarImage } from '@/components/ui/aura/avatar';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuLabel,
   DropdownMenuTrigger,
-} from "@/components/ui/aura/dropdown-menu";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/aura/hover-card";
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor, within } from "@storybook/test";
-import { IconHeart, IconRobot, IconStar, IconUser, IconWheel } from "@tabler/icons-react";
-import { useState } from "react";
-import { getStorybookImagePath } from "../../../../lib/utils";
+} from '@/components/ui/aura/dropdown-menu';
+import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/aura/hover-card';
 
 const meta: Meta<typeof Avatar> = {
-  title: "Primitives/Avatar",
+  title: 'Primitives/Avatar',
   component: Avatar,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     variant: {
-      control: "select",
-      options: ["default", "nordic", "aurora", "fjord", "dusk", "orange", "sky", "overflow"],
-      description: "The color scheme variant of the avatar",
+      control: 'select',
+      options: ['default', 'nordic', 'aurora', 'fjord', 'dusk', 'orange', 'sky', 'overflow'],
+      description: 'The color scheme variant of the avatar',
       table: {
-        category: "Appearance",
-        type: { summary: "string" },
-        defaultValue: { summary: "default" },
+        category: 'Appearance',
+        type: { summary: 'string' },
+        defaultValue: { summary: 'default' },
       },
     },
     sizes: {
-      control: "select",
-      options: ["default", "xsm", "xxsm"],
-      description: "The size of the avatar",
+      control: 'select',
+      options: ['default', 'xsm', 'xxsm'],
+      description: 'The size of the avatar',
       table: {
-        category: "Appearance",
-        type: { summary: "string" },
-        defaultValue: { summary: "default" },
+        category: 'Appearance',
+        type: { summary: 'string' },
+        defaultValue: { summary: 'default' },
       },
     },
     className: {
-      control: "text",
-      description: "Additional CSS classes",
+      control: 'text',
+      description: 'Additional CSS classes',
       table: {
-        category: "Styling",
+        category: 'Styling',
       },
     },
 
     onClick: {
-      action: "clicked",
-      description: "Callback fired when avatar is clicked",
+      action: 'clicked',
+      description: 'Callback fired when avatar is clicked',
       table: {
-        category: "Events",
-        type: { summary: "(event: MouseEvent) => void" },
+        category: 'Events',
+        type: { summary: '(event: MouseEvent) => void' },
       },
     },
   },
   parameters: {
-    layout: "centered",
+    layout: 'centered',
     actions: {
-      handles: ["click"],
+      handles: ['click'],
     },
   },
 };
@@ -80,7 +82,7 @@ export const Basic: Story = {
     docs: {
       description: {
         story:
-          "Basic avatar displaying user initials. The fallback shows when no image is provided.",
+          'Basic avatar displaying user initials. The fallback shows when no image is provided.',
       },
     },
   },
@@ -89,7 +91,7 @@ export const Basic: Story = {
     await expect(avatar).toBeInTheDocument();
 
     const fallback = canvasElement.querySelector('[data-slot="avatar-fallback"]');
-    await expect(fallback).toHaveTextContent("AB");
+    await expect(fallback).toHaveTextContent('AB');
   },
 };
 
@@ -109,7 +111,7 @@ export const WithIcon: Story = {
     docs: {
       description: {
         story:
-          "Avatar displaying an icon instead of initials. Useful for system users, bots, or special entities.",
+          'Avatar displaying an icon instead of initials. Useful for system users, bots, or special entities.',
       },
     },
   },
@@ -117,7 +119,7 @@ export const WithIcon: Story = {
     const avatar = canvasElement.querySelector('[data-slot="avatar"]');
     await expect(avatar).toBeInTheDocument();
 
-    const icon = avatar?.querySelector("svg");
+    const icon = avatar?.querySelector('svg');
     await expect(icon).toBeInTheDocument();
   },
 };
@@ -128,7 +130,7 @@ export const WithIcon: Story = {
 export const WithImage: Story = {
   render: () => (
     <Avatar variant="default" sizes="default">
-      <AvatarImage src={getStorybookImagePath("user-avatar2.png")} alt="User avatar" />
+      <AvatarImage src={getStorybookImagePath('user-avatar2.png')} alt="User avatar" />
       <AvatarFallback>PJ</AvatarFallback>
     </Avatar>
   ),
@@ -137,7 +139,7 @@ export const WithImage: Story = {
     docs: {
       description: {
         story:
-          "Avatar with an image. Falls back to initials if the image fails to load. Hover to see the darkening effect.",
+          'Avatar with an image. Falls back to initials if the image fails to load. Hover to see the darkening effect.',
       },
     },
   },
@@ -258,7 +260,7 @@ export const AllVariantsWithIcons: Story = {
     docs: {
       description: {
         story:
-          "All color variants displaying icons. Useful for differentiating user types, roles, or entities.",
+          'All color variants displaying icons. Useful for differentiating user types, roles, or entities.',
       },
     },
   },
@@ -292,7 +294,7 @@ export const AllSizes: Story = {
     order: 6,
     docs: {
       description: {
-        story: "Choose available sizes based on context and space constraints.",
+        story: 'Choose available sizes based on context and space constraints.',
       },
     },
   },
@@ -337,7 +339,7 @@ export const IconAllSizes: Story = {
     order: 7,
     docs: {
       description: {
-        story: "Icons scale appropriately across all avatar sizes.",
+        story: 'Icons scale appropriately across all avatar sizes.',
       },
     },
   },
@@ -345,7 +347,7 @@ export const IconAllSizes: Story = {
     const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
     await expect(avatars.length).toBe(3);
 
-    const icons = canvasElement.querySelectorAll("svg");
+    const icons = canvasElement.querySelectorAll('svg');
     await expect(icons.length).toBe(3);
 
     const large = canvasElement.querySelector('[class*="size-9"]');
@@ -365,15 +367,15 @@ export const ImagesAllSizes: Story = {
   render: () => (
     <div className="flex items-center gap-4">
       <Avatar variant="fjord" sizes="default">
-        <AvatarImage src={getStorybookImagePath("user-avatar2.png")} alt="Large avatar" />
+        <AvatarImage src={getStorybookImagePath('user-avatar2.png')} alt="Large avatar" />
         <AvatarFallback>PJ</AvatarFallback>
       </Avatar>
       <Avatar variant="fjord" sizes="xsm">
-        <AvatarImage src={getStorybookImagePath("user-avatar2.png")} alt="Medium avatar" />
+        <AvatarImage src={getStorybookImagePath('user-avatar2.png')} alt="Medium avatar" />
         <AvatarFallback>PJ</AvatarFallback>
       </Avatar>
       <Avatar variant="fjord" sizes="xxsm">
-        <AvatarImage src={getStorybookImagePath("user-avatar2.png")} alt="Small avatar" />
+        <AvatarImage src={getStorybookImagePath('user-avatar2.png')} alt="Small avatar" />
         <AvatarFallback>PJ</AvatarFallback>
       </Avatar>
     </div>
@@ -383,7 +385,7 @@ export const ImagesAllSizes: Story = {
     docs: {
       description: {
         story:
-          "Avatar images at all sizes with fallback text. Hover to see the darkening effect on images.",
+          'Avatar images at all sizes with fallback text. Hover to see the darkening effect on images.',
       },
     },
   },
@@ -422,7 +424,7 @@ export const AvatarGroup: Story = {
         sizes="default"
         className="relative -ml-1 first:ml-0 z-1 border-2 border-background"
       >
-        <AvatarImage src={getStorybookImagePath("user-avatar3.png")} alt="User 1" />
+        <AvatarImage src={getStorybookImagePath('user-avatar3.png')} alt="User 1" />
         <AvatarFallback>NC</AvatarFallback>
       </Avatar>
       <Avatar
@@ -430,7 +432,7 @@ export const AvatarGroup: Story = {
         sizes="default"
         className="relative -ml-1 z-2 border-2 border-background"
       >
-        <AvatarImage src={getStorybookImagePath("user-avatar4.png")} alt="User 2" />
+        <AvatarImage src={getStorybookImagePath('user-avatar4.png')} alt="User 2" />
         <AvatarFallback>AR</AvatarFallback>
       </Avatar>
       <Avatar
@@ -438,7 +440,7 @@ export const AvatarGroup: Story = {
         sizes="default"
         className="relative -ml-1 z-3 border-2 border-background"
       >
-        <AvatarImage src={getStorybookImagePath("user-avatar5.png")} alt="User 3" />
+        <AvatarImage src={getStorybookImagePath('user-avatar5.png')} alt="User 3" />
         <AvatarFallback>PJ</AvatarFallback>
       </Avatar>
       <Avatar
@@ -446,7 +448,7 @@ export const AvatarGroup: Story = {
         sizes="default"
         className="relative -ml-1 z-4 border-2 border-background"
       >
-        <AvatarImage src={getStorybookImagePath("user-avatar6.png")} alt="User 4" />
+        <AvatarImage src={getStorybookImagePath('user-avatar6.png')} alt="User 4" />
         <AvatarFallback>PJ</AvatarFallback>
       </Avatar>
       <HoverCard openDelay={0} closeDelay={0}>
@@ -500,7 +502,7 @@ export const AvatarGroup: Story = {
     docs: {
       description: {
         story:
-          "Stacked avatar group with negative margins and borders. The overflow avatar (+4) shows additional users in a hover card.",
+          'Stacked avatar group with negative margins and borders. The overflow avatar (+4) shows additional users in a hover card.',
       },
     },
   },
@@ -509,7 +511,7 @@ export const AvatarGroup: Story = {
     await expect(avatars.length).toBeGreaterThanOrEqual(4);
 
     const fallbacks = canvasElement.querySelectorAll('[data-slot="avatar-fallback"]');
-    const overflow = Array.from(fallbacks).find((fb) => fb.textContent?.includes("+4"));
+    const overflow = Array.from(fallbacks).find((fb) => fb.textContent?.includes('+4'));
 
     if (overflow) {
       const overflowAvatar = overflow.closest('[data-slot="avatar"]');
@@ -593,7 +595,7 @@ export const AvatarGroupSmall: Story = {
     docs: {
       description: {
         story:
-          "Compact avatar group using the xsm size. Perfect for tight spaces or showing larger groups.",
+          'Compact avatar group using the xsm size. Perfect for tight spaces or showing larger groups.',
       },
     },
   },
@@ -602,7 +604,7 @@ export const AvatarGroupSmall: Story = {
     await expect(avatars.length).toBeGreaterThanOrEqual(4);
 
     const smallAvatars = Array.from(avatars).filter((avatar) =>
-      avatar.className.includes("size-7")
+      avatar.className.includes('size-7')
     );
     await expect(smallAvatars.length).toBeGreaterThan(0);
   },
@@ -618,18 +620,18 @@ export const ClickInteraction: Story = {
     return (
       <div className="flex flex-col items-center gap-4">
         <div className="flex items-center gap-4">
-          <Avatar variant="nordic" onClick={() => setClicked("User 1")} data-testid="avatar-1">
+          <Avatar variant="nordic" onClick={() => setClicked('User 1')} data-testid="avatar-1">
             <AvatarFallback>U1</AvatarFallback>
           </Avatar>
-          <Avatar variant="fjord" onClick={() => setClicked("User 2")} data-testid="avatar-2">
+          <Avatar variant="fjord" onClick={() => setClicked('User 2')} data-testid="avatar-2">
             <AvatarFallback>U2</AvatarFallback>
           </Avatar>
-          <Avatar variant="aurora" onClick={() => setClicked("User 3")} data-testid="avatar-3">
+          <Avatar variant="aurora" onClick={() => setClicked('User 3')} data-testid="avatar-3">
             <AvatarFallback>U3</AvatarFallback>
           </Avatar>
         </div>
         <div data-testid="clicked-avatar" className="text-sm text-muted-foreground">
-          {clicked ? `Clicked: ${clicked}` : "Click an avatar"}
+          {clicked ? `Clicked: ${clicked}` : 'Click an avatar'}
         </div>
       </div>
     );
@@ -639,24 +641,24 @@ export const ClickInteraction: Story = {
     docs: {
       description: {
         story:
-          "Interactive avatars with click handlers. Avatars inherit the cursor-pointer class and can be clicked.",
+          'Interactive avatars with click handlers. Avatars inherit the cursor-pointer class and can be clicked.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const avatar1 = canvas.getByTestId("avatar-1");
-    const avatar2 = canvas.getByTestId("avatar-2");
-    const clickedText = canvas.getByTestId("clicked-avatar");
+    const avatar1 = canvas.getByTestId('avatar-1');
+    const avatar2 = canvas.getByTestId('avatar-2');
+    const clickedText = canvas.getByTestId('clicked-avatar');
 
-    await expect(clickedText).toHaveTextContent("Click an avatar");
+    await expect(clickedText).toHaveTextContent('Click an avatar');
 
     await userEvent.click(avatar1);
-    await expect(clickedText).toHaveTextContent("Clicked: User 1");
+    await expect(clickedText).toHaveTextContent('Clicked: User 1');
 
     await userEvent.click(avatar2);
-    await expect(clickedText).toHaveTextContent("Clicked: User 2");
+    await expect(clickedText).toHaveTextContent('Clicked: User 2');
   },
 };
 
@@ -668,15 +670,15 @@ export const Accessibility: Story = {
     <div className="flex flex-col gap-4">
       <div className="flex items-center gap-4">
         <Avatar variant="nordic">
-          <AvatarImage src={getStorybookImagePath("user-avatar2.png")} alt="John Doe's avatar" />
+          <AvatarImage src={getStorybookImagePath('user-avatar2.png')} alt="John Doe's avatar" />
           <AvatarFallback>JD</AvatarFallback>
         </Avatar>
         <Avatar variant="fjord">
-          <AvatarImage src={getStorybookImagePath("user-avatar3.png")} alt="Jane Smith's avatar" />
+          <AvatarImage src={getStorybookImagePath('user-avatar3.png')} alt="Jane Smith's avatar" />
           <AvatarFallback>JS</AvatarFallback>
         </Avatar>
         <Avatar variant="aurora">
-          <AvatarImage src={getStorybookImagePath("user-avatar4.png")} alt="" />
+          <AvatarImage src={getStorybookImagePath('user-avatar4.png')} alt="" />
           <AvatarFallback>PJ</AvatarFallback>
         </Avatar>
       </div>
@@ -691,17 +693,16 @@ export const Accessibility: Story = {
     docs: {
       description: {
         story:
-          "Avatars with proper alt text for accessibility. Always include meaningful alt text for avatar images.",
+          'Avatars with proper alt text for accessibility. Always include meaningful alt text for avatar images.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
     await expect(avatars.length).toBe(3);
-    const canvas = within(canvasElement);
     await waitFor(() => {
-      const images = canvasElement.querySelectorAll("img");
-      const altTexts = Array.from(images).map((image) => image.getAttribute("alt"));
+      const images = canvasElement.querySelectorAll('img');
+      const altTexts = Array.from(images).map((image) => image.getAttribute('alt'));
       expect(altTexts).toContain("John Doe's avatar");
       expect(altTexts).toContain("Jane Smith's avatar");
     });
@@ -710,7 +711,7 @@ export const Accessibility: Story = {
       'img[data-slot="avatar-image"]'
     ) as HTMLImageElement | null;
     if (decorativeImage) {
-      await expect(decorativeImage).toHaveAttribute("alt", "");
+      await expect(decorativeImage).toHaveAttribute('alt', '');
     } else {
       const decorativeFallback = decorativeAvatar?.querySelector('[data-slot="avatar-fallback"]');
       await expect(decorativeFallback).toBeInTheDocument();
@@ -740,7 +741,7 @@ export const EdgeCaseEmpty: Story = {
     docs: {
       description: {
         story:
-          "Edge case: Avatars with empty fallback text. They still render with the background color but no content.",
+          'Edge case: Avatars with empty fallback text. They still render with the background color but no content.',
       },
     },
   },
@@ -826,7 +827,7 @@ export const EdgeCaseLongText: Story = {
     docs: {
       description: {
         story:
-          "Edge case: Avatars with varying text lengths. Text beyond 2-3 characters will overflow. Consider limiting input to 1-2 characters or using smaller font sizes (text-xs) for longer text.",
+          'Edge case: Avatars with varying text lengths. Text beyond 2-3 characters will overflow. Consider limiting input to 1-2 characters or using smaller font sizes (text-xs) for longer text.',
       },
     },
   },
@@ -835,7 +836,7 @@ export const EdgeCaseLongText: Story = {
     await expect(fallbacks.length).toBeGreaterThanOrEqual(3);
 
     const longTextAvatars = Array.from(fallbacks).filter((fb) =>
-      fb.textContent?.includes("ABCDEFGH")
+      fb.textContent?.includes('ABCDEFGH')
     );
     await expect(longTextAvatars.length).toBeGreaterThanOrEqual(3);
   },
@@ -869,7 +870,7 @@ export const EdgeCaseSpecialCharacters: Story = {
     docs: {
       description: {
         story:
-          "Edge case: Avatars with emojis, special characters, and unicode from various languages.",
+          'Edge case: Avatars with emojis, special characters, and unicode from various languages.',
       },
     },
   },
@@ -879,12 +880,12 @@ export const EdgeCaseSpecialCharacters: Story = {
 
     const emojiFallback = Array.from(
       canvasElement.querySelectorAll('[data-slot="avatar-fallback"]')
-    ).find((el) => el.textContent?.includes("🎨"));
+    ).find((el) => el.textContent?.includes('🎨'));
     await expect(emojiFallback).toBeInTheDocument();
 
     const chineseFallback = Array.from(
       canvasElement.querySelectorAll('[data-slot="avatar-fallback"]')
-    ).find((el) => el.textContent?.includes("中文"));
+    ).find((el) => el.textContent?.includes('中文'));
     await expect(chineseFallback).toBeInTheDocument();
   },
 };
@@ -911,7 +912,7 @@ export const EdgeCaseSingleCharacter: Story = {
     docs: {
       description: {
         story:
-          "Edge case: Avatars with single character fallback. Common for minimalist designs or single-name users.",
+          'Edge case: Avatars with single character fallback. Common for minimalist designs or single-name users.',
       },
     },
   },
@@ -919,9 +920,9 @@ export const EdgeCaseSingleCharacter: Story = {
     const fallbacks = canvasElement.querySelectorAll('[data-slot="avatar-fallback"]');
     await expect(fallbacks.length).toBe(3);
 
-    await expect(fallbacks[0]).toHaveTextContent("A");
-    await expect(fallbacks[1]).toHaveTextContent("Z");
-    await expect(fallbacks[2]).toHaveTextContent("M");
+    await expect(fallbacks[0]).toHaveTextContent('A');
+    await expect(fallbacks[1]).toHaveTextContent('Z');
+    await expect(fallbacks[2]).toHaveTextContent('M');
   },
 };
 
@@ -950,7 +951,7 @@ export const EdgeCaseNumbers: Story = {
     docs: {
       description: {
         story:
-          "Edge case: Avatars with numbers. Useful for rankings, counts, or numbered entities.",
+          'Edge case: Avatars with numbers. Useful for rankings, counts, or numbered entities.',
       },
     },
   },
@@ -958,10 +959,10 @@ export const EdgeCaseNumbers: Story = {
     const fallbacks = canvasElement.querySelectorAll('[data-slot="avatar-fallback"]');
     await expect(fallbacks.length).toBe(4);
 
-    await expect(fallbacks[0]).toHaveTextContent("1");
-    await expect(fallbacks[1]).toHaveTextContent("42");
-    await expect(fallbacks[2]).toHaveTextContent("999");
-    await expect(fallbacks[3]).toHaveTextContent("+99");
+    await expect(fallbacks[0]).toHaveTextContent('1');
+    await expect(fallbacks[1]).toHaveTextContent('42');
+    await expect(fallbacks[2]).toHaveTextContent('999');
+    await expect(fallbacks[3]).toHaveTextContent('+99');
   },
 };
 
@@ -987,7 +988,7 @@ export const EdgeCaseTinyWithText: Story = {
     docs: {
       description: {
         story:
-          "Edge case: Very small avatars (xxsm - 20px) with increasing text lengths. Text may overflow or be cut off.",
+          'Edge case: Very small avatars (xxsm - 20px) with increasing text lengths. Text may overflow or be cut off.',
       },
     },
   },
@@ -995,7 +996,7 @@ export const EdgeCaseTinyWithText: Story = {
     const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
     await expect(avatars.length).toBe(3);
 
-    const tinyAvatars = Array.from(avatars).filter((avatar) => avatar.className.includes("size-5"));
+    const tinyAvatars = Array.from(avatars).filter((avatar) => avatar.className.includes('size-5'));
     await expect(tinyAvatars.length).toBe(3);
   },
 };
@@ -1007,15 +1008,15 @@ export const EdgeCaseFailedImage: Story = {
   render: () => (
     <div className="flex items-center gap-4">
       <Avatar variant="nordic">
-        <AvatarImage src={getStorybookImagePath("nonexistent-image-1.png")} alt="Failed to load" />
+        <AvatarImage src={getStorybookImagePath('nonexistent-image-1.png')} alt="Failed to load" />
         <AvatarFallback>FL</AvatarFallback>
       </Avatar>
       <Avatar variant="fjord">
-        <AvatarImage src={getStorybookImagePath("nonexistent-image-2.png")} alt="Failed to load" />
+        <AvatarImage src={getStorybookImagePath('nonexistent-image-2.png')} alt="Failed to load" />
         <AvatarFallback>ER</AvatarFallback>
       </Avatar>
       <Avatar variant="aurora">
-        <AvatarImage src={getStorybookImagePath("nonexistent-image-3.png")} alt="Failed to load" />
+        <AvatarImage src={getStorybookImagePath('nonexistent-image-3.png')} alt="Failed to load" />
         <AvatarFallback>BR</AvatarFallback>
       </Avatar>
     </div>
@@ -1025,7 +1026,7 @@ export const EdgeCaseFailedImage: Story = {
     docs: {
       description: {
         story:
-          "Edge case: Avatars with images that fail to load. The fallback text displays instead, demonstrating graceful degradation.",
+          'Edge case: Avatars with images that fail to load. The fallback text displays instead, demonstrating graceful degradation.',
       },
     },
   },
@@ -1034,9 +1035,9 @@ export const EdgeCaseFailedImage: Story = {
     await expect(avatars.length).toBe(3);
 
     const canvas = within(canvasElement);
-    await expect(await canvas.findByText("FL")).toBeInTheDocument();
-    await expect(await canvas.findByText("ER")).toBeInTheDocument();
-    await expect(await canvas.findByText("BR")).toBeInTheDocument();
+    await expect(await canvas.findByText('FL')).toBeInTheDocument();
+    await expect(await canvas.findByText('ER')).toBeInTheDocument();
+    await expect(await canvas.findByText('BR')).toBeInTheDocument();
   },
 };
 
@@ -1054,7 +1055,7 @@ export const OverflowAvatarWithMenu: Story = {
           sizes="default"
           className="relative -ml-1 first:ml-0 z-1 border-2 border-background"
         >
-          <AvatarImage src={getStorybookImagePath("user-avatar3.png")} alt="User 1" />
+          <AvatarImage src={getStorybookImagePath('user-avatar3.png')} alt="User 1" />
           <AvatarFallback>NC</AvatarFallback>
         </Avatar>
         <Avatar
@@ -1062,7 +1063,7 @@ export const OverflowAvatarWithMenu: Story = {
           sizes="default"
           className="relative -ml-1 z-2 border-2 border-background"
         >
-          <AvatarImage src={getStorybookImagePath("user-avatar4.png")} alt="User 2" />
+          <AvatarImage src={getStorybookImagePath('user-avatar4.png')} alt="User 2" />
           <AvatarFallback>AR</AvatarFallback>
         </Avatar>
         <Avatar
@@ -1070,7 +1071,7 @@ export const OverflowAvatarWithMenu: Story = {
           sizes="default"
           className="relative -ml-1 z-3 border-2 border-background"
         >
-          <AvatarImage src={getStorybookImagePath("user-avatar5.png")} alt="User 3" />
+          <AvatarImage src={getStorybookImagePath('user-avatar5.png')} alt="User 3" />
           <AvatarFallback>PJ</AvatarFallback>
         </Avatar>
         <Avatar
@@ -1078,7 +1079,7 @@ export const OverflowAvatarWithMenu: Story = {
           sizes="default"
           className="relative -ml-1 z-4 border-2 border-background"
         >
-          <AvatarImage src={getStorybookImagePath("user-avatar6.png")} alt="User 4" />
+          <AvatarImage src={getStorybookImagePath('user-avatar6.png')} alt="User 4" />
           <AvatarFallback>PJ</AvatarFallback>
         </Avatar>
         <DropdownMenu>
@@ -1153,7 +1154,7 @@ export const OverflowAvatarWithMenu: Story = {
     docs: {
       description: {
         story:
-          "Overflow avatar with dropdown menu showing additional users. Click the +4 avatar to see the list of additional users.",
+          'Overflow avatar with dropdown menu showing additional users. Click the +4 avatar to see the list of additional users.',
       },
     },
   },
@@ -1165,10 +1166,10 @@ export const OverflowAvatarWithMenu: Story = {
 
     if (trigger) {
       await userEvent.click(trigger as Element);
-      const menu = await within(canvasElement.ownerDocument.body).findByRole("menu");
+      const menu = await within(canvasElement.ownerDocument.body).findByRole('menu');
       await expect(menu).toBeInTheDocument();
-      await expect(within(menu).getByText("Emma Liu")).toBeInTheDocument();
-      await expect(within(menu).getByText("James Kim")).toBeInTheDocument();
+      await expect(within(menu).getByText('Emma Liu')).toBeInTheDocument();
+      await expect(within(menu).getByText('James Kim')).toBeInTheDocument();
     }
   },
 };
@@ -1208,7 +1209,7 @@ export const EdgeCaseComplexIcons: Story = {
     docs: {
       description: {
         story:
-          "Edge case: Avatars with complex nested content in AvatarIcon, including multiple icons, custom SVGs, and text.",
+          'Edge case: Avatars with complex nested content in AvatarIcon, including multiple icons, custom SVGs, and text.',
       },
     },
   },
@@ -1217,7 +1218,7 @@ export const EdgeCaseComplexIcons: Story = {
     await expect(avatarIcons.length).toBe(3);
 
     const firstIcon = avatarIcons[0];
-    const stars = firstIcon.querySelectorAll("svg");
+    const stars = firstIcon.querySelectorAll('svg');
     await expect(stars.length).toBeGreaterThanOrEqual(2);
   },
 };
@@ -1303,15 +1304,15 @@ export const VisualRegression: Story = {
         <h3 className="text-sm font-semibold text-muted-foreground">With Images</h3>
         <div className="flex flex-wrap gap-3">
           <Avatar variant="default">
-            <AvatarImage src={getStorybookImagePath("user-avatar2.png")} alt="User" />
+            <AvatarImage src={getStorybookImagePath('user-avatar2.png')} alt="User" />
             <AvatarFallback>PJ</AvatarFallback>
           </Avatar>
           <Avatar variant="nordic">
-            <AvatarImage src={getStorybookImagePath("user-avatar3.png")} alt="User" />
+            <AvatarImage src={getStorybookImagePath('user-avatar3.png')} alt="User" />
             <AvatarFallback>NC</AvatarFallback>
           </Avatar>
           <Avatar variant="fjord">
-            <AvatarImage src={getStorybookImagePath("user-avatar4.png")} alt="User" />
+            <AvatarImage src={getStorybookImagePath('user-avatar4.png')} alt="User" />
             <AvatarFallback>FJ</AvatarFallback>
           </Avatar>
         </div>
@@ -1368,7 +1369,7 @@ export const VisualRegression: Story = {
     docs: {
       description: {
         story:
-          "Comprehensive visual overview of all avatar variants, sizes, and edge cases for visual regression testing in Chromatic.",
+          'Comprehensive visual overview of all avatar variants, sizes, and edge cases for visual regression testing in Chromatic.',
       },
     },
     chromatic: {
@@ -1387,15 +1388,15 @@ export const Playground: Story = {
     </Avatar>
   ),
   args: {
-    variant: "nordic",
-    sizes: "default",
+    variant: 'nordic',
+    sizes: 'default',
   },
   parameters: {
     order: 99,
     docs: {
       description: {
         story:
-          "Interactive playground - use the controls below to experiment with all available avatar props and variants.",
+          'Interactive playground - use the controls below to experiment with all available avatar props and variants.',
       },
     },
   },

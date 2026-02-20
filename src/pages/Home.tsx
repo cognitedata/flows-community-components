@@ -1,14 +1,3 @@
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/aura/alert";
-import { Button } from "@/components/ui/aura/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/aura/card";
-import { CodeBlock, CodeBlockCopyButton } from "@/components/ui/aura/code-block";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/aura/tabs";
 import {
   IconAlertTriangle as AlertTriangle,
   IconArrowRight as ArrowRight,
@@ -22,10 +11,22 @@ import {
   IconSparkles as Sparkles,
   IconTerminal as Terminal,
   IconBolt as Zap,
-} from "@tabler/icons-react";
-import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
-const duneDocsUrl = "https://laughing-adventure-r6kwpyy.pages.github.io/";
+} from '@tabler/icons-react';
+import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/aura/alert';
+import { Button } from '@/components/ui/aura/button';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/aura/card';
+import { CodeBlock, CodeBlockCopyButton } from '@/components/ui/aura/code-block';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/aura/tabs';
+const duneDocsUrl = 'https://laughing-adventure-r6kwpyy.pages.github.io/';
 
 const componentsJson = `{
   "$schema": "https://ui.shadcn.com/schema.json",
@@ -76,46 +77,46 @@ const itemVariants = {
 const features = [
   {
     icon: Palette,
-    title: "Design tokens",
-    description: "Colors, typography, and spacing tokens with live previews",
-    href: "/tokens",
+    title: 'Design tokens',
+    description: 'Colors, typography, and spacing tokens with live previews',
+    href: '/tokens',
   },
   {
     icon: Zap,
-    title: "Motion guidelines",
-    description: "Animation principles and interactive demonstrations",
-    href: "/motion",
+    title: 'Motion guidelines',
+    description: 'Animation principles and interactive demonstrations',
+    href: '/motion',
   },
   {
     icon: Grid3X3,
-    title: "UI primitives",
-    description: "Core components with live code examples",
-    href: "/primitives",
+    title: 'UI primitives',
+    description: 'Core components with live code examples',
+    href: '/primitives',
   },
   {
     icon: Layout,
-    title: "Layout patterns",
-    description: "Responsive layouts with resizable previews",
-    href: "/layouts",
+    title: 'Layout patterns',
+    description: 'Responsive layouts with resizable previews',
+    href: '/layouts',
   },
   {
     icon: Code2,
-    title: "Component docs",
-    description: "Comprehensive documentation with live examples and code snippets",
-    href: "/primitives",
+    title: 'Component docs',
+    description: 'Comprehensive documentation with live examples and code snippets',
+    href: '/primitives',
   },
   {
     icon: BookOpen,
-    title: "Getting started",
-    description: "Guides for designers and developers",
-    href: "#quick-start",
+    title: 'Getting started',
+    description: 'Guides for designers and developers',
+    href: '#quick-start',
   },
 ];
 
 export default function HomePage() {
   const scrollToQuickStart = () => {
-    const element = document.getElementById("quick-start");
-    element?.scrollIntoView({ behavior: "smooth" });
+    const element = document.getElementById('quick-start');
+    element?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
@@ -125,7 +126,7 @@ export default function HomePage() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
           className="max-w-4xl text-center space-y-12"
         >
           {/* Hero Text */}
@@ -182,7 +183,7 @@ export default function HomePage() {
         >
           <motion.div
             animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+            transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY, ease: 'easeInOut' }}
           >
             <ChevronDown className="h-10 w-10 text-muted-foreground/70 hover:text-foreground transition-colors" />
           </motion.div>
@@ -318,7 +319,7 @@ export default function HomePage() {
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
+            viewport={{ once: true, margin: '-100px' }}
             className="space-y-12 text-center"
           >
             <motion.section variants={itemVariants} className="text-center space-y-6">
@@ -342,10 +343,10 @@ export default function HomePage() {
                     key={feature.title}
                     variants={itemVariants}
                     whileHover={{ scale: 1.02 }}
-                    transition={{ type: "spring", stiffness: 300 }}
+                    transition={{ type: 'spring', stiffness: 300 }}
                   >
                     <Card className="h-full hover:shadow-lg transition-shadow cursor-pointer">
-                      {feature.href.startsWith("#") ? (
+                      {feature.href.startsWith('#') ? (
                         <a href={feature.href}>
                           <CardHeader>
                             <feature.icon className="h-8 w-8 text-primary mb-2" />

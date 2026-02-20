@@ -1,13 +1,5 @@
-import {
-  Message,
-  MessageAction,
-  MessageActions,
-  MessageAvatar,
-  MessageAvatarIcon,
-  MessageContent,
-} from "@/components/ui/aura/message";
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, within } from "@storybook/test";
+import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, within } from '@storybook/test';
 import {
   IconBrackets,
   IconBriefcase,
@@ -22,32 +14,42 @@ import {
   IconTimeline,
   IconTool,
   IconWheel,
-} from "@tabler/icons-react";
-import { InlineCitation, InlineCitationGroup, InlineCitationLink } from "./inline-citation";
+} from '@tabler/icons-react';
+
+import { InlineCitation, InlineCitationGroup, InlineCitationLink } from './inline-citation';
+
+import {
+  Message,
+  MessageAction,
+  MessageActions,
+  MessageAvatar,
+  MessageAvatarIcon,
+  MessageContent,
+} from '@/components/ui/aura/message';
 
 const meta: Meta<typeof InlineCitation> = {
-  title: "AI/Inline Citation",
+  title: 'AI/Inline Citation',
   component: InlineCitation,
-  tags: ["autodocs", "ai-elements"],
+  tags: ['autodocs', 'ai-elements'],
   argTypes: {
     className: {
-      control: "text",
-      description: "Additional CSS classes for styling",
+      control: 'text',
+      description: 'Additional CSS classes for styling',
       table: {
-        category: "Display",
+        category: 'Display',
       },
     },
     children: {
       control: false,
-      description: "Citation content (typically InlineCitationLink)",
+      description: 'Citation content (typically InlineCitationLink)',
       table: {
-        category: "Content",
-        type: { summary: "ReactNode" },
+        category: 'Content',
+        type: { summary: 'ReactNode' },
       },
     },
   },
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
   decorators: [
     (Story) => (
@@ -69,20 +71,20 @@ export const Default: Story = {
     order: 1,
     docs: {
       description: {
-        story: "Citations with icons.",
+        story: 'Citations with icons.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const citations = canvas.getAllByRole("link");
+    const citations = canvas.getAllByRole('link');
     await expect(citations).toHaveLength(7);
 
     const firstLink = citations[0];
-    await expect(firstLink).toHaveAttribute("href", "https://example.com/image/pumpB.jpg");
-    await expect(firstLink).toHaveAttribute("target", "_blank");
-    await expect(firstLink).toHaveAttribute("rel", "noopener noreferrer");
+    await expect(firstLink).toHaveAttribute('href', 'https://example.com/image/pumpB.jpg');
+    await expect(firstLink).toHaveAttribute('target', '_blank');
+    await expect(firstLink).toHaveAttribute('rel', 'noopener noreferrer');
   },
   render: () => (
     <div className="space-y-4 text-sm leading-relaxed max-w-2xl">
@@ -170,17 +172,17 @@ export const LinkCitation: Story = {
     order: 2,
     docs: {
       description: {
-        story: "Link citation inline.",
+        story: 'Link citation inline.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const link = canvas.getByRole("link", { name: /pump 21PT1019/i });
+    const link = canvas.getByRole('link', { name: /pump 21PT1019/i });
     await expect(link).toBeInTheDocument();
-    await expect(link).toHaveAttribute("href", "https://cognite.com/assets/pump-21PT1019");
-    await expect(link).toHaveAttribute("target", "_blank");
+    await expect(link).toHaveAttribute('href', 'https://cognite.com/assets/pump-21PT1019');
+    await expect(link).toHaveAttribute('target', '_blank');
 
     await userEvent.hover(link);
     await expect(link).toBeVisible();
@@ -188,7 +190,7 @@ export const LinkCitation: Story = {
   render: () => (
     <div className="space-y-4 text-sm leading-relaxed max-w-2xl">
       <p>
-        Our analysis of{" "}
+        Our analysis of{' '}
         <InlineCitation>
           <InlineCitationLink
             href="https://cognite.com/assets/pump-21PT1019"
@@ -197,7 +199,7 @@ export const LinkCitation: Story = {
           >
             pump 21PT1019
           </InlineCitationLink>
-        </InlineCitation>{" "}
+        </InlineCitation>{' '}
         reveals a concerning trend in vibration patterns over the past 72 hours. The data shows a
         steady increase in amplitude, particularly during high-load operations, which correlates
         with elevated bearing temperatures. Historical maintenance records indicate similar patterns
@@ -218,17 +220,17 @@ export const InMessageContext: Story = {
     order: 3,
     docs: {
       description: {
-        story: "Citations within messages.",
+        story: 'Citations within messages.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const links = canvas.getAllByRole("link");
+    const links = canvas.getAllByRole('link');
     await expect(links.length).toBeGreaterThanOrEqual(4);
 
-    const buttons = canvas.getAllByRole("button");
+    const buttons = canvas.getAllByRole('button');
     await expect(buttons.length).toBeGreaterThan(0);
   },
   render: () => (
@@ -236,7 +238,7 @@ export const InMessageContext: Story = {
       <Message>
         <MessageContent>
           <span>
-            There are abnormal vibration levels on{" "}
+            There are abnormal vibration levels on{' '}
             <InlineCitation>
               <InlineCitationLink
                 href="https://example.com/pump/21PT1019"
@@ -259,7 +261,7 @@ export const InMessageContext: Story = {
         </MessageAvatar>
         <MessageContent className="flex flex-col gap-2">
           <span>
-            I analysed the sensor data and found that vibration levels on{" "}
+            I analysed the sensor data and found that vibration levels on{' '}
             <InlineCitation>
               <InlineCitationLink
                 href="https://example.com/pump/21PT1019"
@@ -269,7 +271,7 @@ export const InMessageContext: Story = {
               >
                 21PT1019
               </InlineCitationLink>
-            </InlineCitation>{" "}
+            </InlineCitation>{' '}
             exceeded normal thresholds at 03:15. This correlates with a 12% increase in RPM during
             that window.
           </span>
@@ -334,14 +336,14 @@ export const InvalidUrls: Story = {
     order: 4,
     docs: {
       description: {
-        story: "Invalid URLs.",
+        story: 'Invalid URLs.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const citations = canvas.getAllByRole("link");
+    const citations = canvas.getAllByRole('link');
     await expect(citations.length).toBeGreaterThanOrEqual(3);
 
     const errorElements = canvas.queryAllByText(/error/i);
@@ -350,22 +352,22 @@ export const InvalidUrls: Story = {
   render: () => (
     <div className="space-y-4 text-sm max-w-2xl">
       <p>
-        Citations with invalid URLs should render gracefully:{" "}
+        Citations with invalid URLs should render gracefully:{' '}
         <InlineCitation>
           <InlineCitationLink href="not-a-valid-url" variant="fjord">
             Invalid URL
           </InlineCitationLink>
-        </InlineCitation>{" "}
+        </InlineCitation>{' '}
         <InlineCitation>
           <InlineCitationLink href="" variant="mountain">
             Empty URL
           </InlineCitationLink>
-        </InlineCitation>{" "}
+        </InlineCitation>{' '}
         <InlineCitation>
           <InlineCitationLink href="just-text" variant="nordic">
             No protocol
           </InlineCitationLink>
-        </InlineCitation>{" "}
+        </InlineCitation>{' '}
         <InlineCitation>
           <InlineCitationLink href="://missing-protocol" variant="fjord">
             Malformed
@@ -384,18 +386,18 @@ export const LongUrls: Story = {
     order: 5,
     docs: {
       description: {
-        story: "Very long URLs.",
+        story: 'Very long URLs.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const link = canvas.getByRole("link");
+    const link = canvas.getByRole('link');
     await expect(link).toBeInTheDocument();
     await expect(link).toHaveAttribute(
-      "href",
-      "https://example.com/very/long/path/with/many/segments/and/query/parameters?param1=value1&param2=value2&param3=value3&param4=value4&param5=value5"
+      'href',
+      'https://example.com/very/long/path/with/many/segments/and/query/parameters?param1=value1&param2=value2&param3=value3&param4=value4&param5=value5'
     );
 
     await expect(link).toBeVisible();
@@ -403,7 +405,7 @@ export const LongUrls: Story = {
   render: () => (
     <div className="space-y-4 text-sm max-w-2xl">
       <p>
-        Citation with very long URL:{" "}
+        Citation with very long URL:{' '}
         <InlineCitation>
           <InlineCitationLink
             href="https://example.com/very/long/path/with/many/segments/and/query/parameters?param1=value1&param2=value2&param3=value3&param4=value4&param5=value5"
@@ -427,24 +429,24 @@ export const LongCitationText: Story = {
     order: 6,
     docs: {
       description: {
-        story: "Very long citation text.",
+        story: 'Very long citation text.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const link = canvas.getByRole("link");
+    const link = canvas.getByRole('link');
     await expect(link).toBeInTheDocument();
 
     await expect(link).toHaveTextContent(
-      "This is a very long citation text that should not wrap to multiple lines"
+      'This is a very long citation text that should not wrap to multiple lines'
     );
   },
   render: () => (
     <div className="space-y-4 text-sm max-w-2xl">
       <p>
-        Citation with very long text:{" "}
+        Citation with very long text:{' '}
         <InlineCitation>
           <InlineCitationLink
             href="https://example.com/document"
@@ -468,37 +470,37 @@ export const ManyCitations: Story = {
     order: 7,
     docs: {
       description: {
-        story: "Many citations in sequence.",
+        story: 'Many citations in sequence.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const citations = canvas.getAllByRole("link");
+    const citations = canvas.getAllByRole('link');
     await expect(citations.length).toBeGreaterThan(10);
   },
   render: () => {
     const citations = [
-      { text: "pump-21PT1019", icon: IconHexagon, variant: "nordic" as const },
-      { text: "valve-34HV2201", icon: IconHexagon, variant: "fjord" as const },
-      { text: "compressor-C401", icon: IconHexagon, variant: "mountain" as const },
-      { text: "MaintenanceLog.pdf", icon: IconFile, variant: "fjord" as const },
-      { text: "sensor-TT1402", icon: IconHexagon, variant: "nordic" as const },
-      { text: "TimeSeries-72h", icon: IconTimeline, variant: "mountain" as const },
-      { text: "motor-M2019", icon: IconHexagon, variant: "fjord" as const },
-      { text: "InspectionReport.pdf", icon: IconFile, variant: "nordic" as const },
-      { text: "turbine-GT501", icon: IconHexagon, variant: "mountain" as const },
-      { text: "bearing-BRG-101", icon: IconHexagon, variant: "fjord" as const },
-      { text: "VibrationAnalysis.jpg", icon: IconPhoto, variant: "nordic" as const },
-      { text: "WO-2024-5421", icon: IconBriefcase, variant: "mountain" as const },
+      { text: 'pump-21PT1019', icon: IconHexagon, variant: 'nordic' as const },
+      { text: 'valve-34HV2201', icon: IconHexagon, variant: 'fjord' as const },
+      { text: 'compressor-C401', icon: IconHexagon, variant: 'mountain' as const },
+      { text: 'MaintenanceLog.pdf', icon: IconFile, variant: 'fjord' as const },
+      { text: 'sensor-TT1402', icon: IconHexagon, variant: 'nordic' as const },
+      { text: 'TimeSeries-72h', icon: IconTimeline, variant: 'mountain' as const },
+      { text: 'motor-M2019', icon: IconHexagon, variant: 'fjord' as const },
+      { text: 'InspectionReport.pdf', icon: IconFile, variant: 'nordic' as const },
+      { text: 'turbine-GT501', icon: IconHexagon, variant: 'mountain' as const },
+      { text: 'bearing-BRG-101', icon: IconHexagon, variant: 'fjord' as const },
+      { text: 'VibrationAnalysis.jpg', icon: IconPhoto, variant: 'nordic' as const },
+      { text: 'WO-2024-5421', icon: IconBriefcase, variant: 'mountain' as const },
     ];
 
     return (
       <div className="space-y-4 text-sm max-w-2xl">
         <p className="leading-relaxed">
-          The analysis references multiple assets and documentation:{" "}
-          {citations.map((citation, i) => (
+          The analysis references multiple assets and documentation:{' '}
+          {citations.map((citation) => (
             <span key={citation.text}>
               <InlineCitation>
                 <InlineCitationLink
@@ -509,7 +511,7 @@ export const ManyCitations: Story = {
                 >
                   {citation.text}
                 </InlineCitationLink>
-              </InlineCitation>{" "}
+              </InlineCitation>{' '}
             </span>
           ))}
           All sources have been cross-referenced with the maintenance database.
@@ -527,20 +529,20 @@ export const ColorVariants: Story = {
     order: 8,
     docs: {
       description: {
-        story: "Color variants.",
+        story: 'Color variants.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const citations = canvas.getAllByRole("link");
+    const citations = canvas.getAllByRole('link');
     await expect(citations).toHaveLength(3);
   },
   render: () => (
     <div className="space-y-3">
       <p className="text-sm">
-        Fjord variant (blue):{" "}
+        Fjord variant (blue):{' '}
         <InlineCitation>
           <InlineCitationLink href="https://example.com" variant="fjord" icon={IconFile}>
             Fjord
@@ -548,7 +550,7 @@ export const ColorVariants: Story = {
         </InlineCitation>
       </p>
       <p className="text-sm">
-        Mountain variant (green):{" "}
+        Mountain variant (green):{' '}
         <InlineCitation>
           <InlineCitationLink href="https://example.com" variant="mountain" icon={IconFile}>
             Mountain
@@ -556,7 +558,7 @@ export const ColorVariants: Story = {
         </InlineCitation>
       </p>
       <p className="text-sm">
-        Nordic variant (purple):{" "}
+        Nordic variant (purple):{' '}
         <InlineCitation>
           <InlineCitationLink href="https://example.com" variant="nordic" icon={IconFile}>
             Nordic
@@ -575,30 +577,30 @@ export const LinkTargetAndIconVariants: Story = {
     order: 9,
     docs: {
       description: {
-        story: "Link target and icon variants.",
+        story: 'Link target and icon variants.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const selfLink = canvas.getByRole("link", { name: /self target/i });
-    const blankLink = canvas.getByRole("link", { name: /blank target/i });
+    const selfLink = canvas.getByRole('link', { name: /self target/i });
+    const blankLink = canvas.getByRole('link', { name: /blank target/i });
 
     await expect(selfLink).toBeInTheDocument();
-    await expect(selfLink).toHaveAttribute("href", "/local/report");
-    await expect(selfLink).toHaveAttribute("target", "_self");
-    await expect(selfLink).not.toHaveAttribute("rel");
+    await expect(selfLink).toHaveAttribute('href', '/local/report');
+    await expect(selfLink).toHaveAttribute('target', '_self');
+    await expect(selfLink).not.toHaveAttribute('rel');
 
     await expect(blankLink).toBeInTheDocument();
-    await expect(blankLink).toHaveAttribute("href", "https://example.com/remote/report");
-    await expect(blankLink).toHaveAttribute("target", "_blank");
-    await expect(blankLink).toHaveAttribute("rel", "noopener noreferrer");
+    await expect(blankLink).toHaveAttribute('href', 'https://example.com/remote/report');
+    await expect(blankLink).toHaveAttribute('target', '_blank');
+    await expect(blankLink).toHaveAttribute('rel', 'noopener noreferrer');
   },
   render: () => (
     <div className="space-y-3 text-sm max-w-2xl">
       <p>
-        Local report (no icon, opens in same tab):{" "}
+        Local report (no icon, opens in same tab):{' '}
         <InlineCitation>
           <InlineCitationLink href="/local/report" target="_self">
             Self target
@@ -606,7 +608,7 @@ export const LinkTargetAndIconVariants: Story = {
         </InlineCitation>
       </p>
       <p>
-        Remote report (with icon, opens in new tab):{" "}
+        Remote report (with icon, opens in new tab):{' '}
         <InlineCitation>
           <InlineCitationLink
             href="https://example.com/remote/report"

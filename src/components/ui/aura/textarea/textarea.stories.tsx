@@ -1,74 +1,76 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor, within } from "@storybook/test";
-import { useState } from "react";
-import { Label } from "../label";
-import { Textarea } from "./textarea";
+import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
+import { useState } from 'react';
+
+import { Label } from '../label';
+
+import { Textarea } from './textarea';
 
 const meta: Meta<typeof Textarea> = {
-  title: "Primitives/Textarea",
+  title: 'Primitives/Textarea',
   component: Textarea,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     placeholder: {
-      control: "text",
-      description: "Placeholder text",
+      control: 'text',
+      description: 'Placeholder text',
       table: {
-        category: "Content",
-        type: { summary: "string" },
+        category: 'Content',
+        type: { summary: 'string' },
       },
     },
     defaultValue: {
-      control: "text",
-      description: "Default value (uncontrolled)",
+      control: 'text',
+      description: 'Default value (uncontrolled)',
       table: {
-        category: "Content",
-        type: { summary: "string" },
+        category: 'Content',
+        type: { summary: 'string' },
       },
     },
     maxChars: {
-      control: "number",
-      description: "Maximum character limit",
+      control: 'number',
+      description: 'Maximum character limit',
       table: {
-        category: "Behavior",
-        type: { summary: "number" },
+        category: 'Behavior',
+        type: { summary: 'number' },
       },
     },
     errorMessage: {
-      control: "text",
-      description: "Error message to display",
+      control: 'text',
+      description: 'Error message to display',
       table: {
-        category: "Behavior",
-        type: { summary: "string" },
+        category: 'Behavior',
+        type: { summary: 'string' },
       },
     },
     overLimitMessage: {
-      control: "text",
-      description: "Message when over character limit",
+      control: 'text',
+      description: 'Message when over character limit',
       table: {
-        category: "Behavior",
-        type: { summary: "string" },
-        defaultValue: { summary: "Too many characters" },
+        category: 'Behavior',
+        type: { summary: 'string' },
+        defaultValue: { summary: 'Too many characters' },
       },
     },
     disabled: {
-      control: "boolean",
-      description: "Disable the textarea",
+      control: 'boolean',
+      description: 'Disable the textarea',
       table: {
-        category: "Behavior",
-        type: { summary: "boolean" },
-        defaultValue: { summary: "false" },
+        category: 'Behavior',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
       },
     },
     className: {
-      control: "text",
-      description: "Additional CSS classes",
+      control: 'text',
+      description: 'Additional CSS classes',
       table: {
-        category: "Variants/Styling",
+        category: 'Variants/Styling',
       },
     },
   },
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
   decorators: [
     (Story) => (
@@ -91,18 +93,18 @@ export const Default: Story = {
     order: 1,
     docs: {
       description: {
-        story: "Default textarea with placeholder.",
+        story: 'Default textarea with placeholder.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const textarea = canvas.getByPlaceholderText("Enter your message...");
+    const textarea = canvas.getByPlaceholderText('Enter your message...');
 
     await expect(textarea).toBeInTheDocument();
 
-    await userEvent.type(textarea, "Hello World");
-    await expect(textarea).toHaveValue("Hello World");
+    await userEvent.type(textarea, 'Hello World');
+    await expect(textarea).toHaveValue('Hello World');
   },
 };
 
@@ -120,7 +122,7 @@ export const WithLabel: Story = {
     order: 2,
     docs: {
       description: {
-        story: "Textarea with an associated label.",
+        story: 'Textarea with an associated label.',
       },
     },
   },
@@ -140,20 +142,20 @@ export const WithCharacterLimit: Story = {
     order: 3,
     docs: {
       description: {
-        story: "Textarea with a character counter showing remaining characters.",
+        story: 'Textarea with a character counter showing remaining characters.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const textarea = canvas.getByPlaceholderText("Tell us about yourself...");
+    const textarea = canvas.getByPlaceholderText('Tell us about yourself...');
 
-    await expect(canvas.getByText("100 characters left")).toBeInTheDocument();
+    await expect(canvas.getByText('100 characters left')).toBeInTheDocument();
 
-    await userEvent.type(textarea, "Hello");
+    await userEvent.type(textarea, 'Hello');
 
     await waitFor(() => {
-      expect(canvas.getByText("95 characters left")).toBeInTheDocument();
+      expect(canvas.getByText('95 characters left')).toBeInTheDocument();
     });
   },
 };
@@ -176,7 +178,7 @@ export const OverLimit: Story = {
     order: 4,
     docs: {
       description: {
-        story: "Textarea with text exceeding the character limit.",
+        story: 'Textarea with text exceeding the character limit.',
       },
     },
   },
@@ -200,13 +202,13 @@ export const WithError: Story = {
     order: 5,
     docs: {
       description: {
-        story: "Textarea with validation error message.",
+        story: 'Textarea with validation error message.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const errorText = canvas.getByText("Please enter at least 10 characters");
+    const errorText = canvas.getByText('Please enter at least 10 characters');
     await expect(errorText).toBeInTheDocument();
   },
 };
@@ -235,13 +237,13 @@ export const Disabled: Story = {
     order: 6,
     docs: {
       description: {
-        story: "Disabled textareas prevent user interaction.",
+        story: 'Disabled textareas prevent user interaction.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const textareas = canvas.getAllByRole("textbox");
+    const textareas = canvas.getAllByRole('textbox');
     for (const textarea of textareas) {
       await expect(textarea).toBeDisabled();
     }
@@ -253,7 +255,7 @@ export const Disabled: Story = {
  */
 export const Controlled: Story = {
   render: function ControlledTextarea() {
-    const [value, setValue] = useState("");
+    const [value, setValue] = useState('');
 
     return (
       <div className="space-y-4">
@@ -269,14 +271,14 @@ export const Controlled: Story = {
         <div className="flex gap-2">
           <button
             type="button"
-            onClick={() => setValue("")}
+            onClick={() => setValue('')}
             className="px-3 py-1 text-sm border rounded-md hover:bg-accent"
           >
             Clear
           </button>
           <button
             type="button"
-            onClick={() => setValue("Hello, World!")}
+            onClick={() => setValue('Hello, World!')}
             className="px-3 py-1 text-sm border rounded-md hover:bg-accent"
           >
             Set text
@@ -290,7 +292,7 @@ export const Controlled: Story = {
     order: 7,
     docs: {
       description: {
-        story: "Controlled textarea with external state management.",
+        story: 'Controlled textarea with external state management.',
       },
     },
   },
@@ -318,7 +320,7 @@ export const CustomMessages: Story = {
     order: 8,
     docs: {
       description: {
-        story: "Textarea with customized character limit messages.",
+        story: 'Textarea with customized character limit messages.',
       },
     },
   },
@@ -356,7 +358,7 @@ export const AllStates: Story = {
     order: 9,
     docs: {
       description: {
-        story: "All textarea states for comparison.",
+        story: 'All textarea states for comparison.',
       },
     },
   },
@@ -419,25 +421,25 @@ export const EdgeCases: Story = {
     docs: {
       description: {
         story:
-          "Edge cases including very long values, special characters, emoji, unicode text, whitespace handling, and character limit overflow.",
+          'Edge cases including very long values, special characters, emoji, unicode text, whitespace handling, and character limit overflow.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const longValueTextarea = canvas.getByLabelText("Very long value");
+    const longValueTextarea = canvas.getByLabelText('Very long value');
     await expect(longValueTextarea).toHaveValue(
-      "This is a very long textarea value that should demonstrate how the textarea handles overflow and text wrapping behavior in various scenarios and edge cases. The text continues on multiple lines to test the behavior with extensive content that spans several rows and demonstrates proper text handling in the component."
+      'This is a very long textarea value that should demonstrate how the textarea handles overflow and text wrapping behavior in various scenarios and edge cases. The text continues on multiple lines to test the behavior with extensive content that spans several rows and demonstrates proper text handling in the component.'
     );
 
-    const emojiTextarea = canvas.getByLabelText("Emoji");
+    const emojiTextarea = canvas.getByLabelText('Emoji');
     await expect(emojiTextarea).toHaveValue(
-      "🚀 Hello World! 🌍 ✨ Multiline text with emoji on multiple lines. 🎉 More emoji here! 🔥"
+      '🚀 Hello World! 🌍 ✨ Multiline text with emoji on multiple lines. 🎉 More emoji here! 🔥'
     );
 
-    const unicodeTextarea = canvas.getByLabelText("Unicode characters");
-    await expect(unicodeTextarea).toHaveValue("中文字符 مرحبا Привет नमस्ते");
+    const unicodeTextarea = canvas.getByLabelText('Unicode characters');
+    await expect(unicodeTextarea).toHaveValue('中文字符 مرحبا Привет नमस्ते');
   },
 };
 
@@ -468,7 +470,7 @@ export const VisualRegression: Story = {
     order: 11,
     docs: {
       description: {
-        story: "Comprehensive visual overview for regression testing.",
+        story: 'Comprehensive visual overview for regression testing.',
       },
     },
     chromatic: {
@@ -489,17 +491,17 @@ export const VisualRegression: Story = {
  */
 export const Playground: Story = {
   args: {
-    placeholder: "Enter text...",
+    placeholder: 'Enter text...',
     disabled: false,
     maxChars: undefined,
-    errorMessage: "",
+    errorMessage: '',
   },
   render: (args) => <Textarea {...args} />,
   parameters: {
     order: 99,
     docs: {
       description: {
-        story: "Interactive playground - use controls to experiment with textarea props.",
+        story: 'Interactive playground - use controls to experiment with textarea props.',
       },
     },
   },

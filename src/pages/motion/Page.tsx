@@ -1,57 +1,58 @@
-import { Button } from "@/components/ui/aura/button";
+import {
+  IconArrowRight as ArrowRight,
+  IconPlayerPlay as Play,
+  IconRefresh as RotateCcw,
+} from '@tabler/icons-react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useState } from 'react';
+
+import { Button } from '@/components/ui/aura/button';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/aura/card";
-import {
-  IconArrowRight as ArrowRight,
-  IconPlayerPlay as Play,
-  IconRefresh as RotateCcw,
-} from "@tabler/icons-react";
-import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
+} from '@/components/ui/aura/card';
 
 const principles = [
   {
-    title: "Purpose",
-    description: "Every animation should have a clear purpose and enhance the user experience",
-    icon: "",
+    title: 'Purpose',
+    description: 'Every animation should have a clear purpose and enhance the user experience',
+    icon: '',
   },
   {
-    title: "Personality",
-    description: "Motion should reflect the brand personality while maintaining professionalism",
-    icon: "",
+    title: 'Personality',
+    description: 'Motion should reflect the brand personality while maintaining professionalism',
+    icon: '',
   },
   {
-    title: "Performance",
-    description: "Animations should be smooth, lightweight, and respect user preferences",
-    icon: "",
+    title: 'Performance',
+    description: 'Animations should be smooth, lightweight, and respect user preferences',
+    icon: '',
   },
 ];
 
 const easings = [
   {
-    name: "Linear",
+    name: 'Linear',
     value: [0, 0, 1, 1] as const,
-    description: "Constant speed throughout",
+    description: 'Constant speed throughout',
   },
   {
-    name: "Ease out",
+    name: 'Ease out',
     value: [0, 0, 0.2, 1] as const,
-    description: "Fast start, slow finish",
+    description: 'Fast start, slow finish',
   },
   {
-    name: "Ease in",
+    name: 'Ease in',
     value: [0.4, 0, 1, 1] as const,
-    description: "Slow start, fast finish",
+    description: 'Slow start, fast finish',
   },
   {
-    name: "Ease in out",
+    name: 'Ease in out',
     value: [0.4, 0, 0.2, 1] as const,
-    description: "Slow start and finish",
+    description: 'Slow start and finish',
   },
 ];
 
@@ -182,7 +183,7 @@ export default function MotionPage() {
                   transition={{
                     duration: 0.6,
                     ease: [0, 0, 0.2, 1],
-                    type: "spring",
+                    type: 'spring',
                     stiffness: 260,
                     damping: 20,
                   }}
@@ -195,7 +196,7 @@ export default function MotionPage() {
                 <motion.div
                   initial={{ rotate: 0 }}
                   animate={{ rotate: 360 }}
-                  transition={{ duration: 1, ease: "linear" }}
+                  transition={{ duration: 1, ease: 'linear' }}
                   className="w-16 h-16 bg-primary rounded-lg flex items-center justify-center"
                 >
                   <ArrowRight className="h-6 w-6 text-primary-foreground" />
@@ -213,7 +214,7 @@ export default function MotionPage() {
                       transition={{
                         duration: 0.6,
                         repeat: Number.POSITIVE_INFINITY,
-                        repeatType: "reverse",
+                        repeatType: 'reverse',
                         delay: index * 0.2,
                       }}
                       className="w-3 h-3 bg-primary rounded-full"
@@ -246,7 +247,7 @@ export default function MotionPage() {
                     {easings.map((easing, index) => (
                       <Button
                         key={easing.name}
-                        variant={selectedEasing === index ? "default" : "outline"}
+                        variant={selectedEasing === index ? 'default' : 'outline'}
                         onClick={() => setSelectedEasing(index)}
                       >
                         {easing.name}

@@ -18,5 +18,5 @@ export {
   InlineCitationSource,
   InlineCitationQuote,
   InlineCitationLink,
-} from "./inline-citation";
-export { InlineCitationMetadata } from "./inline-citation.metadata";
+} from './inline-citation';
+export { InlineCitationMetadata } from './inline-citation.metadata';

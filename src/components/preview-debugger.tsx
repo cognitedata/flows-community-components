@@ -1,7 +1,3 @@
-import { Badge } from "@/components/ui/aura/badge";
-import { Button } from "@/components/ui/aura/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/aura/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/aura/tabs";
 import {
   IconAlertTriangle,
   IconBolt,
@@ -9,8 +5,13 @@ import {
   IconCircleCheck,
   IconCode,
   IconRefresh,
-} from "@tabler/icons-react";
-import { startTransition, useEffect, useState } from "react";
+} from '@tabler/icons-react';
+import { startTransition, useEffect, useState } from 'react';
+
+import { Badge } from '@/components/ui/aura/badge';
+import { Button } from '@/components/ui/aura/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/aura/card';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/aura/tabs';
 
 interface PreviewDebuggerProps {
   code: string;
@@ -55,14 +56,14 @@ export function PreviewDebugger({ code, errors = [], onRetry }: PreviewDebuggerP
         analysis.hasValidExport = true;
         analysis.componentName = exportMatch[1];
       } else {
-        analysis.warnings.push("No export function found");
+        analysis.warnings.push('No export function found');
         analysis.suggestions.push("Add 'export function ComponentName() { ... }'");
       }
 
       // Extract imports
       const importMatches = code.matchAll(/import\s+\{([^}]+)\}\s+from\s+["']([^"']+)["']/g);
       for (const match of importMatches) {
-        const components = match[1].split(",").map((c) => c.trim());
+        const components = match[1].split(',').map((c) => c.trim());
         analysis.imports.push(...components);
       }
 
@@ -79,9 +80,9 @@ export function PreviewDebugger({ code, errors = [], onRetry }: PreviewDebuggerP
       analysis.usedComponents.forEach((component) => {
         if (
           !analysis.imports.includes(component) &&
-          component !== "div" &&
-          component !== "span" &&
-          component !== "p"
+          component !== 'div' &&
+          component !== 'span' &&
+          component !== 'p'
         ) {
           analysis.warnings.push(`Component '${component}' may not be imported`);
           analysis.suggestions.push(`Import ${component} from the appropriate UI library`);
@@ -89,15 +90,15 @@ export function PreviewDebugger({ code, errors = [], onRetry }: PreviewDebuggerP
       });
 
       // Check for JSX structure
-      if (!code.includes("return")) {
-        analysis.warnings.push("No return statement found");
+      if (!code.includes('return')) {
+        analysis.warnings.push('No return statement found');
         analysis.suggestions.push("Add 'return (' followed by your JSX");
       }
 
       // Check for common patterns
-      if (code.includes("useState") && !analysis.imports.includes("useState")) {
-        analysis.warnings.push("useState used but not imported");
-        analysis.suggestions.push("useState is available as React.useState");
+      if (code.includes('useState') && !analysis.imports.includes('useState')) {
+        analysis.warnings.push('useState used but not imported');
+        analysis.suggestions.push('useState is available as React.useState');
       }
 
       return analysis;
@@ -157,7 +158,7 @@ export function PreviewDebugger({ code, errors = [], onRetry }: PreviewDebuggerP
                     <span className="text-sm">
                       {analysis.hasValidExport
                         ? `Export found: ${analysis.componentName}`
-                        : "No valid export function"}
+                        : 'No valid export function'}
                     </span>
                   </div>
                 </div>
@@ -184,7 +185,7 @@ export function PreviewDebugger({ code, errors = [], onRetry }: PreviewDebuggerP
                       {analysis.usedComponents.map((comp) => (
                         <Badge
                           key={comp}
-                          variant={analysis.imports.includes(comp) ? "default" : "error"}
+                          variant={analysis.imports.includes(comp) ? 'default' : 'error'}
                           className="text-xs"
                         >
                           {comp}

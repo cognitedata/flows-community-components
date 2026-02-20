@@ -1,11 +1,12 @@
-import { IconCalendar } from "@tabler/icons-react";
-import { format } from "date-fns";
-import { useState } from "react";
+import { IconCalendar } from '@tabler/icons-react';
+import { format } from 'date-fns';
+import { useState } from 'react';
 
-import { Button } from "@/components/ui/aura/button";
-import { Calendar } from "@/components/ui/aura/calendar";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/aura/popover";
-import { cn } from "../../../../lib/utils";
+import { cn } from '../../../../lib/utils';
+
+import { Button } from '@/components/ui/aura/button';
+import { Calendar } from '@/components/ui/aura/calendar';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/aura/popover';
 
 export function DatePicker() {
   const [date, setDate] = useState<Date>();
@@ -15,14 +16,14 @@ export function DatePicker() {
       <PopoverTrigger
         render={
           <Button
-            variant={"outline"}
+            variant={'outline'}
             className={cn(
-              "w-60 justify-start text-left font-normal",
-              !date && "text-muted-foreground"
+              'w-60 justify-start text-left font-normal',
+              !date && 'text-muted-foreground'
             )}
           >
             <IconCalendar className="mr-2 h-4 w-4" />
-            {date ? format(date, "PPP") : <span>Pick a date</span>}
+            {date ? format(date, 'PPP') : <span>Pick a date</span>}
           </Button>
         }
       />
@@ -45,7 +46,7 @@ export interface DatePickerProps {
 export function DatePickerCustom({
   date,
   onDateChange,
-  placeholder = "Pick a date",
+  placeholder = 'Pick a date',
   className,
   disabled = false,
   id,
@@ -63,16 +64,16 @@ export function DatePickerCustom({
         render={
           <Button
             id={id}
-            variant={"outline"}
+            variant={'outline'}
             className={cn(
-              "w-60 justify-start text-left font-normal",
-              !selectedDate && "text-muted-foreground",
+              'w-60 justify-start text-left font-normal',
+              !selectedDate && 'text-muted-foreground',
               className
             )}
             disabled={disabled}
           >
             <IconCalendar className="mr-2 h-4 w-4" />
-            {selectedDate ? format(selectedDate, "PPP") : <span>{placeholder}</span>}
+            {selectedDate ? format(selectedDate, 'PPP') : <span>{placeholder}</span>}
           </Button>
         }
       />
@@ -99,7 +100,7 @@ export function DateRangePicker({
   from,
   to,
   onValueChange,
-  placeholder = "Pick a date range",
+  placeholder = 'Pick a date range',
   className,
   disabled = false,
 }: DateRangePickerProps) {
@@ -121,10 +122,10 @@ export function DateRangePicker({
       <PopoverTrigger
         render={
           <Button
-            variant={"outline"}
+            variant={'outline'}
             className={cn(
-              "w-60 justify-start text-left font-normal",
-              !selectedRange.from && "text-muted-foreground",
+              'w-60 justify-start text-left font-normal',
+              !selectedRange.from && 'text-muted-foreground',
               className
             )}
             disabled={disabled}
@@ -133,11 +134,11 @@ export function DateRangePicker({
             {selectedRange.from ? (
               selectedRange.to ? (
                 <>
-                  {format(selectedRange.from, "LLL dd, y")} -{" "}
-                  {format(selectedRange.to, "LLL dd, y")}
+                  {format(selectedRange.from, 'LLL dd, y')} -{' '}
+                  {format(selectedRange.to, 'LLL dd, y')}
                 </>
               ) : (
-                format(selectedRange.from, "LLL dd, y")
+                format(selectedRange.from, 'LLL dd, y')
               )
             ) : (
               <span>{placeholder}</span>

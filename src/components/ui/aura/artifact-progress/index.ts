@@ -30,5 +30,5 @@ export {
   ArtifactProgressDescription,
   ArtifactProgressBar,
   ArtifactProgressFooter,
-} from "./artifact-progress";
-export { ArtifactProgressMetadata } from "./artifact-progress.metadata";
+} from './artifact-progress';
+export { ArtifactProgressMetadata } from './artifact-progress.metadata';

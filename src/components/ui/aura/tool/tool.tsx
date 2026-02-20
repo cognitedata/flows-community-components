@@ -1,14 +1,14 @@
-import type { ComponentProps, ComponentRef, ReactNode } from "react";
-import { forwardRef } from "react";
+import { IconSelector as ChevronsUpDown } from '@tabler/icons-react';
+import type { ComponentProps, ComponentRef, ReactNode } from 'react';
+import { forwardRef } from 'react';
 
-import { IconSelector as ChevronsUpDown } from "@tabler/icons-react";
 
-import type { ToolUIPart } from "../../../../lib/ai/types";
-import { cn } from "../../../../lib/utils";
-import { Badge } from "../badge";
-import { Button } from "../button";
-import { CodeBlock, CodeBlockCollapseButton, CodeBlockCopyButton } from "../code-block";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "../collapsible";
+import type { ToolUIPart } from '../../../../lib/ai/types';
+import { cn } from '../../../../lib/utils';
+import { Badge } from '../badge';
+import { Button } from '../button';
+import { CodeBlock, CodeBlockCollapseButton, CodeBlockCopyButton } from '../code-block';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '../collapsible';
 
 type ToolProps = ComponentProps<typeof Collapsible>;
 
@@ -18,18 +18,18 @@ const Tool = forwardRef<ComponentRef<typeof Collapsible>, ToolProps>(
       ref={ref}
       data-slot="tool"
       className={cn(
-        "group not-prose w-full bg-background rounded-md flex flex-col gap-2",
+        'group not-prose w-full bg-background rounded-md flex flex-col gap-2',
         className
       )}
       {...props}
     />
   )
 );
-Tool.displayName = "Tool";
+Tool.displayName = 'Tool';
 
-type ToolHeaderProps = Omit<ComponentProps<typeof CollapsibleTrigger>, "type"> & {
+type ToolHeaderProps = Omit<ComponentProps<typeof CollapsibleTrigger>, 'type'> & {
   title?: string;
-  type: ToolUIPart["type"];
+  type: ToolUIPart['type'];
   hasError?: boolean;
 };
 
@@ -44,7 +44,7 @@ const ToolHeader = forwardRef<ComponentRef<typeof CollapsibleTrigger>, ToolHeade
           variant="ghost"
           className="w-full justify-between text-base leading-5 tracking-tighter"
         >
-          <span>{title ?? type.split("-").slice(1).join("-")}</span>
+          <span>{title ?? type.split('-').slice(1).join('-')}</span>
           <div className="flex items-center gap-2">
             {hasError ? (
               <Badge outline className="bg-background text-destructive-foreground border-border">
@@ -59,7 +59,7 @@ const ToolHeader = forwardRef<ComponentRef<typeof CollapsibleTrigger>, ToolHeade
     />
   )
 );
-ToolHeader.displayName = "ToolHeader";
+ToolHeader.displayName = 'ToolHeader';
 
 type ToolContentProps = ComponentProps<typeof CollapsibleContent>;
 
@@ -68,15 +68,15 @@ const ToolContent = forwardRef<ComponentRef<typeof CollapsibleContent>, ToolCont
     <CollapsibleContent
       ref={ref}
       data-slot="tool-content"
-      className={cn("flex flex-col gap-4 py-3 text-popover-foreground outline-none", className)}
+      className={cn('flex flex-col gap-4 py-3 text-popover-foreground outline-none', className)}
       {...props}
     />
   )
 );
-ToolContent.displayName = "ToolContent";
+ToolContent.displayName = 'ToolContent';
 
-type ToolInputProps = ComponentProps<"div"> & {
-  input: ToolUIPart["input"];
+type ToolInputProps = ComponentProps<'div'> & {
+  input: ToolUIPart['input'];
 };
 
 const ToolInput = forwardRef<HTMLDivElement, ToolInputProps>(
@@ -84,7 +84,7 @@ const ToolInput = forwardRef<HTMLDivElement, ToolInputProps>(
     <div
       ref={ref}
       data-slot="tool-input"
-      className={cn("space-y-2 overflow-hidden px-3.25", className)}
+      className={cn('space-y-2 overflow-hidden px-3.25', className)}
       {...props}
     >
       <h4 className="text-sm font-medium uppercase tracking-wide text-muted-foreground">
@@ -99,11 +99,11 @@ const ToolInput = forwardRef<HTMLDivElement, ToolInputProps>(
     </div>
   )
 );
-ToolInput.displayName = "ToolInput";
+ToolInput.displayName = 'ToolInput';
 
-type ToolOutputProps = ComponentProps<"div"> & {
-  output: ToolUIPart["output"];
-  errorText: ToolUIPart["errorText"];
+type ToolOutputProps = ComponentProps<'div'> & {
+  output: ToolUIPart['output'];
+  errorText: ToolUIPart['errorText'];
 };
 
 const ToolOutput = forwardRef<HTMLDivElement, ToolOutputProps>(
@@ -113,7 +113,7 @@ const ToolOutput = forwardRef<HTMLDivElement, ToolOutputProps>(
     }
 
     let outputElement: ReactNode = null;
-    if (typeof output === "string") {
+    if (typeof output === 'string') {
       outputElement = (
         <CodeBlock code={output} language="json" collapsed>
           <CodeBlockCopyButton />
@@ -122,7 +122,7 @@ const ToolOutput = forwardRef<HTMLDivElement, ToolOutputProps>(
       );
     } else if (output === null || output === undefined) {
       outputElement = null;
-    } else if (typeof output === "object") {
+    } else if (typeof output === 'object') {
       outputElement = (
         <CodeBlock code={JSON.stringify(output, null, 2)} language="json" collapsed>
           <CodeBlockCopyButton />
@@ -130,9 +130,9 @@ const ToolOutput = forwardRef<HTMLDivElement, ToolOutputProps>(
         </CodeBlock>
       );
     } else if (
-      typeof output === "number" ||
-      typeof output === "boolean" ||
-      typeof output === "bigint"
+      typeof output === 'number' ||
+      typeof output === 'boolean' ||
+      typeof output === 'bigint'
     ) {
       outputElement = (
         <CodeBlock code={String(output)} language="json" collapsed>
@@ -147,7 +147,7 @@ const ToolOutput = forwardRef<HTMLDivElement, ToolOutputProps>(
         <div
           ref={ref}
           data-slot="tool-output"
-          className={cn("space-y-2 px-3.25", className)}
+          className={cn('space-y-2 px-3.25', className)}
           {...props}
         >
           <div className="flex flex-col gap-2 text-sm">
@@ -162,7 +162,7 @@ const ToolOutput = forwardRef<HTMLDivElement, ToolOutputProps>(
       <div
         ref={ref}
         data-slot="tool-output"
-        className={cn("space-y-2 px-3.25", className)}
+        className={cn('space-y-2 px-3.25', className)}
         {...props}
       >
         <h4 className="text-sm font-medium uppercase tracking-wide text-muted-foreground">
@@ -175,6 +175,6 @@ const ToolOutput = forwardRef<HTMLDivElement, ToolOutputProps>(
     );
   }
 );
-ToolOutput.displayName = "ToolOutput";
+ToolOutput.displayName = 'ToolOutput';
 
 export { Tool, ToolHeader, ToolContent, ToolInput, ToolOutput };

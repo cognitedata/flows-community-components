@@ -1,94 +1,96 @@
-import { Label } from "@/components/ui/aura/label";
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor, within } from "@storybook/test";
-import { useState } from "react";
-import { Slider } from "./slider";
+import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
+import { useState } from 'react';
+
+import { Slider } from './slider';
+
+import { Label } from '@/components/ui/aura/label';
 
 const meta: Meta<typeof Slider> = {
-  title: "Primitives/Slider",
+  title: 'Primitives/Slider',
   component: Slider,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     value: {
-      control: "object",
-      description: "Controlled value (array of numbers)",
+      control: 'object',
+      description: 'Controlled value (array of numbers)',
       table: {
-        category: "State",
-        type: { summary: "number[]" },
+        category: 'State',
+        type: { summary: 'number[]' },
       },
     },
     defaultValue: {
-      control: "object",
-      description: "Default value (array of numbers)",
+      control: 'object',
+      description: 'Default value (array of numbers)',
       table: {
-        category: "State",
-        type: { summary: "number[]" },
+        category: 'State',
+        type: { summary: 'number[]' },
       },
     },
     min: {
-      control: "number",
-      description: "Minimum value",
+      control: 'number',
+      description: 'Minimum value',
       table: {
-        category: "Range",
-        type: { summary: "number" },
-        defaultValue: { summary: "0" },
+        category: 'Range',
+        type: { summary: 'number' },
+        defaultValue: { summary: '0' },
       },
     },
     max: {
-      control: "number",
-      description: "Maximum value",
+      control: 'number',
+      description: 'Maximum value',
       table: {
-        category: "Range",
-        type: { summary: "number" },
-        defaultValue: { summary: "100" },
+        category: 'Range',
+        type: { summary: 'number' },
+        defaultValue: { summary: '100' },
       },
     },
     step: {
-      control: "number",
-      description: "Step increment",
+      control: 'number',
+      description: 'Step increment',
       table: {
-        category: "Range",
-        type: { summary: "number" },
-        defaultValue: { summary: "1" },
+        category: 'Range',
+        type: { summary: 'number' },
+        defaultValue: { summary: '1' },
       },
     },
     disabled: {
-      control: "boolean",
-      description: "Disable the slider",
+      control: 'boolean',
+      description: 'Disable the slider',
       table: {
-        category: "State",
-        type: { summary: "boolean" },
-        defaultValue: { summary: "false" },
+        category: 'State',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
       },
     },
     orientation: {
-      control: "select",
-      options: ["horizontal", "vertical"],
-      description: "Slider orientation",
+      control: 'select',
+      options: ['horizontal', 'vertical'],
+      description: 'Slider orientation',
       table: {
-        category: "Layout",
+        category: 'Layout',
         type: { summary: '"horizontal" | "vertical"' },
-        defaultValue: { summary: "horizontal" },
+        defaultValue: { summary: 'horizontal' },
       },
     },
     onValueChange: {
-      action: "valueChange",
-      description: "Callback when value changes",
+      action: 'valueChange',
+      description: 'Callback when value changes',
       table: {
-        category: "Events",
-        type: { summary: "(value: number[]) => void" },
+        category: 'Events',
+        type: { summary: '(value: number[]) => void' },
       },
     },
     className: {
-      control: "text",
-      description: "Additional CSS classes",
+      control: 'text',
+      description: 'Additional CSS classes',
       table: {
-        category: "Styling",
+        category: 'Styling',
       },
     },
   },
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
   decorators: [
     (Story) => (
@@ -110,7 +112,7 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Default slider with a single thumb.",
+        story: 'Default slider with a single thumb.',
       },
     },
   },
@@ -143,7 +145,7 @@ export const WithLabel: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Slider with label and real-time value display.",
+        story: 'Slider with label and real-time value display.',
       },
     },
   },
@@ -171,7 +173,7 @@ export const RangeSlider: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Range slider with two thumbs for selecting a range.",
+        story: 'Range slider with two thumbs for selecting a range.',
       },
     },
   },
@@ -201,7 +203,7 @@ export const CustomRange: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Slider with custom min, max, and step values.",
+        story: 'Slider with custom min, max, and step values.',
       },
     },
   },
@@ -226,7 +228,7 @@ export const Disabled: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Disabled sliders that cannot be interacted with.",
+        story: 'Disabled sliders that cannot be interacted with.',
       },
     },
   },
@@ -255,7 +257,7 @@ export const Vertical: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Vertical orientation sliders.",
+        story: 'Vertical orientation sliders.',
       },
     },
   },
@@ -308,7 +310,7 @@ export const Controlled: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Slider with externally controlled state.",
+        story: 'Slider with externally controlled state.',
       },
     },
   },
@@ -316,12 +318,12 @@ export const Controlled: Story = {
     const canvas = within(canvasElement);
 
     // Click Max button
-    const maxButton = canvas.getByText("Max");
+    const maxButton = canvas.getByText('Max');
     await userEvent.click(maxButton);
 
     // Verify value updated
     await waitFor(() => {
-      const valueText = canvas.getByText("Value: 100");
+      const valueText = canvas.getByText('Value: 100');
       expect(valueText).toBeInTheDocument();
     });
   },
@@ -352,7 +354,7 @@ export const StepIncrements: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Slider with discrete step increments.",
+        story: 'Slider with discrete step increments.',
       },
     },
   },
@@ -380,21 +382,21 @@ export const MultipleSliders: Story = {
             <Label>Brightness</Label>
             <span className="text-sm text-muted-foreground">{settings.brightness[0]}%</span>
           </div>
-          <Slider value={settings.brightness} onValueChange={updateSetting("brightness")} />
+          <Slider value={settings.brightness} onValueChange={updateSetting('brightness')} />
         </div>
         <div className="space-y-2">
           <div className="flex justify-between">
             <Label>Contrast</Label>
             <span className="text-sm text-muted-foreground">{settings.contrast[0]}%</span>
           </div>
-          <Slider value={settings.contrast} onValueChange={updateSetting("contrast")} />
+          <Slider value={settings.contrast} onValueChange={updateSetting('contrast')} />
         </div>
         <div className="space-y-2">
           <div className="flex justify-between">
             <Label>Saturation</Label>
             <span className="text-sm text-muted-foreground">{settings.saturation[0]}%</span>
           </div>
-          <Slider value={settings.saturation} onValueChange={updateSetting("saturation")} />
+          <Slider value={settings.saturation} onValueChange={updateSetting('saturation')} />
         </div>
       </div>
     );
@@ -402,7 +404,7 @@ export const MultipleSliders: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Multiple sliders in a settings-like form.",
+        story: 'Multiple sliders in a settings-like form.',
       },
     },
   },
@@ -439,7 +441,7 @@ export const VisualRegression: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Comprehensive visual overview for regression testing.",
+        story: 'Comprehensive visual overview for regression testing.',
       },
     },
     chromatic: {
@@ -465,13 +467,13 @@ export const Playground: Story = {
     max: 100,
     step: 1,
     disabled: false,
-    orientation: "horizontal",
+    orientation: 'horizontal',
   },
   render: (args) => <Slider {...args} />,
   parameters: {
     docs: {
       description: {
-        story: "Interactive playground - use controls to experiment with slider props.",
+        story: 'Interactive playground - use controls to experiment with slider props.',
       },
     },
   },

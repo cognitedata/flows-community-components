@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor, within } from "@storybook/test";
+import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
 import {
   IconBookmark,
   IconDownload,
@@ -9,77 +9,78 @@ import {
   IconSend,
   IconSettings,
   IconTrash,
-} from "@tabler/icons-react";
-import { useState } from "react";
-import { Button } from "./button";
+} from '@tabler/icons-react';
+import { useState } from 'react';
+
+import { Button } from './button';
 
 const meta: Meta<typeof Button> = {
-  title: "Primitives/Button",
+  title: 'Primitives/Button',
   component: Button,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     variant: {
-      control: "select",
-      options: ["default", "destructive", "secondary", "outline", "ghost", "link"],
-      description: "The visual style variant of the button",
+      control: 'select',
+      options: ['default', 'destructive', 'secondary', 'outline', 'ghost', 'link'],
+      description: 'The visual style variant of the button',
       table: {
-        category: "Variants/Styling",
-        type: { summary: "string" },
-        defaultValue: { summary: "default" },
+        category: 'Variants/Styling',
+        type: { summary: 'string' },
+        defaultValue: { summary: 'default' },
       },
     },
     size: {
-      control: "select",
-      options: ["default", "sm", "lg", "icon", "icon-sm", "icon-lg"],
-      description: "The size of the button",
+      control: 'select',
+      options: ['default', 'sm', 'lg', 'icon', 'icon-sm', 'icon-lg'],
+      description: 'The size of the button',
       table: {
-        category: "Variants/Styling",
-        type: { summary: "string" },
-        defaultValue: { summary: "default" },
+        category: 'Variants/Styling',
+        type: { summary: 'string' },
+        defaultValue: { summary: 'default' },
       },
     },
     children: {
-      control: "text",
-      description: "The content to display inside the button",
+      control: 'text',
+      description: 'The content to display inside the button',
       table: {
-        category: "Content",
+        category: 'Content',
       },
     },
 
     disabled: {
-      control: "boolean",
-      description: "Whether the button is disabled",
+      control: 'boolean',
+      description: 'Whether the button is disabled',
       table: {
-        category: "Behavior",
-        type: { summary: "boolean" },
-        defaultValue: { summary: "false" },
+        category: 'Behavior',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
       },
     },
 
     onClick: {
-      action: "clicked",
-      description: "Callback fired when button is clicked",
+      action: 'clicked',
+      description: 'Callback fired when button is clicked',
       table: {
-        category: "Events",
-        type: { summary: "(event: MouseEvent) => void" },
+        category: 'Events',
+        type: { summary: '(event: MouseEvent) => void' },
       },
     },
 
     type: {
-      control: "select",
-      options: ["button", "submit", "reset"],
-      description: "The type of button",
+      control: 'select',
+      options: ['button', 'submit', 'reset'],
+      description: 'The type of button',
       table: {
-        category: "Advanced",
-        type: { summary: "string" },
-        defaultValue: { summary: "button" },
+        category: 'Advanced',
+        type: { summary: 'string' },
+        defaultValue: { summary: 'button' },
       },
     },
   },
   parameters: {
-    layout: "centered",
+    layout: 'centered',
     actions: {
-      handles: ["click"],
+      handles: ['click'],
     },
   },
 };
@@ -104,7 +105,7 @@ export const Default: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const button = canvas.getByRole("button", { name: /button/i });
+    const button = canvas.getByRole('button', { name: /button/i });
     await expect(button).toBeInTheDocument();
 
     await userEvent.click(button);
@@ -122,13 +123,13 @@ export const Secondary: Story = {
     docs: {
       description: {
         story:
-          "Secondary button with a lighter background. Use for secondary actions that are less prominent than primary actions.",
+          'Secondary button with a lighter background. Use for secondary actions that are less prominent than primary actions.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const button = canvas.getByRole("button", { name: /secondary/i });
+    const button = canvas.getByRole('button', { name: /secondary/i });
     await expect(button).toBeInTheDocument();
     await expect(button).toHaveClass(/secondary/);
   },
@@ -150,7 +151,7 @@ export const Outline: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const button = canvas.getByRole("button", { name: /outline/i });
+    const button = canvas.getByRole('button', { name: /outline/i });
     await expect(button).toBeInTheDocument();
     await expect(button).toHaveClass(/outline/);
   },
@@ -166,13 +167,13 @@ export const Ghost: Story = {
     docs: {
       description: {
         story:
-          "Minimal button with no background or border. Use for tertiary actions or in toolbars where minimal visual weight is desired.",
+          'Minimal button with no background or border. Use for tertiary actions or in toolbars where minimal visual weight is desired.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const button = canvas.getByRole("button", { name: /ghost/i });
+    const button = canvas.getByRole('button', { name: /ghost/i });
     await expect(button).toBeInTheDocument();
 
     await userEvent.hover(button);
@@ -189,13 +190,13 @@ export const Destructive: Story = {
     docs: {
       description: {
         story:
-          "Red destructive button for dangerous actions like deleting data. Always requires confirmation through a dialog or alert.",
+          'Red destructive button for dangerous actions like deleting data. Always requires confirmation through a dialog or alert.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const button = canvas.getByRole("button", { name: /delete/i });
+    const button = canvas.getByRole('button', { name: /delete/i });
     await expect(button).toBeInTheDocument();
     await expect(button).toHaveClass(/destructive/);
 
@@ -213,13 +214,13 @@ export const Link: Story = {
     docs: {
       description: {
         story:
-          "Button styled as a link with underline on hover. Use for inline actions that should look like text links.",
+          'Button styled as a link with underline on hover. Use for inline actions that should look like text links.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const button = canvas.getByRole("button", { name: /link button/i });
+    const button = canvas.getByRole('button', { name: /link button/i });
     await expect(button).toBeInTheDocument();
     await expect(button).toHaveClass(/link/);
   },
@@ -259,13 +260,13 @@ export const AllVariants: Story = {
     docs: {
       description: {
         story:
-          "Overview of all button variants. Each variant serves a different purpose in the UI hierarchy.",
+          'Overview of all button variants. Each variant serves a different purpose in the UI hierarchy.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const buttons = await canvas.findAllByRole("button");
+    const buttons = await canvas.findAllByRole('button');
 
     await expect(buttons).toHaveLength(6);
 
@@ -278,16 +279,16 @@ export const AllVariants: Story = {
  */
 export const MainComponent: Story = {
   render: () => {
-    const variants = ["default", "secondary", "outline", "ghost", "destructive", "link"] as const;
-    const sizePairs = [{ label: "default" }, { label: "sm" }, { label: "lg" }] as const;
+    const variants = ['default', 'secondary', 'outline', 'ghost', 'destructive', 'link'] as const;
+    const sizePairs = [{ label: 'default' }, { label: 'sm' }, { label: 'lg' }] as const;
 
     const activeWrapperClassByVariant = {
-      default: "[&>button]:bg-primary-hover dark:[&>button]:bg-primary-hover",
-      secondary: "[&>button]:bg-secondary-hover dark:[&>button]:bg-secondary-hover",
-      outline: "[&>button]:bg-accent dark:[&>button]:bg-input/50",
-      ghost: "[&>button]:bg-accent dark:[&>button]:bg-accent/50",
-      destructive: "[&>button]:bg-destructive-hover dark:[&>button]:bg-destructive-hover",
-      link: "[&>button]:bg-accent/50 dark:[&>button]:bg-accent/30 [&>button]:underline",
+      default: '[&>button]:bg-primary-hover dark:[&>button]:bg-primary-hover',
+      secondary: '[&>button]:bg-secondary-hover dark:[&>button]:bg-secondary-hover',
+      outline: '[&>button]:bg-accent dark:[&>button]:bg-input/50',
+      ghost: '[&>button]:bg-accent dark:[&>button]:bg-accent/50',
+      destructive: '[&>button]:bg-destructive-hover dark:[&>button]:bg-destructive-hover',
+      link: '[&>button]:bg-accent/50 dark:[&>button]:bg-accent/30 [&>button]:underline',
     } as const;
 
     return (
@@ -333,13 +334,13 @@ export const MainComponent: Story = {
     docs: {
       description: {
         story:
-          "Comprehensive overview of size and variant combinations for the main button component.",
+          'Comprehensive overview of size and variant combinations for the main button component.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const buttons = await canvas.findAllByRole("button");
+    const buttons = await canvas.findAllByRole('button');
     await expect(buttons.length).toBeGreaterThan(10);
   },
 };
@@ -363,13 +364,13 @@ export const ButtonStates: Story = {
     order: 9,
     docs: {
       description: {
-        story: "Disabled and loading states.",
+        story: 'Disabled and loading states.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const buttons = await canvas.findAllByRole("button");
+    const buttons = await canvas.findAllByRole('button');
     await expect(buttons).toHaveLength(2);
     await expect(buttons[0]).toBeDisabled();
     await expect(buttons[1]).toBeDisabled();
@@ -392,17 +393,17 @@ export const AllSizes: Story = {
     docs: {
       description: {
         story:
-          "Available button sizes: small (h-7), default (h-9), and large (h-10). Choose based on context and visual hierarchy.",
+          'Available button sizes: small (h-7), default (h-9), and large (h-10). Choose based on context and visual hierarchy.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const buttons = await canvas.findAllByRole("button");
+    const buttons = await canvas.findAllByRole('button');
 
     await expect(buttons).toHaveLength(3);
 
-    const smallButton = canvas.getByText("Small");
+    const smallButton = canvas.getByText('Small');
     await expect(smallButton).toBeInTheDocument();
   },
 };
@@ -422,16 +423,16 @@ export const WithLeftIcon: Story = {
     docs: {
       description: {
         story:
-          "Button with icon on the left side. Icons automatically get proper spacing with the gap utility.",
+          'Button with icon on the left side. Icons automatically get proper spacing with the gap utility.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const button = canvas.getByRole("button", { name: /add item/i });
+    const button = canvas.getByRole('button', { name: /add item/i });
     await expect(button).toBeInTheDocument();
 
-    const icon = button.querySelector("svg");
+    const icon = button.querySelector('svg');
     await expect(icon).toBeInTheDocument();
   },
 };
@@ -451,13 +452,13 @@ export const WithRightIcon: Story = {
     docs: {
       description: {
         story:
-          "Button with icon on the right side. Useful for actions that indicate direction or outcome.",
+          'Button with icon on the right side. Useful for actions that indicate direction or outcome.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const button = canvas.getByRole("button", { name: /download/i });
+    const button = canvas.getByRole('button', { name: /download/i });
     await expect(button).toBeInTheDocument();
   },
 };
@@ -484,16 +485,16 @@ export const IconButtons: Story = {
     docs: {
       description: {
         story:
-          "Square icon-only buttons in three sizes. Always include aria-label for accessibility when using icon-only buttons.",
+          'Square icon-only buttons in three sizes. Always include aria-label for accessibility when using icon-only buttons.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const smallButton = canvas.getByLabelText("Settings small");
-    const defaultButton = canvas.getByLabelText("Settings default");
-    const largeButton = canvas.getByLabelText("Settings large");
+    const smallButton = canvas.getByLabelText('Settings small');
+    const defaultButton = canvas.getByLabelText('Settings default');
+    const largeButton = canvas.getByLabelText('Settings large');
 
     await expect(smallButton).toBeInTheDocument();
     await expect(defaultButton).toBeInTheDocument();
@@ -529,17 +530,17 @@ export const Disabled: Story = {
     docs: {
       description: {
         story:
-          "Disabled buttons with reduced opacity and no pointer events. All variants support the disabled state.",
+          'Disabled buttons with reduced opacity and no pointer events. All variants support the disabled state.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const buttons = await canvas.findAllByRole("button");
+    const buttons = await canvas.findAllByRole('button');
 
     for (const button of buttons) {
       await expect(button).toBeDisabled();
-      await expect(button).toHaveClass("disabled:pointer-events-none");
+      await expect(button).toHaveClass('disabled:pointer-events-none');
     }
   },
 };
@@ -565,19 +566,19 @@ export const Loading: Story = {
     docs: {
       description: {
         story:
-          "Loading state using a spinning icon. Always disable the button during loading to prevent multiple submissions.",
+          'Loading state using a spinning icon. Always disable the button during loading to prevent multiple submissions.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const buttons = await canvas.findAllByRole("button");
+    const buttons = await canvas.findAllByRole('button');
 
     for (const button of buttons) {
       await expect(button).toBeDisabled();
     }
 
-    const spinner = buttons[0].querySelector("svg");
+    const spinner = buttons[0].querySelector('svg');
     await expect(spinner).toBeInTheDocument();
   },
 };
@@ -615,20 +616,20 @@ export const InContext: Story = {
     docs: {
       description: {
         story:
-          "Common button patterns in real-world contexts: dialog actions, toolbar buttons, and full-width CTAs.",
+          'Common button patterns in real-world contexts: dialog actions, toolbar buttons, and full-width CTAs.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const cancelButton = canvas.getByText("Cancel");
-    const saveButton = canvas.getByText("Save Changes");
+    const cancelButton = canvas.getByText('Cancel');
+    const saveButton = canvas.getByText('Save Changes');
 
     await expect(cancelButton).toBeInTheDocument();
     await expect(saveButton).toBeInTheDocument();
 
-    const settingsButton = canvas.getByRole("button", { name: /settings/i });
+    const settingsButton = canvas.getByRole('button', { name: /settings/i });
     await userEvent.click(settingsButton);
   },
 };
@@ -650,26 +651,26 @@ export const ClickInteraction: Story = {
     order: 17,
     docs: {
       description: {
-        story: "Interactive button demonstrating click event handling and state updates.",
+        story: 'Interactive button demonstrating click event handling and state updates.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const button = canvas.getByRole("button", { name: /clicked/i });
+    const button = canvas.getByRole('button', { name: /clicked/i });
     const counter = canvas.getByText(/Count:/);
 
-    await expect(counter).toHaveTextContent("Count: 0");
+    await expect(counter).toHaveTextContent('Count: 0');
 
     await userEvent.click(button);
-    await waitFor(() => expect(counter).toHaveTextContent("Count: 1"));
+    await waitFor(() => expect(counter).toHaveTextContent('Count: 1'));
 
     await userEvent.click(button);
-    await waitFor(() => expect(counter).toHaveTextContent("Count: 2"));
+    await waitFor(() => expect(counter).toHaveTextContent('Count: 2'));
 
     await userEvent.click(button);
-    await waitFor(() => expect(counter).toHaveTextContent("Count: 3"));
+    await waitFor(() => expect(counter).toHaveTextContent('Count: 3'));
   },
 };
 
@@ -688,24 +689,24 @@ export const KeyboardNavigation: Story = {
     order: 18,
     docs: {
       description: {
-        story: "Buttons support full keyboard navigation with Tab and Space/Enter keys.",
+        story: 'Buttons support full keyboard navigation with Tab and Space/Enter keys.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const buttons = await canvas.findAllByRole("button");
+    const buttons = await canvas.findAllByRole('button');
 
     await userEvent.tab();
     await expect(buttons[0]).toHaveFocus();
 
-    await userEvent.keyboard(" ");
+    await userEvent.keyboard(' ');
 
     await userEvent.tab();
     await expect(buttons[1]).toHaveFocus();
 
-    await userEvent.keyboard("{Enter}");
+    await userEvent.keyboard('{Enter}');
   },
 };
 
@@ -738,17 +739,17 @@ export const Accessibility: Story = {
     docs: {
       description: {
         story:
-          "Icon-only buttons require aria-label for screen reader accessibility. Disabled buttons are properly announced.",
+          'Icon-only buttons require aria-label for screen reader accessibility. Disabled buttons are properly announced.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const addButton = canvas.getByLabelText("Add new item");
-    const deleteButton = canvas.getByLabelText("Delete item");
-    const settingsButton = canvas.getByLabelText("Settings");
-    const disabledButton = canvas.getByLabelText("Disabled save button");
+    const addButton = canvas.getByLabelText('Add new item');
+    const deleteButton = canvas.getByLabelText('Delete item');
+    const settingsButton = canvas.getByLabelText('Settings');
+    const disabledButton = canvas.getByLabelText('Disabled save button');
 
     await expect(addButton).toBeInTheDocument();
     await expect(deleteButton).toBeInTheDocument();
@@ -767,7 +768,7 @@ export const Accessibility: Story = {
 export const FormButtonTypes: Story = {
   render: function FormButtonTypesDemo() {
     const [submitted, setSubmitted] = useState(false);
-    const [value, setValue] = useState("Initial value");
+    const [value, setValue] = useState('Initial value');
 
     return (
       <form
@@ -777,7 +778,7 @@ export const FormButtonTypes: Story = {
           setTimeout(() => setSubmitted(false), 2000);
         }}
         onReset={() => {
-          setValue("Initial value");
+          setValue('Initial value');
         }}
         className="flex flex-col gap-4 p-4 border rounded-md"
       >
@@ -791,12 +792,12 @@ export const FormButtonTypes: Story = {
 
         <div className="flex items-center gap-2">
           <Button type="submit" disabled={submitted}>
-            {submitted ? "Submitted!" : "Submit"}
+            {submitted ? 'Submitted!' : 'Submit'}
           </Button>
           <Button type="reset" variant="outline">
             Reset
           </Button>
-          <Button type="button" variant="ghost" onClick={() => setValue("")}>
+          <Button type="button" variant="ghost" onClick={() => setValue('')}>
             Clear
           </Button>
         </div>
@@ -815,21 +816,21 @@ export const FormButtonTypes: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const input = canvas.getByPlaceholderText("Type something...");
-    const submitButton = canvas.getByText("Submit");
-    const clearButton = canvas.getByText("Clear");
+    const input = canvas.getByPlaceholderText('Type something...');
+    const submitButton = canvas.getByText('Submit');
+    const clearButton = canvas.getByText('Clear');
 
     await userEvent.clear(input);
-    await userEvent.type(input, "Test input");
-    await expect(input).toHaveValue("Test input");
+    await userEvent.type(input, 'Test input');
+    await expect(input).toHaveValue('Test input');
 
     await userEvent.click(clearButton);
-    await waitFor(() => expect(input).toHaveValue(""));
+    await waitFor(() => expect(input).toHaveValue(''));
 
-    await userEvent.type(input, "Another test");
+    await userEvent.type(input, 'Another test');
 
     await userEvent.click(submitButton);
-    await waitFor(() => expect(submitButton).toHaveTextContent("Submitted!"));
+    await waitFor(() => expect(submitButton).toHaveTextContent('Submitted!'));
   },
 };
 
@@ -929,7 +930,7 @@ export const VisualRegression: Story = {
     docs: {
       description: {
         story:
-          "Comprehensive visual overview of all button variants, sizes, states, and combinations for visual regression testing in Chromatic.",
+          'Comprehensive visual overview of all button variants, sizes, states, and combinations for visual regression testing in Chromatic.',
       },
     },
     chromatic: {
@@ -954,13 +955,13 @@ export const EdgeCaseEmpty: Story = {
     docs: {
       description: {
         story:
-          "Edge case: Buttons with no children content. They still render but have minimal width.",
+          'Edge case: Buttons with no children content. They still render but have minimal width.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const buttons = await canvas.findAllByRole("button");
+    const buttons = await canvas.findAllByRole('button');
 
     await expect(buttons).toHaveLength(3);
     await userEvent.click(buttons[0]);
@@ -989,13 +990,13 @@ export const EdgeCaseLongText: Story = {
     docs: {
       description: {
         story:
-          "Edge case: Buttons with very long text. The whitespace-nowrap class prevents wrapping, so long text may overflow or expand the button width.",
+          'Edge case: Buttons with very long text. The whitespace-nowrap class prevents wrapping, so long text may overflow or expand the button width.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const buttons = await canvas.findAllByRole("button");
+    const buttons = await canvas.findAllByRole('button');
 
     await expect(buttons).toHaveLength(3);
 
@@ -1014,24 +1015,24 @@ export const EdgeCaseSpecialCharacters: Story = {
         <span role="img" aria-label="rocket">
           🚀
         </span>
-        {"  "}
+        {'  '}
         Emoji Button
       </Button>
-      <Button variant="outline">{"Button & Special <Characters>"}</Button>
+      <Button variant="outline">{'Button & Special <Characters>'}</Button>
       <Button variant="secondary">中文按钮</Button>
       <Button variant="ghost">Кнопка</Button>
       <Button>
         <span role="img" aria-label="play">
           ▶️
-        </span>{" "}
+        </span>{' '}
         <span role="img" aria-label="pause">
           ⏸️
-        </span>{" "}
+        </span>{' '}
         <span role="img" aria-label="stop">
           ⏹️
         </span>
       </Button>
-      <Button variant="outline">{"Price: $99.99 €85"}</Button>
+      <Button variant="outline">{'Price: $99.99 €85'}</Button>
     </div>
   ),
   parameters: {
@@ -1039,20 +1040,20 @@ export const EdgeCaseSpecialCharacters: Story = {
     docs: {
       description: {
         story:
-          "Edge case: Buttons with emojis, special characters, and unicode text from various languages.",
+          'Edge case: Buttons with emojis, special characters, and unicode text from various languages.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const emojiButton = canvas.getByRole("button", { name: /emoji button/i });
+    const emojiButton = canvas.getByRole('button', { name: /emoji button/i });
     await expect(emojiButton).toBeInTheDocument();
 
     const specialButton = canvas.getByText(/Special <Characters>/);
     await expect(specialButton).toBeInTheDocument();
 
-    const chineseButton = canvas.getByText("中文按钮");
+    const chineseButton = canvas.getByText('中文按钮');
     await userEvent.click(chineseButton);
   },
 };
@@ -1086,18 +1087,18 @@ export const EdgeCaseMultipleIcons: Story = {
     docs: {
       description: {
         story:
-          "Edge case: Buttons with multiple icons. The gap utility handles spacing between all children.",
+          'Edge case: Buttons with multiple icons. The gap utility handles spacing between all children.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const buttons = await canvas.findAllByRole("button");
+    const buttons = await canvas.findAllByRole('button');
 
     await expect(buttons).toHaveLength(3);
 
     const firstButton = buttons[0];
-    const icons = firstButton.querySelectorAll("svg");
+    const icons = firstButton.querySelectorAll('svg');
     await expect(icons.length).toBeGreaterThanOrEqual(2);
   },
 };
@@ -1109,7 +1110,7 @@ export const EdgeCaseWhitespace: Story = {
   render: () => (
     <div className="flex flex-col gap-4">
       <Button> Spaces Before And After </Button>
-      <Button variant="outline">{"  \n  Line  \n  Breaks  \n  "}</Button>
+      <Button variant="outline">{'  \n  Line  \n  Breaks  \n  '}</Button>
       <Button variant="secondary"> Tabs And Spaces </Button>
     </div>
   ),
@@ -1118,13 +1119,13 @@ export const EdgeCaseWhitespace: Story = {
     docs: {
       description: {
         story:
-          "Edge case: Buttons with unusual whitespace, tabs, and line breaks. The whitespace-nowrap class collapses most whitespace.",
+          'Edge case: Buttons with unusual whitespace, tabs, and line breaks. The whitespace-nowrap class collapses most whitespace.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const buttons = await canvas.findAllByRole("button");
+    const buttons = await canvas.findAllByRole('button');
 
     await expect(buttons).toHaveLength(3);
 
@@ -1158,18 +1159,18 @@ export const EdgeCaseNestedElements: Story = {
     docs: {
       description: {
         story:
-          "Edge case: Buttons with nested HTML elements like spans, divs, and formatting tags.",
+          'Edge case: Buttons with nested HTML elements like spans, divs, and formatting tags.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const buttons = await canvas.findAllByRole("button");
+    const buttons = await canvas.findAllByRole('button');
 
     await expect(buttons).toHaveLength(3);
 
     const firstButton = buttons[0];
-    const boldSpan = firstButton.querySelector("span.font-bold");
+    const boldSpan = firstButton.querySelector('span.font-bold');
     await expect(boldSpan).toBeInTheDocument();
 
     await userEvent.click(buttons[1]);
@@ -1204,13 +1205,13 @@ export const EdgeCaseWidthConstraints: Story = {
     docs: {
       description: {
         story:
-          "Edge case: Buttons in constrained widths and responsive containers. Shows how buttons behave with width utilities.",
+          'Edge case: Buttons in constrained widths and responsive containers. Shows how buttons behave with width utilities.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const buttons = await canvas.findAllByRole("button");
+    const buttons = await canvas.findAllByRole('button');
 
     await expect(buttons.length).toBeGreaterThanOrEqual(4);
 
@@ -1248,15 +1249,15 @@ export const EdgeCaseIconOnly: Story = {
     docs: {
       description: {
         story:
-          "Edge case: Icon-only buttons with and without aria-label. First button in each row lacks aria-label (accessibility issue), second has proper labeling.",
+          'Edge case: Icon-only buttons with and without aria-label. First button in each row lacks aria-label (accessibility issue), second has proper labeling.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const labeledIconButton = canvas.getByLabelText("Icon button with label");
-    const labeledSettingsButton = canvas.getByLabelText("Settings with proper label");
+    const labeledIconButton = canvas.getByLabelText('Icon button with label');
+    const labeledSettingsButton = canvas.getByLabelText('Settings with proper label');
 
     await expect(labeledIconButton).toBeInTheDocument();
     await expect(labeledSettingsButton).toBeInTheDocument();
@@ -1271,7 +1272,7 @@ export const EdgeCaseIconOnly: Story = {
 export const EdgeCaseRapidStateChanges: Story = {
   render: function RapidStateChanges() {
     const [disabled, setDisabled] = useState(false);
-    const [variant, setVariant] = useState<"default" | "destructive">("default");
+    const [variant, setVariant] = useState<'default' | 'destructive'>('default');
     const [count, setCount] = useState(0);
 
     return (
@@ -1286,7 +1287,7 @@ export const EdgeCaseRapidStateChanges: Story = {
           <Button
             size="sm"
             variant="outline"
-            onClick={() => setVariant((v) => (v === "default" ? "destructive" : "default"))}
+            onClick={() => setVariant((v) => (v === 'default' ? 'destructive' : 'default'))}
           >
             Toggle Variant
           </Button>
@@ -1299,16 +1300,16 @@ export const EdgeCaseRapidStateChanges: Story = {
     docs: {
       description: {
         story:
-          "Edge case: Button with rapidly changing props (disabled state, variant changes, click count).",
+          'Edge case: Button with rapidly changing props (disabled state, variant changes, click count).',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const button = canvas.getByRole("button", { name: /clicked/i });
-    const toggleDisabled = canvas.getByText("Toggle Disabled");
-    const toggleVariant = canvas.getByText("Toggle Variant");
+    const button = canvas.getByRole('button', { name: /clicked/i });
+    const toggleDisabled = canvas.getByText('Toggle Disabled');
+    const toggleVariant = canvas.getByText('Toggle Variant');
 
     await userEvent.click(button);
     await userEvent.click(button);
@@ -1347,13 +1348,13 @@ export const EdgeCaseInvisibleContent: Story = {
     docs: {
       description: {
         story:
-          "Edge case: Buttons with invisible or screen-reader-only content. Tests how buttons render with hidden elements.",
+          'Edge case: Buttons with invisible or screen-reader-only content. Tests how buttons render with hidden elements.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const buttons = await canvas.findAllByRole("button");
+    const buttons = await canvas.findAllByRole('button');
 
     await expect(buttons).toHaveLength(3);
 
@@ -1361,7 +1362,7 @@ export const EdgeCaseInvisibleContent: Story = {
     await expect(buttons[0]).toHaveFocus();
 
     const srButton = buttons[1];
-    const srText = srButton.querySelector(".sr-only");
+    const srText = srButton.querySelector('.sr-only');
     await expect(srText).toBeInTheDocument();
   },
 };
@@ -1371,11 +1372,11 @@ export const EdgeCaseInvisibleContent: Story = {
  */
 export const Playground: Story = {
   args: {
-    variant: "default",
-    size: "default",
-    children: "Click me",
+    variant: 'default',
+    size: 'default',
+    children: 'Click me',
     disabled: false,
-    type: "button",
+    type: 'button',
   },
   render: (args) => <Button {...args} />,
   parameters: {
@@ -1383,7 +1384,7 @@ export const Playground: Story = {
     docs: {
       description: {
         story:
-          "Interactive playground - use the controls below to experiment with all available button props and variants.",
+          'Interactive playground - use the controls below to experiment with all available button props and variants.',
       },
     },
   },

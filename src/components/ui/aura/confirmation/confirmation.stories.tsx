@@ -1,9 +1,8 @@
-import { CodeBlock } from "@/components/ui/aura/code-block";
-import { HelperText } from "@/components/ui/aura/helper-text";
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor, within } from "@storybook/test";
-import { IconCheck, IconCircleCheck, IconX } from "@tabler/icons-react";
-import { useState } from "react";
+import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
+import { IconCheck, IconCircleCheck, IconX } from '@tabler/icons-react';
+import { useState } from 'react';
+
 import {
   Confirmation,
   ConfirmationAccepted,
@@ -13,36 +12,39 @@ import {
   ConfirmationContentTrigger,
   ConfirmationRejected,
   ConfirmationRequest,
-} from "./confirmation";
+} from './confirmation';
+
+import { CodeBlock } from '@/components/ui/aura/code-block';
+import { HelperText } from '@/components/ui/aura/helper-text';
 
 const meta: Meta<typeof Confirmation> = {
-  title: "AI/Confirmation",
+  title: 'AI/Confirmation',
   component: Confirmation,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     // State management
     approval: {
-      control: "object",
-      description: "Approval state object with approved boolean and optional metadata",
+      control: 'object',
+      description: 'Approval state object with approved boolean and optional metadata',
       table: {
-        category: "State",
-        type: { summary: "{ approved?: boolean; [key: string]: unknown }" },
+        category: 'State',
+        type: { summary: '{ approved?: boolean; [key: string]: unknown }' },
       },
     },
     state: {
-      control: "select",
+      control: 'select',
       options: [
-        "input-streaming",
-        "input-available",
-        "approval-requested",
-        "approval-responded",
-        "output-denied",
-        "output-available",
+        'input-streaming',
+        'input-available',
+        'approval-requested',
+        'approval-responded',
+        'output-denied',
+        'output-available',
       ],
-      description: "Current state of the confirmation workflow",
+      description: 'Current state of the confirmation workflow',
       table: {
-        category: "State",
-        type: { summary: "string" },
+        category: 'State',
+        type: { summary: 'string' },
       },
     },
 
@@ -50,24 +52,24 @@ const meta: Meta<typeof Confirmation> = {
     helperText: {
       control: false,
       description:
-        "Helper text below confirmation. Set to false to hide, ReactNode for custom content",
+        'Helper text below confirmation. Set to false to hide, ReactNode for custom content',
       table: {
-        category: "Display",
-        type: { summary: "ReactNode | false" },
+        category: 'Display',
+        type: { summary: 'ReactNode | false' },
       },
     },
     className: {
-      control: "text",
-      description: "CSS classes for styling",
+      control: 'text',
+      description: 'CSS classes for styling',
       table: {
-        category: "Display",
+        category: 'Display',
       },
     },
   },
   parameters: {
-    layout: "centered",
+    layout: 'centered',
     actions: {
-      handles: ["openChanged"],
+      handles: ['openChanged'],
     },
   },
 };
@@ -81,13 +83,13 @@ type Story = StoryObj<typeof Confirmation>;
  */
 export const Interactive: Story = {
   args: {
-    className: "w-[500px]",
+    className: 'w-[500px]',
   },
   parameters: {
     docs: {
       description: {
         story:
-          "A working example with state management showing the full approval workflow. Click action buttons to transition between states.",
+          'A working example with state management showing the full approval workflow. Click action buttons to transition between states.',
       },
     },
   },
@@ -95,21 +97,21 @@ export const Interactive: Story = {
     const canvas = within(canvasElement);
 
     // Accessibility: Verify trigger button exists and has proper attributes
-    const trigger = canvas.getByTestId("confirmation-trigger");
+    const trigger = canvas.getByTestId('confirmation-trigger');
     await expect(trigger).toBeInTheDocument();
-    await expect(trigger).toHaveAttribute("aria-expanded");
+    await expect(trigger).toHaveAttribute('aria-expanded');
 
     // Accessibility: Verify action buttons have proper labels and types
-    const allowOnceButton = canvas.getByTestId("action-allow-once");
+    const allowOnceButton = canvas.getByTestId('action-allow-once');
     await expect(allowOnceButton).toBeInTheDocument();
-    await expect(allowOnceButton).toHaveAttribute("type", "button");
-    await expect(allowOnceButton).toHaveTextContent("Allow once");
+    await expect(allowOnceButton).toHaveAttribute('type', 'button');
+    await expect(allowOnceButton).toHaveTextContent('Allow once');
 
-    const skipButton = canvas.getByTestId("action-skip");
-    await expect(skipButton).toHaveTextContent("Skip");
+    const skipButton = canvas.getByTestId('action-skip');
+    await expect(skipButton).toHaveTextContent('Skip');
 
-    const alwaysAllowButton = canvas.getByTestId("action-always-allow");
-    await expect(alwaysAllowButton).toHaveTextContent("Always allow");
+    const alwaysAllowButton = canvas.getByTestId('action-always-allow');
+    await expect(alwaysAllowButton).toHaveTextContent('Always allow');
 
     // Test: Click "Allow once" to approve
     await userEvent.click(allowOnceButton);
@@ -117,9 +119,9 @@ export const Interactive: Story = {
     // Wait for the accepted state to show
     await waitFor(
       () => {
-        const acceptedElement = canvas.queryByTestId("confirmation-accepted");
+        const acceptedElement = canvas.queryByTestId('confirmation-accepted');
         if (!acceptedElement) {
-          throw new Error("Accepted element not found");
+          throw new Error('Accepted element not found');
         }
         expect(acceptedElement).toBeInTheDocument();
       },
@@ -127,18 +129,18 @@ export const Interactive: Story = {
     );
 
     // Verify accepted message content
-    await expect(canvas.getByText("Permission allowed once")).toBeInTheDocument();
+    await expect(canvas.getByText('Permission allowed once')).toBeInTheDocument();
 
     // Click reset to go back to approval-requested
-    const resetButton = canvas.getByTestId("reset-button");
+    const resetButton = canvas.getByTestId('reset-button');
     await userEvent.click(resetButton);
 
     // Wait for actions to reappear
     await waitFor(
       () => {
-        const skipAction = canvas.queryByTestId("action-skip");
+        const skipAction = canvas.queryByTestId('action-skip');
         if (!skipAction) {
-          throw new Error("Skip action not found");
+          throw new Error('Skip action not found');
         }
         expect(skipAction).toBeInTheDocument();
       },
@@ -146,15 +148,15 @@ export const Interactive: Story = {
     );
 
     // Test: Now test the reject flow
-    const skipButtonAgain = canvas.getByTestId("action-skip");
+    const skipButtonAgain = canvas.getByTestId('action-skip');
     await userEvent.click(skipButtonAgain);
 
     // Wait for the rejected state to show
     await waitFor(
       () => {
-        const rejectedElement = canvas.queryByTestId("confirmation-rejected");
+        const rejectedElement = canvas.queryByTestId('confirmation-rejected');
         if (!rejectedElement) {
-          throw new Error("Rejected element not found");
+          throw new Error('Rejected element not found');
         }
         expect(rejectedElement).toBeInTheDocument();
       },
@@ -162,33 +164,33 @@ export const Interactive: Story = {
     );
 
     // Verify rejected message content
-    await expect(canvas.getByText("Permission skipped")).toBeInTheDocument();
+    await expect(canvas.getByText('Permission skipped')).toBeInTheDocument();
   },
   render: function InteractiveStory(args) {
     const [approval, setApproval] = useState<{
       approved?: boolean;
       always?: boolean;
     }>({});
-    const [state, setState] = useState<string>("approval-requested");
+    const [state, setState] = useState<string>('approval-requested');
 
     const handleAllowOnce = () => {
       setApproval({ approved: true, always: false });
-      setState("output-available");
+      setState('output-available');
     };
 
     const handleAlwaysAllow = () => {
       setApproval({ approved: true, always: true });
-      setState("output-available");
+      setState('output-available');
     };
 
     const handleDeny = () => {
       setApproval({ approved: false });
-      setState("output-denied");
+      setState('output-denied');
     };
 
     const handleReset = () => {
       setApproval({});
-      setState("approval-requested");
+      setState('approval-requested');
     };
 
     return (
@@ -248,7 +250,7 @@ export const Interactive: Story = {
           </ConfirmationRejected>
         </Confirmation>
 
-        {state !== "approval-requested" && (
+        {state !== 'approval-requested' && (
           <button
             type="button"
             onClick={handleReset}
@@ -271,7 +273,7 @@ export const ApprovalRequested: Story = {
     docs: {
       description: {
         story:
-          "Initial state when a tool needs permission. Shows the trigger, collapsible content, and action buttons.",
+          'Initial state when a tool needs permission. Shows the trigger, collapsible content, and action buttons.',
       },
     },
   },
@@ -279,16 +281,16 @@ export const ApprovalRequested: Story = {
     const canvas = within(canvasElement);
 
     // Verify trigger is present
-    const trigger = canvas.getByRole("button", { name: /Atlas needs/i });
+    const trigger = canvas.getByRole('button', { name: /Atlas needs/i });
     await expect(trigger).toBeInTheDocument();
 
     // Verify action buttons are visible
-    await expect(canvas.getByText("Skip")).toBeInTheDocument();
-    await expect(canvas.getByText("Allow once")).toBeInTheDocument();
-    await expect(canvas.getByText("Always allow")).toBeInTheDocument();
+    await expect(canvas.getByText('Skip')).toBeInTheDocument();
+    await expect(canvas.getByText('Allow once')).toBeInTheDocument();
+    await expect(canvas.getByText('Always allow')).toBeInTheDocument();
 
     // Verify helper text is shown
-    await expect(canvas.getByText("Only allow tools that you trust")).toBeInTheDocument();
+    await expect(canvas.getByText('Only allow tools that you trust')).toBeInTheDocument();
   },
   render: () => (
     <div className="w-[500px]">
@@ -334,7 +336,7 @@ export const ApprovalAccepted: Story = {
     docs: {
       description: {
         story:
-          "State after user approves an action. The ConfirmationAccepted content is displayed instead of actions.",
+          'State after user approves an action. The ConfirmationAccepted content is displayed instead of actions.',
       },
     },
   },
@@ -342,15 +344,15 @@ export const ApprovalAccepted: Story = {
     const canvas = within(canvasElement);
 
     // Verify trigger is present
-    const trigger = canvas.getByRole("button", { name: /Atlas needs/i });
+    const trigger = canvas.getByRole('button', { name: /Atlas needs/i });
     await expect(trigger).toBeInTheDocument();
 
     // Verify accepted state message is shown
-    await expect(canvas.getByText("Permission allowed once")).toBeInTheDocument();
+    await expect(canvas.getByText('Permission allowed once')).toBeInTheDocument();
 
     // Action buttons should NOT be visible
-    expect(canvas.queryByText("Skip")).not.toBeInTheDocument();
-    expect(canvas.queryByText("Allow once")).not.toBeInTheDocument();
+    expect(canvas.queryByText('Skip')).not.toBeInTheDocument();
+    expect(canvas.queryByText('Allow once')).not.toBeInTheDocument();
   },
   render: () => (
     <div className="w-[500px]">
@@ -404,7 +406,7 @@ export const ApprovalAcceptedAlways: Story = {
     const canvas = within(canvasElement);
 
     // Verify accepted always message is shown
-    await expect(canvas.getByText("Permission allowed always")).toBeInTheDocument();
+    await expect(canvas.getByText('Permission allowed always')).toBeInTheDocument();
   },
   render: () => (
     <div className="w-[500px]">
@@ -449,7 +451,7 @@ export const ApprovalRejected: Story = {
   parameters: {
     docs: {
       description: {
-        story: "State after user denies an action. The ConfirmationRejected content is displayed.",
+        story: 'State after user denies an action. The ConfirmationRejected content is displayed.',
       },
     },
   },
@@ -457,11 +459,11 @@ export const ApprovalRejected: Story = {
     const canvas = within(canvasElement);
 
     // Verify rejected state message is shown
-    await expect(canvas.getByText("Permission skipped")).toBeInTheDocument();
+    await expect(canvas.getByText('Permission skipped')).toBeInTheDocument();
 
     // Action buttons should NOT be visible
-    expect(canvas.queryByText("Skip")).not.toBeInTheDocument();
-    expect(canvas.queryByText("Allow once")).not.toBeInTheDocument();
+    expect(canvas.queryByText('Skip')).not.toBeInTheDocument();
+    expect(canvas.queryByText('Allow once')).not.toBeInTheDocument();
   },
   render: () => (
     <div className="w-[500px]">
@@ -507,7 +509,7 @@ export const NoHelperText: Story = {
     docs: {
       description: {
         story:
-          "Confirmation without the default helper text warning. Set helperText={false} to hide it.",
+          'Confirmation without the default helper text warning. Set helperText={false} to hide it.',
       },
     },
   },
@@ -515,7 +517,7 @@ export const NoHelperText: Story = {
     const canvas = within(canvasElement);
 
     // Helper text should NOT be visible
-    expect(canvas.queryByText("Only allow tools that you trust")).not.toBeInTheDocument();
+    expect(canvas.queryByText('Only allow tools that you trust')).not.toBeInTheDocument();
   },
   render: () => (
     <div className="w-[500px]">
@@ -549,7 +551,7 @@ export const CustomHelperText: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Confirmation with custom helper text instead of the default warning.",
+        story: 'Confirmation with custom helper text instead of the default warning.',
       },
     },
   },
@@ -558,7 +560,7 @@ export const CustomHelperText: Story = {
 
     // Custom helper text should be visible
     await expect(
-      canvas.getByText("This action requires elevated permissions.")
+      canvas.getByText('This action requires elevated permissions.')
     ).toBeInTheDocument();
   },
   render: () => (
@@ -602,7 +604,7 @@ export const WithParagraphs: Story = {
     docs: {
       description: {
         story:
-          "Collapsible content with multiple paragraphs to help users make informed decisions.",
+          'Collapsible content with multiple paragraphs to help users make informed decisions.',
       },
     },
   },
@@ -610,7 +612,7 @@ export const WithParagraphs: Story = {
     const canvas = within(canvasElement);
 
     // Click to expand content
-    const trigger = canvas.getByRole("button", { name: /Atlas needs/i });
+    const trigger = canvas.getByRole('button', { name: /Atlas needs/i });
     await userEvent.click(trigger);
 
     // Wait for content to be visible
@@ -673,7 +675,7 @@ export const WithCodeBlock: Story = {
     docs: {
       description: {
         story:
-          "Collapsible content with a code block to display the exact code that will be executed.",
+          'Collapsible content with a code block to display the exact code that will be executed.',
       },
     },
   },
@@ -681,18 +683,18 @@ export const WithCodeBlock: Story = {
     const canvas = within(canvasElement);
 
     // Click to expand content
-    const trigger = canvas.getByRole("button", { name: /Atlas needs/i });
+    const trigger = canvas.getByRole('button', { name: /Atlas needs/i });
     await userEvent.click(trigger);
 
     // Wait for code block content to be visible (check for code element)
     await waitFor(
       () => {
-        const codeBlock = canvasElement.querySelector("pre code");
+        const codeBlock = canvasElement.querySelector('pre code');
         if (!codeBlock) {
-          throw new Error("Code block not found");
+          throw new Error('Code block not found');
         }
         expect(codeBlock).toBeInTheDocument();
-        expect(codeBlock).toHaveTextContent("analyzeTimeSeries");
+        expect(codeBlock).toHaveTextContent('analyzeTimeSeries');
       },
       { timeout: 1000 }
     );
@@ -758,7 +760,7 @@ export const CollapsibleInteraction: Story = {
     docs: {
       description: {
         story:
-          "Tests the collapsible content toggle with chevron rotation animation. Click the trigger to expand/collapse the content and watch the chevron rotate.",
+          'Tests the collapsible content toggle with chevron rotation animation. Click the trigger to expand/collapse the content and watch the chevron rotate.',
       },
     },
   },
@@ -766,14 +768,14 @@ export const CollapsibleInteraction: Story = {
     const canvas = within(canvasElement);
 
     // Find the trigger button
-    const trigger = canvas.getByRole("button", { name: /Atlas needs/i });
+    const trigger = canvas.getByRole('button', { name: /Atlas needs/i });
     await expect(trigger).toBeInTheDocument();
 
     // Verify button has accessible attributes
-    await expect(trigger).toHaveAttribute("aria-expanded");
+    await expect(trigger).toHaveAttribute('aria-expanded');
 
     // Find the chevron icon
-    const chevron = trigger.querySelector("svg");
+    const chevron = trigger.querySelector('svg');
     await expect(chevron).toBeInTheDocument();
 
     // Initially content might be collapsed - click to toggle
@@ -788,7 +790,7 @@ export const CollapsibleInteraction: Story = {
     );
 
     // Verify trigger shows expanded state
-    await expect(trigger).toHaveAttribute("aria-expanded", "true");
+    await expect(trigger).toHaveAttribute('aria-expanded', 'true');
 
     // Click again to collapse
     await userEvent.click(trigger);
@@ -796,7 +798,7 @@ export const CollapsibleInteraction: Story = {
     // Verify trigger shows collapsed state
     await waitFor(
       () => {
-        expect(trigger).toHaveAttribute("aria-expanded", "false");
+        expect(trigger).toHaveAttribute('aria-expanded', 'false');
       },
       { timeout: 500 }
     );
@@ -836,7 +838,7 @@ export const KeyboardNavigation: Story = {
     docs: {
       description: {
         story:
-          "Tests keyboard navigation: Tab to navigate between buttons, Space/Enter to activate. Ensures full keyboard accessibility.",
+          'Tests keyboard navigation: Tab to navigate between buttons, Space/Enter to activate. Ensures full keyboard accessibility.',
       },
     },
   },
@@ -844,14 +846,14 @@ export const KeyboardNavigation: Story = {
     const canvas = within(canvasElement);
 
     // Find the trigger button
-    const trigger = canvas.getByRole("button", { name: /Atlas needs/i });
+    const trigger = canvas.getByRole('button', { name: /Atlas needs/i });
 
     // Focus the trigger
     trigger.focus();
     await expect(trigger).toHaveFocus();
 
     // Press Space to expand
-    await userEvent.keyboard(" ");
+    await userEvent.keyboard(' ');
 
     // Wait for content to be visible
     await waitFor(
@@ -863,28 +865,28 @@ export const KeyboardNavigation: Story = {
 
     // Tab to first action button (Skip)
     await userEvent.tab();
-    const skipButton = canvas.getByText("Skip");
+    const skipButton = canvas.getByText('Skip');
     await expect(skipButton).toHaveFocus();
 
     // Tab to second action button (Allow once)
     await userEvent.tab();
-    const allowOnceButton = canvas.getByText("Allow once");
+    const allowOnceButton = canvas.getByText('Allow once');
     await expect(allowOnceButton).toHaveFocus();
 
     // Tab to third action button (Always allow)
     await userEvent.tab();
-    const alwaysAllowButton = canvas.getByText("Always allow");
+    const alwaysAllowButton = canvas.getByText('Always allow');
     await expect(alwaysAllowButton).toHaveFocus();
 
     // Press Enter on Always allow
-    await userEvent.keyboard("{Enter}");
+    await userEvent.keyboard('{Enter}');
 
     // Wait for accepted state
     await waitFor(
       () => {
-        const acceptedText = canvas.queryByText("Permission allowed always");
+        const acceptedText = canvas.queryByText('Permission allowed always');
         if (!acceptedText) {
-          throw new Error("Accepted text not found");
+          throw new Error('Accepted text not found');
         }
         expect(acceptedText).toBeInTheDocument();
       },
@@ -896,11 +898,11 @@ export const KeyboardNavigation: Story = {
       approved?: boolean;
       always?: boolean;
     }>({});
-    const [state, setState] = useState<string>("approval-requested");
+    const [state, setState] = useState<string>('approval-requested');
 
     const handleAlwaysAllow = () => {
       setApproval({ approved: true, always: true });
-      setState("output-available");
+      setState('output-available');
     };
 
     return (
@@ -965,7 +967,7 @@ export const HiddenDuringStreaming: Story = {
 
     // Component should not render anything
     expect(canvas.queryByText(/Atlas needs/i)).not.toBeInTheDocument();
-    expect(canvas.queryByText("Skip")).not.toBeInTheDocument();
+    expect(canvas.queryByText('Skip')).not.toBeInTheDocument();
   },
   render: () => (
     <div className="w-[500px] p-4 border border-dashed border-border rounded-lg">

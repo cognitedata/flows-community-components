@@ -1,12 +1,12 @@
-import type { ComponentMeta } from "./component-examples";
-import { slugToPascalCase } from "./utils";
+import type { ComponentMeta } from './component-examples';
+import { slugToPascalCase } from './utils';
 
 /**
  * Pre-load all metadata modules using Vite's glob import.
  * This allows Vite to statically analyze the imports at build time.
  */
 const metadataModules = import.meta.glob<{ [key: string]: ComponentMeta }>(
-  "@/components/ui/aura/*/*.metadata.ts",
+  '@/components/ui/aura/*/*.metadata.ts',
   { eager: false }
 );
 

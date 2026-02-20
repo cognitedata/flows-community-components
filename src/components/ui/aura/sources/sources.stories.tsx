@@ -1,8 +1,5 @@
-import { Badge } from "@/components/ui/aura/badge";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/aura/hover-card";
-import { Source, Sources, SourcesTitle } from "@/components/ui/aura/sources";
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor, within } from "@storybook/test";
+import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
 import {
   IconBrandGithub,
   IconBriefcase,
@@ -10,32 +7,36 @@ import {
   IconFileText,
   IconPhoto,
   IconWorld,
-} from "@tabler/icons-react";
+} from '@tabler/icons-react';
+
+import { Badge } from '@/components/ui/aura/badge';
+import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/aura/hover-card';
+import { Source, Sources, SourcesTitle } from '@/components/ui/aura/sources';
 
 const meta: Meta<typeof Sources> = {
-  title: "AI/Sources",
+  title: 'AI/Sources',
   component: Sources,
-  tags: ["autodocs", "ai-elements"],
+  tags: ['autodocs', 'ai-elements'],
   argTypes: {
     title: {
-      control: { type: "select" },
-      options: [undefined, true, false, "Custom Title"],
-      description: "Title above the sources list",
+      control: { type: 'select' },
+      options: [undefined, true, false, 'Custom Title'],
+      description: 'Title above the sources list',
       table: {
-        category: "Content",
-        type: { summary: "ReactNode | boolean" },
+        category: 'Content',
+        type: { summary: 'ReactNode | boolean' },
       },
     },
     className: {
-      control: "text",
-      description: "Additional CSS classes",
+      control: 'text',
+      description: 'Additional CSS classes',
       table: {
-        category: "Variants/Styling",
+        category: 'Variants/Styling',
       },
     },
   },
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
   decorators: [
     (Story) => (
@@ -64,13 +65,13 @@ export const Basic: Story = {
     order: 1,
     docs: {
       description: {
-        story: "Default sources component with default title.",
+        story: 'Default sources component with default title.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const title = canvas.getByText("Sources");
+    const title = canvas.getByText('Sources');
     await expect(title).toBeInTheDocument();
   },
 };
@@ -89,7 +90,7 @@ export const NoTitle: Story = {
     order: 2,
     docs: {
       description: {
-        story: "Sources with the title section hidden.",
+        story: 'Sources with the title section hidden.',
       },
     },
   },
@@ -110,7 +111,7 @@ export const CustomTitle: Story = {
     order: 3,
     docs: {
       description: {
-        story: "Sources with a custom title.",
+        story: 'Sources with a custom title.',
       },
     },
   },
@@ -135,7 +136,7 @@ export const WithIcons: Story = {
     order: 4,
     docs: {
       description: {
-        story: "Sources with custom icons.",
+        story: 'Sources with custom icons.',
       },
     },
   },
@@ -159,7 +160,7 @@ export const ManySources: Story = {
     order: 5,
     docs: {
       description: {
-        story: "Sources with multiple items that wrap.",
+        story: 'Sources with multiple items that wrap.',
       },
     },
   },
@@ -174,36 +175,36 @@ export const TooManySourcesWithOverflow: Story = {
   render: () => {
     const visibleSources = [
       {
-        url: "https://example.com/asset/21PT1019",
-        title: "21PT1019",
+        url: 'https://example.com/asset/21PT1019',
+        title: '21PT1019',
         icon: IconChartLine,
       },
       {
-        url: "https://example.com/image/pumpB.jpg",
-        title: "This is a really long source to show how these items will wrap",
+        url: 'https://example.com/image/pumpB.jpg',
+        title: 'This is a really long source to show how these items will wrap',
         icon: IconPhoto,
       },
       {
-        url: "https://example.com/docs/LER_13FI2418N.Y-1728.pdf",
-        title: "LER_13FI2418N.Y-1728.pdf",
+        url: 'https://example.com/docs/LER_13FI2418N.Y-1728.pdf',
+        title: 'LER_13FI2418N.Y-1728.pdf',
         icon: IconFileText,
       },
       {
-        url: "https://example.com/work-order/120_oaoXR",
-        title: "120_oaoXR",
+        url: 'https://example.com/work-order/120_oaoXR',
+        title: '120_oaoXR',
         icon: IconBriefcase,
       },
       {
-        url: "https://example.com/docs/ORB_1901.pdf",
-        title: "ORB_1901.pdf",
+        url: 'https://example.com/docs/ORB_1901.pdf',
+        title: 'ORB_1901.pdf',
         icon: IconBriefcase,
       },
     ];
     const overflowSources = [
-      { url: "https://example.com/7", title: "Source 7" },
-      { url: "https://example.com/8", title: "Source 8" },
-      { url: "https://example.com/9", title: "Source 9" },
-      { url: "https://example.com/10", title: "Source 10" },
+      { url: 'https://example.com/7', title: 'Source 7' },
+      { url: 'https://example.com/8', title: 'Source 8' },
+      { url: 'https://example.com/9', title: 'Source 9' },
+      { url: 'https://example.com/10', title: 'Source 10' },
     ];
     return (
       <Sources>
@@ -242,15 +243,15 @@ export const TooManySourcesWithOverflow: Story = {
     docs: {
       description: {
         story:
-          "When there are too many sources, show a subset with an overflow indicator (+N). Hover the + N pill to reveal the remaining sources in a hover card, similar to AvatarGroup.",
+          'When there are too many sources, show a subset with an overflow indicator (+N). Hover the + N pill to reveal the remaining sources in a hover card, similar to AvatarGroup.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText("Sources")).toBeInTheDocument();
-    await expect(canvas.getByText("21PT1019")).toBeInTheDocument();
-    const overflowPill = canvas.getByText("+4");
+    await expect(canvas.getByText('Sources')).toBeInTheDocument();
+    await expect(canvas.getByText('21PT1019')).toBeInTheDocument();
+    const overflowPill = canvas.getByText('+4');
     const hoverCardSelector = '[data-slot="hover-card-content"][data-open]';
     const waitForHoverCard = async () => {
       await waitFor(() => {
@@ -283,7 +284,7 @@ export const SingleSource: Story = {
     order: 7,
     docs: {
       description: {
-        story: "Sources with a single item.",
+        story: 'Sources with a single item.',
       },
     },
   },
@@ -323,7 +324,7 @@ export const VisualRegression: Story = {
     order: 8,
     docs: {
       description: {
-        story: "Sources for visual regression testing.",
+        story: 'Sources for visual regression testing.',
       },
     },
     chromatic: {

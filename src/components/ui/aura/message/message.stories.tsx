@@ -1,20 +1,5 @@
-import {
-  CodeBlock,
-  CodeBlockCollapseButton,
-  CodeBlockCopyButton,
-} from "@/components/ui/aura/code-block";
-import { InlineCitation, InlineCitationLink } from "@/components/ui/aura/inline-citation";
-import {
-  Message,
-  MessageAction,
-  MessageActions,
-  MessageAvatar,
-  MessageAvatarIcon,
-  MessageContent,
-  MessageResponse,
-} from "@/components/ui/aura/message";
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor, within } from "@storybook/test";
+import type { Meta, StoryObj } from '@storybook/react';
+import { expect, waitFor, within } from '@storybook/test';
 import {
   IconCopy,
   IconDownload,
@@ -25,42 +10,57 @@ import {
   IconTimeline,
   IconTool,
   IconWheel,
-} from "@tabler/icons-react";
-import type { CSSProperties } from "react";
+} from '@tabler/icons-react';
+
+import {
+  CodeBlock,
+  CodeBlockCollapseButton,
+  CodeBlockCopyButton,
+} from '@/components/ui/aura/code-block';
+import { InlineCitation, InlineCitationLink } from '@/components/ui/aura/inline-citation';
+import {
+  Message,
+  MessageAction,
+  MessageActions,
+  MessageAvatar,
+  MessageAvatarIcon,
+  MessageContent,
+  MessageResponse,
+} from '@/components/ui/aura/message';
 
 const meta: Meta<typeof Message> = {
-  title: "AI/Message",
+  title: 'AI/Message',
   component: Message,
-  tags: ["autodocs", "ai-elements"],
+  tags: ['autodocs', 'ai-elements'],
   argTypes: {
     isResponse: {
-      control: "boolean",
-      description: "Whether the message is from the AI assistant (true) or user (false)",
+      control: 'boolean',
+      description: 'Whether the message is from the AI assistant (true) or user (false)',
       table: {
-        category: "Behavior",
-        type: { summary: "boolean" },
-        defaultValue: { summary: "false" },
+        category: 'Behavior',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
       },
     },
 
     className: {
-      control: "text",
-      description: "Additional CSS classes for styling",
+      control: 'text',
+      description: 'Additional CSS classes for styling',
       table: {
-        category: "Variants/Styling",
+        category: 'Variants/Styling',
       },
     },
     children: {
       control: false,
-      description: "Message content (MessageContent, MessageAvatar, MessageActions, etc.)",
+      description: 'Message content (MessageContent, MessageAvatar, MessageActions, etc.)',
       table: {
-        category: "Content",
-        type: { summary: "ReactNode" },
+        category: 'Content',
+        type: { summary: 'ReactNode' },
       },
     },
   },
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
   decorators: [
     (Story) => (
@@ -83,20 +83,20 @@ export const Default: Story = {
     docs: {
       description: {
         story:
-          "Complete conversation showing user query and AI response with inline citations and message actions. Tests industrial use case with pump vibration analysis.",
+          'Complete conversation showing user query and AI response with inline citations and message actions. Tests industrial use case with pump vibration analysis.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const messages = canvasElement.querySelectorAll("[data-message]");
+    const messages = canvasElement.querySelectorAll('[data-message]');
     await expect(messages.length).toBe(2);
 
-    const citations = canvas.getAllByRole("link");
+    const citations = canvas.getAllByRole('link');
     await expect(citations.length).toBeGreaterThanOrEqual(4);
 
-    const buttons = await canvas.findAllByRole("button");
+    const buttons = await canvas.findAllByRole('button');
     await expect(buttons.length).toBe(4);
   },
   render: () => (
@@ -104,7 +104,7 @@ export const Default: Story = {
       <Message data-message>
         <MessageContent>
           <span>
-            There are abnormal vibration levels on{" "}
+            There are abnormal vibration levels on{' '}
             <InlineCitation>
               <InlineCitationLink
                 href="https://example.com/pump/21PT1019"
@@ -127,7 +127,7 @@ export const Default: Story = {
         </MessageAvatar>
         <MessageContent className="flex flex-col gap-2">
           <span>
-            I analyzed the sensor data and found that vibration levels on{" "}
+            I analyzed the sensor data and found that vibration levels on{' '}
             <InlineCitation>
               <InlineCitationLink
                 href="https://example.com/pump/21PT1019"
@@ -137,7 +137,7 @@ export const Default: Story = {
               >
                 21PT1019
               </InlineCitationLink>
-            </InlineCitation>{" "}
+            </InlineCitation>{' '}
             exceeded normal thresholds at 03:15. This correlates with a 12% increase in RPM during
             that window.
           </span>
@@ -203,20 +203,20 @@ export const WithCodeBlock: Story = {
     docs: {
       description: {
         story:
-          "AI response containing a code block with syntax highlighting, copy button, and collapse functionality.",
+          'AI response containing a code block with syntax highlighting, copy button, and collapse functionality.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const messages = canvasElement.querySelectorAll("[data-message]");
+    const messages = canvasElement.querySelectorAll('[data-message]');
     await expect(messages.length).toBe(2);
 
-    const codeBlock = canvasElement.querySelector("[data-code-block]");
+    const codeBlock = canvasElement.querySelector('[data-code-block]');
     await expect(codeBlock).toBeInTheDocument();
 
-    const buttons = await canvas.findAllByRole("button");
+    const buttons = await canvas.findAllByRole('button');
     await expect(buttons.length).toBe(4);
   },
   render: () => {
@@ -286,25 +286,25 @@ export const MessageResponseStreamdown: Story = {
     docs: {
       description: {
         story:
-          "Full MessageResponse component demonstrating all Streamdown formatting: headings, lists, tables, code blocks (with Shiki highlighting), maths (LaTeX via KaTeX), blockquotes, and links. Optimised for AI streaming responses.",
+          'Full MessageResponse component demonstrating all Streamdown formatting: headings, lists, tables, code blocks (with Shiki highlighting), maths (LaTeX via KaTeX), blockquotes, and links. Optimised for AI streaming responses.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const messages = canvasElement.querySelectorAll("[data-message]");
+    const messages = canvasElement.querySelectorAll('[data-message]');
     await expect(messages.length).toBe(2);
 
     await waitFor(
       () => {
-        const headings = canvasElement.querySelectorAll("h1, h2, h3, h4, h5, h6");
+        const headings = canvasElement.querySelectorAll('h1, h2, h3, h4, h5, h6');
         expect(headings.length).toBeGreaterThan(0);
       },
       { timeout: 3000 }
     );
 
-    const buttons = await canvas.findAllByRole("button");
+    const buttons = await canvas.findAllByRole('button');
     await expect(buttons.length).toBe(2);
   },
   render: () => {
@@ -415,14 +415,14 @@ export const UserMessage: Story = {
     order: 4,
     docs: {
       description: {
-        story: "Basic user message without avatar icon.",
+        story: 'Basic user message without avatar icon.',
       },
     },
   },
   play: async ({ canvasElement }) => {
-    const message = canvasElement.querySelector("[data-message]");
+    const message = canvasElement.querySelector('[data-message]');
     await expect(message).toBeInTheDocument();
-    await expect(message).not.toHaveClass("is-assistant");
+    await expect(message).not.toHaveClass('is-assistant');
   },
   render: () => (
     <Message isResponse={false} data-message>
@@ -441,14 +441,14 @@ export const AssistantMessage: Story = {
     order: 5,
     docs: {
       description: {
-        story: "Basic AI assistant response with avatar.",
+        story: 'Basic AI assistant response with avatar.',
       },
     },
   },
   play: async ({ canvasElement }) => {
-    const message = canvasElement.querySelector("[data-message]");
+    const message = canvasElement.querySelector('[data-message]');
     await expect(message).toBeInTheDocument();
-    await expect(message).toHaveClass("is-assistant");
+    await expect(message).toHaveClass('is-assistant');
   },
   render: () => (
     <Message isResponse={true} data-message>
@@ -475,12 +475,12 @@ export const ExtendedConversation: Story = {
     order: 6,
     docs: {
       description: {
-        story: "Multi-turn conversation demonstrating message flow and spacing.",
+        story: 'Multi-turn conversation demonstrating message flow and spacing.',
       },
     },
   },
   play: async ({ canvasElement }) => {
-    const messages = canvasElement.querySelectorAll("[data-message]");
+    const messages = canvasElement.querySelectorAll('[data-message]');
     await expect(messages.length).toBe(4);
   },
   render: () => (
@@ -538,15 +538,15 @@ export const VeryLongMessage: Story = {
     order: 7,
     docs: {
       description: {
-        story: "Tests message component with extensive content including multiple paragraphs.",
+        story: 'Tests message component with extensive content including multiple paragraphs.',
       },
     },
   },
   play: async ({ canvasElement }) => {
-    const message = canvasElement.querySelector("[data-message]");
+    const message = canvasElement.querySelector('[data-message]');
     await expect(message).toBeInTheDocument();
 
-    const paragraphs = canvasElement.querySelectorAll("p");
+    const paragraphs = canvasElement.querySelectorAll('p');
     await expect(paragraphs.length).toBeGreaterThan(2);
   },
   render: () => (
@@ -591,14 +591,14 @@ export const ManyMessageActions: Story = {
     order: 8,
     docs: {
       description: {
-        story: "Message with numerous action buttons to test layout and overflow behavior.",
+        story: 'Message with numerous action buttons to test layout and overflow behavior.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const buttons = await canvas.findAllByRole("button");
+    const buttons = await canvas.findAllByRole('button');
     await expect(buttons.length).toBe(6);
   },
   render: () => (
@@ -643,12 +643,12 @@ export const AvatarVariants: Story = {
     order: 9,
     docs: {
       description: {
-        story: "Comparison of different avatar color variants for assistant messages.",
+        story: 'Comparison of different avatar color variants for assistant messages.',
       },
     },
   },
   play: async ({ canvasElement }) => {
-    const messages = canvasElement.querySelectorAll("[data-message]");
+    const messages = canvasElement.querySelectorAll('[data-message]');
     await expect(messages.length).toBeGreaterThanOrEqual(3);
 
     const avatars = canvasElement.querySelectorAll('[data-slot="message-avatar"]');
@@ -708,12 +708,12 @@ export const MessageWithoutAvatar: Story = {
     order: 10,
     docs: {
       description: {
-        story: "Tests message rendering without an avatar component.",
+        story: 'Tests message rendering without an avatar component.',
       },
     },
   },
   play: async ({ canvasElement }) => {
-    const message = canvasElement.querySelector("[data-message]");
+    const message = canvasElement.querySelector('[data-message]');
     await expect(message).toBeInTheDocument();
 
     const avatar = canvasElement.querySelector('[data-slot="message-avatar"]');
@@ -736,14 +736,14 @@ export const MessageWithOnlyActions: Story = {
     order: 11,
     docs: {
       description: {
-        story: "Edge case where message contains only action buttons without text content.",
+        story: 'Edge case where message contains only action buttons without text content.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const buttons = await canvas.findAllByRole("button");
+    const buttons = await canvas.findAllByRole('button');
     await expect(buttons.length).toBeGreaterThan(0);
   },
   render: () => (
@@ -778,12 +778,12 @@ export const EmptyMessage: Story = {
     order: 12,
     docs: {
       description: {
-        story: "Edge case of a message with empty or minimal content.",
+        story: 'Edge case of a message with empty or minimal content.',
       },
     },
   },
   play: async ({ canvasElement }) => {
-    const message = canvasElement.querySelector("[data-message]");
+    const message = canvasElement.querySelector('[data-message]');
     await expect(message).toBeInTheDocument();
   },
   render: () => (
@@ -803,13 +803,12 @@ export const SingleCharacterMessage: Story = {
     order: 13,
     docs: {
       description: {
-        story: "Tests message rendering with minimal single character content.",
+        story: 'Tests message rendering with minimal single character content.',
       },
     },
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const message = canvasElement.querySelector("[data-message]");
+    const message = canvasElement.querySelector('[data-message]');
     await expect(message).toBeInTheDocument();
   },
   render: () => (
@@ -827,12 +826,12 @@ export const MessageWithSpecialCharacters: Story = {
     order: 14,
     docs: {
       description: {
-        story: "Tests handling of special characters, symbols, and emojis in messages.",
+        story: 'Tests handling of special characters, symbols, and emojis in messages.',
       },
     },
   },
   play: async ({ canvasElement }) => {
-    const message = canvasElement.querySelector("[data-message]");
+    const message = canvasElement.querySelector('[data-message]');
     await expect(message).toBeInTheDocument();
   },
   render: () => (
@@ -861,12 +860,12 @@ export const VeryLongConversation: Story = {
     docs: {
       description: {
         story:
-          "Stress test with many messages in a conversation to test scrolling and performance.",
+          'Stress test with many messages in a conversation to test scrolling and performance.',
       },
     },
   },
   play: async ({ canvasElement }) => {
-    const messages = canvasElement.querySelectorAll("[data-message]");
+    const messages = canvasElement.querySelectorAll('[data-message]');
     await expect(messages.length).toBeGreaterThanOrEqual(10);
   },
   render: () => (
@@ -905,12 +904,12 @@ export const MessageWithLineBreaks: Story = {
     order: 16,
     docs: {
       description: {
-        story: "Tests message rendering with multiple line breaks and whitespace.",
+        story: 'Tests message rendering with multiple line breaks and whitespace.',
       },
     },
   },
   play: async ({ canvasElement }) => {
-    const message = canvasElement.querySelector("[data-message]");
+    const message = canvasElement.querySelector('[data-message]');
     await expect(message).toBeInTheDocument();
   },
   render: () => (
@@ -941,13 +940,13 @@ export const MessageActionsWithoutTooltip: Story = {
     order: 17,
     docs: {
       description: {
-        story: "Tests message actions rendered without tooltip text.",
+        story: 'Tests message actions rendered without tooltip text.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const buttons = await canvas.findAllByRole("button");
+    const buttons = await canvas.findAllByRole('button');
     await expect(buttons.length).toBeGreaterThan(0);
   },
   render: () => (

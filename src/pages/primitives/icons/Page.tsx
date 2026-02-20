@@ -1,12 +1,3 @@
-import { Button } from "@/components/ui/aura/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/aura/card";
-import { Input } from "@/components/ui/aura/input";
 import {
   IconArchive as Archive,
   IconBookmark as Bookmark,
@@ -29,32 +20,42 @@ import {
   IconStar as Star,
   IconTrash as Trash2,
   IconUser as User,
-} from "@tabler/icons-react";
-import { useState } from "react";
+} from '@tabler/icons-react';
+import { useState } from 'react';
+
+import { Button } from '@/components/ui/aura/button';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/aura/card';
+import { Input } from '@/components/ui/aura/input';
 
 const iconSets = [
   {
-    name: "Interface",
-    description: "Essential icons for user interface elements",
+    name: 'Interface',
+    description: 'Essential icons for user interface elements',
     count: 240,
     icons: [Home, Settings, User, Mail, Search, Edit, Plus, Trash2],
   },
   {
-    name: "Communication",
-    description: "Icons for messaging and social features",
+    name: 'Communication',
+    description: 'Icons for messaging and social features',
     count: 86,
     icons: [Mail, Phone, Heart, Star, Bookmark, Archive],
   },
   {
-    name: "Media",
-    description: "Icons for media content and files",
+    name: 'Media',
+    description: 'Icons for media content and files',
     count: 124,
     icons: [Camera, File, Globe, Calendar, Clock, Lock],
   },
 ];
 
 export default function IconsPage() {
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
 
   return (
     <div className="space-y-8">

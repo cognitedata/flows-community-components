@@ -1,59 +1,61 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/aura/avatar";
-import { Badge } from "@/components/ui/aura/badge";
-import { Button } from "@/components/ui/aura/button";
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor, within } from "@storybook/test";
-import { useState } from "react";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "./hover-card";
+import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
+import { useState } from 'react';
+
+import { HoverCard, HoverCardContent, HoverCardTrigger } from './hover-card';
+
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/aura/avatar';
+import { Badge } from '@/components/ui/aura/badge';
+import { Button } from '@/components/ui/aura/button';
 
 const meta: Meta<typeof HoverCard> = {
-  title: "Primitives/Hover Card",
+  title: 'Primitives/Hover Card',
   component: HoverCard,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     // Display & behavior
     open: {
-      control: "boolean",
-      description: "The controlled open state of the hover card",
+      control: 'boolean',
+      description: 'The controlled open state of the hover card',
       table: {
-        category: "Display",
-        type: { summary: "boolean" },
+        category: 'Display',
+        type: { summary: 'boolean' },
       },
     },
     defaultOpen: {
-      control: "boolean",
-      description: "The open state of the hover card when initially rendered",
+      control: 'boolean',
+      description: 'The open state of the hover card when initially rendered',
       table: {
-        category: "Display",
-        type: { summary: "boolean" },
+        category: 'Display',
+        type: { summary: 'boolean' },
       },
     },
     openDelay: {
-      control: { type: "number", min: 0, max: 2000, step: 100 },
-      description: "The duration from when the mouse enters until the hover card opens (ms)",
+      control: { type: 'number', min: 0, max: 2000, step: 100 },
+      description: 'The duration from when the mouse enters until the hover card opens (ms)',
       table: {
-        category: "Display",
-        type: { summary: "number" },
-        defaultValue: { summary: "700" },
+        category: 'Display',
+        type: { summary: 'number' },
+        defaultValue: { summary: '700' },
       },
     },
     closeDelay: {
-      control: { type: "number", min: 0, max: 2000, step: 100 },
-      description: "The duration from when the mouse leaves until the hover card closes (ms)",
+      control: { type: 'number', min: 0, max: 2000, step: 100 },
+      description: 'The duration from when the mouse leaves until the hover card closes (ms)',
       table: {
-        category: "Display",
-        type: { summary: "number" },
-        defaultValue: { summary: "300" },
+        category: 'Display',
+        type: { summary: 'number' },
+        defaultValue: { summary: '300' },
       },
     },
 
     // Events
     onOpenChange: {
-      action: "openChanged",
-      description: "Callback when the open state changes",
+      action: 'openChanged',
+      description: 'Callback when the open state changes',
       table: {
-        category: "Events",
-        type: { summary: "(open: boolean) => void" },
+        category: 'Events',
+        type: { summary: '(open: boolean) => void' },
       },
     },
 
@@ -61,14 +63,14 @@ const meta: Meta<typeof HoverCard> = {
     children: {
       control: false,
       table: {
-        category: "Internal",
+        category: 'Internal',
       },
     },
   },
   parameters: {
-    layout: "centered",
+    layout: 'centered',
     actions: {
-      handles: ["openChanged"],
+      handles: ['openChanged'],
     },
   },
 };
@@ -88,7 +90,7 @@ async function testHoverInteraction(
 ) {
   const canvas = within(canvasElement);
 
-  const trigger = await canvas.findByRole("button", { name: triggerName }, { timeout: 2000 });
+  const trigger = await canvas.findByRole('button', { name: triggerName }, { timeout: 2000 });
   await expect(trigger).toBeInTheDocument();
 
   const waitForOpenHoverCard = async () => {
@@ -128,31 +130,31 @@ async function testHoverInteraction(
  */
 const SAMPLE_USERS = [
   {
-    name: "Sarah Johnson",
-    handle: "@sarah",
-    role: "Product Designer",
-    avatar: "https://i.pravatar.cc/150?img=1",
-    bio: "Passionate about creating intuitive and delightful user experiences. Leading the design system initiative.",
-    team: "Design Team",
-    joined: "Joined March 2023",
+    name: 'Sarah Johnson',
+    handle: '@sarah',
+    role: 'Product Designer',
+    avatar: 'https://i.pravatar.cc/150?img=1',
+    bio: 'Passionate about creating intuitive and delightful user experiences. Leading the design system initiative.',
+    team: 'Design Team',
+    joined: 'Joined March 2023',
   },
   {
-    name: "Michael Chen",
-    handle: "@michael",
-    role: "Frontend Engineer",
-    avatar: "https://i.pravatar.cc/150?img=2",
-    bio: "Full-stack developer specialising in React and TypeScript. Building scalable web applications.",
-    team: "Engineering Team",
-    joined: "Joined January 2022",
+    name: 'Michael Chen',
+    handle: '@michael',
+    role: 'Frontend Engineer',
+    avatar: 'https://i.pravatar.cc/150?img=2',
+    bio: 'Full-stack developer specialising in React and TypeScript. Building scalable web applications.',
+    team: 'Engineering Team',
+    joined: 'Joined January 2022',
   },
   {
-    name: "Emily Rodriguez",
-    handle: "@emily",
-    role: "UX Researcher",
-    avatar: "https://i.pravatar.cc/150?img=3",
-    bio: "Uncovering user insights through research and data analysis. Advocate for evidence-based design.",
-    team: "Research Team",
-    joined: "Joined July 2023",
+    name: 'Emily Rodriguez',
+    handle: '@emily',
+    role: 'UX Researcher',
+    avatar: 'https://i.pravatar.cc/150?img=3',
+    bio: 'Uncovering user insights through research and data analysis. Advocate for evidence-based design.',
+    team: 'Research Team',
+    joined: 'Joined July 2023',
   },
 ];
 
@@ -166,7 +168,7 @@ export const Basic: Story = {
     docs: {
       description: {
         story:
-          "Basic hover card showing rich contextual information. Hover over the trigger to see the card.",
+          'Basic hover card showing rich contextual information. Hover over the trigger to see the card.',
       },
     },
   },
@@ -207,7 +209,7 @@ export const WithBadges: Story = {
     order: 2,
     docs: {
       description: {
-        story: "Hover cards can include badges to show tags, skills, or categories.",
+        story: 'Hover cards can include badges to show tags, skills, or categories.',
       },
     },
   },
@@ -273,7 +275,7 @@ export const TopPosition: Story = {
     order: 3,
     docs: {
       description: {
-        story: "Hover card appearing above the trigger element.",
+        story: 'Hover card appearing above the trigger element.',
       },
     },
   },
@@ -305,7 +307,7 @@ export const RightPosition: Story = {
     order: 4,
     docs: {
       description: {
-        story: "Hover card appearing to the right of the trigger element.",
+        story: 'Hover card appearing to the right of the trigger element.',
       },
     },
   },
@@ -341,7 +343,7 @@ export const BottomPosition: Story = {
     order: 5,
     docs: {
       description: {
-        story: "Hover card appearing below the trigger element.",
+        story: 'Hover card appearing below the trigger element.',
       },
     },
   },
@@ -373,7 +375,7 @@ export const LeftPosition: Story = {
     order: 6,
     docs: {
       description: {
-        story: "Hover card appearing to the left of the trigger element.",
+        story: 'Hover card appearing to the left of the trigger element.',
       },
     },
   },
@@ -409,7 +411,7 @@ export const AllPositions: Story = {
     order: 7,
     docs: {
       description: {
-        story: "Hover cards can be positioned on any side of the trigger element.",
+        story: 'Hover cards can be positioned on any side of the trigger element.',
       },
     },
   },
@@ -417,10 +419,10 @@ export const AllPositions: Story = {
     const canvas = within(canvasElement);
 
     // Test that all four buttons are present
-    const topButton = canvas.getByRole("button", { name: /Top position/i });
-    const rightButton = canvas.getByRole("button", { name: /Right position/i });
-    const bottomButton = canvas.getByRole("button", { name: /Bottom position/i });
-    const leftButton = canvas.getByRole("button", { name: /Left position/i });
+    const topButton = canvas.getByRole('button', { name: /Top position/i });
+    const rightButton = canvas.getByRole('button', { name: /Right position/i });
+    const bottomButton = canvas.getByRole('button', { name: /Bottom position/i });
+    const leftButton = canvas.getByRole('button', { name: /Left position/i });
 
     await expect(topButton).toBeInTheDocument();
     await expect(rightButton).toBeInTheDocument();
@@ -505,7 +507,7 @@ export const ControlledWithCustomDelays: Story = {
     docs: {
       description: {
         story:
-          "Demonstrates controlled state and custom open/close delays. The hover card opens and closes faster than the default.",
+          'Demonstrates controlled state and custom open/close delays. The hover card opens and closes faster than the default.',
       },
     },
   },
@@ -514,7 +516,7 @@ export const ControlledWithCustomDelays: Story = {
 
     // Test hovering to open
     const trigger = await canvas.findByRole(
-      "button",
+      'button',
       { name: /Controlled with fast delays/i },
       { timeout: 2000 }
     );
@@ -546,7 +548,7 @@ export const ControlledWithCustomDelays: Story = {
       '[data-slot="hover-card-content"][data-open]'
     ) as HTMLElement | null;
     expect(hoverCard).toBeInTheDocument();
-    const closeButton = within(hoverCard as HTMLElement).getByRole("button", { name: /Close/i });
+    const closeButton = within(hoverCard as HTMLElement).getByRole('button', { name: /Close/i });
     await userEvent.click(closeButton);
   },
   render: function ControlledHoverCardStory() {
@@ -555,7 +557,7 @@ export const ControlledWithCustomDelays: Story = {
     return (
       <div className="flex flex-col items-center gap-4 min-h-80">
         <div className="text-sm text-muted-foreground mb-4">
-          Hover card is {open ? "open" : "closed"}
+          Hover card is {open ? 'open' : 'closed'}
         </div>
         <HoverCard
           openDelay={100}
@@ -595,7 +597,7 @@ export const Minimal: Story = {
     order: 9,
     docs: {
       description: {
-        story: "Minimal hover card with simple text content.",
+        story: 'Minimal hover card with simple text content.',
       },
     },
   },
@@ -623,7 +625,7 @@ export const MultipleInList: Story = {
     docs: {
       description: {
         story:
-          "Multiple hover cards can be used in a list or grid to provide contextual information for each item.",
+          'Multiple hover cards can be used in a list or grid to provide contextual information for each item.',
       },
     },
   },
@@ -638,9 +640,9 @@ export const MultipleInList: Story = {
       <div className="flex flex-col gap-3 min-h-80 p-4">
         {SAMPLE_USERS.map((user) => {
           const initials = user.name
-            .split(" ")
+            .split(' ')
             .map((n) => n[0])
-            .join("");
+            .join('');
 
           return (
             <div key={user.handle} className="flex items-center gap-3 p-3 rounded-lg border">
@@ -700,7 +702,7 @@ export const Playground: Story = {
     order: 99,
     docs: {
       description: {
-        story: "Interactive playground - use controls to experiment with hover card props.",
+        story: 'Interactive playground - use controls to experiment with hover card props.',
       },
     },
   },

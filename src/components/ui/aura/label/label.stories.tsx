@@ -1,58 +1,59 @@
-"use client";
+'use client';
 
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, within } from "@storybook/test";
-import { type ChangeEvent, useState } from "react";
+import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, within } from '@storybook/test';
+import { IconAsterisk } from '@tabler/icons-react';
+import { type ChangeEvent, useState } from 'react';
 
-import { Input } from "@/components/ui/aura/input";
-import { IconAsterisk } from "@tabler/icons-react";
-import { Label } from "./label";
+import { Label } from './label';
+
+import { Input } from '@/components/ui/aura/input';
 
 const meta: Meta<typeof Label> = {
-  title: "Primitives/Label",
+  title: 'Primitives/Label',
   component: Label,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     // Display
     children: {
-      control: "text",
-      description: "Label text content.",
+      control: 'text',
+      description: 'Label text content.',
       table: {
-        category: "Display",
-        type: { summary: "ReactNode" },
+        category: 'Display',
+        type: { summary: 'ReactNode' },
       },
     },
     className: {
-      control: "text",
-      description: "Optional CSS class names for custom styling.",
+      control: 'text',
+      description: 'Optional CSS class names for custom styling.',
       table: {
-        category: "Display",
+        category: 'Display',
       },
     },
 
     // Accessibility
     htmlFor: {
-      control: "text",
+      control: 'text',
       description:
-        "ID of the form control this label is associated with. When provided, clicking the label will focus the control.",
+        'ID of the form control this label is associated with. When provided, clicking the label will focus the control.',
       table: {
-        category: "Accessibility",
-        type: { summary: "string" },
+        category: 'Accessibility',
+        type: { summary: 'string' },
       },
     },
 
     // Events
     onClick: {
-      action: "clicked",
-      description: "Click handler for the label element.",
+      action: 'clicked',
+      description: 'Click handler for the label element.',
       table: {
-        category: "Events",
-        type: { summary: "(event: MouseEvent) => void" },
+        category: 'Events',
+        type: { summary: '(event: MouseEvent) => void' },
       },
     },
   },
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
 };
 
@@ -67,14 +68,14 @@ export const Basic: Story = {
     order: 1,
     docs: {
       description: {
-        story: "A basic label with simple text content.",
+        story: 'A basic label with simple text content.',
       },
     },
   },
   render: () => <Label htmlFor="name">Name</Label>,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const label = canvas.getByText("Name");
+    const label = canvas.getByText('Name');
     await expect(label).toBeInTheDocument();
   },
 };
@@ -88,7 +89,7 @@ export const Disabled: Story = {
     docs: {
       description: {
         story:
-          "A label presented in a disabled style. Combine with a disabled input to reflect non-interactive state.",
+          'A label presented in a disabled style. Combine with a disabled input to reflect non-interactive state.',
       },
     },
   },
@@ -100,8 +101,8 @@ export const Disabled: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const label = canvas.getByText("Disabled label");
-    const input = canvas.getByPlaceholderText("Disabled input");
+    const label = canvas.getByText('Disabled label');
+    const input = canvas.getByPlaceholderText('Disabled input');
 
     await expect(label).toBeInTheDocument();
     await expect(input).toBeInTheDocument();
@@ -117,7 +118,7 @@ export const WithAsterisk: Story = {
     docs: {
       description: {
         story:
-          "A label that visually indicates a required field using an asterisk icon. Useful for required form fields.",
+          'A label that visually indicates a required field using an asterisk icon. Useful for required form fields.',
       },
     },
   },
@@ -133,7 +134,7 @@ export const WithAsterisk: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const label = canvas.getByText(/Email address/);
-    const asterisk = canvas.getByTitle("required");
+    const asterisk = canvas.getByTitle('required');
 
     await expect(label).toBeInTheDocument();
     await expect(asterisk).toBeInTheDocument();
@@ -149,12 +150,12 @@ export const WithInput: Story = {
     docs: {
       description: {
         story:
-          "Label associated with an input via `htmlFor` and `id`. Clicking the label focuses the corresponding input.",
+          'Label associated with an input via `htmlFor` and `id`. Clicking the label focuses the corresponding input.',
       },
     },
   },
   render: () => {
-    const [value, setValue] = useState("");
+    const [value, setValue] = useState('');
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
       setValue(event.target.value);
@@ -175,8 +176,8 @@ export const WithInput: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const label = canvas.getByText("Project name");
-    const input = canvas.getByPlaceholderText("Enter project name");
+    const label = canvas.getByText('Project name');
+    const input = canvas.getByPlaceholderText('Enter project name');
 
     await expect(label).toBeInTheDocument();
     await expect(input).toBeInTheDocument();
@@ -192,15 +193,15 @@ export const WithInput: Story = {
  */
 export const Playground: Story = {
   args: {
-    children: "Playground label",
-    htmlFor: "playground-id",
+    children: 'Playground label',
+    htmlFor: 'playground-id',
   },
   parameters: {
     order: 99,
     docs: {
       description: {
         story:
-          "Interactive playground for the Label component. Use controls to experiment with different props and configurations.",
+          'Interactive playground for the Label component. Use controls to experiment with different props and configurations.',
       },
     },
   },

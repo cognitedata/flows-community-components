@@ -1,7 +1,7 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, within } from "@storybook/test";
-import { IconTrendingUp } from "@tabler/icons-react";
-import { useId, useState } from "react";
+import type { Meta, StoryObj } from '@storybook/react';
+import { expect, within } from '@storybook/test';
+import { IconTrendingUp } from '@tabler/icons-react';
+import { useId, useState } from 'react';
 import {
   Area,
   AreaChart,
@@ -15,17 +15,8 @@ import {
   type PieLabelRenderProps,
   XAxis,
   YAxis,
-} from "recharts";
+} from 'recharts';
 
-import { CardActions, CardHeaderRight } from "@/components/ui/aura/card";
-import {
-  type ChartConfig,
-  ChartContainer,
-  ChartLegend,
-  ChartLegendContent,
-  ChartTooltip,
-} from "@/components/ui/aura/chart";
-import { DropdownMenuItem, DropdownMenuSeparator } from "@/components/ui/aura/dropdown-menu";
 import {
   ArtifactChart,
   ArtifactChartContent,
@@ -33,112 +24,122 @@ import {
   ArtifactChartFooter,
   ArtifactChartHeader,
   ArtifactChartTitle,
-} from "./artifact-chart";
+} from './artifact-chart';
+
+import { CardActions, CardHeaderRight } from '@/components/ui/aura/card';
+import {
+  type ChartConfig,
+  ChartContainer,
+  ChartLegend,
+  ChartLegendContent,
+  ChartTooltip,
+} from '@/components/ui/aura/chart';
+import { DropdownMenuItem, DropdownMenuSeparator } from '@/components/ui/aura/dropdown-menu';
 
 const meta: Meta<typeof ArtifactChart> = {
-  title: "Primitives/Artifact - Chart",
+  title: 'Primitives/Artifact - Chart',
   component: ArtifactChart,
-  tags: ["autodocs", "ai-elements"],
+  tags: ['autodocs', 'ai-elements'],
   argTypes: {
     // Content
     children: {
       control: false,
       description:
-        "Compositional children: ArtifactChartHeader, ArtifactChartContent, ArtifactChartFooter",
+        'Compositional children: ArtifactChartHeader, ArtifactChartContent, ArtifactChartFooter',
       table: {
-        category: "Content",
-        type: { summary: "ReactNode" },
+        category: 'Content',
+        type: { summary: 'ReactNode' },
       },
     },
 
     // Display
     className: {
-      control: "text",
-      description: "Additional CSS classes for styling the card wrapper",
+      control: 'text',
+      description: 'Additional CSS classes for styling the card wrapper',
       table: {
-        category: "Display",
+        category: 'Display',
       },
     },
     style: {
-      control: "object",
-      description: "Inline styles for the card wrapper",
+      control: 'object',
+      description: 'Inline styles for the card wrapper',
       table: {
-        category: "Display",
-        type: { summary: "CSSProperties" },
+        category: 'Display',
+        type: { summary: 'CSSProperties' },
       },
     },
 
     // HTML Attributes
     id: {
-      control: "text",
-      description: "HTML id attribute for the card element",
+      control: 'text',
+      description: 'HTML id attribute for the card element',
       table: {
-        category: "HTML Attributes",
+        category: 'HTML Attributes',
       },
     },
     role: {
-      control: "text",
-      description: "ARIA role attribute (defaults to implicit region)",
+      control: 'text',
+      description: 'ARIA role attribute (defaults to implicit region)',
       table: {
-        category: "HTML Attributes",
+        category: 'HTML Attributes',
       },
     },
-    "aria-label": {
-      control: "text",
-      description: "Accessible label for the chart artifact",
+    'aria-label': {
+      control: 'text',
+      description: 'Accessible label for the chart artifact',
       table: {
-        category: "HTML Attributes",
+        category: 'HTML Attributes',
       },
     },
-    "aria-labelledby": {
-      control: "text",
-      description: "ID of element that labels this chart artifact",
+    'aria-labelledby': {
+      control: 'text',
+      description: 'ID of element that labels this chart artifact',
       table: {
-        category: "HTML Attributes",
+        category: 'HTML Attributes',
       },
     },
-    "aria-describedby": {
-      control: "text",
-      description: "ID of element that describes this chart artifact",
+    'aria-describedby': {
+      control: 'text',
+      description: 'ID of element that describes this chart artifact',
       table: {
-        category: "HTML Attributes",
+        category: 'HTML Attributes',
       },
     },
 
     // Events
     onClick: {
-      action: "clicked",
-      description: "Click handler for the card",
+      action: 'clicked',
+      description: 'Click handler for the card',
       table: {
-        category: "Events",
-        type: { summary: "MouseEventHandler<HTMLDivElement>" },
+        category: 'Events',
+        type: { summary: 'MouseEventHandler<HTMLDivElement>' },
       },
     },
     onKeyDown: {
-      action: "keyDown",
-      description: "Keyboard handler for accessibility",
+      action: 'keyDown',
+      description: 'Keyboard handler for accessibility',
       table: {
-        category: "Events",
-        type: { summary: "KeyboardEventHandler<HTMLDivElement>" },
+        category: 'Events',
+        type: { summary: 'KeyboardEventHandler<HTMLDivElement>' },
       },
     },
 
     // Advanced
     ref: {
       control: false,
-      description: "Ref forwarded to the underlying Card element",
+      description: 'Ref forwarded to the underlying Card element',
       table: {
-        category: "Advanced",
-        type: { summary: "Ref<HTMLDivElement>" },
+        category: 'Advanced',
+        type: { summary: 'Ref<HTMLDivElement>' },
       },
     },
   },
   parameters: {
-    layout: "centered",
+    layout: 'centered',
     docs: {
       description: {
         component:
-          "A compositional card layout for displaying charts. Use with Recharts components (PieChart, BarChart, etc.) inside the content area.",
+          'A compositional card layout for displaying charts. Use with Recharts components (PieChart, BarChart, etc.) inside the content area.',
       },
     },
   },
@@ -149,22 +150,22 @@ type Story = StoryObj<typeof ArtifactChart>;
 
 // Shared chart configuration used across all stories
 const sharedChartConfig = {
-  slice1: { label: "unit", color: "var(--color-chart-fjord-opacity-4)" },
-  slice2: { label: "unit", color: "var(--color-chart-fjord-opacity-3)" },
-  slice3: { label: "unit", color: "var(--color-chart-fjord-opacity-2)" },
-  slice4: { label: "unit", color: "var(--color-chart-fjord-opacity-1)" },
-  slice5: { label: "unit", color: "var(--color-chart-fjord-solid)" },
+  slice1: { label: 'unit', color: 'var(--color-chart-fjord-opacity-4)' },
+  slice2: { label: 'unit', color: 'var(--color-chart-fjord-opacity-3)' },
+  slice3: { label: 'unit', color: 'var(--color-chart-fjord-opacity-2)' },
+  slice4: { label: 'unit', color: 'var(--color-chart-fjord-opacity-1)' },
+  slice5: { label: 'unit', color: 'var(--color-chart-fjord-solid)' },
 } satisfies ChartConfig;
 
 const sharedChartData = [
-  { id: "slice1", value: 225, fill: "var(--color-slice1)" },
-  { id: "slice2", value: 225, fill: "var(--color-slice2)" },
-  { id: "slice3", value: 225, fill: "var(--color-slice3)" },
-  { id: "slice4", value: 225, fill: "var(--color-slice4)" },
-  { id: "slice5", value: 225, fill: "var(--color-slice5)" },
+  { id: 'slice1', value: 225, fill: 'var(--color-slice1)' },
+  { id: 'slice2', value: 225, fill: 'var(--color-slice2)' },
+  { id: 'slice3', value: 225, fill: 'var(--color-slice3)' },
+  { id: 'slice4', value: 225, fill: 'var(--color-slice4)' },
+  { id: 'slice5', value: 225, fill: 'var(--color-slice5)' },
 ];
 
-const labelColor = "var(--color-fjord-450)";
+const labelColor = 'var(--color-fjord-450)';
 
 const renderLabel = (payload: PieLabelRenderProps) => {
   const labelText = String(payload.value ?? 0);
@@ -185,9 +186,9 @@ const renderLabel = (payload: PieLabelRenderProps) => {
         dominantBaseline="central"
         fill={labelColor}
         style={{
-          fontSize: "12px",
+          fontSize: '12px',
           fontWeight: 500,
-          letterSpacing: "-0.08px",
+          letterSpacing: '-0.08px',
         }}
       >
         {labelText}
@@ -206,18 +207,18 @@ export const Basic: Story = {
     docs: {
       description: {
         story:
-          "Complete pie chart artifact with header, donut chart with value labels, legend, and footer.",
+          'Complete pie chart artifact with header, donut chart with value labels, legend, and footer.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await expect(await canvas.findByText("Chart title")).toBeInTheDocument();
-    await expect(await canvas.findByText("January - June 2024")).toBeInTheDocument();
-    await expect(await canvas.findByText("Visitors")).toBeInTheDocument();
-    await expect(await canvas.findByText("1,125")).toBeInTheDocument();
-    await expect(await canvas.findByText("Trending up by 5.2% this month")).toBeInTheDocument();
+    await expect(await canvas.findByText('Chart title')).toBeInTheDocument();
+    await expect(await canvas.findByText('January - June 2024')).toBeInTheDocument();
+    await expect(await canvas.findByText('Visitors')).toBeInTheDocument();
+    await expect(await canvas.findByText('1,125')).toBeInTheDocument();
+    await expect(await canvas.findByText('Trending up by 5.2% this month')).toBeInTheDocument();
   },
   render: function BasicPieChart() {
     const [chartData] = useState(sharedChartData);
@@ -232,7 +233,7 @@ export const Basic: Story = {
         <ArtifactChartContent>
           <div className="relative flex items-center justify-center">
             <ChartContainer config={sharedChartConfig} className="h-70 w-100 overflow-visible">
-              <PieChart style={{ overflow: "visible" }}>
+              <PieChart style={{ overflow: 'visible' }}>
                 <ChartTooltip
                   cursor={false}
                   content={({ active, payload }) => {
@@ -316,16 +317,16 @@ export const WithHeader: Story = {
     docs: {
       description: {
         story:
-          "Chart artifact with header only. No footer - useful when the chart is self-explanatory.",
+          'Chart artifact with header only. No footer - useful when the chart is self-explanatory.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await expect(await canvas.findByText("Chart title")).toBeInTheDocument();
-    await expect(await canvas.findByText("January - June 2024")).toBeInTheDocument();
-    await expect(await canvas.findByText("1,125")).toBeInTheDocument();
+    await expect(await canvas.findByText('Chart title')).toBeInTheDocument();
+    await expect(await canvas.findByText('January - June 2024')).toBeInTheDocument();
+    await expect(await canvas.findByText('1,125')).toBeInTheDocument();
   },
   render: function WithHeaderPieChart() {
     const [chartData] = useState(sharedChartData);
@@ -340,7 +341,7 @@ export const WithHeader: Story = {
         <ArtifactChartContent>
           <div className="relative flex items-center justify-center">
             <ChartContainer config={sharedChartConfig} className="h-70 w-100 overflow-visible">
-              <PieChart style={{ overflow: "visible" }}>
+              <PieChart style={{ overflow: 'visible' }}>
                 <ChartTooltip
                   cursor={false}
                   content={({ active, payload }) => {
@@ -413,15 +414,15 @@ export const WithFooter: Story = {
     order: 3,
     docs: {
       description: {
-        story: "Chart artifact with footer only. No header - useful when the visual is primary.",
+        story: 'Chart artifact with footer only. No header - useful when the visual is primary.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await expect(await canvas.findByText("Trending up by 5.2% this month")).toBeInTheDocument();
-    await expect(await canvas.findByText("1,125")).toBeInTheDocument();
+    await expect(await canvas.findByText('Trending up by 5.2% this month')).toBeInTheDocument();
+    await expect(await canvas.findByText('1,125')).toBeInTheDocument();
   },
   render: function WithFooterPieChart() {
     const [chartData] = useState(sharedChartData);
@@ -431,7 +432,7 @@ export const WithFooter: Story = {
         <ArtifactChartContent>
           <div className="relative flex items-center justify-center">
             <ChartContainer config={sharedChartConfig} className="h-70 w-100 overflow-visible">
-              <PieChart style={{ overflow: "visible" }}>
+              <PieChart style={{ overflow: 'visible' }}>
                 <ChartTooltip
                   cursor={false}
                   content={({ active, payload }) => {
@@ -515,15 +516,15 @@ export const WithActions: Story = {
     docs: {
       description: {
         story:
-          "Chart artifact with CardActions dropdown menu in the header. Common pattern for adding edit, duplicate, and delete actions.",
+          'Chart artifact with CardActions dropdown menu in the header. Common pattern for adding edit, duplicate, and delete actions.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await expect(await canvas.findByText("Chart title")).toBeInTheDocument();
-    const buttons = await canvas.findAllByRole("button");
+    await expect(await canvas.findByText('Chart title')).toBeInTheDocument();
+    const buttons = await canvas.findAllByRole('button');
     await expect(buttons.length).toBeGreaterThan(0);
   },
   render: function WithActionsPieChart() {
@@ -547,7 +548,7 @@ export const WithActions: Story = {
         <ArtifactChartContent>
           <div className="relative flex items-center justify-center">
             <ChartContainer config={sharedChartConfig} className="h-70 w-100 overflow-visible">
-              <PieChart style={{ overflow: "visible" }}>
+              <PieChart style={{ overflow: 'visible' }}>
                 <ChartTooltip
                   cursor={false}
                   content={({ active, payload }) => {
@@ -630,15 +631,15 @@ export const MinimalHeader: Story = {
     order: 5,
     docs: {
       description: {
-        story: "Chart artifact with minimal header containing only a title, no description.",
+        story: 'Chart artifact with minimal header containing only a title, no description.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await expect(await canvas.findByText("Chart title")).toBeInTheDocument();
-    await expect(await canvas.findByText("1,125")).toBeInTheDocument();
+    await expect(await canvas.findByText('Chart title')).toBeInTheDocument();
+    await expect(await canvas.findByText('1,125')).toBeInTheDocument();
   },
   render: function MinimalHeaderPieChart() {
     const [chartData] = useState(sharedChartData);
@@ -652,7 +653,7 @@ export const MinimalHeader: Story = {
         <ArtifactChartContent>
           <div className="relative flex items-center justify-center">
             <ChartContainer config={sharedChartConfig} className="h-70 w-100 overflow-visible">
-              <PieChart style={{ overflow: "visible" }}>
+              <PieChart style={{ overflow: 'visible' }}>
                 <ChartTooltip
                   cursor={false}
                   content={({ active, payload }) => {
@@ -736,36 +737,36 @@ export const InteractiveDataToggle: Story = {
     docs: {
       description: {
         story:
-          "Interactive chart with data toggling. Demonstrates stateful updates when switching between data views.",
+          'Interactive chart with data toggling. Demonstrates stateful updates when switching between data views.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await expect(await canvas.findByText("Chart title")).toBeInTheDocument();
-    await expect(await canvas.findByText("Q1")).toBeInTheDocument();
-    await expect(await canvas.findByText("Q2")).toBeInTheDocument();
+    await expect(await canvas.findByText('Chart title')).toBeInTheDocument();
+    await expect(await canvas.findByText('Q1')).toBeInTheDocument();
+    await expect(await canvas.findByText('Q2')).toBeInTheDocument();
   },
   render: function InteractiveDataTogglePieChart() {
     const q1Data = [
-      { id: "slice1", value: 275 },
-      { id: "slice2", value: 250 },
-      { id: "slice3", value: 225 },
-      { id: "slice4", value: 200 },
-      { id: "slice5", value: 175 },
+      { id: 'slice1', value: 275 },
+      { id: 'slice2', value: 250 },
+      { id: 'slice3', value: 225 },
+      { id: 'slice4', value: 200 },
+      { id: 'slice5', value: 175 },
     ];
 
     const q2Data = [
-      { id: "slice1", value: 175 },
-      { id: "slice2", value: 200 },
-      { id: "slice3", value: 225 },
-      { id: "slice4", value: 250 },
-      { id: "slice5", value: 275 },
+      { id: 'slice1', value: 175 },
+      { id: 'slice2', value: 200 },
+      { id: 'slice3', value: 225 },
+      { id: 'slice4', value: 250 },
+      { id: 'slice5', value: 275 },
     ];
 
-    const [activeQuarter, setActiveQuarter] = useState<"q1" | "q2">("q1");
-    const chartData = activeQuarter === "q1" ? q1Data : q2Data;
+    const [activeQuarter, setActiveQuarter] = useState<'q1' | 'q2'>('q1');
+    const chartData = activeQuarter === 'q1' ? q1Data : q2Data;
     const total = chartData.reduce((sum, item) => sum + item.value, 0);
 
     return (
@@ -779,22 +780,22 @@ export const InteractiveDataToggle: Story = {
           <div className="flex gap-2">
             <button
               type="button"
-              onClick={() => setActiveQuarter("q1")}
+              onClick={() => setActiveQuarter('q1')}
               className={`rounded-md px-3 py-1 text-sm ${
-                activeQuarter === "q1"
-                  ? "bg-primary text-primary-foreground"
-                  : "bg-muted text-muted-foreground"
+                activeQuarter === 'q1'
+                  ? 'bg-primary text-primary-foreground'
+                  : 'bg-muted text-muted-foreground'
               }`}
             >
               Q1
             </button>
             <button
               type="button"
-              onClick={() => setActiveQuarter("q2")}
+              onClick={() => setActiveQuarter('q2')}
               className={`rounded-md px-3 py-1 text-sm ${
-                activeQuarter === "q2"
-                  ? "bg-primary text-primary-foreground"
-                  : "bg-muted text-muted-foreground"
+                activeQuarter === 'q2'
+                  ? 'bg-primary text-primary-foreground'
+                  : 'bg-muted text-muted-foreground'
               }`}
             >
               Q2
@@ -803,7 +804,7 @@ export const InteractiveDataToggle: Story = {
 
           <div className="relative flex items-center justify-center">
             <ChartContainer config={sharedChartConfig} className="h-70 w-100 overflow-visible">
-              <PieChart style={{ overflow: "visible" }}>
+              <PieChart style={{ overflow: 'visible' }}>
                 <ChartTooltip
                   cursor={false}
                   content={({ active, payload }) => {
@@ -891,7 +892,7 @@ export const EdgeCaseLongText: Story = {
     docs: {
       description: {
         story:
-          "Chart artifact with long title and description to test text overflow and wrapping behavior.",
+          'Chart artifact with long title and description to test text overflow and wrapping behavior.',
       },
     },
   },
@@ -918,7 +919,7 @@ export const EdgeCaseLongText: Story = {
         <ArtifactChartContent>
           <div className="relative flex items-center justify-center">
             <ChartContainer config={sharedChartConfig} className="h-70 w-100 overflow-visible">
-              <PieChart style={{ overflow: "visible" }}>
+              <PieChart style={{ overflow: 'visible' }}>
                 <ChartTooltip
                   cursor={false}
                   content={({ active, payload }) => {
@@ -1002,15 +1003,15 @@ export const VisualRegression: Story = {
     order: 7,
     docs: {
       description: {
-        story: "Visual regression baseline for automated snapshot testing.",
+        story: 'Visual regression baseline for automated snapshot testing.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await expect(await canvas.findByText("Chart title")).toBeInTheDocument();
-    await expect(await canvas.findByText("1,125")).toBeInTheDocument();
+    await expect(await canvas.findByText('Chart title')).toBeInTheDocument();
+    await expect(await canvas.findByText('1,125')).toBeInTheDocument();
   },
   render: function VisualRegressionPieChart() {
     const [chartData] = useState(sharedChartData);
@@ -1025,7 +1026,7 @@ export const VisualRegression: Story = {
         <ArtifactChartContent>
           <div className="relative flex items-center justify-center">
             <ChartContainer config={sharedChartConfig} className="h-70 w-100 overflow-visible">
-              <PieChart style={{ overflow: "visible" }}>
+              <PieChart style={{ overflow: 'visible' }}>
                 <Pie
                   data={chartData}
                   dataKey="value"
@@ -1088,14 +1089,14 @@ export const EdgeCaseNoData: Story = {
     order: 9,
     docs: {
       description: {
-        story: "Chart artifact with no data, showing an empty state message.",
+        story: 'Chart artifact with no data, showing an empty state message.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await expect(await canvas.findByText("No data available")).toBeInTheDocument();
+    await expect(await canvas.findByText('No data available')).toBeInTheDocument();
   },
   render: function NoDataPieChart() {
     const [chartData] = useState<{ id: string; value: number }[]>([]);
@@ -1131,17 +1132,17 @@ export const EdgeCaseNoData: Story = {
 
 // Area chart configuration
 const areaChartConfig = {
-  r401: { label: "R401", color: "rgba(47, 85, 234, 0.8)" },
-  r402: { label: "R402", color: "rgba(47, 85, 234, 0.5)" },
+  r401: { label: 'R401', color: 'rgba(47, 85, 234, 0.8)' },
+  r402: { label: 'R402', color: 'rgba(47, 85, 234, 0.5)' },
 } satisfies ChartConfig;
 
 const areaChartData = [
-  { time: "02:00", r401: 280, r402: 120 },
-  { time: "06:00", r401: 300, r402: 140 },
-  { time: "10:00", r401: 350, r402: 160 },
-  { time: "14:00", r401: 320, r402: 150 },
-  { time: "18:00", r401: 290, r402: 130 },
-  { time: "22:00", r401: 310, r402: 145 },
+  { time: '02:00', r401: 280, r402: 120 },
+  { time: '06:00', r401: 300, r402: 140 },
+  { time: '10:00', r401: 350, r402: 160 },
+  { time: '14:00', r401: 320, r402: 150 },
+  { time: '18:00', r401: 290, r402: 130 },
+  { time: '22:00', r401: 310, r402: 145 },
 ];
 
 /**
@@ -1154,18 +1155,18 @@ export const StackedAreaChart: Story = {
     docs: {
       description: {
         story:
-          "Stacked area chart showing temperature trends for two reactors over 24 hours. Features gradient fills, time-based x-axis, multi-series tooltip, and centered legend.",
+          'Stacked area chart showing temperature trends for two reactors over 24 hours. Features gradient fills, time-based x-axis, multi-series tooltip, and centered legend.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await expect(await canvas.findByText("Reactor temperature trend")).toBeInTheDocument();
-    await expect(await canvas.findByText("Last 24 hours")).toBeInTheDocument();
-    await expect(await canvas.findByText("R401")).toBeInTheDocument();
-    await expect(await canvas.findByText("R402")).toBeInTheDocument();
-    await expect(await canvas.findByText("Trending up by 5.2% this month")).toBeInTheDocument();
+    await expect(await canvas.findByText('Reactor temperature trend')).toBeInTheDocument();
+    await expect(await canvas.findByText('Last 24 hours')).toBeInTheDocument();
+    await expect(await canvas.findByText('R401')).toBeInTheDocument();
+    await expect(await canvas.findByText('R402')).toBeInTheDocument();
+    await expect(await canvas.findByText('Trending up by 5.2% this month')).toBeInTheDocument();
   },
   render: function StackedAreaChartStory() {
     return (
@@ -1203,12 +1204,12 @@ export const StackedAreaChart: Story = {
                 dataKey="time"
                 tickLine={false}
                 axisLine={false}
-                tick={{ fontSize: 12, fill: "var(--color-muted-foreground)" }}
+                tick={{ fontSize: 12, fill: 'var(--color-muted-foreground)' }}
                 tickMargin={8}
               />
               <ChartTooltip
-                cursor={{ stroke: "var(--color-muted-foreground)", strokeWidth: 1 }}
-                content={({ active, payload, label }) => {
+                cursor={{ stroke: 'var(--color-muted-foreground)', strokeWidth: 1 }}
+                content={({ active, payload }) => {
                   if (!active || !payload?.length) return null;
 
                   return (
@@ -1241,7 +1242,7 @@ export const StackedAreaChart: Story = {
                 strokeWidth={1}
                 fill="url(#areaGradientR401)"
                 dot={false}
-                activeDot={{ r: 4, fill: "#2F55EA", stroke: "#fff", strokeWidth: 2 }}
+                activeDot={{ r: 4, fill: '#2F55EA', stroke: '#fff', strokeWidth: 2 }}
               />
               {/* R402 area - lower values, rendered second (in front) */}
               <Area
@@ -1251,7 +1252,7 @@ export const StackedAreaChart: Story = {
                 strokeWidth={1}
                 fill="url(#areaGradientR402)"
                 dot={false}
-                activeDot={{ r: 4, fill: "#2F55EA", stroke: "#fff", strokeWidth: 2 }}
+                activeDot={{ r: 4, fill: '#2F55EA', stroke: '#fff', strokeWidth: 2 }}
               />
               <ChartLegend content={<ChartLegendContent />} />
             </AreaChart>
@@ -1271,20 +1272,20 @@ export const StackedAreaChart: Story = {
 
 // Line chart configuration
 const lineChartConfig = {
-  strong: { label: "Primary", color: "rgba(47, 85, 234, 0.8)" },
-  muted: { label: "Secondary", color: "rgba(47, 85, 234, 0.5)" },
+  strong: { label: 'Primary', color: 'rgba(47, 85, 234, 0.8)' },
+  muted: { label: 'Secondary', color: 'rgba(47, 85, 234, 0.5)' },
 } satisfies ChartConfig;
 
 const lineChartData = [
-  { date: "Apr 1", strong: 40, muted: 80 },
-  { date: "", strong: 120, muted: 100 },
-  { date: "Apr 7", strong: 180, muted: 90 },
-  { date: "", strong: 280, muted: 140 },
-  { date: "Apr 14", strong: 160, muted: 180 },
-  { date: "", strong: 220, muted: 160 },
-  { date: "Apr 21", strong: 320, muted: 120 },
-  { date: "", strong: 260, muted: 140 },
-  { date: "Apr 30", strong: 200, muted: 160 },
+  { date: 'Apr 1', strong: 40, muted: 80 },
+  { date: '', strong: 120, muted: 100 },
+  { date: 'Apr 7', strong: 180, muted: 90 },
+  { date: '', strong: 280, muted: 140 },
+  { date: 'Apr 14', strong: 160, muted: 180 },
+  { date: '', strong: 220, muted: 160 },
+  { date: 'Apr 21', strong: 320, muted: 120 },
+  { date: '', strong: 260, muted: 140 },
+  { date: 'Apr 30', strong: 200, muted: 160 },
 ];
 
 /**
@@ -1297,18 +1298,18 @@ export const MultiLineChart: Story = {
     docs: {
       description: {
         story:
-          "Line chart showing trends over time with two series. Features solid and semi-transparent strokes, date-based x-axis, and centered legend.",
+          'Line chart showing trends over time with two series. Features solid and semi-transparent strokes, date-based x-axis, and centered legend.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await expect(await canvas.findByText("Performance metrics")).toBeInTheDocument();
-    await expect(await canvas.findByText("Last 30 days")).toBeInTheDocument();
-    await expect(await canvas.findByText("Primary")).toBeInTheDocument();
-    await expect(await canvas.findByText("Secondary")).toBeInTheDocument();
-    await expect(await canvas.findByText("Trending up by 5.2% this month")).toBeInTheDocument();
+    await expect(await canvas.findByText('Performance metrics')).toBeInTheDocument();
+    await expect(await canvas.findByText('Last 30 days')).toBeInTheDocument();
+    await expect(await canvas.findByText('Primary')).toBeInTheDocument();
+    await expect(await canvas.findByText('Secondary')).toBeInTheDocument();
+    await expect(await canvas.findByText('Trending up by 5.2% this month')).toBeInTheDocument();
   },
   render: function MultiLineChartStory() {
     return (
@@ -1333,11 +1334,11 @@ export const MultiLineChart: Story = {
                 dataKey="date"
                 tickLine={false}
                 axisLine={false}
-                tick={{ fontSize: 12, fill: "var(--color-muted-foreground)" }}
+                tick={{ fontSize: 12, fill: 'var(--color-muted-foreground)' }}
                 tickMargin={8}
               />
               <ChartTooltip
-                cursor={{ stroke: "var(--color-muted-foreground)", strokeWidth: 1 }}
+                cursor={{ stroke: 'var(--color-muted-foreground)', strokeWidth: 1 }}
                 content={({ active, payload }) => {
                   if (!active || !payload?.length) return null;
 
@@ -1372,8 +1373,8 @@ export const MultiLineChart: Story = {
                 dot={false}
                 activeDot={{
                   r: 4,
-                  fill: "var(--color-muted)",
-                  stroke: "var(--color-popover)",
+                  fill: 'var(--color-muted)',
+                  stroke: 'var(--color-popover)',
                   strokeWidth: 2,
                 }}
               />
@@ -1386,8 +1387,8 @@ export const MultiLineChart: Story = {
                 dot={false}
                 activeDot={{
                   r: 4,
-                  fill: "var(--color-strong)",
-                  stroke: "var(--color-popover)",
+                  fill: 'var(--color-strong)',
+                  stroke: 'var(--color-popover)',
                   strokeWidth: 2,
                 }}
               />
@@ -1409,15 +1410,15 @@ export const MultiLineChart: Story = {
 
 // Bar chart configuration
 const barChartConfig = {
-  value: { label: "Count", color: "url(#barGradient)" },
+  value: { label: 'Count', color: 'url(#barGradient)' },
 } satisfies ChartConfig;
 
 const barChartData = [
-  { name: "Assets", value: 106 },
-  { name: "Files", value: 305 },
-  { name: "Events", value: 237 },
-  { name: "Work orders", value: 73 },
-  { name: "Time series", value: 209 },
+  { name: 'Assets', value: 106 },
+  { name: 'Files', value: 305 },
+  { name: 'Events', value: 237 },
+  { name: 'Work orders', value: 73 },
+  { name: 'Time series', value: 209 },
 ];
 
 /**
@@ -1431,19 +1432,19 @@ export const HorizontalBarChart: Story = {
     docs: {
       description: {
         story:
-          "Horizontal bar chart showing data distribution across categories. Includes header with actions, gradient-filled bars with value labels, and footer with trend information.",
+          'Horizontal bar chart showing data distribution across categories. Includes header with actions, gradient-filled bars with value labels, and footer with trend information.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await expect(await canvas.findByText("Chart title")).toBeInTheDocument();
-    await expect(await canvas.findByText("January - June 2024")).toBeInTheDocument();
-    await expect(await canvas.findByText("Assets")).toBeInTheDocument();
-    await expect(await canvas.findByText("Files")).toBeInTheDocument();
-    await expect(await canvas.findByText("Events")).toBeInTheDocument();
-    await expect(await canvas.findByText("Trending up by 5.2% this month")).toBeInTheDocument();
+    await expect(await canvas.findByText('Chart title')).toBeInTheDocument();
+    await expect(await canvas.findByText('January - June 2024')).toBeInTheDocument();
+    await expect(await canvas.findByText('Assets')).toBeInTheDocument();
+    await expect(await canvas.findByText('Files')).toBeInTheDocument();
+    await expect(await canvas.findByText('Events')).toBeInTheDocument();
+    await expect(await canvas.findByText('Trending up by 5.2% this month')).toBeInTheDocument();
   },
   render: function HorizontalBarChartStory() {
     const chartData = barChartData;
@@ -1485,11 +1486,11 @@ export const HorizontalBarChart: Story = {
                 tickLine={false}
                 axisLine={false}
                 width={90}
-                tick={{ fontSize: 14, fill: "var(--color-muted-foreground)" }}
+                tick={{ fontSize: 14, fill: 'var(--color-muted-foreground)' }}
               />
               <XAxis type="number" hide />
               <ChartTooltip
-                cursor={{ fill: "var(--color-muted)", opacity: 0.3 }}
+                cursor={{ fill: 'var(--color-muted)', opacity: 0.3 }}
                 content={({ active, payload }) => {
                   if (!active || !payload?.length) return null;
                   const data = payload[0];
@@ -1522,8 +1523,8 @@ export const HorizontalBarChart: Story = {
                 radius={[0, 4, 4, 0]}
                 barSize={24}
                 label={{
-                  position: "right",
-                  fill: "var(--color-foreground)",
+                  position: 'right',
+                  fill: 'var(--color-foreground)',
                   fontSize: 14,
                   fontWeight: 400,
                   offset: 4,
@@ -1567,11 +1568,11 @@ type RadialRingDatum = {
 // Uses chart/fjord color tokens for proper light/dark mode support
 // arcPercent: how much of each ring is filled (0-100), starting from top going clockwise
 const radialRingData: RadialRingDatum[] = [
-  { name: "ring5", fill: "var(--color-chart-fjord-opacity-4)", arcPercent: 50 },
-  { name: "ring4", fill: "var(--color-chart-fjord-opacity-3)", arcPercent: 72 },
-  { name: "ring3", fill: "var(--color-chart-fjord-opacity-2)", arcPercent: 65 },
-  { name: "ring2", fill: "var(--color-chart-fjord-opacity-1)", arcPercent: 76 },
-  { name: "ring1", fill: "var(--color-chart-fjord-solid)", arcPercent: 100 },
+  { name: 'ring5', fill: 'var(--color-chart-fjord-opacity-4)', arcPercent: 50 },
+  { name: 'ring4', fill: 'var(--color-chart-fjord-opacity-3)', arcPercent: 72 },
+  { name: 'ring3', fill: 'var(--color-chart-fjord-opacity-2)', arcPercent: 65 },
+  { name: 'ring2', fill: 'var(--color-chart-fjord-opacity-1)', arcPercent: 76 },
+  { name: 'ring1', fill: 'var(--color-chart-fjord-solid)', arcPercent: 100 },
 ];
 
 function RadialRingSvg({
@@ -1625,7 +1626,7 @@ function RadialRingSvg({
               className="stroke-border"
               style={{
                 opacity: hoveredRing && !isHovered ? 0.5 : 1,
-                transition: "opacity 150ms",
+                transition: 'opacity 150ms',
               }}
             />
             {/* Filled arc */}
@@ -1642,7 +1643,7 @@ function RadialRingSvg({
               transform={`rotate(-90 ${cx} ${cy})`}
               style={{
                 opacity: hoveredRing && !isHovered ? 0.5 : 1,
-                transition: "opacity 150ms",
+                transition: 'opacity 150ms',
               }}
             />
             {/* Invisible hit area for better hover detection */}
@@ -1671,16 +1672,16 @@ export const RadialChart: Story = {
     docs: {
       description: {
         story:
-          "Radial bar chart with concentric rings. Each ring represents a different metric with varying fill percentages. Uses a gradient of blue opacities from light (outer) to solid (inner).",
+          'Radial bar chart with concentric rings. Each ring represents a different metric with varying fill percentages. Uses a gradient of blue opacities from light (outer) to solid (inner).',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await expect(await canvas.findByText("Chart title")).toBeInTheDocument();
-    await expect(await canvas.findByText("January - June 2024")).toBeInTheDocument();
-    await expect(await canvas.findByText("Trending up by 5.2% this month")).toBeInTheDocument();
+    await expect(await canvas.findByText('Chart title')).toBeInTheDocument();
+    await expect(await canvas.findByText('January - June 2024')).toBeInTheDocument();
+    await expect(await canvas.findByText('Trending up by 5.2% this month')).toBeInTheDocument();
   },
   render: function RadialChartStory() {
     const [hoveredRing, setHoveredRing] = useState<RadialRingDatum | null>(null);

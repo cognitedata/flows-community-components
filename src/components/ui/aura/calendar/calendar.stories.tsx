@@ -1,73 +1,74 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent } from "@storybook/test";
-import { useState } from "react";
-import type { DateRange } from "react-day-picker";
-import { Calendar } from "./calendar";
+import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent } from '@storybook/test';
+import { useState } from 'react';
+import type { DateRange } from 'react-day-picker';
+
+import { Calendar } from './calendar';
 
 const meta: Meta<typeof Calendar> = {
-  title: "Primitives/Calendar",
+  title: 'Primitives/Calendar',
   component: Calendar,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     // Behavior
     mode: {
-      control: "select",
-      options: ["single", "multiple", "range"],
-      description: "Selection mode for the calendar",
+      control: 'select',
+      options: ['single', 'multiple', 'range'],
+      description: 'Selection mode for the calendar',
       table: {
-        category: "Behavior",
+        category: 'Behavior',
         type: { summary: '"single" | "multiple" | "range"' },
-        defaultValue: { summary: "single" },
+        defaultValue: { summary: 'single' },
       },
     },
     showOutsideDays: {
-      control: "boolean",
-      description: "Show days from adjacent months",
+      control: 'boolean',
+      description: 'Show days from adjacent months',
       table: {
-        category: "Display",
-        type: { summary: "boolean" },
-        defaultValue: { summary: "true" },
+        category: 'Display',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'true' },
       },
     },
     captionLayout: {
-      control: "select",
-      options: ["label", "dropdown", "dropdown-months", "dropdown-years"],
-      description: "Layout of the month/year caption",
+      control: 'select',
+      options: ['label', 'dropdown', 'dropdown-months', 'dropdown-years'],
+      description: 'Layout of the month/year caption',
       table: {
-        category: "Display",
-        type: { summary: "string" },
-        defaultValue: { summary: "label" },
+        category: 'Display',
+        type: { summary: 'string' },
+        defaultValue: { summary: 'label' },
       },
     },
     buttonVariant: {
-      control: "select",
-      options: ["ghost", "outline", "secondary"],
-      description: "Variant for navigation buttons",
+      control: 'select',
+      options: ['ghost', 'outline', 'secondary'],
+      description: 'Variant for navigation buttons',
       table: {
-        category: "Appearance",
-        type: { summary: "string" },
-        defaultValue: { summary: "ghost" },
+        category: 'Appearance',
+        type: { summary: 'string' },
+        defaultValue: { summary: 'ghost' },
       },
     },
     disabled: {
-      control: "boolean",
-      description: "Disable the calendar",
+      control: 'boolean',
+      description: 'Disable the calendar',
       table: {
-        category: "State",
-        type: { summary: "boolean" },
-        defaultValue: { summary: "false" },
+        category: 'State',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
       },
     },
     className: {
-      control: "text",
-      description: "Additional CSS classes",
+      control: 'text',
+      description: 'Additional CSS classes',
       table: {
-        category: "Styling",
+        category: 'Styling',
       },
     },
   },
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
 };
 
@@ -86,7 +87,7 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Default calendar for single date selection.",
+        story: 'Default calendar for single date selection.',
       },
     },
   },
@@ -95,8 +96,8 @@ export const Default: Story = {
     await expect(calendar).toBeInTheDocument();
 
     // Verify navigation buttons exist
-    const prevButton = canvasElement.querySelector(".rdp-button_previous");
-    const nextButton = canvasElement.querySelector(".rdp-button_next");
+    const prevButton = canvasElement.querySelector('.rdp-button_previous');
+    const nextButton = canvasElement.querySelector('.rdp-button_next');
     await expect(prevButton).toBeInTheDocument();
     await expect(nextButton).toBeInTheDocument();
   },
@@ -115,7 +116,7 @@ export const SingleSelection: Story = {
           <Calendar mode="single" selected={date} onSelect={setDate} className="rounded-md" />
         </div>
         <p className="text-sm text-muted-foreground">
-          Selected: {date ? date.toLocaleDateString() : "None"}
+          Selected: {date ? date.toLocaleDateString() : 'None'}
         </p>
       </div>
     );
@@ -123,7 +124,7 @@ export const SingleSelection: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Calendar with controlled single date selection.",
+        story: 'Calendar with controlled single date selection.',
       },
     },
   },
@@ -168,7 +169,7 @@ export const RangeSelection: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Calendar for selecting a date range with two months displayed.",
+        story: 'Calendar for selecting a date range with two months displayed.',
       },
     },
   },
@@ -193,7 +194,7 @@ export const MultipleSelection: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Calendar allowing multiple date selection.",
+        story: 'Calendar allowing multiple date selection.',
       },
     },
   },
@@ -217,7 +218,7 @@ export const WithDropdowns: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Calendar with dropdown selectors for month and year navigation.",
+        story: 'Calendar with dropdown selectors for month and year navigation.',
       },
     },
   },
@@ -246,7 +247,7 @@ export const DisabledDates: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Calendar with disabled weekends and specific dates.",
+        story: 'Calendar with disabled weekends and specific dates.',
       },
     },
   },
@@ -264,7 +265,7 @@ export const WithWeekNumbers: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Calendar displaying week numbers.",
+        story: 'Calendar displaying week numbers.',
       },
     },
   },
@@ -282,7 +283,7 @@ export const WithoutOutsideDays: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Calendar hiding days from adjacent months.",
+        story: 'Calendar hiding days from adjacent months.',
       },
     },
   },
@@ -310,7 +311,7 @@ export const DateConstraints: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Calendar with date range constraints.",
+        story: 'Calendar with date range constraints.',
       },
     },
   },
@@ -328,7 +329,7 @@ export const TwoMonths: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Calendar displaying two months side by side.",
+        story: 'Calendar displaying two months side by side.',
       },
     },
   },
@@ -346,7 +347,7 @@ export const OutlineButtons: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Calendar with outline style navigation buttons.",
+        story: 'Calendar with outline style navigation buttons.',
       },
     },
   },
@@ -392,7 +393,7 @@ export const VisualRegression: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Comprehensive visual overview for regression testing.",
+        story: 'Comprehensive visual overview for regression testing.',
       },
     },
     chromatic: {
@@ -406,10 +407,10 @@ export const VisualRegression: Story = {
  */
 export const Playground: Story = {
   args: {
-    mode: "single",
+    mode: 'single',
     showOutsideDays: true,
-    captionLayout: "label",
-    buttonVariant: "ghost",
+    captionLayout: 'label',
+    buttonVariant: 'ghost',
   },
   render: (args) => (
     <div className="rounded-md border">
@@ -419,7 +420,7 @@ export const Playground: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Interactive playground - use controls to experiment with calendar props.",
+        story: 'Interactive playground - use controls to experiment with calendar props.',
       },
     },
   },

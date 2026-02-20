@@ -1,22 +1,23 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect } from "@storybook/test";
-import { Skeleton } from "./skeleton";
+import type { Meta, StoryObj } from '@storybook/react';
+import { expect } from '@storybook/test';
+
+import { Skeleton } from './skeleton';
 
 const meta: Meta<typeof Skeleton> = {
-  title: "Primitives/Skeleton",
+  title: 'Primitives/Skeleton',
   component: Skeleton,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     className: {
-      control: "text",
-      description: "Additional classes for sizing and shape.",
+      control: 'text',
+      description: 'Additional classes for sizing and shape.',
       table: {
-        category: "Variants/Styling",
+        category: 'Variants/Styling',
       },
     },
   },
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
 };
 
@@ -28,7 +29,7 @@ export const Basic: Story = {
     order: 1,
     docs: {
       description: {
-        story: "Basic skeleton placeholder for loading states.",
+        story: 'Basic skeleton placeholder for loading states.',
       },
     },
   },
@@ -37,7 +38,7 @@ export const Basic: Story = {
     const skeleton = skeletons[0];
     await expect(skeletons.length).toBe(1);
     await expect(skeleton).toBeInTheDocument();
-    await expect(skeleton).toHaveClass("animate-pulse");
+    await expect(skeleton).toHaveClass('animate-pulse');
   },
   render: () => <Skeleton className="w-100 h-8" />,
 };
@@ -47,7 +48,7 @@ export const Shapes: Story = {
     order: 2,
     docs: {
       description: {
-        story: "Skeleton shapes for different content types.",
+        story: 'Skeleton shapes for different content types.',
       },
     },
   },
@@ -69,7 +70,7 @@ export const TextBlock: Story = {
     order: 3,
     docs: {
       description: {
-        story: "Skeleton layout mimicking text content structure.",
+        story: 'Skeleton layout mimicking text content structure.',
       },
     },
   },
@@ -92,7 +93,7 @@ export const Card: Story = {
     order: 4,
     docs: {
       description: {
-        story: "Skeleton layout for card components.",
+        story: 'Skeleton layout for card components.',
       },
     },
   },
@@ -119,7 +120,7 @@ export const Table: Story = {
     order: 5,
     docs: {
       description: {
-        story: "Skeleton layout for table rows.",
+        story: 'Skeleton layout for table rows.',
       },
     },
   },
@@ -142,7 +143,7 @@ export const ListItems: Story = {
     order: 6,
     docs: {
       description: {
-        story: "Skeleton layout for list items with icons.",
+        story: 'Skeleton layout for list items with icons.',
       },
     },
   },
@@ -170,14 +171,14 @@ export const ListItems: Story = {
 
 export const Playground: Story = {
   args: {
-    className: "w-100 h-8",
+    className: 'w-100 h-8',
   },
   render: (args) => <Skeleton {...args} />,
   parameters: {
     order: 99,
     docs: {
       description: {
-        story: "Interactive playground to experiment with skeleton styling.",
+        story: 'Interactive playground to experiment with skeleton styling.',
       },
     },
   },

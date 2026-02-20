@@ -1,4 +1,6 @@
-import { type ComponentPropsWithoutRef, type ComponentRef, forwardRef } from "react";
+import { type ComponentPropsWithoutRef, type ComponentRef, forwardRef } from 'react';
+
+import { cn } from '../../../../lib/utils';
 
 import {
   Card,
@@ -7,8 +9,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/aura/card";
-import { cn } from "../../../../lib/utils";
+} from '@/components/ui/aura/card';
 
 /**
  * Artifact Chart - A compositional card layout for displaying charts.
@@ -22,7 +23,7 @@ const ArtifactChart = forwardRef<ComponentRef<typeof Card>, ComponentPropsWithou
     return <Card data-slot="artifact-chart" ref={ref} className={className} {...props} />;
   }
 );
-ArtifactChart.displayName = "ArtifactChart";
+ArtifactChart.displayName = 'ArtifactChart';
 
 const ArtifactChartHeader = forwardRef<
   ComponentRef<typeof CardHeader>,
@@ -32,12 +33,12 @@ const ArtifactChartHeader = forwardRef<
     <CardHeader
       data-slot="artifact-chart-header"
       ref={ref}
-      className={cn("gap-1", className)}
+      className={cn('gap-1', className)}
       {...props}
     />
   );
 });
-ArtifactChartHeader.displayName = "ArtifactChartHeader";
+ArtifactChartHeader.displayName = 'ArtifactChartHeader';
 
 const ArtifactChartTitle = forwardRef<
   ComponentRef<typeof CardTitle>,
@@ -47,12 +48,12 @@ const ArtifactChartTitle = forwardRef<
     <CardTitle
       data-slot="artifact-chart-title"
       ref={ref}
-      className={cn("text-base font-medium tracking-tighter", className)}
+      className={cn('text-base font-medium tracking-tighter', className)}
       {...props}
     />
   );
 });
-ArtifactChartTitle.displayName = "ArtifactChartTitle";
+ArtifactChartTitle.displayName = 'ArtifactChartTitle';
 
 const ArtifactChartDescription = forwardRef<
   ComponentRef<typeof CardDescription>,
@@ -63,14 +64,14 @@ const ArtifactChartDescription = forwardRef<
       data-slot="artifact-chart-description"
       ref={ref}
       className={cn(
-        "text-sm font-normal leading-4.5 tracking-tight text-muted-foreground",
+        'text-sm font-normal leading-4.5 tracking-tight text-muted-foreground',
         className
       )}
       {...props}
     />
   );
 });
-ArtifactChartDescription.displayName = "ArtifactChartDescription";
+ArtifactChartDescription.displayName = 'ArtifactChartDescription';
 
 const ArtifactChartContent = forwardRef<
   ComponentRef<typeof CardContent>,
@@ -80,12 +81,12 @@ const ArtifactChartContent = forwardRef<
     <CardContent
       data-slot="artifact-chart-content"
       ref={ref}
-      className={cn("flex w-full flex-col items-center gap-4 overflow-visible py-5", className)}
+      className={cn('flex w-full flex-col items-center gap-4 overflow-visible py-5', className)}
       {...props}
     />
   );
 });
-ArtifactChartContent.displayName = "ArtifactChartContent";
+ArtifactChartContent.displayName = 'ArtifactChartContent';
 
 const ArtifactChartFooter = forwardRef<
   ComponentRef<typeof CardFooter>,
@@ -95,7 +96,7 @@ const ArtifactChartFooter = forwardRef<
     <CardFooter data-slot="artifact-chart-footer" ref={ref} className={className} {...props} />
   );
 });
-ArtifactChartFooter.displayName = "ArtifactChartFooter";
+ArtifactChartFooter.displayName = 'ArtifactChartFooter';
 
 export {
   ArtifactChart,

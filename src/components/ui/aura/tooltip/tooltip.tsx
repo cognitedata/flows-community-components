@@ -1,12 +1,12 @@
-import { type ComponentRef, forwardRef } from "react";
+import { Tooltip as TooltipPrimitive } from '@base-ui/react/tooltip';
+import { type ComponentRef, forwardRef } from 'react';
 
-import { Tooltip as TooltipPrimitive } from "@base-ui/react/tooltip";
 
-import { cn, getPortalContainer } from "../../../../lib/utils";
+import { cn, getPortalContainer } from '../../../../lib/utils';
 function TooltipProvider({
   delayDuration = 0,
   ...props
-}: Omit<TooltipPrimitive.Provider.Props, "delay"> & { delayDuration?: number }) {
+}: Omit<TooltipPrimitive.Provider.Props, 'delay'> & { delayDuration?: number }) {
   return (
     <TooltipPrimitive.Provider data-slot="tooltip-provider" delay={delayDuration} {...props} />
   );
@@ -32,19 +32,19 @@ const TooltipTrigger = forwardRef<HTMLButtonElement, TooltipPrimitive.Trigger.Pr
     return <TooltipPrimitive.Trigger ref={ref} data-slot="tooltip-trigger" {...props} />;
   }
 );
-TooltipTrigger.displayName = "TooltipTrigger";
+TooltipTrigger.displayName = 'TooltipTrigger';
 
 const TooltipContent = forwardRef<
   ComponentRef<typeof TooltipPrimitive.Popup>,
   TooltipPrimitive.Popup.Props &
-    Pick<TooltipPrimitive.Positioner.Props, "align" | "alignOffset" | "side" | "sideOffset">
+    Pick<TooltipPrimitive.Positioner.Props, 'align' | 'alignOffset' | 'side' | 'sideOffset'>
 >(
   (
     {
       className,
-      side = "top",
+      side = 'top',
       sideOffset = 9,
-      align = "center",
+      align = 'center',
       alignOffset = 0,
       children,
       ...props
@@ -64,7 +64,7 @@ const TooltipContent = forwardRef<
             ref={ref}
             data-slot="tooltip-content"
             className={cn(
-              "data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-[state=delayed-open]:animate-in data-[state=delayed-open]:fade-in-0 data-[state=delayed-open]:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2 bg-foreground text-background z-50 w-fit max-w-xs origin-(--transform-origin) rounded-md p-2 text-sm font-medium leading-tight",
+              'data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-[state=delayed-open]:animate-in data-[state=delayed-open]:fade-in-0 data-[state=delayed-open]:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2 bg-foreground text-background z-50 w-fit max-w-xs origin-(--transform-origin) rounded-md p-2 text-sm font-medium leading-tight',
               className
             )}
             {...props}
@@ -77,6 +77,6 @@ const TooltipContent = forwardRef<
     );
   }
 );
-TooltipContent.displayName = "TooltipContent";
+TooltipContent.displayName = 'TooltipContent';
 
 export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider };

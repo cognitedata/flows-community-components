@@ -1,33 +1,33 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, within } from "@storybook/test";
+import type { Meta, StoryObj } from '@storybook/react';
+import { expect, within } from '@storybook/test';
 
-import { Separator } from "./separator";
+import { Separator } from './separator';
 
 const meta: Meta<typeof Separator> = {
-  title: "Primitives/Separator",
+  title: 'Primitives/Separator',
   component: Separator,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     orientation: {
-      control: "select",
-      options: ["horizontal", "vertical"],
-      description: "Orientation of the separator",
+      control: 'select',
+      options: ['horizontal', 'vertical'],
+      description: 'Orientation of the separator',
       table: {
-        category: "Variants/Styling",
+        category: 'Variants/Styling',
         type: { summary: '"horizontal" | "vertical"' },
-        defaultValue: { summary: "horizontal" },
+        defaultValue: { summary: 'horizontal' },
       },
     },
     className: {
-      control: "text",
-      description: "Additional CSS classes",
+      control: 'text',
+      description: 'Additional CSS classes',
       table: {
-        category: "Variants/Styling",
+        category: 'Variants/Styling',
       },
     },
   },
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
 };
 
@@ -55,15 +55,15 @@ export const Default: Story = {
     order: 1,
     docs: {
       description: {
-        story: "Default horizontal separator dividing content sections.",
+        story: 'Default horizontal separator dividing content sections.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const separator = canvas.getByRole("separator");
+    const separator = canvas.getByRole('separator');
     await expect(separator).toBeInTheDocument();
-    await expect(separator).toHaveAttribute("data-orientation", "horizontal");
+    await expect(separator).toHaveAttribute('data-orientation', 'horizontal');
   },
 };
 
@@ -84,16 +84,16 @@ export const Vertical: Story = {
     order: 2,
     docs: {
       description: {
-        story: "Vertical separator for inline content division.",
+        story: 'Vertical separator for inline content division.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const separators = canvas.getAllByRole("separator");
+    const separators = canvas.getAllByRole('separator');
     await expect(separators).toHaveLength(2);
     for (const sep of separators) {
-      await expect(sep).toHaveAttribute("data-orientation", "vertical");
+      await expect(sep).toHaveAttribute('data-orientation', 'vertical');
     }
   },
 };
@@ -128,7 +128,7 @@ export const AllOrientations: Story = {
     order: 3,
     docs: {
       description: {
-        story: "Comparison of horizontal and vertical separator orientations.",
+        story: 'Comparison of horizontal and vertical separator orientations.',
       },
     },
   },
@@ -161,7 +161,7 @@ export const InNavigation: Story = {
     order: 4,
     docs: {
       description: {
-        story: "Vertical separators used in navigation.",
+        story: 'Vertical separators used in navigation.',
       },
     },
   },
@@ -211,7 +211,7 @@ export const InCard: Story = {
     order: 5,
     docs: {
       description: {
-        story: "Horizontal separators used within a card component.",
+        story: 'Horizontal separators used within a card component.',
       },
     },
   },
@@ -237,7 +237,7 @@ export const WithText: Story = {
     order: 6,
     docs: {
       description: {
-        story: "Separator with centered text overlay.",
+        story: 'Separator with centered text overlay.',
       },
     },
   },
@@ -269,7 +269,7 @@ export const InList: Story = {
     order: 7,
     docs: {
       description: {
-        story: "Separators dividing list items.",
+        story: 'Separators dividing list items.',
       },
     },
   },
@@ -299,7 +299,7 @@ export const CustomStyle: Story = {
     order: 8,
     docs: {
       description: {
-        story: "Separators with custom styles applied.",
+        story: 'Separators with custom styles applied.',
       },
     },
   },
@@ -343,7 +343,7 @@ export const Accessibility: Story = {
     order: 9,
     docs: {
       description: {
-        story: "Separator accessibility features with proper ARIA attributes.",
+        story: 'Separator accessibility features with proper ARIA attributes.',
       },
     },
   },
@@ -389,7 +389,7 @@ export const VisualRegression: Story = {
     order: 10,
     docs: {
       description: {
-        story: "Visual overview of separator variations.",
+        story: 'Visual overview of separator variations.',
       },
     },
     chromatic: {
@@ -403,10 +403,10 @@ export const VisualRegression: Story = {
  */
 export const Playground: Story = {
   args: {
-    orientation: "horizontal",
+    orientation: 'horizontal',
   },
   render: (args) => (
-    <div className={args.orientation === "vertical" ? "h-20" : "w-75"}>
+    <div className={args.orientation === 'vertical' ? 'h-20' : 'w-75'}>
       <Separator {...args} />
     </div>
   ),
@@ -414,7 +414,7 @@ export const Playground: Story = {
     order: 99,
     docs: {
       description: {
-        story: "Interactive playground - use controls to experiment with separator props.",
+        story: 'Interactive playground - use controls to experiment with separator props.',
       },
     },
   },

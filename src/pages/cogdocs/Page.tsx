@@ -1,6 +1,7 @@
-import { type CogDocsPage, cogdocsPages } from "virtual:cogdocs";
-import { Card, CardContent } from "@/components/ui/aura/card";
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
+import { type CogDocsPage, cogdocsPages } from 'virtual:cogdocs';
+
+import { Card, CardContent } from '@/components/ui/aura/card';
 
 export default function CogDocsPageComponent() {
   if (cogdocsPages.length === 0) {

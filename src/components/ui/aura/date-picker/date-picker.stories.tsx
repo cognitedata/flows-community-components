@@ -1,15 +1,16 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor, within } from "@storybook/test";
-import { useState } from "react";
-import { DatePicker, DatePickerCustom, DateRangePicker } from "./date-picker";
+import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
+import { useState } from 'react';
+
+import { DatePicker, DatePickerCustom, DateRangePicker } from './date-picker';
 
 const meta: Meta<typeof DatePicker> = {
-  title: "Primitives/Date Picker",
+  title: 'Primitives/Date Picker',
   component: DatePicker,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {},
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
 };
 
@@ -24,7 +25,7 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Default date picker with calendar popover.",
+        story: 'Default date picker with calendar popover.',
       },
     },
   },
@@ -32,7 +33,7 @@ export const Default: Story = {
     const canvas = within(canvasElement);
 
     // Find and click the trigger button
-    const trigger = canvas.getByRole("button");
+    const trigger = canvas.getByRole('button');
     await expect(trigger).toBeInTheDocument();
     await userEvent.click(trigger);
 
@@ -55,7 +56,7 @@ export const Controlled: Story = {
       <div className="space-y-4">
         <DatePickerCustom date={date} onDateChange={setDate} />
         <p className="text-sm text-muted-foreground">
-          Selected: {date ? date.toLocaleDateString() : "None"}
+          Selected: {date ? date.toLocaleDateString() : 'None'}
         </p>
       </div>
     );
@@ -63,7 +64,7 @@ export const Controlled: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Date picker with controlled state.",
+        story: 'Date picker with controlled state.',
       },
     },
   },
@@ -77,7 +78,7 @@ export const CustomPlaceholder: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Date picker with custom placeholder text.",
+        story: 'Date picker with custom placeholder text.',
       },
     },
   },
@@ -91,13 +92,13 @@ export const Disabled: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Disabled date picker.",
+        story: 'Disabled date picker.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const trigger = canvas.getByRole("button");
+    const trigger = canvas.getByRole('button');
     await expect(trigger).toBeDisabled();
   },
 };
@@ -113,7 +114,7 @@ export const WithPreselectedDate: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Date picker with a pre-selected date.",
+        story: 'Date picker with a pre-selected date.',
       },
     },
   },
@@ -127,7 +128,7 @@ export const DateRange: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Date range picker for selecting a start and end date.",
+        story: 'Date range picker for selecting a start and end date.',
       },
     },
   },
@@ -150,9 +151,9 @@ export const ControlledDateRange: Story = {
       <div className="space-y-4">
         <DateRangePicker from={range.from} to={range.to} onValueChange={setRange} />
         <p className="text-sm text-muted-foreground">
-          From: {range.from?.toLocaleDateString() || "None"}
+          From: {range.from?.toLocaleDateString() || 'None'}
           <br />
-          To: {range.to?.toLocaleDateString() || "None"}
+          To: {range.to?.toLocaleDateString() || 'None'}
         </p>
       </div>
     );
@@ -160,7 +161,7 @@ export const ControlledDateRange: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Controlled date range picker.",
+        story: 'Controlled date range picker.',
       },
     },
   },
@@ -174,7 +175,7 @@ export const RangeCustomPlaceholder: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Date range picker with custom placeholder.",
+        story: 'Date range picker with custom placeholder.',
       },
     },
   },
@@ -226,7 +227,7 @@ export const FormExample: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Multiple date pickers in a form layout.",
+        story: 'Multiple date pickers in a form layout.',
       },
     },
   },
@@ -266,7 +267,7 @@ export const VisualRegression: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Comprehensive visual overview for regression testing.",
+        story: 'Comprehensive visual overview for regression testing.',
       },
     },
     chromatic: {
@@ -283,7 +284,7 @@ export const Playground: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Interactive date picker example.",
+        story: 'Interactive date picker example.',
       },
     },
   },

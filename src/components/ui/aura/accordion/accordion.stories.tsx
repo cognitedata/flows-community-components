@@ -1,60 +1,61 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor, within } from "@storybook/test";
-import { IconBrush, IconClock, IconInfoCircle, IconSettings, IconUser } from "@tabler/icons-react";
-import { useState } from "react";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./accordion";
+import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
+import { IconBrush, IconClock, IconInfoCircle, IconSettings, IconUser } from '@tabler/icons-react';
+import { useState } from 'react';
+
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from './accordion';
 
 const meta: Meta<typeof Accordion> = {
-  title: "Primitives/Accordion",
+  title: 'Primitives/Accordion',
   component: Accordion,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     type: {
-      control: "select",
-      options: ["single", "multiple"],
-      description: "Determines whether one or multiple items can be open at the same time",
+      control: 'select',
+      options: ['single', 'multiple'],
+      description: 'Determines whether one or multiple items can be open at the same time',
       table: {
-        category: "Behavior",
+        category: 'Behavior',
         type: { summary: '"single" | "multiple"' },
       },
     },
     collapsible: {
-      control: "boolean",
+      control: 'boolean',
       description:
         'When type is "single", allows closing content when clicking trigger of open item',
       table: {
-        category: "Behavior",
-        type: { summary: "boolean" },
-        defaultValue: { summary: "false" },
+        category: 'Behavior',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
       },
     },
     defaultValue: {
-      control: "text",
-      description: "The value of the item(s) to expand by default",
+      control: 'text',
+      description: 'The value of the item(s) to expand by default',
       table: {
-        category: "Behavior",
-        type: { summary: "string | string[]" },
+        category: 'Behavior',
+        type: { summary: 'string | string[]' },
       },
     },
     disabled: {
-      control: "boolean",
-      description: "Disables the entire accordion",
+      control: 'boolean',
+      description: 'Disables the entire accordion',
       table: {
-        category: "Behavior",
-        type: { summary: "boolean" },
-        defaultValue: { summary: "false" },
+        category: 'Behavior',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
       },
     },
     className: {
-      control: "text",
-      description: "Additional CSS classes",
+      control: 'text',
+      description: 'Additional CSS classes',
       table: {
-        category: "Variants/Styling",
+        category: 'Variants/Styling',
       },
     },
   },
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
   decorators: [
     (Story) => (
@@ -96,22 +97,22 @@ export const Basic: Story = {
     order: 1,
     docs: {
       description: {
-        story: "Basic accordion with collapsible sections. Only one item can be open at a time.",
+        story: 'Basic accordion with collapsible sections. Only one item can be open at a time.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const triggers = await canvas.findAllByRole("button");
+    const triggers = await canvas.findAllByRole('button');
     await expect(triggers).toHaveLength(3);
     await userEvent.click(triggers[0]);
     await waitFor(() => {
-      expect(triggers[0]).toHaveAttribute("aria-expanded", "true");
+      expect(triggers[0]).toHaveAttribute('aria-expanded', 'true');
     });
     await userEvent.click(triggers[1]);
     await waitFor(() => {
-      expect(triggers[0]).toHaveAttribute("aria-expanded", "false");
-      expect(triggers[1]).toHaveAttribute("aria-expanded", "true");
+      expect(triggers[0]).toHaveAttribute('aria-expanded', 'false');
+      expect(triggers[1]).toHaveAttribute('aria-expanded', 'true');
     });
   },
 };
@@ -154,18 +155,18 @@ export const DefaultExpanded: Story = {
     order: 2,
     docs: {
       description: {
-        story: "Accordion with item-2 expanded by default using the defaultValue prop.",
+        story: 'Accordion with item-2 expanded by default using the defaultValue prop.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const defaultOpenTrigger = await canvas.findByRole("button", {
-      name: "Should any sections be open by default?",
+    const defaultOpenTrigger = await canvas.findByRole('button', {
+      name: 'Should any sections be open by default?',
     });
 
     await waitFor(() => {
-      expect(defaultOpenTrigger).toHaveAttribute("aria-expanded", "true");
+      expect(defaultOpenTrigger).toHaveAttribute('aria-expanded', 'true');
     });
   },
 };
@@ -198,17 +199,17 @@ export const WithIcons: Story = {
     order: 3,
     docs: {
       description: {
-        story: "Accordion triggers can include icons for visual context.",
+        story: 'Accordion triggers can include icons for visual context.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const triggers = await canvas.findAllByRole("button");
+    const triggers = await canvas.findAllByRole('button');
     await expect(triggers).toHaveLength(3);
-    await expect(canvas.getByRole("button", { name: "Is it accessible?" })).toBeInTheDocument();
-    await expect(canvas.getByRole("button", { name: "Is it styled?" })).toBeInTheDocument();
-    await expect(canvas.getByRole("button", { name: "Is it animated?" })).toBeInTheDocument();
+    await expect(canvas.getByRole('button', { name: 'Is it accessible?' })).toBeInTheDocument();
+    await expect(canvas.getByRole('button', { name: 'Is it styled?' })).toBeInTheDocument();
+    await expect(canvas.getByRole('button', { name: 'Is it animated?' })).toBeInTheDocument();
   },
 };
 
@@ -243,12 +244,12 @@ export const Multiple: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const triggers = await canvas.findAllByRole("button");
+    const triggers = await canvas.findAllByRole('button');
     await userEvent.click(triggers[0]);
     await userEvent.click(triggers[1]);
     await waitFor(() => {
-      expect(triggers[0]).toHaveAttribute("aria-expanded", "true");
-      expect(triggers[1]).toHaveAttribute("aria-expanded", "true");
+      expect(triggers[0]).toHaveAttribute('aria-expanded', 'true');
+      expect(triggers[1]).toHaveAttribute('aria-expanded', 'true');
     });
   },
 };
@@ -258,28 +259,28 @@ export const Multiple: Story = {
  */
 export const Controlled: Story = {
   render: function ControlledAccordion() {
-    const [value, setValue] = useState<string>("item-1");
+    const [value, setValue] = useState<string>('item-1');
 
     return (
       <div className="space-y-4">
         <div className="flex gap-2">
           <button
             type="button"
-            onClick={() => setValue("item-1")}
+            onClick={() => setValue('item-1')}
             className="px-3 py-1 text-sm border rounded-md hover:bg-accent"
           >
             Open Item 1
           </button>
           <button
             type="button"
-            onClick={() => setValue("item-2")}
+            onClick={() => setValue('item-2')}
             className="px-3 py-1 text-sm border rounded-md hover:bg-accent"
           >
             Open Item 2
           </button>
           <button
             type="button"
-            onClick={() => setValue("item-3")}
+            onClick={() => setValue('item-3')}
             className="px-3 py-1 text-sm border rounded-md hover:bg-accent"
           >
             Open Item 3
@@ -307,13 +308,13 @@ export const Controlled: Story = {
     order: 5,
     docs: {
       description: {
-        story: "Accordion can be controlled externally using value and onValueChange props.",
+        story: 'Accordion can be controlled externally using value and onValueChange props.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const openItem2Button = canvas.getByRole("button", { name: "Open Item 2" });
+    const openItem2Button = canvas.getByRole('button', { name: 'Open Item 2' });
     await userEvent.click(openItem2Button);
     await waitFor(() => {
       const currentValue = canvas.getByText(/Current value: item-2/);
@@ -342,16 +343,16 @@ export const Disabled: Story = {
     order: 6,
     docs: {
       description: {
-        story: "Disabled accordion prevents all interaction.",
+        story: 'Disabled accordion prevents all interaction.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const triggers = await canvas.findAllByRole("button");
+    const triggers = await canvas.findAllByRole('button');
     for (const trigger of triggers) {
-      const isAriaDisabled = trigger.getAttribute("aria-disabled") === "true";
-      const hasDataDisabled = trigger.hasAttribute("data-disabled");
+      const isAriaDisabled = trigger.getAttribute('aria-disabled') === 'true';
+      const hasDataDisabled = trigger.hasAttribute('data-disabled');
       const isNativeDisabled = trigger instanceof HTMLButtonElement && trigger.disabled;
       expect(isAriaDisabled || hasDataDisabled || isNativeDisabled).toBe(true);
     }
@@ -405,7 +406,7 @@ export const RichContent: Story = {
     docs: {
       description: {
         story:
-          "Accordion content can include any React elements including forms and interactive components.",
+          'Accordion content can include any React elements including forms and interactive components.',
       },
     },
   },
@@ -458,7 +459,7 @@ export const VisualRegression: Story = {
     order: 8,
     docs: {
       description: {
-        story: "Comprehensive visual overview for regression testing.",
+        story: 'Comprehensive visual overview for regression testing.',
       },
     },
     chromatic: {
@@ -472,7 +473,7 @@ export const VisualRegression: Story = {
  */
 export const Playground: Story = {
   args: {
-    type: "single",
+    type: 'single',
     collapsible: true,
   },
   render: (args) => (
@@ -495,7 +496,7 @@ export const Playground: Story = {
     order: 99,
     docs: {
       description: {
-        story: "Interactive playground - use controls to experiment with accordion props.",
+        story: 'Interactive playground - use controls to experiment with accordion props.',
       },
     },
   },

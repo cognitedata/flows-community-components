@@ -1,8 +1,9 @@
-"use client";
+'use client';
 
-import { Badge } from "@/components/ui/aura/badge";
-import { AIChatDemo } from "@/lib/ai-examples/ai-chat-demo";
-import { IconMessageCircle as MessageSquare } from "@tabler/icons-react";
+import { IconMessageCircle as MessageSquare } from '@tabler/icons-react';
+
+import { Badge } from '@/components/ui/aura/badge';
+import { AIChatDemo } from '@/lib/ai-examples/ai-chat-demo';
 
 export default function AgentChatPage() {
   return (

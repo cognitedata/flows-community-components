@@ -3,5 +3,5 @@ export {
   Sources,
   SourcesTitle,
   Source,
-} from "./sources";
-export { SourcesMetadata } from "./sources.metadata";
+} from './sources';
+export { SourcesMetadata } from './sources.metadata';

@@ -1,21 +1,22 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { Toolbar } from "./toolbar";
+import type { Meta, StoryObj } from '@storybook/react';
+
+import { Toolbar } from './toolbar';
 
 const meta: Meta<typeof Toolbar> = {
-  title: "Primitives/Toolbar",
+  title: 'Primitives/Toolbar',
   component: Toolbar,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     className: {
-      control: "text",
-      description: "Additional CSS classes",
+      control: 'text',
+      description: 'Additional CSS classes',
       table: {
-        category: "Styling",
+        category: 'Styling',
       },
     },
   },
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
 };
 
@@ -45,7 +46,7 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Toolbar component for ReactFlow nodes. Requires ReactFlow context.",
+        story: 'Toolbar component for ReactFlow nodes. Requires ReactFlow context.',
       },
     },
   },
@@ -89,7 +90,7 @@ function CustomNode({ data }) {
   parameters: {
     docs: {
       description: {
-        story: "Example showing how to use the Toolbar component with ReactFlow.",
+        story: 'Example showing how to use the Toolbar component with ReactFlow.',
       },
     },
   },

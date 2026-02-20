@@ -11,7 +11,7 @@ import {
   type ComponentStatusType,
   getComponentStatusClasses,
   getStatusMessage,
-} from "./component-status";
+} from './component-status';
 
 // Re-export types for backward compatibility
 export type AIComponentStatus = ComponentStatusType;
@@ -20,18 +20,18 @@ export type AIComponentStatus = ComponentStatusType;
  * @deprecated Status is now defined in component metadata files.
  * Use the status field from AIComponentMeta instead.
  */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+ 
 export function getAIComponentStatus(_componentSlug: string): ComponentStatusType {
   // Status is now in metadata - this is kept for backward compatibility
-  return "draft";
+  return 'draft';
 }
 
 /**
  * @deprecated Use getStatusMessage from component-status.ts instead.
  */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+ 
 export function getAIComponentStatusMessage(_componentSlug: string): string {
-  return getStatusMessage("draft");
+  return getStatusMessage('draft');
 }
 
 /**

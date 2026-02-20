@@ -10,7 +10,7 @@ export {
   PromptInputButton,
   PromptInputSubmit,
   PromptInputSpeechButton,
-} from "./prompt-input";
+} from './prompt-input';
 
 export {
   PromptInputAttachment,
@@ -18,14 +18,14 @@ export {
   PromptInputActionAddAttachments,
   usePromptInputAttachments,
   useProviderAttachments,
-} from "./prompt-input";
+} from './prompt-input';
 
 export {
   PromptInputActionMenu,
   PromptInputActionMenuTrigger,
   PromptInputActionMenuContent,
   PromptInputActionMenuItem,
-} from "./prompt-input";
+} from './prompt-input';
 
 export {
   PromptInputModelSelect,
@@ -33,13 +33,13 @@ export {
   PromptInputModelSelectContent,
   PromptInputModelSelectItem,
   PromptInputModelSelectValue,
-} from "./prompt-input";
+} from './prompt-input';
 
 export {
   PromptInputHoverCard,
   PromptInputHoverCardTrigger,
   PromptInputHoverCardContent,
-} from "./prompt-input";
+} from './prompt-input';
 
 export {
   PromptInputTabsList,
@@ -47,7 +47,7 @@ export {
   PromptInputTabLabel,
   PromptInputTabBody,
   PromptInputTabItem,
-} from "./prompt-input";
+} from './prompt-input';
 
 export {
   PromptInputCommand,
@@ -57,8 +57,8 @@ export {
   PromptInputCommandGroup,
   PromptInputCommandItem,
   PromptInputCommandSeparator,
-} from "./prompt-input";
+} from './prompt-input';
 
-export { usePromptInputController } from "./prompt-input";
+export { usePromptInputController } from './prompt-input';
 
-export { PromptInputMetadata } from "./prompt-input.metadata";
+export { PromptInputMetadata } from './prompt-input.metadata';

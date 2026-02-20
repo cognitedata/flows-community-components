@@ -1,7 +1,7 @@
 // Type definitions for component examples system
 
-import type { CodeExample } from "../component-metadata.types";
-import type { ComponentStatusType } from "../component-status-config";
+import type { CodeExample } from '../component-metadata.types';
+import type { ComponentStatusType } from '../component-status-config';
 
 export interface ComponentExample {
   title: string;
@@ -9,9 +9,9 @@ export interface ComponentExample {
   component: React.ComponentType;
   code: string;
   tags?: string[];
-  difficulty?: "beginner" | "intermediate" | "advanced";
+  difficulty?: 'beginner' | 'intermediate' | 'advanced';
   notes?: string;
-  category?: "usage" | "variants" | "advanced";
+  category?: 'usage' | 'variants' | 'advanced';
 }
 
 export type ComponentExamples = Record<string, ComponentExample>;

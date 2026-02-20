@@ -1,12 +1,12 @@
-export type ChatStatus = "submitted" | "streaming" | "ready" | "error";
+export type ChatStatus = 'submitted' | 'streaming' | 'ready' | 'error';
 
 export type TextUIPart = {
-  type: "text";
+  type: 'text';
   value: string;
 };
 
 export type FileUIPart = {
-  type: "file";
+  type: 'file';
   /**
    * IANA media type of the file.
    */
@@ -33,7 +33,7 @@ export type ToolUIPart = {
   input?: unknown;
   output?: unknown;
   errorText?: string;
-  state?: "input-streaming" | "input-available" | "output-available" | "output-error";
+  state?: 'input-streaming' | 'input-available' | 'output-available' | 'output-error';
 };
 
 export type MessageUIPart = TextUIPart | FileUIPart | ToolUIPart;
@@ -46,7 +46,7 @@ export interface UIMessage<METADATA = unknown> {
   /**
    * The role of the message.
    */
-  role: "system" | "user" | "assistant";
+  role: 'system' | 'user' | 'assistant';
   /**
    * The metadata of the message.
    */

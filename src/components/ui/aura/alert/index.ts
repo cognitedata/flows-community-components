@@ -8,5 +8,5 @@ export {
   AlertActions,
   AlertButton,
   AlertClose,
-} from "./alert";
-export { AlertMetadata } from "./alert.metadata";
+} from './alert';
+export { AlertMetadata } from './alert.metadata';

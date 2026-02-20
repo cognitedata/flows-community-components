@@ -1,12 +1,3 @@
-import { Badge } from "@/components/ui/aura/badge";
-import { Button } from "@/components/ui/aura/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/aura/card";
 import {
   IconArrowRight as ArrowRight,
   IconChartBar as BarChart3,
@@ -17,77 +8,87 @@ import {
   IconShoppingBag as ShoppingBag,
   IconUsers as Users,
   IconBolt as Zap,
-} from "@tabler/icons-react";
-import { Link } from "react-router-dom";
+} from '@tabler/icons-react';
+import { Link } from 'react-router-dom';
+
+import { Badge } from '@/components/ui/aura/badge';
+import { Button } from '@/components/ui/aura/button';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/aura/card';
 
 const useCases = [
   {
     icon: BarChart3,
-    title: "Data Dashboards",
+    title: 'Data Dashboards',
     description:
-      "Build comprehensive analytics and reporting interfaces with beautiful charts and KPI cards.",
-    components: ["Card", "Badge", "Progress", "Tabs", "Table"],
-    examples: ["Revenue analytics dashboard", "User engagement metrics", "Performance monitoring"],
-    href: "/sandbox?example=dashboard",
+      'Build comprehensive analytics and reporting interfaces with beautiful charts and KPI cards.',
+    components: ['Card', 'Badge', 'Progress', 'Tabs', 'Table'],
+    examples: ['Revenue analytics dashboard', 'User engagement metrics', 'Performance monitoring'],
+    href: '/sandbox?example=dashboard',
   },
   {
     icon: ShoppingBag,
-    title: "E-commerce Platforms",
+    title: 'E-commerce Platforms',
     description:
-      "Create modern shopping experiences with product cards, checkout flows, and user accounts.",
-    components: ["Card", "Button", "Input", "Badge", "Dialog"],
-    examples: ["Product listing pages", "Shopping cart interface", "Checkout forms"],
-    href: "/sandbox?example=ecommerce",
+      'Create modern shopping experiences with product cards, checkout flows, and user accounts.',
+    components: ['Card', 'Button', 'Input', 'Badge', 'Dialog'],
+    examples: ['Product listing pages', 'Shopping cart interface', 'Checkout forms'],
+    href: '/sandbox?example=ecommerce',
   },
   {
     icon: Users,
-    title: "User Management",
+    title: 'User Management',
     description:
-      "Design comprehensive user interfaces for team management, profiles, and permissions.",
-    components: ["Table", "Dialog", "Form", "Avatar", "Badge"],
-    examples: ["Team member directory", "User profile settings", "Role-based permissions"],
-    href: "/sandbox?example=users",
+      'Design comprehensive user interfaces for team management, profiles, and permissions.',
+    components: ['Table', 'Dialog', 'Form', 'Avatar', 'Badge'],
+    examples: ['Team member directory', 'User profile settings', 'Role-based permissions'],
+    href: '/sandbox?example=users',
   },
   {
     icon: FileText,
-    title: "Content Management",
+    title: 'Content Management',
     description:
-      "Build editorial interfaces for blogs, documentation, and content creation platforms.",
-    components: ["Form", "Textarea", "Tabs", "Card", "Badge"],
-    examples: ["Blog post editor", "Document management", "Content publishing workflow"],
-    href: "/sandbox?example=cms",
+      'Build editorial interfaces for blogs, documentation, and content creation platforms.',
+    components: ['Form', 'Textarea', 'Tabs', 'Card', 'Badge'],
+    examples: ['Blog post editor', 'Document management', 'Content publishing workflow'],
+    href: '/sandbox?example=cms',
   },
   {
     icon: Calendar,
-    title: "Scheduling & Events",
-    description: "Create appointment booking, event management, and calendar applications.",
-    components: ["Calendar", "Dialog", "Form", "Card", "Badge"],
-    examples: ["Appointment booking", "Event management", "Meeting scheduler"],
-    href: "/sandbox?example=calendar",
+    title: 'Scheduling & Events',
+    description: 'Create appointment booking, event management, and calendar applications.',
+    components: ['Calendar', 'Dialog', 'Form', 'Card', 'Badge'],
+    examples: ['Appointment booking', 'Event management', 'Meeting scheduler'],
+    href: '/sandbox?example=calendar',
   },
   {
     icon: MessageSquare,
-    title: "Communication Tools",
-    description: "Design chat interfaces, messaging platforms, and collaboration tools.",
-    components: ["ScrollArea", "Input", "Button", "Card", "Avatar"],
-    examples: ["Team chat interface", "Customer support portal", "Real-time messaging"],
-    href: "/sandbox?example=chat",
+    title: 'Communication Tools',
+    description: 'Design chat interfaces, messaging platforms, and collaboration tools.',
+    components: ['ScrollArea', 'Input', 'Button', 'Card', 'Avatar'],
+    examples: ['Team chat interface', 'Customer support portal', 'Real-time messaging'],
+    href: '/sandbox?example=chat',
   },
   {
     icon: Building,
-    title: "Business Applications",
-    description: "Build enterprise software, CRM systems, and business process management tools.",
-    components: ["Table", "Form", "Dialog", "Tabs", "Card"],
-    examples: ["CRM dashboard", "Invoice management", "Project tracking"],
-    href: "/sandbox?example=business",
+    title: 'Business Applications',
+    description: 'Build enterprise software, CRM systems, and business process management tools.',
+    components: ['Table', 'Form', 'Dialog', 'Tabs', 'Card'],
+    examples: ['CRM dashboard', 'Invoice management', 'Project tracking'],
+    href: '/sandbox?example=business',
   },
   {
     icon: Zap,
-    title: "API Documentation",
-    description: "Create interactive API docs, developer portals, and technical documentation.",
-    components: ["Tabs", "Code", "Card", "Badge", "Button"],
-    examples: ["API reference pages", "Interactive code examples", "Developer onboarding"],
-    href: "/sandbox?example=docs",
+    title: 'API Documentation',
+    description: 'Create interactive API docs, developer portals, and technical documentation.',
+    components: ['Tabs', 'Code', 'Card', 'Badge', 'Button'],
+    examples: ['API reference pages', 'Interactive code examples', 'Developer onboarding'],
+    href: '/sandbox?example=docs',
   },
 ];
 

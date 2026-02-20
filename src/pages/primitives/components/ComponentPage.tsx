@@ -1,59 +1,60 @@
-import figmaIcon from "@/assets/figma-logo.svg";
-import storybookIcon from "@/assets/icon-storybook-default.svg";
-import { InstallationCommand } from "@/components/installation-command";
-import { StoriesRenderer } from "@/components/stories-renderer";
-import { Badge } from "@/components/ui/aura/badge";
-import { Button } from "@/components/ui/aura/button";
-import type { ComponentMeta } from "@/lib/component-examples";
-import { getComponentMeta } from "@/lib/component-registry";
+import { IconArrowLeft, IconCheck, IconQuestionMark, IconX } from '@tabler/icons-react';
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+
+import figmaIcon from '@/assets/figma-logo.svg';
+import storybookIcon from '@/assets/icon-storybook-default.svg';
+import { InstallationCommand } from '@/components/installation-command';
+import { StoriesRenderer } from '@/components/stories-renderer';
+import { Badge } from '@/components/ui/aura/badge';
+import { Button } from '@/components/ui/aura/button';
+import type { ComponentMeta } from '@/lib/component-examples';
+import { getComponentMeta } from '@/lib/component-registry';
 import {
   type ComponentStatusType,
   getComponentStatusClasses,
   getStatusMessage,
-} from "@/lib/component-status";
-import { getStatusLabel } from "@/lib/component-status";
+} from '@/lib/component-status';
+import { getStatusLabel } from '@/lib/component-status';
 import {
   getPrimitiveCatalogEntry,
   getPrimitiveFigmaBadgeProps,
   getPrimitiveFigmaLabel,
   getPrimitiveFigmaUrl,
   getPrimitiveGaBadgeProps,
-} from "@/lib/primitives-catalog";
-import { IconArrowLeft, IconCheck, IconQuestionMark, IconX } from "@tabler/icons-react";
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+} from '@/lib/primitives-catalog';
 
 function toTitleCase(str: string): string {
   return str
-    .split("-")
+    .split('-')
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
+    .join(' ');
 }
 
 function toStorybookSlug(name: string): string {
   return name
     .toLowerCase()
-    .replace(/\s*\(.*?\)\s*/g, " ")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
+    .replace(/\s*\(.*?\)\s*/g, ' ')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
 }
 
 const externalIconClass =
-  "size-6 grayscale opacity-70 mix-blend-multiply transition-all duration-150 group-hover:grayscale-0 group-hover:opacity-100 group-hover:mix-blend-normal";
+  'size-6 grayscale opacity-70 mix-blend-multiply transition-all duration-150 group-hover:grayscale-0 group-hover:opacity-100 group-hover:mix-blend-normal';
 
 function GaBadgeContent({
   product,
   required,
 }: {
-  product: "Eos" | "Dune";
+  product: 'Eos' | 'Dune';
   required: boolean | null;
 }) {
   const toneClass =
     required === true
-      ? "text-green-700 dark:text-green-400"
+      ? 'text-green-700 dark:text-green-400'
       : required === false
-        ? "text-red-700 dark:text-red-400"
-        : "text-muted-foreground";
+        ? 'text-red-700 dark:text-red-400'
+        : 'text-muted-foreground';
 
   return (
     <span className={`inline-flex items-center gap-1 ${toneClass}`}>
@@ -75,7 +76,7 @@ export default function ComponentPage() {
   const [meta, setMeta] = useState<ComponentMeta | null>(null);
   const [loading, setLoading] = useState(true);
   const catalogEntry = slug ? getPrimitiveCatalogEntry(slug) : null;
-  const resolvedSlug = catalogEntry?.slug || slug || "";
+  const resolvedSlug = catalogEntry?.slug || slug || '';
 
   useEffect(() => {
     async function loadMeta() {
@@ -107,19 +108,19 @@ export default function ComponentPage() {
   }
 
   const componentName = catalogEntry?.name || meta?.name || toTitleCase(slug);
-  const componentStatus: ComponentStatusType = meta?.status || "draft";
+  const componentStatus: ComponentStatusType = meta?.status || 'draft';
   const statusClasses = getComponentStatusClasses(componentStatus);
   const statusLabel = getStatusLabel(componentStatus);
   const statusMessage = getStatusMessage(componentStatus);
-  const description = catalogEntry?.description || meta?.description || "Component documentation";
-  const storybookCategory = catalogEntry?.section === "foundation" ? "foundations" : "primitives";
+  const description = catalogEntry?.description || meta?.description || 'Component documentation';
+  const storybookCategory = catalogEntry?.section === 'foundation' ? 'foundations' : 'primitives';
   const storybookUrl = `https://cognitedata.github.io/aura/storybook/?path=/docs/${storybookCategory}-${toStorybookSlug(componentName)}--docs`;
   const hasStorybookLink = ![
-    "assets",
-    "icons",
-    "action-toolbar",
-    "file-upload",
-    "select-panel",
+    'assets',
+    'icons',
+    'action-toolbar',
+    'file-upload',
+    'select-panel',
   ].includes(resolvedSlug);
   const hasDisabledFigma = false;
   const figmaBadgeProps = catalogEntry
@@ -139,7 +140,7 @@ export default function ComponentPage() {
       <div className="max-w-4xl mx-auto py-10">
         <div className="space-y-8">
           <div className="flex items-center gap-4">
-            <Button variant="secondary" size="sm" onClick={() => navigate("/primitives")}>
+            <Button variant="secondary" size="sm" onClick={() => navigate('/primitives')}>
               <IconArrowLeft className="h-4 w-4 mr-2" />
               Back to Components
             </Button>
@@ -247,7 +248,7 @@ export default function ComponentPage() {
       <div className="space-y-8">
         {/* Navigation */}
         <div className="flex items-center gap-4">
-          <Button variant="secondary" size="sm" onClick={() => navigate("/primitives")}>
+          <Button variant="secondary" size="sm" onClick={() => navigate('/primitives')}>
             <IconArrowLeft className="h-4 w-4 mr-2" />
             Back to Components
           </Button>
@@ -341,7 +342,7 @@ export default function ComponentPage() {
               </Badge>
             </div>
           )}
-          {componentStatus !== "stable" && componentStatus !== "ready-for-ga" && (
+          {componentStatus !== 'stable' && componentStatus !== 'ready-for-ga' && (
             <div className={`p-4 rounded-lg border ${statusClasses}`}>
               <p className="text-sm">
                 <strong>Note:</strong> {statusMessage}

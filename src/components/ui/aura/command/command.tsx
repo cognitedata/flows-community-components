@@ -1,6 +1,8 @@
-import { IconSearch } from "@tabler/icons-react";
-import { Command as CommandPrimitive } from "cmdk";
-import { type ComponentProps, type ComponentRef, type ReactNode, forwardRef } from "react";
+import { IconSearch } from '@tabler/icons-react';
+import { Command as CommandPrimitive } from 'cmdk';
+import { type ComponentProps, type ComponentRef, type ReactNode, forwardRef } from 'react';
+
+import { cn } from '../../../../lib/utils';
 
 import {
   Dialog,
@@ -8,8 +10,7 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/aura/dialog";
-import { cn } from "../../../../lib/utils";
+} from '@/components/ui/aura/dialog';
 
 const Command = forwardRef<
   ComponentRef<typeof CommandPrimitive>,
@@ -20,23 +21,23 @@ const Command = forwardRef<
       ref={ref}
       data-slot="command"
       className={cn(
-        "rounded-lg bg-background text-muted-foreground flex h-full w-full flex-col overflow-hidden",
+        'rounded-lg bg-background text-muted-foreground flex h-full w-full flex-col overflow-hidden',
         className
       )}
       {...props}
     />
   );
 });
-Command.displayName = "Command";
+Command.displayName = 'Command';
 
 function CommandDialog({
-  title = "Command Palette",
-  description = "Search for a command to run...",
+  title = 'Command Palette',
+  description = 'Search for a command to run...',
   children,
   className,
   showCloseButton = true,
   ...props
-}: Omit<ComponentProps<typeof Dialog>, "children"> & {
+}: Omit<ComponentProps<typeof Dialog>, 'children'> & {
   children?: ReactNode;
   title?: string;
   description?: string;
@@ -52,7 +53,7 @@ function CommandDialog({
       <DialogContent
         data-slot="command-dialog"
         data-testid="command-dialog-content"
-        className={cn("overflow-hidden p-0", className)}
+        className={cn('overflow-hidden p-0', className)}
         showCloseButton={showCloseButton}
       >
         <Command className="**:[[cmdk-group-heading]]:text-muted-foreground **:data-[slot=command-input-wrapper]:h-12 **:[[cmdk-group-heading]]:px-2 **:[[cmdk-group-heading]]:font-medium **:[[cmdk-group]]:px-2 [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-input-wrapper]_svg]:h-5 [&_[cmdk-input-wrapper]_svg]:w-5 **:[[cmdk-input]]:h-12 **:[[cmdk-item]]:px-2 **:[[cmdk-item]]:py-3 [&_[cmdk-item]_svg]:h-5 [&_[cmdk-item]_svg]:w-5">
@@ -62,7 +63,7 @@ function CommandDialog({
     </Dialog>
   );
 }
-CommandDialog.displayName = "CommandDialog";
+CommandDialog.displayName = 'CommandDialog';
 
 const CommandInput = forwardRef<
   ComponentRef<typeof CommandPrimitive.Input>,
@@ -75,7 +76,7 @@ const CommandInput = forwardRef<
         ref={ref}
         data-slot="command-input"
         className={cn(
-          "placeholder:text-muted-foreground flex h-10 w-full rounded-lg bg-transparent py-3 text-sm outline-hidden disabled:cursor-not-allowed disabled:opacity-50",
+          'placeholder:text-muted-foreground flex h-10 w-full rounded-lg bg-transparent py-3 text-sm outline-hidden disabled:cursor-not-allowed disabled:opacity-50',
           className
         )}
         {...props}
@@ -83,7 +84,7 @@ const CommandInput = forwardRef<
     </div>
   );
 });
-CommandInput.displayName = "CommandInput";
+CommandInput.displayName = 'CommandInput';
 
 const CommandList = forwardRef<
   ComponentRef<typeof CommandPrimitive.List>,
@@ -93,12 +94,12 @@ const CommandList = forwardRef<
     <CommandPrimitive.List
       ref={ref}
       data-slot="command-list"
-      className={cn("max-h-75 scroll-py-1 overflow-x-hidden overflow-y-auto", className)}
+      className={cn('max-h-75 scroll-py-1 overflow-x-hidden overflow-y-auto', className)}
       {...props}
     />
   );
 });
-CommandList.displayName = "CommandList";
+CommandList.displayName = 'CommandList';
 
 const CommandEmpty = forwardRef<
   ComponentRef<typeof CommandPrimitive.Empty>,
@@ -108,12 +109,12 @@ const CommandEmpty = forwardRef<
     <CommandPrimitive.Empty
       ref={ref}
       data-slot="command-empty"
-      className={cn("py-6 text-center text-sm", className)}
+      className={cn('py-6 text-center text-sm', className)}
       {...props}
     />
   );
 });
-CommandEmpty.displayName = "CommandEmpty";
+CommandEmpty.displayName = 'CommandEmpty';
 
 const CommandGroup = forwardRef<
   ComponentRef<typeof CommandPrimitive.Group>,
@@ -124,14 +125,14 @@ const CommandGroup = forwardRef<
       ref={ref}
       data-slot="command-group"
       className={cn(
-        "text-popover-foreground font-normal **:[[cmdk-group-heading]]:text-muted-foreground overflow-hidden p-1 **:[[cmdk-group-heading]]:px-2 **:[[cmdk-group-heading]]:py-1.5 **:[[cmdk-group-heading]]:text-sm **:[[cmdk-group-heading]]:font-medium",
+        'text-popover-foreground font-normal **:[[cmdk-group-heading]]:text-muted-foreground overflow-hidden p-1 **:[[cmdk-group-heading]]:px-2 **:[[cmdk-group-heading]]:py-1.5 **:[[cmdk-group-heading]]:text-sm **:[[cmdk-group-heading]]:font-medium',
         className
       )}
       {...props}
     />
   );
 });
-CommandGroup.displayName = "CommandGroup";
+CommandGroup.displayName = 'CommandGroup';
 
 const CommandSeparator = forwardRef<
   ComponentRef<typeof CommandPrimitive.Separator>,
@@ -141,12 +142,12 @@ const CommandSeparator = forwardRef<
     <CommandPrimitive.Separator
       ref={ref}
       data-slot="command-separator"
-      className={cn("bg-border -mx-1 h-px", className)}
+      className={cn('bg-border -mx-1 h-px', className)}
       {...props}
     />
   );
 });
-CommandSeparator.displayName = "CommandSeparator";
+CommandSeparator.displayName = 'CommandSeparator';
 
 const CommandItem = forwardRef<
   ComponentRef<typeof CommandPrimitive.Item>,
@@ -164,21 +165,21 @@ const CommandItem = forwardRef<
     />
   );
 });
-CommandItem.displayName = "CommandItem";
+CommandItem.displayName = 'CommandItem';
 
-const CommandShortcut = forwardRef<ComponentRef<"span">, ComponentProps<"span">>(
+const CommandShortcut = forwardRef<ComponentRef<'span'>, ComponentProps<'span'>>(
   ({ className, ...props }, ref) => {
     return (
       <span
         ref={ref}
         data-slot="command-shortcut"
-        className={cn("text-muted-foreground ml-auto text-xs tracking-widest", className)}
+        className={cn('text-muted-foreground ml-auto text-xs tracking-widest', className)}
         {...props}
       />
     );
   }
 );
-CommandShortcut.displayName = "CommandShortcut";
+CommandShortcut.displayName = 'CommandShortcut';
 
 export {
   Command,

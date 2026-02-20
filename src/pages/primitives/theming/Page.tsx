@@ -1,31 +1,32 @@
-import { CodeCopyButton } from "@/components/code-copy-button";
-import { Badge } from "@/components/ui/aura/badge";
-import { Button } from "@/components/ui/aura/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/aura/card";
-import { Input } from "@/components/ui/aura/input";
-import { Label } from "@/components/ui/aura/label";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/aura/tabs";
 import {
   IconEye as Eye,
   IconMoon as Moon,
   IconPalette as Palette,
   IconRotateClockwise as RotateCcw,
   IconSun as Sun,
-} from "@tabler/icons-react";
-import { motion } from "framer-motion";
-import { startTransition, useEffect, useState } from "react";
+} from '@tabler/icons-react';
+import { motion } from 'framer-motion';
+import { startTransition, useEffect, useState } from 'react';
+
+import { CodeCopyButton } from '@/components/code-copy-button';
+import { Badge } from '@/components/ui/aura/badge';
+import { Button } from '@/components/ui/aura/button';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/aura/card';
+import { Input } from '@/components/ui/aura/input';
+import { Label } from '@/components/ui/aura/label';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/aura/tabs';
 
 // Utility functions for color conversion
 function hslToHex(hsl: string): string {
-  const [h, s, l] = hsl.split(" ").map((val, idx) => {
+  const [h, s, l] = hsl.split(' ').map((val, idx) => {
     if (idx === 0) return Number.parseFloat(val); // hue
-    return Number.parseFloat(val.replace("%", "")) / 100; // saturation and lightness
+    return Number.parseFloat(val.replace('%', '')) / 100; // saturation and lightness
   });
 
   const c = (1 - Math.abs(2 * l - 1)) * s;
@@ -66,9 +67,9 @@ function hslToHex(hsl: string): string {
   g = Math.round((g + m) * 255);
   b = Math.round((b + m) * 255);
 
-  return `#${r.toString(16).padStart(2, "0")}${g
+  return `#${r.toString(16).padStart(2, '0')}${g
     .toString(16)
-    .padStart(2, "0")}${b.toString(16).padStart(2, "0")}`;
+    .padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
 }
 
 function hexToHsl(hex: string): string {
@@ -362,122 +363,122 @@ export function Example() {
 
 // Default theme values - comprehensive like tweakcn.com
 const defaultLightTheme = {
-  primary: "222.2 84% 4.9%",
-  primaryForeground: "210 40% 98%",
-  secondary: "210 40% 96%",
-  secondaryForeground: "222.2 84% 4.9%",
-  accent: "210 40% 96%",
-  accentForeground: "222.2 84% 4.9%",
-  background: "0 0% 100%",
-  foreground: "222.2 84% 4.9%",
-  card: "0 0% 100%",
-  cardForeground: "222.2 84% 4.9%",
-  popover: "0 0% 100%",
-  popoverForeground: "222.2 84% 4.9%",
-  muted: "210 40% 96%",
-  mutedForeground: "215.4 16.3% 46.9%",
-  destructive: "0 84.2% 60.2%",
-  destructiveForeground: "210 40% 98%",
-  border: "214.3 31.8% 91.4%",
-  input: "214.3 31.8% 91.4%",
-  ring: "222.2 84% 4.9%",
+  primary: '222.2 84% 4.9%',
+  primaryForeground: '210 40% 98%',
+  secondary: '210 40% 96%',
+  secondaryForeground: '222.2 84% 4.9%',
+  accent: '210 40% 96%',
+  accentForeground: '222.2 84% 4.9%',
+  background: '0 0% 100%',
+  foreground: '222.2 84% 4.9%',
+  card: '0 0% 100%',
+  cardForeground: '222.2 84% 4.9%',
+  popover: '0 0% 100%',
+  popoverForeground: '222.2 84% 4.9%',
+  muted: '210 40% 96%',
+  mutedForeground: '215.4 16.3% 46.9%',
+  destructive: '0 84.2% 60.2%',
+  destructiveForeground: '210 40% 98%',
+  border: '214.3 31.8% 91.4%',
+  input: '214.3 31.8% 91.4%',
+  ring: '222.2 84% 4.9%',
 };
 
 const defaultDarkTheme = {
-  primary: "210 40% 98%",
-  primaryForeground: "222.2 84% 4.9%",
-  secondary: "222.2 84% 11%",
-  secondaryForeground: "210 40% 98%",
-  accent: "222.2 84% 11%",
-  accentForeground: "210 40% 98%",
-  background: "222.2 84% 4.9%",
-  foreground: "210 40% 98%",
-  card: "222.2 84% 4.9%",
-  cardForeground: "210 40% 98%",
-  popover: "222.2 84% 4.9%",
-  popoverForeground: "210 40% 98%",
-  muted: "222.2 84% 11%",
-  mutedForeground: "215 20.2% 65.1%",
-  destructive: "0 62.8% 30.6%",
-  destructiveForeground: "210 40% 98%",
-  border: "217.2 32.6% 17.5%",
-  input: "217.2 32.6% 17.5%",
-  ring: "212.7 26.8% 83.9%",
+  primary: '210 40% 98%',
+  primaryForeground: '222.2 84% 4.9%',
+  secondary: '222.2 84% 11%',
+  secondaryForeground: '210 40% 98%',
+  accent: '222.2 84% 11%',
+  accentForeground: '210 40% 98%',
+  background: '222.2 84% 4.9%',
+  foreground: '210 40% 98%',
+  card: '222.2 84% 4.9%',
+  cardForeground: '210 40% 98%',
+  popover: '222.2 84% 4.9%',
+  popoverForeground: '210 40% 98%',
+  muted: '222.2 84% 11%',
+  mutedForeground: '215 20.2% 65.1%',
+  destructive: '0 62.8% 30.6%',
+  destructiveForeground: '210 40% 98%',
+  border: '217.2 32.6% 17.5%',
+  input: '217.2 32.6% 17.5%',
+  ring: '212.7 26.8% 83.9%',
 };
 
 // Color presets for quick selection - fun themed combinations
 const colorPresets = [
   {
-    name: "Nebula",
-    primary: "262 83% 58%", // Deep purple
-    primaryForeground: "210 40% 98%",
-    secondary: "200 100% 25%", // Dark teal
-    secondaryForeground: "210 40% 98%",
-    accent: "285 100% 75%", // Bright magenta
-    accentForeground: "222.2 84% 4.9%",
+    name: 'Nebula',
+    primary: '262 83% 58%', // Deep purple
+    primaryForeground: '210 40% 98%',
+    secondary: '200 100% 25%', // Dark teal
+    secondaryForeground: '210 40% 98%',
+    accent: '285 100% 75%', // Bright magenta
+    accentForeground: '222.2 84% 4.9%',
   },
   {
-    name: "Ocean breeze",
-    primary: "200 100% 50%", // Ocean blue
-    primaryForeground: "210 40% 98%",
-    secondary: "180 100% 85%", // Light cyan
-    secondaryForeground: "222.2 84% 4.9%",
-    accent: "220 100% 65%", // Sky blue
-    accentForeground: "210 40% 98%",
+    name: 'Ocean breeze',
+    primary: '200 100% 50%', // Ocean blue
+    primaryForeground: '210 40% 98%',
+    secondary: '180 100% 85%', // Light cyan
+    secondaryForeground: '222.2 84% 4.9%',
+    accent: '220 100% 65%', // Sky blue
+    accentForeground: '210 40% 98%',
   },
   {
-    name: "Sunset glow",
-    primary: "15 100% 60%", // Warm orange
-    primaryForeground: "210 40% 98%",
-    secondary: "45 100% 85%", // Light yellow
-    secondaryForeground: "222.2 84% 4.9%",
-    accent: "350 85% 65%", // Coral pink
-    accentForeground: "210 40% 98%",
+    name: 'Sunset glow',
+    primary: '15 100% 60%', // Warm orange
+    primaryForeground: '210 40% 98%',
+    secondary: '45 100% 85%', // Light yellow
+    secondaryForeground: '222.2 84% 4.9%',
+    accent: '350 85% 65%', // Coral pink
+    accentForeground: '210 40% 98%',
   },
   {
-    name: "Forest magic",
-    primary: "140 60% 40%", // Forest green
-    primaryForeground: "210 40% 98%",
-    secondary: "120 40% 80%", // Light sage
-    secondaryForeground: "222.2 84% 4.9%",
-    accent: "160 80% 60%", // Emerald
-    accentForeground: "210 40% 98%",
+    name: 'Forest magic',
+    primary: '140 60% 40%', // Forest green
+    primaryForeground: '210 40% 98%',
+    secondary: '120 40% 80%', // Light sage
+    secondaryForeground: '222.2 84% 4.9%',
+    accent: '160 80% 60%', // Emerald
+    accentForeground: '210 40% 98%',
   },
   {
-    name: "Royal crown",
-    primary: "240 100% 30%", // Royal blue
-    primaryForeground: "210 40% 98%",
-    secondary: "220 30% 90%", // Light blue-gray
-    secondaryForeground: "222.2 84% 4.9%",
-    accent: "280 100% 70%", // Royal purple
-    accentForeground: "210 40% 98%",
+    name: 'Royal crown',
+    primary: '240 100% 30%', // Royal blue
+    primaryForeground: '210 40% 98%',
+    secondary: '220 30% 90%', // Light blue-gray
+    secondaryForeground: '222.2 84% 4.9%',
+    accent: '280 100% 70%', // Royal purple
+    accentForeground: '210 40% 98%',
   },
   {
-    name: "Cherry blossom",
-    primary: "330 80% 60%", // Cherry pink
-    primaryForeground: "210 40% 98%",
-    secondary: "320 40% 90%", // Pale pink
-    secondaryForeground: "222.2 84% 4.9%",
-    accent: "340 100% 70%", // Hot pink
-    accentForeground: "210 40% 98%",
+    name: 'Cherry blossom',
+    primary: '330 80% 60%', // Cherry pink
+    primaryForeground: '210 40% 98%',
+    secondary: '320 40% 90%', // Pale pink
+    secondaryForeground: '222.2 84% 4.9%',
+    accent: '340 100% 70%', // Hot pink
+    accentForeground: '210 40% 98%',
   },
   {
-    name: "Midnight jazz",
-    primary: "220 30% 20%", // Dark blue-gray
-    primaryForeground: "210 40% 98%",
-    secondary: "200 20% 85%", // Light steel
-    secondaryForeground: "222.2 84% 4.9%",
-    accent: "45 100% 70%", // Jazz gold
-    accentForeground: "222.2 84% 4.9%",
+    name: 'Midnight jazz',
+    primary: '220 30% 20%', // Dark blue-gray
+    primaryForeground: '210 40% 98%',
+    secondary: '200 20% 85%', // Light steel
+    secondaryForeground: '222.2 84% 4.9%',
+    accent: '45 100% 70%', // Jazz gold
+    accentForeground: '222.2 84% 4.9%',
   },
   {
-    name: "Lavender fields",
-    primary: "270 50% 60%", // Soft purple
-    primaryForeground: "210 40% 98%",
-    secondary: "260 30% 90%", // Pale lavender
-    secondaryForeground: "222.2 84% 4.9%",
-    accent: "290 70% 70%", // Bright violet
-    accentForeground: "210 40% 98%",
+    name: 'Lavender fields',
+    primary: '270 50% 60%', // Soft purple
+    primaryForeground: '210 40% 98%',
+    secondary: '260 30% 90%', // Pale lavender
+    secondaryForeground: '222.2 84% 4.9%',
+    accent: '290 70% 70%', // Bright violet
+    accentForeground: '210 40% 98%',
   },
 ];
 
@@ -510,11 +511,11 @@ export default function ThemingPage() {
   // Force re-render when theme changes
   useEffect(() => {
     // Force a reflow to ensure CSS variables are applied
-    const preview = document.querySelector(".theme-preview") as HTMLElement | null;
+    const preview = document.querySelector('.theme-preview') as HTMLElement | null;
     if (preview) {
-      preview.style.opacity = "0.999";
+      preview.style.opacity = '0.999';
       setTimeout(() => {
-        preview.style.opacity = "1";
+        preview.style.opacity = '1';
       }, 1);
     }
   }, []);
@@ -529,17 +530,17 @@ export default function ThemingPage() {
       setTheme((currentTheme) => ({
         ...currentTheme,
         // Only update system colors, preserve user's primary/secondary/accent
-        background: isDark ? "222.2 84% 4.9%" : "0 0% 100%",
-        foreground: isDark ? "210 40% 98%" : "222.2 84% 4.9%",
-        card: isDark ? "222.2 84% 4.9%" : "0 0% 100%",
-        cardForeground: isDark ? "210 40% 98%" : "222.2 84% 4.9%",
-        popover: isDark ? "222.2 84% 4.9%" : "0 0% 100%",
-        popoverForeground: isDark ? "210 40% 98%" : "222.2 84% 4.9%",
-        muted: isDark ? "222.2 84% 11%" : "210 40% 96%",
-        mutedForeground: isDark ? "215 20.2% 65.1%" : "215.4 16.3% 46.9%",
-        border: isDark ? "217.2 32.6% 17.5%" : "214.3 31.8% 91.4%",
-        input: isDark ? "217.2 32.6% 17.5%" : "214.3 31.8% 91.4%",
-        ring: isDark ? "212.7 26.8% 83.9%" : currentTheme.primary,
+        background: isDark ? '222.2 84% 4.9%' : '0 0% 100%',
+        foreground: isDark ? '210 40% 98%' : '222.2 84% 4.9%',
+        card: isDark ? '222.2 84% 4.9%' : '0 0% 100%',
+        cardForeground: isDark ? '210 40% 98%' : '222.2 84% 4.9%',
+        popover: isDark ? '222.2 84% 4.9%' : '0 0% 100%',
+        popoverForeground: isDark ? '210 40% 98%' : '222.2 84% 4.9%',
+        muted: isDark ? '222.2 84% 11%' : '210 40% 96%',
+        mutedForeground: isDark ? '215 20.2% 65.1%' : '215.4 16.3% 46.9%',
+        border: isDark ? '217.2 32.6% 17.5%' : '214.3 31.8% 91.4%',
+        input: isDark ? '217.2 32.6% 17.5%' : '214.3 31.8% 91.4%',
+        ring: isDark ? '212.7 26.8% 83.9%' : currentTheme.primary,
       }));
     });
   }, [isDark]);
@@ -547,8 +548,8 @@ export default function ThemingPage() {
   // Inject CSS custom properties for live preview
   useEffect(() => {
     const style =
-      document.getElementById("theme-preview-styles") || document.createElement("style");
-    style.id = "theme-preview-styles";
+      document.getElementById('theme-preview-styles') || document.createElement('style');
+    style.id = 'theme-preview-styles';
 
     const cssVariables = `
       .theme-preview {
@@ -745,13 +746,13 @@ export default function ThemingPage() {
 
     style.textContent = cssVariables;
 
-    if (!document.getElementById("theme-preview-styles")) {
+    if (!document.getElementById('theme-preview-styles')) {
       document.head.appendChild(style);
     }
 
     return () => {
       // Cleanup on unmount
-      const existingStyle = document.getElementById("theme-preview-styles");
+      const existingStyle = document.getElementById('theme-preview-styles');
       if (existingStyle) {
         existingStyle.remove();
       }
@@ -796,7 +797,7 @@ export default function ThemingPage() {
                     <Label>Theme Mode</Label>
                     <div className="flex gap-2">
                       <Button
-                        variant={!isDark ? "default" : "outline"}
+                        variant={!isDark ? 'default' : 'outline'}
                         size="sm"
                         onClick={() => setIsDark(false)}
                         className="flex-1"
@@ -805,7 +806,7 @@ export default function ThemingPage() {
                         Light
                       </Button>
                       <Button
-                        variant={isDark ? "default" : "outline"}
+                        variant={isDark ? 'default' : 'outline'}
                         size="sm"
                         onClick={() => setIsDark(true)}
                         className="flex-1"
@@ -1494,25 +1495,25 @@ export default function ThemingPage() {
                       className="theme-preview p-6 rounded-lg"
                       style={
                         {
-                          "--primary": theme.primary,
-                          "--primary-foreground": theme.primaryForeground,
-                          "--secondary": theme.secondary,
-                          "--secondary-foreground": theme.secondaryForeground,
-                          "--accent": theme.accent,
-                          "--accent-foreground": theme.accentForeground,
-                          "--background": theme.background,
-                          "--foreground": theme.foreground,
-                          "--card": theme.card,
-                          "--card-foreground": theme.cardForeground,
-                          "--popover": theme.popover,
-                          "--popover-foreground": theme.popoverForeground,
-                          "--muted": theme.muted,
-                          "--muted-foreground": theme.mutedForeground,
-                          "--destructive": theme.destructive,
-                          "--destructive-foreground": theme.destructiveForeground,
-                          "--border": theme.border,
-                          "--input": theme.input,
-                          "--ring": theme.ring,
+                          '--primary': theme.primary,
+                          '--primary-foreground': theme.primaryForeground,
+                          '--secondary': theme.secondary,
+                          '--secondary-foreground': theme.secondaryForeground,
+                          '--accent': theme.accent,
+                          '--accent-foreground': theme.accentForeground,
+                          '--background': theme.background,
+                          '--foreground': theme.foreground,
+                          '--card': theme.card,
+                          '--card-foreground': theme.cardForeground,
+                          '--popover': theme.popover,
+                          '--popover-foreground': theme.popoverForeground,
+                          '--muted': theme.muted,
+                          '--muted-foreground': theme.mutedForeground,
+                          '--destructive': theme.destructive,
+                          '--destructive-foreground': theme.destructiveForeground,
+                          '--border': theme.border,
+                          '--input': theme.input,
+                          '--ring': theme.ring,
                           backgroundColor: `hsl(${theme.background})`,
                           color: `hsl(${theme.foreground})`,
                         } as React.CSSProperties
@@ -1795,25 +1796,25 @@ export default function ThemingPage() {
                       className="theme-preview p-6 rounded-lg"
                       style={
                         {
-                          "--primary": theme.primary,
-                          "--primary-foreground": theme.primaryForeground,
-                          "--secondary": theme.secondary,
-                          "--secondary-foreground": theme.secondaryForeground,
-                          "--accent": theme.accent,
-                          "--accent-foreground": theme.accentForeground,
-                          "--background": theme.background,
-                          "--foreground": theme.foreground,
-                          "--card": theme.card,
-                          "--card-foreground": theme.cardForeground,
-                          "--popover": theme.popover,
-                          "--popover-foreground": theme.popoverForeground,
-                          "--muted": theme.muted,
-                          "--muted-foreground": theme.mutedForeground,
-                          "--destructive": theme.destructive,
-                          "--destructive-foreground": theme.destructiveForeground,
-                          "--border": theme.border,
-                          "--input": theme.input,
-                          "--ring": theme.ring,
+                          '--primary': theme.primary,
+                          '--primary-foreground': theme.primaryForeground,
+                          '--secondary': theme.secondary,
+                          '--secondary-foreground': theme.secondaryForeground,
+                          '--accent': theme.accent,
+                          '--accent-foreground': theme.accentForeground,
+                          '--background': theme.background,
+                          '--foreground': theme.foreground,
+                          '--card': theme.card,
+                          '--card-foreground': theme.cardForeground,
+                          '--popover': theme.popover,
+                          '--popover-foreground': theme.popoverForeground,
+                          '--muted': theme.muted,
+                          '--muted-foreground': theme.mutedForeground,
+                          '--destructive': theme.destructive,
+                          '--destructive-foreground': theme.destructiveForeground,
+                          '--border': theme.border,
+                          '--input': theme.input,
+                          '--ring': theme.ring,
                           backgroundColor: `hsl(${theme.background})`,
                           color: `hsl(${theme.foreground})`,
                         } as React.CSSProperties
@@ -1883,25 +1884,25 @@ export default function ThemingPage() {
                       className="theme-preview p-6 rounded-lg"
                       style={
                         {
-                          "--primary": theme.primary,
-                          "--primary-foreground": theme.primaryForeground,
-                          "--secondary": theme.secondary,
-                          "--secondary-foreground": theme.secondaryForeground,
-                          "--accent": theme.accent,
-                          "--accent-foreground": theme.accentForeground,
-                          "--background": theme.background,
-                          "--foreground": theme.foreground,
-                          "--card": theme.card,
-                          "--card-foreground": theme.cardForeground,
-                          "--popover": theme.popover,
-                          "--popover-foreground": theme.popoverForeground,
-                          "--muted": theme.muted,
-                          "--muted-foreground": theme.mutedForeground,
-                          "--destructive": theme.destructive,
-                          "--destructive-foreground": theme.destructiveForeground,
-                          "--border": theme.border,
-                          "--input": theme.input,
-                          "--ring": theme.ring,
+                          '--primary': theme.primary,
+                          '--primary-foreground': theme.primaryForeground,
+                          '--secondary': theme.secondary,
+                          '--secondary-foreground': theme.secondaryForeground,
+                          '--accent': theme.accent,
+                          '--accent-foreground': theme.accentForeground,
+                          '--background': theme.background,
+                          '--foreground': theme.foreground,
+                          '--card': theme.card,
+                          '--card-foreground': theme.cardForeground,
+                          '--popover': theme.popover,
+                          '--popover-foreground': theme.popoverForeground,
+                          '--muted': theme.muted,
+                          '--muted-foreground': theme.mutedForeground,
+                          '--destructive': theme.destructive,
+                          '--destructive-foreground': theme.destructiveForeground,
+                          '--border': theme.border,
+                          '--input': theme.input,
+                          '--ring': theme.ring,
                           backgroundColor: `hsl(${theme.background})`,
                           color: `hsl(${theme.foreground})`,
                         } as React.CSSProperties
@@ -1980,25 +1981,25 @@ export default function ThemingPage() {
                       className="theme-preview p-6 rounded-lg"
                       style={
                         {
-                          "--primary": theme.primary,
-                          "--primary-foreground": theme.primaryForeground,
-                          "--secondary": theme.secondary,
-                          "--secondary-foreground": theme.secondaryForeground,
-                          "--accent": theme.accent,
-                          "--accent-foreground": theme.accentForeground,
-                          "--background": theme.background,
-                          "--foreground": theme.foreground,
-                          "--card": theme.card,
-                          "--card-foreground": theme.cardForeground,
-                          "--popover": theme.popover,
-                          "--popover-foreground": theme.popoverForeground,
-                          "--muted": theme.muted,
-                          "--muted-foreground": theme.mutedForeground,
-                          "--destructive": theme.destructive,
-                          "--destructive-foreground": theme.destructiveForeground,
-                          "--border": theme.border,
-                          "--input": theme.input,
-                          "--ring": theme.ring,
+                          '--primary': theme.primary,
+                          '--primary-foreground': theme.primaryForeground,
+                          '--secondary': theme.secondary,
+                          '--secondary-foreground': theme.secondaryForeground,
+                          '--accent': theme.accent,
+                          '--accent-foreground': theme.accentForeground,
+                          '--background': theme.background,
+                          '--foreground': theme.foreground,
+                          '--card': theme.card,
+                          '--card-foreground': theme.cardForeground,
+                          '--popover': theme.popover,
+                          '--popover-foreground': theme.popoverForeground,
+                          '--muted': theme.muted,
+                          '--muted-foreground': theme.mutedForeground,
+                          '--destructive': theme.destructive,
+                          '--destructive-foreground': theme.destructiveForeground,
+                          '--border': theme.border,
+                          '--input': theme.input,
+                          '--ring': theme.ring,
                           backgroundColor: `hsl(${theme.background})`,
                           color: `hsl(${theme.foreground})`,
                         } as React.CSSProperties

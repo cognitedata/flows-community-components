@@ -1,73 +1,74 @@
-import figmaIcon from "@/assets/figma-logo.svg";
-import storybookIcon from "@/assets/icon-storybook-default.svg";
-import { InstallationCommand } from "@/components/installation-command";
-import { StoriesRenderer } from "@/components/stories-renderer";
-import { Badge } from "@/components/ui/aura/badge";
-import { Button } from "@/components/ui/aura/button";
-import { type AIComponentMeta, getAIComponentMeta } from "@/lib/ai-component-registry";
+import { IconArrowLeft } from '@tabler/icons-react';
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+
+import figmaIcon from '@/assets/figma-logo.svg';
+import storybookIcon from '@/assets/icon-storybook-default.svg';
+import { InstallationCommand } from '@/components/installation-command';
+import { StoriesRenderer } from '@/components/stories-renderer';
+import { Badge } from '@/components/ui/aura/badge';
+import { Button } from '@/components/ui/aura/button';
+import { type AIComponentMeta, getAIComponentMeta } from '@/lib/ai-component-registry';
 import {
   type ComponentStatusType,
   getComponentStatusClasses,
   getStatusLabel,
   getStatusMessage,
-} from "@/lib/component-status";
-import { IconArrowLeft } from "@tabler/icons-react";
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+} from '@/lib/component-status';
 
 const AI_FIGMA_URL =
-  "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=4383-36632&p=f&t=hvBYNAqgOvQH1REf-0";
+  'https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=4383-36632&p=f&t=hvBYNAqgOvQH1REf-0';
 
 function toStorybookSlug(name: string): string {
   return name
     .toLowerCase()
-    .replace(/\s*\(.*?\)\s*/g, " ")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
+    .replace(/\s*\(.*?\)\s*/g, ' ')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
 }
 
 const externalIconClass =
-  "size-6 grayscale opacity-70 mix-blend-multiply transition-all duration-150 group-hover:grayscale-0 group-hover:opacity-100 group-hover:mix-blend-normal";
+  'size-6 grayscale opacity-70 mix-blend-multiply transition-all duration-150 group-hover:grayscale-0 group-hover:opacity-100 group-hover:mix-blend-normal';
 
 // List of valid AI component slugs
 const validSlugs = [
-  "actions",
-  "artifact",
-  "branch",
-  "canvas",
-  "chain-of-thought",
-  "code-block",
-  "confirmation",
-  "connection",
-  "context",
-  "controls",
-  "conversation",
-  "edge",
-  "image",
-  "inline-citation",
-  "loader",
-  "message",
-  "node",
-  "open-in-chat",
-  "panel",
-  "plan",
-  "prompt-input",
-  "queue",
-  "reasoning",
-  "response",
-  "shimmer",
-  "sources",
-  "suggestion",
-  "task",
-  "tool",
-  "toolbar",
+  'actions',
+  'artifact',
+  'branch',
+  'canvas',
+  'chain-of-thought',
+  'code-block',
+  'confirmation',
+  'connection',
+  'context',
+  'controls',
+  'conversation',
+  'edge',
+  'image',
+  'inline-citation',
+  'loader',
+  'message',
+  'node',
+  'open-in-chat',
+  'panel',
+  'plan',
+  'prompt-input',
+  'queue',
+  'reasoning',
+  'response',
+  'shimmer',
+  'sources',
+  'suggestion',
+  'task',
+  'tool',
+  'toolbar',
 ];
 
 function toTitleCase(str: string): string {
   return str
-    .split("-")
+    .split('-')
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
+    .join(' ');
 }
 
 export default function AIComponentPage() {
@@ -110,7 +111,7 @@ export default function AIComponentPage() {
       <div className="max-w-4xl mx-auto py-10">
         <div className="space-y-4">
           <h1 className="text-2xl font-bold">Component not found</h1>
-          <Button variant="secondary" size="sm" onClick={() => navigate("/ai")}>
+          <Button variant="secondary" size="sm" onClick={() => navigate('/ai')}>
             <IconArrowLeft className="h-4 w-4 mr-2" />
             Back to AI Elements
           </Button>
@@ -131,12 +132,12 @@ export default function AIComponentPage() {
   }
 
   const componentName = meta?.name || toTitleCase(slug);
-  const componentStatus: ComponentStatusType = meta?.status || "draft";
+  const componentStatus: ComponentStatusType = meta?.status || 'draft';
   const statusClasses = getComponentStatusClasses(componentStatus);
   const statusLabel = getStatusLabel(componentStatus);
   const statusMessage = getStatusMessage(componentStatus);
   const description =
-    meta?.description || "AI element component for building conversational interfaces";
+    meta?.description || 'AI element component for building conversational interfaces';
   const storybookUrl = `https://cognitedata.github.io/aura/storybook/?path=/docs/ai-${toStorybookSlug(componentName)}--docs`;
 
   return (
@@ -144,7 +145,7 @@ export default function AIComponentPage() {
       <div className="space-y-8">
         {/* Navigation */}
         <div className="flex items-center gap-4">
-          <Button variant="secondary" size="sm" onClick={() => navigate("/ai")}>
+          <Button variant="secondary" size="sm" onClick={() => navigate('/ai')}>
             <IconArrowLeft className="h-4 w-4 mr-2" />
             Back to AI Elements
           </Button>
@@ -186,7 +187,7 @@ export default function AIComponentPage() {
             </div>
           </div>
           <p className="text-lg text-muted-foreground">{description}</p>
-          {componentStatus !== "stable" && componentStatus !== "ready-for-ga" && (
+          {componentStatus !== 'stable' && componentStatus !== 'ready-for-ga' && (
             <div className={`p-4 rounded-lg border ${statusClasses}`}>
               <p className="text-sm">
                 <strong>Note:</strong> {statusMessage}

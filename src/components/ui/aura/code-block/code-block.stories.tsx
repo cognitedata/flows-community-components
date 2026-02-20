@@ -1,58 +1,59 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, within } from "@storybook/test";
-import { CodeBlock, CodeBlockCollapseButton, CodeBlockCopyButton } from "./code-block";
+import type { Meta, StoryObj } from '@storybook/react';
+import { expect, within } from '@storybook/test';
+
+import { CodeBlock, CodeBlockCollapseButton, CodeBlockCopyButton } from './code-block';
 
 const meta: Meta<typeof CodeBlock> = {
-  title: "AI/Code Block",
+  title: 'AI/Code Block',
   component: CodeBlock,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     code: {
-      control: "text",
-      description: "The code to display",
+      control: 'text',
+      description: 'The code to display',
       table: {
-        category: "Content",
-        type: { summary: "string" },
+        category: 'Content',
+        type: { summary: 'string' },
       },
     },
     language: {
-      control: "select",
-      options: ["typescript", "javascript", "python", "json", "css", "html", "bash", "markdown"],
-      description: "Programming language for syntax highlighting",
+      control: 'select',
+      options: ['typescript', 'javascript', 'python', 'json', 'css', 'html', 'bash', 'markdown'],
+      description: 'Programming language for syntax highlighting',
       table: {
-        category: "Variants/Styling",
-        type: { summary: "BundledLanguage" },
+        category: 'Variants/Styling',
+        type: { summary: 'BundledLanguage' },
       },
     },
     showLineNumbers: {
-      control: "boolean",
-      description: "Show line numbers",
+      control: 'boolean',
+      description: 'Show line numbers',
       table: {
-        category: "Variants/Styling",
-        type: { summary: "boolean" },
-        defaultValue: { summary: "false" },
+        category: 'Variants/Styling',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
       },
     },
     collapsed: {
-      control: "boolean",
-      description: "Start in collapsed state",
+      control: 'boolean',
+      description: 'Start in collapsed state',
       table: {
-        category: "Behavior",
-        type: { summary: "boolean" },
-        defaultValue: { summary: "false" },
+        category: 'Behavior',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
       },
     },
     copyText: {
-      control: "text",
-      description: "Custom text to copy (defaults to code)",
+      control: 'text',
+      description: 'Custom text to copy (defaults to code)',
       table: {
-        category: "Behavior",
-        type: { summary: "string" },
+        category: 'Behavior',
+        type: { summary: 'string' },
       },
     },
   },
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
   decorators: [
     (Story) => (
@@ -137,7 +138,7 @@ export const Basic: Story = {
     order: 1,
     docs: {
       description: {
-        story: "Default code block with TypeScript syntax highlighting and copy button.",
+        story: 'Default code block with TypeScript syntax highlighting and copy button.',
       },
     },
   },
@@ -145,7 +146,7 @@ export const Basic: Story = {
     const canvas = within(canvasElement);
     const codeBlock = canvasElement.querySelector('[data-slot="code-block"]');
     await expect(codeBlock).toBeInTheDocument();
-    const buttons = await canvas.findAllByRole("button", { hidden: true });
+    const buttons = await canvas.findAllByRole('button', { hidden: true });
     await expect(buttons.length).toBeGreaterThanOrEqual(1);
   },
 };
@@ -160,7 +161,7 @@ export const WithLineNumbers: Story = {
     order: 2,
     docs: {
       description: {
-        story: "Code block with line numbers displayed.",
+        story: 'Code block with line numbers displayed.',
       },
     },
   },
@@ -181,13 +182,13 @@ export const Collapsible: Story = {
     order: 3,
     docs: {
       description: {
-        story: "Code block that starts collapsed and can be expanded.",
+        story: 'Code block that starts collapsed and can be expanded.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const buttons = await canvas.findAllByRole("button", { hidden: true });
+    const buttons = await canvas.findAllByRole('button', { hidden: true });
     await expect(buttons.length).toBeGreaterThanOrEqual(1);
   },
 };
@@ -202,7 +203,7 @@ export const JavaScript: Story = {
     order: 4,
     docs: {
       description: {
-        story: "JavaScript code with syntax highlighting.",
+        story: 'JavaScript code with syntax highlighting.',
       },
     },
   },
@@ -218,7 +219,7 @@ export const Python: Story = {
     order: 5,
     docs: {
       description: {
-        story: "Python code with syntax highlighting.",
+        story: 'Python code with syntax highlighting.',
       },
     },
   },
@@ -234,7 +235,7 @@ export const JSONExample: Story = {
     order: 6,
     docs: {
       description: {
-        story: "JSON code with syntax highlighting.",
+        story: 'JSON code with syntax highlighting.',
       },
     },
   },
@@ -250,7 +251,7 @@ export const Bash: Story = {
     order: 7,
     docs: {
       description: {
-        story: "Bash/Shell script with syntax highlighting.",
+        story: 'Bash/Shell script with syntax highlighting.',
       },
     },
   },
@@ -266,7 +267,7 @@ export const ShortSnippet: Story = {
     order: 8,
     docs: {
       description: {
-        story: "Short single-line code snippet.",
+        story: 'Short single-line code snippet.',
       },
     },
   },
@@ -292,7 +293,7 @@ const configurationObject = { apiEndpoint: "https://api.example.com/v1/users/pro
     order: 9,
     docs: {
       description: {
-        story: "Code block with long lines that require horizontal scrolling.",
+        story: 'Code block with long lines that require horizontal scrolling.',
       },
     },
   },
@@ -304,7 +305,7 @@ export const WithoutCopyButton: Story = {
     order: 10,
     docs: {
       description: {
-        story: "Code block without the copy button.",
+        story: 'Code block without the copy button.',
       },
     },
   },
@@ -324,7 +325,7 @@ export const CustomCopyText: Story = {
     order: 11,
     docs: {
       description: {
-        story: "Code block with custom copy text.",
+        story: 'Code block with custom copy text.',
       },
     },
   },
@@ -341,7 +342,7 @@ export const CollapsedWithLineNumbers: Story = {
     order: 12,
     docs: {
       description: {
-        story: "Collapsed code block with line numbers enabled.",
+        story: 'Collapsed code block with line numbers enabled.',
       },
     },
   },
@@ -357,7 +358,7 @@ export const EmptyCode: Story = {
     order: 13,
     docs: {
       description: {
-        story: "Code block with an empty code string.",
+        story: 'Code block with an empty code string.',
       },
     },
   },
@@ -374,13 +375,13 @@ export const SingleLineWithCollapseButton: Story = {
     order: 14,
     docs: {
       description: {
-        story: "Single-line code verifies the collapse button is automatically hidden.",
+        story: 'Single-line code verifies the collapse button is automatically hidden.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const buttons = await canvas.findAllByRole("button", { hidden: true });
+    const buttons = await canvas.findAllByRole('button', { hidden: true });
     await expect(buttons).toHaveLength(1);
   },
 };
@@ -425,7 +426,7 @@ const c = a + b;`}
     order: 15,
     docs: {
       description: {
-        story: "Visual overview for regression testing.",
+        story: 'Visual overview for regression testing.',
       },
     },
     chromatic: {
@@ -444,7 +445,7 @@ const c = a + b;`}
 export const Playground: Story = {
   args: {
     code: sampleCode.typescript,
-    language: "typescript",
+    language: 'typescript',
     showLineNumbers: false,
     collapsed: false,
   },
@@ -458,7 +459,7 @@ export const Playground: Story = {
     order: 99,
     docs: {
       description: {
-        story: "Interactive playground - use controls to experiment with code block props.",
+        story: 'Interactive playground - use controls to experiment with code block props.',
       },
     },
   },

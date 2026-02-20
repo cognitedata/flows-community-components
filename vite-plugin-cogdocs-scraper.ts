@@ -8,7 +8,7 @@
  * 4. Generates a virtual module with all content (no files saved to disk)
  */
 
-import type { Plugin } from "vite";
+import type { Plugin } from 'vite';
 
 interface CogDocsEntryBase {
   title: string;
@@ -41,7 +41,7 @@ async function fetchContent(url: string): Promise<string> {
  */
 function parseLlmsTxt(content: string): CogDocsEntryBase[] {
   const entries: CogDocsEntryBase[] = [];
-  const lines = content.split("\n");
+  const lines = content.split('\n');
 
   for (const line of lines) {
     // Match markdown list items with links: - [Title](URL)
@@ -50,7 +50,7 @@ function parseLlmsTxt(content: string): CogDocsEntryBase[] {
       const [, title, url] = match;
       // Extract slug from URL (e.g., /cogdocs/cogdocs-style-guide.md -> cogdocs-style-guide)
       const urlMatch = url.match(/([^/]+)\.md$/);
-      const slug = urlMatch ? urlMatch[1] : title.toLowerCase().replace(/\s+/g, "-");
+      const slug = urlMatch ? urlMatch[1] : title.toLowerCase().replace(/\s+/g, '-');
       entries.push({ title, url, slug });
     }
   }
@@ -62,7 +62,7 @@ function parseLlmsTxt(content: string): CogDocsEntryBase[] {
  * Scrapes all CogDocs pages and fetches their content
  */
 async function scrapeCogDocsPages(
-  llmsTxtUrl = "https://cogdocs.mintlify.app/llms.txt"
+  llmsTxtUrl = 'https://cogdocs.mintlify.app/llms.txt'
 ): Promise<CogDocsEntry[]> {
   console.log(`[cogdocs-scraper] Fetching llms.txt from ${llmsTxtUrl}...`);
   const llmsTxtContent = await fetchContent(llmsTxtUrl);
@@ -97,7 +97,7 @@ async function scrapeCogDocsPages(
  */
 function toValidIdentifier(slug: string): string {
   // Replace hyphens and other invalid characters with underscores
-  let identifier = slug.replace(/[^a-zA-Z0-9_$]/g, "_");
+  let identifier = slug.replace(/[^a-zA-Z0-9_$]/g, '_');
 
   // Ensure it doesn't start with a number
   if (/^\d/.test(identifier)) {
@@ -106,7 +106,7 @@ function toValidIdentifier(slug: string): string {
 
   // Ensure it's not empty
   if (!identifier) {
-    identifier = "_empty";
+    identifier = '_empty';
   }
 
   return identifier;
@@ -141,10 +141,10 @@ function generateVirtualModule(pages: CogDocsEntry[]): string {
     );
   }
 
-  return `${exports.join("\n")}
+  return `${exports.join('\n')}
 
 export const cogdocsPages = [
-${entries.join(",\n")}
+${entries.join(',\n')}
 ];
 `;
 }
@@ -171,17 +171,17 @@ export interface CogDocsScraperOptions {
 
 export function cogDocsScraperPlugin(options: CogDocsScraperOptions = {}): Plugin {
   const {
-    llmsTxtUrl = "https://cogdocs.mintlify.app/llms.txt",
+    llmsTxtUrl = 'https://cogdocs.mintlify.app/llms.txt',
     runOnDev = true,
     runOnBuild = true,
   } = options;
 
   let hasRun = false;
-  let virtualModuleContent = "";
+  let virtualModuleContent = '';
 
   const runScrape = async () => {
     try {
-      console.log("[cogdocs-scraper] Starting scrape...");
+      console.log('[cogdocs-scraper] Starting scrape...');
       const pages = await scrapeCogDocsPages(llmsTxtUrl);
 
       if (pages.length > 0) {
@@ -189,30 +189,30 @@ export function cogDocsScraperPlugin(options: CogDocsScraperOptions = {}): Plugi
         console.log(`[cogdocs-scraper] Generated virtual module with ${pages.length} pages`);
       }
     } catch (error) {
-      console.error("[cogdocs-scraper] Error during scrape:", error);
+      console.error('[cogdocs-scraper] Error during scrape:', error);
     }
   };
 
   return {
-    name: "cogdocs-scraper",
-    enforce: "pre",
+    name: 'cogdocs-scraper',
+    enforce: 'pre',
     async buildStart() {
       if (!runOnBuild || hasRun) return;
       hasRun = true;
       await runScrape();
     },
     resolveId(id) {
-      if (id === "virtual:cogdocs") {
-        return "\0virtual:cogdocs";
+      if (id === 'virtual:cogdocs') {
+        return '\0virtual:cogdocs';
       }
       return null;
     },
     load(id) {
       // Handle virtual module
-      if (id === "\0virtual:cogdocs") {
+      if (id === '\0virtual:cogdocs') {
         // If we haven't scraped yet, return empty module
         if (!virtualModuleContent) {
-          return "export const cogdocsPages = [];";
+          return 'export const cogdocsPages = [];';
         }
         return virtualModuleContent;
       }
@@ -229,7 +229,7 @@ export function cogDocsScraperPlugin(options: CogDocsScraperOptions = {}): Plugi
 
         // Run scrape in background
         runScrape().catch((error) => {
-          console.error("[cogdocs-scraper] Error during scrape:", error);
+          console.error('[cogdocs-scraper] Error during scrape:', error);
         });
 
         next();

@@ -1,12 +1,13 @@
-import { Button } from "@/components/ui/aura/button";
+import { IconCheck, IconCopy } from '@tabler/icons-react';
+import { useState } from 'react';
+
+import { Button } from '@/components/ui/aura/button';
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/aura/tooltip";
-import { IconCheck, IconCopy } from "@tabler/icons-react";
-import { useState } from "react";
+} from '@/components/ui/aura/tooltip';
 
 interface MarkdownCopyBlockProps {
   content: string;
@@ -21,7 +22,7 @@ export function MarkdownCopyBlock({ content }: MarkdownCopyBlockProps) {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
-      console.error("Failed to copy text: ", err);
+      console.error('Failed to copy text: ', err);
     }
   };
 
@@ -48,7 +49,7 @@ export function MarkdownCopyBlock({ content }: MarkdownCopyBlockProps) {
                 }
               />
               <TooltipContent>
-                <p>{copied ? "Copied to clipboard" : "Click to copy"}</p>
+                <p>{copied ? 'Copied to clipboard' : 'Click to copy'}</p>
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>

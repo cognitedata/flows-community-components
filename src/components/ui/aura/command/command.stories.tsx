@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, screen, userEvent, waitFor, within } from "@storybook/test";
+import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
 import {
   IconCalculator,
   IconCalendar,
@@ -8,10 +8,9 @@ import {
   IconSettings,
   IconSparkles,
   IconUser,
-} from "@tabler/icons-react";
-import { useState } from "react";
+} from '@tabler/icons-react';
+import { useState } from 'react';
 
-import { Button } from "@/components/ui/aura/button";
 import {
   Command,
   CommandDialog,
@@ -22,23 +21,25 @@ import {
   CommandList,
   CommandSeparator,
   CommandShortcut,
-} from "./command";
+} from './command';
+
+import { Button } from '@/components/ui/aura/button';
 
 const meta: Meta<typeof Command> = {
-  title: "Primitives/Command",
+  title: 'Primitives/Command',
   component: Command,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     className: {
-      control: "text",
-      description: "Additional CSS classes",
+      control: 'text',
+      description: 'Additional CSS classes',
       table: {
-        category: "Advanced",
+        category: 'Advanced',
       },
     },
   },
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
 };
 
@@ -50,7 +51,7 @@ export const Basic: Story = {
     order: 1,
     docs: {
       description: {
-        story: "Default command palette with grouped items and shortcuts.",
+        story: 'Default command palette with grouped items and shortcuts.',
       },
     },
   },
@@ -96,11 +97,11 @@ export const Basic: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const input = canvas.getByPlaceholderText("Type a command or search...");
+    const input = canvas.getByPlaceholderText('Type a command or search...');
     await expect(input).toBeInTheDocument();
-    await userEvent.type(input, "cal");
+    await userEvent.type(input, 'cal');
     await waitFor(() => {
-      expect(canvas.getByText("Calendar")).toBeInTheDocument();
+      expect(canvas.getByText('Calendar')).toBeInTheDocument();
     });
   },
 };
@@ -110,7 +111,7 @@ export const Dialog: Story = {
     order: 2,
     docs: {
       description: {
-        story: "Command palette rendered inside a dialog.",
+        story: 'Command palette rendered inside a dialog.',
       },
     },
   },
@@ -150,7 +151,7 @@ export const Dialog: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const trigger = canvas.getByRole("button", { name: /open command palette/i });
+    const trigger = canvas.getByRole('button', { name: /open command palette/i });
     await userEvent.click(trigger);
 
     await waitFor(() => {
@@ -159,12 +160,12 @@ export const Dialog: Story = {
     });
 
     const dialog = document.querySelector('[data-slot="command-dialog"]');
-    const input = within(dialog as HTMLElement).getByPlaceholderText("Type a command or search...");
+    const input = within(dialog as HTMLElement).getByPlaceholderText('Type a command or search...');
     await expect(input).toBeInTheDocument();
-    const calendarItem = within(dialog as HTMLElement).getByRole("option", { name: /calendar/i });
+    const calendarItem = within(dialog as HTMLElement).getByRole('option', { name: /calendar/i });
     await userEvent.click(calendarItem);
     await waitFor(() => {
-      expect(canvas.queryByTestId("command-dialog-content")).not.toBeInTheDocument();
+      expect(canvas.queryByTestId('command-dialog-content')).not.toBeInTheDocument();
     });
   },
 };
@@ -174,7 +175,7 @@ export const Filtering: Story = {
     order: 3,
     docs: {
       description: {
-        story: "Filtering behavior while typing in the input.",
+        story: 'Filtering behavior while typing in the input.',
       },
     },
   },
@@ -196,10 +197,10 @@ export const Filtering: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const input = canvas.getByPlaceholderText("Search actions...");
-    await userEvent.type(input, "settings");
+    const input = canvas.getByPlaceholderText('Search actions...');
+    await userEvent.type(input, 'settings');
     await waitFor(() => {
-      expect(canvas.getByText("Open settings")).toBeInTheDocument();
+      expect(canvas.getByText('Open settings')).toBeInTheDocument();
     });
   },
 };
@@ -209,7 +210,7 @@ export const DisabledItems: Story = {
     order: 4,
     docs: {
       description: {
-        story: "List with enabled and disabled command items.",
+        story: 'List with enabled and disabled command items.',
       },
     },
   },
@@ -241,10 +242,10 @@ export const DisabledItems: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText("View Profile")).toBeInTheDocument();
-    await expect(canvas.getByText("Settings")).toBeInTheDocument();
-    await expect(canvas.getByText("Send Email (disabled)")).toBeInTheDocument();
-    await expect(canvas.getByText("Calculator (disabled)")).toBeInTheDocument();
+    await expect(canvas.getByText('View Profile')).toBeInTheDocument();
+    await expect(canvas.getByText('Settings')).toBeInTheDocument();
+    await expect(canvas.getByText('Send Email (disabled)')).toBeInTheDocument();
+    await expect(canvas.getByText('Calculator (disabled)')).toBeInTheDocument();
   },
 };
 
@@ -253,7 +254,7 @@ export const MultipleGroups: Story = {
     order: 5,
     docs: {
       description: {
-        story: "Multiple grouped sections with separators.",
+        story: 'Multiple grouped sections with separators.',
       },
     },
   },
@@ -296,9 +297,9 @@ export const MultipleGroups: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText("Recently Used")).toBeInTheDocument();
-    await expect(canvas.getByText("Applications")).toBeInTheDocument();
-    await expect(canvas.getByText("Help")).toBeInTheDocument();
+    await expect(canvas.getByText('Recently Used')).toBeInTheDocument();
+    await expect(canvas.getByText('Applications')).toBeInTheDocument();
+    await expect(canvas.getByText('Help')).toBeInTheDocument();
   },
 };
 
@@ -307,7 +308,7 @@ export const CustomStyling: Story = {
     order: 6,
     docs: {
       description: {
-        story: "Custom styles applied to command root and items.",
+        story: 'Custom styles applied to command root and items.',
       },
     },
   },
@@ -332,9 +333,9 @@ export const CustomStyling: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText("Custom styled item 1")).toBeInTheDocument();
-    await expect(canvas.getByText("Custom styled item 2")).toBeInTheDocument();
-    await expect(canvas.getByText("Custom styled item 3")).toBeInTheDocument();
+    await expect(canvas.getByText('Custom styled item 1')).toBeInTheDocument();
+    await expect(canvas.getByText('Custom styled item 2')).toBeInTheDocument();
+    await expect(canvas.getByText('Custom styled item 3')).toBeInTheDocument();
   },
 };
 
@@ -343,7 +344,7 @@ export const KeyboardNavigation: Story = {
     order: 7,
     docs: {
       description: {
-        story: "Keyboard-focused flow with filtering and shortcuts.",
+        story: 'Keyboard-focused flow with filtering and shortcuts.',
       },
     },
   },
@@ -374,21 +375,21 @@ export const KeyboardNavigation: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const input = canvas.getByPlaceholderText("Type a command...");
+    const input = canvas.getByPlaceholderText('Type a command...');
     await userEvent.click(input);
     await expect(input).toHaveFocus();
-    await userEvent.type(input, "cal");
+    await userEvent.type(input, 'cal');
     await waitFor(() => {
-      expect(canvas.getByText("Calendar")).toBeInTheDocument();
+      expect(canvas.getByText('Calendar')).toBeInTheDocument();
     });
     await userEvent.clear(input);
     await waitFor(() => {
-      expect(canvas.getByText("Settings")).toBeInTheDocument();
-      expect(canvas.getByText("Mail")).toBeInTheDocument();
+      expect(canvas.getByText('Settings')).toBeInTheDocument();
+      expect(canvas.getByText('Mail')).toBeInTheDocument();
     });
-    await expect(canvas.getByText("⌘C")).toBeInTheDocument();
-    await expect(canvas.getByText("⌘S")).toBeInTheDocument();
-    await expect(canvas.getByText("⌘M")).toBeInTheDocument();
+    await expect(canvas.getByText('⌘C')).toBeInTheDocument();
+    await expect(canvas.getByText('⌘S')).toBeInTheDocument();
+    await expect(canvas.getByText('⌘M')).toBeInTheDocument();
   },
 };
 
@@ -397,7 +398,7 @@ export const NoResultsFound: Story = {
     order: 8,
     docs: {
       description: {
-        story: "Empty state when search has no matches.",
+        story: 'Empty state when search has no matches.',
       },
     },
   },
@@ -429,14 +430,14 @@ export const NoResultsFound: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const input = canvas.getByPlaceholderText("Search commands...");
-    await userEvent.type(input, "xyz123nonexistent");
+    const input = canvas.getByPlaceholderText('Search commands...');
+    await userEvent.type(input, 'xyz123nonexistent');
     await waitFor(() => {
-      expect(canvas.getByText("No results found.")).toBeInTheDocument();
+      expect(canvas.getByText('No results found.')).toBeInTheDocument();
     });
     await userEvent.clear(input);
     await waitFor(() => {
-      expect(canvas.getByText("Calendar")).toBeInTheDocument();
+      expect(canvas.getByText('Calendar')).toBeInTheDocument();
     });
   },
 };
@@ -446,7 +447,7 @@ export const LongList: Story = {
     order: 9,
     docs: {
       description: {
-        story: "Long list to validate scrolling and filtering behavior.",
+        story: 'Long list to validate scrolling and filtering behavior.',
       },
     },
   },
@@ -471,11 +472,11 @@ export const LongList: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const input = canvas.getByPlaceholderText("Search items...");
-    await expect(canvas.getByText("Item 1")).toBeInTheDocument();
-    await userEvent.type(input, "item 20");
+    const input = canvas.getByPlaceholderText('Search items...');
+    await expect(canvas.getByText('Item 1')).toBeInTheDocument();
+    await userEvent.type(input, 'item 20');
     await waitFor(() => {
-      expect(canvas.getByText("Item 20")).toBeInTheDocument();
+      expect(canvas.getByText('Item 20')).toBeInTheDocument();
     });
   },
 };
@@ -485,12 +486,12 @@ export const AsyncSearch: Story = {
     order: 10,
     docs: {
       description: {
-        story: "Async loading state and result rendering.",
+        story: 'Async loading state and result rendering.',
       },
     },
   },
   render: () => {
-    const [searchQuery, setSearchQuery] = useState("");
+    const [searchQuery, setSearchQuery] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [results, setResults] = useState<string[]>([]);
 
@@ -504,7 +505,7 @@ export const AsyncSearch: Story = {
       setIsLoading(true);
       await new Promise((resolve) => setTimeout(resolve, 500));
 
-      const mockResults = ["John Doe", "Jane Smith", "Johnny Appleseed", "John Johnson"].filter(
+      const mockResults = ['John Doe', 'Jane Smith', 'Johnny Appleseed', 'John Johnson'].filter(
         (name) => name.toLowerCase().includes(query.toLowerCase())
       );
 
@@ -546,11 +547,11 @@ export const AsyncSearch: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const input = canvas.getByPlaceholderText("Search users...");
-    await userEvent.type(input, "jane");
+    const input = canvas.getByPlaceholderText('Search users...');
+    await userEvent.type(input, 'jane');
     await waitFor(
       () => {
-        expect(canvas.queryByText("Searching...") || canvas.queryByText("Jane Smith")).toBeTruthy();
+        expect(canvas.queryByText('Searching...') || canvas.queryByText('Jane Smith')).toBeTruthy();
       },
       { timeout: 3000 }
     );
@@ -562,7 +563,7 @@ export const VisualRegression: Story = {
     order: 11,
     docs: {
       description: {
-        story: "Visual baseline for command styling and structure.",
+        story: 'Visual baseline for command styling and structure.',
       },
     },
     chromatic: {
@@ -599,12 +600,12 @@ export const Playground: Story = {
     order: 99,
     docs: {
       description: {
-        story: "Interactive playground for root command props.",
+        story: 'Interactive playground for root command props.',
       },
     },
   },
   args: {
-    className: "w-88 rounded-lg border shadow-md",
+    className: 'w-88 rounded-lg border shadow-md',
   },
   render: (args) => (
     <Command {...args}>

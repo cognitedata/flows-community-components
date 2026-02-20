@@ -1,31 +1,31 @@
-import * as React from "react";
+import * as React from 'react';
 
 // Image assets served by the Cursor Figma socket server
 const imgTypeImageSizeDefault =
-  "http://localhost:3845/assets/a07b0b43d6f080949cc7f3e45da3ec90c1c42f92.png";
+  'http://localhost:3845/assets/a07b0b43d6f080949cc7f3e45da3ec90c1c42f92.png';
 // const img =
 //   "http://localhost:3845/assets/a482367d3127ae749627dc4cbb0adaf47834bdd7.svg";
-const imgTopology2 = "http://localhost:3845/assets/26347d22dcd6781316ce094700faadc58102588a.svg";
-const imgTopology3 = "http://localhost:3845/assets/f90f0f15273c08a98520b501bb19b7518d2744b0.svg";
-const imgTopology4 = "http://localhost:3845/assets/199898fcba893ba407aa8cfabb956f68cde006ff.svg";
-const img1 = "http://localhost:3845/assets/c4bfcc05b2211762ea829ca4a806bcb4a3dfa19e.svg";
-const img2 = "http://localhost:3845/assets/3fec8c298019092682cedf903bfdb0203f8813b5.svg";
-const img3 = "http://localhost:3845/assets/f48ce899873eebc39fc0921ca45250dc471e1d01.svg";
-const img4 = "http://localhost:3845/assets/235bf13cdfca825048356b4cae927cfd183f046b.svg";
-const img5 = "http://localhost:3845/assets/de7cf65f60aab3ac0b655e708139c0c19046565f.svg";
-const img6 = "http://localhost:3845/assets/b96cbc2a708534eb48dac13417d5bcc678f3f675.svg";
-const img7 = "http://localhost:3845/assets/abaa8a46b70b0bdc88f95b355ac5ceb86660a04c.svg";
-const img8 = "http://localhost:3845/assets/4276c7a6280b37db680ace60276af1b66d26d8d6.svg";
-const img9 = "http://localhost:3845/assets/58066f2c55b15ca729c58bc0afdf1d6f5c6c5545.svg";
-const img10 = "http://localhost:3845/assets/b77e301d4b6c5f4efafb40e832a13241149c3fe4.svg";
-const img11 = "http://localhost:3845/assets/03702018f2ae85551243231639427bb5c0e1a196.svg";
-const img12 = "http://localhost:3845/assets/d1fac7b12a61fa668df5dd4b9f5fdc6638b3b585.svg";
-const img13 = "http://localhost:3845/assets/067b42a5ff10e1b090eb685c55f729502d4d54a1.svg";
-const img14 = "http://localhost:3845/assets/b8bb4e3256225889c3de1ddcafd44dc991c4d5c2.svg";
-const img15 = "http://localhost:3845/assets/9061c0695495d0b2a2e291b21fae9536790582ad.svg";
+const imgTopology2 = 'http://localhost:3845/assets/26347d22dcd6781316ce094700faadc58102588a.svg';
+const imgTopology3 = 'http://localhost:3845/assets/f90f0f15273c08a98520b501bb19b7518d2744b0.svg';
+const imgTopology4 = 'http://localhost:3845/assets/199898fcba893ba407aa8cfabb956f68cde006ff.svg';
+const img1 = 'http://localhost:3845/assets/c4bfcc05b2211762ea829ca4a806bcb4a3dfa19e.svg';
+const img2 = 'http://localhost:3845/assets/3fec8c298019092682cedf903bfdb0203f8813b5.svg';
+const img3 = 'http://localhost:3845/assets/f48ce899873eebc39fc0921ca45250dc471e1d01.svg';
+const img4 = 'http://localhost:3845/assets/235bf13cdfca825048356b4cae927cfd183f046b.svg';
+const img5 = 'http://localhost:3845/assets/de7cf65f60aab3ac0b655e708139c0c19046565f.svg';
+const img6 = 'http://localhost:3845/assets/b96cbc2a708534eb48dac13417d5bcc678f3f675.svg';
+const img7 = 'http://localhost:3845/assets/abaa8a46b70b0bdc88f95b355ac5ceb86660a04c.svg';
+const img8 = 'http://localhost:3845/assets/4276c7a6280b37db680ace60276af1b66d26d8d6.svg';
+const img9 = 'http://localhost:3845/assets/58066f2c55b15ca729c58bc0afdf1d6f5c6c5545.svg';
+const img10 = 'http://localhost:3845/assets/b77e301d4b6c5f4efafb40e832a13241149c3fe4.svg';
+const img11 = 'http://localhost:3845/assets/03702018f2ae85551243231639427bb5c0e1a196.svg';
+const img12 = 'http://localhost:3845/assets/d1fac7b12a61fa668df5dd4b9f5fdc6638b3b585.svg';
+const img13 = 'http://localhost:3845/assets/067b42a5ff10e1b090eb685c55f729502d4d54a1.svg';
+const img14 = 'http://localhost:3845/assets/b8bb4e3256225889c3de1ddcafd44dc991c4d5c2.svg';
+const img15 = 'http://localhost:3845/assets/9061c0695495d0b2a2e291b21fae9536790582ad.svg';
 // const img16 = "http://localhost:3845/assets/611e78d64d2fff8ccf810c1eddd971ffefca2ce8.svg"
 // const imgGroup = "http://localhost:3845/assets/f9d31d2f53f5d97c70c4b0614d2391b0dc820b61.svg"
-const imgGroup1 = "http://localhost:3845/assets/f65132dd01c167ee216d358a38bea72b98012743.svg";
+const imgGroup1 = 'http://localhost:3845/assets/f65132dd01c167ee216d358a38bea72b98012743.svg';
 // const imgGroup2 = "http://localhost:3845/assets/9678c041f7dc6546a0108b3c115d9fe78e5328f5.svg"
 // const imgGroup3 = "http://localhost:3845/assets/6c967e71715ee3ec52718ed84525e8629c9cfb96.svg"
 // const img17 = "http://localhost:3845/assets/8f3c3bbe8ca1b996d19fbcb23029d1699c045009.svg"
@@ -39,29 +39,29 @@ const imgGroup1 = "http://localhost:3845/assets/f65132dd01c167ee216d358a38bea72b
 interface AvatarProps {
   avatarText?: string;
   type?:
-    | "Indigo"
-    | "Violet"
-    | "Fuchsia"
-    | "Purple"
-    | "Pink"
-    | "Rose"
-    | "Orange"
-    | "Amber"
-    | "Yellow"
-    | "Green"
-    | "Emerald"
-    | "Teal"
-    | "Cyan"
-    | "Sky"
-    | "Image"
-    | "Lime"
-    | "Slate"
-    | "Glacier";
-  size?: "Default" | "Small" | "Large";
+    | 'Indigo'
+    | 'Violet'
+    | 'Fuchsia'
+    | 'Purple'
+    | 'Pink'
+    | 'Rose'
+    | 'Orange'
+    | 'Amber'
+    | 'Yellow'
+    | 'Green'
+    | 'Emerald'
+    | 'Teal'
+    | 'Cyan'
+    | 'Sky'
+    | 'Image'
+    | 'Lime'
+    | 'Slate'
+    | 'Glacier';
+  size?: 'Default' | 'Small' | 'Large';
 }
 
-function Avatar({ avatarText = "PJ", type = "Indigo", size = "Small" }: AvatarProps) {
-  if (type === "Image" && size === "Default") {
+function Avatar({ avatarText = 'PJ', type = 'Indigo', size = 'Small' }: AvatarProps) {
+  if (type === 'Image' && size === 'Default') {
     return (
       <div className="relative rounded-[4px] size-full" data-name="Type=Image, Size=Default">
         <img
@@ -240,7 +240,7 @@ export function EosFigmaFrame() {
             <div className="flex flex-col items-center gap-3 text-center">
               <div className="text-[24px] leading-[28px] text-[#fefeff]">
                 <p>
-                  <span>{"Hello, "}</span>
+                  <span>{'Hello, '}</span>
                   <span className="text-[#a9f853]">Mike H.</span>
                 </p>
               </div>

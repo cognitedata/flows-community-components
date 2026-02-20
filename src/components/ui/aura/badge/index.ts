@@ -1,5 +1,5 @@
 export {
   Badge,
   badgeVariants,
-} from "./badge";
-export { BadgeMetadata } from "./badge.metadata";
+} from './badge';
+export { BadgeMetadata } from './badge.metadata';

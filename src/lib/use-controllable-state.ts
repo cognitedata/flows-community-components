@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react';
 
 type UseControllableStateParams<T> = {
   prop?: T;
@@ -24,7 +24,7 @@ export function useControllableState<T>({
 
   const setValue = React.useCallback(
     (next: SetStateAction<T>) => {
-      const resolved = typeof next === "function" ? (next as (prev: T) => T)(value) : next;
+      const resolved = typeof next === 'function' ? (next as (prev: T) => T)(value) : next;
 
       if (!isControlled) {
         setUncontrolledValue(resolved);

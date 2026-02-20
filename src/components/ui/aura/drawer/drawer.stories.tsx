@@ -1,10 +1,9 @@
-import { Button, buttonVariants } from "@/components/ui/aura/button";
-import { Input } from "@/components/ui/aura/input";
-import { Label } from "@/components/ui/aura/label";
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor, within } from "@storybook/test";
-import { type ComponentProps, useState } from "react";
-import { cn } from "../../../../lib/utils";
+import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
+import { type ComponentProps, useState } from 'react';
+
+import { cn } from '../../../../lib/utils';
+
 import {
   Drawer,
   DrawerClose,
@@ -14,7 +13,11 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "./drawer";
+} from './drawer';
+
+import { Button, buttonVariants } from '@/components/ui/aura/button';
+import { Input } from '@/components/ui/aura/input';
+import { Label } from '@/components/ui/aura/label';
 
 type DrawerButtonProps = ComponentProps<typeof Button>;
 
@@ -23,7 +26,7 @@ function DrawerTriggerButton({
   variant,
   size,
   children,
-  type = "button",
+  type = 'button',
   ...props
 }: DrawerButtonProps) {
   return (
@@ -40,7 +43,7 @@ function DrawerCloseButton({
   variant,
   size,
   children,
-  type = "button",
+  type = 'button',
   ...props
 }: DrawerButtonProps) {
   return (
@@ -53,39 +56,39 @@ function DrawerCloseButton({
 }
 
 const meta: Meta<typeof Drawer> = {
-  title: "Primitives/Drawer",
+  title: 'Primitives/Drawer',
   component: Drawer,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     open: {
-      control: "boolean",
-      description: "Controlled open state",
+      control: 'boolean',
+      description: 'Controlled open state',
       table: {
-        category: "State",
-        type: { summary: "boolean" },
+        category: 'State',
+        type: { summary: 'boolean' },
       },
     },
     direction: {
-      control: "select",
-      options: ["top", "bottom", "left", "right"],
-      description: "Direction the drawer opens from",
+      control: 'select',
+      options: ['top', 'bottom', 'left', 'right'],
+      description: 'Direction the drawer opens from',
       table: {
-        category: "Layout",
+        category: 'Layout',
         type: { summary: '"top" | "bottom" | "left" | "right"' },
-        defaultValue: { summary: "bottom" },
+        defaultValue: { summary: 'bottom' },
       },
     },
     onOpenChange: {
-      action: "openChange",
-      description: "Callback when open state changes",
+      action: 'openChange',
+      description: 'Callback when open state changes',
       table: {
-        category: "Events",
-        type: { summary: "(open: boolean) => void" },
+        category: 'Events',
+        type: { summary: '(open: boolean) => void' },
       },
     },
   },
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
 };
 
@@ -120,7 +123,7 @@ export const Default: Story = {
     order: 1,
     docs: {
       description: {
-        story: "Default drawer that slides up from the bottom.",
+        story: 'Default drawer that slides up from the bottom.',
       },
     },
   },
@@ -128,7 +131,7 @@ export const Default: Story = {
     const canvas = within(canvasElement);
 
     // Click trigger
-    const trigger = canvas.getByRole("button", { name: /open drawer/i });
+    const trigger = canvas.getByRole('button', { name: /open drawer/i });
     await userEvent.click(trigger);
 
     // Wait for drawer to appear
@@ -172,7 +175,7 @@ export const RightDrawer: Story = {
     order: 2,
     docs: {
       description: {
-        story: "Drawer that slides in from the right side.",
+        story: 'Drawer that slides in from the right side.',
       },
     },
   },
@@ -218,7 +221,7 @@ export const LeftDrawer: Story = {
     order: 3,
     docs: {
       description: {
-        story: "Drawer that slides in from the left side.",
+        story: 'Drawer that slides in from the left side.',
       },
     },
   },
@@ -259,7 +262,7 @@ export const TopDrawer: Story = {
     order: 4,
     docs: {
       description: {
-        story: "Drawer that slides down from the top.",
+        story: 'Drawer that slides down from the top.',
       },
     },
   },
@@ -280,7 +283,7 @@ export const Controlled: Story = {
             Close Drawer
           </Button>
         </div>
-        <p className="text-sm text-muted-foreground">Drawer is {open ? "open" : "closed"}</p>
+        <p className="text-sm text-muted-foreground">Drawer is {open ? 'open' : 'closed'}</p>
         <Drawer open={open} onOpenChange={setOpen}>
           <DrawerContent>
             <DrawerHeader>
@@ -301,7 +304,7 @@ export const Controlled: Story = {
     order: 5,
     docs: {
       description: {
-        story: "Drawer with externally controlled open state.",
+        story: 'Drawer with externally controlled open state.',
       },
     },
   },
@@ -348,7 +351,7 @@ export const WithForm: Story = {
     order: 6,
     docs: {
       description: {
-        story: "Drawer containing a form for user input.",
+        story: 'Drawer containing a form for user input.',
       },
     },
   },
@@ -386,7 +389,7 @@ export const WithScrollingContent: Story = {
     order: 7,
     docs: {
       description: {
-        story: "Drawer with scrolling content area.",
+        story: 'Drawer with scrolling content area.',
       },
     },
   },
@@ -431,7 +434,7 @@ export const AsyncAction: Story = {
             <DrawerFooter>
               <DrawerCloseButton variant="outline">Cancel</DrawerCloseButton>
               <Button onClick={handleSave} disabled={loading} data-testid="async-drawer-save">
-                {loading ? "Saving..." : "Save"}
+                {loading ? 'Saving...' : 'Save'}
               </Button>
             </DrawerFooter>
           </DrawerContent>
@@ -445,14 +448,14 @@ export const AsyncAction: Story = {
     docs: {
       description: {
         story:
-          "Drawer that demonstrates an asynchronous save action with a temporary loading state and success feedback.",
+          'Drawer that demonstrates an asynchronous save action with a temporary loading state and success feedback.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const openButton = canvas.getByRole("button", { name: /open async drawer/i });
+    const openButton = canvas.getByRole('button', { name: /open async drawer/i });
     await userEvent.click(openButton);
 
     // Wait for drawer to appear in portal
@@ -467,7 +470,7 @@ export const AsyncAction: Story = {
     await userEvent.click(saveButton);
 
     await waitFor(() => {
-      expect(saveButton).toHaveTextContent("Saving...");
+      expect(saveButton).toHaveTextContent('Saving...');
     });
 
     await waitFor(() => {
@@ -517,7 +520,7 @@ export const KeyboardInteractions: Story = {
           </DrawerContent>
         </Drawer>
         <p className="text-sm text-muted-foreground">
-          Status: {activated ? "Activated" : "Inactive"}
+          Status: {activated ? 'Activated' : 'Inactive'}
         </p>
       </div>
     );
@@ -527,7 +530,7 @@ export const KeyboardInteractions: Story = {
     docs: {
       description: {
         story:
-          "Drawer story focused on keyboard accessibility: Tab focus, keyboard activation, and Escape to close.",
+          'Drawer story focused on keyboard accessibility: Tab focus, keyboard activation, and Escape to close.',
       },
     },
   },
@@ -535,13 +538,13 @@ export const KeyboardInteractions: Story = {
     const canvas = within(canvasElement);
 
     // Open the drawer with keyboard
-    const trigger = canvas.getByRole("button", { name: /open keyboard drawer/i });
+    const trigger = canvas.getByRole('button', { name: /open keyboard drawer/i });
     // Programmatically focus the trigger for a more robust test
     trigger.focus();
     await waitFor(() => {
       expect(trigger).toHaveFocus();
     });
-    await userEvent.keyboard("{Enter}");
+    await userEvent.keyboard('{Enter}');
 
     // Wait for drawer to appear in portal
     await waitFor(() => {
@@ -558,14 +561,14 @@ export const KeyboardInteractions: Story = {
     await waitFor(() => {
       expect(primaryButton).toHaveFocus();
     });
-    await userEvent.keyboard("{Enter}");
+    await userEvent.keyboard('{Enter}');
 
     await waitFor(() => {
       expect(canvas.getByText(/status: activated/i)).toBeInTheDocument();
     });
 
     // Press Escape to close
-    await userEvent.keyboard("{Escape}");
+    await userEvent.keyboard('{Escape}');
     await waitFor(() => {
       const dialog = document.querySelector('[data-slot="drawer-content"]');
       expect(dialog).not.toBeInTheDocument();
@@ -609,7 +612,7 @@ export const VisualRegression: Story = {
     order: 10,
     docs: {
       description: {
-        story: "Drawer triggers for visual regression testing.",
+        story: 'Drawer triggers for visual regression testing.',
       },
     },
     chromatic: {
@@ -623,7 +626,7 @@ export const VisualRegression: Story = {
  */
 export const Playground: Story = {
   args: {
-    direction: "bottom",
+    direction: 'bottom',
   },
   render: (args) => (
     <Drawer {...args}>
@@ -649,7 +652,7 @@ export const Playground: Story = {
     order: 99,
     docs: {
       description: {
-        story: "Interactive playground - use controls to experiment with drawer props.",
+        story: 'Interactive playground - use controls to experiment with drawer props.',
       },
     },
   },

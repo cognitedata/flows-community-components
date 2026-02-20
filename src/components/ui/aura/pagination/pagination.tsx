@@ -1,4 +1,12 @@
 import {
+  IconChevronLeft,
+  IconChevronRight,
+  IconChevronsLeft,
+  IconChevronsRight,
+  IconDots,
+} from '@tabler/icons-react';
+import { cva } from 'class-variance-authority';
+import {
   type ComponentProps,
   type ElementRef,
   type KeyboardEvent,
@@ -6,72 +14,65 @@ import {
   forwardRef,
   useContext,
   useState,
-} from "react";
+} from 'react';
 
-import {
-  IconChevronLeft,
-  IconChevronRight,
-  IconChevronsLeft,
-  IconChevronsRight,
-  IconDots,
-} from "@tabler/icons-react";
-import { cva } from "class-variance-authority";
 
-import { Button } from "@/components/ui/aura/button";
-import { Input } from "@/components/ui/aura/input";
-import { Select, SelectContent, SelectTrigger, SelectValue } from "@/components/ui/aura/select";
-import { cn } from "../../../../lib/utils";
+import { cn } from '../../../../lib/utils';
 
-type PaginationSize = "default" | "small";
+import { Button } from '@/components/ui/aura/button';
+import { Input } from '@/components/ui/aura/input';
+import { SelectTrigger } from '@/components/ui/aura/select';
 
-const PaginationSizeContext = createContext<PaginationSize>("default");
+type PaginationSize = 'default' | 'small';
+
+const PaginationSizeContext = createContext<PaginationSize>('default');
 
 const usePaginationSize = () => useContext(PaginationSizeContext);
 
-const paginationLinkVariants = cva("text-base font-medium leading-5 tracking-tightest", {
+const paginationLinkVariants = cva('text-base font-medium leading-5 tracking-tightest', {
   variants: {
     size: {
-      default: "",
-      small: "text-sm leading-4.5 tracking-tight",
+      default: '',
+      small: 'text-sm leading-4.5 tracking-tight',
     },
     active: {
-      true: "bg-toggled text-toggled-foreground hover:bg-toggled-hover hover:text-toggled-foreground",
-      false: "",
+      true: 'bg-toggled text-toggled-foreground hover:bg-toggled-hover hover:text-toggled-foreground',
+      false: '',
     },
   },
   defaultVariants: {
-    size: "default",
+    size: 'default',
     active: false,
   },
 });
 
-const paginationEllipsisVariants = cva("flex items-center justify-center", {
+const paginationEllipsisVariants = cva('flex items-center justify-center', {
   variants: {
     size: {
-      default: "h-9 w-9",
-      small: "h-7 w-7",
+      default: 'h-9 w-9',
+      small: 'h-7 w-7',
     },
   },
   defaultVariants: {
-    size: "default",
+    size: 'default',
   },
 });
 
-const paginationStatusVariants = cva("px-4 text-sm text-muted-foreground", {
+const paginationStatusVariants = cva('px-4 text-sm text-muted-foreground', {
   variants: {
     size: {
-      default: "",
-      small: "px-3",
+      default: '',
+      small: 'px-3',
     },
   },
   defaultVariants: {
-    size: "default",
+    size: 'default',
   },
 });
 
-const getPaginationButtonStyles = (size: PaginationSize = "default") => {
-  const buttonSize = size === "small" ? "icon-sm" : "icon";
-  const radiusClass = size === "small" ? "rounded" : "rounded-md";
+const getPaginationButtonStyles = (size: PaginationSize = 'default') => {
+  const buttonSize = size === 'small' ? 'icon-sm' : 'icon';
+  const radiusClass = size === 'small' ? 'rounded' : 'rounded-md';
 
   return { buttonSize, radiusClass } as const;
 };
@@ -79,58 +80,58 @@ const getPaginationButtonStyles = (size: PaginationSize = "default") => {
 /**
  * Pagination navigation container.
  */
-const Pagination = forwardRef<HTMLElement, ComponentProps<"nav">>(
+const Pagination = forwardRef<HTMLElement, ComponentProps<'nav'>>(
   ({ className, ...props }, ref) => {
     return (
       <nav
         ref={ref}
         aria-label="pagination"
         data-slot="pagination"
-        className={cn("mx-auto flex w-full justify-center", className)}
+        className={cn('mx-auto flex w-full justify-center', className)}
         {...props}
       />
     );
   }
 );
-Pagination.displayName = "Pagination";
+Pagination.displayName = 'Pagination';
 
 /**
  * Pagination list container.
  */
 const PaginationContent = forwardRef<
   HTMLUListElement,
-  ComponentProps<"ul"> & { size?: PaginationSize }
->(({ className, size = "default", ...props }, ref) => {
+  ComponentProps<'ul'> & { size?: PaginationSize }
+>(({ className, size = 'default', ...props }, ref) => {
   return (
     <PaginationSizeContext.Provider value={size}>
       <ul
         ref={ref}
         data-slot="pagination-content"
         data-size={size}
-        className={cn("flex flex-row items-center gap-1", className)}
+        className={cn('flex flex-row items-center gap-1', className)}
         {...props}
       />
     </PaginationSizeContext.Provider>
   );
 });
-PaginationContent.displayName = "PaginationContent";
+PaginationContent.displayName = 'PaginationContent';
 
 /**
  * Pagination list item wrapper.
  */
-const PaginationItem = forwardRef<HTMLLIElement, ComponentProps<"li">>(
+const PaginationItem = forwardRef<HTMLLIElement, ComponentProps<'li'>>(
   ({ className, ...props }, ref) => {
     return <li ref={ref} data-slot="pagination-item" className={cn(className)} {...props} />;
   }
 );
-PaginationItem.displayName = "PaginationItem";
+PaginationItem.displayName = 'PaginationItem';
 
 /**
  * Pagination status text (e.g. "Page 3 of 10").
  */
 const PaginationStatus = forwardRef<
   HTMLOutputElement,
-  ComponentProps<"output"> & { size?: PaginationSize }
+  ComponentProps<'output'> & { size?: PaginationSize }
 >(({ className, size, ...props }, ref) => {
   const inheritedSize = usePaginationSize();
   const resolvedSize = size ?? inheritedSize;
@@ -144,7 +145,7 @@ const PaginationStatus = forwardRef<
     />
   );
 });
-PaginationStatus.displayName = "PaginationStatus";
+PaginationStatus.displayName = 'PaginationStatus';
 
 /**
  * Pagination-aware select trigger that inherits pagination size.
@@ -154,8 +155,8 @@ const PaginationSelectTrigger = forwardRef<
   ComponentProps<typeof SelectTrigger>
 >(({ className, size, ...props }, ref) => {
   const inheritedSize = usePaginationSize();
-  const isPaginationSmall = inheritedSize === "small" && size === undefined;
-  const resolvedSize = size ?? (isPaginationSmall ? "sm" : "default");
+  const isPaginationSmall = inheritedSize === 'small' && size === undefined;
+  const resolvedSize = size ?? (isPaginationSmall ? 'sm' : 'default');
 
   return (
     <SelectTrigger
@@ -163,23 +164,23 @@ const PaginationSelectTrigger = forwardRef<
       size={resolvedSize}
       data-slot="pagination-select-trigger"
       className={cn(
-        "min-h-0 min-w-0 gap-1 text-sm leading-4.5 font-medium py-1.75",
+        'min-h-0 min-w-0 gap-1 text-sm leading-4.5 font-medium py-1.75',
         // Override SelectTrigger's default heights using same data attribute pattern
-        "data-[size=sm]:h-7 data-[size=default]:h-9",
-        isPaginationSmall ? "w-16 px-2 rounded" : "w-18 pl-3 pr-2",
+        'data-[size=sm]:h-7 data-[size=default]:h-9',
+        isPaginationSmall ? 'w-16 px-2 rounded' : 'w-18 pl-3 pr-2',
         className
       )}
       {...props}
     />
   );
 });
-PaginationSelectTrigger.displayName = "PaginationSelectTrigger";
+PaginationSelectTrigger.displayName = 'PaginationSelectTrigger';
 
 type PaginationLinkProps = {
   isActive?: boolean;
   isDisabled?: boolean;
   size?: PaginationSize;
-} & ComponentProps<"a">;
+} & ComponentProps<'a'>;
 
 /**
  * Pagination link button for page selection.
@@ -199,13 +200,13 @@ const PaginationLink = forwardRef<HTMLAnchorElement, PaginationLinkProps>(
         className={cn(
           radiusClass,
           paginationLinkVariants({ size: resolvedSize, active: isActive }),
-          isDisabled && "pointer-events-none opacity-50",
+          isDisabled && 'pointer-events-none opacity-50',
           className
         )}
         render={
           <a
             ref={ref}
-            aria-current={isActive ? "page" : undefined}
+            aria-current={isActive ? 'page' : undefined}
             aria-disabled={isDisabled || undefined}
             tabIndex={isDisabled ? -1 : undefined}
             {...props}
@@ -215,12 +216,12 @@ const PaginationLink = forwardRef<HTMLAnchorElement, PaginationLinkProps>(
     );
   }
 );
-PaginationLink.displayName = "PaginationLink";
+PaginationLink.displayName = 'PaginationLink';
 
 /**
  * Pagination control to jump to the first page.
  */
-const PaginationFirst = forwardRef<HTMLAnchorElement, Omit<PaginationLinkProps, "isActive">>(
+const PaginationFirst = forwardRef<HTMLAnchorElement, Omit<PaginationLinkProps, 'isActive'>>(
   ({ className, size, ...props }, ref) => {
     const inheritedSize = usePaginationSize();
     const resolvedSize = size ?? inheritedSize;
@@ -232,7 +233,7 @@ const PaginationFirst = forwardRef<HTMLAnchorElement, Omit<PaginationLinkProps, 
         variant="ghost"
         size={buttonSize}
         data-slot="pagination-first"
-        className={cn(radiusClass, isDisabled && "pointer-events-none opacity-50", className)}
+        className={cn(radiusClass, isDisabled && 'pointer-events-none opacity-50', className)}
         render={
           <a
             ref={ref}
@@ -248,12 +249,12 @@ const PaginationFirst = forwardRef<HTMLAnchorElement, Omit<PaginationLinkProps, 
     );
   }
 );
-PaginationFirst.displayName = "PaginationFirst";
+PaginationFirst.displayName = 'PaginationFirst';
 
 /**
  * Pagination control to navigate to the previous page.
  */
-const PaginationPrevious = forwardRef<HTMLAnchorElement, Omit<PaginationLinkProps, "isActive">>(
+const PaginationPrevious = forwardRef<HTMLAnchorElement, Omit<PaginationLinkProps, 'isActive'>>(
   ({ className, size, ...props }, ref) => {
     const inheritedSize = usePaginationSize();
     const resolvedSize = size ?? inheritedSize;
@@ -265,7 +266,7 @@ const PaginationPrevious = forwardRef<HTMLAnchorElement, Omit<PaginationLinkProp
         variant="ghost"
         size={buttonSize}
         data-slot="pagination-previous"
-        className={cn(radiusClass, isDisabled && "pointer-events-none opacity-50", className)}
+        className={cn(radiusClass, isDisabled && 'pointer-events-none opacity-50', className)}
         render={
           <a
             ref={ref}
@@ -281,12 +282,12 @@ const PaginationPrevious = forwardRef<HTMLAnchorElement, Omit<PaginationLinkProp
     );
   }
 );
-PaginationPrevious.displayName = "PaginationPrevious";
+PaginationPrevious.displayName = 'PaginationPrevious';
 
 /**
  * Pagination control to navigate to the next page.
  */
-const PaginationNext = forwardRef<HTMLAnchorElement, Omit<PaginationLinkProps, "isActive">>(
+const PaginationNext = forwardRef<HTMLAnchorElement, Omit<PaginationLinkProps, 'isActive'>>(
   ({ className, size, ...props }, ref) => {
     const inheritedSize = usePaginationSize();
     const resolvedSize = size ?? inheritedSize;
@@ -298,7 +299,7 @@ const PaginationNext = forwardRef<HTMLAnchorElement, Omit<PaginationLinkProps, "
         variant="ghost"
         size={buttonSize}
         data-slot="pagination-next"
-        className={cn(radiusClass, isDisabled && "pointer-events-none opacity-50", className)}
+        className={cn(radiusClass, isDisabled && 'pointer-events-none opacity-50', className)}
         render={
           <a
             ref={ref}
@@ -314,12 +315,12 @@ const PaginationNext = forwardRef<HTMLAnchorElement, Omit<PaginationLinkProps, "
     );
   }
 );
-PaginationNext.displayName = "PaginationNext";
+PaginationNext.displayName = 'PaginationNext';
 
 /**
  * Pagination control to jump to the last page.
  */
-const PaginationLast = forwardRef<HTMLAnchorElement, Omit<PaginationLinkProps, "isActive">>(
+const PaginationLast = forwardRef<HTMLAnchorElement, Omit<PaginationLinkProps, 'isActive'>>(
   ({ className, size, ...props }, ref) => {
     const inheritedSize = usePaginationSize();
     const resolvedSize = size ?? inheritedSize;
@@ -331,7 +332,7 @@ const PaginationLast = forwardRef<HTMLAnchorElement, Omit<PaginationLinkProps, "
         variant="ghost"
         size={buttonSize}
         data-slot="pagination-last"
-        className={cn(radiusClass, isDisabled && "pointer-events-none opacity-50", className)}
+        className={cn(radiusClass, isDisabled && 'pointer-events-none opacity-50', className)}
         render={
           <a
             ref={ref}
@@ -347,14 +348,14 @@ const PaginationLast = forwardRef<HTMLAnchorElement, Omit<PaginationLinkProps, "
     );
   }
 );
-PaginationLast.displayName = "PaginationLast";
+PaginationLast.displayName = 'PaginationLast';
 
 /**
  * Pagination ellipsis indicator for truncated page ranges.
  */
 const PaginationEllipsis = forwardRef<
   HTMLSpanElement,
-  ComponentProps<"span"> & { size?: PaginationSize }
+  ComponentProps<'span'> & { size?: PaginationSize }
 >(({ className, size, ...props }, ref) => {
   const inheritedSize = usePaginationSize();
   const resolvedSize = size ?? inheritedSize;
@@ -372,14 +373,14 @@ const PaginationEllipsis = forwardRef<
     </span>
   );
 });
-PaginationEllipsis.displayName = "PaginationEllipsis";
+PaginationEllipsis.displayName = 'PaginationEllipsis';
 
 type PaginationTeleportProps = {
   currentPage: number;
   totalPages: number;
   onPageChange: (page: number) => void;
   size?: PaginationSize;
-} & Omit<ComponentProps<typeof Input>, "size" | "value" | "onChange" | "children" | "type">;
+} & Omit<ComponentProps<typeof Input>, 'size' | 'value' | 'onChange' | 'children' | 'type'>;
 
 /**
  * Pagination teleport input - allows direct page number entry.
@@ -389,15 +390,15 @@ const PaginationTeleport = forwardRef<HTMLInputElement, PaginationTeleportProps>
   ({ className, currentPage, totalPages, onPageChange, size, ...props }, ref) => {
     const inheritedSize = usePaginationSize();
     const resolvedSize = size ?? inheritedSize;
-    const [editingValue, setEditingValue] = useState("");
+    const [editingValue, setEditingValue] = useState('');
     const [isEditing, setIsEditing] = useState(false);
 
-    const isSmall = resolvedSize === "small";
+    const isSmall = resolvedSize === 'small';
 
     // Pagination-specific overrides for the Input component
     const inputClassName = cn(
-      "font-medium tabular-nums text-center w-20",
-      isSmall ? "h-7 text-sm px-2" : "px-2",
+      'font-medium tabular-nums text-center w-20',
+      isSmall ? 'h-7 text-sm px-2' : 'px-2',
       className
     );
 
@@ -418,7 +419,7 @@ const PaginationTeleport = forwardRef<HTMLInputElement, PaginationTeleportProps>
         onPageChange(pageNum);
       }
       // Always reset editing value on blur
-      setEditingValue("");
+      setEditingValue('');
     };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -428,15 +429,15 @@ const PaginationTeleport = forwardRef<HTMLInputElement, PaginationTeleportProps>
       // Don't validate against totalPages here to allow typing multi-digit numbers
       // (e.g., typing "12" when totalPages=10 would fail if we checked each keystroke)
       // Validation happens on blur/Enter instead
-      if (value === "" || /^\d+$/.test(value)) {
+      if (value === '' || /^\d+$/.test(value)) {
         setEditingValue(value);
       }
     };
 
     const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-      if (e.key === "Enter") {
+      if (e.key === 'Enter') {
         e.currentTarget.blur();
-      } else if (e.key === "Escape") {
+      } else if (e.key === 'Escape') {
         setEditingValue(currentPage.toString());
         e.currentTarget.blur();
       }
@@ -460,42 +461,42 @@ const PaginationTeleport = forwardRef<HTMLInputElement, PaginationTeleportProps>
     );
   }
 );
-PaginationTeleport.displayName = "PaginationTeleport";
+PaginationTeleport.displayName = 'PaginationTeleport';
 
 /**
  * Pagination results per page container.
  * Automatically wraps content in a list item (li).
  */
-const PaginationResultsPerPage = forwardRef<HTMLLIElement, ComponentProps<"li">>(
+const PaginationResultsPerPage = forwardRef<HTMLLIElement, ComponentProps<'li'>>(
   ({ className, ...props }, ref) => {
     return (
       <li
         ref={ref}
         data-slot="pagination-results-per-page"
-        className={cn("flex items-center gap-2 pl-4", className)}
+        className={cn('flex items-center gap-2 pl-4', className)}
         {...props}
       />
     );
   }
 );
-PaginationResultsPerPage.displayName = "PaginationResultsPerPage";
+PaginationResultsPerPage.displayName = 'PaginationResultsPerPage';
 
 /**
  * Pagination results per page label.
  */
-const PaginationResultsPerPageLabel = forwardRef<HTMLSpanElement, ComponentProps<"span">>(
+const PaginationResultsPerPageLabel = forwardRef<HTMLSpanElement, ComponentProps<'span'>>(
   ({ className, ...props }, ref) => {
     return (
       <span
         ref={ref}
         data-slot="pagination-results-per-page-label"
-        className={cn("text-sm text-muted-foreground", className)}
+        className={cn('text-sm text-muted-foreground', className)}
         {...props}
       />
     );
   }
 );
-PaginationResultsPerPageLabel.displayName = "PaginationResultsPerPageLabel";
+PaginationResultsPerPageLabel.displayName = 'PaginationResultsPerPageLabel';
 
 export {
   Pagination,

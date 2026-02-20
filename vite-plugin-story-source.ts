@@ -5,17 +5,19 @@
  * the source code directly into story parameters.docs.source.code.
  */
 
-import * as fs from "node:fs";
-import * as path from "node:path";
-import * as t from "@babel/types";
-import type { Plugin } from "vite";
+import * as fs from 'node:fs';
+import * as path from 'node:path';
+
+import * as t from '@babel/types';
+import type { Plugin } from 'vite';
+
 import {
   GENERATOR_OPTIONS,
   generate,
   normalizeIndentation,
   parseSource,
   traverse,
-} from "./scripts/story-source-utils";
+} from './scripts/story-source-utils';
 
 /**
  * Extracts source code from an AST node representing a render function.
@@ -29,26 +31,26 @@ function extractJSXFromRenderNode(renderNode: any, sourceCode: string): string |
   let codeToExtract: any = null;
 
   // Handle arrow functions: () => JSX or () => { return JSX }
-  if (renderNode.type === "ArrowFunctionExpression") {
+  if (renderNode.type === 'ArrowFunctionExpression') {
     const body = renderNode.body;
-    if (body.type === "JSXElement" || body.type === "JSXFragment") {
+    if (body.type === 'JSXElement' || body.type === 'JSXFragment') {
       // Direct JSX: () => <JSX />
       codeToExtract = body;
-    } else if (body.type === "ParenthesizedExpression") {
+    } else if (body.type === 'ParenthesizedExpression') {
       // Wrapped in parens: () => (<JSX />)
-      if (body.expression.type === "JSXElement" || body.expression.type === "JSXFragment") {
+      if (body.expression.type === 'JSXElement' || body.expression.type === 'JSXFragment') {
         codeToExtract = body.expression;
       }
-    } else if (body.type === "BlockStatement") {
+    } else if (body.type === 'BlockStatement') {
       // Has return: () => { return <JSX /> } or () => { const [x, setX] = useState(); return <JSX /> }
       // Extract the entire block body to include hooks and state
       codeToExtract = body;
     }
   }
   // Handle function expressions and declarations: function Name() { return JSX }
-  else if (renderNode.type === "FunctionExpression" || renderNode.type === "FunctionDeclaration") {
+  else if (renderNode.type === 'FunctionExpression' || renderNode.type === 'FunctionDeclaration') {
     const body = renderNode.body;
-    if (body.type === "BlockStatement") {
+    if (body.type === 'BlockStatement') {
       // Extract the entire block body to include hooks and state
       codeToExtract = body;
     }
@@ -57,12 +59,12 @@ function extractJSXFromRenderNode(renderNode: any, sourceCode: string): string |
   if (codeToExtract) {
     try {
       // If we're extracting a BlockStatement, extract directly from source to preserve blank lines
-      if (codeToExtract.type === "BlockStatement") {
+      if (codeToExtract.type === 'BlockStatement') {
         // Babel nodes always have start/end properties (character offsets)
         // Extract directly from source to preserve all whitespace including blank lines
         if (
-          typeof codeToExtract.start === "number" &&
-          typeof codeToExtract.end === "number" &&
+          typeof codeToExtract.start === 'number' &&
+          typeof codeToExtract.end === 'number' &&
           codeToExtract.start >= 0 &&
           codeToExtract.end > codeToExtract.start &&
           codeToExtract.end <= sourceCode.length
@@ -72,8 +74,8 @@ function extractJSXFromRenderNode(renderNode: any, sourceCode: string): string |
           const blockContent = sourceCode.slice(codeToExtract.start, codeToExtract.end);
 
           // Find the braces and extract content between them
-          const firstBraceIndex = blockContent.indexOf("{");
-          const lastBraceIndex = blockContent.lastIndexOf("}");
+          const firstBraceIndex = blockContent.indexOf('{');
+          const lastBraceIndex = blockContent.lastIndexOf('}');
 
           if (firstBraceIndex !== -1 && lastBraceIndex !== -1 && lastBraceIndex > firstBraceIndex) {
             // Extract content between braces, preserving all whitespace including blank lines
@@ -95,10 +97,10 @@ function extractJSXFromRenderNode(renderNode: any, sourceCode: string): string |
         const statements = codeToExtract.body;
         const generatedStatements = statements.map((stmt: any) => {
           // For return statements, extract just the argument (the JSX)
-          if (stmt.type === "ReturnStatement" && stmt.argument) {
+          if (stmt.type === 'ReturnStatement' && stmt.argument) {
             const arg = stmt.argument;
             // Handle wrapped JSX: return (<JSX />)
-            if (arg.type === "ParenthesizedExpression") {
+            if (arg.type === 'ParenthesizedExpression') {
               const generated = generate(arg.expression, GENERATOR_OPTIONS, sourceCode);
               return generated.code;
             }
@@ -112,7 +114,7 @@ function extractJSXFromRenderNode(renderNode: any, sourceCode: string): string |
         });
 
         // Join all statements with newlines
-        const code = generatedStatements.join("\n");
+        const code = generatedStatements.join('\n');
 
         // Normalize indentation to start at column 0
         const normalized = normalizeIndentation(code);
@@ -124,7 +126,7 @@ function extractJSXFromRenderNode(renderNode: any, sourceCode: string): string |
       const normalized = normalizeIndentation(generated.code);
       return normalized;
     } catch (error) {
-      console.error("Failed to generate code from AST node:", error);
+      console.error('Failed to generate code from AST node:', error);
       return null;
     }
   }
@@ -137,7 +139,7 @@ function extractJSXFromRenderNode(renderNode: any, sourceCode: string): string |
  */
 function injectSourceCode(code: string, id: string): string | null {
   // Only process story files
-  if (!id.includes(".stories.tsx") && !id.includes(".stories.ts")) {
+  if (!id.includes('.stories.tsx') && !id.includes('.stories.ts')) {
     return null;
   }
 
@@ -147,14 +149,14 @@ function injectSourceCode(code: string, id: string): string | null {
     let originalSource = code;
     try {
       // Resolve file path from Vite id (remove query params/hash, handle virtual files)
-      let filePath = id.split("?")[0].split("#")[0];
+      let filePath = id.split('?')[0].split('#')[0];
 
-      if (!filePath.includes("node_modules") && !filePath.startsWith("\0")) {
+      if (!filePath.includes('node_modules') && !filePath.startsWith('\0')) {
         if (!path.isAbsolute(filePath)) {
           filePath = path.resolve(process.cwd(), filePath);
         }
         if (fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
-          originalSource = fs.readFileSync(filePath, "utf-8");
+          originalSource = fs.readFileSync(filePath, 'utf-8');
         }
       }
     } catch {
@@ -170,7 +172,7 @@ function injectSourceCode(code: string, id: string): string | null {
     traverse(ast, {
       ExportNamedDeclaration(astPath: any) {
         const { node } = astPath;
-        if (node.declaration?.type !== "VariableDeclaration") return;
+        if (node.declaration?.type !== 'VariableDeclaration') return;
 
         const declaration = node.declaration;
         const storyVar = declaration.declarations[0];
@@ -183,14 +185,14 @@ function injectSourceCode(code: string, id: string): string | null {
 
         let renderNode: any = null;
 
-        if (init.type === "ObjectExpression") {
+        if (init.type === 'ObjectExpression') {
           const renderProperty = init.properties.find(
             (prop: any) =>
-              (prop.key?.name === "render" || prop.key?.value === "render") &&
-              prop.type === "ObjectProperty"
+              (prop.key?.name === 'render' || prop.key?.value === 'render') &&
+              prop.type === 'ObjectProperty'
           );
           renderNode = renderProperty?.value || null;
-        } else if (init.type === "ArrowFunctionExpression" || init.type === "FunctionExpression") {
+        } else if (init.type === 'ArrowFunctionExpression' || init.type === 'FunctionExpression') {
           renderNode = init;
         }
 
@@ -209,7 +211,7 @@ function injectSourceCode(code: string, id: string): string | null {
       traverse(ast, {
         ExportNamedDeclaration(astPath: any) {
           const { node } = astPath;
-          if (node.declaration?.type !== "VariableDeclaration") return;
+          if (node.declaration?.type !== 'VariableDeclaration') return;
 
           const declaration = node.declaration;
           const storyVar = declaration.declarations[0];
@@ -218,74 +220,74 @@ function injectSourceCode(code: string, id: string): string | null {
           if (!storyKey || !sources[storyKey]) return;
 
           const init = storyVar.init;
-          if (!init || init.type !== "ObjectExpression") return;
+          if (!init || init.type !== 'ObjectExpression') return;
 
           // Find or create parameters.docs.source.code
           let parametersProp = init.properties.find(
             (prop: any) =>
-              (prop.key?.name === "parameters" || prop.key?.value === "parameters") &&
-              prop.type === "ObjectProperty"
+              (prop.key?.name === 'parameters' || prop.key?.value === 'parameters') &&
+              prop.type === 'ObjectProperty'
           ) as any;
 
           if (!parametersProp) {
             // Create parameters property
-            parametersProp = t.objectProperty(t.identifier("parameters"), t.objectExpression([]));
+            parametersProp = t.objectProperty(t.identifier('parameters'), t.objectExpression([]));
             init.properties.push(parametersProp);
           }
 
           const parametersObj = parametersProp.value;
-          if (parametersObj.type !== "ObjectExpression") {
+          if (parametersObj.type !== 'ObjectExpression') {
             return;
           }
 
           // Find or create docs property
           const existingDocsProp = parametersObj.properties.find(
             (prop: any) =>
-              (prop.key?.name === "docs" || prop.key?.value === "docs") &&
-              prop.type === "ObjectProperty"
+              (prop.key?.name === 'docs' || prop.key?.value === 'docs') &&
+              prop.type === 'ObjectProperty'
           ) as any;
 
           const docsProp =
-            existingDocsProp || t.objectProperty(t.identifier("docs"), t.objectExpression([]));
+            existingDocsProp || t.objectProperty(t.identifier('docs'), t.objectExpression([]));
           if (!existingDocsProp) {
             parametersObj.properties.push(docsProp);
           }
 
           const docsObj = docsProp.value;
-          if (docsObj.type !== "ObjectExpression") {
+          if (docsObj.type !== 'ObjectExpression') {
             return;
           }
 
           // Find or create source property
           const existingSourceProp = docsObj.properties.find(
             (prop: any) =>
-              (prop.key?.name === "source" || prop.key?.value === "source") &&
-              prop.type === "ObjectProperty"
+              (prop.key?.name === 'source' || prop.key?.value === 'source') &&
+              prop.type === 'ObjectProperty'
           ) as any;
 
           const sourceProp =
-            existingSourceProp || t.objectProperty(t.identifier("source"), t.objectExpression([]));
+            existingSourceProp || t.objectProperty(t.identifier('source'), t.objectExpression([]));
           if (!existingSourceProp) {
             docsObj.properties.push(sourceProp);
           }
 
           const sourceObj = sourceProp.value;
-          if (sourceObj.type !== "ObjectExpression") {
+          if (sourceObj.type !== 'ObjectExpression') {
             return;
           }
 
           // Add or update code property
           const codePropIndex = sourceObj.properties.findIndex(
             (prop: any) =>
-              (prop.key?.name === "code" || prop.key?.value === "code") &&
-              prop.type === "ObjectProperty"
+              (prop.key?.name === 'code' || prop.key?.value === 'code') &&
+              prop.type === 'ObjectProperty'
           );
 
           const codeValue = t.stringLiteral(sources[storyKey]);
           if (codePropIndex >= 0) {
-            sourceObj.properties[codePropIndex] = t.objectProperty(t.identifier("code"), codeValue);
+            sourceObj.properties[codePropIndex] = t.objectProperty(t.identifier('code'), codeValue);
           } else {
-            sourceObj.properties.push(t.objectProperty(t.identifier("code"), codeValue));
+            sourceObj.properties.push(t.objectProperty(t.identifier('code'), codeValue));
           }
         },
       });
@@ -311,8 +313,8 @@ function injectSourceCode(code: string, id: string): string | null {
 
 export function storySourcePlugin(): Plugin {
   return {
-    name: "story-source-injection",
-    enforce: "pre",
+    name: 'story-source-injection',
+    enforce: 'pre',
     transform(code, id) {
       const transformed = injectSourceCode(code, id);
       if (transformed) {

@@ -7,23 +7,24 @@
  * It uses shared utilities with the Vite plugin.
  */
 
-import * as fs from "node:fs";
-import * as path from "node:path";
-import { fileURLToPath } from "node:url";
+import * as fs from 'node:fs';
+import * as path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
 import {
   GENERATOR_OPTIONS,
   generate,
   normalizeIndentation,
   parseSource,
   traverse,
-} from "./story-source-utils";
+} from './story-source-utils';
 
 // Get __dirname equivalent in ES modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const storiesDir = path.join(__dirname, "../src/components/ui/aura");
-const outputPath = path.join(__dirname, "../public/story-source-map.json");
+const storiesDir = path.join(__dirname, '../src/components/ui/aura');
+const outputPath = path.join(__dirname, '../public/story-source-map.json');
 
 interface StorySourceMap {
   [slug: string]: {
@@ -41,25 +42,25 @@ function extractJSXFromRenderNode(renderNode: any, sourceCode: string): string |
   let jsxNode: any = null;
 
   // Handle arrow functions: () => JSX or () => { return JSX }
-  if (renderNode.type === "ArrowFunctionExpression") {
+  if (renderNode.type === 'ArrowFunctionExpression') {
     const body = renderNode.body;
-    if (body.type === "JSXElement" || body.type === "JSXFragment") {
+    if (body.type === 'JSXElement' || body.type === 'JSXFragment') {
       // Direct JSX: () => <JSX />
       jsxNode = body;
-    } else if (body.type === "ParenthesizedExpression") {
+    } else if (body.type === 'ParenthesizedExpression') {
       // Wrapped in parens: () => (<JSX />)
-      if (body.expression.type === "JSXElement" || body.expression.type === "JSXFragment") {
+      if (body.expression.type === 'JSXElement' || body.expression.type === 'JSXFragment') {
         jsxNode = body.expression;
       }
-    } else if (body.type === "BlockStatement") {
+    } else if (body.type === 'BlockStatement') {
       // Has return: () => { return <JSX /> }
-      const returnStmt = body.body.find((stmt: any) => stmt.type === "ReturnStatement");
+      const returnStmt = body.body.find((stmt: any) => stmt.type === 'ReturnStatement');
       if (returnStmt?.argument) {
         const arg = returnStmt.argument;
-        if (arg.type === "JSXElement" || arg.type === "JSXFragment") {
+        if (arg.type === 'JSXElement' || arg.type === 'JSXFragment') {
           jsxNode = arg;
-        } else if (arg.type === "ParenthesizedExpression") {
-          if (arg.expression.type === "JSXElement" || arg.expression.type === "JSXFragment") {
+        } else if (arg.type === 'ParenthesizedExpression') {
+          if (arg.expression.type === 'JSXElement' || arg.expression.type === 'JSXFragment') {
             jsxNode = arg.expression;
           }
         }
@@ -67,16 +68,16 @@ function extractJSXFromRenderNode(renderNode: any, sourceCode: string): string |
     }
   }
   // Handle function expressions and declarations: function Name() { return JSX }
-  else if (renderNode.type === "FunctionExpression" || renderNode.type === "FunctionDeclaration") {
+  else if (renderNode.type === 'FunctionExpression' || renderNode.type === 'FunctionDeclaration') {
     const body = renderNode.body;
-    if (body.type === "BlockStatement") {
-      const returnStmt = body.body.find((stmt: any) => stmt.type === "ReturnStatement");
+    if (body.type === 'BlockStatement') {
+      const returnStmt = body.body.find((stmt: any) => stmt.type === 'ReturnStatement');
       if (returnStmt?.argument) {
         const arg = returnStmt.argument;
-        if (arg.type === "JSXElement" || arg.type === "JSXFragment") {
+        if (arg.type === 'JSXElement' || arg.type === 'JSXFragment') {
           jsxNode = arg;
-        } else if (arg.type === "ParenthesizedExpression") {
-          if (arg.expression.type === "JSXElement" || arg.expression.type === "JSXFragment") {
+        } else if (arg.type === 'ParenthesizedExpression') {
+          if (arg.expression.type === 'JSXElement' || arg.expression.type === 'JSXFragment') {
             jsxNode = arg.expression;
           }
         }
@@ -89,7 +90,7 @@ function extractJSXFromRenderNode(renderNode: any, sourceCode: string): string |
       const generated = generate(jsxNode, GENERATOR_OPTIONS, sourceCode);
       return normalizeIndentation(generated.code);
     } catch (error) {
-      console.error("Failed to generate code from AST node:", error);
+      console.error('Failed to generate code from AST node:', error);
       return null;
     }
   }
@@ -101,7 +102,7 @@ function extractJSXFromRenderNode(renderNode: any, sourceCode: string): string |
  * Extracts source code for all stories in a story file using Babel parser.
  */
 function extractStorySources(filePath: string): Record<string, string> {
-  const content = fs.readFileSync(filePath, "utf-8");
+  const content = fs.readFileSync(filePath, 'utf-8');
   const sources: Record<string, string> = {};
 
   try {
@@ -112,7 +113,7 @@ function extractStorySources(filePath: string): Record<string, string> {
     traverse(ast, {
       ExportNamedDeclaration(path: any) {
         const { node } = path;
-        if (node.declaration?.type !== "VariableDeclaration") return;
+        if (node.declaration?.type !== 'VariableDeclaration') return;
 
         const declaration = node.declaration;
         const storyVar = declaration.declarations[0];
@@ -127,18 +128,18 @@ function extractStorySources(filePath: string): Record<string, string> {
         let renderNode: any = null;
 
         // Story is an object: { render: ..., args: ... }
-        if (init.type === "ObjectExpression") {
+        if (init.type === 'ObjectExpression') {
           const renderProperty = init.properties.find(
             (prop: any) =>
-              (prop.key?.name === "render" || prop.key?.value === "render") &&
-              prop.type === "ObjectProperty"
+              (prop.key?.name === 'render' || prop.key?.value === 'render') &&
+              prop.type === 'ObjectProperty'
           );
           if (renderProperty?.value) {
             renderNode = renderProperty.value;
           }
         }
         // Story is directly a function (less common)
-        else if (init.type === "ArrowFunctionExpression" || init.type === "FunctionExpression") {
+        else if (init.type === 'ArrowFunctionExpression' || init.type === 'FunctionExpression') {
           renderNode = init;
         }
 
@@ -212,7 +213,7 @@ function writeSourceMap(sourceMap: StorySourceMap): void {
   }
 
   // Write the source map as formatted JSON
-  fs.writeFileSync(outputPath, JSON.stringify(sourceMap, null, 2), "utf-8");
+  fs.writeFileSync(outputPath, JSON.stringify(sourceMap, null, 2), 'utf-8');
   console.log(`\n✓ Source map written to ${outputPath}`);
   console.log(`  Total components: ${Object.keys(sourceMap).length}`);
   console.log(
@@ -223,7 +224,7 @@ function writeSourceMap(sourceMap: StorySourceMap): void {
 // Run extraction if called directly
 const isMainModule = import.meta.url === `file://${process.argv[1]}`;
 if (isMainModule) {
-  console.log("Extracting story sources...\n");
+  console.log('Extracting story sources...\n');
   const sourceMap = extractAllStorySources();
   writeSourceMap(sourceMap);
 }
