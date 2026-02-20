@@ -1,77 +1,79 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, within } from "@storybook/test";
-import { useState } from "react";
-import { Label } from "../label";
-import { Switch } from "./switch";
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { useState } from 'react';
+import { expect, userEvent, within } from 'storybook/test';
+
+import { Label } from '../label';
+
+import { Switch } from './switch';
 
 const meta: Meta<typeof Switch> = {
-  title: "Primitives/Switch",
+  title: 'Primitives/Switch',
   component: Switch,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     checked: {
-      control: "boolean",
+      control: 'boolean',
       table: {
-        category: "Behavior",
+        category: 'Behavior',
         type: {
-          summary: "boolean",
+          summary: 'boolean',
         },
       },
     },
     defaultChecked: {
-      control: "boolean",
+      control: 'boolean',
       table: {
-        category: "Behavior",
+        category: 'Behavior',
         type: {
-          summary: "boolean",
+          summary: 'boolean',
         },
         defaultValue: {
-          summary: "false",
+          summary: 'false',
         },
       },
     },
     disabled: {
-      control: "boolean",
+      control: 'boolean',
       table: {
-        category: "Behavior",
+        category: 'Behavior',
         type: {
-          summary: "boolean",
+          summary: 'boolean',
         },
         defaultValue: {
-          summary: "false",
+          summary: 'false',
         },
       },
     },
     required: {
-      control: "boolean",
+      control: 'boolean',
       table: {
-        category: "Behavior",
+        category: 'Behavior',
         type: {
-          summary: "boolean",
+          summary: 'boolean',
         },
         defaultValue: {
-          summary: "false",
+          summary: 'false',
         },
       },
     },
     onCheckedChange: {
-      action: "checkedChange",
+      action: 'checkedChange',
       table: {
-        category: "Events",
+        category: 'Events',
         type: {
-          summary: "(checked: boolean) => void",
+          summary: '(checked: boolean) => void',
         },
       },
     },
     className: {
-      control: "text",
+      control: 'text',
       table: {
-        category: "Variants/Styling",
+        category: 'Variants/Styling',
       },
     },
   },
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
 };
 export default meta;
@@ -88,13 +90,13 @@ export const Default: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const switchEl = canvas.getByRole("switch");
+    const switchEl = canvas.getByRole('switch');
     await expect(switchEl).toBeInTheDocument();
-    await expect(switchEl).toHaveAttribute("data-unchecked");
+    await expect(switchEl).toHaveAttribute('data-unchecked');
     await userEvent.click(switchEl);
-    await expect(switchEl).toHaveAttribute("data-checked");
+    await expect(switchEl).toHaveAttribute('data-checked');
     await userEvent.click(switchEl);
-    await expect(switchEl).toHaveAttribute("data-unchecked");
+    await expect(switchEl).toHaveAttribute('data-unchecked');
   },
 };
 export const DefaultChecked: Story = {
@@ -109,8 +111,8 @@ export const DefaultChecked: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const switchEl = canvas.getByRole("switch");
-    await expect(switchEl).toHaveAttribute("data-checked");
+    const switchEl = canvas.getByRole('switch');
+    await expect(switchEl).toHaveAttribute('data-checked');
   },
 };
 export const Disabled: Story = {
@@ -135,9 +137,9 @@ export const Disabled: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const switches = await canvas.findAllByRole("switch");
+    const switches = await canvas.findAllByRole('switch');
     for (const switchEl of switches) {
-      await expect(switchEl).toHaveAttribute("data-disabled");
+      await expect(switchEl).toHaveAttribute('data-disabled');
     }
   },
 };
@@ -147,7 +149,11 @@ export const Controlled: Story = {
     return (
       <div className="space-y-4">
         <div className="flex items-center space-x-2">
-          <Switch id="controlled-switch" checked={enabled} onCheckedChange={setEnabled} />
+          <Switch
+            id="controlled-switch"
+            checked={enabled}
+            onCheckedChange={setEnabled}
+          />
           <Label htmlFor="controlled-switch">Airplane Mode</Label>
         </div>
         <div className="flex gap-2">
@@ -166,7 +172,9 @@ export const Controlled: Story = {
             Disable
           </button>
         </div>
-        <p className="text-sm text-muted-foreground">Status: {enabled ? "Enabled" : "Disabled"}</p>
+        <p className="text-sm text-muted-foreground">
+          Status: {enabled ? 'Enabled' : 'Disabled'}
+        </p>
       </div>
     );
   },
@@ -175,13 +183,13 @@ export const Controlled: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const enableButton = canvas.getByRole("button", { name: "Enable" });
+    const enableButton = canvas.getByRole('button', { name: 'Enable' });
     await userEvent.click(enableButton);
-    const switchEl = canvas.getByRole("switch");
-    await expect(switchEl).toHaveAttribute("data-checked");
-    const disableButton = canvas.getByRole("button", { name: "Disable" });
+    const switchEl = canvas.getByRole('switch');
+    await expect(switchEl).toHaveAttribute('data-checked');
+    const disableButton = canvas.getByRole('button', { name: 'Disable' });
     await userEvent.click(disableButton);
-    await expect(switchEl).toHaveAttribute("data-unchecked");
+    await expect(switchEl).toHaveAttribute('data-unchecked');
   },
 };
 export const SettingsForm: Story = {
@@ -192,52 +200,65 @@ export const SettingsForm: Story = {
       marketing: false,
       analytics: true,
     });
-    const updateSetting = (key: keyof typeof settings) => (checked: boolean) => {
-      setSettings((prev) => ({
-        ...prev,
-        [key]: checked,
-      }));
-    };
+    const updateSetting =
+      (key: keyof typeof settings) => (checked: boolean) => {
+        setSettings((prev) => ({
+          ...prev,
+          [key]: checked,
+        }));
+      };
     return (
       <div className="w-72 space-y-6">
         <div className="flex items-center justify-between">
           <div className="space-y-0.5">
             <Label htmlFor="notifications">Push Notifications</Label>
-            <p className="text-xs text-muted-foreground">Receive notifications on your device.</p>
+            <p className="text-xs text-muted-foreground">
+              Receive notifications on your device.
+            </p>
           </div>
           <Switch
             id="notifications"
             checked={settings.notifications}
-            onCheckedChange={updateSetting("notifications")}
+            onCheckedChange={updateSetting('notifications')}
           />
         </div>
         <div className="flex items-center justify-between">
           <div className="space-y-0.5">
             <Label htmlFor="emails">Email Notifications</Label>
-            <p className="text-xs text-muted-foreground">Receive updates via email.</p>
+            <p className="text-xs text-muted-foreground">
+              Receive updates via email.
+            </p>
           </div>
-          <Switch id="emails" checked={settings.emails} onCheckedChange={updateSetting("emails")} />
+          <Switch
+            id="emails"
+            checked={settings.emails}
+            onCheckedChange={updateSetting('emails')}
+          />
         </div>
         <div className="flex items-center justify-between">
           <div className="space-y-0.5">
             <Label htmlFor="marketing">Marketing Emails</Label>
-            <p className="text-xs text-muted-foreground">Receive promotional content.</p>
+            <p className="text-xs text-muted-foreground">
+              Receive promotional content.
+            </p>
           </div>
           <Switch
             id="marketing"
             checked={settings.marketing}
-            onCheckedChange={updateSetting("marketing")}
+            onCheckedChange={updateSetting('marketing')}
           />
         </div>
         <div className="flex items-center justify-between">
           <div className="space-y-0.5">
             <Label htmlFor="analytics">Usage Analytics</Label>
-            <p className="text-xs text-muted-foreground">Help improve our product.</p>
+            <p className="text-xs text-muted-foreground">
+              Help improve our product.
+            </p>
           </div>
           <Switch
             id="analytics"
             checked={settings.analytics}
-            onCheckedChange={updateSetting("analytics")}
+            onCheckedChange={updateSetting('analytics')}
           />
         </div>
       </div>
@@ -292,7 +313,9 @@ export const VisualRegression: Story = {
   render: () => (
     <div className="space-y-6 p-4">
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">All States</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          All States
+        </h3>
         <div className="flex flex-wrap gap-6">
           <div className="flex items-center space-x-2">
             <Switch id="vr-off" />
@@ -318,7 +341,9 @@ export const VisualRegression: Story = {
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">Without Labels</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          Without Labels
+        </h3>
         <div className="flex gap-4">
           <Switch aria-label="Option 1" />
           <Switch aria-label="Option 2" defaultChecked />

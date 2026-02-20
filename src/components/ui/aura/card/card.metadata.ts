@@ -1,4 +1,4 @@
-import type { ComponentMeta } from "../../../../lib/component-examples";
+import type { ComponentMeta } from '../../../../lib/types';
 
 /**
  * Card Component Metadata
@@ -7,9 +7,10 @@ import type { ComponentMeta } from "../../../../lib/component-examples";
  * component documentation pages and provide context for LLMs.
  */
 export const CardMetadata: ComponentMeta = {
-  name: "Card",
-  status: "in-progress-code-review",
-  description: "A flexible card layout with header, content, action, and footer slots.",
+  name: 'Card',
+  status: 'in-progress-code-review',
+  description:
+    'A flexible card layout with header, content, action, and footer slots.',
   llmUsage:
-    "Use `<Card>` with `<CardHeader>`, `<CardTitle>`, `<CardDescription>`, `<CardContent>`, and `<CardFooter>` for structured content containers.",
+    'Use `<Card>` with `<CardHeader>`, `<CardTitle>`, `<CardDescription>`, `<CardContent>`, and `<CardFooter>` for structured content containers.',
 };

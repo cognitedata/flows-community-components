@@ -26,5 +26,5 @@ export {
   AlertDialogDescription,
   AlertDialogAction,
   AlertDialogCancel,
-} from "./alert-dialog";
-export { AlertDialogMetadata } from "./alert-dialog.metadata";
+} from './alert-dialog';
+export { AlertDialogMetadata } from './alert-dialog.metadata';

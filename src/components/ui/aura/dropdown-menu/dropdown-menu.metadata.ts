@@ -1,10 +1,10 @@
-import type { ComponentMeta } from "../../../../lib/component-examples";
+import type { ComponentMeta } from '../../../../lib/types';
 
 export const DropdownMenuMetadata: ComponentMeta = {
-  name: "DropdownMenu",
-  status: "in-progress-code-review",
+  name: 'DropdownMenu',
+  status: 'in-progress-code-review',
   description:
-    "A dropdown menu with submenus, separators, and selection states, built on Base UI Dropdown Menu primitives.",
+    'A dropdown menu with submenus, separators, and selection states, built on Base UI Dropdown Menu primitives.',
   llmUsage:
-    "Use `<DropdownMenu>` with `<DropdownMenuTrigger>`, `<DropdownMenuContent>`, and `<DropdownMenuItem>` for context actions.",
+    'Use `<DropdownMenu>` with `<DropdownMenuTrigger>`, `<DropdownMenuContent>`, and `<DropdownMenuItem>` for context actions.',
 };

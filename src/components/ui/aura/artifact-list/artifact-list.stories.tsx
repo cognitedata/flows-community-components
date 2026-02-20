@@ -1,6 +1,7 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor, within } from "@storybook/test";
-import { useState } from "react";
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { useState } from 'react';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
+
 import {
   ArtifactList,
   ArtifactListContent,
@@ -12,39 +13,27 @@ import {
   ListItemIcon,
   ListItemStatus,
   ListItemTitle,
-} from "./artifact-list";
+} from './artifact-list';
 const meta: Meta<typeof ArtifactList> = {
-  title: "Primitives/Artifact - List",
+  title: 'Primitives/Artifact - List',
   component: ArtifactList,
-  tags: ["autodocs", "ai-elements"],
+  tags: ['autodocs', 'ai-elements'],
   argTypes: {
     className: {
-      control: "text",
+      control: 'text',
       table: {
-        category: "Display",
+        category: 'Display',
       },
     },
     children: {
       control: false,
       table: {
-        category: "Content",
+        category: 'Content',
       },
     },
   },
   parameters: {
-    layout: "centered",
-  },
-};
-const titleArgTypes = {
-  as: {
-    control: "select",
-    options: ["h1", "h2", "h3", "h4", "h5", "h6"],
-    table: {
-      category: "Content",
-      defaultValue: {
-        summary: "h3",
-      },
-    },
+    layout: 'centered',
   },
 };
 export default meta;
@@ -55,15 +44,17 @@ export const Basic: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText("Pump seal replacement")).toBeInTheDocument();
-    await expect(canvas.getByText("Overdue")).toBeInTheDocument();
+    await expect(canvas.getByText('Pump seal replacement')).toBeInTheDocument();
+    await expect(canvas.getByText('Overdue')).toBeInTheDocument();
   },
   render: () => (
     <ArtifactList className="w-96">
       <ArtifactListContent>
         <ArtifactListItem variant="error">
           <ListItemTitle>Pump seal replacement</ListItemTitle>
-          <ListItemDescription>P-401A requires new mechanical seal</ListItemDescription>
+          <ListItemDescription>
+            P-401A requires new mechanical seal
+          </ListItemDescription>
           <ListItemStatus>Overdue</ListItemStatus>
         </ArtifactListItem>
 
@@ -88,9 +79,9 @@ export const WithHeader: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText("Maintenance Tasks")).toBeInTheDocument();
-    await expect(canvas.getByText("Pump seal replacement")).toBeInTheDocument();
-    await expect(canvas.getByText("Overdue")).toBeInTheDocument();
+    await expect(canvas.getByText('Maintenance Tasks')).toBeInTheDocument();
+    await expect(canvas.getByText('Pump seal replacement')).toBeInTheDocument();
+    await expect(canvas.getByText('Overdue')).toBeInTheDocument();
   },
   render: () => (
     <ArtifactList className="w-100">
@@ -100,7 +91,9 @@ export const WithHeader: Story = {
       <ArtifactListContent>
         <ArtifactListItem variant="error">
           <ListItemTitle>Pump seal replacement</ListItemTitle>
-          <ListItemDescription>P-401A requires new mechanical seal</ListItemDescription>
+          <ListItemDescription>
+            P-401A requires new mechanical seal
+          </ListItemDescription>
           <ListItemStatus>Overdue</ListItemStatus>
         </ArtifactListItem>
 
@@ -125,10 +118,10 @@ export const AllVariants: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText("Upcoming task")).toBeInTheDocument();
-    await expect(canvas.getByText("Current task")).toBeInTheDocument();
-    await expect(canvas.getByText("Completed task")).toBeInTheDocument();
-    await expect(canvas.getByText("Error task")).toBeInTheDocument();
+    await expect(canvas.getByText('Upcoming task')).toBeInTheDocument();
+    await expect(canvas.getByText('Current task')).toBeInTheDocument();
+    await expect(canvas.getByText('Completed task')).toBeInTheDocument();
+    await expect(canvas.getByText('Error task')).toBeInTheDocument();
   },
   render: () => (
     <ArtifactList className="w-100">
@@ -166,9 +159,15 @@ export const WithCustomIcons: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText("Pump 3 cavitation detected")).toBeInTheDocument();
-    await expect(canvas.getByText("Compressor C-5 surge events")).toBeInTheDocument();
-    await expect(canvas.getByText("Boiler steam leak near header B")).toBeInTheDocument();
+    await expect(
+      canvas.getByText('Pump 3 cavitation detected')
+    ).toBeInTheDocument();
+    await expect(
+      canvas.getByText('Compressor C-5 surge events')
+    ).toBeInTheDocument();
+    await expect(
+      canvas.getByText('Boiler steam leak near header B')
+    ).toBeInTheDocument();
   },
   render: () => (
     <ArtifactList className="w-100">
@@ -206,9 +205,9 @@ export const WithCustomIcons: Story = {
           </ListItemIcon>
           <ListItemTitle>Pump 3 cavitation detected</ListItemTitle>
           <ListItemDescription>
-            Suction pressure oscillations and elevated noise on P-003 during night shift; cavitation
-            likely from low NPSH/blocked strainer. Next step: inspect/clean suction strainer and
-            raise tank level 20cm.
+            Suction pressure oscillations and elevated noise on P-003 during
+            night shift; cavitation likely from low NPSH/blocked strainer. Next
+            step: inspect/clean suction strainer and raise tank level 20cm.
           </ListItemDescription>
         </ArtifactListItem>
 
@@ -242,9 +241,9 @@ export const WithCustomIcons: Story = {
           </ListItemIcon>
           <ListItemTitle>Compressor C-5 surge events</ListItemTitle>
           <ListItemDescription>
-            Three start-up surge spikes with sluggish anti-surge valve response; control loop
-            tuning/valve stiction suspected. Next step: Stroke-test ASV, retune PID, and verify
-            transmitter calibration.
+            Three start-up surge spikes with sluggish anti-surge valve response;
+            control loop tuning/valve stiction suspected. Next step: Stroke-test
+            ASV, retune PID, and verify transmitter calibration.
           </ListItemDescription>
         </ArtifactListItem>
 
@@ -278,9 +277,9 @@ export const WithCustomIcons: Story = {
           </ListItemIcon>
           <ListItemTitle>Boiler steam leak near header B</ListItemTitle>
           <ListItemDescription>
-            Ultrasonic survey indicates continuous hiss with elevated condensate returns; small
-            steam leak wasting energy. Next step: tag exact location, plan hot repair window, and
-            quantify loss after fix.
+            Ultrasonic survey indicates continuous hiss with elevated condensate
+            returns; small steam leak wasting energy. Next step: tag exact
+            location, plan hot repair window, and quantify loss after fix.
           </ListItemDescription>
         </ArtifactListItem>
       </ArtifactListContent>
@@ -293,9 +292,9 @@ export const OrderedList: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText("Verify pump pressure")).toBeInTheDocument();
-    await expect(canvas.getByText("Check valve alignment")).toBeInTheDocument();
-    await expect(canvas.getByText("Run diagnostics")).toBeInTheDocument();
+    await expect(canvas.getByText('Verify pump pressure')).toBeInTheDocument();
+    await expect(canvas.getByText('Check valve alignment')).toBeInTheDocument();
+    await expect(canvas.getByText('Run diagnostics')).toBeInTheDocument();
   },
   render: () => (
     <ArtifactList className="w-96">
@@ -325,9 +324,9 @@ export const Timeline: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const inspections = canvas.getAllByText("Inspection");
+    const inspections = canvas.getAllByText('Inspection');
     await expect(inspections.length).toBeGreaterThan(1);
-    await expect(canvas.getByText("Event")).toBeInTheDocument();
+    await expect(canvas.getByText('Event')).toBeInTheDocument();
   },
   render: () => (
     <ArtifactList className="w-100">
@@ -361,13 +360,13 @@ export const Interactive: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const inProgressItems = canvas.getAllByText("In progress");
+    const inProgressItems = canvas.getAllByText('In progress');
     await expect(inProgressItems).toHaveLength(2);
-    const firstItem = canvas.getByText("Pump seal replacement");
+    const firstItem = canvas.getByText('Pump seal replacement');
     await userEvent.click(firstItem);
     await waitFor(
       () => {
-        const completedItems = canvas.getAllByText("Completed");
+        const completedItems = canvas.getAllByText('Completed');
         expect(completedItems).toHaveLength(2);
       },
       {
@@ -377,7 +376,7 @@ export const Interactive: Story = {
     await userEvent.click(firstItem);
     await waitFor(
       () => {
-        const inProgressItemsAfter = canvas.getAllByText("In progress");
+        const inProgressItemsAfter = canvas.getAllByText('In progress');
         expect(inProgressItemsAfter).toHaveLength(2);
       },
       {
@@ -388,22 +387,22 @@ export const Interactive: Story = {
   render: function ArtifactListInteractiveStory() {
     const [items, setItems] = useState([
       {
-        id: "seal",
-        title: "Pump seal replacement",
-        detail: "P-401A requires new mechanical seal",
-        status: "open",
+        id: 'seal',
+        title: 'Pump seal replacement',
+        detail: 'P-401A requires new mechanical seal',
+        status: 'open',
       },
       {
-        id: "valve",
-        title: "Valve calibration",
-        detail: "Quarterly calibration check",
-        status: "open",
+        id: 'valve',
+        title: 'Valve calibration',
+        detail: 'Quarterly calibration check',
+        status: 'open',
       },
       {
-        id: "filters",
-        title: "Filter cleaning",
-        detail: "Clean inlet filters",
-        status: "done",
+        id: 'filters',
+        title: 'Filter cleaning',
+        detail: 'Clean inlet filters',
+        status: 'done',
       },
     ]);
     const toggleStatus = (id: string) => {
@@ -412,7 +411,7 @@ export const Interactive: Story = {
           item.id === id
             ? {
                 ...item,
-                status: item.status === "done" ? "open" : "done",
+                status: item.status === 'done' ? 'open' : 'done',
               }
             : item
         )
@@ -422,17 +421,19 @@ export const Interactive: Story = {
       <ArtifactList className="w-100">
         <ArtifactListContent>
           {items.map((item) => {
-            const isDone = item.status === "done";
+            const isDone = item.status === 'done';
             return (
               <ArtifactListItem
                 key={item.id}
-                variant={isDone ? "completed" : "now"}
+                variant={isDone ? 'completed' : 'now'}
                 className="cursor-pointer"
                 onClick={() => toggleStatus(item.id)}
               >
                 <ListItemTitle>{item.title}</ListItemTitle>
                 <ListItemDescription>{item.detail}</ListItemDescription>
-                <ListItemStatus>{isDone ? "Completed" : "In progress"}</ListItemStatus>
+                <ListItemStatus>
+                  {isDone ? 'Completed' : 'In progress'}
+                </ListItemStatus>
               </ArtifactListItem>
             );
           })}
@@ -464,7 +465,9 @@ export const EdgeCaseLongText: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText(/This is an extremely long task title/)).toBeInTheDocument();
+    await expect(
+      canvas.getByText(/This is an extremely long task title/)
+    ).toBeInTheDocument();
   },
   render: () => (
     <ArtifactList className="w-80">
@@ -476,12 +479,13 @@ export const EdgeCaseLongText: Story = {
       <ArtifactListContent>
         <ArtifactListItem variant="error">
           <ListItemTitle>
-            This is an extremely long task title that should wrap or truncate properly within the
-            list item
+            This is an extremely long task title that should wrap or truncate
+            properly within the list item
           </ListItemTitle>
           <ListItemDescription>
-            This description is also quite long and contains detailed information about the task
-            that needs to be handled gracefully by the component layout.
+            This description is also quite long and contains detailed
+            information about the task that needs to be handled gracefully by
+            the component layout.
           </ListItemDescription>
           <ListItemStatus>Overdue since yesterday</ListItemStatus>
         </ArtifactListItem>
@@ -500,34 +504,34 @@ export const SemanticHeadings: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const h2Title = canvas.getByRole("heading", {
+    const h2Title = canvas.getByRole('heading', {
       level: 2,
-      name: "Main Section Tasks (h2)",
+      name: 'Main Section Tasks (h2)',
     });
     await expect(h2Title).toBeInTheDocument();
-    const h3Title = canvas.getByRole("heading", {
+    const h3Title = canvas.getByRole('heading', {
       level: 3,
-      name: "Default Heading (h3)",
+      name: 'Default Heading (h3)',
     });
     await expect(h3Title).toBeInTheDocument();
-    const h4Title = canvas.getByRole("heading", {
+    const h4Title = canvas.getByRole('heading', {
       level: 4,
-      name: "Subsection Tasks (h4)",
+      name: 'Subsection Tasks (h4)',
     });
     await expect(h4Title).toBeInTheDocument();
-    const h3ItemTitle = canvas.getByRole("heading", {
+    const h3ItemTitle = canvas.getByRole('heading', {
       level: 3,
-      name: "High-level task",
+      name: 'High-level task',
     });
     await expect(h3ItemTitle).toBeInTheDocument();
-    const h4ItemTitle = canvas.getByRole("heading", {
+    const h4ItemTitle = canvas.getByRole('heading', {
       level: 4,
-      name: "Standard task",
+      name: 'Standard task',
     });
     await expect(h4ItemTitle).toBeInTheDocument();
-    const h5ItemTitle = canvas.getByRole("heading", {
+    const h5ItemTitle = canvas.getByRole('heading', {
       level: 5,
-      name: "Nested task",
+      name: 'Nested task',
     });
     await expect(h5ItemTitle).toBeInTheDocument();
   },
@@ -541,7 +545,8 @@ export const SemanticHeadings: Story = {
           <ArtifactListItem variant="now">
             <ListItemTitle as="h3">High-level task</ListItemTitle>
             <ListItemDescription>
-              ListItemTitle uses as="h3" to maintain hierarchy under h2 ArtifactListTitle
+              ListItemTitle uses as="h3" to maintain hierarchy under h2
+              ArtifactListTitle
             </ListItemDescription>
             <ListItemStatus>In progress</ListItemStatus>
           </ArtifactListItem>
@@ -556,7 +561,8 @@ export const SemanticHeadings: Story = {
           <ArtifactListItem variant="now">
             <ListItemTitle as="h4">Standard task</ListItemTitle>
             <ListItemDescription>
-              ListItemTitle uses as="h4" to maintain hierarchy under h3 ArtifactListTitle
+              ListItemTitle uses as="h4" to maintain hierarchy under h3
+              ArtifactListTitle
             </ListItemDescription>
             <ListItemStatus>In progress</ListItemStatus>
           </ArtifactListItem>
@@ -571,7 +577,8 @@ export const SemanticHeadings: Story = {
           <ArtifactListItem variant="now">
             <ListItemTitle as="h5">Nested task</ListItemTitle>
             <ListItemDescription>
-              ListItemTitle uses as="h5" to maintain hierarchy under h4 ArtifactListTitle
+              ListItemTitle uses as="h5" to maintain hierarchy under h4
+              ArtifactListTitle
             </ListItemDescription>
             <ListItemStatus>In progress</ListItemStatus>
           </ArtifactListItem>
@@ -586,10 +593,10 @@ export const EdgeCaseSingleItem: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const list = canvas.getByRole("list");
+    const list = canvas.getByRole('list');
     await expect(list).toBeInTheDocument();
     await expect(list.children).toHaveLength(1);
-    await expect(canvas.getByText("Single task")).toBeInTheDocument();
+    await expect(canvas.getByText('Single task')).toBeInTheDocument();
   },
   render: () => (
     <ArtifactList className="w-96">
@@ -599,7 +606,9 @@ export const EdgeCaseSingleItem: Story = {
       <ArtifactListContent>
         <ArtifactListItem variant="now">
           <ListItemTitle>Single task</ListItemTitle>
-          <ListItemDescription>This is the only item in the list</ListItemDescription>
+          <ListItemDescription>
+            This is the only item in the list
+          </ListItemDescription>
           <ListItemStatus>Active</ListItemStatus>
         </ArtifactListItem>
       </ArtifactListContent>
@@ -612,10 +621,14 @@ export const EdgeCaseMixedContent: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText("Title only")).toBeInTheDocument();
-    await expect(canvas.getByText("Title with description")).toBeInTheDocument();
-    await expect(canvas.getByText("Title with status only")).toBeInTheDocument();
-    await expect(canvas.getByText("Complete item")).toBeInTheDocument();
+    await expect(canvas.getByText('Title only')).toBeInTheDocument();
+    await expect(
+      canvas.getByText('Title with description')
+    ).toBeInTheDocument();
+    await expect(
+      canvas.getByText('Title with status only')
+    ).toBeInTheDocument();
+    await expect(canvas.getByText('Complete item')).toBeInTheDocument();
   },
   render: () => (
     <ArtifactList className="w-96">
@@ -628,7 +641,9 @@ export const EdgeCaseMixedContent: Story = {
         </ArtifactListItem>
         <ArtifactListItem>
           <ListItemTitle>Title with description</ListItemTitle>
-          <ListItemDescription>Has a description but no status</ListItemDescription>
+          <ListItemDescription>
+            Has a description but no status
+          </ListItemDescription>
         </ArtifactListItem>
         <ArtifactListItem variant="now">
           <ListItemTitle>Title with status only</ListItemTitle>
@@ -637,7 +652,9 @@ export const EdgeCaseMixedContent: Story = {
         <ArtifactListItem variant="completed">
           <ListItemTitle>Complete item</ListItemTitle>
           <ListItemStatus>Done</ListItemStatus>
-          <ListItemDescription>Has both description and status</ListItemDescription>
+          <ListItemDescription>
+            Has both description and status
+          </ListItemDescription>
         </ArtifactListItem>
       </ArtifactListContent>
     </ArtifactList>
@@ -649,9 +666,9 @@ export const EdgeCaseShortText: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText("A")).toBeInTheDocument();
-    await expect(canvas.getByText("B")).toBeInTheDocument();
-    await expect(canvas.getByText("C")).toBeInTheDocument();
+    await expect(canvas.getByText('A')).toBeInTheDocument();
+    await expect(canvas.getByText('B')).toBeInTheDocument();
+    await expect(canvas.getByText('C')).toBeInTheDocument();
   },
   render: () => (
     <ArtifactList className="w-96">
@@ -681,11 +698,11 @@ export const EdgeCaseManyItems: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const list = canvas.getByRole("list");
+    const list = canvas.getByRole('list');
     await expect(list).toBeInTheDocument();
     await expect(list.children.length).toBeGreaterThanOrEqual(20);
-    await expect(canvas.getByText("Task 1")).toBeInTheDocument();
-    await expect(canvas.getByText("Task 20")).toBeInTheDocument();
+    await expect(canvas.getByText('Task 1')).toBeInTheDocument();
+    await expect(canvas.getByText('Task 20')).toBeInTheDocument();
   },
   render: () => (
     <ArtifactList className="w-96 max-h-96">
@@ -700,10 +717,14 @@ export const EdgeCaseManyItems: Story = {
           (_, i) => (
             <ArtifactListItem
               key={i}
-              variant={i % 4 === 0 ? "completed" : i % 3 === 0 ? "now" : "upcoming"}
+              variant={
+                i % 4 === 0 ? 'completed' : i % 3 === 0 ? 'now' : 'upcoming'
+              }
             >
               <ListItemTitle>Task {i + 1}</ListItemTitle>
-              <ListItemDescription>Description for task {i + 1}</ListItemDescription>
+              <ListItemDescription>
+                Description for task {i + 1}
+              </ListItemDescription>
               <ListItemStatus>Status {i + 1}</ListItemStatus>
             </ArtifactListItem>
           )
@@ -718,7 +739,7 @@ export const EdgeCaseSpecialCharacters: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText("Temperature: 85°C")).toBeInTheDocument();
+    await expect(canvas.getByText('Temperature: 85°C')).toBeInTheDocument();
     await expect(canvas.getByText(/Pressure.*120.*bar/)).toBeInTheDocument();
     await expect(canvas.getByText(/Flow rate.*45.*m³\/h/)).toBeInTheDocument();
   },
@@ -730,19 +751,27 @@ export const EdgeCaseSpecialCharacters: Story = {
       <ArtifactListContent>
         <ArtifactListItem>
           <ListItemTitle>Temperature: 85°C</ListItemTitle>
-          <ListItemDescription>Celsius measurement with degree symbol</ListItemDescription>
+          <ListItemDescription>
+            Celsius measurement with degree symbol
+          </ListItemDescription>
         </ArtifactListItem>
         <ArtifactListItem>
           <ListItemTitle>Pressure: 120 ± 5 bar</ListItemTitle>
-          <ListItemDescription>Plus-minus tolerance notation</ListItemDescription>
+          <ListItemDescription>
+            Plus-minus tolerance notation
+          </ListItemDescription>
         </ArtifactListItem>
         <ArtifactListItem>
           <ListItemTitle>Flow rate: 45 m³/h</ListItemTitle>
-          <ListItemDescription>Cubic meter per hour with superscript</ListItemDescription>
+          <ListItemDescription>
+            Cubic meter per hour with superscript
+          </ListItemDescription>
         </ArtifactListItem>
         <ArtifactListItem>
           <ListItemTitle>Status: ✓ Passed</ListItemTitle>
-          <ListItemDescription>Check mark and emoji: ✓ ✗ ⚠️ 🔧</ListItemDescription>
+          <ListItemDescription>
+            Check mark and emoji: ✓ ✗ ⚠️ 🔧
+          </ListItemDescription>
         </ArtifactListItem>
       </ArtifactListContent>
     </ArtifactList>
@@ -754,9 +783,11 @@ export const EdgeCaseNoVariant: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText("Plain item 1")).toBeInTheDocument();
-    await expect(canvas.getByText("Plain item 2")).toBeInTheDocument();
-    const icons = canvasElement.querySelectorAll('[data-slot="list-item-icon"]');
+    await expect(canvas.getByText('Plain item 1')).toBeInTheDocument();
+    await expect(canvas.getByText('Plain item 2')).toBeInTheDocument();
+    const icons = canvasElement.querySelectorAll(
+      '[data-slot="list-item-icon"]'
+    );
     await expect(icons.length).toBe(0);
   },
   render: () => (
@@ -793,13 +824,15 @@ export const Playground: Story = {
       <ArtifactListContent>
         <ArtifactListItem variant="now">
           <ListItemTitle>Sample task</ListItemTitle>
-          <ListItemDescription>Try adjusting the className prop</ListItemDescription>
+          <ListItemDescription>
+            Try adjusting the className prop
+          </ListItemDescription>
           <ListItemStatus>In progress</ListItemStatus>
         </ArtifactListItem>
       </ArtifactListContent>
     </ArtifactList>
   ),
   args: {
-    className: "w-100",
+    className: 'w-100',
   },
 };

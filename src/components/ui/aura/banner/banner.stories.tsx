@@ -1,13 +1,14 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor, within } from "@storybook/test";
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import {
   IconAlertCircle,
   IconAlertTriangle,
   IconCheck,
   IconCopy,
   IconInfoCircle,
-} from "@tabler/icons-react";
-import { useState } from "react";
+} from '@tabler/icons-react';
+import { useState } from 'react';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
+
 import {
   Banner,
   BannerAction,
@@ -16,82 +17,82 @@ import {
   BannerIcon,
   BannerStatus,
   BannerTitle,
-} from "./banner";
+} from './banner';
 const meta: Meta<typeof Banner> = {
-  title: "Primitives/Banner",
+  title: 'Primitives/Banner',
   component: Banner,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     variant: {
-      control: "select",
-      options: ["default", "neutral", "destructive", "warning"],
+      control: 'select',
+      options: ['default', 'neutral', 'destructive', 'warning'],
       table: {
-        category: "Display",
+        category: 'Display',
         type: {
           summary: '"default" | "neutral" | "destructive" | "warning"',
         },
         defaultValue: {
-          summary: "default",
+          summary: 'default',
         },
       },
     },
     inset: {
-      control: "boolean",
+      control: 'boolean',
       table: {
-        category: "Display",
+        category: 'Display',
         type: {
-          summary: "boolean",
+          summary: 'boolean',
         },
         defaultValue: {
-          summary: "false",
+          summary: 'false',
         },
       },
     },
     className: {
-      control: "text",
+      control: 'text',
       table: {
-        category: "Display",
+        category: 'Display',
       },
     },
     visible: {
-      control: "boolean",
+      control: 'boolean',
       table: {
-        category: "State",
+        category: 'State',
         type: {
-          summary: "boolean",
+          summary: 'boolean',
         },
       },
     },
     defaultVisible: {
-      control: "boolean",
+      control: 'boolean',
       table: {
-        category: "State",
+        category: 'State',
         type: {
-          summary: "boolean",
+          summary: 'boolean',
         },
         defaultValue: {
-          summary: "true",
+          summary: 'true',
         },
       },
     },
     onClose: {
-      action: "closed",
+      action: 'closed',
       table: {
-        category: "Events",
+        category: 'Events',
         type: {
-          summary: "() => void",
+          summary: '() => void',
         },
       },
     },
     children: {
       control: false,
       table: {
-        category: "Internal",
+        category: 'Internal',
       },
     },
   },
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
 };
 export default meta;
@@ -102,10 +103,10 @@ export const Basic: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText("Banner title")).toBeInTheDocument();
+    await expect(canvas.getByText('Banner title')).toBeInTheDocument();
     const banner = canvasElement.querySelector('[class*="bg-mountain"]');
     await expect(banner).toBeInTheDocument();
-    const actionButton = canvas.getByRole("button", {
+    const actionButton = canvas.getByRole('button', {
       name: /action/i,
     });
     await expect(actionButton).toBeInTheDocument();
@@ -128,10 +129,10 @@ export const Variants: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText("Default variant")).toBeInTheDocument();
-    await expect(canvas.getByText("Neutral variant")).toBeInTheDocument();
-    await expect(canvas.getByText("Destructive variant")).toBeInTheDocument();
-    await expect(canvas.getByText("Warning variant")).toBeInTheDocument();
+    await expect(canvas.getByText('Default variant')).toBeInTheDocument();
+    await expect(canvas.getByText('Neutral variant')).toBeInTheDocument();
+    await expect(canvas.getByText('Destructive variant')).toBeInTheDocument();
+    await expect(canvas.getByText('Warning variant')).toBeInTheDocument();
     const banners = canvasElement.querySelectorAll('[class*="bg-"]');
     await expect(banners.length).toBeGreaterThanOrEqual(4);
   },
@@ -162,9 +163,11 @@ export const WithStatus: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText("Workflow has been published")).toBeInTheDocument();
-    await expect(canvas.getByText("Published")).toBeInTheDocument();
-    const actionButton = canvas.getByRole("button", {
+    await expect(
+      canvas.getByText('Workflow has been published')
+    ).toBeInTheDocument();
+    await expect(canvas.getByText('Published')).toBeInTheDocument();
+    const actionButton = canvas.getByRole('button', {
       name: /request review/i,
     });
     await expect(actionButton).toBeInTheDocument();
@@ -188,10 +191,10 @@ export const MultipleActions: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const duplicateButton = canvas.getByRole("button", {
+    const duplicateButton = canvas.getByRole('button', {
       name: /duplicate/i,
     });
-    const editButton = canvas.getByRole("button", {
+    const editButton = canvas.getByRole('button', {
       name: /edit/i,
     });
     await expect(duplicateButton).toBeInTheDocument();
@@ -220,13 +223,13 @@ export const Dismissible: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const bannerTitle = canvas.getByText("This banner can be dismissed");
+    const bannerTitle = canvas.getByText('This banner can be dismissed');
     await expect(bannerTitle).toBeInTheDocument();
-    const closeButton = canvas.getByRole("button", {
-      name: "Close banner",
+    const closeButton = canvas.getByRole('button', {
+      name: 'Close banner',
     });
     await expect(closeButton).toBeInTheDocument();
-    const actionButton = canvas.getByRole("button", {
+    const actionButton = canvas.getByRole('button', {
       name: /learn more/i,
     });
     await expect(actionButton).toBeInTheDocument();
@@ -252,15 +255,19 @@ export const ControlledVisibility: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText("Controlled visibility banner")).toBeInTheDocument();
-    const toggleButton = canvas.getByRole("button", {
+    await expect(
+      canvas.getByText('Controlled visibility banner')
+    ).toBeInTheDocument();
+    const toggleButton = canvas.getByRole('button', {
       name: /toggle banner/i,
     });
     await expect(toggleButton).toBeInTheDocument();
     await userEvent.click(toggleButton);
     await waitFor(
       () => {
-        expect(canvas.queryByText("Controlled visibility banner")).not.toBeInTheDocument();
+        expect(
+          canvas.queryByText('Controlled visibility banner')
+        ).not.toBeInTheDocument();
       },
       {
         timeout: 300,
@@ -269,7 +276,9 @@ export const ControlledVisibility: Story = {
     await userEvent.click(toggleButton);
     await waitFor(
       () => {
-        expect(canvas.getByText("Controlled visibility banner")).toBeInTheDocument();
+        expect(
+          canvas.getByText('Controlled visibility banner')
+        ).toBeInTheDocument();
       },
       {
         timeout: 300,
@@ -304,7 +313,7 @@ export const Inset: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText("Inset banner")).toBeInTheDocument();
+    await expect(canvas.getByText('Inset banner')).toBeInTheDocument();
     const banner = canvasElement.querySelector('[class*="rounded-lg"]');
     await expect(banner).toBeInTheDocument();
   },
@@ -326,8 +335,10 @@ export const ReadOnlyWarning: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText("Read only. Duplicate to make changes.")).toBeInTheDocument();
-    const duplicateButton = canvas.getByRole("button", {
+    await expect(
+      canvas.getByText('Read only. Duplicate to make changes.')
+    ).toBeInTheDocument();
+    const duplicateButton = canvas.getByRole('button', {
       name: /duplicate/i,
     });
     await expect(duplicateButton).toBeInTheDocument();
@@ -354,9 +365,11 @@ export const SuccessNotification: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText("Workflow has been published")).toBeInTheDocument();
-    await expect(canvas.getByText("Published")).toBeInTheDocument();
-    const reviewButton = canvas.getByRole("button", {
+    await expect(
+      canvas.getByText('Workflow has been published')
+    ).toBeInTheDocument();
+    await expect(canvas.getByText('Published')).toBeInTheDocument();
+    const reviewButton = canvas.getByRole('button', {
       name: /request review/i,
     });
     await expect(reviewButton).toBeInTheDocument();
@@ -393,8 +406,10 @@ export const ErrorNotification: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText("Failed to save changes")).toBeInTheDocument();
-    const retryButton = canvas.getByRole("button", {
+    await expect(
+      canvas.getByText('Failed to save changes')
+    ).toBeInTheDocument();
+    const retryButton = canvas.getByRole('button', {
       name: /retry/i,
     });
     await expect(retryButton).toBeInTheDocument();
@@ -419,8 +434,10 @@ export const WarningNotification: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText("Your trial expires in 3 days")).toBeInTheDocument();
-    const upgradeButton = canvas.getByRole("button", {
+    await expect(
+      canvas.getByText('Your trial expires in 3 days')
+    ).toBeInTheDocument();
+    const upgradeButton = canvas.getByRole('button', {
       name: /upgrade/i,
     });
     await expect(upgradeButton).toBeInTheDocument();
@@ -440,10 +457,10 @@ export const WarningNotification: Story = {
 };
 export const Playground: Story = {
   args: {
-    variant: "default",
+    variant: 'default',
     inset: false,
     defaultVisible: true,
-    className: "w-100",
+    className: 'w-100',
   },
   parameters: {
     order: 99,

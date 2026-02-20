@@ -1,66 +1,80 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, within } from "@storybook/test";
-import { CodeBlock, CodeBlockCollapseButton, CodeBlockCopyButton } from "./code-block";
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, within } from 'storybook/test';
+
+import {
+  CodeBlock,
+  CodeBlockCollapseButton,
+  CodeBlockCopyButton,
+} from './code-block';
 const meta: Meta<typeof CodeBlock> = {
-  title: "AI/Code Block",
+  title: 'AI/Code Block',
   component: CodeBlock,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     code: {
-      control: "text",
+      control: 'text',
       table: {
-        category: "Content",
+        category: 'Content',
         type: {
-          summary: "string",
+          summary: 'string',
         },
       },
     },
     language: {
-      control: "select",
-      options: ["typescript", "javascript", "python", "json", "css", "html", "bash", "markdown"],
+      control: 'select',
+      options: [
+        'typescript',
+        'javascript',
+        'python',
+        'json',
+        'css',
+        'html',
+        'bash',
+        'markdown',
+      ],
       table: {
-        category: "Variants/Styling",
+        category: 'Variants/Styling',
         type: {
-          summary: "BundledLanguage",
+          summary: 'BundledLanguage',
         },
       },
     },
     showLineNumbers: {
-      control: "boolean",
+      control: 'boolean',
       table: {
-        category: "Variants/Styling",
+        category: 'Variants/Styling',
         type: {
-          summary: "boolean",
+          summary: 'boolean',
         },
         defaultValue: {
-          summary: "false",
+          summary: 'false',
         },
       },
     },
     collapsed: {
-      control: "boolean",
+      control: 'boolean',
       table: {
-        category: "Behavior",
+        category: 'Behavior',
         type: {
-          summary: "boolean",
+          summary: 'boolean',
         },
         defaultValue: {
-          summary: "false",
+          summary: 'false',
         },
       },
     },
     copyText: {
-      control: "text",
+      control: 'text',
       table: {
-        category: "Behavior",
+        category: 'Behavior',
         type: {
-          summary: "string",
+          summary: 'string',
         },
       },
     },
   },
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
   decorators: [
     (Story) => (
@@ -141,17 +155,21 @@ export const Basic: Story = {
     const canvas = within(canvasElement);
     const matches = await canvas.findAllByText(
       (_, element) =>
-        element?.tagName.toLowerCase() === "code" &&
-        element.textContent?.includes("interface User") === true
+        element?.tagName.toLowerCase() === 'code' &&
+        element.textContent?.includes('interface User') === true
     );
     await expect(matches.length).toBeGreaterThanOrEqual(1);
-    const buttons = await canvas.findAllByRole("button", { hidden: true });
+    const buttons = await canvas.findAllByRole('button', { hidden: true });
     await expect(buttons.length).toBeGreaterThanOrEqual(1);
   },
 };
 export const WithLineNumbers: Story = {
   render: () => (
-    <CodeBlock code={sampleCode.typescript} language="typescript" showLineNumbers>
+    <CodeBlock
+      code={sampleCode.typescript}
+      language="typescript"
+      showLineNumbers
+    >
       <CodeBlockCopyButton />
     </CodeBlock>
   ),
@@ -162,8 +180,8 @@ export const WithLineNumbers: Story = {
     const canvas = within(canvasElement);
     const matches = await canvas.findAllByText(
       (_, element) =>
-        element?.tagName.toLowerCase() === "code" &&
-        element.textContent?.includes("interface User") === true
+        element?.tagName.toLowerCase() === 'code' &&
+        element.textContent?.includes('interface User') === true
     );
     await expect(matches.length).toBeGreaterThanOrEqual(1);
   },
@@ -180,7 +198,7 @@ export const Collapsible: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const buttons = await canvas.findAllByRole("button", {
+    const buttons = await canvas.findAllByRole('button', {
       hidden: true,
     });
     await expect(buttons.length).toBeGreaterThanOrEqual(1);
@@ -278,7 +296,12 @@ export const CustomCopyText: Story = {
 };
 export const CollapsedWithLineNumbers: Story = {
   render: () => (
-    <CodeBlock code={sampleCode.typescript} language="typescript" collapsed showLineNumbers>
+    <CodeBlock
+      code={sampleCode.typescript}
+      language="typescript"
+      collapsed
+      showLineNumbers
+    >
       <CodeBlockCollapseButton />
       <CodeBlockCopyButton />
     </CodeBlock>
@@ -309,7 +332,7 @@ export const SingleLineWithCollapseButton: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const buttons = await canvas.findAllByRole("button", {
+    const buttons = await canvas.findAllByRole('button', {
       hidden: true,
     });
     await expect(buttons).toHaveLength(1);
@@ -319,7 +342,9 @@ export const VisualRegression: Story = {
   render: () => (
     <div className="space-y-8">
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">TypeScript</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          TypeScript
+        </h3>
         <CodeBlock
           code={`function greet(name: string): string {
   return \`Hello, \${name}!\`;
@@ -331,7 +356,9 @@ export const VisualRegression: Story = {
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">With Line Numbers</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          With Line Numbers
+        </h3>
         <CodeBlock
           code={`const a = 1;
 const b = 2;
@@ -368,7 +395,7 @@ const c = a + b;`}
 export const Playground: Story = {
   args: {
     code: sampleCode.typescript,
-    language: "typescript",
+    language: 'typescript',
     showLineNumbers: false,
     collapsed: false,
   },
