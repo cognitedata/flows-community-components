@@ -1,8 +1,9 @@
-import { type CogDocsPage, cogdocsPages } from "virtual:cogdocs";
-import { Button } from "@/components/ui/aura/button";
-import { MessageResponse } from "@/components/ui/aura/message/message";
-import { IconArrowLeft } from "@tabler/icons-react";
-import { useNavigate, useParams } from "react-router-dom";
+import { IconArrowLeft } from '@tabler/icons-react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { type CogDocsPage, cogdocsPages } from 'virtual:cogdocs';
+
+import { Button } from '@/components/ui/aura/button';
+import { MessageResponse } from '@/components/ui/aura/message/message';
 
 export default function CogDocsPageComponent() {
   const { slug } = useParams<{ slug: string }>();
@@ -22,7 +23,11 @@ export default function CogDocsPageComponent() {
       <div className="space-y-8">
         {/* Navigation */}
         <div className="flex items-center gap-4">
-          <Button variant="secondary" size="sm" onClick={() => navigate("/cogdocs")}>
+          <Button
+            variant="secondary"
+            size="sm"
+            onClick={() => navigate('/cogdocs')}
+          >
             <IconArrowLeft className="h-4 w-4 mr-2" />
             Back to CogDocs
           </Button>

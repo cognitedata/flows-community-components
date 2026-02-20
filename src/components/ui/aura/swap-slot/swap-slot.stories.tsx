@@ -1,5 +1,12 @@
-import { Badge } from "@/components/ui/aura/badge";
-import { Button } from "@/components/ui/aura/button";
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { IconCheck, IconPlus } from '@tabler/icons-react';
+import { useState } from 'react';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
+
+import { SwapSlot } from './swap-slot';
+
+import { Badge } from '@/components/ui/aura/badge';
+import { Button } from '@/components/ui/aura/button';
 import {
   Card,
   CardContent,
@@ -7,53 +14,48 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/aura/card";
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor, within } from "@storybook/test";
-import { IconCheck, IconPlus } from "@tabler/icons-react";
-import { useState } from "react";
-import { SwapSlot } from "./swap-slot";
+} from '@/components/ui/aura/card';
 const meta: Meta<typeof SwapSlot> = {
-  title: "Primitives/Swap Slot",
+  title: 'Primitives/Swap Slot',
   component: SwapSlot,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     defaultSlot: {
       control: false,
       table: {
-        category: "Display",
+        category: 'Display',
         type: {
-          summary: "ReactNode",
+          summary: 'ReactNode',
         },
       },
     },
     activeSlot: {
       control: false,
       table: {
-        category: "Display",
+        category: 'Display',
         type: {
-          summary: "ReactNode",
+          summary: 'ReactNode',
         },
       },
     },
     children: {
       control: false,
       table: {
-        category: "Display",
+        category: 'Display',
         type: {
-          summary: "ReactNode",
+          summary: 'ReactNode',
         },
       },
     },
     className: {
-      control: "text",
+      control: 'text',
       table: {
-        category: "Display",
+        category: 'Display',
       },
     },
   },
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
 };
 export default meta;
@@ -63,12 +65,12 @@ export const Basic: Story = {
     order: 1,
   },
   play: async ({ canvasElement }) => {
-    const swapSlot = canvasElement.querySelector(".border-dashed");
+    const swapSlot = canvasElement.querySelector('.border-dashed');
     await expect(swapSlot).toBeInTheDocument();
-    await expect(swapSlot).toHaveClass("border-dashed");
-    await expect(swapSlot).toHaveClass("rounded-md");
-    await expect(swapSlot).toHaveClass("border");
-    await expect(swapSlot?.textContent).toBe("");
+    await expect(swapSlot).toHaveClass('border-dashed');
+    await expect(swapSlot).toHaveClass('rounded-md');
+    await expect(swapSlot).toHaveClass('border');
+    await expect(swapSlot?.textContent).toBe('');
   },
   render: function BasicStory() {
     return <SwapSlot className="w-100" />;
@@ -80,8 +82,8 @@ export const WithChildren: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText("Placeholder content")).toBeInTheDocument();
-    const swapSlot = canvasElement.querySelector(".border-dashed");
+    await expect(canvas.getByText('Placeholder content')).toBeInTheDocument();
+    const swapSlot = canvasElement.querySelector('.border-dashed');
     await expect(swapSlot).toBeInTheDocument();
   },
   render: function WithChildrenStory() {
@@ -101,8 +103,10 @@ export const WithDefaultSlot: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText("Default content slot")).toBeInTheDocument();
-    await expect(canvas.queryByText("Active content slot")).not.toBeInTheDocument();
+    await expect(canvas.getByText('Default content slot')).toBeInTheDocument();
+    await expect(
+      canvas.queryByText('Active content slot')
+    ).not.toBeInTheDocument();
   },
   render: function WithDefaultSlotStory() {
     return (
@@ -124,8 +128,10 @@ export const WithActiveSlot: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText("Active content slot")).toBeInTheDocument();
-    await expect(canvas.queryByText("Default content slot")).not.toBeInTheDocument();
+    await expect(canvas.getByText('Active content slot')).toBeInTheDocument();
+    await expect(
+      canvas.queryByText('Default content slot')
+    ).not.toBeInTheDocument();
   },
   render: function WithActiveSlotStory() {
     return (
@@ -147,14 +153,14 @@ export const InteractiveSwap: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const toggleButton = canvas.getByRole("button", {
+    const toggleButton = canvas.getByRole('button', {
       name: /toggle/i,
     });
-    await expect(canvas.getByText("Default content")).toBeInTheDocument();
+    await expect(canvas.getByText('Default content')).toBeInTheDocument();
     await userEvent.click(toggleButton);
     await waitFor(
       () => {
-        expect(canvas.getByText("Active content")).toBeInTheDocument();
+        expect(canvas.getByText('Active content')).toBeInTheDocument();
       },
       {
         timeout: 300,
@@ -163,7 +169,7 @@ export const InteractiveSwap: Story = {
     await userEvent.click(toggleButton);
     await waitFor(
       () => {
-        expect(canvas.getByText("Default content")).toBeInTheDocument();
+        expect(canvas.getByText('Default content')).toBeInTheDocument();
       },
       {
         timeout: 300,
@@ -204,15 +210,19 @@ export const CustomStyling: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText("Custom background colour")).toBeInTheDocument();
-    await expect(canvas.getByText("Primary border")).toBeInTheDocument();
-    await expect(canvas.getByText("Solid border")).toBeInTheDocument();
+    await expect(
+      canvas.getByText('Custom background colour')
+    ).toBeInTheDocument();
+    await expect(canvas.getByText('Primary border')).toBeInTheDocument();
+    await expect(canvas.getByText('Solid border')).toBeInTheDocument();
   },
   render: function CustomStylingStory() {
     return (
       <div className="space-y-4 w-100">
         <SwapSlot className="h-20 bg-accent/50">
-          <span className="text-sm text-muted-foreground">Custom background colour</span>
+          <span className="text-sm text-muted-foreground">
+            Custom background colour
+          </span>
         </SwapSlot>
         <SwapSlot className="h-24 border-2 border-primary">
           <span className="text-sm text-muted-foreground">Primary border</span>
@@ -230,10 +240,10 @@ export const InCard: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText("Card Title")).toBeInTheDocument();
-    await expect(canvas.getByText("Card description")).toBeInTheDocument();
-    await expect(canvas.getByText("Slot content")).toBeInTheDocument();
-    const badges = canvas.getAllByText("Badge");
+    await expect(canvas.getByText('Card Title')).toBeInTheDocument();
+    await expect(canvas.getByText('Card description')).toBeInTheDocument();
+    await expect(canvas.getByText('Slot content')).toBeInTheDocument();
+    const badges = canvas.getAllByText('Badge');
     await expect(badges).toHaveLength(3);
   },
   render: function InCardStory() {
@@ -269,18 +279,20 @@ export const PriorityOrder: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const activeSlot = canvas.getByText("Active Slot");
+    const activeSlot = canvas.getByText('Active Slot');
     await expect(activeSlot).toBeInTheDocument();
-    const defaultSlot = canvas.getByText("Default Slot");
+    const defaultSlot = canvas.getByText('Default Slot');
     await expect(defaultSlot).toBeInTheDocument();
-    const children = canvas.getByText("Children");
+    const children = canvas.getByText('Children');
     await expect(children).toBeInTheDocument();
   },
   render: function PriorityOrderStory() {
     return (
       <div className="space-y-4 w-100">
         <div className="space-y-2">
-          <h3 className="font-semibold text-sm">1. With all three (activeSlot wins)</h3>
+          <h3 className="font-semibold text-sm">
+            1. With all three (activeSlot wins)
+          </h3>
           <SwapSlot
             defaultSlot={<span>Default Slot</span>}
             activeSlot={<span className="text-success">Active Slot</span>}
@@ -312,38 +324,38 @@ export const WithComplexContent: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText("Default State")).toBeInTheDocument();
-    await expect(canvas.getByText("Inactive")).toBeInTheDocument();
-    const toggleButton = canvas.getByRole("button", {
+    await expect(canvas.getByText('Default State')).toBeInTheDocument();
+    await expect(canvas.getByText('Inactive')).toBeInTheDocument();
+    const toggleButton = canvas.getByRole('button', {
       name: /activate/i,
     });
     await userEvent.click(toggleButton);
     await waitFor(
       () => {
-        expect(canvas.getByText("Active State")).toBeInTheDocument();
-        expect(canvas.getByText("Active")).toBeInTheDocument();
+        expect(canvas.getByText('Active State')).toBeInTheDocument();
+        expect(canvas.getByText('Active')).toBeInTheDocument();
       },
       {
         timeout: 300,
       }
     );
     await expect(
-      canvas.getByRole("button", {
-        name: "Action 1",
+      canvas.getByRole('button', {
+        name: 'Action 1',
       })
     ).toBeInTheDocument();
     await expect(
-      canvas.getByRole("button", {
-        name: "Action 2",
+      canvas.getByRole('button', {
+        name: 'Action 2',
       })
     ).toBeInTheDocument();
-    const deactivateButton = canvas.getByRole("button", {
+    const deactivateButton = canvas.getByRole('button', {
       name: /deactivate/i,
     });
     await userEvent.click(deactivateButton);
     await waitFor(
       () => {
-        expect(canvas.getByText("Default State")).toBeInTheDocument();
+        expect(canvas.getByText('Default State')).toBeInTheDocument();
       },
       {
         timeout: 300,
@@ -363,8 +375,8 @@ export const WithComplexContent: Story = {
                 <Badge variant="archived">Inactive</Badge>
               </div>
               <p className="text-sm text-muted-foreground">
-                This is the default slot with complex content including badges and multiple text
-                elements.
+                This is the default slot with complex content including badges
+                and multiple text elements.
               </p>
             </div>
           }
@@ -391,7 +403,7 @@ export const WithComplexContent: Story = {
           }
         />
         <Button onClick={() => setIsActive(!isActive)} variant="outline">
-          {isActive ? "Deactivate" : "Activate"} Slot
+          {isActive ? 'Deactivate' : 'Activate'} Slot
         </Button>
       </div>
     );
@@ -402,10 +414,10 @@ export const EmptyState: Story = {
     order: 10,
   },
   play: async ({ canvasElement }) => {
-    const swapSlot = canvasElement.querySelector(".border-dashed");
+    const swapSlot = canvasElement.querySelector('.border-dashed');
     await expect(swapSlot).toBeInTheDocument();
-    await expect(swapSlot).toHaveClass("border-dashed");
-    await expect(swapSlot?.textContent).toBe("");
+    await expect(swapSlot).toHaveClass('border-dashed');
+    await expect(swapSlot?.textContent).toBe('');
   },
   render: function EmptyStateStory() {
     return <SwapSlot className="w-100 h-20">{}</SwapSlot>;
@@ -413,7 +425,7 @@ export const EmptyState: Story = {
 };
 export const Playground: Story = {
   args: {
-    className: "w-100",
+    className: 'w-100',
   },
   parameters: {
     order: 99,
