@@ -4,7 +4,7 @@ import { InstallationCommand } from "@/components/installation-command";
 import { StoriesRenderer } from "@/components/stories-renderer";
 import { Badge } from "@/components/ui/aura/badge";
 import { Button } from "@/components/ui/aura/button";
-import type { ComponentMeta } from "@/lib/component-examples";
+import type { ComponentMeta } from "@/lib/types";
 import { getComponentMeta } from "@/lib/component-registry";
 import {
   type ComponentStatusType,
