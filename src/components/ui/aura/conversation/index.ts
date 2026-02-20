@@ -6,16 +6,12 @@
  * @example
  * import { Conversation, ConversationContent, ConversationScrollButton } from '@/components/ui/aura/conversation';
  */
-export {
+import {
   Conversation,
   ConversationContent,
   ConversationEmptyState,
   ConversationScrollButton,
 } from "./conversation";
-export type {
-  ConversationProps,
-  ConversationContentProps,
-  ConversationEmptyStateProps,
-  ConversationScrollButtonProps,
-} from "./conversation";
+
+export { Conversation, ConversationContent, ConversationEmptyState, ConversationScrollButton };
 export { ConversationMetadata } from "./conversation.metadata";
