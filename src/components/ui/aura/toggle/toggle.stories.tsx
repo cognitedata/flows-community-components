@@ -10,6 +10,7 @@ import {
 import { useState } from "react";
 import { expect, userEvent, within } from "storybook/test";
 import { Toggle } from "./toggle";
+
 const meta: Meta<typeof Toggle> = {
   title: "Primitives/Toggle",
   component: Toggle,
@@ -19,7 +20,7 @@ const meta: Meta<typeof Toggle> = {
       control: "select",
       options: ["default", "outline"],
       table: {
-        category: "Appearance",
+        category: "Variants/Styling",
         type: {
           summary: '"default" | "outline"',
         },
@@ -32,7 +33,7 @@ const meta: Meta<typeof Toggle> = {
       control: "select",
       options: ["default", "sm", "lg"],
       table: {
-        category: "Appearance",
+        category: "Variants/Styling",
         type: {
           summary: '"default" | "sm" | "lg"',
         },
@@ -44,7 +45,7 @@ const meta: Meta<typeof Toggle> = {
     pressed: {
       control: "boolean",
       table: {
-        category: "State",
+        category: "Behavior",
         type: {
           summary: "boolean",
         },
@@ -53,7 +54,7 @@ const meta: Meta<typeof Toggle> = {
     defaultPressed: {
       control: "boolean",
       table: {
-        category: "State",
+        category: "Behavior",
         type: {
           summary: "boolean",
         },
@@ -65,7 +66,7 @@ const meta: Meta<typeof Toggle> = {
     disabled: {
       control: "boolean",
       table: {
-        category: "State",
+        category: "Behavior",
         type: {
           summary: "boolean",
         },
@@ -96,6 +97,9 @@ export const Default: Story = {
       <IconBold className="size-4" />
     </Toggle>
   ),
+  parameters: {
+    order: 1,
+  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const toggle = canvas.getByRole("button");
@@ -114,6 +118,9 @@ export const WithText: Story = {
       Italic
     </Toggle>
   ),
+  parameters: {
+    order: 2,
+  },
 };
 export const Outline: Story = {
   render: () => (
@@ -121,6 +128,9 @@ export const Outline: Story = {
       <IconBold className="size-4" />
     </Toggle>
   ),
+  parameters: {
+    order: 3,
+  },
 };
 export const Sizes: Story = {
   render: () => (
@@ -136,6 +146,9 @@ export const Sizes: Story = {
       </Toggle>
     </div>
   ),
+  parameters: {
+    order: 4,
+  },
 };
 export const DefaultPressed: Story = {
   render: () => (
@@ -143,6 +156,9 @@ export const DefaultPressed: Story = {
       <IconBold className="size-4" />
     </Toggle>
   ),
+  parameters: {
+    order: 5,
+  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const toggle = canvas.getByRole("button");
@@ -160,9 +176,12 @@ export const Disabled: Story = {
       </Toggle>
     </div>
   ),
+  parameters: {
+    order: 6,
+  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const toggles = canvas.getAllByRole("button");
+    const toggles = await canvas.findAllByRole("button");
     for (const toggle of toggles) {
       await expect(toggle).toBeDisabled();
     }
@@ -197,6 +216,9 @@ export const Controlled: Story = {
       </div>
     );
   },
+  parameters: {
+    order: 7,
+  },
 };
 export const ToolbarExample: Story = {
   render: function ToolbarToggle() {
@@ -221,6 +243,9 @@ export const ToolbarExample: Story = {
         </Toggle>
       </div>
     );
+  },
+  parameters: {
+    order: 8,
   },
 };
 export const SingleSelectGroup: Story = {
@@ -255,6 +280,9 @@ export const SingleSelectGroup: Story = {
       </div>
     );
   },
+  parameters: {
+    order: 9,
+  },
 };
 export const AllStates: Story = {
   render: () => (
@@ -285,6 +313,9 @@ export const AllStates: Story = {
       </div>
     </div>
   ),
+  parameters: {
+    order: 10,
+  },
 };
 export const VisualRegression: Story = {
   render: () => (
@@ -333,6 +364,7 @@ export const VisualRegression: Story = {
     </div>
   ),
   parameters: {
+    order: 11,
     chromatic: {
       disableSnapshot: false,
     },
@@ -350,4 +382,7 @@ export const Playground: Story = {
       <IconBold className="size-4" />
     </Toggle>
   ),
+  parameters: {
+    order: 99,
+  },
 };
