@@ -14,14 +14,12 @@ const meta: Meta<typeof Kbd> = {
   argTypes: {
     children: {
       control: "text",
-      description: "Keyboard key content",
       table: {
         category: "Content",
       },
     },
     className: {
       control: "text",
-      description: "Additional CSS classes",
       table: {
         category: "Variants/Styling",
       },
@@ -35,18 +33,10 @@ const meta: Meta<typeof Kbd> = {
 export default meta;
 type Story = StoryObj<typeof Kbd>;
 
-/**
- * Default keyboard key.
- */
 export const Default: Story = {
   render: () => <Kbd>K</Kbd>,
   parameters: {
     order: 1,
-    docs: {
-      description: {
-        story: "Default keyboard key styling.",
-      },
-    },
   },
   play: async ({ canvasElement }: StoryPlayContext) => {
     const canvas = within(canvasElement);
@@ -55,9 +45,6 @@ export const Default: Story = {
   },
 };
 
-/**
- * Common keyboard shortcuts.
- */
 export const CommonShortcuts: Story = {
   render: () => (
     <div className="space-y-4">
@@ -93,11 +80,6 @@ export const CommonShortcuts: Story = {
   ),
   parameters: {
     order: 2,
-    docs: {
-      description: {
-        story: "Common keyboard shortcuts using KbdGroup.",
-      },
-    },
   },
   play: async ({ canvasElement }: StoryPlayContext) => {
     const canvas = within(canvasElement);
@@ -114,9 +96,6 @@ export const CommonShortcuts: Story = {
   },
 };
 
-/**
- * Single keys.
- */
 export const SingleKeys: Story = {
   render: () => (
     <div className="flex items-center gap-4">
@@ -132,11 +111,6 @@ export const SingleKeys: Story = {
   ),
   parameters: {
     order: 3,
-    docs: {
-      description: {
-        story: "Common modifier and special keys.",
-      },
-    },
   },
   play: async ({ canvasElement }: StoryPlayContext) => {
     const canvas = within(canvasElement);
@@ -151,9 +125,6 @@ export const SingleKeys: Story = {
   },
 };
 
-/**
- * With icons.
- */
 export const WithIcons: Story = {
   render: () => (
     <div className="space-y-4">
@@ -182,11 +153,6 @@ export const WithIcons: Story = {
   ),
   parameters: {
     order: 4,
-    docs: {
-      description: {
-        story: "Keyboard keys with icons.",
-      },
-    },
   },
   play: async ({ canvasElement }: StoryPlayContext) => {
     const canvas = within(canvasElement);
@@ -197,9 +163,6 @@ export const WithIcons: Story = {
   },
 };
 
-/**
- * Multi-key combinations.
- */
 export const MultiKeyCombinations: Story = {
   render: () => (
     <div className="space-y-4">
@@ -230,11 +193,6 @@ export const MultiKeyCombinations: Story = {
   ),
   parameters: {
     order: 5,
-    docs: {
-      description: {
-        story: "Complex multi-key combinations.",
-      },
-    },
   },
   play: async ({ canvasElement }: StoryPlayContext) => {
     const canvas = within(canvasElement);
@@ -246,9 +204,6 @@ export const MultiKeyCombinations: Story = {
   },
 };
 
-/**
- * In context (with text).
- */
 export const InContext: Story = {
   render: () => (
     <div className="space-y-4 max-w-md">
@@ -265,11 +220,6 @@ export const InContext: Story = {
   ),
   parameters: {
     order: 6,
-    docs: {
-      description: {
-        story: "Keyboard keys used inline with text.",
-      },
-    },
   },
   play: async ({ canvasElement }: StoryPlayContext) => {
     const canvas = within(canvasElement);
@@ -288,9 +238,6 @@ export const InContext: Story = {
   },
 };
 
-/**
- * Shortcut list.
- */
 export const ShortcutList: Story = {
   render: () => (
     <div className="w-75 rounded-lg border">
@@ -331,11 +278,6 @@ export const ShortcutList: Story = {
   ),
   parameters: {
     order: 7,
-    docs: {
-      description: {
-        story: "Keyboard shortcuts displayed in a list format.",
-      },
-    },
   },
   play: async ({ canvasElement }: StoryPlayContext) => {
     const canvas = within(canvasElement);
@@ -351,9 +293,6 @@ export const ShortcutList: Story = {
   },
 };
 
-/**
- * Function keys.
- */
 export const FunctionKeys: Story = {
   render: () => (
     <div className="flex items-center gap-2 flex-wrap">
@@ -373,11 +312,6 @@ export const FunctionKeys: Story = {
   ),
   parameters: {
     order: 8,
-    docs: {
-      description: {
-        story: "Function keys (F1-F12).",
-      },
-    },
   },
   play: async ({ canvasElement }: StoryPlayContext) => {
     const canvas = within(canvasElement);
@@ -396,9 +330,6 @@ export const FunctionKeys: Story = {
   },
 };
 
-/**
- * Visual regression testing.
- */
 export const VisualRegression: Story = {
   render: () => (
     <div className="space-y-6 p-4">
@@ -449,11 +380,6 @@ export const VisualRegression: Story = {
   ),
   parameters: {
     order: 9,
-    docs: {
-      description: {
-        story: "Comprehensive visual overview for regression testing.",
-      },
-    },
     chromatic: {
       disableSnapshot: false,
     },
@@ -475,9 +401,6 @@ export const VisualRegression: Story = {
   },
 };
 
-/**
- * Interactive playground.
- */
 export const Playground: Story = {
   args: {
     children: "⌘",
@@ -485,10 +408,5 @@ export const Playground: Story = {
   render: (args: ComponentProps<typeof Kbd>) => <Kbd {...args} />,
   parameters: {
     order: 99,
-    docs: {
-      description: {
-        story: "Interactive playground - use controls to experiment with kbd props.",
-      },
-    },
   },
 };

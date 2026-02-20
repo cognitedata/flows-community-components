@@ -1,5 +1,6 @@
-import { cn } from "@/lib/utils";
 import { type ComponentProps, type ComponentRef, forwardRef } from "react";
+
+import { cn } from "../../../../lib/utils";
 
 const Kbd = forwardRef<ComponentRef<"kbd">, ComponentProps<"kbd">>(
   ({ className, ...props }, ref) => {
