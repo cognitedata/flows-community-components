@@ -1,10 +1,15 @@
 import { Switch as SwitchPrimitive } from '@base-ui/react/switch';
+import { type ComponentRef, forwardRef } from 'react';
 
 import { cn } from '../../../../lib/utils';
 
-function Switch({ className, ...props }: SwitchPrimitive.Root.Props) {
+const Switch = forwardRef<
+  ComponentRef<typeof SwitchPrimitive.Root>,
+  SwitchPrimitive.Root.Props
+>(({ className, ...props }, ref) => {
   return (
     <SwitchPrimitive.Root
+      ref={ref}
       data-slot="switch"
       className={cn(
         'peer data-checked:bg-primary data-unchecked:bg-input focus-visible:border-ring focus-visible:ring-ring-shadow dark:data-unchecked:bg-input/80 inline-flex h-4 w-8 shrink-0 items-center rounded-full border border-transparent shadow-xs transition-all outline-none focus-visible:ring disabled:cursor-not-allowed disabled:opacity-50',
@@ -20,6 +25,7 @@ function Switch({ className, ...props }: SwitchPrimitive.Root.Props) {
       />
     </SwitchPrimitive.Root>
   );
-}
+});
+Switch.displayName = 'Switch';
 
 export { Switch };

@@ -11,6 +11,9 @@ import {
 import { useState } from 'react';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
 
+import { Avatar, AvatarFallback, AvatarImage } from '../avatar';
+import { Button } from '../button';
+
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -24,13 +27,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from './dropdown-menu';
-
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from '@/components/ui/aura/avatar';
-import { Button } from '@/components/ui/aura/button';
 const meta: Meta<typeof DropdownMenu> = {
   title: 'Primitives/Dropdown Menu',
   component: DropdownMenu,
@@ -446,11 +442,7 @@ export const KeyboardNavigation: Story = {
     trigger.focus();
     await expect(trigger).toHaveFocus();
     await userEvent.keyboard('{Enter}');
-    let menu = within(document.body).queryByRole('menu');
-    if (!menu) {
-      await userEvent.click(trigger);
-      menu = await within(document.body).findByRole('menu');
-    }
+    const menu = await within(document.body).findByRole('menu');
     await within(menu).findByRole('menuitem', {
       name: /first item/i,
     });

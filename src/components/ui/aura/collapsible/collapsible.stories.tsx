@@ -3,13 +3,14 @@ import { IconSelector } from '@tabler/icons-react';
 import { useState } from 'react';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
 
+import { Button } from '../button';
+
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from './collapsible';
 
-import { Button } from '@/components/ui/aura/button';
 const meta: Meta<typeof Collapsible> = {
   title: 'Primitives/Collapsible',
   component: Collapsible,
@@ -67,14 +68,27 @@ const meta: Meta<typeof Collapsible> = {
 };
 export default meta;
 type Story = StoryObj<typeof Collapsible>;
-function getCollapsiblePanels(canvasElement: HTMLElement): HTMLElement[] {
-  const panels = Array.from(
-    canvasElement.querySelectorAll('[data-slot="collapsible-content"]')
-  ) as HTMLElement[];
-  if (panels.length === 0) {
-    throw new Error('No collapsible panels were rendered.');
+function getPanelForTrigger(
+  trigger: HTMLElement,
+  canvasElement: HTMLElement
+): HTMLElement {
+  const panelId = trigger.getAttribute('aria-controls');
+  if (panelId) {
+    const panelById = canvasElement.ownerDocument.getElementById(panelId);
+    if (panelById instanceof HTMLElement) {
+      return panelById;
+    }
   }
-  return panels;
+  const collapsibleRoot = trigger.closest('[data-slot="collapsible"]');
+  if (collapsibleRoot instanceof HTMLElement) {
+    const panelInRoot = collapsibleRoot.querySelector(
+      '[data-slot="collapsible-content"]'
+    );
+    if (panelInRoot instanceof HTMLElement) {
+      return panelInRoot;
+    }
+  }
+  throw new Error('Collapsible panel could not be resolved for trigger.');
 }
 export const Basic: Story = {
   parameters: {
@@ -84,7 +98,7 @@ export const Basic: Story = {
     const canvas = within(canvasElement);
     const trigger = canvas.getByRole('button');
     await expect(trigger).toBeInTheDocument();
-    const [panel] = getCollapsiblePanels(canvasElement);
+    const panel = getPanelForTrigger(trigger, canvasElement);
     await expect(panel).toBeInTheDocument();
     await userEvent.click(trigger);
     await waitFor(() => {
@@ -128,7 +142,7 @@ export const DefaultOpen: Story = {
     await waitFor(() => {
       expect(trigger).toHaveAttribute('data-panel-open');
     });
-    const [panel] = getCollapsiblePanels(canvasElement);
+    const panel = getPanelForTrigger(trigger, canvasElement);
     await expect(
       within(panel).getByText(/this collapsible starts open by default/i)
     ).toBeInTheDocument();
@@ -176,7 +190,7 @@ export const Controlled: Story = {
     await waitFor(() => {
       expect(trigger).toHaveAttribute('data-panel-open');
     });
-    const [panel] = getCollapsiblePanels(canvasElement);
+    const panel = getPanelForTrigger(trigger, canvasElement);
     await expect(
       within(panel).getByText(/this collapsible is controlled externally/i)
     ).toBeInTheDocument();
@@ -236,7 +250,7 @@ export const WithCustomTrigger: Story = {
     await waitFor(() => {
       expect(trigger).toHaveAttribute('data-panel-open');
     });
-    const [panel] = getCollapsiblePanels(canvasElement);
+    const panel = getPanelForTrigger(trigger, canvasElement);
     await expect(
       within(panel).getByText(/here are some advanced settings/i)
     ).toBeInTheDocument();
@@ -289,12 +303,15 @@ export const Multiple: Story = {
     await waitFor(() => {
       expect(q2).toHaveAttribute('data-panel-open');
     });
-    const panels = getCollapsiblePanels(canvasElement);
     await expect(
-      within(panels[0]).getByText(/react is a javascript library/i)
+      within(getPanelForTrigger(q1, canvasElement)).getByText(
+        /react is a javascript library/i
+      )
     ).toBeInTheDocument();
     await expect(
-      within(panels[1]).getByText(/typescript is a typed superset/i)
+      within(getPanelForTrigger(q2, canvasElement)).getByText(
+        /typescript is a typed superset/i
+      )
     ).toBeInTheDocument();
   },
   render: () => (
@@ -363,7 +380,7 @@ export const Disabled: Story = {
     });
     await expect(trigger).toBeInTheDocument();
     await expect(trigger).toBeDisabled();
-    const [panel] = getCollapsiblePanels(canvasElement);
+    const panel = getPanelForTrigger(trigger, canvasElement);
     await expect(panel).toBeInTheDocument();
   },
   render: () => (
@@ -395,7 +412,7 @@ export const WithRichContent: Story = {
     });
     await expect(trigger).toBeInTheDocument();
     await userEvent.click(trigger);
-    const [panel] = getCollapsiblePanels(canvasElement);
+    const panel = getPanelForTrigger(trigger, canvasElement);
     await expect(
       within(panel).getByText('Getting Started')
     ).toBeInTheDocument();
@@ -447,14 +464,16 @@ export const FAQ: Story = {
     });
     await expect(q1).toBeInTheDocument();
     await userEvent.click(q1);
-    const panels = getCollapsiblePanels(canvasElement);
     await expect(
-      within(panels[0]).getByText(
+      within(getPanelForTrigger(q1, canvasElement)).getByText(
         /collapsibles work independently—multiple can be open at once/i
       )
     ).toBeInTheDocument();
+    const q3 = canvas.getByRole('button', {
+      name: /can i control the open state programmatically\?/i,
+    });
     await expect(
-      within(panels[2]).getByText(
+      within(getPanelForTrigger(q3, canvasElement)).getByText(
         /yes! use the open prop for controlled state/i
       )
     ).toBeInTheDocument();
@@ -544,7 +563,7 @@ export const EdgeCaseEmpty: Story = {
     await waitFor(() => {
       expect(trigger).toHaveAttribute('data-panel-open');
     });
-    const [panel] = getCollapsiblePanels(canvasElement);
+    const panel = getPanelForTrigger(trigger, canvasElement);
     await expect(panel).toBeInTheDocument();
   },
   render: () => (
@@ -577,7 +596,7 @@ export const EdgeCaseLongText: Story = {
     await waitFor(() => {
       expect(trigger).toHaveAttribute('data-panel-open');
     });
-    const [panel] = getCollapsiblePanels(canvasElement);
+    const panel = getPanelForTrigger(trigger, canvasElement);
     await expect(
       within(panel).getByText(/this is an extremely long paragraph/i)
     ).toBeInTheDocument();

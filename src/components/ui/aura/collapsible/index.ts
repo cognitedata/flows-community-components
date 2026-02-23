@@ -5,5 +5,9 @@ import {
 } from './collapsible';
 import { CollapsibleMetadata } from './collapsible.metadata';
 
-export { Collapsible, CollapsibleContent, CollapsibleTrigger };
-export { CollapsibleMetadata };
+export {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleMetadata,
+  CollapsibleTrigger,
+};
