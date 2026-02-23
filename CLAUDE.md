@@ -141,6 +141,7 @@ For files under `src/components/ui/aura/**`, prefer relative imports (for exampl
 - Conversation stories should keep play assertions semantic (`getByRole`/`findAllByRole`) and avoid helper components inside story render functions.
 - For components that accept a `render` element and forward accessibility props, set the accessible label once on the component to avoid duplicate `aria-label` attributes on both wrapper and inner element.
 - In Aura stories, avoid DOM traversal selectors in play functions; prefer semantic role/text queries for the interacted element.
+- Skeleton stories should assert loading placeholders semantically with `getAllByRole('status')`, and Skeleton should expose `role="status"` with an accessible loading label.
 
 # Storybook Stories
 

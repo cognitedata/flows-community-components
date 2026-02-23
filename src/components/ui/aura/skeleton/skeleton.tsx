@@ -7,6 +7,8 @@ const Skeleton = forwardRef<ComponentRef<'div'>, ComponentProps<'div'>>(
     <div
       ref={ref}
       data-slot="skeleton"
+      role="status"
+      aria-label="Loading"
       className={cn('bg-accent animate-pulse rounded-md', className)}
       {...props}
     />
