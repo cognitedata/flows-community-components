@@ -4,14 +4,13 @@ import { IconDots, IconSlash } from '@tabler/icons-react';
 import type { ComponentProps } from 'react';
 
 import { cn } from '../../../../lib/utils';
+import { buttonVariants } from '../button/button';
 
-import { buttonVariants } from '@/components/ui/aura/button/button';
-
-function Breadcrumb({ ...props }: ComponentProps<"nav">) {
+function Breadcrumb({ ...props }: ComponentProps<'nav'>) {
   return <nav aria-label="breadcrumb" data-slot="breadcrumb" {...props} />;
 }
 
-function BreadcrumbList({ className, ...props }: ComponentProps<"ol">) {
+function BreadcrumbList({ className, ...props }: ComponentProps<'ol'>) {
   return (
     <ol
       data-slot="breadcrumb-list"
@@ -24,7 +23,7 @@ function BreadcrumbList({ className, ...props }: ComponentProps<"ol">) {
   );
 }
 
-function BreadcrumbItem({ className, ...props }: ComponentProps<"li">) {
+function BreadcrumbItem({ className, ...props }: ComponentProps<'li'>) {
   return (
     <li
       data-slot="breadcrumb-item"
@@ -38,7 +37,12 @@ function BreadcrumbItem({ className, ...props }: ComponentProps<"li">) {
   );
 }
 
-function BreadcrumbLink({ className, render, children, ...props }: useRender.ComponentProps<"a">) {
+function BreadcrumbLink({
+  className,
+  render,
+  children,
+  ...props
+}: useRender.ComponentProps<'a'>) {
   return useRender({
     defaultTagName: 'a',
     props: mergeProps<'a'>(
@@ -58,21 +62,31 @@ function BreadcrumbLink({ className, render, children, ...props }: useRender.Com
   });
 }
 
-function BreadcrumbPage({
-  className,
-  href,
-  ...props
-}: (ComponentProps<"span"> | ComponentProps<"a">) & { href?: string }) {
-  if (href) {
+type BreadcrumbPageLinkProps = ComponentProps<'a'> & { href: string };
+type BreadcrumbPageTextProps = ComponentProps<'span'> & { href?: undefined };
+type BreadcrumbPageProps = BreadcrumbPageLinkProps | BreadcrumbPageTextProps;
+
+const isBreadcrumbPageLinkProps = (
+  props: BreadcrumbPageProps
+): props is BreadcrumbPageLinkProps => {
+  return 'href' in props && typeof props.href === 'string';
+};
+
+function BreadcrumbPage(props: BreadcrumbPageProps) {
+  if (isBreadcrumbPageLinkProps(props)) {
+    const { className, href, ...linkProps } = props;
+
     return (
       <BreadcrumbLink
         href={href}
         aria-current="page"
         className={cn('font-medium tracking-tight text-foreground', className)}
-        {...(props as ComponentProps<'a'>)}
+        {...linkProps}
       />
     );
   }
+
+  const { className, ...textProps } = props;
 
   return (
     <span
@@ -82,17 +96,20 @@ function BreadcrumbPage({
       aria-current="page"
       tabIndex={-1}
       className={cn(
-        buttonVariants({ variant: "ghost", size: "sm" }),
-        "cursor-default hover:bg-transparent dark:hover:bg-transparent",
-        "font-medium tracking-tight text-foreground",
+        buttonVariants({ variant: 'ghost', size: 'sm' }),
+        'cursor-default hover:bg-transparent dark:hover:bg-transparent',
+        'font-medium tracking-tight text-foreground',
         className
       )}
-      {...(props as ComponentProps<'span'>)}
+      {...textProps}
     />
   );
 }
 
-function BreadcrumbPageButton({ className, ...props }: ComponentProps<"button">) {
+function BreadcrumbPageButton({
+  className,
+  ...props
+}: ComponentProps<'button'>) {
   return (
     <button
       data-slot="breadcrumb-page-button"
@@ -108,7 +125,11 @@ function BreadcrumbPageButton({ className, ...props }: ComponentProps<"button">)
   );
 }
 
-function BreadcrumbEllipsisButton({ className, children, ...props }: ComponentProps<"button">) {
+function BreadcrumbEllipsisButton({
+  className,
+  children,
+  ...props
+}: ComponentProps<'button'>) {
   return (
     <button
       data-slot="breadcrumb-ellipsis-button"
@@ -130,7 +151,11 @@ function BreadcrumbEllipsisButton({ className, children, ...props }: ComponentPr
   );
 }
 
-function BreadcrumbSeparator({ children, className, ...props }: ComponentProps<"li">) {
+function BreadcrumbSeparator({
+  children,
+  className,
+  ...props
+}: ComponentProps<'li'>) {
   return (
     <li
       data-slot="breadcrumb-separator"
@@ -144,12 +169,18 @@ function BreadcrumbSeparator({ children, className, ...props }: ComponentProps<"
   );
 }
 
-function BreadcrumbEllipsis({ children, className, ...props }: ComponentProps<"li">) {
+function BreadcrumbEllipsis({
+  children,
+  className,
+  ...props
+}: ComponentProps<'li'>) {
+  const isInteractive = Boolean(children);
+
   return (
     <li
       data-slot="breadcrumb-ellipsis"
-      role="presentation"
-      aria-hidden="true"
+      role={isInteractive ? undefined : 'presentation'}
+      aria-hidden={isInteractive ? undefined : true}
       className={cn(
         'inline-flex items-center',
         'has-[button[data-popup-open]]:bg-accent has-[button[data-popup-open]]:text-foreground has-[button[data-popup-open]]:rounded-sm',
