@@ -1,7 +1,7 @@
-import type { ComponentMeta } from "../../../../lib/types";
+import type { ComponentMeta } from '../../../../lib/types';
 
 export const SelectPanelMetadata: ComponentMeta = {
-  name: "Select panel",
-  status: "planned",
-  description: "",
+  name: 'Select panel',
+  status: 'planned',
+  description: '',
 };

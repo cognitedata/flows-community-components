@@ -1,7 +1,6 @@
-import { Badge } from "@/components/ui/aura/badge";
-import { Checkbox } from "@/components/ui/aura/checkbox";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { expect } from "storybook/test";
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect } from 'storybook/test';
+
 import {
   Table,
   TableBody,
@@ -11,21 +10,24 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "./table";
+} from './table';
+
+import { Badge } from '@/components/ui/aura/badge';
+import { Checkbox } from '@/components/ui/aura/checkbox';
 const meta: Meta<typeof Table> = {
-  title: "Primitives/Table",
+  title: 'Primitives/Table',
   component: Table,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     className: {
-      control: "text",
+      control: 'text',
       table: {
-        category: "Styling",
+        category: 'Styling',
       },
     },
   },
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
   decorators: [
     (Story) => (
@@ -39,34 +41,34 @@ export default meta;
 type Story = StoryObj<typeof Table>;
 const invoices = [
   {
-    id: "INV001",
-    status: "Paid",
-    method: "Credit Card",
-    amount: "$250.00",
+    id: 'INV001',
+    status: 'Paid',
+    method: 'Credit Card',
+    amount: '$250.00',
   },
   {
-    id: "INV002",
-    status: "Pending",
-    method: "PayPal",
-    amount: "$150.00",
+    id: 'INV002',
+    status: 'Pending',
+    method: 'PayPal',
+    amount: '$150.00',
   },
   {
-    id: "INV003",
-    status: "Unpaid",
-    method: "Bank Transfer",
-    amount: "$350.00",
+    id: 'INV003',
+    status: 'Unpaid',
+    method: 'Bank Transfer',
+    amount: '$350.00',
   },
   {
-    id: "INV004",
-    status: "Paid",
-    method: "Credit Card",
-    amount: "$450.00",
+    id: 'INV004',
+    status: 'Paid',
+    method: 'Credit Card',
+    amount: '$450.00',
   },
   {
-    id: "INV005",
-    status: "Paid",
-    method: "PayPal",
-    amount: "$550.00",
+    id: 'INV005',
+    status: 'Paid',
+    method: 'PayPal',
+    amount: '$550.00',
   },
 ];
 export const Default: Story = {
@@ -200,11 +202,11 @@ export const WithBadges: Story = {
             <TableCell>
               <Badge
                 variant={
-                  invoice.status === "Paid"
-                    ? "default"
-                    : invoice.status === "Pending"
-                      ? "secondary"
-                      : "error"
+                  invoice.status === 'Paid'
+                    ? 'default'
+                    : invoice.status === 'Pending'
+                      ? 'secondary'
+                      : 'error'
                 }
               >
                 {invoice.status}
@@ -252,7 +254,10 @@ export const StripedRows: Story = {
       </TableHeader>
       <TableBody>
         {invoices.map((invoice, index) => (
-          <TableRow key={invoice.id} className={index % 2 === 0 ? "bg-muted/50" : ""}>
+          <TableRow
+            key={invoice.id}
+            className={index % 2 === 0 ? 'bg-muted/50' : ''}
+          >
             <TableCell className="font-medium">{invoice.id}</TableCell>
             <TableCell>{invoice.status}</TableCell>
             <TableCell>{invoice.method}</TableCell>
@@ -316,7 +321,9 @@ export const VisualRegression: Story = {
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">With Footer</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          With Footer
+        </h3>
         <Table>
           <TableHeader>
             <TableRow>

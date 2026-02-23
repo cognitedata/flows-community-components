@@ -1,5 +1,5 @@
-import type { CodeExample } from "./component-metadata.types";
-import type { ComponentStatusType } from "./component-status-config";
+import type { CodeExample } from './component-metadata.types';
+import type { ComponentStatusType } from './component-status-config';
 
 export interface PropDefinition {
   name: string;
