@@ -163,7 +163,6 @@ const PaginationSelectTrigger = forwardRef<
       data-slot="pagination-select-trigger"
       className={cn(
         'min-h-0 min-w-0 gap-1 text-sm leading-4.5 font-medium py-1.75',
-        // Override SelectTrigger's default heights using same data attribute pattern
         'data-[size=sm]:h-7 data-[size=default]:h-9',
         isPaginationSmall ? 'w-16 px-2 rounded' : 'w-18 pl-3 pr-2',
         className
@@ -403,7 +402,6 @@ const PaginationTeleport = forwardRef<
 
     const isSmall = resolvedSize === 'small';
 
-    // Pagination-specific overrides for the Input component
     const inputClassName = cn(
       'font-medium tabular-nums text-center w-20',
       isSmall ? 'h-7 text-sm px-2' : 'px-2',
@@ -417,7 +415,6 @@ const PaginationTeleport = forwardRef<
     const handleFocus = (e: FocusEvent<HTMLInputElement>) => {
       setIsEditing(true);
       setEditingValue(currentPage.toString());
-      // Select all on focus for easy replacement
       setTimeout(() => e.target.select(), 0);
     };
 
@@ -428,17 +425,12 @@ const PaginationTeleport = forwardRef<
       if (!Number.isNaN(pageNum) && pageNum >= 1 && pageNum <= totalPages) {
         onPageChange(pageNum);
       }
-      // Always reset editing value on blur
       setEditingValue('');
     };
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
       const value = e.target.value;
 
-      // Allow empty or numeric values only
-      // Don't validate against totalPages here to allow typing multi-digit numbers
-      // (e.g., typing "12" when totalPages=10 would fail if we checked each keystroke)
-      // Validation happens on blur/Enter instead
       if (value === '' || /^\d+$/.test(value)) {
         setEditingValue(value);
       }

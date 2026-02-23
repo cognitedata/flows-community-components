@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
 
 import { Select, SelectContent, SelectItem, SelectValue } from '../select';
 
@@ -73,6 +74,16 @@ export const Default: Story = {
   ),
   parameters: {
     order: 1,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(
+      canvas.getByRole('navigation', { name: /pagination/i })
+    ).toBeInTheDocument();
+    await expect(canvas.getByRole('link', { name: '8' })).toHaveAttribute(
+      'aria-current',
+      'page'
+    );
   },
 };
 export const Small: Story = {
@@ -166,6 +177,11 @@ export const WithResultsPerPage: Story = {
   },
   parameters: {
     order: 3,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText('Results per page')).toBeInTheDocument();
+    await expect(canvas.getByRole('combobox')).toBeInTheDocument();
   },
 };
 export const WithResultsPerPageSmall: Story = {
@@ -297,6 +313,17 @@ export const TeleportationMode: Story = {
   },
   parameters: {
     order: 5,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const teleportInput = canvas.getByRole('textbox', {
+      name: /current page, page 1 of 100/i,
+    });
+    await userEvent.click(teleportInput);
+    await userEvent.keyboard('12{Enter}');
+    await waitFor(() => {
+      expect(teleportInput).toHaveValue('12/100');
+    });
   },
 };
 export const TeleportationModeSmall: Story = {
@@ -509,6 +536,16 @@ export const Controlled: Story = {
   },
   parameters: {
     order: 8,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText('Page 1 of 100')).toBeInTheDocument();
+    await userEvent.click(
+      canvas.getByRole('link', { name: /go to next page/i })
+    );
+    await waitFor(() => {
+      expect(canvas.getByText('Page 2 of 100')).toBeInTheDocument();
+    });
   },
 };
 export const Simple: Story = {
