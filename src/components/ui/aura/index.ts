@@ -654,7 +654,7 @@ export {
   SuggestionGroup,
   SuggestionLabel,
   SuggestionSeparator,
-} from "./suggestion/suggestion";
+} from './suggestion/suggestion';
 export { SuggestionMetadata } from './suggestion/suggestion.metadata';
 
 export { SwapSlot } from './swap-slot/swap-slot';

@@ -15,7 +15,7 @@ import {
   SuggestionTrigger,
   SuggestionValue,
   Suggestions,
-} from "./suggestion";
+} from './suggestion';
 
 export {
   Suggestions,
@@ -28,4 +28,4 @@ export {
   SuggestionLabel,
   SuggestionSeparator,
 };
-export { SuggestionMetadata } from "./suggestion.metadata";
+export { SuggestionMetadata } from './suggestion.metadata';

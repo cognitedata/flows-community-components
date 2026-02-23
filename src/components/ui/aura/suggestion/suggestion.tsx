@@ -6,10 +6,11 @@ import {
   useContext,
   useMemo,
   useState,
-} from "react";
-import { cn } from "../../../../lib/utils";
-import { Button } from "../button";
-import { ScrollArea, ScrollBar } from "../scroll-area";
+} from 'react';
+
+import { cn } from '../../../../lib/utils';
+import { Button } from '../button';
+import { ScrollArea, ScrollBar } from '../scroll-area';
 import {
   Select,
   SelectContent as SelectContentPrimitive,
@@ -19,7 +20,7 @@ import {
   SelectSeparator as SelectSeparatorPrimitive,
   SelectTrigger as SelectTriggerPrimitive,
   SelectValue as SelectValuePrimitive,
-} from "../select";
+} from '../select';
 
 type SuggestionsProps = ComponentProps<typeof ScrollArea>;
 
@@ -46,15 +47,15 @@ const useSuggestion = () => {
   return context;
 };
 
-type SuggestionButtonProps = Omit<ComponentProps<typeof Button>, "onClick"> & {
+type SuggestionButtonProps = Omit<ComponentProps<typeof Button>, 'onClick'> & {
   suggestion: string;
   onClick?: (suggestion: string) => void;
   onValueChange?: never;
-  variant?: "ghost" | "outline";
-  size?: "sm" | "default" | "lg" | "icon";
+  variant?: 'ghost' | 'outline';
+  size?: 'sm' | 'default' | 'lg' | 'icon';
 };
 
-type SuggestionSelectProps = ComponentProps<"div"> & {
+type SuggestionSelectProps = ComponentProps<'div'> & {
   suggestion?: never;
   onClick?: never;
   onValueChange?: (value: string) => void;
@@ -64,8 +65,9 @@ type SuggestionSelectProps = ComponentProps<"div"> & {
 
 type SuggestionProps = SuggestionButtonProps | SuggestionSelectProps;
 
-const isButtonSuggestion = (props: SuggestionProps): props is SuggestionButtonProps =>
-  "suggestion" in props;
+const isButtonSuggestion = (
+  props: SuggestionProps
+): props is SuggestionButtonProps => 'suggestion' in props;
 
 const Suggestion = (props: SuggestionProps) => {
   if (isButtonSuggestion(props)) {
@@ -74,8 +76,8 @@ const Suggestion = (props: SuggestionProps) => {
       onClick,
       className,
       children,
-      variant = "ghost",
-      size = "sm",
+      variant = 'ghost',
+      size = 'sm',
       ...buttonProps
     } = props;
 
@@ -121,7 +123,10 @@ const Suggestion = (props: SuggestionProps) => {
     [onValueChange]
   );
 
-  const suggestionContext = useMemo(() => ({ onItemSelect: handleItemSelect }), [handleItemSelect]);
+  const suggestionContext = useMemo(
+    () => ({ onItemSelect: handleItemSelect }),
+    [handleItemSelect]
+  );
 
   return (
     <SuggestionContext.Provider value={suggestionContext}>
@@ -141,7 +146,11 @@ const Suggestion = (props: SuggestionProps) => {
 
 type SuggestionTriggerProps = ComponentProps<typeof SelectTriggerPrimitive>;
 
-const SuggestionTrigger = ({ className, children, ...props }: SuggestionTriggerProps) => {
+const SuggestionTrigger = ({
+  className,
+  children,
+  ...props
+}: SuggestionTriggerProps) => {
   return (
     <SelectTriggerPrimitive
       className={cn(
@@ -155,7 +164,10 @@ const SuggestionTrigger = ({ className, children, ...props }: SuggestionTriggerP
   );
 };
 
-type SuggestionValueProps = Omit<ComponentProps<typeof SelectValuePrimitive>, "icon">;
+type SuggestionValueProps = Omit<
+  ComponentProps<typeof SelectValuePrimitive>,
+  'icon'
+>;
 
 const SuggestionValue = ({ className, ...props }: SuggestionValueProps) => {
   return <SelectValuePrimitive className={className} {...props} />;
@@ -176,11 +188,19 @@ const SuggestionContent = ({
   );
 };
 
-type SuggestionItemProps = Omit<ComponentProps<typeof SelectItemPrimitive>, "value"> & {
+type SuggestionItemProps = Omit<
+  ComponentProps<typeof SelectItemPrimitive>,
+  'value'
+> & {
   icon?: ReactNode;
 };
 
-const SuggestionItem = ({ className, children, icon, ...props }: SuggestionItemProps) => {
+const SuggestionItem = ({
+  className,
+  children,
+  icon,
+  ...props
+}: SuggestionItemProps) => {
   const { onItemSelect } = useSuggestion();
 
   const textValue = useMemo(() => {
@@ -209,7 +229,11 @@ const SuggestionItem = ({ className, children, icon, ...props }: SuggestionItemP
 
 type SuggestionGroupProps = ComponentProps<typeof SelectGroupPrimitive>;
 
-const SuggestionGroup = ({ className, children, ...props }: SuggestionGroupProps) => {
+const SuggestionGroup = ({
+  className,
+  children,
+  ...props
+}: SuggestionGroupProps) => {
   return (
     <SelectGroupPrimitive className={className} {...props}>
       {children}
@@ -219,7 +243,11 @@ const SuggestionGroup = ({ className, children, ...props }: SuggestionGroupProps
 
 type SuggestionLabelProps = ComponentProps<typeof SelectLabelPrimitive>;
 
-const SuggestionLabel = ({ className, children, ...props }: SuggestionLabelProps) => {
+const SuggestionLabel = ({
+  className,
+  children,
+  ...props
+}: SuggestionLabelProps) => {
   return (
     <SelectLabelPrimitive className={className} {...props}>
       {children}
@@ -229,7 +257,10 @@ const SuggestionLabel = ({ className, children, ...props }: SuggestionLabelProps
 
 type SuggestionSeparatorProps = ComponentProps<typeof SelectSeparatorPrimitive>;
 
-const SuggestionSeparator = ({ className, ...props }: SuggestionSeparatorProps) => {
+const SuggestionSeparator = ({
+  className,
+  ...props
+}: SuggestionSeparatorProps) => {
   return <SelectSeparatorPrimitive className={className} {...props} />;
 };
 

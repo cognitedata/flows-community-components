@@ -18,9 +18,9 @@ import {
   SuggestionTrigger,
   SuggestionValue,
   Suggestions,
-} from "./suggestion";
+} from './suggestion';
 
-const getOpenSelectContent = () => within(document.body).queryByRole("listbox");
+const getOpenSelectContent = () => within(document.body).queryByRole('listbox');
 
 const waitForSelectContentOpen = async () => {
   await waitFor(
@@ -128,21 +128,15 @@ type Story = StoryObj<typeof Suggestion>;
 export const Basic: Story = {
   parameters: {
     order: 1,
-    docs: {
-      description: {
-        story:
-          "Basic button-style suggestions for quick queries. Tests clicking suggestions and onClick callback.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const suggestion1 = canvas.getByRole("button", {
+    const suggestion1 = canvas.getByRole('button', {
       name: /Suggestion 1/i,
     });
     await expect(suggestion1).toBeInTheDocument();
     await userEvent.click(suggestion1);
-    const suggestion2 = canvas.getByRole("button", {
+    const suggestion2 = canvas.getByRole('button', {
       name: /Suggestion 2/i,
     });
     await expect(suggestion2).toBeInTheDocument();
@@ -152,7 +146,7 @@ export const Basic: Story = {
       args.onClick?.(value);
     };
     return (
-      <div className="flex flex-wrap gap-2 max-w-[80%]">
+      <div className="flex max-w-xl flex-wrap gap-2">
         <Suggestion suggestion="Suggestion 1" onClick={handleSuggestion} />
         <Suggestion suggestion="Suggestion 2" onClick={handleSuggestion} />
         <Suggestion suggestion="Suggestion 3" onClick={handleSuggestion} />
@@ -163,11 +157,6 @@ export const Basic: Story = {
 export const WithScrollableWrapper: Story = {
   parameters: {
     order: 2,
-    docs: {
-      description: {
-        story: "Multiple suggestions wrapped in Suggestions component for horizontal scrolling.",
-      },
-    },
   },
   render: function SuggestionScrollableStory(args) {
     const handleSuggestion = (value: string) => {
@@ -188,12 +177,6 @@ export const WithScrollableWrapper: Story = {
 export const ButtonVariants: Story = {
   parameters: {
     order: 3,
-    docs: {
-      description: {
-        story:
-          "Suggestion buttons with supported variants. Only ghost (default) and outline are available.",
-      },
-    },
   },
   render: function SuggestionVariantsStory(args) {
     const handleSuggestion = (value: string) => {
@@ -218,24 +201,20 @@ export const ButtonVariants: Story = {
 export const SelectMode: Story = {
   parameters: {
     order: 4,
-    docs: {
-      description: {
-        story:
-          "Dropdown-style suggestions with multiple query options. Tests opening dropdown and selecting items.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const trigger = canvas.getByRole("combobox");
+    const trigger = canvas.getByRole('combobox');
     await expect(trigger).toBeInTheDocument();
     await userEvent.click(trigger);
     await waitForSelectContentOpen();
     await expect(
-      within(document.body).getByText("Prioritize critical equipment in resource allocation")
+      within(document.body).getByText(
+        'Prioritize critical equipment in resource allocation'
+      )
     ).toBeInTheDocument();
     const item = within(document.body).getByText(
-      "Prioritize critical equipment in resource allocation"
+      'Prioritize critical equipment in resource allocation'
     );
     await userEvent.click(item);
     await waitForSelectContentClosed();
@@ -267,26 +246,20 @@ export const SelectMode: Story = {
 export const KeyboardInteractions: Story = {
   parameters: {
     order: 5,
-    docs: {
-      description: {
-        story:
-          "Tests keyboard navigation: Arrow keys to navigate, Enter to select, Escape to close.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const trigger = canvas.getByRole("combobox");
+    const trigger = canvas.getByRole('combobox');
     await expect(trigger).toBeInTheDocument();
     trigger.focus();
     await userEvent.click(trigger);
     await waitForSelectContentOpen();
-    await userEvent.keyboard("{ArrowDown}");
-    await userEvent.keyboard("{Enter}");
+    await userEvent.keyboard('{ArrowDown}');
+    await userEvent.keyboard('{Enter}');
     await waitForSelectContentClosed();
     await userEvent.click(trigger);
     await waitForSelectContentOpen();
-    await userEvent.keyboard("{Escape}");
+    await userEvent.keyboard('{Escape}');
     await waitForSelectContentClosed();
   },
   render: function SuggestionKeyboardStory(args) {
@@ -316,11 +289,6 @@ export const KeyboardInteractions: Story = {
 export const Grouped: Story = {
   parameters: {
     order: 6,
-    docs: {
-      description: {
-        story: "Organised suggestions with categories, labels, and separators.",
-      },
-    },
   },
   render: function SuggestionGroupedStory(args) {
     const handleSuggestion = (value: string) => {
@@ -361,21 +329,17 @@ export const Grouped: Story = {
 export const InteractiveSelect: Story = {
   parameters: {
     order: 7,
-    docs: {
-      description: {
-        story:
-          "Select mode suggestion with state management to show selected value. Tests selecting an item and verifying the UI updates.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const trigger = canvas.getByRole("combobox");
+    const trigger = canvas.getByRole('combobox');
     await expect(trigger).toBeInTheDocument();
     expect(canvas.queryByText(/Last selected:/)).not.toBeInTheDocument();
     await userEvent.click(trigger);
     await waitForSelectContentOpen();
-    const item = within(document.body).getByText("What's the status of pump 3?");
+    const item = within(document.body).getByText(
+      "What's the status of pump 3?"
+    );
     await userEvent.click(item);
     await waitFor(
       () => {
@@ -431,11 +395,6 @@ export const InteractiveSelect: Story = {
 export const MultipleSelects: Story = {
   parameters: {
     order: 8,
-    docs: {
-      description: {
-        story: "Multiple select-mode suggestions displayed together.",
-      },
-    },
   },
   render: function SuggestionMultipleSelectsStory(args) {
     const handleSuggestion1 = (value: string) => {
@@ -480,11 +439,6 @@ export const MultipleSelects: Story = {
 export const MixedModes: Story = {
   parameters: {
     order: 9,
-    docs: {
-      description: {
-        story: "Combination of button-mode and select-mode suggestions in the same container.",
-      },
-    },
   },
   render: function SuggestionMixedStory(args) {
     const handleButtonClick = (value: string) => {
@@ -515,17 +469,9 @@ export const MixedModes: Story = {
   },
 };
 
-/**
- * Follow-up prompts in card-style buttons
- */
 export const FollowUpCards: Story = {
   parameters: {
     order: 10,
-    docs: {
-      description: {
-        story: "Card-style follow-up prompts with title and multiline prompt text.",
-      },
-    },
   },
   render: function SuggestionFollowUpCardsStory(args) {
     const handleSuggestion = (value: string) => {
@@ -583,26 +529,20 @@ export const FollowUpCards: Story = {
     );
   },
 };
-/**
- * AI prompt suggestion dropdown
- */
 export const AISuggestionMode: Story = {
   parameters: {
     order: 11,
-    docs: {
-      description: {
-        story: "Compact AI prompt trigger with dropdown follow-up suggestions.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const trigger = canvas.getByRole("combobox");
+    const trigger = canvas.getByRole('combobox');
     await expect(trigger).toBeInTheDocument();
     await userEvent.click(trigger);
     await waitForSelectContentOpen();
     await expect(
-      within(document.body).getByText(/prioritize critical equipment in resource allocation/i)
+      within(document.body).getByText(
+        /prioritize critical equipment in resource allocation/i
+      )
     ).toBeInTheDocument();
     const item = within(document.body).getByText(
       /prioritize critical equipment in resource allocation/i
