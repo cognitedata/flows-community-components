@@ -136,12 +136,12 @@ export const Basic: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const suggestion1 = canvas.getByRole("button", {
-      name: /AI prompt suggestion 1/i,
+      name: /Suggestion 1/i,
     });
     await expect(suggestion1).toBeInTheDocument();
     await userEvent.click(suggestion1);
     const suggestion2 = canvas.getByRole("button", {
-      name: /AI prompt suggestion 2/i,
+      name: /Suggestion 2/i,
     });
     await expect(suggestion2).toBeInTheDocument();
   },
@@ -245,9 +245,11 @@ export const SelectMode: Story = {
     await userEvent.click(trigger);
     await waitForSelectContentOpen();
     await expect(
-      within(document.body).getByText("Show me the pressure on valve 10")
+      within(document.body).getByText("Prioritize critical equipment in resource allocation")
     ).toBeInTheDocument();
-    const item = within(document.body).getByText("Show me the pressure on valve 10");
+    const item = within(document.body).getByText(
+      "Prioritize critical equipment in resource allocation"
+    );
     await userEvent.click(item);
     await waitForSelectContentClosed();
   },
@@ -627,9 +629,11 @@ export const AISuggestionMode: Story = {
     await userEvent.click(trigger);
     await waitForSelectContentOpen();
     await expect(
-      within(document.body).getByText("Show me the pressure on valve 10")
+      within(document.body).getByText(/prioritize critical equipment in resource allocation/i)
     ).toBeInTheDocument();
-    const item = within(document.body).getByText("Show me the pressure on valve 10");
+    const item = within(document.body).getByText(
+      /prioritize critical equipment in resource allocation/i
+    );
     await userEvent.click(item);
     await waitForSelectContentClosed();
   },
