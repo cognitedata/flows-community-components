@@ -1,5 +1,12 @@
-import { Badge } from "@/components/ui/aura/badge";
-import { Button } from "@/components/ui/aura/button";
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { IconCheck, IconPlus } from '@tabler/icons-react';
+import { useState } from 'react';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
+
+import { SwapSlot } from './swap-slot';
+
+import { Badge } from '@/components/ui/aura/badge';
+import { Button } from '@/components/ui/aura/button';
 import {
   Card,
   CardContent,
@@ -7,114 +14,76 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/aura/card";
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor, within } from "@storybook/test";
-import { IconCheck, IconPlus } from "@tabler/icons-react";
-import { useState } from "react";
-import { SwapSlot } from "./swap-slot";
-
+} from '@/components/ui/aura/card';
 const meta: Meta<typeof SwapSlot> = {
-  title: "Primitives/Swap Slot",
+  title: 'Primitives/Swap Slot',
   component: SwapSlot,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
-    // Display & behavior
     defaultSlot: {
       control: false,
-      description:
-        "Default content to display when activeSlot is not provided. Falls back to children if not set.",
       table: {
-        category: "Display",
-        type: { summary: "ReactNode" },
+        category: 'Display',
+        type: {
+          summary: 'ReactNode',
+        },
       },
     },
     activeSlot: {
       control: false,
-      description: "Active content that takes priority over defaultSlot and children.",
       table: {
-        category: "Display",
-        type: { summary: "ReactNode" },
+        category: 'Display',
+        type: {
+          summary: 'ReactNode',
+        },
       },
     },
     children: {
       control: false,
-      description: "Fallback content when neither activeSlot nor defaultSlot are provided.",
       table: {
-        category: "Display",
-        type: { summary: "ReactNode" },
+        category: 'Display',
+        type: {
+          summary: 'ReactNode',
+        },
       },
     },
     className: {
-      control: "text",
-      description: "CSS classes for styling",
+      control: 'text',
       table: {
-        category: "Display",
+        category: 'Display',
       },
     },
   },
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
 };
-
 export default meta;
 type Story = StoryObj<typeof SwapSlot>;
-
-/**
- * Basic empty swap slot with default styling
- * Shows the default dashed border container
- */
 export const Basic: Story = {
   parameters: {
     order: 1,
-    docs: {
-      description: {
-        story:
-          "Basic swap slot with default styling. Displays an empty container with dashed border.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
-    // Query by class name since it's an empty div
-    const swapSlot = canvasElement.querySelector(".border-dashed");
+    const swapSlot = canvasElement.querySelector('.border-dashed');
     await expect(swapSlot).toBeInTheDocument();
-    await expect(swapSlot).toHaveClass("border-dashed");
-
-    // Verify default styling classes
-    await expect(swapSlot).toHaveClass("rounded-md");
-    await expect(swapSlot).toHaveClass("border");
-
-    // Verify it's empty by default
-    await expect(swapSlot?.textContent).toBe("");
+    await expect(swapSlot).toHaveClass('border-dashed');
+    await expect(swapSlot).toHaveClass('rounded-md');
+    await expect(swapSlot).toHaveClass('border');
+    await expect(swapSlot?.textContent).toBe('');
   },
   render: function BasicStory() {
     return <SwapSlot className="w-100" />;
   },
 };
-
-/**
- * Swap slot with children content
- * Demonstrates using children as fallback content
- */
 export const WithChildren: Story = {
   parameters: {
     order: 2,
-    docs: {
-      description: {
-        story:
-          "Swap slot with children content. Children are displayed when neither activeSlot nor defaultSlot are provided.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Verify children content is rendered
-    await expect(canvas.getByText("Placeholder content")).toBeInTheDocument();
-
-    // Verify the icon is present
-    const swapSlot = canvasElement.querySelector(".border-dashed");
+    await expect(canvas.getByText('Placeholder content')).toBeInTheDocument();
+    const swapSlot = canvasElement.querySelector('.border-dashed');
     await expect(swapSlot).toBeInTheDocument();
   },
   render: function WithChildrenStory() {
@@ -128,28 +97,16 @@ export const WithChildren: Story = {
     );
   },
 };
-
-/**
- * Swap slot with defaultSlot
- * Shows default content that can be overridden by activeSlot
- */
 export const WithDefaultSlot: Story = {
   parameters: {
     order: 3,
-    docs: {
-      description: {
-        story: "Swap slot with defaultSlot. This content is shown when activeSlot is not provided.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Verify defaultSlot content is rendered
-    await expect(canvas.getByText("Default content slot")).toBeInTheDocument();
-
-    // Verify activeSlot is not present
-    await expect(canvas.queryByText("Active content slot")).not.toBeInTheDocument();
+    await expect(canvas.getByText('Default content slot')).toBeInTheDocument();
+    await expect(
+      canvas.queryByText('Active content slot')
+    ).not.toBeInTheDocument();
   },
   render: function WithDefaultSlotStory() {
     return (
@@ -165,29 +122,16 @@ export const WithDefaultSlot: Story = {
     );
   },
 };
-
-/**
- * Swap slot with activeSlot
- * Demonstrates active content that takes priority
- */
 export const WithActiveSlot: Story = {
   parameters: {
     order: 4,
-    docs: {
-      description: {
-        story:
-          "Swap slot with activeSlot. Active content takes priority over defaultSlot and children.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Verify activeSlot content is rendered
-    await expect(canvas.getByText("Active content slot")).toBeInTheDocument();
-
-    // Verify default content is not present
-    await expect(canvas.queryByText("Default content slot")).not.toBeInTheDocument();
+    await expect(canvas.getByText('Active content slot')).toBeInTheDocument();
+    await expect(
+      canvas.queryByText('Default content slot')
+    ).not.toBeInTheDocument();
   },
   render: function WithActiveSlotStory() {
     return (
@@ -203,49 +147,37 @@ export const WithActiveSlot: Story = {
     );
   },
 };
-
-/**
- * Interactive swap demonstration
- * Shows how activeSlot takes priority over defaultSlot
- */
 export const InteractiveSwap: Story = {
   parameters: {
     order: 5,
-    docs: {
-      description: {
-        story:
-          "Interactive demonstration of swap behavior. Click the button to toggle between active and default slots.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const toggleButton = canvas.getByRole("button", { name: /toggle/i });
-
-    // Initially should show default slot
-    await expect(canvas.getByText("Default content")).toBeInTheDocument();
-
-    // Click to activate
+    const toggleButton = canvas.getByRole('button', {
+      name: /toggle/i,
+    });
+    await expect(canvas.getByText('Default content')).toBeInTheDocument();
     await userEvent.click(toggleButton);
     await waitFor(
       () => {
-        expect(canvas.getByText("Active content")).toBeInTheDocument();
+        expect(canvas.getByText('Active content')).toBeInTheDocument();
       },
-      { timeout: 300 }
+      {
+        timeout: 300,
+      }
     );
-
-    // Click again to deactivate
     await userEvent.click(toggleButton);
     await waitFor(
       () => {
-        expect(canvas.getByText("Default content")).toBeInTheDocument();
+        expect(canvas.getByText('Default content')).toBeInTheDocument();
       },
-      { timeout: 300 }
+      {
+        timeout: 300,
+      }
     );
   },
   render: function InteractiveSwapStory() {
     const [isActive, setIsActive] = useState(false);
-
     return (
       <div className="space-y-4">
         <SwapSlot
@@ -272,34 +204,25 @@ export const InteractiveSwap: Story = {
     );
   },
 };
-
-/**
- * Custom styling examples
- * Shows different visual styles
- */
 export const CustomStyling: Story = {
   parameters: {
     order: 6,
-    docs: {
-      description: {
-        story:
-          "Examples of swap slot with custom styling including different backgrounds, borders, and heights.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Verify all three styled variants are rendered
-    await expect(canvas.getByText("Custom background colour")).toBeInTheDocument();
-    await expect(canvas.getByText("Primary border")).toBeInTheDocument();
-    await expect(canvas.getByText("Solid border")).toBeInTheDocument();
+    await expect(
+      canvas.getByText('Custom background colour')
+    ).toBeInTheDocument();
+    await expect(canvas.getByText('Primary border')).toBeInTheDocument();
+    await expect(canvas.getByText('Solid border')).toBeInTheDocument();
   },
   render: function CustomStylingStory() {
     return (
       <div className="space-y-4 w-100">
         <SwapSlot className="h-20 bg-accent/50">
-          <span className="text-sm text-muted-foreground">Custom background colour</span>
+          <span className="text-sm text-muted-foreground">
+            Custom background colour
+          </span>
         </SwapSlot>
         <SwapSlot className="h-24 border-2 border-primary">
           <span className="text-sm text-muted-foreground">Primary border</span>
@@ -311,32 +234,16 @@ export const CustomStyling: Story = {
     );
   },
 };
-
-/**
- * Swap slot in card context
- * Demonstrates real-world usage within a card component
- */
 export const InCard: Story = {
   parameters: {
     order: 7,
-    docs: {
-      description: {
-        story: "Swap slot used within a card component, demonstrating a common use case.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Verify card elements are rendered
-    await expect(canvas.getByText("Card Title")).toBeInTheDocument();
-    await expect(canvas.getByText("Card description")).toBeInTheDocument();
-
-    // Verify swap slot content is rendered
-    await expect(canvas.getByText("Slot content")).toBeInTheDocument();
-
-    // Verify badges are rendered
-    const badges = canvas.getAllByText("Badge");
+    await expect(canvas.getByText('Card Title')).toBeInTheDocument();
+    await expect(canvas.getByText('Card description')).toBeInTheDocument();
+    await expect(canvas.getByText('Slot content')).toBeInTheDocument();
+    const badges = canvas.getAllByText('Badge');
     await expect(badges).toHaveLength(3);
   },
   render: function InCardStory() {
@@ -366,41 +273,26 @@ export const InCard: Story = {
     );
   },
 };
-
-/**
- * Priority demonstration
- * Shows the priority order: activeSlot > defaultSlot > children
- */
 export const PriorityOrder: Story = {
   parameters: {
     order: 8,
-    docs: {
-      description: {
-        story:
-          "Demonstrates the priority order: activeSlot takes precedence over defaultSlot, which takes precedence over children.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Test priority 1: activeSlot wins over all (only Active Slot should show)
-    const activeSlot = canvas.getByText("Active Slot");
+    const activeSlot = canvas.getByText('Active Slot');
     await expect(activeSlot).toBeInTheDocument();
-
-    // Test priority 2: defaultSlot wins over children (only 1 Default Slot visible in scenario 2)
-    const defaultSlot = canvas.getByText("Default Slot");
+    const defaultSlot = canvas.getByText('Default Slot');
     await expect(defaultSlot).toBeInTheDocument();
-
-    // Test priority 3: children is shown when nothing else (only 1 Children visible in scenario 3)
-    const children = canvas.getByText("Children");
+    const children = canvas.getByText('Children');
     await expect(children).toBeInTheDocument();
   },
   render: function PriorityOrderStory() {
     return (
       <div className="space-y-4 w-100">
         <div className="space-y-2">
-          <h3 className="font-semibold text-sm">1. With all three (activeSlot wins)</h3>
+          <h3 className="font-semibold text-sm">
+            1. With all three (activeSlot wins)
+          </h3>
           <SwapSlot
             defaultSlot={<span>Default Slot</span>}
             activeSlot={<span className="text-success">Active Slot</span>}
@@ -426,61 +318,52 @@ export const PriorityOrder: Story = {
     );
   },
 };
-
-/**
- * With complex content
- * Shows swap slot with more complex React components
- */
 export const WithComplexContent: Story = {
   parameters: {
     order: 9,
-    docs: {
-      description: {
-        story: "Swap slot with complex content including multiple elements, badges, and buttons.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Initially should show default slot
-    await expect(canvas.getByText("Default State")).toBeInTheDocument();
-    await expect(canvas.getByText("Inactive")).toBeInTheDocument();
-
-    // Find and click the toggle button
-    const toggleButton = canvas.getByRole("button", { name: /activate/i });
+    await expect(canvas.getByText('Default State')).toBeInTheDocument();
+    await expect(canvas.getByText('Inactive')).toBeInTheDocument();
+    const toggleButton = canvas.getByRole('button', {
+      name: /activate/i,
+    });
     await userEvent.click(toggleButton);
-
-    // Should now show active slot
     await waitFor(
       () => {
-        expect(canvas.getByText("Active State")).toBeInTheDocument();
-        expect(canvas.getByText("Active")).toBeInTheDocument();
+        expect(canvas.getByText('Active State')).toBeInTheDocument();
+        expect(canvas.getByText('Active')).toBeInTheDocument();
       },
-      { timeout: 300 }
+      {
+        timeout: 300,
+      }
     );
-
-    // Verify action buttons are present
-    await expect(canvas.getByRole("button", { name: "Action 1" })).toBeInTheDocument();
-    await expect(canvas.getByRole("button", { name: "Action 2" })).toBeInTheDocument();
-
-    // Click to deactivate
-    const deactivateButton = canvas.getByRole("button", {
+    await expect(
+      canvas.getByRole('button', {
+        name: 'Action 1',
+      })
+    ).toBeInTheDocument();
+    await expect(
+      canvas.getByRole('button', {
+        name: 'Action 2',
+      })
+    ).toBeInTheDocument();
+    const deactivateButton = canvas.getByRole('button', {
       name: /deactivate/i,
     });
     await userEvent.click(deactivateButton);
-
-    // Should return to default slot
     await waitFor(
       () => {
-        expect(canvas.getByText("Default State")).toBeInTheDocument();
+        expect(canvas.getByText('Default State')).toBeInTheDocument();
       },
-      { timeout: 300 }
+      {
+        timeout: 300,
+      }
     );
   },
   render: function WithComplexContentStory() {
     const [isActive, setIsActive] = useState(false);
-
     return (
       <div className="space-y-4 w-100">
         <SwapSlot
@@ -492,8 +375,8 @@ export const WithComplexContent: Story = {
                 <Badge variant="archived">Inactive</Badge>
               </div>
               <p className="text-sm text-muted-foreground">
-                This is the default slot with complex content including badges and multiple text
-                elements.
+                This is the default slot with complex content including badges
+                and multiple text elements.
               </p>
             </div>
           }
@@ -520,59 +403,35 @@ export const WithComplexContent: Story = {
           }
         />
         <Button onClick={() => setIsActive(!isActive)} variant="outline">
-          {isActive ? "Deactivate" : "Activate"} Slot
+          {isActive ? 'Deactivate' : 'Activate'} Slot
         </Button>
       </div>
     );
   },
 };
-
-/**
- * Empty state
- * Shows swap slot in its empty state
- */
 export const EmptyState: Story = {
   parameters: {
     order: 10,
-    docs: {
-      description: {
-        story: "Empty swap slot showing just the container with dashed border.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
-    // Verify empty swap slot is rendered with correct styling
-    const swapSlot = canvasElement.querySelector(".border-dashed");
+    const swapSlot = canvasElement.querySelector('.border-dashed');
     await expect(swapSlot).toBeInTheDocument();
-    await expect(swapSlot).toHaveClass("border-dashed");
-
-    // Verify it's empty (no text content)
-    await expect(swapSlot?.textContent).toBe("");
+    await expect(swapSlot).toHaveClass('border-dashed');
+    await expect(swapSlot?.textContent).toBe('');
   },
   render: function EmptyStateStory() {
-    return <SwapSlot className="w-100 h-20">{/* Intentionally empty */}</SwapSlot>;
+    return <SwapSlot className="w-100 h-20">{}</SwapSlot>;
   },
 };
-
-/**
- * Interactive playground for testing swap slot props.
- */
 export const Playground: Story = {
   args: {
-    className: "w-100",
+    className: 'w-100',
   },
   parameters: {
     order: 99,
-    docs: {
-      description: {
-        story:
-          "Interactive playground to test different swap slot configurations. Use the controls panel to experiment with props.",
-      },
-    },
   },
   render: function PlaygroundStory(args) {
     const [isActive, setIsActive] = useState(false);
-
     return (
       <div className="flex items-center justify-center p-24">
         <div className="space-y-4 w-100">

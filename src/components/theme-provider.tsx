@@ -1,6 +1,12 @@
-import { createContext, useCallback, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 
-type Theme = "dark" | "light" | "system";
+type Theme = 'dark' | 'light' | 'system';
 
 type ThemeProviderProps = {
   children: React.ReactNode;
@@ -15,32 +21,32 @@ type ThemeProviderProps = {
 type ThemeProviderState = {
   theme: Theme;
   setTheme: (theme: Theme) => void;
-  resolvedTheme: "dark" | "light";
+  resolvedTheme: 'dark' | 'light';
 };
 
 const initialState: ThemeProviderState = {
-  theme: "system",
+  theme: 'system',
   setTheme: () => null,
-  resolvedTheme: "light",
+  resolvedTheme: 'light',
 };
 
 const ThemeProviderContext = createContext<ThemeProviderState>(initialState);
 
 export function ThemeProvider({
   children,
-  defaultTheme = "system",
-  storageKey = "vite-ui-theme",
-  attribute = "class",
+  defaultTheme = 'system',
+  storageKey = 'vite-ui-theme',
+  attribute = 'class',
   enableSystem = true,
   disableTransitionOnChange = false,
-  themes = ["light", "dark"],
+  themes = ['light', 'dark'],
 }: ThemeProviderProps) {
   const [theme, setThemeState] = useState<Theme>(() => {
-    if (typeof window === "undefined") {
+    if (typeof window === 'undefined') {
       return defaultTheme;
     }
     const stored = localStorage.getItem(storageKey);
-    const validThemes: Theme[] = ["light", "dark", "system"];
+    const validThemes: Theme[] = ['light', 'dark', 'system'];
     if (stored && validThemes.includes(stored as Theme)) {
       return stored as Theme;
     }
@@ -50,24 +56,29 @@ export function ThemeProvider({
   const [mounted, setMounted] = useState(false);
 
   // Get resolved theme (system -> actual theme)
-  const getResolvedTheme = useCallback((currentTheme: Theme): "dark" | "light" => {
-    if (currentTheme === "system") {
-      if (typeof window === "undefined") {
-        return "light";
+  const getResolvedTheme = useCallback(
+    (currentTheme: Theme): 'dark' | 'light' => {
+      if (currentTheme === 'system') {
+        if (typeof window === 'undefined') {
+          return 'light';
+        }
+        return window.matchMedia('(prefers-color-scheme: dark)').matches
+          ? 'dark'
+          : 'light';
       }
-      return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-    }
-    return currentTheme;
-  }, []);
+      return currentTheme;
+    },
+    []
+  );
 
-  const [resolvedTheme, setResolvedTheme] = useState<"dark" | "light">(() =>
+  const [resolvedTheme, setResolvedTheme] = useState<'dark' | 'light'>(() =>
     getResolvedTheme(theme)
   );
 
   const removeThemeFromDom = useCallback(() => {
     const root = window.document.documentElement;
     themes.forEach((t) => {
-      if (attribute === "class") {
+      if (attribute === 'class') {
         root.classList.remove(t);
       } else {
         root.removeAttribute(`${attribute}-${t}`);
@@ -76,19 +87,19 @@ export function ThemeProvider({
   }, [attribute, themes]);
 
   const addThemeToDom = useCallback(
-    (resolved: "dark" | "light") => {
+    (resolved: 'dark' | 'light') => {
       const root = window.document.documentElement;
-      if (attribute === "class") {
+      if (attribute === 'class') {
         root.classList.add(resolved);
       } else {
-        root.setAttribute(`${attribute}-${resolved}`, "");
+        root.setAttribute(`${attribute}-${resolved}`, '');
       }
     },
     [attribute]
   );
 
   const applyThemeToDom = useCallback(
-    (resolved: "dark" | "light") => {
+    (resolved: 'dark' | 'light') => {
       removeThemeFromDom();
       addThemeToDom(resolved);
     },
@@ -111,9 +122,9 @@ export function ThemeProvider({
 
     // Apply transition handling
     if (disableTransitionOnChange) {
-      const css = document.createElement("style");
+      const css = document.createElement('style');
       const transitionStyles =
-        "*,*::before,*::after{-webkit-transition:none!important;-moz-transition:none!important;-o-transition:none!important;-ms-transition:none!important;transition:none!important}";
+        '*,*::before,*::after{-webkit-transition:none!important;-moz-transition:none!important;-o-transition:none!important;-ms-transition:none!important;transition:none!important}';
       css.appendChild(document.createTextNode(transitionStyles));
       document.head.appendChild(css);
 
@@ -140,22 +151,24 @@ export function ThemeProvider({
 
   // Listen to system theme changes when theme is "system"
   useEffect(() => {
-    if (!mounted || theme !== "system" || !enableSystem) return;
+    if (!mounted || theme !== 'system' || !enableSystem) return;
 
-    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     const handleChange = () => {
-      const resolved = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      const resolved = window.matchMedia('(prefers-color-scheme: dark)').matches
+        ? 'dark'
+        : 'light';
       setResolvedTheme(resolved);
       applyThemeToDom(resolved);
     };
 
     // Modern browsers
     if (mediaQuery.addEventListener) {
-      mediaQuery.addEventListener("change", handleChange);
-      return () => mediaQuery.removeEventListener("change", handleChange);
+      mediaQuery.addEventListener('change', handleChange);
+      return () => mediaQuery.removeEventListener('change', handleChange);
     }
     // Fallback for older browsers
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
     mediaQuery.addListener(handleChange);
     return () => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -165,19 +178,23 @@ export function ThemeProvider({
 
   const setTheme = (newTheme: Theme) => {
     // Validate theme if themes array is provided
-    if (themes.length > 0 && !themes.includes(newTheme) && newTheme !== "system") {
+    if (
+      themes.length > 0 &&
+      !themes.includes(newTheme) &&
+      newTheme !== 'system'
+    ) {
       console.warn(`Theme "${newTheme}" is not in the allowed themes list.`);
       return;
     }
 
     // If system is disabled, don't allow "system" theme
-    if (!enableSystem && newTheme === "system") {
+    if (!enableSystem && newTheme === 'system') {
       console.warn("System theme is disabled. Use 'light' or 'dark' instead.");
       return;
     }
 
     setThemeState(newTheme);
-    if (typeof window !== "undefined") {
+    if (typeof window !== 'undefined') {
       localStorage.setItem(storageKey, newTheme);
     }
   };
@@ -199,7 +216,7 @@ export const useTheme = () => {
   const context = useContext(ThemeProviderContext);
 
   if (context === undefined) {
-    throw new Error("useTheme must be used within a ThemeProvider");
+    throw new Error('useTheme must be used within a ThemeProvider');
   }
 
   return context;

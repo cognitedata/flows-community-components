@@ -1,7 +1,8 @@
-import { cn } from "@/lib/utils";
-import { type ComponentProps, type ReactNode, forwardRef } from "react";
+import { type ComponentProps, type ReactNode, forwardRef } from 'react';
 
-export interface SwapSlotProps extends ComponentProps<"div"> {
+import { cn } from '../../../../lib/utils';
+
+export interface SwapSlotProps extends ComponentProps<'div'> {
   defaultSlot?: ReactNode;
   activeSlot?: ReactNode;
 }
@@ -13,7 +14,7 @@ export const SwapSlot = forwardRef<HTMLDivElement, SwapSlotProps>(
         ref={ref}
         data-slot="swap-slot"
         className={cn(
-          "w-full h-10 flex justify-center items-center gap-2 rounded-md border border-dashed border-ring p-4",
+          'w-full h-10 flex justify-center items-center gap-2 rounded-md border border-dashed border-ring p-4',
           className
         )}
         {...props}
@@ -23,4 +24,4 @@ export const SwapSlot = forwardRef<HTMLDivElement, SwapSlotProps>(
     );
   }
 );
-SwapSlot.displayName = "SwapSlot";
+SwapSlot.displayName = 'SwapSlot';

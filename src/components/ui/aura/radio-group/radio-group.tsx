@@ -1,32 +1,35 @@
-import { Radio as RadioPrimitive } from "@base-ui/react/radio";
-import { RadioGroup as RadioGroupPrimitive } from "@base-ui/react/radio-group";
-import { IconCircle } from "@tabler/icons-react";
-import { type ComponentRef, forwardRef } from "react";
+import { Radio as RadioPrimitive } from '@base-ui/react/radio';
+import { RadioGroup as RadioGroupPrimitive } from '@base-ui/react/radio-group';
+import { IconCircle } from '@tabler/icons-react';
+import { type ComponentRef, forwardRef } from 'react';
 
-import { cn, disabledState, focusState, invalidState } from "@/lib/utils";
+import { cn, disabledState, focusState, invalidState } from '@/lib/utils';
 
-type Orientation = "horizontal" | "vertical";
+type Orientation = 'horizontal' | 'vertical';
 
-type RadioGroupProps = RadioGroupPrimitive.Props & { orientation?: Orientation };
+type RadioGroupProps = RadioGroupPrimitive.Props & {
+  orientation?: Orientation;
+};
 
-const RadioGroup = forwardRef<ComponentRef<typeof RadioGroupPrimitive>, RadioGroupProps>(
-  ({ className, orientation = "vertical", ...props }, ref) => {
-    return (
-      <RadioGroupPrimitive
-        ref={ref}
-        data-slot="radio-group"
-        data-orientation={orientation}
-        aria-orientation={orientation}
-        className={cn(
-          orientation === "horizontal" ? "flex items-center gap-3" : "grid gap-3",
-          className
-        )}
-        {...props}
-      />
-    );
-  }
-);
-RadioGroup.displayName = "RadioGroup";
+const RadioGroup = forwardRef<
+  ComponentRef<typeof RadioGroupPrimitive>,
+  RadioGroupProps
+>(({ className, orientation = 'vertical', ...props }, ref) => {
+  return (
+    <RadioGroupPrimitive
+      ref={ref}
+      data-slot="radio-group"
+      data-orientation={orientation}
+      aria-orientation={orientation}
+      className={cn(
+        orientation === 'horizontal' ? 'flex items-center gap-3' : 'grid gap-3',
+        className
+      )}
+      {...props}
+    />
+  );
+});
+RadioGroup.displayName = 'RadioGroup';
 
 const RadioGroupItem = forwardRef<
   ComponentRef<typeof RadioPrimitive.Root>,
@@ -37,7 +40,7 @@ const RadioGroupItem = forwardRef<
       ref={ref}
       data-slot="radio-group-item"
       className={cn(
-        "border-input text-primary dark:bg-input/30 aspect-square size-4 shrink-0 rounded-full border shadow-xs transition-[color,box-shadow] outline-none",
+        'border-input text-primary dark:bg-input/30 aspect-square size-4 shrink-0 rounded-full border shadow-xs transition-[color,box-shadow] outline-none',
         focusState,
         invalidState,
         disabledState,
@@ -54,6 +57,6 @@ const RadioGroupItem = forwardRef<
     </RadioPrimitive.Root>
   );
 });
-RadioGroupItem.displayName = "RadioGroupItem";
+RadioGroupItem.displayName = 'RadioGroupItem';
 
 export { RadioGroup, RadioGroupItem };

@@ -1,8 +1,9 @@
-import type { ComponentMeta } from "@/lib/component-examples";
+import type { ComponentMeta } from '../../../../lib/types';
 
 export const SwitchMetadata: ComponentMeta = {
-  name: "Switch",
-  status: "draft",
-  description: "A toggle switch component built on Base UI Switch.",
-  llmUsage: "Use `<Switch checked={checked} onCheckedChange={setChecked}>` for boolean toggles.",
+  name: 'Switch',
+  status: 'in-progress-code-review',
+  description: 'A toggle switch component built on Base UI Switch.',
+  llmUsage:
+    'Use `<Switch checked={checked} onCheckedChange={setChecked}>` for boolean toggles.',
 };

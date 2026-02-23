@@ -1,14 +1,11 @@
-import { type ComponentProps, type ReactNode, forwardRef, useState } from "react";
-
-import { IconEye, IconEyeOff } from "@tabler/icons-react";
-
-import { HelperText } from "@/components/ui/aura/helper-text";
+import { IconEye, IconEyeOff } from '@tabler/icons-react';
 import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupButton,
-  InputGroupInput,
-} from "@/components/ui/aura/input-group";
+  type ComponentProps,
+  type ReactNode,
+  forwardRef,
+  useState,
+} from 'react';
+
 import {
   cn,
   disabledState,
@@ -18,9 +15,16 @@ import {
   hoverState,
   invalidState,
   readOnlyState,
-} from "@/lib/utils";
+} from '../../../../lib/utils';
+import { HelperText } from '../helper-text';
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+} from '../input-group';
 
-interface InputProps extends ComponentProps<"input"> {
+interface InputProps extends ComponentProps<'input'> {
   errorMessage?: string;
 }
 
@@ -43,7 +47,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           data-slot="input"
           aria-invalid={errorMessage ? true : undefined}
           className={cn(
-            "w-full",
+            'w-full',
             formElementBase,
             hoverState,
             filledState,
@@ -61,9 +65,9 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
   }
 );
 
-Input.displayName = "Input";
+Input.displayName = 'Input';
 
-interface PasswordInputProps extends Omit<InputProps, "type"> {
+interface PasswordInputProps extends Omit<InputProps, 'type'> {
   defaultVisible?: boolean;
 }
 
@@ -76,7 +80,7 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
         <InputGroup>
           <InputGroupInput
             ref={ref}
-            type={showPassword ? "text" : "password"}
+            type={showPassword ? 'text' : 'password'}
             aria-invalid={errorMessage ? true : undefined}
             className={className}
             {...props}
@@ -84,10 +88,14 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
           <InputGroupAddon align="inline-end">
             <InputGroupButton
               onClick={() => setShowPassword(!showPassword)}
-              aria-label={showPassword ? "Hide password" : "Show password"}
+              aria-label={showPassword ? 'Hide password' : 'Show password'}
               size="icon-sm"
             >
-              {showPassword ? <IconEyeOff className="size-4" /> : <IconEye className="size-4" />}
+              {showPassword ? (
+                <IconEyeOff className="size-4" />
+              ) : (
+                <IconEye className="size-4" />
+              )}
             </InputGroupButton>
           </InputGroupAddon>
         </InputGroup>
@@ -97,6 +105,6 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
   }
 );
 
-PasswordInput.displayName = "PasswordInput";
+PasswordInput.displayName = 'PasswordInput';
 
 export { Input, PasswordInput };

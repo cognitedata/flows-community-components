@@ -1,11 +1,12 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor, within } from "@storybook/test";
-import { IconChevronLeft } from "@tabler/icons-react";
-import { useState } from "react";
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { IconChevronLeft } from '@tabler/icons-react';
+import { useState } from 'react';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
 
-import { Button } from "@/components/ui/aura/button";
-import { Input } from "@/components/ui/aura/input";
-import { Label } from "@/components/ui/aura/label";
+import { Button } from '../button';
+import { Input } from '../input';
+import { Label } from '../label';
+
 import {
   Dialog,
   DialogClose,
@@ -15,75 +16,76 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "./dialog";
-
+} from './dialog';
 const meta: Meta<typeof Dialog> = {
-  title: "Primitives/Dialog",
+  title: 'Primitives/Dialog',
   component: Dialog,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     open: {
-      control: "boolean",
-      description: "Controlled open state",
+      control: 'boolean',
       table: {
-        category: "Behavior",
-        type: { summary: "boolean" },
+        category: 'Behavior',
+        type: {
+          summary: 'boolean',
+        },
       },
     },
     defaultOpen: {
-      control: "boolean",
-      description: "Default open state (uncontrolled)",
+      control: 'boolean',
       table: {
-        category: "Behavior",
-        type: { summary: "boolean" },
-        defaultValue: { summary: "false" },
+        category: 'Behavior',
+        type: {
+          summary: 'boolean',
+        },
+        defaultValue: {
+          summary: 'false',
+        },
       },
     },
     modal: {
-      control: "boolean",
-      description: "Whether to render as modal (blocks interaction outside)",
+      control: 'boolean',
       table: {
-        category: "Behavior",
-        type: { summary: "boolean" },
-        defaultValue: { summary: "true" },
+        category: 'Behavior',
+        type: {
+          summary: 'boolean',
+        },
+        defaultValue: {
+          summary: 'true',
+        },
       },
     },
     onOpenChange: {
-      action: "openChange",
-      description: "Callback when open state changes",
+      action: 'openChange',
       table: {
-        category: "Events",
-        type: { summary: "(open: boolean) => void" },
+        category: 'Events',
+        type: {
+          summary: '(open: boolean) => void',
+        },
       },
     },
   },
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
 };
-
 export default meta;
 type Story = StoryObj<typeof Dialog>;
-
 async function openDialogFromTrigger(
   canvasElement: HTMLElement,
   triggerName: RegExp
 ): Promise<ReturnType<typeof within>> {
   const canvas = within(canvasElement);
-  const trigger = canvas.getByRole("button", { name: triggerName });
+  const trigger = canvas.getByRole('button', {
+    name: triggerName,
+  });
   await userEvent.click(trigger);
-  const dialog = await within(document.body).findByRole("dialog");
+  const dialog = await within(document.body).findByRole('dialog');
   return within(dialog);
 }
-
 export const Default: Story = {
   parameters: {
     order: 1,
-    docs: {
-      description: {
-        story: "Dialog with title, description, and footer actions.",
-      },
-    },
   },
   render: () => (
     <Dialog>
@@ -92,7 +94,8 @@ export const Default: Story = {
         <DialogHeader>
           <DialogTitle>Dialog Title</DialogTitle>
           <DialogDescription>
-            This is a dialog description that provides context for the dialog content.
+            This is a dialog description that provides context for the dialog
+            content.
           </DialogDescription>
         </DialogHeader>
         <div className="py-4">
@@ -109,18 +112,16 @@ export const Default: Story = {
   ),
   play: async ({ canvasElement }) => {
     const dialog = await openDialogFromTrigger(canvasElement, /open dialog/i);
-    await expect(dialog.getByRole("heading", { name: "Dialog Title" })).toBeInTheDocument();
+    await expect(
+      dialog.getByRole('heading', {
+        name: 'Dialog Title',
+      })
+    ).toBeInTheDocument();
   },
 };
-
 export const WithForm: Story = {
   parameters: {
     order: 2,
-    docs: {
-      description: {
-        story: "Dialog containing a form for user input.",
-      },
-    },
   },
   render: () => (
     <Dialog>
@@ -150,15 +151,9 @@ export const WithForm: Story = {
     </Dialog>
   ),
 };
-
 export const NoCloseButton: Story = {
   parameters: {
     order: 3,
-    docs: {
-      description: {
-        story: "Dialog without the X close button in the corner.",
-      },
-    },
   },
   render: () => (
     <Dialog>
@@ -167,7 +162,8 @@ export const NoCloseButton: Story = {
         <DialogHeader>
           <DialogTitle>Important Notice</DialogTitle>
           <DialogDescription>
-            This dialog has no close button in the corner. Use the buttons below to close it.
+            This dialog has no close button in the corner. Use the buttons below
+            to close it.
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
@@ -177,11 +173,9 @@ export const NoCloseButton: Story = {
     </Dialog>
   ),
 };
-
 export const Controlled: Story = {
   render: function ControlledDialog() {
     const [open, setOpen] = useState(false);
-
     return (
       <div className="space-y-4">
         <div className="flex gap-2">
@@ -190,7 +184,9 @@ export const Controlled: Story = {
             Close Dialog
           </Button>
         </div>
-        <p className="text-sm text-muted-foreground">Dialog is {open ? "open" : "closed"}</p>
+        <p className="text-sm text-muted-foreground">
+          Dialog is {open ? 'open' : 'closed'}
+        </p>
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogContent>
             <DialogHeader>
@@ -209,39 +205,35 @@ export const Controlled: Story = {
   },
   parameters: {
     order: 4,
-    docs: {
-      description: {
-        story: "Dialog with externally controlled open state.",
-      },
-    },
   },
 };
-
 export const ScrollingContent: Story = {
   parameters: {
     order: 5,
-    docs: {
-      description: {
-        story: "Dialog with scrolling content for long text.",
-      },
-    },
   },
   render: () => (
     <Dialog>
       <DialogTrigger render={<Button>Terms & Conditions</Button>} />
-      <DialogContent className="max-h-[80vh] overflow-y-auto">
+      <DialogContent className="max-h-dvh overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Terms of Service</DialogTitle>
-          <DialogDescription>Please read and accept our terms of service.</DialogDescription>
+          <DialogDescription>
+            Please read and accept our terms of service.
+          </DialogDescription>
         </DialogHeader>
         <div className="space-y-4 py-4 text-sm text-muted-foreground">
-          {Array.from({ length: 10 }, (_, i) => (
-            <p key={`terms-${i}`}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
-              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-              exercitation ullamco laboris.
-            </p>
-          ))}
+          {Array.from(
+            {
+              length: 10,
+            },
+            (_, i) => (
+              <p key={`terms-${i}`}>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud exercitation ullamco laboris.
+              </p>
+            )
+          )}
         </div>
         <DialogFooter>
           <DialogClose render={<Button variant="outline">Decline</Button>} />
@@ -251,20 +243,15 @@ export const ScrollingContent: Story = {
     </Dialog>
   ),
 };
-
 export const NonModal: Story = {
   parameters: {
     order: 6,
-    docs: {
-      description: {
-        story: "Non-modal dialog that allows interaction with background content.",
-      },
-    },
   },
   render: () => (
     <div className="space-y-4">
       <p className="text-sm text-muted-foreground">
-        This button remains interactive even when the dialog is open (non-modal).
+        This button remains interactive even when the dialog is open
+        (non-modal).
       </p>
       <Button>Background action</Button>
       <Dialog modal={false}>
@@ -286,11 +273,12 @@ export const NonModal: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await openDialogFromTrigger(canvasElement, /open non-modal dialog/i);
-    const backgroundButton = canvas.getByRole("button", { name: /background action/i });
+    const backgroundButton = canvas.getByRole('button', {
+      name: /background action/i,
+    });
     await expect(backgroundButton).toBeEnabled();
   },
 };
-
 export const Nested: Story = {
   render: () => (
     <Dialog>
@@ -298,11 +286,15 @@ export const Nested: Story = {
       <DialogContent>
         <DialogHeader>
           <DialogTitle>First Dialog</DialogTitle>
-          <DialogDescription>This dialog can open another dialog.</DialogDescription>
+          <DialogDescription>
+            This dialog can open another dialog.
+          </DialogDescription>
         </DialogHeader>
         <div className="py-4">
           <Dialog>
-            <DialogTrigger render={<Button variant="outline">Open Second Dialog</Button>} />
+            <DialogTrigger
+              render={<Button variant="outline">Open Second Dialog</Button>}
+            />
             <DialogContent>
               <DialogHeader>
                 <DialogTitle>Second Dialog</DialogTitle>
@@ -322,22 +314,11 @@ export const Nested: Story = {
   ),
   parameters: {
     order: 7,
-    docs: {
-      description: {
-        story: "Dialogs can be nested inside each other.",
-      },
-    },
   },
 };
-
 export const TitleOnly: Story = {
   parameters: {
     order: 8,
-    docs: {
-      description: {
-        story: "Dialog with title only, no description.",
-      },
-    },
   },
   render: () => (
     <Dialog>
@@ -348,7 +329,8 @@ export const TitleOnly: Story = {
         </DialogHeader>
         <div className="py-4">
           <p className="text-sm text-muted-foreground">
-            This dialog intentionally omits a description, showing the minimal header configuration.
+            This dialog intentionally omits a description, showing the minimal
+            header configuration.
           </p>
         </div>
         <DialogFooter>
@@ -358,19 +340,20 @@ export const TitleOnly: Story = {
     </Dialog>
   ),
   play: async ({ canvasElement }) => {
-    const dialog = await openDialogFromTrigger(canvasElement, /title-only dialog/i);
-    await expect(dialog.getByRole("heading", { name: "Title Only Dialog" })).toBeInTheDocument();
+    const dialog = await openDialogFromTrigger(
+      canvasElement,
+      /title-only dialog/i
+    );
+    await expect(
+      dialog.getByRole('heading', {
+        name: 'Title Only Dialog',
+      })
+    ).toBeInTheDocument();
   },
 };
-
 export const LongHeader: Story = {
   parameters: {
     order: 9,
-    docs: {
-      description: {
-        story: "Dialog with long title and description to test text wrapping.",
-      },
-    },
   },
   render: () => (
     <Dialog>
@@ -378,13 +361,13 @@ export const LongHeader: Story = {
       <DialogContent>
         <DialogHeader>
           <DialogTitle>
-            This is a very long dialog title designed to wrap across multiple lines when space is
-            constrained
+            This is a very long dialog title designed to wrap across multiple
+            lines when space is constrained
           </DialogTitle>
           <DialogDescription>
-            Similarly, this description intentionally contains a large amount of text to exercise
-            wrapping behaviour, truncation, and general layout robustness across different viewport
-            sizes and content densities.
+            Similarly, this description intentionally contains a large amount of
+            text to exercise wrapping behaviour, truncation, and general layout
+            robustness across different viewport sizes and content densities.
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
@@ -394,23 +377,20 @@ export const LongHeader: Story = {
     </Dialog>
   ),
   play: async ({ canvasElement }) => {
-    const dialog = await openDialogFromTrigger(canvasElement, /open long header dialog/i);
+    const dialog = await openDialogFromTrigger(
+      canvasElement,
+      /open long header dialog/i
+    );
     await expect(
-      dialog.getByRole("heading", {
+      dialog.getByRole('heading', {
         name: /this is a very long dialog title designed to wrap across multiple lines/i,
       })
     ).toBeInTheDocument();
   },
 };
-
 export const WithBackButton: Story = {
   parameters: {
     order: 10,
-    docs: {
-      description: {
-        story: "Dialog header that includes a leading back icon button next to the title.",
-      },
-    },
   },
   render: () => (
     <Dialog>
@@ -418,7 +398,12 @@ export const WithBackButton: Story = {
       <DialogContent>
         <DialogHeader className="items-start text-left">
           <div className="flex items-center gap-3">
-            <Button variant="secondary" size="icon" className="shrink-0" aria-label="Go back">
+            <Button
+              variant="secondary"
+              size="icon"
+              className="shrink-0"
+              aria-label="Go back"
+            >
               <IconChevronLeft className="h-4 w-4" />
             </Button>
             <DialogTitle>Title</DialogTitle>
@@ -433,40 +418,50 @@ export const WithBackButton: Story = {
     </Dialog>
   ),
   play: async ({ canvasElement }) => {
-    const dialog = await openDialogFromTrigger(canvasElement, /open dialog with back/i);
-    await expect(dialog.getByRole("button", { name: /go back/i })).toBeInTheDocument();
-    await expect(dialog.getByRole("heading", { name: "Title" })).toBeInTheDocument();
+    const dialog = await openDialogFromTrigger(
+      canvasElement,
+      /open dialog with back/i
+    );
+    await expect(
+      dialog.getByRole('button', {
+        name: /go back/i,
+      })
+    ).toBeInTheDocument();
+    await expect(
+      dialog.getByRole('heading', {
+        name: 'Title',
+      })
+    ).toBeInTheDocument();
   },
 };
-
 export const Confirmation: Story = {
   parameters: {
     order: 11,
-    docs: {
-      description: {
-        story: "Confirmation dialog for destructive actions.",
-      },
-    },
   },
   render: function ConfirmationDialog() {
     const [confirmed, setConfirmed] = useState(false);
-
     return (
       <div className="space-y-4">
         <Dialog>
-          <DialogTrigger render={<Button variant="destructive">Delete Item</Button>} />
+          <DialogTrigger
+            render={<Button variant="destructive">Delete Item</Button>}
+          />
           <DialogContent>
             <DialogHeader>
               <DialogTitle>Are you sure?</DialogTitle>
               <DialogDescription>
-                This action cannot be undone. This will permanently delete the item.
+                This action cannot be undone. This will permanently delete the
+                item.
               </DialogDescription>
             </DialogHeader>
             <DialogFooter>
               <DialogClose render={<Button variant="outline">Cancel</Button>} />
               <DialogClose
                 render={
-                  <Button variant="destructive" onClick={() => setConfirmed(true)}>
+                  <Button
+                    variant="destructive"
+                    onClick={() => setConfirmed(true)}
+                  >
                     Delete
                   </Button>
                 }
@@ -474,18 +469,18 @@ export const Confirmation: Story = {
             </DialogFooter>
           </DialogContent>
         </Dialog>
-        {confirmed && <p className="text-sm text-green-600">Item deleted successfully!</p>}
+        {confirmed && (
+          <p className="text-sm text-green-600">Item deleted successfully!</p>
+        )}
       </div>
     );
   },
 };
-
 export const AsyncAction: Story = {
   render: function AsyncActionDialog() {
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);
     const [done, setDone] = useState(false);
-
     const handleConfirm = () => {
       setLoading(true);
       setDone(false);
@@ -495,7 +490,6 @@ export const AsyncAction: Story = {
         setOpen(false);
       }, 500);
     };
-
     return (
       <div className="space-y-4">
         <Dialog open={open} onOpenChange={setOpen}>
@@ -510,48 +504,45 @@ export const AsyncAction: Story = {
             <DialogFooter>
               <DialogClose render={<Button variant="outline">Cancel</Button>} />
               <Button onClick={handleConfirm} disabled={loading}>
-                {loading ? "Saving..." : "Confirm"}
+                {loading ? 'Saving...' : 'Confirm'}
               </Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>
-        {done && <p className="text-sm text-green-600">Action completed successfully.</p>}
+        {done && (
+          <p className="text-sm text-green-600">
+            Action completed successfully.
+          </p>
+        )}
       </div>
     );
   },
   parameters: {
     order: 12,
-    docs: {
-      description: {
-        story: "Dialog with async action and loading state.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    const dialog = await openDialogFromTrigger(canvasElement, /open async dialog/i);
-    const confirmButton = dialog.getByRole("button", { name: /confirm/i });
-    await userEvent.click(confirmButton);
-
-    await waitFor(() => {
-      expect(confirmButton).toHaveTextContent("Saving...");
+    const dialog = await openDialogFromTrigger(
+      canvasElement,
+      /open async dialog/i
+    );
+    const confirmButton = dialog.getByRole('button', {
+      name: /confirm/i,
     });
-
+    await userEvent.click(confirmButton);
     await waitFor(() => {
-      expect(canvas.getByText(/action completed successfully/i)).toBeInTheDocument();
+      expect(confirmButton).toHaveTextContent('Saving...');
+    });
+    await waitFor(() => {
+      expect(
+        canvas.getByText(/action completed successfully/i)
+      ).toBeInTheDocument();
     });
   },
 };
-
 export const VisualRegression: Story = {
   parameters: {
     order: 13,
-    docs: {
-      description: {
-        story: "Dialog open by default for visual regression testing.",
-      },
-    },
     chromatic: {
       disableSnapshot: false,
     },
@@ -566,7 +557,9 @@ export const VisualRegression: Story = {
           </DialogDescription>
         </DialogHeader>
         <div className="py-4">
-          <p className="text-sm text-muted-foreground">Sample content for the dialog.</p>
+          <p className="text-sm text-muted-foreground">
+            Sample content for the dialog.
+          </p>
         </div>
         <DialogFooter>
           <Button variant="outline">Cancel</Button>
@@ -576,15 +569,9 @@ export const VisualRegression: Story = {
     </Dialog>
   ),
 };
-
 export const Playground: Story = {
   parameters: {
     order: 99,
-    docs: {
-      description: {
-        story: "Interactive playground - use controls to experiment with dialog props.",
-      },
-    },
   },
   args: {
     defaultOpen: false,
