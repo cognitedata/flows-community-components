@@ -1,15 +1,6 @@
-import { CardActions, CardHeaderRight } from "@/components/ui/aura/card";
-import {
-  type ChartConfig,
-  ChartContainer,
-  ChartLegend,
-  ChartLegendContent,
-  ChartTooltip,
-} from "@/components/ui/aura/chart";
-import { DropdownMenuItem, DropdownMenuSeparator } from "@/components/ui/aura/dropdown-menu";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { IconTrendingUp } from "@tabler/icons-react";
-import { useId, useState } from "react";
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { IconTrendingUp } from '@tabler/icons-react';
+import { useId, useState } from 'react';
 import {
   Area,
   AreaChart,
@@ -23,8 +14,9 @@ import {
   type PieLabelRenderProps,
   XAxis,
   YAxis,
-} from "recharts";
-import { expect, within } from "storybook/test";
+} from 'recharts';
+import { expect, within } from 'storybook/test';
+
 import {
   ArtifactChart,
   ArtifactChartContent,
@@ -32,97 +24,110 @@ import {
   ArtifactChartFooter,
   ArtifactChartHeader,
   ArtifactChartTitle,
-} from "./artifact-chart";
+} from './artifact-chart';
+
+import { CardActions, CardHeaderRight } from '@/components/ui/aura/card';
+import {
+  type ChartConfig,
+  ChartContainer,
+  ChartLegend,
+  ChartLegendContent,
+  ChartTooltip,
+} from '@/components/ui/aura/chart';
+import {
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+} from '@/components/ui/aura/dropdown-menu';
 const sharedChartConfig = {
   slice1: {
-    label: "unit",
-    color: "var(--color-chart-fjord-opacity-4)",
+    label: 'unit',
+    color: 'var(--color-chart-fjord-opacity-4)',
   },
   slice2: {
-    label: "unit",
-    color: "var(--color-chart-fjord-opacity-3)",
+    label: 'unit',
+    color: 'var(--color-chart-fjord-opacity-3)',
   },
   slice3: {
-    label: "unit",
-    color: "var(--color-chart-fjord-opacity-2)",
+    label: 'unit',
+    color: 'var(--color-chart-fjord-opacity-2)',
   },
   slice4: {
-    label: "unit",
-    color: "var(--color-chart-fjord-opacity-1)",
+    label: 'unit',
+    color: 'var(--color-chart-fjord-opacity-1)',
   },
   slice5: {
-    label: "unit",
-    color: "var(--color-chart-fjord-solid)",
+    label: 'unit',
+    color: 'var(--color-chart-fjord-solid)',
   },
 } satisfies ChartConfig;
 
 const sharedChartData = [
   {
-    id: "slice1",
+    id: 'slice1',
     value: 225,
-    fill: "var(--color-slice1)",
+    fill: 'var(--color-slice1)',
   },
   {
-    id: "slice2",
+    id: 'slice2',
     value: 225,
-    fill: "var(--color-slice2)",
+    fill: 'var(--color-slice2)',
   },
   {
-    id: "slice3",
+    id: 'slice3',
     value: 225,
-    fill: "var(--color-slice3)",
+    fill: 'var(--color-slice3)',
   },
   {
-    id: "slice4",
+    id: 'slice4',
     value: 225,
-    fill: "var(--color-slice4)",
+    fill: 'var(--color-slice4)',
   },
   {
-    id: "slice5",
+    id: 'slice5',
     value: 225,
-    fill: "var(--color-slice5)",
+    fill: 'var(--color-slice5)',
   },
 ];
 
 const areaChartConfig = {
   r401: {
-    label: "R401",
-    color: "rgba(47, 85, 234, 0.8)",
+    label: 'R401',
+    color: 'rgba(47, 85, 234, 0.8)',
   },
   r402: {
-    label: "R402",
-    color: "rgba(47, 85, 234, 0.5)",
+    label: 'R402',
+    color: 'rgba(47, 85, 234, 0.5)',
   },
 } satisfies ChartConfig;
 
 const areaChartData = [
   {
-    time: "02:00",
+    time: '02:00',
     r401: 280,
     r402: 120,
   },
   {
-    time: "06:00",
+    time: '06:00',
     r401: 300,
     r402: 140,
   },
   {
-    time: "10:00",
+    time: '10:00',
     r401: 350,
     r402: 160,
   },
   {
-    time: "14:00",
+    time: '14:00',
     r401: 320,
     r402: 150,
   },
   {
-    time: "18:00",
+    time: '18:00',
     r401: 290,
     r402: 130,
   },
   {
-    time: "22:00",
+    time: '22:00',
     r401: 310,
     r402: 145,
   },
@@ -130,58 +135,58 @@ const areaChartData = [
 
 const lineChartConfig = {
   strong: {
-    label: "Primary",
-    color: "rgba(47, 85, 234, 0.8)",
+    label: 'Primary',
+    color: 'rgba(47, 85, 234, 0.8)',
   },
   muted: {
-    label: "Secondary",
-    color: "rgba(47, 85, 234, 0.5)",
+    label: 'Secondary',
+    color: 'rgba(47, 85, 234, 0.5)',
   },
 } satisfies ChartConfig;
 
 const lineChartData = [
   {
-    date: "Apr 1",
+    date: 'Apr 1',
     strong: 40,
     muted: 80,
   },
   {
-    date: "",
+    date: '',
     strong: 120,
     muted: 100,
   },
   {
-    date: "Apr 7",
+    date: 'Apr 7',
     strong: 180,
     muted: 90,
   },
   {
-    date: "",
+    date: '',
     strong: 280,
     muted: 140,
   },
   {
-    date: "Apr 14",
+    date: 'Apr 14',
     strong: 160,
     muted: 180,
   },
   {
-    date: "",
+    date: '',
     strong: 220,
     muted: 160,
   },
   {
-    date: "Apr 21",
+    date: 'Apr 21',
     strong: 320,
     muted: 120,
   },
   {
-    date: "",
+    date: '',
     strong: 260,
     muted: 140,
   },
   {
-    date: "Apr 30",
+    date: 'Apr 30',
     strong: 200,
     muted: 160,
   },
@@ -189,30 +194,30 @@ const lineChartData = [
 
 const barChartConfig = {
   value: {
-    label: "Count",
-    color: "url(#barGradient)",
+    label: 'Count',
+    color: 'url(#barGradient)',
   },
 } satisfies ChartConfig;
 
 const barChartData = [
   {
-    name: "Assets",
+    name: 'Assets',
     value: 106,
   },
   {
-    name: "Files",
+    name: 'Files',
     value: 305,
   },
   {
-    name: "Events",
+    name: 'Events',
     value: 237,
   },
   {
-    name: "Work orders",
+    name: 'Work orders',
     value: 73,
   },
   {
-    name: "Time series",
+    name: 'Time series',
     value: 209,
   },
 ];
@@ -225,125 +230,125 @@ type RadialRingDatum = {
 
 const radialRingData: RadialRingDatum[] = [
   {
-    name: "ring5",
-    fill: "var(--color-chart-fjord-opacity-4)",
+    name: 'ring5',
+    fill: 'var(--color-chart-fjord-opacity-4)',
     arcPercent: 50,
   },
   {
-    name: "ring4",
-    fill: "var(--color-chart-fjord-opacity-3)",
+    name: 'ring4',
+    fill: 'var(--color-chart-fjord-opacity-3)',
     arcPercent: 72,
   },
   {
-    name: "ring3",
-    fill: "var(--color-chart-fjord-opacity-2)",
+    name: 'ring3',
+    fill: 'var(--color-chart-fjord-opacity-2)',
     arcPercent: 65,
   },
   {
-    name: "ring2",
-    fill: "var(--color-chart-fjord-opacity-1)",
+    name: 'ring2',
+    fill: 'var(--color-chart-fjord-opacity-1)',
     arcPercent: 76,
   },
   {
-    name: "ring1",
-    fill: "var(--color-chart-fjord-solid)",
+    name: 'ring1',
+    fill: 'var(--color-chart-fjord-solid)',
     arcPercent: 100,
   },
 ];
 const meta: Meta<typeof ArtifactChart> = {
-  title: "Primitives/Artifact - Chart",
+  title: 'Primitives/Artifact - Chart',
   component: ArtifactChart,
-  tags: ["autodocs", "ai-elements"],
+  tags: ['autodocs', 'ai-elements'],
   argTypes: {
     children: {
       control: false,
       table: {
-        category: "Content",
+        category: 'Content',
         type: {
-          summary: "ReactNode",
+          summary: 'ReactNode',
         },
       },
     },
     className: {
-      control: "text",
+      control: 'text',
       table: {
-        category: "Display",
+        category: 'Display',
       },
     },
     style: {
-      control: "object",
+      control: 'object',
       table: {
-        category: "Display",
+        category: 'Display',
         type: {
-          summary: "CSSProperties",
+          summary: 'CSSProperties',
         },
       },
     },
     id: {
-      control: "text",
+      control: 'text',
       table: {
-        category: "HTML Attributes",
+        category: 'HTML Attributes',
       },
     },
     role: {
-      control: "text",
+      control: 'text',
       table: {
-        category: "HTML Attributes",
+        category: 'HTML Attributes',
       },
     },
-    "aria-label": {
-      control: "text",
+    'aria-label': {
+      control: 'text',
       table: {
-        category: "HTML Attributes",
+        category: 'HTML Attributes',
       },
     },
-    "aria-labelledby": {
-      control: "text",
+    'aria-labelledby': {
+      control: 'text',
       table: {
-        category: "HTML Attributes",
+        category: 'HTML Attributes',
       },
     },
-    "aria-describedby": {
-      control: "text",
+    'aria-describedby': {
+      control: 'text',
       table: {
-        category: "HTML Attributes",
+        category: 'HTML Attributes',
       },
     },
     onClick: {
-      action: "clicked",
+      action: 'clicked',
       table: {
-        category: "Events",
+        category: 'Events',
         type: {
-          summary: "MouseEventHandler<HTMLDivElement>",
+          summary: 'MouseEventHandler<HTMLDivElement>',
         },
       },
     },
     onKeyDown: {
-      action: "keyDown",
+      action: 'keyDown',
       table: {
-        category: "Events",
+        category: 'Events',
         type: {
-          summary: "KeyboardEventHandler<HTMLDivElement>",
+          summary: 'KeyboardEventHandler<HTMLDivElement>',
         },
       },
     },
     ref: {
       control: false,
       table: {
-        category: "Advanced",
+        category: 'Advanced',
         type: {
-          summary: "Ref<HTMLDivElement>",
+          summary: 'Ref<HTMLDivElement>',
         },
       },
     },
   },
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
 };
 export default meta;
 type Story = StoryObj<typeof ArtifactChart>;
-const labelColor = "var(--color-fjord-450)";
+const labelColor = 'var(--color-fjord-450)';
 const renderLabel = (payload: PieLabelRenderProps) => {
   const labelText = String(payload.value ?? 0);
   const labelWidth = Math.max(26, labelText.length * 8 + 4);
@@ -363,9 +368,9 @@ const renderLabel = (payload: PieLabelRenderProps) => {
         dominantBaseline="central"
         fill={labelColor}
         style={{
-          fontSize: "12px",
+          fontSize: '12px',
           fontWeight: 500,
-          letterSpacing: "-0.08px",
+          letterSpacing: '-0.08px',
         }}
       >
         {labelText}
@@ -379,11 +384,15 @@ export const Basic: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(await canvas.findByText("Chart title")).toBeInTheDocument();
-    await expect(await canvas.findByText("January - June 2024")).toBeInTheDocument();
-    await expect(await canvas.findByText("Visitors")).toBeInTheDocument();
-    await expect(await canvas.findByText("1,125")).toBeInTheDocument();
-    await expect(await canvas.findByText("Trending up by 5.2% this month")).toBeInTheDocument();
+    await expect(await canvas.findByText('Chart title')).toBeInTheDocument();
+    await expect(
+      await canvas.findByText('January - June 2024')
+    ).toBeInTheDocument();
+    await expect(await canvas.findByText('Visitors')).toBeInTheDocument();
+    await expect(await canvas.findByText('1,125')).toBeInTheDocument();
+    await expect(
+      await canvas.findByText('Trending up by 5.2% this month')
+    ).toBeInTheDocument();
   },
   render: function BasicPieChart() {
     const [chartData] = useState(sharedChartData);
@@ -391,15 +400,20 @@ export const Basic: Story = {
       <ArtifactChart className="w-100">
         <ArtifactChartHeader>
           <ArtifactChartTitle>Chart title</ArtifactChartTitle>
-          <ArtifactChartDescription>January - June 2024</ArtifactChartDescription>
+          <ArtifactChartDescription>
+            January - June 2024
+          </ArtifactChartDescription>
         </ArtifactChartHeader>
 
         <ArtifactChartContent>
           <div className="relative flex items-center justify-center">
-            <ChartContainer config={sharedChartConfig} className="h-70 w-100 overflow-visible">
+            <ChartContainer
+              config={sharedChartConfig}
+              className="h-70 w-100 overflow-visible"
+            >
               <PieChart
                 style={{
-                  overflow: "visible",
+                  overflow: 'visible',
                 }}
               >
                 <ChartTooltip
@@ -409,7 +423,9 @@ export const Basic: Story = {
                     const data = payload[0];
                     const id = data.payload?.id as string;
                     const value = data.value as number;
-                    const color = sharedChartConfig[id as keyof typeof sharedChartConfig]?.color;
+                    const color =
+                      sharedChartConfig[id as keyof typeof sharedChartConfig]
+                        ?.color;
                     return (
                       <div className="flex items-center gap-4 rounded-md bg-popover p-2 shadow-md">
                         <div className="flex items-center gap-1.5">
@@ -419,9 +435,13 @@ export const Basic: Story = {
                               backgroundColor: color,
                             }}
                           />
-                          <span className="text-sm text-muted-foreground">unit</span>
+                          <span className="text-sm text-muted-foreground">
+                            unit
+                          </span>
                         </div>
-                        <span className="text-sm text-foreground">{value.toLocaleString()}</span>
+                        <span className="text-sm text-foreground">
+                          {value.toLocaleString()}
+                        </span>
                       </div>
                     );
                   }}
@@ -443,8 +463,12 @@ export const Basic: Story = {
             </ChartContainer>
             <div className="pointer-events-none absolute inset-0 grid place-items-center text-center">
               <div>
-                <span className="block text-2xl font-medium text-foreground">1,125</span>
-                <span className="block text-sm font-normal text-muted-foreground">Visitors</span>
+                <span className="block text-2xl font-medium text-foreground">
+                  1,125
+                </span>
+                <span className="block text-sm font-normal text-muted-foreground">
+                  Visitors
+                </span>
               </div>
             </div>
           </div>
@@ -456,10 +480,14 @@ export const Basic: Story = {
                   className="h-2 w-2 rounded-sm"
                   style={{
                     backgroundColor:
-                      sharedChartConfig[item.id as keyof typeof sharedChartConfig]?.color,
+                      sharedChartConfig[
+                        item.id as keyof typeof sharedChartConfig
+                      ]?.color,
                   }}
                 />
-                <span className="text-sm leading-4 text-muted-foreground">unit</span>
+                <span className="text-sm leading-4 text-muted-foreground">
+                  unit
+                </span>
               </div>
             ))}
           </div>
@@ -484,9 +512,11 @@ export const WithHeader: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(await canvas.findByText("Chart title")).toBeInTheDocument();
-    await expect(await canvas.findByText("January - June 2024")).toBeInTheDocument();
-    await expect(await canvas.findByText("1,125")).toBeInTheDocument();
+    await expect(await canvas.findByText('Chart title')).toBeInTheDocument();
+    await expect(
+      await canvas.findByText('January - June 2024')
+    ).toBeInTheDocument();
+    await expect(await canvas.findByText('1,125')).toBeInTheDocument();
   },
   render: function WithHeaderPieChart() {
     const [chartData] = useState(sharedChartData);
@@ -494,15 +524,20 @@ export const WithHeader: Story = {
       <ArtifactChart className="w-100">
         <ArtifactChartHeader>
           <ArtifactChartTitle>Chart title</ArtifactChartTitle>
-          <ArtifactChartDescription>January - June 2024</ArtifactChartDescription>
+          <ArtifactChartDescription>
+            January - June 2024
+          </ArtifactChartDescription>
         </ArtifactChartHeader>
 
         <ArtifactChartContent>
           <div className="relative flex items-center justify-center">
-            <ChartContainer config={sharedChartConfig} className="h-70 w-100 overflow-visible">
+            <ChartContainer
+              config={sharedChartConfig}
+              className="h-70 w-100 overflow-visible"
+            >
               <PieChart
                 style={{
-                  overflow: "visible",
+                  overflow: 'visible',
                 }}
               >
                 <ChartTooltip
@@ -512,7 +547,9 @@ export const WithHeader: Story = {
                     const data = payload[0];
                     const id = data.payload?.id as string;
                     const value = data.value as number;
-                    const color = sharedChartConfig[id as keyof typeof sharedChartConfig]?.color;
+                    const color =
+                      sharedChartConfig[id as keyof typeof sharedChartConfig]
+                        ?.color;
                     return (
                       <div className="flex items-center gap-4 rounded-md bg-popover p-2 shadow-md">
                         <div className="flex items-center gap-1.5">
@@ -522,9 +559,13 @@ export const WithHeader: Story = {
                               backgroundColor: color,
                             }}
                           />
-                          <span className="text-sm text-muted-foreground">unit</span>
+                          <span className="text-sm text-muted-foreground">
+                            unit
+                          </span>
                         </div>
-                        <span className="text-sm text-foreground">{value.toLocaleString()}</span>
+                        <span className="text-sm text-foreground">
+                          {value.toLocaleString()}
+                        </span>
                       </div>
                     );
                   }}
@@ -546,8 +587,12 @@ export const WithHeader: Story = {
             </ChartContainer>
             <div className="pointer-events-none absolute inset-0 grid place-items-center text-center">
               <div>
-                <span className="block text-2xl font-medium text-foreground">1,125</span>
-                <span className="block text-sm font-normal text-muted-foreground">Visitors</span>
+                <span className="block text-2xl font-medium text-foreground">
+                  1,125
+                </span>
+                <span className="block text-sm font-normal text-muted-foreground">
+                  Visitors
+                </span>
               </div>
             </div>
           </div>
@@ -559,10 +604,14 @@ export const WithHeader: Story = {
                   className="h-2 w-2 rounded-sm"
                   style={{
                     backgroundColor:
-                      sharedChartConfig[item.id as keyof typeof sharedChartConfig]?.color,
+                      sharedChartConfig[
+                        item.id as keyof typeof sharedChartConfig
+                      ]?.color,
                   }}
                 />
-                <span className="text-sm leading-4 text-muted-foreground">unit</span>
+                <span className="text-sm leading-4 text-muted-foreground">
+                  unit
+                </span>
               </div>
             ))}
           </div>
@@ -577,8 +626,10 @@ export const WithFooter: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(await canvas.findByText("Trending up by 5.2% this month")).toBeInTheDocument();
-    await expect(await canvas.findByText("1,125")).toBeInTheDocument();
+    await expect(
+      await canvas.findByText('Trending up by 5.2% this month')
+    ).toBeInTheDocument();
+    await expect(await canvas.findByText('1,125')).toBeInTheDocument();
   },
   render: function WithFooterPieChart() {
     const [chartData] = useState(sharedChartData);
@@ -586,10 +637,13 @@ export const WithFooter: Story = {
       <ArtifactChart className="w-100">
         <ArtifactChartContent>
           <div className="relative flex items-center justify-center">
-            <ChartContainer config={sharedChartConfig} className="h-70 w-100 overflow-visible">
+            <ChartContainer
+              config={sharedChartConfig}
+              className="h-70 w-100 overflow-visible"
+            >
               <PieChart
                 style={{
-                  overflow: "visible",
+                  overflow: 'visible',
                 }}
               >
                 <ChartTooltip
@@ -599,7 +653,9 @@ export const WithFooter: Story = {
                     const data = payload[0];
                     const id = data.payload?.id as string;
                     const value = data.value as number;
-                    const color = sharedChartConfig[id as keyof typeof sharedChartConfig]?.color;
+                    const color =
+                      sharedChartConfig[id as keyof typeof sharedChartConfig]
+                        ?.color;
                     return (
                       <div className="flex items-center gap-4 rounded-md bg-popover p-2 shadow-md">
                         <div className="flex items-center gap-1.5">
@@ -609,9 +665,13 @@ export const WithFooter: Story = {
                               backgroundColor: color,
                             }}
                           />
-                          <span className="text-sm text-muted-foreground">unit</span>
+                          <span className="text-sm text-muted-foreground">
+                            unit
+                          </span>
                         </div>
-                        <span className="text-sm text-foreground">{value.toLocaleString()}</span>
+                        <span className="text-sm text-foreground">
+                          {value.toLocaleString()}
+                        </span>
                       </div>
                     );
                   }}
@@ -633,8 +693,12 @@ export const WithFooter: Story = {
             </ChartContainer>
             <div className="pointer-events-none absolute inset-0 grid place-items-center text-center">
               <div>
-                <span className="block text-2xl font-medium text-foreground">1,125</span>
-                <span className="block text-sm font-normal text-muted-foreground">Visitors</span>
+                <span className="block text-2xl font-medium text-foreground">
+                  1,125
+                </span>
+                <span className="block text-sm font-normal text-muted-foreground">
+                  Visitors
+                </span>
               </div>
             </div>
           </div>
@@ -646,10 +710,14 @@ export const WithFooter: Story = {
                   className="h-2 w-2 rounded-sm"
                   style={{
                     backgroundColor:
-                      sharedChartConfig[item.id as keyof typeof sharedChartConfig]?.color,
+                      sharedChartConfig[
+                        item.id as keyof typeof sharedChartConfig
+                      ]?.color,
                   }}
                 />
-                <span className="text-sm leading-4 text-muted-foreground">unit</span>
+                <span className="text-sm leading-4 text-muted-foreground">
+                  unit
+                </span>
               </div>
             ))}
           </div>
@@ -674,8 +742,8 @@ export const WithActions: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(await canvas.findByText("Chart title")).toBeInTheDocument();
-    const buttons = await canvas.findAllByRole("button");
+    await expect(await canvas.findByText('Chart title')).toBeInTheDocument();
+    const buttons = await canvas.findAllByRole('button');
     await expect(buttons.length).toBeGreaterThan(0);
   },
   render: function WithActionsPieChart() {
@@ -684,7 +752,9 @@ export const WithActions: Story = {
       <ArtifactChart className="w-100">
         <ArtifactChartHeader>
           <ArtifactChartTitle>Chart title</ArtifactChartTitle>
-          <ArtifactChartDescription>January - June 2024</ArtifactChartDescription>
+          <ArtifactChartDescription>
+            January - June 2024
+          </ArtifactChartDescription>
           <CardHeaderRight>
             <CardActions>
               <DropdownMenuItem>View details</DropdownMenuItem>
@@ -697,10 +767,13 @@ export const WithActions: Story = {
 
         <ArtifactChartContent>
           <div className="relative flex items-center justify-center">
-            <ChartContainer config={sharedChartConfig} className="h-70 w-100 overflow-visible">
+            <ChartContainer
+              config={sharedChartConfig}
+              className="h-70 w-100 overflow-visible"
+            >
               <PieChart
                 style={{
-                  overflow: "visible",
+                  overflow: 'visible',
                 }}
               >
                 <ChartTooltip
@@ -710,7 +783,9 @@ export const WithActions: Story = {
                     const data = payload[0];
                     const id = data.payload?.id as string;
                     const value = data.value as number;
-                    const color = sharedChartConfig[id as keyof typeof sharedChartConfig]?.color;
+                    const color =
+                      sharedChartConfig[id as keyof typeof sharedChartConfig]
+                        ?.color;
                     return (
                       <div className="flex items-center gap-4 rounded-md bg-popover p-2 shadow-md">
                         <div className="flex items-center gap-1.5">
@@ -720,9 +795,13 @@ export const WithActions: Story = {
                               backgroundColor: color,
                             }}
                           />
-                          <span className="text-sm text-muted-foreground">unit</span>
+                          <span className="text-sm text-muted-foreground">
+                            unit
+                          </span>
                         </div>
-                        <span className="text-sm text-foreground">{value.toLocaleString()}</span>
+                        <span className="text-sm text-foreground">
+                          {value.toLocaleString()}
+                        </span>
                       </div>
                     );
                   }}
@@ -744,8 +823,12 @@ export const WithActions: Story = {
             </ChartContainer>
             <div className="pointer-events-none absolute inset-0 grid place-items-center text-center">
               <div>
-                <span className="block text-2xl font-medium text-foreground">1,125</span>
-                <span className="block text-sm font-normal text-muted-foreground">Visitors</span>
+                <span className="block text-2xl font-medium text-foreground">
+                  1,125
+                </span>
+                <span className="block text-sm font-normal text-muted-foreground">
+                  Visitors
+                </span>
               </div>
             </div>
           </div>
@@ -757,10 +840,14 @@ export const WithActions: Story = {
                   className="h-2 w-2 rounded-sm"
                   style={{
                     backgroundColor:
-                      sharedChartConfig[item.id as keyof typeof sharedChartConfig]?.color,
+                      sharedChartConfig[
+                        item.id as keyof typeof sharedChartConfig
+                      ]?.color,
                   }}
                 />
-                <span className="text-sm leading-4 text-muted-foreground">unit</span>
+                <span className="text-sm leading-4 text-muted-foreground">
+                  unit
+                </span>
               </div>
             ))}
           </div>
@@ -785,8 +872,8 @@ export const MinimalHeader: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(await canvas.findByText("Chart title")).toBeInTheDocument();
-    await expect(await canvas.findByText("1,125")).toBeInTheDocument();
+    await expect(await canvas.findByText('Chart title')).toBeInTheDocument();
+    await expect(await canvas.findByText('1,125')).toBeInTheDocument();
   },
   render: function MinimalHeaderPieChart() {
     const [chartData] = useState(sharedChartData);
@@ -798,10 +885,13 @@ export const MinimalHeader: Story = {
 
         <ArtifactChartContent>
           <div className="relative flex items-center justify-center">
-            <ChartContainer config={sharedChartConfig} className="h-70 w-100 overflow-visible">
+            <ChartContainer
+              config={sharedChartConfig}
+              className="h-70 w-100 overflow-visible"
+            >
               <PieChart
                 style={{
-                  overflow: "visible",
+                  overflow: 'visible',
                 }}
               >
                 <ChartTooltip
@@ -811,7 +901,9 @@ export const MinimalHeader: Story = {
                     const data = payload[0];
                     const id = data.payload?.id as string;
                     const value = data.value as number;
-                    const color = sharedChartConfig[id as keyof typeof sharedChartConfig]?.color;
+                    const color =
+                      sharedChartConfig[id as keyof typeof sharedChartConfig]
+                        ?.color;
                     return (
                       <div className="flex items-center gap-4 rounded-md bg-popover p-2 shadow-md">
                         <div className="flex items-center gap-1.5">
@@ -821,9 +913,13 @@ export const MinimalHeader: Story = {
                               backgroundColor: color,
                             }}
                           />
-                          <span className="text-sm text-muted-foreground">unit</span>
+                          <span className="text-sm text-muted-foreground">
+                            unit
+                          </span>
                         </div>
-                        <span className="text-sm text-foreground">{value.toLocaleString()}</span>
+                        <span className="text-sm text-foreground">
+                          {value.toLocaleString()}
+                        </span>
                       </div>
                     );
                   }}
@@ -845,8 +941,12 @@ export const MinimalHeader: Story = {
             </ChartContainer>
             <div className="pointer-events-none absolute inset-0 grid place-items-center text-center">
               <div>
-                <span className="block text-2xl font-medium text-foreground">1,125</span>
-                <span className="block text-sm font-normal text-muted-foreground">Visitors</span>
+                <span className="block text-2xl font-medium text-foreground">
+                  1,125
+                </span>
+                <span className="block text-sm font-normal text-muted-foreground">
+                  Visitors
+                </span>
               </div>
             </div>
           </div>
@@ -858,10 +958,14 @@ export const MinimalHeader: Story = {
                   className="h-2 w-2 rounded-sm"
                   style={{
                     backgroundColor:
-                      sharedChartConfig[item.id as keyof typeof sharedChartConfig]?.color,
+                      sharedChartConfig[
+                        item.id as keyof typeof sharedChartConfig
+                      ]?.color,
                   }}
                 />
-                <span className="text-sm leading-4 text-muted-foreground">unit</span>
+                <span className="text-sm leading-4 text-muted-foreground">
+                  unit
+                </span>
               </div>
             ))}
           </div>
@@ -886,88 +990,93 @@ export const InteractiveDataToggle: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(await canvas.findByText("Chart title")).toBeInTheDocument();
-    await expect(await canvas.findByText("Q1")).toBeInTheDocument();
-    await expect(await canvas.findByText("Q2")).toBeInTheDocument();
+    await expect(await canvas.findByText('Chart title')).toBeInTheDocument();
+    await expect(await canvas.findByText('Q1')).toBeInTheDocument();
+    await expect(await canvas.findByText('Q2')).toBeInTheDocument();
   },
   render: function InteractiveDataTogglePieChart() {
     const q1Data = [
       {
-        id: "slice1",
+        id: 'slice1',
         value: 275,
       },
       {
-        id: "slice2",
+        id: 'slice2',
         value: 250,
       },
       {
-        id: "slice3",
+        id: 'slice3',
         value: 225,
       },
       {
-        id: "slice4",
+        id: 'slice4',
         value: 200,
       },
       {
-        id: "slice5",
+        id: 'slice5',
         value: 175,
       },
     ];
     const q2Data = [
       {
-        id: "slice1",
+        id: 'slice1',
         value: 175,
       },
       {
-        id: "slice2",
+        id: 'slice2',
         value: 200,
       },
       {
-        id: "slice3",
+        id: 'slice3',
         value: 225,
       },
       {
-        id: "slice4",
+        id: 'slice4',
         value: 250,
       },
       {
-        id: "slice5",
+        id: 'slice5',
         value: 275,
       },
     ];
-    const [activeQuarter, setActiveQuarter] = useState<"q1" | "q2">("q1");
-    const chartData = activeQuarter === "q1" ? q1Data : q2Data;
+    const [activeQuarter, setActiveQuarter] = useState<'q1' | 'q2'>('q1');
+    const chartData = activeQuarter === 'q1' ? q1Data : q2Data;
     const total = chartData.reduce((sum, item) => sum + item.value, 0);
     return (
       <ArtifactChart className="w-100">
         <ArtifactChartHeader>
           <ArtifactChartTitle>Chart title</ArtifactChartTitle>
-          <ArtifactChartDescription>Click buttons to switch quarters</ArtifactChartDescription>
+          <ArtifactChartDescription>
+            Click buttons to switch quarters
+          </ArtifactChartDescription>
         </ArtifactChartHeader>
 
         <ArtifactChartContent>
           <div className="flex gap-2">
             <button
               type="button"
-              onClick={() => setActiveQuarter("q1")}
-              className={`rounded-md px-3 py-1 text-sm ${activeQuarter === "q1" ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"}`}
+              onClick={() => setActiveQuarter('q1')}
+              className={`rounded-md px-3 py-1 text-sm ${activeQuarter === 'q1' ? 'bg-primary text-primary-foreground' : 'bg-muted text-muted-foreground'}`}
             >
               Q1
             </button>
             <button
               type="button"
-              onClick={() => setActiveQuarter("q2")}
-              className={`rounded-md px-3 py-1 text-sm ${activeQuarter === "q2" ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"}`}
+              onClick={() => setActiveQuarter('q2')}
+              className={`rounded-md px-3 py-1 text-sm ${activeQuarter === 'q2' ? 'bg-primary text-primary-foreground' : 'bg-muted text-muted-foreground'}`}
             >
               Q2
             </button>
           </div>
 
           <div className="relative flex items-center justify-center">
-            <ChartContainer config={sharedChartConfig} className="h-70 w-100 overflow-visible">
+            <ChartContainer
+              config={sharedChartConfig}
+              className="h-70 w-100 overflow-visible"
+            >
               <PieChart
                 style={{
-                  overflow: "visible",
+                  overflow: 'visible',
                 }}
               >
                 <ChartTooltip
@@ -977,7 +1086,9 @@ export const InteractiveDataToggle: Story = {
                     const data = payload[0];
                     const id = data.payload?.id as string;
                     const value = data.value as number;
-                    const color = sharedChartConfig[id as keyof typeof sharedChartConfig]?.color;
+                    const color =
+                      sharedChartConfig[id as keyof typeof sharedChartConfig]
+                        ?.color;
                     return (
                       <div className="flex items-center gap-4 rounded-md bg-popover p-2 shadow-md">
                         <div className="flex items-center gap-1.5">
@@ -987,9 +1098,13 @@ export const InteractiveDataToggle: Story = {
                               backgroundColor: color,
                             }}
                           />
-                          <span className="text-sm text-muted-foreground">unit</span>
+                          <span className="text-sm text-muted-foreground">
+                            unit
+                          </span>
                         </div>
-                        <span className="text-sm text-foreground">{value.toLocaleString()}</span>
+                        <span className="text-sm text-foreground">
+                          {value.toLocaleString()}
+                        </span>
                       </div>
                     );
                   }}
@@ -1028,10 +1143,14 @@ export const InteractiveDataToggle: Story = {
                   className="h-2 w-2 rounded-sm"
                   style={{
                     backgroundColor:
-                      sharedChartConfig[item.id as keyof typeof sharedChartConfig]?.color,
+                      sharedChartConfig[
+                        item.id as keyof typeof sharedChartConfig
+                      ]?.color,
                   }}
                 />
-                <span className="text-sm leading-4 text-muted-foreground">unit</span>
+                <span className="text-sm leading-4 text-muted-foreground">
+                  unit
+                </span>
               </div>
             ))}
           </div>
@@ -1056,7 +1175,9 @@ export const EdgeCaseLongText: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(await canvas.findByText(/Quarterly Revenue Distribution/)).toBeInTheDocument();
+    await expect(
+      await canvas.findByText(/Quarterly Revenue Distribution/)
+    ).toBeInTheDocument();
   },
   render: function LongTextPieChart() {
     const [chartData] = useState(sharedChartData);
@@ -1067,17 +1188,21 @@ export const EdgeCaseLongText: Story = {
             Quarterly Revenue Distribution Across All Business Units and Regions
           </ArtifactChartTitle>
           <ArtifactChartDescription>
-            This chart shows the breakdown of revenue sources including product sales, professional
-            services, and recurring subscriptions for Q4 2024.
+            This chart shows the breakdown of revenue sources including product
+            sales, professional services, and recurring subscriptions for Q4
+            2024.
           </ArtifactChartDescription>
         </ArtifactChartHeader>
 
         <ArtifactChartContent>
           <div className="relative flex items-center justify-center">
-            <ChartContainer config={sharedChartConfig} className="h-70 w-100 overflow-visible">
+            <ChartContainer
+              config={sharedChartConfig}
+              className="h-70 w-100 overflow-visible"
+            >
               <PieChart
                 style={{
-                  overflow: "visible",
+                  overflow: 'visible',
                 }}
               >
                 <ChartTooltip
@@ -1087,7 +1212,9 @@ export const EdgeCaseLongText: Story = {
                     const data = payload[0];
                     const id = data.payload?.id as string;
                     const value = data.value as number;
-                    const color = sharedChartConfig[id as keyof typeof sharedChartConfig]?.color;
+                    const color =
+                      sharedChartConfig[id as keyof typeof sharedChartConfig]
+                        ?.color;
                     return (
                       <div className="flex items-center gap-4 rounded-md bg-popover p-2 shadow-md">
                         <div className="flex items-center gap-1.5">
@@ -1097,9 +1224,13 @@ export const EdgeCaseLongText: Story = {
                               backgroundColor: color,
                             }}
                           />
-                          <span className="text-sm text-muted-foreground">unit</span>
+                          <span className="text-sm text-muted-foreground">
+                            unit
+                          </span>
                         </div>
-                        <span className="text-sm text-foreground">{value.toLocaleString()}</span>
+                        <span className="text-sm text-foreground">
+                          {value.toLocaleString()}
+                        </span>
                       </div>
                     );
                   }}
@@ -1121,8 +1252,12 @@ export const EdgeCaseLongText: Story = {
             </ChartContainer>
             <div className="pointer-events-none absolute inset-0 grid place-items-center text-center">
               <div>
-                <span className="block text-2xl font-medium text-foreground">1,125</span>
-                <span className="block text-sm font-normal text-muted-foreground">Visitors</span>
+                <span className="block text-2xl font-medium text-foreground">
+                  1,125
+                </span>
+                <span className="block text-sm font-normal text-muted-foreground">
+                  Visitors
+                </span>
               </div>
             </div>
           </div>
@@ -1134,10 +1269,14 @@ export const EdgeCaseLongText: Story = {
                   className="h-2 w-2 rounded-sm"
                   style={{
                     backgroundColor:
-                      sharedChartConfig[item.id as keyof typeof sharedChartConfig]?.color,
+                      sharedChartConfig[
+                        item.id as keyof typeof sharedChartConfig
+                      ]?.color,
                   }}
                 />
-                <span className="text-sm leading-4 text-muted-foreground">unit</span>
+                <span className="text-sm leading-4 text-muted-foreground">
+                  unit
+                </span>
               </div>
             ))}
           </div>
@@ -1149,8 +1288,8 @@ export const EdgeCaseLongText: Story = {
             <IconTrendingUp aria-hidden="true" className="h-4 w-4" />
           </div>
           <div className="text-sm leading-4 text-muted-foreground">
-            Data aggregated from all regional offices and includes both direct and partner channel
-            revenue streams.
+            Data aggregated from all regional offices and includes both direct
+            and partner channel revenue streams.
           </div>
         </ArtifactChartFooter>
       </ArtifactChart>
@@ -1163,8 +1302,8 @@ export const VisualRegression: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(await canvas.findByText("Chart title")).toBeInTheDocument();
-    await expect(await canvas.findByText("1,125")).toBeInTheDocument();
+    await expect(await canvas.findByText('Chart title')).toBeInTheDocument();
+    await expect(await canvas.findByText('1,125')).toBeInTheDocument();
   },
   render: function VisualRegressionPieChart() {
     const [chartData] = useState(sharedChartData);
@@ -1172,15 +1311,20 @@ export const VisualRegression: Story = {
       <ArtifactChart className="w-100">
         <ArtifactChartHeader>
           <ArtifactChartTitle>Chart title</ArtifactChartTitle>
-          <ArtifactChartDescription>January - June 2024</ArtifactChartDescription>
+          <ArtifactChartDescription>
+            January - June 2024
+          </ArtifactChartDescription>
         </ArtifactChartHeader>
 
         <ArtifactChartContent>
           <div className="relative flex items-center justify-center">
-            <ChartContainer config={sharedChartConfig} className="h-70 w-100 overflow-visible">
+            <ChartContainer
+              config={sharedChartConfig}
+              className="h-70 w-100 overflow-visible"
+            >
               <PieChart
                 style={{
-                  overflow: "visible",
+                  overflow: 'visible',
                 }}
               >
                 <Pie
@@ -1200,8 +1344,12 @@ export const VisualRegression: Story = {
             </ChartContainer>
             <div className="pointer-events-none absolute inset-0 grid place-items-center text-center">
               <div>
-                <span className="block text-2xl font-medium text-foreground">1,125</span>
-                <span className="block text-sm font-normal text-muted-foreground">Visitors</span>
+                <span className="block text-2xl font-medium text-foreground">
+                  1,125
+                </span>
+                <span className="block text-sm font-normal text-muted-foreground">
+                  Visitors
+                </span>
               </div>
             </div>
           </div>
@@ -1213,10 +1361,14 @@ export const VisualRegression: Story = {
                   className="h-2 w-2 rounded-sm"
                   style={{
                     backgroundColor:
-                      sharedChartConfig[item.id as keyof typeof sharedChartConfig]?.color,
+                      sharedChartConfig[
+                        item.id as keyof typeof sharedChartConfig
+                      ]?.color,
                   }}
                 />
-                <span className="text-sm leading-4 text-muted-foreground">unit</span>
+                <span className="text-sm leading-4 text-muted-foreground">
+                  unit
+                </span>
               </div>
             ))}
           </div>
@@ -1241,7 +1393,9 @@ export const EdgeCaseNoData: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(await canvas.findByText("No data available")).toBeInTheDocument();
+    await expect(
+      await canvas.findByText('No data available')
+    ).toBeInTheDocument();
   },
   render: function NoDataPieChart() {
     const [chartData] = useState<
@@ -1254,7 +1408,9 @@ export const EdgeCaseNoData: Story = {
       <ArtifactChart className="w-100">
         <ArtifactChartHeader>
           <ArtifactChartTitle>Chart title</ArtifactChartTitle>
-          <ArtifactChartDescription>January - June 2024</ArtifactChartDescription>
+          <ArtifactChartDescription>
+            January - June 2024
+          </ArtifactChartDescription>
         </ArtifactChartHeader>
 
         <ArtifactChartContent>
@@ -1284,11 +1440,15 @@ export const StackedAreaChart: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(await canvas.findByText("Reactor temperature trend")).toBeInTheDocument();
-    await expect(await canvas.findByText("Last 24 hours")).toBeInTheDocument();
-    await expect(await canvas.findByText("R401")).toBeInTheDocument();
-    await expect(await canvas.findByText("R402")).toBeInTheDocument();
-    await expect(await canvas.findByText("Trending up by 5.2% this month")).toBeInTheDocument();
+    await expect(
+      await canvas.findByText('Reactor temperature trend')
+    ).toBeInTheDocument();
+    await expect(await canvas.findByText('Last 24 hours')).toBeInTheDocument();
+    await expect(await canvas.findByText('R401')).toBeInTheDocument();
+    await expect(await canvas.findByText('R402')).toBeInTheDocument();
+    await expect(
+      await canvas.findByText('Trending up by 5.2% this month')
+    ).toBeInTheDocument();
   },
   render: function StackedAreaChartStory() {
     return (
@@ -1318,11 +1478,23 @@ export const StackedAreaChart: Story = {
               }}
             >
               <defs>
-                <linearGradient id="areaGradientR401" x1="0" y1="0" x2="0" y2="1">
+                <linearGradient
+                  id="areaGradientR401"
+                  x1="0"
+                  y1="0"
+                  x2="0"
+                  y2="1"
+                >
                   <stop offset="0%" stopColor="rgba(47, 85, 234, 0.13)" />
                   <stop offset="100%" stopColor="rgba(47, 85, 234, 0.04)" />
                 </linearGradient>
-                <linearGradient id="areaGradientR402" x1="0" y1="0" x2="0" y2="1">
+                <linearGradient
+                  id="areaGradientR402"
+                  x1="0"
+                  y1="0"
+                  x2="0"
+                  y2="1"
+                >
                   <stop offset="0%" stopColor="rgba(47, 85, 234, 0.48)" />
                   <stop offset="100%" stopColor="rgba(47, 85, 234, 0.3)" />
                 </linearGradient>
@@ -1333,22 +1505,23 @@ export const StackedAreaChart: Story = {
                 axisLine={false}
                 tick={{
                   fontSize: 12,
-                  fill: "var(--color-muted-foreground)",
+                  fill: 'var(--color-muted-foreground)',
                 }}
                 tickMargin={8}
               />
               <ChartTooltip
                 cursor={{
-                  stroke: "var(--color-muted-foreground)",
+                  stroke: 'var(--color-muted-foreground)',
                   strokeWidth: 1,
                 }}
-                content={({ active, payload, label }) => {
+                content={({ active, payload, label: _label }) => {
                   if (!active || !payload?.length) return null;
                   return (
                     <div className="rounded border border-border bg-popover px-2 py-1 shadow-md">
                       {payload.map((entry) => {
                         const key = entry.dataKey as string;
-                        const config = areaChartConfig[key as keyof typeof areaChartConfig];
+                        const config =
+                          areaChartConfig[key as keyof typeof areaChartConfig];
                         return (
                           <div key={key} className="flex items-center gap-4">
                             <div className="flex items-center gap-1.5">
@@ -1358,9 +1531,13 @@ export const StackedAreaChart: Story = {
                                   backgroundColor: config?.color,
                                 }}
                               />
-                              <span className="text-sm text-muted-foreground">{config?.label}</span>
+                              <span className="text-sm text-muted-foreground">
+                                {config?.label}
+                              </span>
                             </div>
-                            <span className="text-sm text-foreground">{entry.value}°C</span>
+                            <span className="text-sm text-foreground">
+                              {entry.value}°C
+                            </span>
                           </div>
                         );
                       })}
@@ -1377,8 +1554,8 @@ export const StackedAreaChart: Story = {
                 dot={false}
                 activeDot={{
                   r: 4,
-                  fill: "#2F55EA",
-                  stroke: "#fff",
+                  fill: '#2F55EA',
+                  stroke: '#fff',
                   strokeWidth: 2,
                 }}
               />
@@ -1391,8 +1568,8 @@ export const StackedAreaChart: Story = {
                 dot={false}
                 activeDot={{
                   r: 4,
-                  fill: "#2F55EA",
-                  stroke: "#fff",
+                  fill: '#2F55EA',
+                  stroke: '#fff',
                   strokeWidth: 2,
                 }}
               />
@@ -1417,11 +1594,15 @@ export const MultiLineChart: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(await canvas.findByText("Performance metrics")).toBeInTheDocument();
-    await expect(await canvas.findByText("Last 30 days")).toBeInTheDocument();
-    await expect(await canvas.findByText("Primary")).toBeInTheDocument();
-    await expect(await canvas.findByText("Secondary")).toBeInTheDocument();
-    await expect(await canvas.findByText("Trending up by 5.2% this month")).toBeInTheDocument();
+    await expect(
+      await canvas.findByText('Performance metrics')
+    ).toBeInTheDocument();
+    await expect(await canvas.findByText('Last 30 days')).toBeInTheDocument();
+    await expect(await canvas.findByText('Primary')).toBeInTheDocument();
+    await expect(await canvas.findByText('Secondary')).toBeInTheDocument();
+    await expect(
+      await canvas.findByText('Trending up by 5.2% this month')
+    ).toBeInTheDocument();
   },
   render: function MultiLineChartStory() {
     return (
@@ -1456,13 +1637,13 @@ export const MultiLineChart: Story = {
                 axisLine={false}
                 tick={{
                   fontSize: 12,
-                  fill: "var(--color-muted-foreground)",
+                  fill: 'var(--color-muted-foreground)',
                 }}
                 tickMargin={8}
               />
               <ChartTooltip
                 cursor={{
-                  stroke: "var(--color-muted-foreground)",
+                  stroke: 'var(--color-muted-foreground)',
                   strokeWidth: 1,
                 }}
                 content={({ active, payload }) => {
@@ -1471,7 +1652,8 @@ export const MultiLineChart: Story = {
                     <div className="rounded border border-border bg-popover px-2 py-1 shadow-md">
                       {payload.map((entry) => {
                         const key = entry.dataKey as string;
-                        const config = lineChartConfig[key as keyof typeof lineChartConfig];
+                        const config =
+                          lineChartConfig[key as keyof typeof lineChartConfig];
                         return (
                           <div key={key} className="flex items-center gap-4">
                             <div className="flex items-center gap-1.5">
@@ -1481,9 +1663,13 @@ export const MultiLineChart: Story = {
                                   backgroundColor: config?.color,
                                 }}
                               />
-                              <span className="text-sm text-muted-foreground">{config?.label}</span>
+                              <span className="text-sm text-muted-foreground">
+                                {config?.label}
+                              </span>
                             </div>
-                            <span className="text-sm text-foreground">{entry.value}</span>
+                            <span className="text-sm text-foreground">
+                              {entry.value}
+                            </span>
                           </div>
                         );
                       })}
@@ -1499,8 +1685,8 @@ export const MultiLineChart: Story = {
                 dot={false}
                 activeDot={{
                   r: 4,
-                  fill: "var(--color-muted)",
-                  stroke: "var(--color-popover)",
+                  fill: 'var(--color-muted)',
+                  stroke: 'var(--color-popover)',
                   strokeWidth: 2,
                 }}
               />
@@ -1512,8 +1698,8 @@ export const MultiLineChart: Story = {
                 dot={false}
                 activeDot={{
                   r: 4,
-                  fill: "var(--color-strong)",
-                  stroke: "var(--color-popover)",
+                  fill: 'var(--color-strong)',
+                  stroke: 'var(--color-popover)',
                   strokeWidth: 2,
                 }}
               />
@@ -1538,12 +1724,16 @@ export const HorizontalBarChart: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(await canvas.findByText("Chart title")).toBeInTheDocument();
-    await expect(await canvas.findByText("January - June 2024")).toBeInTheDocument();
-    await expect(await canvas.findByText("Assets")).toBeInTheDocument();
-    await expect(await canvas.findByText("Files")).toBeInTheDocument();
-    await expect(await canvas.findByText("Events")).toBeInTheDocument();
-    await expect(await canvas.findByText("Trending up by 5.2% this month")).toBeInTheDocument();
+    await expect(await canvas.findByText('Chart title')).toBeInTheDocument();
+    await expect(
+      await canvas.findByText('January - June 2024')
+    ).toBeInTheDocument();
+    await expect(await canvas.findByText('Assets')).toBeInTheDocument();
+    await expect(await canvas.findByText('Files')).toBeInTheDocument();
+    await expect(await canvas.findByText('Events')).toBeInTheDocument();
+    await expect(
+      await canvas.findByText('Trending up by 5.2% this month')
+    ).toBeInTheDocument();
   },
   render: function HorizontalBarChartStory() {
     const chartData = barChartData;
@@ -1553,7 +1743,9 @@ export const HorizontalBarChart: Story = {
       <ArtifactChart className="w-100">
         <ArtifactChartHeader>
           <ArtifactChartTitle>Chart title</ArtifactChartTitle>
-          <ArtifactChartDescription>January - June 2024</ArtifactChartDescription>
+          <ArtifactChartDescription>
+            January - June 2024
+          </ArtifactChartDescription>
           <CardHeaderRight>
             <CardActions>
               <DropdownMenuItem>View details</DropdownMenuItem>
@@ -1579,7 +1771,13 @@ export const HorizontalBarChart: Story = {
                   <stop offset="0%" stopColor="rgba(47, 85, 234, 0.35)" />
                   <stop offset="100%" stopColor="rgba(47, 85, 234, 0.65)" />
                 </linearGradient>
-                <linearGradient id={tooltipGradientId} x1="0" y1="0" x2="0" y2="1">
+                <linearGradient
+                  id={tooltipGradientId}
+                  x1="0"
+                  y1="0"
+                  x2="0"
+                  y2="1"
+                >
                   <stop offset="0%" stopColor="#2F55EA" />
                   <stop offset="100%" stopColor="rgba(47, 85, 234, 0.65)" />
                 </linearGradient>
@@ -1592,13 +1790,13 @@ export const HorizontalBarChart: Story = {
                 width={90}
                 tick={{
                   fontSize: 14,
-                  fill: "var(--color-muted-foreground)",
+                  fill: 'var(--color-muted-foreground)',
                 }}
               />
               <XAxis type="number" hide />
               <ChartTooltip
                 cursor={{
-                  fill: "var(--color-muted)",
+                  fill: 'var(--color-muted)',
                   opacity: 0.3,
                 }}
                 content={({ active, payload }) => {
@@ -1616,9 +1814,16 @@ export const HorizontalBarChart: Story = {
                           aria-hidden="true"
                           role="img"
                         >
-                          <rect width="8" height="8" rx="2" fill={`url(#${tooltipGradientId})`} />
+                          <rect
+                            width="8"
+                            height="8"
+                            rx="2"
+                            fill={`url(#${tooltipGradientId})`}
+                          />
                         </svg>
-                        <span className="text-sm text-muted-foreground">{name}</span>
+                        <span className="text-sm text-muted-foreground">
+                          {name}
+                        </span>
                       </div>
                       <span className="text-sm text-foreground">{value}</span>
                     </div>
@@ -1631,8 +1836,8 @@ export const HorizontalBarChart: Story = {
                 radius={[0, 4, 4, 0]}
                 barSize={24}
                 label={{
-                  position: "right",
-                  fill: "var(--color-foreground)",
+                  position: 'right',
+                  fill: 'var(--color-foreground)',
                   fontSize: 14,
                   fontWeight: 400,
                   offset: 4,
@@ -1693,7 +1898,11 @@ function RadialRingSvg({
         const dashArray = `${arcLength} ${circumference}`;
         const isHovered = hoveredRing?.name === ring.name;
         return (
-          <g key={ring.name} onMouseEnter={() => onRingHover(ring)} className="cursor-pointer">
+          <g
+            key={ring.name}
+            onMouseEnter={() => onRingHover(ring)}
+            className="cursor-pointer"
+          >
             <circle
               cx={cx}
               cy={cy}
@@ -1703,7 +1912,7 @@ function RadialRingSvg({
               className="stroke-border"
               style={{
                 opacity: hoveredRing && !isHovered ? 0.5 : 1,
-                transition: "opacity 150ms",
+                transition: 'opacity 150ms',
               }}
             />
             <circle
@@ -1719,7 +1928,7 @@ function RadialRingSvg({
               transform={`rotate(-90 ${cx} ${cy})`}
               style={{
                 opacity: hoveredRing && !isHovered ? 0.5 : 1,
-                transition: "opacity 150ms",
+                transition: 'opacity 150ms',
               }}
             />
             <circle
@@ -1742,12 +1951,18 @@ export const RadialChart: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(await canvas.findByText("Chart title")).toBeInTheDocument();
-    await expect(await canvas.findByText("January - June 2024")).toBeInTheDocument();
-    await expect(await canvas.findByText("Trending up by 5.2% this month")).toBeInTheDocument();
+    await expect(await canvas.findByText('Chart title')).toBeInTheDocument();
+    await expect(
+      await canvas.findByText('January - June 2024')
+    ).toBeInTheDocument();
+    await expect(
+      await canvas.findByText('Trending up by 5.2% this month')
+    ).toBeInTheDocument();
   },
   render: function RadialChartStory() {
-    const [hoveredRing, setHoveredRing] = useState<RadialRingDatum | null>(null);
+    const [hoveredRing, setHoveredRing] = useState<RadialRingDatum | null>(
+      null
+    );
     const [mousePos, setMousePos] = useState({
       x: 0,
       y: 0,
@@ -1763,7 +1978,9 @@ export const RadialChart: Story = {
       <ArtifactChart className="w-100">
         <ArtifactChartHeader>
           <ArtifactChartTitle>Chart title</ArtifactChartTitle>
-          <ArtifactChartDescription>January - June 2024</ArtifactChartDescription>
+          <ArtifactChartDescription>
+            January - June 2024
+          </ArtifactChartDescription>
           <CardHeaderRight>
             <CardActions>
               <DropdownMenuItem>View details</DropdownMenuItem>
@@ -1799,7 +2016,9 @@ export const RadialChart: Story = {
                     />
                     <span className="text-sm text-muted-foreground">unit</span>
                   </div>
-                  <span className="text-sm text-foreground">{hoveredRing.arcPercent}%</span>
+                  <span className="text-sm text-foreground">
+                    {hoveredRing.arcPercent}%
+                  </span>
                 </div>
               </div>
             )}
@@ -1813,7 +2032,9 @@ export const RadialChart: Story = {
                     backgroundColor: item.fill,
                   }}
                 />
-                <span className="text-sm leading-4 text-muted-foreground">unit</span>
+                <span className="text-sm leading-4 text-muted-foreground">
+                  unit
+                </span>
               </div>
             ))}
           </div>

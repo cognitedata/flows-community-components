@@ -11,5 +11,5 @@
  *   <RadioGroupItem value="option2" />
  * </RadioGroup>
  */
-export { RadioGroup, RadioGroupItem } from "./radio-group";
-export { RadioGroupMetadata } from "./radio-group.metadata";
+export { RadioGroup, RadioGroupItem } from './radio-group';
+export { RadioGroupMetadata } from './radio-group.metadata';

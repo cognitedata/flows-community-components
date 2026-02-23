@@ -1,86 +1,88 @@
-import { Label } from "@/components/ui/aura/label";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { useState } from "react";
-import { expect, userEvent, within } from "storybook/test";
-import { RadioGroup, RadioGroupItem } from "./radio-group";
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { useState } from 'react';
+import { expect, userEvent, within } from 'storybook/test';
+
+import { RadioGroup, RadioGroupItem } from './radio-group';
+
+import { Label } from '@/components/ui/aura/label';
 const meta: Meta<typeof RadioGroup> = {
-  title: "Primitives/Radio Group",
+  title: 'Primitives/Radio Group',
   component: RadioGroup,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     value: {
-      control: "text",
+      control: 'text',
       table: {
-        category: "State",
+        category: 'State',
         type: {
-          summary: "string",
+          summary: 'string',
         },
       },
     },
     defaultValue: {
-      control: "text",
+      control: 'text',
       table: {
-        category: "State",
+        category: 'State',
         type: {
-          summary: "string",
+          summary: 'string',
         },
       },
     },
     disabled: {
-      control: "boolean",
+      control: 'boolean',
       table: {
-        category: "State",
+        category: 'State',
         type: {
-          summary: "boolean",
+          summary: 'boolean',
         },
         defaultValue: {
-          summary: "false",
+          summary: 'false',
         },
       },
     },
     required: {
-      control: "boolean",
+      control: 'boolean',
       table: {
-        category: "Validation",
+        category: 'Validation',
         type: {
-          summary: "boolean",
+          summary: 'boolean',
         },
         defaultValue: {
-          summary: "false",
+          summary: 'false',
         },
       },
     },
     orientation: {
-      control: "select",
-      options: ["horizontal", "vertical"],
+      control: 'select',
+      options: ['horizontal', 'vertical'],
       table: {
-        category: "Layout",
+        category: 'Layout',
         type: {
           summary: '"horizontal" | "vertical"',
         },
         defaultValue: {
-          summary: "vertical",
+          summary: 'vertical',
         },
       },
     },
     onValueChange: {
-      action: "valueChange",
+      action: 'valueChange',
       table: {
-        category: "Events",
+        category: 'Events',
         type: {
-          summary: "(value: string) => void",
+          summary: '(value: string) => void',
         },
       },
     },
     className: {
-      control: "text",
+      control: 'text',
       table: {
-        category: "Styling",
+        category: 'Styling',
       },
     },
   },
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
 };
 export default meta;
@@ -104,9 +106,9 @@ export const Default: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const option1 = canvas.getByLabelText("Option 1");
+    const option1 = canvas.getByLabelText('Option 1');
     await expect(option1).toBeChecked();
-    const option2 = canvas.getByLabelText("Option 2");
+    const option2 = canvas.getByLabelText('Option 2');
     await userEvent.click(option2);
     await expect(option2).toBeChecked();
     await expect(option1).not.toBeChecked();
@@ -119,21 +121,27 @@ export const WithDescription: Story = {
         <RadioGroupItem value="default" id="d1" className="mt-1" />
         <div className="grid gap-0.5">
           <Label htmlFor="d1">Default</Label>
-          <p className="text-xs text-muted-foreground">Standard spacing and sizing.</p>
+          <p className="text-xs text-muted-foreground">
+            Standard spacing and sizing.
+          </p>
         </div>
       </div>
       <div className="flex items-start space-x-2">
         <RadioGroupItem value="comfortable" id="d2" className="mt-1" />
         <div className="grid gap-0.5">
           <Label htmlFor="d2">Comfortable</Label>
-          <p className="text-xs text-muted-foreground">More space for easier reading.</p>
+          <p className="text-xs text-muted-foreground">
+            More space for easier reading.
+          </p>
         </div>
       </div>
       <div className="flex items-start space-x-2">
         <RadioGroupItem value="compact" id="d3" className="mt-1" />
         <div className="grid gap-0.5">
           <Label htmlFor="d3">Compact</Label>
-          <p className="text-xs text-muted-foreground">Condensed layout for more content.</p>
+          <p className="text-xs text-muted-foreground">
+            Condensed layout for more content.
+          </p>
         </div>
       </div>
     </RadioGroup>
@@ -182,9 +190,9 @@ export const Disabled: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const radioItems = canvas.getAllByRole("radio");
+    const radioItems = canvas.getAllByRole('radio');
     for (const item of radioItems) {
-      await expect(item).toHaveAttribute("data-disabled");
+      await expect(item).toHaveAttribute('data-disabled');
     }
   },
 };
@@ -210,7 +218,7 @@ export const DisabledItems: Story = {
 };
 export const Controlled: Story = {
   render: function ControlledRadioGroup() {
-    const [value, setValue] = useState("red");
+    const [value, setValue] = useState('red');
     return (
       <div className="space-y-4">
         <RadioGroup value={value} onValueChange={setValue}>
@@ -230,21 +238,21 @@ export const Controlled: Story = {
         <div className="flex gap-2">
           <button
             type="button"
-            onClick={() => setValue("red")}
+            onClick={() => setValue('red')}
             className="px-3 py-1 text-sm border rounded-md hover:bg-accent"
           >
             Set Red
           </button>
           <button
             type="button"
-            onClick={() => setValue("green")}
+            onClick={() => setValue('green')}
             className="px-3 py-1 text-sm border rounded-md hover:bg-accent"
           >
             Set Green
           </button>
           <button
             type="button"
-            onClick={() => setValue("blue")}
+            onClick={() => setValue('blue')}
             className="px-3 py-1 text-sm border rounded-md hover:bg-accent"
           >
             Set Blue
@@ -256,9 +264,9 @@ export const Controlled: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const greenButton = canvas.getByText("Set Green");
+    const greenButton = canvas.getByText('Set Green');
     await userEvent.click(greenButton);
-    const greenRadio = canvas.getByLabelText("Green");
+    const greenRadio = canvas.getByLabelText('Green');
     await expect(greenRadio).toBeChecked();
   },
 };
@@ -269,7 +277,7 @@ export const InForm: Story = {
       onSubmit={(e) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
-        alert(`Selected: ${formData.get("plan")}`);
+        alert(`Selected: ${formData.get('plan')}`);
       }}
     >
       <fieldset className="space-y-3">
@@ -338,7 +346,9 @@ export const VisualRegression: Story = {
   render: () => (
     <div className="space-y-8 p-4">
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">Vertical</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          Vertical
+        </h3>
         <RadioGroup defaultValue="opt1">
           <div className="flex items-center space-x-2">
             <RadioGroupItem value="opt1" id="vr1" />
@@ -352,7 +362,9 @@ export const VisualRegression: Story = {
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">Horizontal</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          Horizontal
+        </h3>
         <RadioGroup defaultValue="opt1" className="flex gap-4">
           <div className="flex items-center space-x-2">
             <RadioGroupItem value="opt1" id="vrh1" />
@@ -370,7 +382,9 @@ export const VisualRegression: Story = {
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">Disabled</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          Disabled
+        </h3>
         <RadioGroup defaultValue="opt1" disabled>
           <div className="flex items-center space-x-2">
             <RadioGroupItem value="opt1" id="vrd1" />
@@ -396,7 +410,7 @@ export const VisualRegression: Story = {
 };
 export const Playground: Story = {
   args: {
-    defaultValue: "option1",
+    defaultValue: 'option1',
     disabled: false,
     required: false,
   },

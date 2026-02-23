@@ -1,6 +1,7 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { useState } from "react";
-import { expect, userEvent, waitFor, within } from "storybook/test";
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { useState } from 'react';
+import { userEvent, within } from 'storybook/test';
+
 import {
   ContextMenu,
   ContextMenuCheckboxItem,
@@ -15,14 +16,14 @@ import {
   ContextMenuSubContent,
   ContextMenuSubTrigger,
   ContextMenuTrigger,
-} from "./context-menu";
+} from './context-menu';
 const meta: Meta<typeof ContextMenu> = {
-  title: "Primitives/Context Menu",
+  title: 'Primitives/Context Menu',
   component: ContextMenu,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {},
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
 };
 export default meta;
@@ -57,12 +58,12 @@ export const Default: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const body = within(canvasElement.ownerDocument.body);
-    const trigger = canvas.getByText("Right click here");
+    const trigger = canvas.getByText('Right click here');
     await userEvent.pointer({
       target: trigger,
-      keys: "[MouseRight]",
+      keys: '[MouseRight]',
     });
-    await body.findByRole("menu");
+    await body.findByRole('menu');
   },
 };
 export const WithSubmenus: Story = {
@@ -117,13 +118,22 @@ export const WithCheckboxItems: Story = {
         <ContextMenuContent className="w-64">
           <ContextMenuLabel>Appearance</ContextMenuLabel>
           <ContextMenuSeparator />
-          <ContextMenuCheckboxItem checked={showStatusBar} onCheckedChange={setShowStatusBar}>
+          <ContextMenuCheckboxItem
+            checked={showStatusBar}
+            onCheckedChange={setShowStatusBar}
+          >
             Status Bar
           </ContextMenuCheckboxItem>
-          <ContextMenuCheckboxItem checked={showActivityBar} onCheckedChange={setShowActivityBar}>
+          <ContextMenuCheckboxItem
+            checked={showActivityBar}
+            onCheckedChange={setShowActivityBar}
+          >
             Activity Bar
           </ContextMenuCheckboxItem>
-          <ContextMenuCheckboxItem checked={showPanel} onCheckedChange={setShowPanel}>
+          <ContextMenuCheckboxItem
+            checked={showPanel}
+            onCheckedChange={setShowPanel}
+          >
             Panel
           </ContextMenuCheckboxItem>
         </ContextMenuContent>
@@ -136,7 +146,7 @@ export const WithRadioGroup: Story = {
     order: 4,
   },
   render: function RadioContextMenu() {
-    const [person, setPerson] = useState("pedro");
+    const [person, setPerson] = useState('pedro');
     return (
       <ContextMenu>
         <ContextMenuTrigger className="flex h-36 w-75 items-center justify-center rounded-md border border-dashed text-sm">
@@ -146,9 +156,13 @@ export const WithRadioGroup: Story = {
           <ContextMenuLabel>People</ContextMenuLabel>
           <ContextMenuSeparator />
           <ContextMenuRadioGroup value={person} onValueChange={setPerson}>
-            <ContextMenuRadioItem value="pedro">Pedro Duarte</ContextMenuRadioItem>
+            <ContextMenuRadioItem value="pedro">
+              Pedro Duarte
+            </ContextMenuRadioItem>
             <ContextMenuRadioItem value="colm">Colm Tuite</ContextMenuRadioItem>
-            <ContextMenuRadioItem value="james">James Wilson</ContextMenuRadioItem>
+            <ContextMenuRadioItem value="james">
+              James Wilson
+            </ContextMenuRadioItem>
           </ContextMenuRadioGroup>
         </ContextMenuContent>
       </ContextMenu>
@@ -202,13 +216,15 @@ export const FileManagerExample: Story = {
     order: 7,
   },
   render: function FileManagerContextMenu() {
-    const [viewMode, setViewMode] = useState("list");
+    const [viewMode, setViewMode] = useState('list');
     return (
       <ContextMenu>
         <ContextMenuTrigger className="flex h-50 w-100 items-center justify-center rounded-md border border-dashed text-sm bg-muted/20">
           <div className="text-center">
             <p className="font-medium">File Manager Area</p>
-            <p className="text-muted-foreground text-xs">Right click for options</p>
+            <p className="text-muted-foreground text-xs">
+              Right click for options
+            </p>
           </div>
         </ContextMenuTrigger>
         <ContextMenuContent className="w-64">
@@ -222,11 +238,18 @@ export const FileManagerExample: Story = {
           <ContextMenuSub>
             <ContextMenuSubTrigger>View</ContextMenuSubTrigger>
             <ContextMenuSubContent className="w-48">
-              <ContextMenuRadioGroup value={viewMode} onValueChange={setViewMode}>
+              <ContextMenuRadioGroup
+                value={viewMode}
+                onValueChange={setViewMode}
+              >
                 <ContextMenuRadioItem value="icons">Icons</ContextMenuRadioItem>
                 <ContextMenuRadioItem value="list">List</ContextMenuRadioItem>
-                <ContextMenuRadioItem value="columns">Columns</ContextMenuRadioItem>
-                <ContextMenuRadioItem value="gallery">Gallery</ContextMenuRadioItem>
+                <ContextMenuRadioItem value="columns">
+                  Columns
+                </ContextMenuRadioItem>
+                <ContextMenuRadioItem value="gallery">
+                  Gallery
+                </ContextMenuRadioItem>
               </ContextMenuRadioGroup>
             </ContextMenuSubContent>
           </ContextMenuSub>

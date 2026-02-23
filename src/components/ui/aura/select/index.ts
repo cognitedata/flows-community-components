@@ -10,5 +10,5 @@ export {
   SelectSeparator,
   SelectTrigger,
   SelectValue,
-} from "./select";
-export { SelectMetadata } from "./select.metadata";
+} from './select';
+export { SelectMetadata } from './select.metadata';

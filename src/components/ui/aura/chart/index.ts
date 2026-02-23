@@ -13,6 +13,6 @@ export {
   ChartLegend,
   ChartLegendContent,
   ChartStyle,
-} from "./chart";
-export type { ChartConfig } from "./chart";
-export { ChartMetadata } from "./chart.metadata";
+} from './chart';
+export type { ChartConfig } from './chart';
+export { ChartMetadata } from './chart.metadata';
