@@ -2,7 +2,12 @@ import { Checkbox as CheckboxPrimitive } from '@base-ui/react/checkbox';
 import { IconCheck } from '@tabler/icons-react';
 import { type ComponentRef, forwardRef, useCallback, useState } from 'react';
 
-import { cn, disabledState, focusState, invalidState } from '@/lib/utils';
+import {
+  cn,
+  disabledState,
+  focusState,
+  invalidState,
+} from '../../../../lib/utils';
 
 type CheckedState = boolean | 'indeterminate';
 

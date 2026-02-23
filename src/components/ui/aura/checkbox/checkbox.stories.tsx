@@ -2,9 +2,9 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { type ComponentProps, useState } from 'react';
 import { expect, userEvent, within } from 'storybook/test';
 
-import { Checkbox } from './checkbox';
+import { Label } from '../label';
 
-import { Label } from '@/components/ui/aura/label';
+import { Checkbox } from './checkbox';
 
 type StoryPlayContext = { canvasElement: HTMLElement };
 
