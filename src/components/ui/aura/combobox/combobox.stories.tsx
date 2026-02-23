@@ -720,11 +720,9 @@ export const KeyboardNavigation: Story = {
     await body.findByPlaceholderText('Search users...');
     await userEvent.keyboard('{ArrowDown}');
     await waitFor(() => {
-      const selectedItem = body
-        .getAllByRole('option')
-        .find((option: HTMLElement) => {
-          return option.getAttribute('aria-selected') === 'true';
-        });
+      const selectedItem = body.getAllByRole('option').find((option) => {
+        return option.getAttribute('aria-selected') === 'true';
+      });
       expect(selectedItem).toBeDefined();
     });
     await userEvent.keyboard('{Escape}');

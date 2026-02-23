@@ -18,102 +18,7 @@ import {
 } from '../command';
 import { Popover, PopoverContent, PopoverTrigger } from '../popover';
 
-const frameworks = [
-  {
-    value: 'next.js',
-    label: 'Next.js',
-  },
-  {
-    value: 'sveltekit',
-    label: 'SvelteKit',
-  },
-  {
-    value: 'nuxt.js',
-    label: 'Nuxt.js',
-  },
-  {
-    value: 'remix',
-    label: 'Remix',
-  },
-  {
-    value: 'astro',
-    label: 'Astro',
-  },
-  {
-    value: 'wordpress',
-    label: 'WordPress',
-  },
-  {
-    value: 'express.js',
-    label: 'Express.js',
-  },
-  {
-    value: 'nest.js',
-    label: 'Nest.js',
-  },
-];
-
-const Combobox = forwardRef<
-  ComponentRef<typeof Button>,
-  ComponentProps<typeof Button>
->((props, ref) => {
-  const [open, setOpen] = useState(false);
-  const [value, setValue] = useState('');
-
-  return (
-    <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger
-        render={
-          <Button
-            ref={ref}
-            data-slot="combobox-trigger"
-            variant="outline"
-            role="combobox"
-            aria-expanded={open}
-            className="w-50 justify-between"
-            {...props}
-          >
-            {value
-              ? frameworks.find((framework) => framework.value === value)?.label
-              : 'Select framework...'}
-            <IconCaretUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-          </Button>
-        }
-      />
-      <PopoverContent className="w-50 p-0">
-        <Command>
-          <CommandInput placeholder="Search framework..." />
-          <CommandList>
-            <CommandEmpty>No framework found.</CommandEmpty>
-            <CommandGroup>
-              {frameworks.map((framework) => (
-                <CommandItem
-                  key={framework.value}
-                  value={framework.value}
-                  onSelect={(currentValue) => {
-                    setValue(currentValue === value ? '' : currentValue);
-                    setOpen(false);
-                  }}
-                >
-                  <IconCheck
-                    className={cn(
-                      'mr-2 h-4 w-4',
-                      value === framework.value ? 'opacity-100' : 'opacity-0'
-                    )}
-                  />
-                  {framework.label}
-                </CommandItem>
-              ))}
-            </CommandGroup>
-          </CommandList>
-        </Command>
-      </PopoverContent>
-    </Popover>
-  );
-});
-Combobox.displayName = 'Combobox';
-
-type ComboboxCustomProps = Omit<
+type ComboboxProps = Omit<
   ComponentProps<typeof Button>,
   'value' | 'onChange'
 > & {
@@ -125,10 +30,7 @@ type ComboboxCustomProps = Omit<
   emptyText?: string;
 };
 
-const ComboboxCustom = forwardRef<
-  ComponentRef<typeof Button>,
-  ComboboxCustomProps
->(
+const ComboboxCustom = forwardRef<ComponentRef<typeof Button>, ComboboxProps>(
   (
     {
       options,
@@ -205,5 +107,12 @@ const ComboboxCustom = forwardRef<
   }
 );
 ComboboxCustom.displayName = 'ComboboxCustom';
+
+const Combobox = forwardRef<ComponentRef<typeof Button>, ComboboxProps>(
+  (props, ref) => {
+    return <ComboboxCustom ref={ref} {...props} />;
+  }
+);
+Combobox.displayName = 'Combobox';
 
 export { Combobox, ComboboxCustom };
