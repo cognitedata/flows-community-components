@@ -1,18 +1,18 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor, within } from "@storybook/test";
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import {
   IconChartBar as BarChart3,
   IconDownload,
   IconEdit,
   IconFileText,
   IconHomeFilled,
-  IconLayoutSidebar,
   IconPlus,
   IconSettings,
   IconShare,
   IconUsers,
-} from "@tabler/icons-react";
-import { useState } from "react";
+} from '@tabler/icons-react';
+import { useState } from 'react';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
+
 import {
   AlertDialog,
   AlertDialogAction,
@@ -23,16 +23,16 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "../alert-dialog";
-import { Avatar, AvatarFallback, AvatarImage } from "../avatar";
+} from '../alert-dialog';
+import { Avatar, AvatarFallback, AvatarImage } from '../avatar';
 import {
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "../breadcrumb";
-import { Button } from "../button";
+} from '../breadcrumb';
+import { Button } from '../button';
 import {
   Sidebar,
   SidebarContent,
@@ -47,9 +47,15 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarProvider,
-  SidebarTrigger,
-} from "../sidebar";
-import { Topbar, TopbarBreadcrumbs, TopbarCenter, TopbarLeft, TopbarRight } from "./topbar";
+} from '../sidebar';
+
+import {
+  Topbar,
+  TopbarBreadcrumbs,
+  TopbarCenter,
+  TopbarLeft,
+  TopbarRight,
+} from './topbar';
 
 const meta: Meta<typeof Topbar> = {
   title: 'Primitives/Topbar',
@@ -75,16 +81,19 @@ export const Basic: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    const sidebarButton = canvas.getByRole("button", { name: /sidebar/i });
-    await expect(sidebarButton).toBeInTheDocument();
-
-    const actionButtons = canvas.getAllByRole("button");
-    await expect(actionButtons.length).toBeGreaterThan(0);
+    await expect(
+      canvas.getByRole('button', { name: 'Button' })
+    ).toBeInTheDocument();
+    await expect(
+      canvas.getByRole('button', { name: /share/i })
+    ).toBeInTheDocument();
+    await expect(
+      canvas.getByRole('link', { name: /go to home/i })
+    ).toBeInTheDocument();
   },
   render: function TopbarBasicStory() {
     return (
-      <div className="w-full overflow-hidden">
+      <div className="w-full overflow-hidden p-4">
         <Topbar>
           <TopbarLeft>
             <TopbarBreadcrumbs>
@@ -134,7 +143,7 @@ export const WithCenterContent: Story = {
   },
   render: function TopbarWithCenterContentStory() {
     return (
-      <div className="w-full overflow-hidden">
+      <div className="w-full overflow-hidden p-4">
         <Topbar>
           <TopbarLeft>
             <TopbarBreadcrumbs>
@@ -175,13 +184,13 @@ export const EosStyle: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const newChatButton = canvas.getByRole("button", { name: /new chat/i });
+    const newChatButton = canvas.getByRole('button', { name: /new chat/i });
     await expect(newChatButton).toBeInTheDocument();
     await expect(newChatButton).toBeEnabled();
   },
   render: function TopbarEosStyleStory() {
     return (
-      <div className="w-full">
+      <div className="w-full p-4">
         <Topbar>
           <TopbarLeft>
             <TopbarBreadcrumbs>
@@ -251,7 +260,7 @@ export const Minimal: Story = {
   },
   render: function TopbarMinimalStory() {
     return (
-      <div className="w-full overflow-hidden">
+      <div className="w-full overflow-hidden p-4">
         <Topbar>
           <TopbarLeft>
             <TopbarBreadcrumbs>
@@ -299,7 +308,7 @@ export const WithMultipleActions: Story = {
   },
   render: function TopbarWithMultipleActionsStory() {
     return (
-      <div className="w-full overflow-hidden">
+      <div className="w-full overflow-hidden p-4">
         <Topbar>
           <TopbarLeft>
             <TopbarBreadcrumbs>
@@ -345,19 +354,18 @@ export const WithSidebar: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    const sidebarTrigger = canvas.getByRole("button", { name: /toggle sidebar/i });
-    await expect(sidebarTrigger).toBeInTheDocument();
-
-    const sidebarLabel = canvas.getByText("Platform");
-    await expect(sidebarLabel).toBeInTheDocument();
-
-    const activeItem = canvas.getByText("Overview");
-    await expect(activeItem).toBeInTheDocument();
-
-    await userEvent.click(sidebarTrigger);
-
-    await expect(sidebarLabel).toBeInTheDocument();
+    await expect(canvas.getByText('Platform')).toBeInTheDocument();
+    await expect(canvas.getByText('Overview')).toBeInTheDocument();
+    await expect(
+      canvas.getByRole('button', {
+        name: /new item/i,
+      })
+    ).toBeInTheDocument();
+    await expect(
+      canvas.getByRole('button', {
+        name: /share/i,
+      })
+    ).toBeInTheDocument();
   },
   render: function TopbarWithSidebarStory() {
     return (
@@ -526,7 +534,7 @@ export const Interactive: Story = {
       }
     );
 
-    const newItemButton = canvas.getByRole("button", { name: /new item/i });
+    const newItemButton = canvas.getByRole('button', { name: /new item/i });
     await userEvent.click(newItemButton);
 
     await waitFor(
@@ -538,7 +546,7 @@ export const Interactive: Story = {
       }
     );
 
-    const shareButton = canvas.getByRole("button", { name: /share/i });
+    const shareButton = canvas.getByRole('button', { name: /share/i });
     await userEvent.click(shareButton);
 
     await waitFor(
@@ -550,13 +558,13 @@ export const Interactive: Story = {
       }
     );
 
-    const homeLink = canvas.getByRole("link", { name: "Home" });
+    const homeLink = canvas.getByRole('link', { name: 'Home' });
     await userEvent.click(homeLink);
   },
   render: function TopbarInteractiveStory() {
     const [clicked, setClicked] = useState<string | null>(null);
     return (
-      <div className="w-full overflow-hidden">
+      <div className="w-full overflow-hidden p-4">
         <Topbar>
           <TopbarLeft>
             <TopbarBreadcrumbs>
@@ -622,7 +630,7 @@ export const LongBreadcrumb: Story = {
   },
   render: function TopbarLongBreadcrumbStory() {
     return (
-      <div className="w-full overflow-hidden">
+      <div className="w-full overflow-hidden p-4">
         <Topbar>
           <TopbarLeft>
             <TopbarBreadcrumbs>
@@ -674,7 +682,7 @@ export const Playground: Story = {
   render: function TopbarPlaygroundStory() {
     return (
       <div className="flex items-center justify-center p-24">
-        <div className="w-full overflow-hidden border rounded-lg">
+        <div className="w-full overflow-hidden">
           <Topbar>
             <TopbarLeft>
               <TopbarBreadcrumbs>

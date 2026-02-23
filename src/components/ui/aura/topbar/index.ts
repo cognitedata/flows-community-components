@@ -7,8 +7,8 @@ import {
   TopbarLeft,
   TopbarRight,
   TopbarWithSidebar,
-} from "./topbar";
-import { TopbarMetadata } from "./topbar.metadata";
+} from './topbar';
+import { TopbarMetadata } from './topbar.metadata';
 
 export {
   Topbar,

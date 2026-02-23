@@ -1,25 +1,28 @@
 import { type ComponentProps, type ComponentRef, forwardRef } from 'react';
 
-import { cn } from "../../../../lib/utils";
-import { Breadcrumb } from "../breadcrumb";
-import { Button } from "../button";
-import { SidebarInset, SidebarProvider } from "../sidebar";
+import { cn } from '../../../../lib/utils';
+import { Breadcrumb } from '../breadcrumb';
+import { Button } from '../button';
+import { SidebarInset, SidebarProvider } from '../sidebar';
 
-const Topbar = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
+const Topbar = forwardRef<ComponentRef<'div'>, ComponentProps<'div'>>(
   ({ className, ...props }, ref) => {
     return (
       <div
         ref={ref}
         data-slot="topbar"
-        className={cn("flex h-11 w-full items-center border-b bg-background px-3 py-2", className)}
+        className={cn(
+          'flex h-11 w-full items-center border-b bg-background px-3 py-2',
+          className
+        )}
         {...props}
       />
     );
   }
 );
-Topbar.displayName = "Topbar";
+Topbar.displayName = 'Topbar';
 
-const TopbarLeft = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
+const TopbarLeft = forwardRef<ComponentRef<'div'>, ComponentProps<'div'>>(
   ({ className, ...props }, ref) => {
     return (
       <div
@@ -33,7 +36,7 @@ const TopbarLeft = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
 );
 TopbarLeft.displayName = 'TopbarLeft';
 
-const TopbarCenter = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
+const TopbarCenter = forwardRef<ComponentRef<'div'>, ComponentProps<'div'>>(
   ({ className, ...props }, ref) => {
     return (
       <div
@@ -47,7 +50,7 @@ const TopbarCenter = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
 );
 TopbarCenter.displayName = 'TopbarCenter';
 
-const TopbarRight = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
+const TopbarRight = forwardRef<ComponentRef<'div'>, ComponentProps<'div'>>(
   ({ className, ...props }, ref) => {
     return (
       <div
@@ -61,22 +64,23 @@ const TopbarRight = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
 );
 TopbarRight.displayName = 'TopbarRight';
 
-const TopbarWithSidebar = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
-  ({ className, children, ...props }, ref) => {
-    return (
-      <SidebarProvider>
-        <div
-          ref={ref}
-          data-slot="topbar-with-sidebar"
-          className={cn('flex min-h-screen w-full', className)}
-          {...props}
-        >
-          {children}
-        </div>
-      </SidebarProvider>
-    );
-  }
-);
+const TopbarWithSidebar = forwardRef<
+  ComponentRef<'div'>,
+  ComponentProps<'div'>
+>(({ className, children, ...props }, ref) => {
+  return (
+    <SidebarProvider>
+      <div
+        ref={ref}
+        data-slot="topbar-with-sidebar"
+        className={cn('flex min-h-screen w-full', className)}
+        {...props}
+      >
+        {children}
+      </div>
+    </SidebarProvider>
+  );
+});
 TopbarWithSidebar.displayName = 'TopbarWithSidebar';
 
 const TopbarContent = forwardRef<
@@ -109,12 +113,20 @@ const TopbarBreadcrumbs = forwardRef<
 });
 TopbarBreadcrumbs.displayName = 'TopbarBreadcrumbs';
 
-const TopbarAction = forwardRef<ComponentRef<typeof Button>, ComponentProps<typeof Button>>(
-  ({ className, ...props }, ref) => {
-    return <Button ref={ref} data-slot="topbar-action" className={className} {...props} />;
-  }
-);
-TopbarAction.displayName = "TopbarAction";
+const TopbarAction = forwardRef<
+  ComponentRef<typeof Button>,
+  ComponentProps<typeof Button>
+>(({ className, ...props }, ref) => {
+  return (
+    <Button
+      ref={ref}
+      data-slot="topbar-action"
+      className={className}
+      {...props}
+    />
+  );
+});
+TopbarAction.displayName = 'TopbarAction';
 
 export {
   Topbar,
