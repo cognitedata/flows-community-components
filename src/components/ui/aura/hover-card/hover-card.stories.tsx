@@ -90,11 +90,10 @@ type Story = StoryObj<typeof HoverCard>;
 async function testHoverInteraction(
   canvasElement: HTMLElement,
   triggerName: RegExp,
-  contentText: RegExp,
+  contentText: RegExp | string,
   timeout = 2000
 ) {
   const canvas = within(canvasElement);
-  const body = within(canvasElement.ownerDocument.body);
   const trigger = await canvas.findByRole(
     "button",
     {
@@ -106,11 +105,29 @@ async function testHoverInteraction(
   );
   await expect(trigger).toBeInTheDocument();
   await userEvent.hover(trigger);
-  await body.findByText(contentText, undefined, { timeout });
+  const popup = await waitFor(
+    () => {
+      const node = canvasElement.ownerDocument.querySelector(
+        '[data-slot="hover-card-content"][data-open]'
+      );
+      expect(node).not.toBeNull();
+      return node;
+    },
+    { timeout }
+  );
+  if (!(popup instanceof HTMLElement)) {
+    throw new Error("Hover card content did not open as an HTMLElement");
+  }
+  await expect(popup).toHaveAttribute("data-open");
+  await expect(popup).toHaveTextContent(contentText);
+
   await userEvent.unhover(trigger);
   await waitFor(
     () => {
-      expect(body.queryByText(contentText)).not.toBeInTheDocument();
+      const hoverCard = canvasElement.ownerDocument.querySelector(
+        '[data-slot="hover-card-content"][data-open]'
+      );
+      expect(hoverCard).toBeNull();
     },
     {
       timeout,
@@ -427,7 +444,6 @@ export const ControlledWithCustomDelays: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const body = within(canvasElement.ownerDocument.body);
     const trigger = await canvas.findByRole(
       "button",
       {
@@ -439,8 +455,22 @@ export const ControlledWithCustomDelays: Story = {
     );
     await expect(trigger).toBeInTheDocument();
     await userEvent.hover(trigger);
-    await body.findByText(/custom delays/i, undefined, { timeout: 2000 });
-    const closeButton = body.getByRole("button", { name: /Close/i });
+    const hoverCard = await waitFor(
+      () => {
+        const node = canvasElement.ownerDocument.querySelector(
+          '[data-slot="hover-card-content"][data-open]'
+        );
+        expect(node).not.toBeNull();
+        return node;
+      },
+      { timeout: 2000 }
+    );
+    if (!(hoverCard instanceof HTMLElement)) {
+      throw new Error("Controlled hover card did not open as an HTMLElement");
+    }
+    await expect(hoverCard).toHaveAttribute("data-open");
+    await expect(hoverCard).toHaveTextContent(/custom delays/i);
+    const closeButton = within(hoverCard).getByRole("button", { name: /Close/i });
     await userEvent.click(closeButton);
   },
   render: function ControlledHoverCardStory() {
