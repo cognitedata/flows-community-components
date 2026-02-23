@@ -23,14 +23,6 @@ export const isStorybookTestEnv =
   (window as Window & { __STORYBOOK_TEST__?: boolean }).__STORYBOOK_TEST__ ===
     true;
 
-export const escapeHtml = (value: string) =>
-  value
-    .replaceAll('&', '&amp;')
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;')
-    .replaceAll('"', '&quot;')
-    .replaceAll("'", '&#39;');
-
 const stripPreStylesTransformer: ShikiTransformer = {
   name: 'strip-pre-styles',
   pre(node: Element) {

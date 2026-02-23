@@ -131,6 +131,18 @@ print(quicksort(numbers))`,
     "typescript": "^5.0.0"
   }
 }`,
+  html: `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sample HTML</title>
+</head>
+<body>
+  <h1>Hello, World!</h1>
+  <p>This is a sample HTML code block.</p>
+</body>
+</html>`,
   bash: `#!/bin/bash
 
 # Install dependencies
@@ -234,6 +246,16 @@ export const JSONExample: Story = {
     order: 6,
   },
 };
+export const HTMLExample: Story = {
+  render: () => (
+    <CodeBlock code={sampleCode.html} language="html">
+      <CodeBlockCopyButton />
+    </CodeBlock>
+  ),
+  parameters: {
+    order: 7,
+  },
+};
 export const Bash: Story = {
   render: () => (
     <CodeBlock code={sampleCode.bash} language="bash">
@@ -241,7 +263,7 @@ export const Bash: Story = {
     </CodeBlock>
   ),
   parameters: {
-    order: 7,
+    order: 8,
   },
 };
 export const ShortSnippet: Story = {
@@ -251,7 +273,7 @@ export const ShortSnippet: Story = {
     </CodeBlock>
   ),
   parameters: {
-    order: 8,
+    order: 9,
   },
 };
 export const LongLines: Story = {
@@ -271,13 +293,13 @@ const configurationObject = { apiEndpoint: "https://api.example.com/v1/users/pro
     </CodeBlock>
   ),
   parameters: {
-    order: 9,
+    order: 10,
   },
 };
 export const WithoutCopyButton: Story = {
   render: () => <CodeBlock code={sampleCode.json} language="json" />,
   parameters: {
-    order: 10,
+    order: 11,
   },
 };
 export const CustomCopyText: Story = {
@@ -291,7 +313,7 @@ export const CustomCopyText: Story = {
     </CodeBlock>
   ),
   parameters: {
-    order: 11,
+    order: 12,
   },
 };
 export const CollapsedWithLineNumbers: Story = {
@@ -307,7 +329,7 @@ export const CollapsedWithLineNumbers: Story = {
     </CodeBlock>
   ),
   parameters: {
-    order: 12,
+    order: 13,
   },
 };
 export const EmptyCode: Story = {
@@ -317,7 +339,7 @@ export const EmptyCode: Story = {
     </CodeBlock>
   ),
   parameters: {
-    order: 13,
+    order: 14,
   },
 };
 export const SingleLineWithCollapseButton: Story = {
@@ -328,7 +350,7 @@ export const SingleLineWithCollapseButton: Story = {
     </CodeBlock>
   ),
   parameters: {
-    order: 14,
+    order: 15,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -379,7 +401,7 @@ const c = a + b;`}
     </div>
   ),
   parameters: {
-    order: 15,
+    order: 16,
     chromatic: {
       disableSnapshot: false,
     },

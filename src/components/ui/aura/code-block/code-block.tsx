@@ -11,12 +11,7 @@ import {
 } from 'react';
 import type { BundledLanguage } from 'shiki';
 
-import {
-  cn,
-  escapeHtml,
-  highlightCode,
-  isStorybookTestEnv,
-} from '../../../../lib/utils';
+import { cn, highlightCode, isStorybookTestEnv } from '../../../../lib/utils';
 import { Button } from '../button';
 
 type CodeBlockProps = HTMLAttributes<HTMLDivElement> & {
@@ -68,8 +63,7 @@ const CodeBlock = forwardRef<ComponentRef<'div'>, CodeBlockProps>(
       let isCancelled = false;
 
       if (isStorybookTestEnv) {
-        const escaped = escapeHtml(code);
-        const markup = `<pre><code>${escaped}</code></pre>`;
+        const markup = `<pre><code>${code}</code></pre>`;
         setHtml(markup);
         setDarkHtml(markup);
         return;
@@ -86,8 +80,7 @@ const CodeBlock = forwardRef<ComponentRef<'div'>, CodeBlockProps>(
           console.error('Failed to highlight code:', error);
 
           if (!isCancelled) {
-            const escaped = escapeHtml(code);
-            const markup = `<pre><code>${escaped}</code></pre>`;
+            const markup = `<pre><code>${code}</code></pre>`;
             setHtml(markup);
             setDarkHtml(markup);
           }
