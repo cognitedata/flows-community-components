@@ -1,8 +1,9 @@
-import type { ComponentMeta } from "../../../../lib/component-examples";
+import type { ComponentMeta } from '../../../../lib/types';
 
 export const TopbarMetadata: ComponentMeta = {
-  name: "Topbar",
-  status: "needs-discussion",
-  description: "A top navigation bar component for application headers.",
-  llmUsage: "Use `<Topbar>` to create a top navigation bar with logo and navigation items.",
+  name: 'Topbar',
+  status: 'needs-discussion',
+  description: 'A top navigation bar component for application headers.',
+  llmUsage:
+    'Use `<Topbar>` to create a top navigation bar with logo and navigation items.',
 };

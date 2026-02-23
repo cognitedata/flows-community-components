@@ -1,7 +1,9 @@
-import { IconCaretUpDown, IconCheck } from "@tabler/icons-react";
-import { forwardRef, useState } from "react";
+import { IconCaretUpDown, IconCheck } from '@tabler/icons-react';
+import { forwardRef, useState } from 'react';
 
-import { Button } from "@/components/ui/aura/button";
+import { cn } from '../../../../lib/utils';
+
+import { Button } from '@/components/ui/aura/button';
 import {
   Command,
   CommandEmpty,
@@ -9,48 +11,51 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@/components/ui/aura/command";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/aura/popover";
-import { cn } from "../../../../lib/utils";
+} from '@/components/ui/aura/command';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/aura/popover';
 
 const frameworks = [
   {
-    value: "next.js",
-    label: "Next.js",
+    value: 'next.js',
+    label: 'Next.js',
   },
   {
-    value: "sveltekit",
-    label: "SvelteKit",
+    value: 'sveltekit',
+    label: 'SvelteKit',
   },
   {
-    value: "nuxt.js",
-    label: "Nuxt.js",
+    value: 'nuxt.js',
+    label: 'Nuxt.js',
   },
   {
-    value: "remix",
-    label: "Remix",
+    value: 'remix',
+    label: 'Remix',
   },
   {
-    value: "astro",
-    label: "Astro",
+    value: 'astro',
+    label: 'Astro',
   },
   {
-    value: "wordpress",
-    label: "WordPress",
+    value: 'wordpress',
+    label: 'WordPress',
   },
   {
-    value: "express.js",
-    label: "Express.js",
+    value: 'express.js',
+    label: 'Express.js',
   },
   {
-    value: "nest.js",
-    label: "Nest.js",
+    value: 'nest.js',
+    label: 'Nest.js',
   },
 ];
 
 export const Combobox = forwardRef<HTMLButtonElement>((props, ref) => {
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState('');
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -67,7 +72,7 @@ export const Combobox = forwardRef<HTMLButtonElement>((props, ref) => {
           >
             {value
               ? frameworks.find((framework) => framework.value === value)?.label
-              : "Select framework..."}
+              : 'Select framework...'}
             <IconCaretUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
           </Button>
         }
@@ -83,14 +88,14 @@ export const Combobox = forwardRef<HTMLButtonElement>((props, ref) => {
                   key={framework.value}
                   value={framework.value}
                   onSelect={(currentValue) => {
-                    setValue(currentValue === value ? "" : currentValue);
+                    setValue(currentValue === value ? '' : currentValue);
                     setOpen(false);
                   }}
                 >
                   <IconCheck
                     className={cn(
-                      "mr-2 h-4 w-4",
-                      value === framework.value ? "opacity-100" : "opacity-0"
+                      'mr-2 h-4 w-4',
+                      value === framework.value ? 'opacity-100' : 'opacity-0'
                     )}
                   />
                   {framework.label}
@@ -103,7 +108,7 @@ export const Combobox = forwardRef<HTMLButtonElement>((props, ref) => {
     </Popover>
   );
 });
-Combobox.displayName = "Combobox";
+Combobox.displayName = 'Combobox';
 
 export interface ComboboxProps {
   options: Array<{ value: string; label: string }>;
@@ -121,19 +126,19 @@ export const ComboboxCustom = forwardRef<HTMLButtonElement, ComboboxProps>(
       options,
       value,
       onValueChange,
-      placeholder = "Select option...",
-      searchPlaceholder = "Search...",
-      emptyText = "No option found.",
+      placeholder = 'Select option...',
+      searchPlaceholder = 'Search...',
+      emptyText = 'No option found.',
       className,
       ...props
     },
     ref
   ) => {
     const [open, setOpen] = useState(false);
-    const [selectedValue, setSelectedValue] = useState(value || "");
+    const [selectedValue, setSelectedValue] = useState(value || '');
 
     const handleValueChange = (newValue: string) => {
-      const finalValue = newValue === selectedValue ? "" : newValue;
+      const finalValue = newValue === selectedValue ? '' : newValue;
       setSelectedValue(finalValue);
       onValueChange?.(finalValue);
       setOpen(false);
@@ -149,11 +154,12 @@ export const ComboboxCustom = forwardRef<HTMLButtonElement, ComboboxProps>(
               variant="outline"
               role="combobox"
               aria-expanded={open}
-              className={cn("w-50 justify-between", className)}
+              className={cn('w-50 justify-between', className)}
               {...props}
             >
               {selectedValue
-                ? options.find((option) => option.value === selectedValue)?.label
+                ? options.find((option) => option.value === selectedValue)
+                    ?.label
                 : placeholder}
               <IconCaretUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
             </Button>
@@ -166,11 +172,17 @@ export const ComboboxCustom = forwardRef<HTMLButtonElement, ComboboxProps>(
               <CommandEmpty>{emptyText}</CommandEmpty>
               <CommandGroup>
                 {options.map((option) => (
-                  <CommandItem key={option.value} value={option.value} onSelect={handleValueChange}>
+                  <CommandItem
+                    key={option.value}
+                    value={option.value}
+                    onSelect={handleValueChange}
+                  >
                     <IconCheck
                       className={cn(
-                        "mr-2 h-4 w-4",
-                        selectedValue === option.value ? "opacity-100" : "opacity-0"
+                        'mr-2 h-4 w-4',
+                        selectedValue === option.value
+                          ? 'opacity-100'
+                          : 'opacity-0'
                       )}
                     />
                     {option.label}
@@ -184,4 +196,4 @@ export const ComboboxCustom = forwardRef<HTMLButtonElement, ComboboxProps>(
     );
   }
 );
-ComboboxCustom.displayName = "ComboboxCustom";
+ComboboxCustom.displayName = 'ComboboxCustom';

@@ -5,7 +5,7 @@ description: Write comprehensive Storybook stories for Aura components. Use when
 
 # Story Builder
 
-Write comprehensive, tested Storybook stories for Aura components.
+Write concise, tested Storybook stories for Aura components.
 
 ## When to Use
 
@@ -123,14 +123,15 @@ For stories under `src/components/ui/aura/**`, prefer relative imports for Aura 
 
 ## argTypes
 
-Organize into categories: Content, Variants/Styling, Behavior, Events, Advanced. Include descriptions and control types.
+Organize into categories: Content, Variants/Styling, Behavior, Events, Advanced. Include control types and table metadata only.
 
-## Parameters & Descriptions
+## Parameters & Comments
 
-**Story descriptions should be minimal and future-proof.** Avoid mentioning specific counts or implementation details that could become outdated. See story files for examples of clear, timeless descriptions.
+**Do not add Storybook description metadata.** Avoid `parameters.docs.description` and avoid `description` fields in story/meta/argTypes docs metadata unless a specific tool requires it.
 
-**Story-level code comments** (in `/** ... */` above stories or in descriptions) should be minimal and explain WHAT the story demonstrates, not HOW it works internally.
-**Keep story commentary short and directly relevant to the example.** Avoid long prose or redundant explanations.
+**Do not add story-level comments.** Avoid `/** ... */` blocks above stories and avoid inline explanatory comments in story files.
+
+Write examples so they are self-explanatory through naming and semantic structure rather than prose.
 
 ## Deprecated Components
 
@@ -151,9 +152,9 @@ Before committing changes:
 4. Verify play functions pass with no errors
 5. Test interactive stories manually
 6. No inline code comments in play functions
-7. Story descriptions are minimal and future-proof
+7. No storybook description metadata (`parameters.docs.description`, story/meta docs descriptions)
 8. No deprecated third-party components used
-9. Keep story comments short and relevant to the example
+9. No story-level comments (`/** ... */` blocks or inline explanatory comments)
 10. Update or confirm `src/lib/primitives-catalog.ts` progress metadata when readiness changes
 11. No retry fallback logic in play functions
 12. No `any` or `as` casts in story/test code (except `Partial<T> as T` for test mocks)

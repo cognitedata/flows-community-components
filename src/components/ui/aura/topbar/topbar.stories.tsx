@@ -52,39 +52,26 @@ import {
 import { Topbar, TopbarBreadcrumbs, TopbarCenter, TopbarLeft, TopbarRight } from "./topbar";
 
 const meta: Meta<typeof Topbar> = {
-  title: "Primitives/Topbar",
+  title: 'Primitives/Topbar',
   component: Topbar,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     className: {
-      control: "text",
-      description: "CSS classes for styling",
+      control: 'text',
       table: {
-        category: "Display",
+        category: 'Display',
       },
     },
   },
   parameters: {
-    layout: "fullscreen",
+    layout: 'fullscreen',
   },
 };
-
 export default meta;
 type Story = StoryObj<typeof Topbar>;
-
-/**
- * Basic topbar with breadcrumbs on the left, empty center, and actions on the right
- * Matches the basic example from topbar.examples.tsx
- */
 export const Basic: Story = {
   parameters: {
     order: 1,
-    docs: {
-      description: {
-        story:
-          "Basic topbar with breadcrumbs on the left, empty center, and action buttons on the right.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -132,23 +119,18 @@ export const Basic: Story = {
     );
   },
 };
-
-/**
- * Topbar with center content
- */
 export const WithCenterContent: Story = {
   parameters: {
     order: 2,
-    docs: {
-      description: {
-        story: "Topbar with content in the center section.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText("Project Dashboard")).toBeInTheDocument();
-    await expect(canvas.getByRole("button", { name: /new item/i })).toBeInTheDocument();
+    await expect(canvas.getByText('Project Dashboard')).toBeInTheDocument();
+    await expect(
+      canvas.getByRole('button', {
+        name: /new item/i,
+      })
+    ).toBeInTheDocument();
   },
   render: function TopbarWithCenterContentStory() {
     return (
@@ -186,19 +168,9 @@ export const WithCenterContent: Story = {
     );
   },
 };
-
-/**
- * EOS-style topbar with download and edit actions
- */
 export const EosStyle: Story = {
   parameters: {
     order: 3,
-    docs: {
-      description: {
-        story:
-          'EOS-style topbar with download and edit actions, typically used in canvas applications. The "New chat" button triggers an AlertDialog.',
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -248,7 +220,8 @@ export const EosStyle: Story = {
                 <AlertDialogHeader>
                   <AlertDialogTitle>Start a new chat?</AlertDialogTitle>
                   <AlertDialogDescription>
-                    This will create a new chat session. Your current chat will be saved.
+                    This will create a new chat session. Your current chat will
+                    be saved.
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
@@ -263,23 +236,18 @@ export const EosStyle: Story = {
     );
   },
 };
-
-/**
- * Minimal topbar with just breadcrumbs
- */
 export const Minimal: Story = {
   parameters: {
     order: 4,
-    docs: {
-      description: {
-        story: "Minimal topbar with only breadcrumbs, no action buttons.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText("Home")).toBeInTheDocument();
-    await expect(canvas.getByRole("link", { name: "Go to home" })).toBeInTheDocument();
+    await expect(canvas.getByText('Home')).toBeInTheDocument();
+    await expect(
+      canvas.getByRole('link', {
+        name: 'Go to home',
+      })
+    ).toBeInTheDocument();
   },
   render: function TopbarMinimalStory() {
     return (
@@ -307,24 +275,27 @@ export const Minimal: Story = {
     );
   },
 };
-
-/**
- * Topbar with multiple action buttons
- */
 export const WithMultipleActions: Story = {
   parameters: {
     order: 5,
-    docs: {
-      description: {
-        story: "Topbar with multiple action buttons in the right section.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByRole("button", { name: /settings/i })).toBeInTheDocument();
-    await expect(canvas.getByRole("button", { name: /export/i })).toBeInTheDocument();
-    await expect(canvas.getByRole("button", { name: /create/i })).toBeInTheDocument();
+    await expect(
+      canvas.getByRole('button', {
+        name: /settings/i,
+      })
+    ).toBeInTheDocument();
+    await expect(
+      canvas.getByRole('button', {
+        name: /export/i,
+      })
+    ).toBeInTheDocument();
+    await expect(
+      canvas.getByRole('button', {
+        name: /create/i,
+      })
+    ).toBeInTheDocument();
   },
   render: function TopbarWithMultipleActionsStory() {
     return (
@@ -368,20 +339,9 @@ export const WithMultipleActions: Story = {
     );
   },
 };
-
-/**
- * Topbar with sidebar layout
- * Demonstrates full layout integration
- */
 export const WithSidebar: Story = {
   parameters: {
     order: 6,
-    docs: {
-      description: {
-        story:
-          "Complete layout with Topbar and Sidebar working together. Features a collapsible sidebar with icon mode and SidebarTrigger button in the topbar. Inspired by the Sidebar component's own pattern.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -469,14 +429,19 @@ export const WithSidebar: Story = {
               <SidebarFooter>
                 <div className="flex items-center gap-2">
                   <Avatar sizes="default">
-                    <AvatarImage src="/user-avatar2.png" alt="Elizabeth Fitzgerald" />
+                    <AvatarImage
+                      src="/user-avatar2.png"
+                      alt="Elizabeth Fitzgerald"
+                    />
                     <AvatarFallback>EF</AvatarFallback>
                   </Avatar>
                   <div className="flex flex-col min-w-0 group-data-[collapsible=icon]:hidden">
                     <div className="text-sm font-medium text-sidebar-foreground truncate">
                       Elizabeth Fitzgerald
                     </div>
-                    <div className="text-xs text-sidebar-foreground/70 truncate">AkerBP</div>
+                    <div className="text-xs text-sidebar-foreground/70 truncate">
+                      AkerBP
+                    </div>
                   </div>
                 </div>
               </SidebarFooter>
@@ -514,10 +479,13 @@ export const WithSidebar: Story = {
                 </TopbarRight>
               </Topbar>
               <div className="flex-1 p-6 overflow-auto">
-                <h1 className="text-2xl font-bold mb-4">Topbar with Sidebar Layout</h1>
+                <h1 className="text-2xl font-bold mb-4">
+                  Topbar with Sidebar Layout
+                </h1>
                 <p className="text-muted-foreground mb-4">
-                  Click the sidebar toggle button in the topbar to collapse/expand the sidebar. When
-                  collapsed, the sidebar shows in icon mode with tooltips.
+                  Click the sidebar toggle button in the topbar to
+                  collapse/expand the sidebar. When collapsed, the sidebar shows
+                  in icon mode with tooltips.
                 </p>
                 <div className="space-y-4">
                   <div className="p-4 border rounded-lg">
@@ -539,28 +507,23 @@ export const WithSidebar: Story = {
     );
   },
 };
-
-/**
- * Interactive topbar with clickable actions
- */
 export const Interactive: Story = {
   parameters: {
     order: 7,
-    docs: {
-      description: {
-        story:
-          "Interactive topbar demonstrating button clicks and navigation interactions. Click the buttons to see the state update in the center.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     await waitFor(
       () => {
-        expect(canvas.getByRole("button", { name: /new item/i })).toBeInTheDocument();
+        expect(
+          canvas.getByRole('button', {
+            name: /new item/i,
+          })
+        ).toBeInTheDocument();
       },
-      { timeout: 5000 }
+      {
+        timeout: 5000,
+      }
     );
 
     const newItemButton = canvas.getByRole("button", { name: /new item/i });
@@ -570,7 +533,9 @@ export const Interactive: Story = {
       () => {
         expect(canvas.getByText(/last clicked: new-item/i)).toBeInTheDocument();
       },
-      { timeout: 5000 }
+      {
+        timeout: 5000,
+      }
     );
 
     const shareButton = canvas.getByRole("button", { name: /share/i });
@@ -580,7 +545,9 @@ export const Interactive: Story = {
       () => {
         expect(canvas.getByText(/last clicked: share/i)).toBeInTheDocument();
       },
-      { timeout: 5000 }
+      {
+        timeout: 5000,
+      }
     );
 
     const homeLink = canvas.getByRole("link", { name: "Home" });
@@ -588,7 +555,6 @@ export const Interactive: Story = {
   },
   render: function TopbarInteractiveStory() {
     const [clicked, setClicked] = useState<string | null>(null);
-
     return (
       <div className="w-full overflow-hidden">
         <Topbar>
@@ -600,7 +566,7 @@ export const Interactive: Story = {
                     href="#"
                     onClick={(e) => {
                       e.preventDefault();
-                      setClicked("home");
+                      setClicked('home');
                     }}
                     aria-label="Home"
                   >
@@ -616,11 +582,13 @@ export const Interactive: Story = {
           </TopbarLeft>
           <TopbarCenter>
             {clicked && (
-              <div className="text-xs text-muted-foreground">Last clicked: {clicked}</div>
+              <div className="text-xs text-muted-foreground">
+                Last clicked: {clicked}
+              </div>
             )}
           </TopbarCenter>
           <TopbarRight>
-            <Button size="sm" onClick={() => setClicked("new-item")}>
+            <Button size="sm" onClick={() => setClicked('new-item')}>
               <IconPlus />
               New Item
             </Button>
@@ -628,7 +596,7 @@ export const Interactive: Story = {
               variant="ghost"
               size="icon-sm"
               aria-label="Share"
-              onClick={() => setClicked("share")}
+              onClick={() => setClicked('share')}
             >
               <IconShare className="h-4 w-4" />
             </Button>
@@ -638,25 +606,19 @@ export const Interactive: Story = {
     );
   },
 };
-
-/**
- * Topbar with long breadcrumb path
- */
 export const LongBreadcrumb: Story = {
   parameters: {
     order: 8,
-    docs: {
-      description: {
-        story:
-          "Topbar with a long breadcrumb path demonstrating how it handles multiple levels of navigation.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText("Current Project")).toBeInTheDocument();
-    await expect(canvas.getByText("Workspace")).toBeInTheDocument();
-    await expect(canvas.getByRole("button", { name: /action/i })).toBeInTheDocument();
+    await expect(canvas.getByText('Current Project')).toBeInTheDocument();
+    await expect(canvas.getByText('Workspace')).toBeInTheDocument();
+    await expect(
+      canvas.getByRole('button', {
+        name: /action/i,
+      })
+    ).toBeInTheDocument();
   },
   render: function TopbarLongBreadcrumbStory() {
     return (
@@ -705,19 +667,9 @@ export const LongBreadcrumb: Story = {
     );
   },
 };
-
-/**
- * Interactive playground for testing topbar props.
- */
 export const Playground: Story = {
   parameters: {
     order: 99,
-    docs: {
-      description: {
-        story:
-          "Interactive playground to test different topbar configurations. Use the controls panel to experiment with props.",
-      },
-    },
   },
   render: function TopbarPlaygroundStory() {
     return (
@@ -740,7 +692,9 @@ export const Playground: Story = {
               </TopbarBreadcrumbs>
             </TopbarLeft>
             <TopbarCenter>
-              <div className="text-xs text-muted-foreground">Center content</div>
+              <div className="text-xs text-muted-foreground">
+                Center content
+              </div>
             </TopbarCenter>
             <TopbarRight>
               <Button size="sm">

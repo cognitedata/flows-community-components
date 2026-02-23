@@ -3,9 +3,7 @@
   "name": "topbar",
   "title": "Topbar",
   "description": "A top navigation bar component for application headers.",
-  "registryDependencies": [
-    "@aura/css"
-  ],
+  "registryDependencies": ["@aura/css"],
   "files": [
     {
       "path": "src/components/ui/aura/topbar/topbar.tsx",

@@ -16,9 +16,9 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from "./dropdown-menu";
+} from './dropdown-menu';
+import { DropdownMenuMetadata } from './dropdown-menu.metadata';
 
-/** Dropdown menu exports. */
 export {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -27,6 +27,7 @@ export {
   DropdownMenuHeader,
   DropdownMenuItem,
   DropdownMenuLabel,
+  DropdownMenuMetadata,
   DropdownMenuPortal,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
@@ -38,4 +39,3 @@ export {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 };
-export { DropdownMenuMetadata } from "./dropdown-menu.metadata";

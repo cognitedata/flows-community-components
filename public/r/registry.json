@@ -138,7 +138,11 @@
       "title": "Card",
       "description": "A flexible card layout with header, content, action, and footer slots.",
       "dependencies": ["@tabler/icons-react"],
-      "registryDependencies": ["@aura/css", "@aura/button", "@aura/dropdown-menu"],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/button",
+        "@aura/dropdown-menu"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/card/card.tsx",
@@ -567,7 +571,12 @@
       "title": "Combobox",
       "description": "A searchable dropdown component combining input with a command menu, built with Base UI Popover and cmdk.",
       "dependencies": ["@tabler/icons-react"],
-      "registryDependencies": ["@aura/css", "@aura/button", "@aura/command", "@aura/popover"],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/button",
+        "@aura/command",
+        "@aura/popover"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/combobox/combobox.tsx",
@@ -733,7 +742,12 @@
       "title": "DatePicker",
       "description": "A date picker component combining calendar with popover trigger.",
       "dependencies": ["@tabler/icons-react", "date-fns"],
-      "registryDependencies": ["@aura/css", "@aura/button", "@aura/calendar", "@aura/popover"],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/button",
+        "@aura/calendar",
+        "@aura/popover"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/date-picker/date-picker.tsx",
@@ -831,7 +845,12 @@
       "title": "InlineCitation",
       "description": "Components for displaying inline citations and source references.",
       "dependencies": ["@tabler/icons-react"],
-      "registryDependencies": ["@aura/css", "@aura/badge", "@aura/carousel", "@aura/hover-card"],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/badge",
+        "@aura/carousel",
+        "@aura/hover-card"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/inline-citation/inline-citation.tsx",
@@ -851,7 +870,11 @@
       "title": "Input",
       "description": "A styled text input component with focus and validation states.",
       "dependencies": ["@tabler/icons-react"],
-      "registryDependencies": ["@aura/css"],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/helper-text",
+        "@aura/input-group"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/input/input.tsx",
@@ -871,11 +894,35 @@
       "title": "InputGroup",
       "description": "A component for grouping inputs with addons and buttons.",
       "dependencies": ["class-variance-authority"],
-      "registryDependencies": ["@aura/css"],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/button",
+        "@aura/input",
+        "@aura/textarea"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/input-group/input-group.tsx",
           "target": "src/components/ui/aura/input-group.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "textarea",
+      "type": "registry:component",
+      "title": "Textarea",
+      "description": "A multi-line text input component.",
+      "registryDependencies": ["@aura/css", "@aura/helper-text"],
+      "files": [
+        {
+          "path": "src/components/ui/aura/textarea/textarea.tsx",
+          "target": "src/components/ui/aura/textarea.tsx",
           "type": "registry:component"
         },
         {
@@ -966,7 +1013,11 @@
       "type": "registry:component",
       "title": "Menubar",
       "description": "A horizontal menu bar component built on Base UI Menubar primitives.",
-      "dependencies": ["@base-ui/react/menu", "@base-ui/react/menubar", "@tabler/icons-react"],
+      "dependencies": [
+        "@base-ui/react/menu",
+        "@base-ui/react/menubar",
+        "@tabler/icons-react"
+      ],
       "registryDependencies": ["@aura/css", "@aura/dropdown-menu"],
       "files": [
         {
@@ -1034,7 +1085,12 @@
       "title": "Pagination",
       "description": "A pagination component for navigating multi-page content.",
       "dependencies": ["@tabler/icons-react", "class-variance-authority"],
-      "registryDependencies": ["@aura/css", "@aura/button", "@aura/input", "@aura/select"],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/button",
+        "@aura/input",
+        "@aura/select"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/pagination/pagination.tsx",
@@ -1102,7 +1158,11 @@
       "type": "registry:component",
       "title": "RadioGroup",
       "description": "A radio button group component built on Base UI Radio Group.",
-      "dependencies": ["@base-ui/react/radio", "@base-ui/react/radio-group", "@tabler/icons-react"],
+      "dependencies": [
+        "@base-ui/react/radio",
+        "@base-ui/react/radio-group",
+        "@tabler/icons-react"
+      ],
       "registryDependencies": ["@aura/css"],
       "files": [
         {
@@ -1309,7 +1369,12 @@
       "type": "registry:component",
       "title": "Suggestion",
       "description": "A dual-mode suggestion component for AI chat interfaces. Use simple button mode for quick queries, or dropdown mode for organised query options.",
-      "registryDependencies": ["@aura/css", "@aura/button", "@aura/scroll-area", "@aura/select"],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/button",
+        "@aura/scroll-area",
+        "@aura/select"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/suggestion/suggestion.tsx",
@@ -1392,25 +1457,6 @@
         {
           "path": "src/components/ui/aura/tabs/tabs.tsx",
           "target": "src/components/ui/aura/tabs.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "src/globals.css",
-          "target": "src/styles.css",
-          "type": "registry:component"
-        }
-      ]
-    },
-    {
-      "name": "textarea",
-      "type": "registry:component",
-      "title": "Textarea",
-      "description": "A multi-line text input component.",
-      "registryDependencies": ["@aura/css", "@aura/helper-text"],
-      "files": [
-        {
-          "path": "src/components/ui/aura/textarea/textarea.tsx",
-          "target": "src/components/ui/aura/textarea.tsx",
           "type": "registry:component"
         },
         {
@@ -1515,6 +1561,26 @@
         {
           "path": "src/components/ui/aura/topbar/topbar.tsx",
           "target": "src/components/ui/aura/topbar.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "treeview",
+      "type": "registry:component",
+      "title": "TreeView",
+      "description": "A hierarchical tree view component for displaying nested data structures with collapsible nodes and status indicators that bubble up from children to parents.",
+      "dependencies": ["@base-ui/react/collapsible", "@tabler/icons-react"],
+      "registryDependencies": ["@aura/css", "@aura/badge"],
+      "files": [
+        {
+          "path": "src/components/ui/aura/treeview/treeview.tsx",
+          "target": "src/components/ui/aura/treeview.tsx",
           "type": "registry:component"
         },
         {

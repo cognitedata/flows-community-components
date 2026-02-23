@@ -1,4 +1,4 @@
-import { type ComponentProps, type ComponentRef, forwardRef } from "react";
+import { type ComponentProps, type ComponentRef, forwardRef } from 'react';
 
 import { cn } from "../../../../lib/utils";
 import { Breadcrumb } from "../breadcrumb";
@@ -25,13 +25,13 @@ const TopbarLeft = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
       <div
         ref={ref}
         data-slot="topbar-left"
-        className={cn("flex items-center", className)}
+        className={cn('flex items-center', className)}
         {...props}
       />
     );
   }
 );
-TopbarLeft.displayName = "TopbarLeft";
+TopbarLeft.displayName = 'TopbarLeft';
 
 const TopbarCenter = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
   ({ className, ...props }, ref) => {
@@ -39,13 +39,13 @@ const TopbarCenter = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
       <div
         ref={ref}
         data-slot="topbar-center"
-        className={cn("flex flex-1 items-center justify-center", className)}
+        className={cn('flex flex-1 items-center justify-center', className)}
         {...props}
       />
     );
   }
 );
-TopbarCenter.displayName = "TopbarCenter";
+TopbarCenter.displayName = 'TopbarCenter';
 
 const TopbarRight = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
   ({ className, ...props }, ref) => {
@@ -53,13 +53,13 @@ const TopbarRight = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
       <div
         ref={ref}
         data-slot="topbar-right"
-        className={cn("flex items-center gap-2", className)}
+        className={cn('flex items-center gap-2', className)}
         {...props}
       />
     );
   }
 );
-TopbarRight.displayName = "TopbarRight";
+TopbarRight.displayName = 'TopbarRight';
 
 const TopbarWithSidebar = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
   ({ className, children, ...props }, ref) => {
@@ -68,7 +68,7 @@ const TopbarWithSidebar = forwardRef<ComponentRef<"div">, ComponentProps<"div">>
         <div
           ref={ref}
           data-slot="topbar-with-sidebar"
-          className={cn("flex min-h-screen w-full", className)}
+          className={cn('flex min-h-screen w-full', className)}
           {...props}
         >
           {children}
@@ -77,7 +77,7 @@ const TopbarWithSidebar = forwardRef<ComponentRef<"div">, ComponentProps<"div">>
     );
   }
 );
-TopbarWithSidebar.displayName = "TopbarWithSidebar";
+TopbarWithSidebar.displayName = 'TopbarWithSidebar';
 
 const TopbarContent = forwardRef<
   ComponentRef<typeof SidebarInset>,
@@ -87,20 +87,27 @@ const TopbarContent = forwardRef<
     <SidebarInset
       ref={ref}
       data-slot="topbar-content"
-      className={cn("flex flex-col", className)}
+      className={cn('flex flex-col', className)}
       {...props}
     />
   );
 });
-TopbarContent.displayName = "TopbarContent";
+TopbarContent.displayName = 'TopbarContent';
 
 const TopbarBreadcrumbs = forwardRef<
   ComponentRef<typeof Breadcrumb>,
   ComponentProps<typeof Breadcrumb>
 >(({ className, ...props }, ref) => {
-  return <Breadcrumb ref={ref} data-slot="topbar-breadcrumbs" className={className} {...props} />;
+  return (
+    <Breadcrumb
+      ref={ref}
+      data-slot="topbar-breadcrumbs"
+      className={className}
+      {...props}
+    />
+  );
 });
-TopbarBreadcrumbs.displayName = "TopbarBreadcrumbs";
+TopbarBreadcrumbs.displayName = 'TopbarBreadcrumbs';
 
 const TopbarAction = forwardRef<ComponentRef<typeof Button>, ComponentProps<typeof Button>>(
   ({ className, ...props }, ref) => {

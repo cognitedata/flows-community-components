@@ -1,6 +1,7 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor, within } from "@storybook/test";
-import { useState } from "react";
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { useState } from 'react';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
+
 import {
   Menubar,
   MenubarCheckboxItem,
@@ -15,42 +16,38 @@ import {
   MenubarSubContent,
   MenubarSubTrigger,
   MenubarTrigger,
-} from "./menubar";
-
+} from './menubar';
 const meta: Meta<typeof Menubar> = {
-  title: "Primitives/Menubar",
+  title: 'Primitives/Menubar',
   component: Menubar,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     size: {
-      control: "select",
-      options: ["default", "sm"],
-      description: "Size of the menubar",
+      control: 'select',
+      options: ['default', 'sm'],
       table: {
-        category: "Appearance",
-        type: { summary: '"default" | "sm"' },
-        defaultValue: { summary: "sm" },
+        category: 'Appearance',
+        type: {
+          summary: '"default" | "sm"',
+        },
+        defaultValue: {
+          summary: 'sm',
+        },
       },
     },
     className: {
-      control: "text",
-      description: "Additional CSS classes",
+      control: 'text',
       table: {
-        category: "Styling",
+        category: 'Styling',
       },
     },
   },
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
 };
-
 export default meta;
 type Story = StoryObj<typeof Menubar>;
-
-/**
- * Default menubar.
- */
 export const Default: Story = {
   render: () => (
     <Menubar>
@@ -108,45 +105,37 @@ export const Default: Story = {
       </MenubarMenu>
     </Menubar>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: "Default menubar with multiple menus.",
-      },
-    },
-  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Click File menu
-    const fileTrigger = canvas.getByText("File");
+    const fileTrigger = canvas.getByText('File');
     await userEvent.click(fileTrigger);
-
-    // Wait for menu content
     await waitFor(() => {
-      const menuContent = document.querySelector('[data-slot="menubar-content"]');
+      const menuContent = document.querySelector(
+        '[data-slot="menubar-content"]'
+      );
       expect(menuContent).toBeInTheDocument();
     });
   },
 };
-
-/**
- * Menubar with checkbox items.
- */
 export const WithCheckboxItems: Story = {
   render: function CheckboxMenubar() {
     const [showBookmarks, setShowBookmarks] = useState(true);
     const [showUrls, setShowUrls] = useState(false);
-
     return (
       <Menubar>
         <MenubarMenu>
           <MenubarTrigger>View</MenubarTrigger>
           <MenubarContent>
-            <MenubarCheckboxItem checked={showBookmarks} onCheckedChange={setShowBookmarks}>
+            <MenubarCheckboxItem
+              checked={showBookmarks}
+              onCheckedChange={setShowBookmarks}
+            >
               Show Bookmarks Bar
             </MenubarCheckboxItem>
-            <MenubarCheckboxItem checked={showUrls} onCheckedChange={setShowUrls}>
+            <MenubarCheckboxItem
+              checked={showUrls}
+              onCheckedChange={setShowUrls}
+            >
               Show Full URLs
             </MenubarCheckboxItem>
             <MenubarSeparator />
@@ -158,22 +147,10 @@ export const WithCheckboxItems: Story = {
       </Menubar>
     );
   },
-  parameters: {
-    docs: {
-      description: {
-        story: "Menubar with checkbox items for toggle options.",
-      },
-    },
-  },
 };
-
-/**
- * Menubar with radio group.
- */
 export const WithRadioGroup: Story = {
   render: function RadioMenubar() {
-    const [theme, setTheme] = useState("system");
-
+    const [theme, setTheme] = useState('system');
     return (
       <Menubar>
         <MenubarMenu>
@@ -189,18 +166,7 @@ export const WithRadioGroup: Story = {
       </Menubar>
     );
   },
-  parameters: {
-    docs: {
-      description: {
-        story: "Menubar with radio group for single selection.",
-      },
-    },
-  },
 };
-
-/**
- * Menubar with submenus.
- */
 export const WithSubmenus: Story = {
   render: () => (
     <Menubar>
@@ -226,18 +192,7 @@ export const WithSubmenus: Story = {
       </MenubarMenu>
     </Menubar>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: "Menubar with nested submenus.",
-      },
-    },
-  },
 };
-
-/**
- * Menubar with destructive item.
- */
 export const WithDestructiveItem: Story = {
   render: () => (
     <Menubar>
@@ -253,24 +208,12 @@ export const WithDestructiveItem: Story = {
       </MenubarMenu>
     </Menubar>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: "Menubar with a destructive action item.",
-      },
-    },
-  },
 };
-
-/**
- * Full application menubar.
- */
 export const FullExample: Story = {
   render: function FullMenubar() {
     const [showBookmarks, setShowBookmarks] = useState(true);
     const [showUrls, setShowUrls] = useState(false);
-    const [theme, setTheme] = useState("system");
-
+    const [theme, setTheme] = useState('system');
     return (
       <Menubar>
         <MenubarMenu>
@@ -328,10 +271,16 @@ export const FullExample: Story = {
         <MenubarMenu>
           <MenubarTrigger>View</MenubarTrigger>
           <MenubarContent>
-            <MenubarCheckboxItem checked={showBookmarks} onCheckedChange={setShowBookmarks}>
+            <MenubarCheckboxItem
+              checked={showBookmarks}
+              onCheckedChange={setShowBookmarks}
+            >
               Show Bookmarks Bar
             </MenubarCheckboxItem>
-            <MenubarCheckboxItem checked={showUrls} onCheckedChange={setShowUrls}>
+            <MenubarCheckboxItem
+              checked={showUrls}
+              onCheckedChange={setShowUrls}
+            >
               Show Full URLs
             </MenubarCheckboxItem>
             <MenubarSeparator />
@@ -345,22 +294,10 @@ export const FullExample: Story = {
       </Menubar>
     );
   },
-  parameters: {
-    docs: {
-      description: {
-        story: "Complete application menubar example.",
-      },
-    },
-  },
 };
-
-/**
- * Visual regression testing.
- */
 export const VisualRegression: Story = {
   render: () => (
     <div className="space-y-8 p-4">
-      {/* Basic menubar */}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">Basic</h3>
         <Menubar>
@@ -383,23 +320,14 @@ export const VisualRegression: Story = {
     </div>
   ),
   parameters: {
-    docs: {
-      description: {
-        story: "Menubar for visual regression testing.",
-      },
-    },
     chromatic: {
       disableSnapshot: false,
     },
   },
 };
-
-/**
- * Interactive playground.
- */
 export const Playground: Story = {
   args: {
-    size: "sm",
+    size: 'sm',
   },
   render: (args) => (
     <Menubar {...args}>
@@ -421,11 +349,4 @@ export const Playground: Story = {
       </MenubarMenu>
     </Menubar>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: "Interactive playground - use controls to experiment with menubar props.",
-      },
-    },
-  },
 };
