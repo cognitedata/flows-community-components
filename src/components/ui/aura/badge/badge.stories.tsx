@@ -251,18 +251,30 @@ export const AllVariants: Story = {
           (compact size for icon-only badges).
         </p>
         <div className="flex flex-wrap items-center gap-2">
-          <Badge variant="success" size="default">
+          <Badge
+            variant="success"
+            size="default"
+            aria-label="Success default size badge"
+          >
             <IconCircleCheck className="size-3" />
             Default Size
           </Badge>
-          <Badge variant="success" size="icon">
+          <Badge
+            variant="success"
+            size="icon"
+            aria-label="Success icon only badge"
+          >
             <IconCircleCheck className="size-3" />
           </Badge>
-          <Badge variant="error" size="default">
+          <Badge
+            variant="error"
+            size="default"
+            aria-label="Error default size badge"
+          >
             <IconAlertHexagon className="size-3" />
             Default Size
           </Badge>
-          <Badge variant="error" size="icon">
+          <Badge variant="error" size="icon" aria-label="Error icon only badge">
             <IconAlertHexagon className="size-3" />
           </Badge>
         </div>
@@ -277,11 +289,11 @@ export const AllVariants: Story = {
           indicators and notifications.
         </p>
         <div className="flex flex-wrap items-center gap-2">
-          <Badge variant="success" dot />
-          <Badge variant="error" dot />
-          <Badge variant="warning" dot />
-          <Badge variant="inProgress" dot />
-          <Badge variant="error" dot urgent />
+          <Badge variant="success" dot aria-label="Success dot" />
+          <Badge variant="error" dot aria-label="Error dot" />
+          <Badge variant="warning" dot aria-label="Warning dot" />
+          <Badge variant="inProgress" dot aria-label="In progress dot" />
+          <Badge variant="error" dot urgent aria-label="Urgent error dot" />
         </div>
       </div>
     </div>
@@ -340,26 +352,24 @@ export const AllVariants: Story = {
       true
     );
     expect(outlinedSuccess.classList.contains('bg-success')).toBe(false);
-    const allBadges = canvasElement.querySelectorAll('[data-slot="badge"]');
-    await expect(allBadges.length).toBeGreaterThanOrEqual(16);
-    const allOutlinedBadges = Array.from(allBadges).filter((badge) =>
-      badge.classList.contains('border-border')
+    const successDefaultSizeBadge = canvas.getByLabelText(
+      'Success default size badge'
     );
-    await expect(allOutlinedBadges.length).toBeGreaterThanOrEqual(5);
-    const defaultSizeBadges = canvas.getAllByText('Default Size', {
-      exact: false,
-    });
-    await expect(defaultSizeBadges.length).toBeGreaterThanOrEqual(2);
-    const iconOnlyBadges = Array.from(allBadges).filter((badge) => {
-      const text = badge.textContent?.trim() || '';
-      const hasIcon = badge.querySelector('svg');
-      return hasIcon && text.length < 3;
-    });
-    await expect(iconOnlyBadges.length).toBeGreaterThanOrEqual(2);
-    const dotBadges = Array.from(allBadges).filter((badge) =>
-      badge.classList.contains('rounded-full')
+    const errorDefaultSizeBadge = canvas.getByLabelText(
+      'Error default size badge'
     );
-    await expect(dotBadges.length).toBeGreaterThanOrEqual(4);
+    await expect(successDefaultSizeBadge).toBeInTheDocument();
+    await expect(errorDefaultSizeBadge).toBeInTheDocument();
+    const successDot = canvas.getByLabelText('Success dot');
+    const errorDot = canvas.getByLabelText('Error dot');
+    const warningDot = canvas.getByLabelText('Warning dot');
+    const inProgressDot = canvas.getByLabelText('In progress dot');
+    const urgentErrorDot = canvas.getByLabelText('Urgent error dot');
+    await expect(successDot).toHaveClass('rounded-full');
+    await expect(errorDot).toHaveClass('rounded-full');
+    await expect(warningDot).toHaveClass('rounded-full');
+    await expect(inProgressDot).toHaveClass('rounded-full');
+    await expect(urgentErrorDot).toHaveClass('rounded-full');
     const textContent = canvasElement.textContent || '';
     expect(textContent).toContain('Mountain');
     expect(textContent).toContain('Fjord');
@@ -529,8 +539,10 @@ export const Neutral: Story = {
     await expect(badge).toHaveClass('rounded-md');
     await expect(badge).toHaveClass('inline-flex');
     await expect(badge).toHaveClass('items-center');
-    const icon = badge.querySelector('svg');
-    await expect(icon).toBeInTheDocument();
+    const icon = badge.firstElementChild;
+    expect(icon).not.toBeNull();
+    expect(icon?.tagName.toLowerCase()).toBe('svg');
+    await expect(icon).toHaveClass('size-3');
   },
 };
 export const Success: Story = {
@@ -555,8 +567,10 @@ export const Success: Story = {
     await expect(badge).toHaveClass('rounded-md');
     await expect(badge).toHaveClass('inline-flex');
     await expect(badge).toHaveClass('items-center');
-    const icon = badge.querySelector('svg');
-    await expect(icon).toBeInTheDocument();
+    const icon = badge.firstElementChild;
+    expect(icon).not.toBeNull();
+    expect(icon?.tagName.toLowerCase()).toBe('svg');
+    await expect(icon).toHaveClass('size-3');
   },
 };
 export const Warning: Story = {
@@ -581,8 +595,10 @@ export const Warning: Story = {
     await expect(badge).toHaveClass('rounded-md');
     await expect(badge).toHaveClass('inline-flex');
     await expect(badge).toHaveClass('items-center');
-    const icon = badge.querySelector('svg');
-    await expect(icon).toBeInTheDocument();
+    const icon = badge.firstElementChild;
+    expect(icon).not.toBeNull();
+    expect(icon?.tagName.toLowerCase()).toBe('svg');
+    await expect(icon).toHaveClass('size-3');
   },
 };
 export const ErrorState: Story = {
@@ -607,8 +623,10 @@ export const ErrorState: Story = {
     await expect(badge).toHaveClass('rounded-md');
     await expect(badge).toHaveClass('inline-flex');
     await expect(badge).toHaveClass('items-center');
-    const icon = badge.querySelector('svg');
-    await expect(icon).toBeInTheDocument();
+    const icon = badge.firstElementChild;
+    expect(icon).not.toBeNull();
+    expect(icon?.tagName.toLowerCase()).toBe('svg');
+    await expect(icon).toHaveClass('size-3');
   },
 };
 export const Undefined: Story = {
@@ -633,8 +651,10 @@ export const Undefined: Story = {
     await expect(badge).toHaveClass('rounded-md');
     await expect(badge).toHaveClass('inline-flex');
     await expect(badge).toHaveClass('items-center');
-    const icon = badge.querySelector('svg');
-    await expect(icon).toBeInTheDocument();
+    const icon = badge.firstElementChild;
+    expect(icon).not.toBeNull();
+    expect(icon?.tagName.toLowerCase()).toBe('svg');
+    await expect(icon).toHaveClass('size-3');
   },
 };
 export const NeutralOutlined: Story = {
@@ -660,8 +680,10 @@ export const NeutralOutlined: Story = {
     await expect(badge).toHaveClass('rounded-md');
     await expect(badge).toHaveClass('inline-flex');
     await expect(badge).toHaveClass('items-center');
-    const icon = badge.querySelector('svg');
-    await expect(icon).toBeInTheDocument();
+    const icon = badge.firstElementChild;
+    expect(icon).not.toBeNull();
+    expect(icon?.tagName.toLowerCase()).toBe('svg');
+    await expect(icon).toHaveClass('size-3');
   },
 };
 export const SuccessOutlined: Story = {
@@ -687,8 +709,10 @@ export const SuccessOutlined: Story = {
     await expect(badge).toHaveClass('rounded-md');
     await expect(badge).toHaveClass('inline-flex');
     await expect(badge).toHaveClass('items-center');
-    const icon = badge.querySelector('svg');
-    await expect(icon).toBeInTheDocument();
+    const icon = badge.firstElementChild;
+    expect(icon).not.toBeNull();
+    expect(icon?.tagName.toLowerCase()).toBe('svg');
+    await expect(icon).toHaveClass('size-3');
   },
 };
 export const WarningOutlined: Story = {
@@ -714,8 +738,10 @@ export const WarningOutlined: Story = {
     await expect(badge).toHaveClass('rounded-md');
     await expect(badge).toHaveClass('inline-flex');
     await expect(badge).toHaveClass('items-center');
-    const icon = badge.querySelector('svg');
-    await expect(icon).toBeInTheDocument();
+    const icon = badge.firstElementChild;
+    expect(icon).not.toBeNull();
+    expect(icon?.tagName.toLowerCase()).toBe('svg');
+    await expect(icon).toHaveClass('size-3');
   },
 };
 export const ErrorOutlined: Story = {
@@ -741,8 +767,10 @@ export const ErrorOutlined: Story = {
     await expect(badge).toHaveClass('rounded-md');
     await expect(badge).toHaveClass('inline-flex');
     await expect(badge).toHaveClass('items-center');
-    const icon = badge.querySelector('svg');
-    await expect(icon).toBeInTheDocument();
+    const icon = badge.firstElementChild;
+    expect(icon).not.toBeNull();
+    expect(icon?.tagName.toLowerCase()).toBe('svg');
+    await expect(icon).toHaveClass('size-3');
   },
 };
 export const UndefinedOutlined: Story = {
@@ -768,8 +796,10 @@ export const UndefinedOutlined: Story = {
     await expect(badge).toHaveClass('rounded-md');
     await expect(badge).toHaveClass('inline-flex');
     await expect(badge).toHaveClass('items-center');
-    const icon = badge.querySelector('svg');
-    await expect(icon).toBeInTheDocument();
+    const icon = badge.firstElementChild;
+    expect(icon).not.toBeNull();
+    expect(icon?.tagName.toLowerCase()).toBe('svg');
+    await expect(icon).toHaveClass('size-3');
   },
 };
 export const IconSizes: Story = {
@@ -803,16 +833,16 @@ export const IconSizes: Story = {
           Default size with icon only (rectangular)
         </p>
         <div className="flex flex-wrap gap-2">
-          <Badge variant="mountain">
+          <Badge variant="mountain" aria-label="Mountain default icon badge">
             <IconHexagon className="size-3" />
           </Badge>
-          <Badge variant="fjord">
+          <Badge variant="fjord" aria-label="Fjord default icon badge">
             <IconStar className="size-3" />
           </Badge>
-          <Badge variant="aurora">
+          <Badge variant="aurora" aria-label="Aurora default icon badge">
             <IconCircleCheck className="size-3" />
           </Badge>
-          <Badge variant="dusk">
+          <Badge variant="dusk" aria-label="Dusk default icon badge">
             <IconUser className="size-3" />
           </Badge>
         </div>
@@ -822,16 +852,24 @@ export const IconSizes: Story = {
           Icon size (square, optimised for icon-only badges)
         </p>
         <div className="flex flex-wrap gap-2">
-          <Badge variant="mountain" size="icon">
+          <Badge
+            variant="mountain"
+            size="icon"
+            aria-label="Mountain icon size badge"
+          >
             <IconHexagon className="size-3" />
           </Badge>
-          <Badge variant="fjord" size="icon">
+          <Badge variant="fjord" size="icon" aria-label="Fjord icon size badge">
             <IconStar className="size-3" />
           </Badge>
-          <Badge variant="aurora" size="icon">
+          <Badge
+            variant="aurora"
+            size="icon"
+            aria-label="Aurora icon size badge"
+          >
             <IconCircleCheck className="size-3" />
           </Badge>
-          <Badge variant="dusk" size="icon">
+          <Badge variant="dusk" size="icon" aria-label="Dusk icon size badge">
             <IconUser className="size-3" />
           </Badge>
         </div>
@@ -842,48 +880,42 @@ export const IconSizes: Story = {
     order: 19,
   },
   play: async ({ canvasElement }) => {
-    const badges = canvasElement.querySelectorAll('[data-slot="badge"]');
-    const iconSizeBadges = Array.from(badges).filter(
-      (badge) =>
-        badge.classList.contains('px-1.5') && badge.classList.contains('py-1')
-    );
-    for (const badge of iconSizeBadges) {
+    const canvas = within(canvasElement);
+    const iconSizeLabels = [
+      'Mountain icon size badge',
+      'Fjord icon size badge',
+      'Aurora icon size badge',
+      'Dusk icon size badge',
+    ];
+    for (const label of iconSizeLabels) {
+      const badge = canvas.getByLabelText(label);
       expect(badge).toHaveClass('px-1.5');
       expect(badge).toHaveClass('py-1');
       expect(badge).toHaveClass('rounded-md');
     }
-    await expect(iconSizeBadges.length).toBe(4);
-  },
-};
-export const Playground: Story = {
-  render: (args) => <Badge {...args} />,
-  args: {
-    variant: 'fjord',
-    children: 'Badge',
-  },
-  parameters: {
-    order: 99,
   },
 };
 export const DotIndicators: Story = {
   render: () => (
     <div className="flex flex-wrap items-center gap-4">
       <div className="flex items-center gap-2">
-        <Badge dot urgent />
+        <Badge dot urgent aria-label="Urgent dot indicator" />
         <span className="text-sm">Urgent</span>
       </div>
       <div className="flex items-center gap-2">
-        <Badge dot />
+        <Badge dot aria-label="Normal dot indicator" />
         <span className="text-sm">Normal</span>
       </div>
       <div className="flex items-center gap-2">
-        <Badge dot urgent>
+        <Badge dot urgent aria-label="Urgent count: 3">
           3
         </Badge>
         <span className="text-sm">Urgent with count</span>
       </div>
       <div className="flex items-center gap-2">
-        <Badge dot>5</Badge>
+        <Badge dot aria-label="Normal count: 5">
+          5
+        </Badge>
         <span className="text-sm">Normal with count</span>
       </div>
     </div>
@@ -892,17 +924,17 @@ export const DotIndicators: Story = {
     order: 20,
   },
   play: async ({ canvasElement }) => {
-    const badges = canvasElement.querySelectorAll('[data-slot="badge"]');
-    for (const badge of badges) {
-      expect(badge).toHaveClass('rounded-full');
-    }
-    const firstDot = badges.item(0);
-    expect(firstDot).not.toBeNull();
-    if (!firstDot) {
-      return;
-    }
-    await expect(firstDot).toHaveClass('size-2');
-    await expect(firstDot).toHaveClass('bg-destructive-foreground');
+    const canvas = within(canvasElement);
+    const urgentDot = canvas.getByLabelText('Urgent dot indicator');
+    const normalDot = canvas.getByLabelText('Normal dot indicator');
+    const urgentCountDot = canvas.getByLabelText('Urgent count: 3');
+    const normalCountDot = canvas.getByLabelText('Normal count: 5');
+    await expect(urgentDot).toHaveClass('rounded-full');
+    await expect(normalDot).toHaveClass('rounded-full');
+    await expect(urgentCountDot).toHaveClass('rounded-full');
+    await expect(normalCountDot).toHaveClass('rounded-full');
+    await expect(urgentDot).toHaveClass('size-2');
+    await expect(urgentDot).toHaveClass('bg-destructive-foreground');
   },
 };
 export const ClickInteraction: Story = {
@@ -1033,8 +1065,17 @@ export const Accessibility: Story = {
     await waitFor(() => {
       expect(interactiveBadge).toHaveFocus();
     });
-    const icons = canvasElement.querySelectorAll('svg[aria-hidden="true"]');
-    await expect(icons.length).toBeGreaterThan(0);
+    const completedBadge = canvas.getByLabelText('Status: Completed');
+    const failedBadge = canvas.getByLabelText('Status: Failed');
+    const completedIcon = completedBadge.firstElementChild;
+    const failedIcon = failedBadge.firstElementChild;
+    const closableIcon = interactiveBadge.lastElementChild;
+    expect(completedIcon).not.toBeNull();
+    expect(failedIcon).not.toBeNull();
+    expect(closableIcon).not.toBeNull();
+    await expect(completedIcon).toHaveAttribute('aria-hidden', 'true');
+    await expect(failedIcon).toHaveAttribute('aria-hidden', 'true');
+    await expect(closableIcon).toHaveAttribute('aria-hidden', 'true');
   },
   render: () => (
     <div className="flex flex-col gap-4">
@@ -1063,63 +1104,31 @@ export const Accessibility: Story = {
     </div>
   ),
 };
-export const VisualRegression: Story = {
+export const EdgeCaseEmpty: Story = {
   render: () => (
-    <div className="space-y-4 p-4">
-      <div className="flex flex-wrap gap-2">
-        <Badge variant="fjord">Fjord</Badge>
-        <Badge variant="aurora">Aurora</Badge>
-        <Badge variant="mountain">Mountain</Badge>
-        <Badge variant="error">Error</Badge>
-      </div>
-      <div className="flex flex-wrap gap-2">
-        <Badge variant="success" outline>
-          Outlined
-        </Badge>
-        <Badge variant="aurora" background={false}>
-          No BG
-        </Badge>
-        <Badge dot urgent />
-        <Badge dot>5</Badge>
-      </div>
-      <div className="flex flex-wrap gap-2">
-        <Badge variant="success">
-          <IconCircleCheck className="size-3" />
-          With Icon
-        </Badge>
-        <Badge variant="closable">
-          Closable
-          <IconX className="size-3" />
-        </Badge>
-      </div>
+    <div className="flex flex-wrap items-center gap-2">
+      <Badge variant="fjord" aria-label="Empty fjord status indicator" />
+      <Badge variant="error" aria-label="Empty error status indicator" />
+      <Badge
+        variant="secondary"
+        aria-label="Empty secondary status indicator"
+      />
+      <span className="text-sm text-muted-foreground">(Empty badges)</span>
     </div>
   ),
   parameters: {
     order: 24,
   },
   play: async ({ canvasElement }) => {
-    const badges = canvasElement.querySelectorAll('[data-slot="badge"]');
-    await expect(badges.length).toBeGreaterThan(0);
-  },
-};
-export const EdgeCaseEmpty: Story = {
-  render: () => (
-    <div className="flex flex-wrap items-center gap-2">
-      <Badge variant="fjord" />
-      <Badge variant="error" />
-      <Badge variant="secondary" />
-      <span className="text-sm text-muted-foreground">(Empty badges)</span>
-    </div>
-  ),
-  parameters: {
-    order: 25,
-  },
-  play: async ({ canvasElement }) => {
-    const badges = canvasElement.querySelectorAll('[data-slot="badge"]');
-    await expect(badges.length).toBe(3);
-    for (const badge of badges) {
-      expect(badge).toHaveClass('inline-flex');
-    }
+    const canvas = within(canvasElement);
+    const fjordBadge = canvas.getByLabelText('Empty fjord status indicator');
+    const errorBadge = canvas.getByLabelText('Empty error status indicator');
+    const secondaryBadge = canvas.getByLabelText(
+      'Empty secondary status indicator'
+    );
+    await expect(fjordBadge).toHaveClass('inline-flex');
+    await expect(errorBadge).toHaveClass('inline-flex');
+    await expect(secondaryBadge).toHaveClass('inline-flex');
   },
 };
 export const EdgeCaseLongText: Story = {
@@ -1135,7 +1144,7 @@ export const EdgeCaseLongText: Story = {
     </div>
   ),
   parameters: {
-    order: 26,
+    order: 25,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -1156,7 +1165,7 @@ export const EdgeCaseSpecialCharacters: Story = {
     </div>
   ),
   parameters: {
-    order: 27,
+    order: 26,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -1168,36 +1177,46 @@ export const EdgeCaseSpecialCharacters: Story = {
 export const EdgeCaseIconOnly: Story = {
   render: () => (
     <div className="flex flex-wrap gap-2">
-      <Badge variant="success" size="icon" aria-label="Success">
+      <Badge variant="success" size="icon" aria-label="Success icon only">
         <IconCircleCheck className="size-3" aria-hidden="true" />
       </Badge>
-      <Badge variant="error" size="icon" aria-label="Error">
+      <Badge variant="error" size="icon" aria-label="Error icon only">
         <IconAlertHexagon className="size-3" aria-hidden="true" />
       </Badge>
-      <Badge variant="warning" size="icon" aria-label="Warning">
+      <Badge variant="warning" size="icon" aria-label="Warning icon only">
         <IconAlertTriangle className="size-3" aria-hidden="true" />
       </Badge>
-      <Badge variant="inProgress" size="icon" aria-label="In progress">
+      <Badge
+        variant="inProgress"
+        size="icon"
+        aria-label="In progress icon only"
+      >
         <IconInnerShadowTopLeft className="size-3" aria-hidden="true" />
       </Badge>
     </div>
   ),
   parameters: {
-    order: 28,
+    order: 27,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const badges = canvasElement.querySelectorAll('[data-slot="badge"]');
-    for (const badge of badges) {
-      const icon = badge.querySelector('svg');
-      expect(icon).toBeInTheDocument();
-      expect(icon).toHaveAttribute('aria-hidden', 'true');
-      expect(badge).toHaveAttribute('aria-label');
+    const badgeLabels = [
+      'Success icon only',
+      'Error icon only',
+      'Warning icon only',
+      'In progress icon only',
+    ];
+    for (const label of badgeLabels) {
+      const badge = canvas.getByLabelText(label);
+      await expect(badge).toHaveClass('px-1.5');
+      await expect(badge).toHaveClass('py-1');
+      await expect(badge).toHaveClass('rounded-md');
+      await expect(badge).toHaveAttribute('aria-label', label);
+      const icon = badge.firstElementChild;
+      expect(icon).not.toBeNull();
+      expect(icon?.tagName.toLowerCase()).toBe('svg');
+      await expect(icon).toHaveAttribute('aria-hidden', 'true');
     }
-    await expect(canvas.getByLabelText('Success')).toBeInTheDocument();
-    await expect(canvas.getByLabelText('Error')).toBeInTheDocument();
-    await expect(canvas.getByLabelText('Warning')).toBeInTheDocument();
-    await expect(canvas.getByLabelText('In progress')).toBeInTheDocument();
   },
 };
 export const EdgeCaseMixedContent: Story = {
@@ -1216,7 +1235,7 @@ export const EdgeCaseMixedContent: Story = {
     </div>
   ),
   parameters: {
-    order: 29,
+    order: 28,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -1243,7 +1262,7 @@ export const EdgeCaseWidthConstraints: Story = {
     </div>
   ),
   parameters: {
-    order: 30,
+    order: 29,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -1273,27 +1292,92 @@ export const EdgeCaseGroupedBadges: Story = {
     </div>
   ),
   parameters: {
-    order: 31,
+    order: 30,
   },
   play: async ({ canvasElement }) => {
-    const badges = canvasElement.querySelectorAll('[data-slot="badge"]');
-    await expect(badges.length).toBe(11);
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText('Tag 1')).toBeInTheDocument();
+    await expect(canvas.getByText('Tag 2')).toBeInTheDocument();
+    await expect(canvas.getByText('Tag 3')).toBeInTheDocument();
+    await expect(canvas.getByText('Tag 4')).toBeInTheDocument();
+    await expect(canvas.getByText('Tag 5')).toBeInTheDocument();
+    await expect(canvas.getByText('Tag 6')).toBeInTheDocument();
+    await expect(canvas.getByText('Tag 7')).toBeInTheDocument();
+    await expect(canvas.getByText('Tag 8')).toBeInTheDocument();
+    await expect(canvas.getByText('High')).toBeInTheDocument();
+    await expect(canvas.getByText('Medium')).toBeInTheDocument();
+    await expect(canvas.getByText('Low')).toBeInTheDocument();
   },
 };
 export const EdgeCaseTinyDots: Story = {
   render: () => (
     <div className="flex flex-wrap items-center gap-4">
       <div className="flex items-center gap-1">
-        <Badge dot urgent />
-        <Badge dot urgent />
-        <Badge dot urgent />
+        <Badge dot urgent aria-label="Urgent tiny status indicator one" />
+        <Badge dot urgent aria-label="Urgent tiny status indicator two" />
+        <Badge dot urgent aria-label="Urgent tiny status indicator three" />
       </div>
       <div className="flex items-center gap-1">
-        <Badge dot />
-        <Badge dot />
-        <Badge dot />
-        <Badge dot />
-        <Badge dot />
+        <Badge dot aria-label="Normal tiny status indicator one" />
+        <Badge dot aria-label="Normal tiny status indicator two" />
+        <Badge dot aria-label="Normal tiny status indicator three" />
+        <Badge dot aria-label="Normal tiny status indicator four" />
+        <Badge dot aria-label="Normal tiny status indicator five" />
+      </div>
+    </div>
+  ),
+  parameters: {
+    order: 31,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const labels = [
+      'Urgent tiny status indicator one',
+      'Urgent tiny status indicator two',
+      'Urgent tiny status indicator three',
+      'Normal tiny status indicator one',
+      'Normal tiny status indicator two',
+      'Normal tiny status indicator three',
+      'Normal tiny status indicator four',
+      'Normal tiny status indicator five',
+    ];
+    for (const label of labels) {
+      const dot = canvas.getByLabelText(label);
+      expect(dot).toHaveClass('size-2');
+      expect(dot).toHaveClass('rounded-full');
+    }
+  },
+};
+export const VisualRegression: Story = {
+  render: () => (
+    <div className="space-y-4 p-4">
+      <div className="flex flex-wrap gap-2">
+        <Badge variant="fjord">Fjord</Badge>
+        <Badge variant="aurora">Aurora</Badge>
+        <Badge variant="mountain">Mountain</Badge>
+        <Badge variant="error">Error</Badge>
+      </div>
+      <div className="flex flex-wrap gap-2">
+        <Badge variant="success" outline>
+          Outlined
+        </Badge>
+        <Badge variant="aurora" background={false}>
+          No BG
+        </Badge>
+        <Badge dot urgent aria-label="Urgent visual regression dot" />
+        <Badge dot aria-label="Visual regression count of 5 items">
+          5
+        </Badge>
+      </div>
+      <div className="flex flex-wrap gap-2">
+        <Badge variant="success">
+          <IconCircleCheck className="size-3" />
+          With Icon
+        </Badge>
+        <Badge variant="closable">
+          Closable
+          <IconX className="size-3" />
+        </Badge>
       </div>
     </div>
   ),
@@ -1301,10 +1385,26 @@ export const EdgeCaseTinyDots: Story = {
     order: 32,
   },
   play: async ({ canvasElement }) => {
-    const dots = canvasElement.querySelectorAll('[data-slot="badge"]');
-    for (const dot of dots) {
-      expect(dot).toHaveClass('size-2');
-      expect(dot).toHaveClass('rounded-full');
-    }
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText('Fjord')).toBeInTheDocument();
+    await expect(canvas.getByText('Aurora')).toBeInTheDocument();
+    await expect(canvas.getByText('Mountain')).toBeInTheDocument();
+    await expect(canvas.getByText('Error')).toBeInTheDocument();
+    await expect(
+      canvas.getByLabelText('Urgent visual regression dot')
+    ).toBeInTheDocument();
+    await expect(
+      canvas.getByLabelText('Visual regression count of 5 items')
+    ).toBeInTheDocument();
+  },
+};
+export const Playground: Story = {
+  render: (args) => <Badge {...args} />,
+  args: {
+    variant: 'fjord',
+    children: 'Badge',
+  },
+  parameters: {
+    order: 99,
   },
 };
