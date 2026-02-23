@@ -23,7 +23,7 @@ import {
 
 type SuggestionsProps = ComponentProps<typeof ScrollArea>;
 
-export const Suggestions = ({ className, children, ...props }: SuggestionsProps) => (
+const Suggestions = ({ className, children, ...props }: SuggestionsProps) => (
   <ScrollArea className="w-full overflow-x-auto whitespace-nowrap" {...props}>
     <div className={cn("flex w-max flex-nowrap items-center gap-2", className)}>{children}</div>
     <ScrollBar className="hidden" orientation="horizontal" />
@@ -65,7 +65,7 @@ type SuggestionProps = SuggestionButtonProps | SuggestionSelectProps;
 const isButtonSuggestion = (props: SuggestionProps): props is SuggestionButtonProps =>
   "suggestion" in props;
 
-export const Suggestion = (props: SuggestionProps) => {
+const Suggestion = (props: SuggestionProps) => {
   if (isButtonSuggestion(props)) {
     const {
       suggestion,
@@ -134,11 +134,11 @@ export const Suggestion = (props: SuggestionProps) => {
 
 type SuggestionTriggerProps = ComponentProps<typeof SelectTriggerPrimitive>;
 
-export const SuggestionTrigger = ({ className, children, ...props }: SuggestionTriggerProps) => {
+const SuggestionTrigger = ({ className, children, ...props }: SuggestionTriggerProps) => {
   return (
     <SelectTriggerPrimitive
       className={cn(
-        "min-w-0 bg-background text-foreground text-sm leading-4.5 tracking-normal font-medium px-3 py-2.25 border-transparent focus-visible:border-ring [&_svg]:opacity-100",
+        "min-w-0 bg-background text-sm leading-4.5 tracking-normal font-medium px-3 py-2.25 border-transparent focus-visible:border-ring [&]:text-foreground-muted dark:[&]:text-foreground-muted [&_svg:not([class*='text-'])]:text-foreground",
         className
       )}
       {...props}
@@ -150,13 +150,13 @@ export const SuggestionTrigger = ({ className, children, ...props }: SuggestionT
 
 type SuggestionValueProps = Omit<ComponentProps<typeof SelectValuePrimitive>, "icon">;
 
-export const SuggestionValue = ({ className, ...props }: SuggestionValueProps) => {
+const SuggestionValue = ({ className, ...props }: SuggestionValueProps) => {
   return <SelectValuePrimitive className={className} {...props} />;
 };
 
 type SuggestionContentProps = ComponentProps<typeof SelectContentPrimitive>;
 
-export const SuggestionContent = ({
+const SuggestionContent = ({
   className,
   children,
   align = "start",
@@ -173,7 +173,7 @@ type SuggestionItemProps = Omit<ComponentProps<typeof SelectItemPrimitive>, "val
   icon?: ReactNode;
 };
 
-export const SuggestionItem = ({ className, children, icon, ...props }: SuggestionItemProps) => {
+const SuggestionItem = ({ className, children, icon, ...props }: SuggestionItemProps) => {
   const { onItemSelect } = useSuggestion();
 
   const textValue = useMemo(() => {
@@ -202,7 +202,7 @@ export const SuggestionItem = ({ className, children, icon, ...props }: Suggesti
 
 type SuggestionGroupProps = ComponentProps<typeof SelectGroupPrimitive>;
 
-export const SuggestionGroup = ({ className, children, ...props }: SuggestionGroupProps) => {
+const SuggestionGroup = ({ className, children, ...props }: SuggestionGroupProps) => {
   return (
     <SelectGroupPrimitive className={className} {...props}>
       {children}
@@ -212,7 +212,7 @@ export const SuggestionGroup = ({ className, children, ...props }: SuggestionGro
 
 type SuggestionLabelProps = ComponentProps<typeof SelectLabelPrimitive>;
 
-export const SuggestionLabel = ({ className, children, ...props }: SuggestionLabelProps) => {
+const SuggestionLabel = ({ className, children, ...props }: SuggestionLabelProps) => {
   return (
     <SelectLabelPrimitive className={className} {...props}>
       {children}
@@ -222,6 +222,18 @@ export const SuggestionLabel = ({ className, children, ...props }: SuggestionLab
 
 type SuggestionSeparatorProps = ComponentProps<typeof SelectSeparatorPrimitive>;
 
-export const SuggestionSeparator = ({ className, ...props }: SuggestionSeparatorProps) => {
+const SuggestionSeparator = ({ className, ...props }: SuggestionSeparatorProps) => {
   return <SelectSeparatorPrimitive className={className} {...props} />;
+};
+
+export {
+  Suggestions,
+  Suggestion,
+  SuggestionTrigger,
+  SuggestionValue,
+  SuggestionContent,
+  SuggestionItem,
+  SuggestionGroup,
+  SuggestionLabel,
+  SuggestionSeparator,
 };

@@ -152,9 +152,9 @@ export const Basic: Story = {
 
     return (
       <div className="flex flex-wrap gap-2 max-w-[80%]">
-        <Suggestion suggestion="AI prompt suggestion 1" onClick={handleSuggestion} />
-        <Suggestion suggestion="AI prompt suggestion 2" onClick={handleSuggestion} />
-        <Suggestion suggestion="AI prompt suggestion 3" onClick={handleSuggestion} />
+        <Suggestion suggestion="Suggestion 1" onClick={handleSuggestion} />
+        <Suggestion suggestion="Suggestion 2" onClick={handleSuggestion} />
+        <Suggestion suggestion="Suggestion 3" onClick={handleSuggestion} />
       </div>
     );
   },
@@ -178,7 +178,7 @@ export const WithScrollableWrapper: Story = {
     };
 
     return (
-      <Suggestions className="w-[500px]">
+      <Suggestions className="w-full max-w-xl">
         <Suggestion suggestion="Suggestion 1" onClick={handleSuggestion} />
         <Suggestion suggestion="Suggestion 2" onClick={handleSuggestion} />
         <Suggestion suggestion="Suggestion 3" onClick={handleSuggestion} />
@@ -536,6 +536,125 @@ export const MixedModes: Story = {
           </SuggestionContent>
         </Suggestion>
       </div>
+    );
+  },
+};
+
+/**
+ * Follow-up prompts in card-style buttons
+ */
+export const FollowUpCards: Story = {
+  parameters: {
+    order: 10,
+    docs: {
+      description: {
+        story: "Card-style follow-up prompts with title and multiline prompt text.",
+      },
+    },
+  },
+  render: function SuggestionFollowUpCardsStory(args) {
+    const handleSuggestion = (value: string) => {
+      args.onClick?.(value);
+    };
+
+    return (
+      <Suggestions className="w-max gap-2">
+        <Suggestion
+          className="w-52 items-start justify-start rounded-lg bg-muted p-4 text-left hover:bg-muted"
+          suggestion="Prioritize critical equipment in resource allocation"
+          onClick={handleSuggestion}
+          variant="ghost"
+        >
+          <span className="space-y-1">
+            <span className="block text-xs font-medium leading-tigher text-muted-foreground">
+              Follow up
+            </span>
+            <span className="block text-base leading-tightest leading-5 font-normal text-foreground whitespace-normal">
+              Prioritize critical equipment in resource allocation
+            </span>
+          </span>
+        </Suggestion>
+        <Suggestion
+          className="w-52 items-start justify-start rounded-lg bg-muted p-4 text-left hover:bg-muted"
+          suggestion="Prioritize critical equipment in resource allocation"
+          onClick={handleSuggestion}
+          variant="ghost"
+        >
+          <span className="space-y-1">
+            <span className="block text-xs font-medium leading-tigher text-muted-foreground">
+              Follow up
+            </span>
+            <span className="block text-base leading-tightest leading-5 font-normal text-foreground whitespace-normal">
+              Prioritize critical equipment in resource allocation
+            </span>
+          </span>
+        </Suggestion>
+        <Suggestion
+          className="w-52 items-start justify-start rounded-lg bg-muted p-4 text-left hover:bg-muted"
+          suggestion="Prioritize critical equipment in resource allocation"
+          onClick={handleSuggestion}
+          variant="ghost"
+        >
+          <span className="space-y-1">
+            <span className="block text-xs font-medium leading-tigher text-muted-foreground">
+              Follow up
+            </span>
+            <span className="block text-base leading-tightest leading-5 font-normal text-foreground whitespace-normal">
+              Prioritize critical equipment in resource allocation
+            </span>
+          </span>
+        </Suggestion>
+      </Suggestions>
+    );
+  },
+};
+/**
+ * AI prompt suggestion dropdown
+ */
+export const AISuggestionMode: Story = {
+  parameters: {
+    order: 11,
+    docs: {
+      description: {
+        story: "Compact AI prompt trigger with dropdown follow-up suggestions.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const trigger = canvas.getByRole("combobox");
+    await expect(trigger).toBeInTheDocument();
+    await userEvent.click(trigger);
+    await waitForSelectContentOpen();
+    await expect(
+      within(document.body).getByText("Show me the pressure on valve 10")
+    ).toBeInTheDocument();
+    const item = within(document.body).getByText("Show me the pressure on valve 10");
+    await userEvent.click(item);
+    await waitForSelectContentClosed();
+  },
+  render: function AISuggestionModeStory(args) {
+    const handleSuggestion = (value: string) => {
+      args.onValueChange?.(value);
+    };
+
+    return (
+      <Suggestion onValueChange={handleSuggestion}>
+        <SuggestionTrigger aria-label="Select a suggestion">
+          <SuggestionValue placeholder="AI prompt suggestion 1" />
+        </SuggestionTrigger>
+        <SuggestionContent>
+          <SuggestionItem icon={<IconGauge className="size-4" />}>
+            Prioritize critical equipment in resource allocation
+          </SuggestionItem>
+          <SuggestionItem icon={<IconActivity className="size-4" />}>
+            Break down tasks by production line and urgency
+          </SuggestionItem>
+          <SuggestionItem icon={<IconChartLine className="size-4" />}>
+            Create a timeline for the top three risk areas
+          </SuggestionItem>
+        </SuggestionContent>
+      </Suggestion>
     );
   },
 };

@@ -4,15 +4,19 @@
  * A dual-mode suggestion component for AI chat interfaces.
  * Use simple button mode for quick queries, or dropdown mode
  * for organised query options.
- *
- * @example
- * import { Suggestion, Suggestions } from '@/components/ui/aura/suggestion';
- *
- * <Suggestions>
- *   <Suggestion suggestion="Query 1" onClick={handleClick} />
- *   <Suggestion suggestion="Query 2" onClick={handleClick} />
- * </Suggestions>
  */
+import {
+  Suggestion,
+  SuggestionContent,
+  SuggestionGroup,
+  SuggestionItem,
+  SuggestionLabel,
+  SuggestionSeparator,
+  SuggestionTrigger,
+  SuggestionValue,
+  Suggestions,
+} from "./suggestion";
+
 export {
   Suggestions,
   Suggestion,
@@ -23,5 +27,5 @@ export {
   SuggestionGroup,
   SuggestionLabel,
   SuggestionSeparator,
-} from "./suggestion";
+};
 export { SuggestionMetadata } from "./suggestion.metadata";
