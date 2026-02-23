@@ -134,6 +134,7 @@ For files under `src/components/ui/aura/**`, prefer relative imports (for exampl
 - Registry dependency extraction must account for relative component imports (for example `../helper-text`) so `registryDependencies` stays correct.
 - When updating component metadata statuses from a list, update only existing `*.metadata.ts` files and skip missing components without creating placeholders.
 - Set per-component Figma links in `src/lib/primitives-catalog.ts`; catalog and component pages use those URLs to enable clickable Figma icons.
+- Suggestion stories should query open select content semantically via `within(document.body).queryByRole("listbox")` and keep `parameters.order` set on every story export.
 
 # Storybook Stories
 

@@ -14,8 +14,7 @@ import {
   Suggestions,
 } from "./suggestion";
 
-const getOpenSelectContent = () =>
-  document.querySelector('[data-slot="select-content"][data-open]') as HTMLElement | null;
+const getOpenSelectContent = () => within(document.body).queryByRole("listbox");
 
 const waitForSelectContentOpen = async () => {
   await waitFor(
@@ -126,6 +125,7 @@ type Story = StoryObj<typeof Suggestion>;
  */
 export const Basic: Story = {
   parameters: {
+    order: 1,
     docs: {
       description: {
         story:
@@ -135,17 +135,11 @@ export const Basic: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Find the first suggestion button
     const suggestion1 = canvas.getByRole("button", {
       name: /AI prompt suggestion 1/i,
     });
     await expect(suggestion1).toBeInTheDocument();
-
-    // Click the suggestion
     await userEvent.click(suggestion1);
-
-    // Verify other suggestions are present
     const suggestion2 = canvas.getByRole("button", {
       name: /AI prompt suggestion 2/i,
     });
@@ -171,6 +165,7 @@ export const Basic: Story = {
  */
 export const WithScrollableWrapper: Story = {
   parameters: {
+    order: 2,
     docs: {
       description: {
         story: "Multiple suggestions wrapped in Suggestions component for horizontal scrolling.",
@@ -203,6 +198,7 @@ export const WithScrollableWrapper: Story = {
  */
 export const ButtonVariants: Story = {
   parameters: {
+    order: 3,
     docs: {
       description: {
         story:
@@ -234,6 +230,7 @@ export const ButtonVariants: Story = {
  */
 export const SelectMode: Story = {
   parameters: {
+    order: 4,
     docs: {
       description: {
         story:
@@ -243,25 +240,15 @@ export const SelectMode: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Find the trigger button
     const trigger = canvas.getByRole("combobox");
     await expect(trigger).toBeInTheDocument();
-
-    // Click to open dropdown
     await userEvent.click(trigger);
-
-    // Wait for dropdown to open and find an item
     await waitForSelectContentOpen();
     await expect(
       within(document.body).getByText("Show me the pressure on valve 10")
     ).toBeInTheDocument();
-
-    // Click the item to select it
     const item = within(document.body).getByText("Show me the pressure on valve 10");
     await userEvent.click(item);
-
-    // Dropdown should close automatically after selection
     await waitForSelectContentClosed();
   },
   render: function SuggestionSelectStory(args) {
@@ -295,6 +282,7 @@ export const SelectMode: Story = {
  */
 export const KeyboardInteractions: Story = {
   parameters: {
+    order: 5,
     docs: {
       description: {
         story:
@@ -304,30 +292,16 @@ export const KeyboardInteractions: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Find and focus the trigger
     const trigger = canvas.getByRole("combobox");
     await expect(trigger).toBeInTheDocument();
     trigger.focus();
-
-    // Open dropdown (keyboard interactions after open)
     await userEvent.click(trigger);
     await waitForSelectContentOpen();
-
-    // Navigate down with arrow key
     await userEvent.keyboard("{ArrowDown}");
-
-    // Select with Enter
     await userEvent.keyboard("{Enter}");
-
-    // Dropdown should close
     await waitForSelectContentClosed();
-
-    // Open again to test Escape
     await userEvent.click(trigger);
     await waitForSelectContentOpen();
-
-    // Close with Escape
     await userEvent.keyboard("{Escape}");
     await waitForSelectContentClosed();
   },
@@ -357,6 +331,7 @@ export const KeyboardInteractions: Story = {
  */
 export const Grouped: Story = {
   parameters: {
+    order: 6,
     docs: {
       description: {
         story: "Organised suggestions with categories, labels, and separators.",
@@ -406,6 +381,7 @@ export const Grouped: Story = {
  */
 export const InteractiveSelect: Story = {
   parameters: {
+    order: 7,
     docs: {
       description: {
         story:
@@ -415,27 +391,13 @@ export const InteractiveSelect: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Find the trigger button
     const trigger = canvas.getByRole("combobox");
     await expect(trigger).toBeInTheDocument();
-
-    // Verify initial state - no selection message
     expect(canvas.queryByText(/Last selected:/)).not.toBeInTheDocument();
-
-    // Click to open dropdown
     await userEvent.click(trigger);
-
-    // Wait for dropdown to open
     await waitForSelectContentOpen();
-
-    // Select the second item
-    const content = getOpenSelectContent();
-    expect(content).toBeInTheDocument();
-    const item = within(content as HTMLElement).getByText("What's the status of pump 3?");
+    const item = within(document.body).getByText("What's the status of pump 3?");
     await userEvent.click(item);
-
-    // Verify the selection is displayed
     await waitFor(
       () => {
         const selectionText = canvas.getByText(/Last selected: What's the status of pump 3\?/);
@@ -485,6 +447,7 @@ export const InteractiveSelect: Story = {
  */
 export const MultipleSelects: Story = {
   parameters: {
+    order: 8,
     docs: {
       description: {
         story: "Multiple select-mode suggestions displayed together.",
@@ -539,6 +502,7 @@ export const MultipleSelects: Story = {
  */
 export const MixedModes: Story = {
   parameters: {
+    order: 9,
     docs: {
       description: {
         story: "Combination of button-mode and select-mode suggestions in the same container.",

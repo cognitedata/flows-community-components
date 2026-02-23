@@ -660,17 +660,6 @@ export {
   SuggestionLabel,
   SuggestionSeparator,
 } from "./suggestion/suggestion";
-export type {
-  SuggestionsProps,
-  SuggestionProps,
-  SuggestionTriggerProps,
-  SuggestionValueProps,
-  SuggestionContentProps,
-  SuggestionItemProps,
-  SuggestionGroupProps,
-  SuggestionLabelProps,
-  SuggestionSeparatorProps,
-} from "./suggestion/suggestion";
 export { SuggestionMetadata } from "./suggestion/suggestion.metadata";
 
 export { SwapSlot } from "./swap-slot/swap-slot";

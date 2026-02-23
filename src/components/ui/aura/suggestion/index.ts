@@ -24,15 +24,4 @@ export {
   SuggestionLabel,
   SuggestionSeparator,
 } from "./suggestion";
-export type {
-  SuggestionsProps,
-  SuggestionProps,
-  SuggestionTriggerProps,
-  SuggestionValueProps,
-  SuggestionContentProps,
-  SuggestionItemProps,
-  SuggestionGroupProps,
-  SuggestionLabelProps,
-  SuggestionSeparatorProps,
-} from "./suggestion";
 export { SuggestionMetadata } from "./suggestion.metadata";
