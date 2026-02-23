@@ -1,7 +1,13 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor, within } from "@storybook/test";
-import { IconActivity, IconChartLine, IconGauge, IconHistory } from "@tabler/icons-react";
-import { useState } from "react";
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import {
+  IconActivity,
+  IconChartLine,
+  IconGauge,
+  IconHistory,
+} from '@tabler/icons-react';
+import { useState } from 'react';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
+
 import {
   Suggestion,
   SuggestionContent,
@@ -22,24 +28,26 @@ const waitForSelectContentOpen = async () => {
       const content = getOpenSelectContent();
       expect(content).toBeInTheDocument();
     },
-    { timeout: 1000 }
+    {
+      timeout: 1000,
+    }
   );
 };
-
 const waitForSelectContentClosed = async () => {
   await waitFor(
     () => {
       const content = getOpenSelectContent();
       expect(content).not.toBeInTheDocument();
     },
-    { timeout: 1000 }
+    {
+      timeout: 1000,
+    }
   );
 };
-
 const meta: Meta<typeof Suggestion> = {
-  title: "AI/Suggestion",
+  title: 'AI/Suggestion',
   component: Suggestion,
-  tags: ["autodocs", "ai-elements"],
+  tags: ['autodocs', 'ai-elements'],
   decorators: [
     (Story) => (
       <div className="p-8">
@@ -48,81 +56,75 @@ const meta: Meta<typeof Suggestion> = {
     ),
   ],
   argTypes: {
-    // Button mode props
     suggestion: {
-      control: "text",
-      description: "Suggestion text for button mode",
+      control: 'text',
       table: {
-        category: "Button Mode",
-        type: { summary: "string" },
+        category: 'Button Mode',
+        type: {
+          summary: 'string',
+        },
       },
     },
     onClick: {
-      action: "clicked",
-      description: "Callback when suggestion button is clicked",
+      action: 'clicked',
       table: {
-        category: "Button Mode",
-        type: { summary: "(suggestion: string) => void" },
+        category: 'Button Mode',
+        type: {
+          summary: '(suggestion: string) => void',
+        },
       },
     },
     variant: {
-      control: "select",
-      options: ["ghost", "outline"],
-      description:
-        "Button variant (button mode only). Only ghost and outline are supported as Suggestions are designed to have light backgrounds with dark text.",
+      control: 'select',
+      options: ['ghost', 'outline'],
       table: {
-        category: "Button Mode",
+        category: 'Button Mode',
         type: {
-          summary: "ghost | outline",
+          summary: 'ghost | outline',
         },
-        defaultValue: { summary: "ghost" },
+        defaultValue: {
+          summary: 'ghost',
+        },
       },
     },
     size: {
-      control: "select",
-      options: ["sm", "default", "lg", "icon"],
-      description: "Button size (button mode only)",
+      control: 'select',
+      options: ['sm', 'default', 'lg', 'icon'],
       table: {
-        category: "Button Mode",
-        type: { summary: "sm | default | lg | icon" },
-        defaultValue: { summary: "sm" },
+        category: 'Button Mode',
+        type: {
+          summary: 'sm | default | lg | icon',
+        },
+        defaultValue: {
+          summary: 'sm',
+        },
       },
     },
-
-    // Select mode props
     onValueChange: {
-      action: "value-changed",
-      description: "Callback when suggestion value changes (select mode)",
+      action: 'value-changed',
       table: {
-        category: "Select Mode",
-        type: { summary: "(value: string) => void" },
+        category: 'Select Mode',
+        type: {
+          summary: '(value: string) => void',
+        },
       },
     },
-
-    // Common props
     className: {
-      control: "text",
-      description: "CSS classes for styling",
+      control: 'text',
       table: {
-        category: "Display",
+        category: 'Display',
       },
     },
   },
   parameters: {
-    layout: "centered",
+    layout: 'centered',
     actions: {
-      handles: ["click", "value-changed"],
+      handles: ['click', 'value-changed'],
     },
   },
 };
-
 export default meta;
 type Story = StoryObj<typeof Suggestion>;
-
-/**
- * Basic button-style suggestions
- * Matches the basic example from suggestion.examples.tsx
- */
 export const Basic: Story = {
   parameters: {
     order: 1,
@@ -149,7 +151,6 @@ export const Basic: Story = {
     const handleSuggestion = (value: string) => {
       args.onClick?.(value);
     };
-
     return (
       <div className="flex flex-wrap gap-2 max-w-[80%]">
         <Suggestion suggestion="Suggestion 1" onClick={handleSuggestion} />
@@ -159,10 +160,6 @@ export const Basic: Story = {
     );
   },
 };
-
-/**
- * Suggestions with horizontal scrolling wrapper
- */
 export const WithScrollableWrapper: Story = {
   parameters: {
     order: 2,
@@ -176,7 +173,6 @@ export const WithScrollableWrapper: Story = {
     const handleSuggestion = (value: string) => {
       args.onClick?.(value);
     };
-
     return (
       <Suggestions className="w-full max-w-xl">
         <Suggestion suggestion="Suggestion 1" onClick={handleSuggestion} />
@@ -189,13 +185,6 @@ export const WithScrollableWrapper: Story = {
     );
   },
 };
-
-/**
- * Button variants
- * Only ghost (default) and outline are supported. Other Button variants
- * (default, secondary, destructive) are not supported as Suggestions
- * are designed to have light backgrounds with dark text.
- */
 export const ButtonVariants: Story = {
   parameters: {
     order: 3,
@@ -210,7 +199,6 @@ export const ButtonVariants: Story = {
     const handleSuggestion = (value: string) => {
       args.onClick?.(value);
     };
-
     return (
       <div className="flex flex-wrap gap-2">
         <Suggestion
@@ -218,16 +206,15 @@ export const ButtonVariants: Story = {
           variant="ghost"
           onClick={handleSuggestion}
         />
-        <Suggestion suggestion="Outline variant" variant="outline" onClick={handleSuggestion} />
+        <Suggestion
+          suggestion="Outline variant"
+          variant="outline"
+          onClick={handleSuggestion}
+        />
       </div>
     );
   },
 };
-
-/**
- * Select mode with dropdown
- * Matches the select example from suggestion.examples.tsx
- */
 export const SelectMode: Story = {
   parameters: {
     order: 4,
@@ -257,7 +244,6 @@ export const SelectMode: Story = {
     const handleSuggestion = (value: string) => {
       args.onValueChange?.(value);
     };
-
     return (
       <Suggestion onValueChange={handleSuggestion}>
         <SuggestionTrigger aria-label="Select a suggestion">
@@ -278,10 +264,6 @@ export const SelectMode: Story = {
     );
   },
 };
-
-/**
- * Tests keyboard interactions for select mode
- */
 export const KeyboardInteractions: Story = {
   parameters: {
     order: 5,
@@ -311,26 +293,26 @@ export const KeyboardInteractions: Story = {
     const handleSuggestion = (value: string) => {
       args.onValueChange?.(value);
     };
-
     return (
       <Suggestion onValueChange={handleSuggestion}>
         <SuggestionTrigger aria-label="Select a suggestion">
           <SuggestionValue placeholder="Use keyboard to navigate..." />
         </SuggestionTrigger>
         <SuggestionContent>
-          <SuggestionItem icon={<IconGauge className="size-4" />}>First option</SuggestionItem>
-          <SuggestionItem icon={<IconActivity className="size-4" />}>Second option</SuggestionItem>
-          <SuggestionItem icon={<IconChartLine className="size-4" />}>Third option</SuggestionItem>
+          <SuggestionItem icon={<IconGauge className="size-4" />}>
+            First option
+          </SuggestionItem>
+          <SuggestionItem icon={<IconActivity className="size-4" />}>
+            Second option
+          </SuggestionItem>
+          <SuggestionItem icon={<IconChartLine className="size-4" />}>
+            Third option
+          </SuggestionItem>
         </SuggestionContent>
       </Suggestion>
     );
   },
 };
-
-/**
- * Grouped suggestions with categories
- * Matches the grouped example from suggestion.examples.tsx
- */
 export const Grouped: Story = {
   parameters: {
     order: 6,
@@ -344,7 +326,6 @@ export const Grouped: Story = {
     const handleSuggestion = (value: string) => {
       args.onValueChange?.(value);
     };
-
     return (
       <Suggestion onValueChange={handleSuggestion}>
         <SuggestionTrigger aria-label="Select a suggestion">
@@ -377,10 +358,6 @@ export const Grouped: Story = {
     );
   },
 };
-
-/**
- * Interactive select mode with state management
- */
 export const InteractiveSelect: Story = {
   parameters: {
     order: 7,
@@ -402,26 +379,32 @@ export const InteractiveSelect: Story = {
     await userEvent.click(item);
     await waitFor(
       () => {
-        const selectionText = canvas.getByText(/Last selected: What's the status of pump 3\?/);
+        const selectionText = canvas.getByText(
+          /Last selected: What's the status of pump 3\?/
+        );
         expect(selectionText).toBeInTheDocument();
       },
-      { timeout: 500 }
+      {
+        timeout: 500,
+      }
     );
   },
   render: function SuggestionInteractiveStory(args) {
-    const [selectedValue, setSelectedValue] = useState<string>("");
-
+    const [selectedValue, setSelectedValue] = useState<string>('');
     const handleSuggestion = (value: string) => {
       setSelectedValue(value);
       args.onValueChange?.(value);
     };
-
     return (
       <div className="space-y-4">
         <Suggestion onValueChange={handleSuggestion}>
           <SuggestionTrigger aria-label="Select a query">
             <SuggestionValue
-              placeholder={selectedValue ? `Selected: ${selectedValue}` : "Select a query..."}
+              placeholder={
+                selectedValue
+                  ? `Selected: ${selectedValue}`
+                  : 'Select a query...'
+              }
             />
           </SuggestionTrigger>
           <SuggestionContent>
@@ -437,16 +420,14 @@ export const InteractiveSelect: Story = {
           </SuggestionContent>
         </Suggestion>
         {selectedValue && (
-          <p className="text-sm text-muted-foreground">Last selected: {selectedValue}</p>
+          <p className="text-sm text-muted-foreground">
+            Last selected: {selectedValue}
+          </p>
         )}
       </div>
     );
   },
 };
-
-/**
- * Multiple select suggestions
- */
 export const MultipleSelects: Story = {
   parameters: {
     order: 8,
@@ -460,11 +441,9 @@ export const MultipleSelects: Story = {
     const handleSuggestion1 = (value: string) => {
       args.onValueChange?.(value);
     };
-
     const handleSuggestion2 = (value: string) => {
       args.onValueChange?.(value);
     };
-
     return (
       <div className="flex flex-col gap-4">
         <Suggestion onValueChange={handleSuggestion1}>
@@ -498,10 +477,6 @@ export const MultipleSelects: Story = {
     );
   },
 };
-
-/**
- * Mixed button and select suggestions
- */
 export const MixedModes: Story = {
   parameters: {
     order: 9,
@@ -515,11 +490,9 @@ export const MixedModes: Story = {
     const handleButtonClick = (value: string) => {
       args.onClick?.(value);
     };
-
     const handleSelectChange = (value: string) => {
       args.onValueChange?.(value);
     };
-
     return (
       <div className="flex flex-wrap items-center gap-2">
         <Suggestion suggestion="Quick action 1" onClick={handleButtonClick} />

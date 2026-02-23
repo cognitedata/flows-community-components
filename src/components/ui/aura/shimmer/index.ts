@@ -1,5 +1,4 @@
-import { Shimmer } from "./shimmer";
+import { Shimmer } from './shimmer';
+import { ShimmerMetadata } from './shimmer.metadata';
 
-/** Shimmer exports. */
-export { Shimmer };
-export { ShimmerMetadata } from "./shimmer.metadata";
+export { Shimmer, ShimmerMetadata };

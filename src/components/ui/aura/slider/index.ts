@@ -8,5 +8,5 @@
  *
  * <Slider defaultValue={[50]} max={100} step={1} />
  */
-export { Slider } from "./slider";
-export { SliderMetadata } from "./slider.metadata";
+export { Slider } from './slider';
+export { SliderMetadata } from './slider.metadata';

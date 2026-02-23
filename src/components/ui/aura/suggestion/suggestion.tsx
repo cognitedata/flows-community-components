@@ -25,7 +25,9 @@ type SuggestionsProps = ComponentProps<typeof ScrollArea>;
 
 const Suggestions = ({ className, children, ...props }: SuggestionsProps) => (
   <ScrollArea className="w-full overflow-x-auto whitespace-nowrap" {...props}>
-    <div className={cn("flex w-max flex-nowrap items-center gap-2", className)}>{children}</div>
+    <div className={cn('flex w-max flex-nowrap items-center gap-2', className)}>
+      {children}
+    </div>
     <ScrollBar className="hidden" orientation="horizontal" />
   </ScrollArea>
 );
@@ -39,7 +41,7 @@ const SuggestionContext = createContext<SuggestionContextValue | null>(null);
 const useSuggestion = () => {
   const context = useContext(SuggestionContext);
   if (!context) {
-    throw new Error("Suggestion components must be used within Suggestion");
+    throw new Error('Suggestion components must be used within Suggestion');
   }
   return context;
 };
@@ -84,7 +86,7 @@ const Suggestion = (props: SuggestionProps) => {
     return (
       <Button
         className={cn(
-          "min-h-9 h-auto bg-background text-sm leading-4.5 tracking-normal px-3 py-2.25",
+          'min-h-9 h-auto bg-background text-sm leading-4.5 tracking-normal px-3 py-2.25',
           className
         )}
         onClick={handleClick}
@@ -123,7 +125,12 @@ const Suggestion = (props: SuggestionProps) => {
 
   return (
     <SuggestionContext.Provider value={suggestionContext}>
-      <Select open={open} onOpenChange={setOpen} value="" onValueChange={handleValueChange}>
+      <Select
+        open={open}
+        onOpenChange={setOpen}
+        value=""
+        onValueChange={handleValueChange}
+      >
         <div className={cn(className)} {...divProps}>
           {children}
         </div>
@@ -159,7 +166,7 @@ type SuggestionContentProps = ComponentProps<typeof SelectContentPrimitive>;
 const SuggestionContent = ({
   className,
   children,
-  align = "start",
+  align = 'start',
   ...props
 }: SuggestionContentProps) => {
   return (
@@ -177,7 +184,7 @@ const SuggestionItem = ({ className, children, icon, ...props }: SuggestionItemP
   const { onItemSelect } = useSuggestion();
 
   const textValue = useMemo(() => {
-    if (typeof children === "string") {
+    if (typeof children === 'string') {
       return children;
     }
     return String(children);

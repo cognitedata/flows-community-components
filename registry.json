@@ -24,7 +24,9 @@
       "type": "registry:component",
       "title": "CSS",
       "description": "Installs Aura global styles (import once in your app entrypoint).",
-      "dependencies": ["tw-animate-css"],
+      "dependencies": [
+        "tw-animate-css"
+      ],
       "files": [
         {
           "path": "src/globals.css",
@@ -38,8 +40,13 @@
       "type": "registry:component",
       "title": "Accordion",
       "description": "An accessible accordion with smooth expand/collapse built on Base UI primitives.",
-      "dependencies": ["@base-ui/react/accordion", "@tabler/icons-react"],
-      "registryDependencies": ["@aura/css"],
+      "dependencies": [
+        "@base-ui/react/accordion",
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/accordion/accordion.tsx",
@@ -58,8 +65,14 @@
       "type": "registry:component",
       "title": "Alert",
       "description": "A dismissible alert component with multiple variants for displaying messages.",
-      "dependencies": ["@tabler/icons-react", "class-variance-authority"],
-      "registryDependencies": ["@aura/css", "@aura/button"],
+      "dependencies": [
+        "@tabler/icons-react",
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/button"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/alert/alert.tsx",
@@ -78,8 +91,13 @@
       "type": "registry:component",
       "title": "Button",
       "description": "A versatile button component with multiple variants and sizes, built with Base UI render props and class-variance-authority.",
-      "dependencies": ["@base-ui/react/button", "class-variance-authority"],
-      "registryDependencies": ["@aura/css"],
+      "dependencies": [
+        "@base-ui/react/button",
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/button/button.tsx",
@@ -98,8 +116,13 @@
       "type": "registry:component",
       "title": "AlertDialog",
       "description": "A modal dialog for critical confirmations powered by Base UI Alert Dialog.",
-      "dependencies": ["@base-ui/react/alert-dialog"],
-      "registryDependencies": ["@aura/css", "@aura/button"],
+      "dependencies": [
+        "@base-ui/react/alert-dialog"
+      ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/button"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/alert-dialog/alert-dialog.tsx",
@@ -118,7 +141,10 @@
       "type": "registry:component",
       "title": "ArtifactChart",
       "description": "A compositional card layout for displaying charts. Provides header, content, and footer primitives that can be composed with any Recharts chart type.",
-      "registryDependencies": ["@aura/css", "@aura/card"],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/card"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/artifact-chart/artifact-chart.tsx",
@@ -137,8 +163,14 @@
       "type": "registry:component",
       "title": "Card",
       "description": "A flexible card layout with header, content, action, and footer slots.",
-      "dependencies": ["@tabler/icons-react"],
-      "registryDependencies": ["@aura/css", "@aura/button", "@aura/dropdown-menu"],
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/button",
+        "@aura/dropdown-menu"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/card/card.tsx",
@@ -157,8 +189,13 @@
       "type": "registry:component",
       "title": "DropdownMenu",
       "description": "A dropdown menu with submenus, separators, and selection states, built on Base UI Dropdown Menu primitives.",
-      "dependencies": ["@base-ui/react/menu", "@tabler/icons-react"],
-      "registryDependencies": ["@aura/css"],
+      "dependencies": [
+        "@base-ui/react/menu",
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/dropdown-menu/dropdown-menu.tsx",
@@ -177,8 +214,14 @@
       "type": "registry:component",
       "title": "ArtifactCount",
       "description": "A compositional count artifact widget component for displaying prominent values with optional content and footer context.",
-      "dependencies": ["class-variance-authority"],
-      "registryDependencies": ["@aura/css", "@aura/card", "@aura/separator"],
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/card",
+        "@aura/separator"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/artifact-count/artifact-count.tsx",
@@ -197,8 +240,12 @@
       "type": "registry:component",
       "title": "Separator",
       "description": "A visual separator for dividing content.",
-      "dependencies": ["@base-ui/react/separator"],
-      "registryDependencies": ["@aura/css"],
+      "dependencies": [
+        "@base-ui/react/separator"
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/separator/separator.tsx",
@@ -217,7 +264,11 @@
       "type": "registry:component",
       "title": "ArtifactList",
       "description": "A compositional list artifact widget component that displays timeline-style items with optional headers. Uses List primitives directly for item content.",
-      "registryDependencies": ["@aura/css", "@aura/card", "@aura/list"],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/card",
+        "@aura/list"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/artifact-list/artifact-list.tsx",
@@ -236,8 +287,12 @@
       "type": "registry:component",
       "title": "List",
       "description": "Composable list primitives for unordered, ordered, and description lists with status-ready list items.",
-      "dependencies": ["class-variance-authority"],
-      "registryDependencies": ["@aura/css"],
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/list/list.tsx",
@@ -256,7 +311,11 @@
       "type": "registry:component",
       "title": "ArtifactProgress",
       "description": "A compositional progress artifact widget component that displays task completion progress with header and footer context.",
-      "registryDependencies": ["@aura/css", "@aura/card", "@aura/progress"],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/card",
+        "@aura/progress"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/artifact-progress/artifact-progress.tsx",
@@ -275,8 +334,12 @@
       "type": "registry:component",
       "title": "Progress",
       "description": "A progress bar component for showing completion status.",
-      "dependencies": ["@base-ui/react/progress"],
-      "registryDependencies": ["@aura/css"],
+      "dependencies": [
+        "@base-ui/react/progress"
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/progress/progress.tsx",
@@ -295,8 +358,13 @@
       "type": "registry:component",
       "title": "Avatar",
       "description": "An image element with a fallback for representing users. Supports multiple color variants, sizes, and composable sub-components.",
-      "dependencies": ["@base-ui/react/avatar", "class-variance-authority"],
-      "registryDependencies": ["@aura/css"],
+      "dependencies": [
+        "@base-ui/react/avatar",
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/avatar/avatar.tsx",
@@ -320,7 +388,9 @@
         "@base-ui/react/use-render",
         "class-variance-authority"
       ],
-      "registryDependencies": ["@aura/css"],
+      "registryDependencies": [
+        "@aura/css"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/badge/badge.tsx",
@@ -339,8 +409,15 @@
       "type": "registry:component",
       "title": "Banner",
       "description": "A banner component for displaying important messages with icon, title, status, and actions.",
-      "dependencies": ["@tabler/icons-react", "class-variance-authority"],
-      "registryDependencies": ["@aura/css", "@aura/badge", "@aura/button"],
+      "dependencies": [
+        "@tabler/icons-react",
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/badge",
+        "@aura/button"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/banner/banner.tsx",
@@ -364,7 +441,10 @@
         "@base-ui/react/use-render",
         "@tabler/icons-react"
       ],
-      "registryDependencies": ["@aura/css", "@aura/button"],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/button"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/breadcrumb/breadcrumb.tsx",
@@ -388,7 +468,10 @@
         "@base-ui/react/use-render",
         "class-variance-authority"
       ],
-      "registryDependencies": ["@aura/css", "@aura/separator"],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/separator"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/button-group/button-group.tsx",
@@ -407,8 +490,14 @@
       "type": "registry:component",
       "title": "Calendar",
       "description": "A themable DayPicker calendar with custom navigation controls.",
-      "dependencies": ["@tabler/icons-react", "react-day-picker"],
-      "registryDependencies": ["@aura/css", "@aura/button"],
+      "dependencies": [
+        "@tabler/icons-react",
+        "react-day-picker"
+      ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/button"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/calendar/calendar.tsx",
@@ -427,8 +516,14 @@
       "type": "registry:component",
       "title": "Carousel",
       "description": "A carousel component built with Embla Carousel.",
-      "dependencies": ["@tabler/icons-react", "embla-carousel-react"],
-      "registryDependencies": ["@aura/css", "@aura/button"],
+      "dependencies": [
+        "@tabler/icons-react",
+        "embla-carousel-react"
+      ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/button"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/carousel/carousel.tsx",
@@ -447,8 +542,14 @@
       "type": "registry:component",
       "title": "ChainOfThought",
       "description": "A component for displaying AI reasoning chains and search results.",
-      "dependencies": ["@tabler/icons-react"],
-      "registryDependencies": ["@aura/css", "@aura/badge", "@aura/collapsible"],
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/badge",
+        "@aura/collapsible"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/chain-of-thought/chain-of-thought.tsx",
@@ -467,8 +568,12 @@
       "type": "registry:component",
       "title": "Collapsible",
       "description": "An interactive component that expands/collapses content, built on Base UI Collapsible primitives.",
-      "dependencies": ["@base-ui/react/collapsible"],
-      "registryDependencies": ["@aura/css"],
+      "dependencies": [
+        "@base-ui/react/collapsible"
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/collapsible/collapsible.tsx",
@@ -487,8 +592,12 @@
       "type": "registry:component",
       "title": "Chart",
       "description": "Chart components built with Recharts for data visualization.",
-      "dependencies": ["recharts"],
-      "registryDependencies": ["@aura/css"],
+      "dependencies": [
+        "recharts"
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/chart/chart.tsx",
@@ -507,8 +616,13 @@
       "type": "registry:component",
       "title": "Checkbox",
       "description": "A checkbox component styled with Base UI Checkbox and Tabler icons.",
-      "dependencies": ["@base-ui/react/checkbox", "@tabler/icons-react"],
-      "registryDependencies": ["@aura/css"],
+      "dependencies": [
+        "@base-ui/react/checkbox",
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/checkbox/checkbox.tsx",
@@ -527,8 +641,14 @@
       "type": "registry:component",
       "title": "CodeBlock",
       "description": "A syntax-highlighted code block with copy and collapse functionality.",
-      "dependencies": ["@tabler/icons-react", "shiki"],
-      "registryDependencies": ["@aura/css", "@aura/button"],
+      "dependencies": [
+        "@tabler/icons-react",
+        "shiki"
+      ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/button"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/code-block/code-block.tsx",
@@ -547,7 +667,9 @@
       "type": "registry:component",
       "title": "Colors",
       "description": "Color palette definitions, semantic tokens, and usage patterns for the Aura design system. Includes structured data for LLM consumption with CSS variables and Tailwind classes.",
-      "registryDependencies": ["@aura/css"],
+      "registryDependencies": [
+        "@aura/css"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/colors/colors.tsx",
@@ -566,8 +688,15 @@
       "type": "registry:component",
       "title": "Combobox",
       "description": "A searchable dropdown component combining input with a command menu, built with Base UI Popover and cmdk.",
-      "dependencies": ["@tabler/icons-react"],
-      "registryDependencies": ["@aura/css", "@aura/button", "@aura/command", "@aura/popover"],
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/button",
+        "@aura/command",
+        "@aura/popover"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/combobox/combobox.tsx",
@@ -586,8 +715,14 @@
       "type": "registry:component",
       "title": "Command",
       "description": "A command menu component for searchable command palettes, built with cmdk.",
-      "dependencies": ["@tabler/icons-react", "cmdk"],
-      "registryDependencies": ["@aura/css", "@aura/dialog"],
+      "dependencies": [
+        "@tabler/icons-react",
+        "cmdk"
+      ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/dialog"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/command/command.tsx",
@@ -606,8 +741,13 @@
       "type": "registry:component",
       "title": "Dialog",
       "description": "A modal dialog with overlay, content, and close affordances built on Base UI Dialog.",
-      "dependencies": ["@base-ui/react/dialog", "@tabler/icons-react"],
-      "registryDependencies": ["@aura/css"],
+      "dependencies": [
+        "@base-ui/react/dialog",
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/dialog/dialog.tsx",
@@ -626,8 +766,12 @@
       "type": "registry:component",
       "title": "Popover",
       "description": "A floating panel that displays content relative to a trigger, built on Base UI Popover primitives.",
-      "dependencies": ["@base-ui/react/popover"],
-      "registryDependencies": ["@aura/css"],
+      "dependencies": [
+        "@base-ui/react/popover"
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/popover/popover.tsx",
@@ -646,7 +790,9 @@
       "type": "registry:component",
       "title": "Confirmation",
       "description": "A confirmation dialog component for AI approval workflows, with support for request, accepted, and rejected states.",
-      "dependencies": ["@tabler/icons-react"],
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
       "registryDependencies": [
         "@aura/css",
         "@aura/alert",
@@ -672,8 +818,13 @@
       "type": "registry:component",
       "title": "HelperText",
       "description": "A helper text component for form fields with validation states.",
-      "dependencies": ["@tabler/icons-react", "class-variance-authority"],
-      "registryDependencies": ["@aura/css"],
+      "dependencies": [
+        "@tabler/icons-react",
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/helper-text/helper-text.tsx",
@@ -692,8 +843,13 @@
       "type": "registry:component",
       "title": "ContextMenu",
       "description": "A right-click context menu built on Base UI Context Menu primitives.",
-      "dependencies": ["@base-ui/react/context-menu", "@tabler/icons-react"],
-      "registryDependencies": ["@aura/css"],
+      "dependencies": [
+        "@base-ui/react/context-menu",
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/context-menu/context-menu.tsx",
@@ -712,8 +868,14 @@
       "type": "registry:component",
       "title": "Conversation",
       "description": "A scrollable container for AI chat conversations with auto-scroll.",
-      "dependencies": ["@tabler/icons-react", "use-stick-to-bottom"],
-      "registryDependencies": ["@aura/css", "@aura/button"],
+      "dependencies": [
+        "@tabler/icons-react",
+        "use-stick-to-bottom"
+      ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/button"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/conversation/conversation.tsx",
@@ -732,8 +894,16 @@
       "type": "registry:component",
       "title": "DatePicker",
       "description": "A date picker component combining calendar with popover trigger.",
-      "dependencies": ["@tabler/icons-react", "date-fns"],
-      "registryDependencies": ["@aura/css", "@aura/button", "@aura/calendar", "@aura/popover"],
+      "dependencies": [
+        "@tabler/icons-react",
+        "date-fns"
+      ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/button",
+        "@aura/calendar",
+        "@aura/popover"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/date-picker/date-picker.tsx",
@@ -752,8 +922,12 @@
       "type": "registry:component",
       "title": "Drawer",
       "description": "A sliding drawer component built with Vaul for mobile-friendly modals.",
-      "dependencies": ["vaul"],
-      "registryDependencies": ["@aura/css"],
+      "dependencies": [
+        "vaul"
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/drawer/drawer.tsx",
@@ -772,7 +946,9 @@
       "type": "registry:component",
       "title": "Effects",
       "description": "Effect definitions for the Aura design system including shadows, focus rings, border radii, and animation patterns.",
-      "registryDependencies": ["@aura/css"],
+      "registryDependencies": [
+        "@aura/css"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/effects/effects.tsx",
@@ -791,8 +967,12 @@
       "type": "registry:component",
       "title": "HoverCard",
       "description": "A card that appears on hover built on Base UI Hover Card.",
-      "dependencies": ["@base-ui/react/preview-card"],
-      "registryDependencies": ["@aura/css"],
+      "dependencies": [
+        "@base-ui/react/preview-card"
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/hover-card/hover-card.tsx",
@@ -811,7 +991,9 @@
       "type": "registry:component",
       "title": "icon-conversation-empty-state",
       "description": "",
-      "registryDependencies": ["@aura/css"],
+      "registryDependencies": [
+        "@aura/css"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/icon-conversation-empty-state/icon-conversation-empty-state.tsx",
@@ -830,8 +1012,15 @@
       "type": "registry:component",
       "title": "InlineCitation",
       "description": "Components for displaying inline citations and source references.",
-      "dependencies": ["@tabler/icons-react"],
-      "registryDependencies": ["@aura/css", "@aura/badge", "@aura/carousel", "@aura/hover-card"],
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/badge",
+        "@aura/carousel",
+        "@aura/hover-card"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/inline-citation/inline-citation.tsx",
@@ -850,8 +1039,14 @@
       "type": "registry:component",
       "title": "Input",
       "description": "A styled text input component with focus and validation states.",
-      "dependencies": ["@tabler/icons-react"],
-      "registryDependencies": ["@aura/css", "@aura/helper-text", "@aura/input-group"],
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/helper-text",
+        "@aura/input-group"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/input/input.tsx",
@@ -870,8 +1065,15 @@
       "type": "registry:component",
       "title": "InputGroup",
       "description": "A component for grouping inputs with addons and buttons.",
-      "dependencies": ["class-variance-authority"],
-      "registryDependencies": ["@aura/css", "@aura/button", "@aura/input", "@aura/textarea"],
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/button",
+        "@aura/input",
+        "@aura/textarea"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/input-group/input-group.tsx",
@@ -890,7 +1092,10 @@
       "type": "registry:component",
       "title": "Textarea",
       "description": "A multi-line text input component.",
-      "registryDependencies": ["@aura/css", "@aura/helper-text"],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/helper-text"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/textarea/textarea.tsx",
@@ -909,7 +1114,9 @@
       "type": "registry:component",
       "title": "Kbd",
       "description": "A keyboard key component for displaying keyboard shortcuts.",
-      "registryDependencies": ["@aura/css"],
+      "registryDependencies": [
+        "@aura/css"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/kbd/kbd.tsx",
@@ -928,7 +1135,9 @@
       "type": "registry:component",
       "title": "Label",
       "description": "An accessible text label for form controls, built on top of Base UI Label. Supports association via `htmlFor` and integrates with disabled states.",
-      "registryDependencies": ["@aura/css"],
+      "registryDependencies": [
+        "@aura/css"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/label/label.tsx",
@@ -947,7 +1156,9 @@
       "type": "registry:component",
       "title": "Layout",
       "description": "Layout and grid definitions for the Aura design system including breakpoints, grid configurations, and container query patterns.",
-      "registryDependencies": ["@aura/css"],
+      "registryDependencies": [
+        "@aura/css"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/layout/layout.tsx",
@@ -966,7 +1177,9 @@
       "type": "registry:component",
       "title": "Loader",
       "description": "An animated loading indicator component.",
-      "registryDependencies": ["@aura/css"],
+      "registryDependencies": [
+        "@aura/css"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/loader/loader.tsx",
@@ -985,8 +1198,15 @@
       "type": "registry:component",
       "title": "Menubar",
       "description": "A horizontal menu bar component built on Base UI Menubar primitives.",
-      "dependencies": ["@base-ui/react/menu", "@base-ui/react/menubar", "@tabler/icons-react"],
-      "registryDependencies": ["@aura/css", "@aura/dropdown-menu"],
+      "dependencies": [
+        "@base-ui/react/menu",
+        "@base-ui/react/menubar",
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/dropdown-menu"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/menubar/menubar.tsx",
@@ -1005,7 +1225,11 @@
       "type": "registry:component",
       "title": "Message",
       "description": "Components for displaying AI chat messages with avatars and actions.",
-      "dependencies": ["@tabler/icons-react", "shiki", "streamdown"],
+      "dependencies": [
+        "@tabler/icons-react",
+        "shiki",
+        "streamdown"
+      ],
       "registryDependencies": [
         "@aura/css",
         "@aura/avatar",
@@ -1032,8 +1256,12 @@
       "type": "registry:component",
       "title": "Tooltip",
       "description": "A popup that displays information related to an element when the element receives keyboard focus or mouse hover, built on Base UI Tooltip primitives.",
-      "dependencies": ["@base-ui/react/tooltip"],
-      "registryDependencies": ["@aura/css"],
+      "dependencies": [
+        "@base-ui/react/tooltip"
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/tooltip/tooltip.tsx",
@@ -1052,8 +1280,16 @@
       "type": "registry:component",
       "title": "Pagination",
       "description": "A pagination component for navigating multi-page content.",
-      "dependencies": ["@tabler/icons-react", "class-variance-authority"],
-      "registryDependencies": ["@aura/css", "@aura/button", "@aura/input", "@aura/select"],
+      "dependencies": [
+        "@tabler/icons-react",
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/button",
+        "@aura/input",
+        "@aura/select"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/pagination/pagination.tsx",
@@ -1072,8 +1308,13 @@
       "type": "registry:component",
       "title": "Select",
       "description": "A select dropdown component built on Base UI Select primitives.",
-      "dependencies": ["@base-ui/react/select", "@tabler/icons-react"],
-      "registryDependencies": ["@aura/css"],
+      "dependencies": [
+        "@base-ui/react/select",
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/select/select.tsx",
@@ -1092,7 +1333,10 @@
       "type": "registry:component",
       "title": "PromptInput",
       "description": "A comprehensive AI chat input component with support for attachments, model selection, speech input, command palettes, and rich formatting.",
-      "dependencies": ["@tabler/icons-react", "nanoid"],
+      "dependencies": [
+        "@tabler/icons-react",
+        "nanoid"
+      ],
       "registryDependencies": [
         "@aura/css",
         "@aura/button",
@@ -1121,8 +1365,14 @@
       "type": "registry:component",
       "title": "RadioGroup",
       "description": "A radio button group component built on Base UI Radio Group.",
-      "dependencies": ["@base-ui/react/radio", "@base-ui/react/radio-group", "@tabler/icons-react"],
-      "registryDependencies": ["@aura/css"],
+      "dependencies": [
+        "@base-ui/react/radio",
+        "@base-ui/react/radio-group",
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/radio-group/radio-group.tsx",
@@ -1141,8 +1391,12 @@
       "type": "registry:component",
       "title": "Reasoning",
       "description": "Components for displaying AI reasoning and thought processes.",
-      "dependencies": ["@tabler/icons-react"],
-      "registryDependencies": ["@aura/css"],
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/reasoning/reasoning.tsx",
@@ -1161,8 +1415,12 @@
       "type": "registry:component",
       "title": "ScrollArea",
       "description": "A custom scrollable area built on Base UI Scroll Area.",
-      "dependencies": ["@base-ui/react/scroll-area"],
-      "registryDependencies": ["@aura/css"],
+      "dependencies": [
+        "@base-ui/react/scroll-area"
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/scroll-area/scroll-area.tsx",
@@ -1181,8 +1439,13 @@
       "type": "registry:component",
       "title": "Sheet",
       "description": "A slide-out panel component built on Base UI Dialog.",
-      "dependencies": ["@base-ui/react/dialog", "@tabler/icons-react"],
-      "registryDependencies": ["@aura/css"],
+      "dependencies": [
+        "@base-ui/react/dialog",
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/sheet/sheet.tsx",
@@ -1201,8 +1464,12 @@
       "type": "registry:component",
       "title": "Shimmer",
       "description": "An animated text shimmer component for creating eye-catching loading states and progressive reveal effects.",
-      "dependencies": ["framer-motion"],
-      "registryDependencies": ["@aura/css"],
+      "dependencies": [
+        "framer-motion"
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/shimmer/shimmer.tsx",
@@ -1221,7 +1488,10 @@
       "type": "registry:component",
       "title": "Sidebar",
       "description": "A collapsible sidebar navigation component with support for mobile sheets, keyboard shortcuts, and nested menu structures.",
-      "dependencies": ["@tabler/icons-react", "class-variance-authority"],
+      "dependencies": [
+        "@tabler/icons-react",
+        "class-variance-authority"
+      ],
       "registryDependencies": [
         "@aura/css",
         "@aura/button",
@@ -1249,7 +1519,9 @@
       "type": "registry:component",
       "title": "Skeleton",
       "description": "A placeholder loading component.",
-      "registryDependencies": ["@aura/css"],
+      "registryDependencies": [
+        "@aura/css"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/skeleton/skeleton.tsx",
@@ -1268,8 +1540,12 @@
       "type": "registry:component",
       "title": "Slider",
       "description": "A range slider component built on Base UI Slider.",
-      "dependencies": ["@base-ui/react/slider"],
-      "registryDependencies": ["@aura/css"],
+      "dependencies": [
+        "@base-ui/react/slider"
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/slider/slider.tsx",
@@ -1288,8 +1564,13 @@
       "type": "registry:component",
       "title": "SonnerToast",
       "description": "A toast notification component using the Sonner library.",
-      "dependencies": ["@tabler/icons-react", "sonner"],
-      "registryDependencies": ["@aura/css"],
+      "dependencies": [
+        "@tabler/icons-react",
+        "sonner"
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/sonner-toast/sonner-toast.tsx",
@@ -1308,8 +1589,13 @@
       "type": "registry:component",
       "title": "Sources",
       "description": "Components for displaying source references and citations.",
-      "dependencies": ["@tabler/icons-react"],
-      "registryDependencies": ["@aura/css", "@aura/inline-citation"],
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/inline-citation"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/sources/sources.tsx",
@@ -1328,7 +1614,12 @@
       "type": "registry:component",
       "title": "Suggestion",
       "description": "A dual-mode suggestion component for AI chat interfaces. Use simple button mode for quick queries, or dropdown mode for organised query options.",
-      "registryDependencies": ["@aura/css", "@aura/button", "@aura/scroll-area", "@aura/select"],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/button",
+        "@aura/scroll-area",
+        "@aura/select"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/suggestion/suggestion.tsx",
@@ -1347,7 +1638,9 @@
       "type": "registry:component",
       "title": "SwapSlot",
       "description": "A container component that swaps between default and active slots, useful for showing different content based on state.",
-      "registryDependencies": ["@aura/css"],
+      "registryDependencies": [
+        "@aura/css"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/swap-slot/swap-slot.tsx",
@@ -1366,8 +1659,12 @@
       "type": "registry:component",
       "title": "Switch",
       "description": "A toggle switch component built on Base UI Switch.",
-      "dependencies": ["@base-ui/react/switch"],
-      "registryDependencies": ["@aura/css"],
+      "dependencies": [
+        "@base-ui/react/switch"
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/switch/switch.tsx",
@@ -1386,7 +1683,9 @@
       "type": "registry:component",
       "title": "Table",
       "description": "A table component for displaying tabular data.",
-      "registryDependencies": ["@aura/css"],
+      "registryDependencies": [
+        "@aura/css"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/table/table.tsx",
@@ -1405,8 +1704,12 @@
       "type": "registry:component",
       "title": "Tabs",
       "description": "A tabs component built on Base UI Tabs for organizing content.",
-      "dependencies": ["@base-ui/react/tabs"],
-      "registryDependencies": ["@aura/css"],
+      "dependencies": [
+        "@base-ui/react/tabs"
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/tabs/tabs.tsx",
@@ -1425,7 +1728,9 @@
       "type": "registry:component",
       "title": "TimeInput",
       "description": "A time input component for selecting time values.",
-      "registryDependencies": ["@aura/css"],
+      "registryDependencies": [
+        "@aura/css"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/time-input/time-input.tsx",
@@ -1444,8 +1749,13 @@
       "type": "registry:component",
       "title": "Toggle",
       "description": "A toggle button component with multiple variants.",
-      "dependencies": ["@base-ui/react/toggle", "class-variance-authority"],
-      "registryDependencies": ["@aura/css"],
+      "dependencies": [
+        "@base-ui/react/toggle",
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/toggle/toggle.tsx",
@@ -1464,7 +1774,9 @@
       "type": "registry:component",
       "title": "Tool",
       "description": "A collapsible component for displaying AI tool invocations.",
-      "dependencies": ["@tabler/icons-react"],
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
       "registryDependencies": [
         "@aura/css",
         "@aura/badge",
@@ -1490,8 +1802,12 @@
       "type": "registry:component",
       "title": "Toolbar",
       "description": "A toolbar component for grouping action buttons.",
-      "dependencies": ["@xyflow/react"],
-      "registryDependencies": ["@aura/css"],
+      "dependencies": [
+        "@xyflow/react"
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/toolbar/toolbar.tsx",
@@ -1510,7 +1826,12 @@
       "type": "registry:component",
       "title": "Topbar",
       "description": "A top navigation bar component for application headers.",
-      "registryDependencies": ["@aura/css", "@aura/breadcrumb", "@aura/button", "@aura/sidebar"],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/breadcrumb",
+        "@aura/button",
+        "@aura/sidebar"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/topbar/topbar.tsx",
@@ -1525,11 +1846,39 @@
       ]
     },
     {
+      "name": "treeview",
+      "type": "registry:component",
+      "title": "TreeView",
+      "description": "A hierarchical tree view component for displaying nested data structures with collapsible nodes and status indicators that bubble up from children to parents.",
+      "dependencies": [
+        "@base-ui/react/collapsible",
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/badge"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/treeview/treeview.tsx",
+          "target": "src/components/ui/aura/treeview.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "typography",
       "type": "registry:component",
       "title": "Typography",
       "description": "Text styles and scales",
-      "registryDependencies": ["@aura/css"],
+      "registryDependencies": [
+        "@aura/css"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/typography/typography.tsx",

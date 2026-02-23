@@ -13,5 +13,5 @@ export {
   ArtifactChartDescription,
   ArtifactChartContent,
   ArtifactChartFooter,
-} from "./artifact-chart";
-export { ArtifactChartMetadata } from "./artifact-chart.metadata";
+} from './artifact-chart';
+export { ArtifactChartMetadata } from './artifact-chart.metadata';

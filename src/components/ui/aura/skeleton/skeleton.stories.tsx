@@ -1,55 +1,41 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect } from "@storybook/test";
-import { Skeleton } from "./skeleton";
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect } from 'storybook/test';
 
+import { Skeleton } from './skeleton';
 const meta: Meta<typeof Skeleton> = {
-  title: "Primitives/Skeleton",
+  title: 'Primitives/Skeleton',
   component: Skeleton,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     className: {
-      control: "text",
-      description: "Additional classes for sizing and shape.",
+      control: 'text',
       table: {
-        category: "Variants/Styling",
+        category: 'Variants/Styling',
       },
     },
   },
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
 };
-
 export default meta;
 type Story = StoryObj<typeof Skeleton>;
-
 export const Basic: Story = {
   parameters: {
     order: 1,
-    docs: {
-      description: {
-        story: "Basic skeleton placeholder for loading states.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const skeletons = canvasElement.querySelectorAll('[data-slot="skeleton"]');
     const skeleton = skeletons[0];
     await expect(skeletons.length).toBe(1);
     await expect(skeleton).toBeInTheDocument();
-    await expect(skeleton).toHaveClass("animate-pulse");
+    await expect(skeleton).toHaveClass('animate-pulse');
   },
   render: () => <Skeleton className="w-100 h-8" />,
 };
-
 export const Shapes: Story = {
   parameters: {
     order: 2,
-    docs: {
-      description: {
-        story: "Skeleton shapes for different content types.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const skeletons = canvasElement.querySelectorAll('[data-slot="skeleton"]');
@@ -63,15 +49,9 @@ export const Shapes: Story = {
     </div>
   ),
 };
-
 export const TextBlock: Story = {
   parameters: {
     order: 3,
-    docs: {
-      description: {
-        story: "Skeleton layout mimicking text content structure.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const skeletons = canvasElement.querySelectorAll('[data-slot="skeleton"]');
@@ -86,15 +66,9 @@ export const TextBlock: Story = {
     </div>
   ),
 };
-
 export const Card: Story = {
   parameters: {
     order: 4,
-    docs: {
-      description: {
-        story: "Skeleton layout for card components.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const skeletons = canvasElement.querySelectorAll('[data-slot="skeleton"]');
@@ -113,15 +87,9 @@ export const Card: Story = {
     </div>
   ),
 };
-
 export const Table: Story = {
   parameters: {
     order: 5,
-    docs: {
-      description: {
-        story: "Skeleton layout for table rows.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const rows = canvasElement.querySelectorAll('[data-slot="skeleton"]');
@@ -136,15 +104,9 @@ export const Table: Story = {
     </div>
   ),
 };
-
 export const ListItems: Story = {
   parameters: {
     order: 6,
-    docs: {
-      description: {
-        story: "Skeleton layout for list items with icons.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const items = canvasElement.querySelectorAll('[data-slot="skeleton"]');
@@ -167,19 +129,13 @@ export const ListItems: Story = {
     </div>
   ),
 };
-
 export const Playground: Story = {
   args: {
-    className: "w-100 h-8",
+    className: 'w-100 h-8',
   },
   render: (args) => <Skeleton {...args} />,
   parameters: {
     order: 99,
-    docs: {
-      description: {
-        story: "Interactive playground to experiment with skeleton styling.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const skeletons = canvasElement.querySelectorAll('[data-slot="skeleton"]');

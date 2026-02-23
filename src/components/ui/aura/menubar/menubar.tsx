@@ -1,7 +1,14 @@
-import { Menu as MenuPrimitive } from "@base-ui/react/menu";
-import { Menubar as MenubarPrimitive } from "@base-ui/react/menubar";
-import { IconCheck, IconChevronRight, IconCircle } from "@tabler/icons-react";
-import { type ComponentProps, createContext, forwardRef, useContext } from "react";
+import { Menu as MenuPrimitive } from '@base-ui/react/menu';
+import { Menubar as MenubarPrimitive } from '@base-ui/react/menubar';
+import { IconCheck, IconChevronRight, IconCircle } from '@tabler/icons-react';
+import {
+  type ComponentProps,
+  createContext,
+  forwardRef,
+  useContext,
+} from 'react';
+
+import { cn } from '../../../../lib/utils';
 
 import {
   DropdownMenu,
@@ -17,16 +24,15 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from "@/components/ui/aura/dropdown-menu";
-import { cn } from "../../../../lib/utils";
+} from '@/components/ui/aura/dropdown-menu';
 
-type MenubarSize = "default" | "sm";
+type MenubarSize = 'default' | 'sm';
 
-const MenubarContext = createContext<MenubarSize>("sm");
+const MenubarContext = createContext<MenubarSize>('sm');
 
 function Menubar({
   className,
-  size = "sm",
+  size = 'sm',
   ...props
 }: MenubarPrimitive.Props & {
   size?: MenubarSize;
@@ -35,7 +41,7 @@ function Menubar({
     <MenubarContext.Provider value={size}>
       <MenubarPrimitive
         data-slot="menubar"
-        className={cn("flex h-7 items-center gap-1", className)}
+        className={cn('flex h-7 items-center gap-1', className)}
         {...props}
       />
     </MenubarContext.Provider>
@@ -50,11 +56,15 @@ function MenubarGroup({ ...props }: ComponentProps<typeof DropdownMenuGroup>) {
   return <DropdownMenuGroup data-slot="menubar-group" {...props} />;
 }
 
-function MenubarPortal({ ...props }: ComponentProps<typeof DropdownMenuPortal>) {
+function MenubarPortal({
+  ...props
+}: ComponentProps<typeof DropdownMenuPortal>) {
   return <DropdownMenuPortal data-slot="menubar-portal" {...props} />;
 }
 
-function MenubarRadioGroup({ ...props }: ComponentProps<typeof DropdownMenuRadioGroup>) {
+function MenubarRadioGroup({
+  ...props
+}: ComponentProps<typeof DropdownMenuRadioGroup>) {
   return <DropdownMenuRadioGroup data-slot="menubar-radio-group" {...props} />;
 }
 
@@ -72,8 +82,8 @@ function MenubarTrigger({
     <DropdownMenuTrigger
       data-slot="menubar-trigger"
       className={cn(
-        "focus:bg-accent focus:text-accent-foreground focus:rounded-sm data-popup-open:bg-accent data-popup-open:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:text-disabled-foreground hover:bg-accent hover:text-accent-foreground flex items-center rounded-sm text-sm font-medium outline-hidden select-none leading-5 tracking-normal",
-        appliedSize === "default" ? "p-2" : "px-2 py-1",
+        'focus:bg-accent focus:text-accent-foreground focus:rounded-sm data-popup-open:bg-accent data-popup-open:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:text-disabled-foreground hover:bg-accent hover:text-accent-foreground flex items-center rounded-sm text-sm font-medium outline-hidden select-none leading-5 tracking-normal',
+        appliedSize === 'default' ? 'p-2' : 'px-2 py-1',
         className
       )}
       {...props}
@@ -83,7 +93,7 @@ function MenubarTrigger({
 
 function MenubarContent({
   className,
-  align = "start",
+  align = 'start',
   alignOffset = -4,
   sideOffset = 8,
   ...props
@@ -94,7 +104,7 @@ function MenubarContent({
       align={align}
       alignOffset={alignOffset}
       sideOffset={sideOffset}
-      className={cn("w-63 min-w-32", className)}
+      className={cn('w-63 min-w-32', className)}
       {...props}
     />
   );
@@ -103,18 +113,18 @@ function MenubarContent({
 function MenubarItem({
   className,
   inset,
-  variant = "default",
+  variant = 'default',
   ...props
 }: ComponentProps<typeof DropdownMenuItem> & {
   inset?: boolean;
-  variant?: "default" | "destructive";
+  variant?: 'default' | 'destructive';
 }) {
   return (
     <DropdownMenuItem
       data-slot="menubar-item"
       data-inset={inset}
       data-variant={variant}
-      className={cn("group/menubar-item", className)}
+      className={cn('group/menubar-item', className)}
       {...props}
     />
   );
@@ -144,7 +154,7 @@ const MenubarCheckboxItem = forwardRef<
     </MenuPrimitive.CheckboxItem>
   );
 });
-MenubarCheckboxItem.displayName = "MenubarCheckboxItem";
+MenubarCheckboxItem.displayName = 'MenubarCheckboxItem';
 
 const MenubarRadioItem = forwardRef<
   React.ElementRef<typeof MenuPrimitive.RadioItem>,
@@ -169,35 +179,48 @@ const MenubarRadioItem = forwardRef<
     </MenuPrimitive.RadioItem>
   );
 });
-MenubarRadioItem.displayName = "MenubarRadioItem";
+MenubarRadioItem.displayName = 'MenubarRadioItem';
 
-function MenubarLabel({ className, inset, ...props }: ComponentProps<typeof DropdownMenuLabel>) {
+function MenubarLabel({
+  className,
+  inset,
+  ...props
+}: ComponentProps<typeof DropdownMenuLabel>) {
   return (
     <DropdownMenuLabel
       data-slot="menubar-label"
       data-inset={inset}
-      className={cn("px-2 py-1.5 text-sm font-medium data-[inset]:pl-8", className)}
+      className={cn(
+        'px-2 py-1.5 text-sm font-medium data-[inset]:pl-8',
+        className
+      )}
       {...props}
     />
   );
 }
 
-function MenubarSeparator({ className, ...props }: ComponentProps<typeof DropdownMenuSeparator>) {
+function MenubarSeparator({
+  className,
+  ...props
+}: ComponentProps<typeof DropdownMenuSeparator>) {
   return (
     <DropdownMenuSeparator
       data-slot="menubar-separator"
-      className={cn("bg-border -mx-1 my-1 h-px", className)}
+      className={cn('bg-border -mx-1 my-1 h-px', className)}
       {...props}
     />
   );
 }
 
-function MenubarShortcut({ className, ...props }: ComponentProps<typeof DropdownMenuShortcut>) {
+function MenubarShortcut({
+  className,
+  ...props
+}: ComponentProps<typeof DropdownMenuShortcut>) {
   return (
     <DropdownMenuShortcut
       data-slot="menubar-shortcut"
       className={cn(
-        "text-muted-foreground group-focus/menubar-item:text-accent-foreground ml-auto text-xs tracking-widest",
+        'text-muted-foreground group-focus/menubar-item:text-accent-foreground ml-auto text-xs tracking-widest',
         className
       )}
       {...props}
@@ -230,9 +253,16 @@ function MenubarSubTrigger({
   );
 }
 
-function MenubarSubContent({ className, ...props }: ComponentProps<typeof DropdownMenuSubContent>) {
+function MenubarSubContent({
+  className,
+  ...props
+}: ComponentProps<typeof DropdownMenuSubContent>) {
   return (
-    <DropdownMenuSubContent data-slot="menubar-sub-content" className={cn(className)} {...props} />
+    <DropdownMenuSubContent
+      data-slot="menubar-sub-content"
+      className={cn(className)}
+      {...props}
+    />
   );
 }
 

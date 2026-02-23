@@ -8,12 +8,13 @@ import {
   CommandList,
   CommandSeparator,
   CommandShortcut,
-} from "./command";
+} from './command';
+import { CommandMetadata } from './command.metadata';
 
-/** Command exports. */
 export {
   Command,
   CommandDialog,
+  CommandMetadata,
   CommandEmpty,
   CommandGroup,
   CommandInput,
@@ -22,4 +23,3 @@ export {
   CommandSeparator,
   CommandShortcut,
 };
-export { CommandMetadata } from "./command.metadata";
