@@ -1,11 +1,4 @@
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/aura/dropdown-menu";
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor, within } from "@storybook/test";
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import {
   IconChevronRight,
   IconCircleArrowDown,
@@ -13,8 +6,10 @@ import {
   IconPencil,
   IconTag,
   IconTrash,
-} from "@tabler/icons-react";
-import { useState } from "react";
+} from '@tabler/icons-react';
+import { useState } from 'react';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
+
 import {
   Breadcrumb,
   BreadcrumbEllipsis,
@@ -25,40 +20,38 @@ import {
   BreadcrumbPage,
   BreadcrumbPageButton,
   BreadcrumbSeparator,
-} from "./breadcrumb";
+} from './breadcrumb';
 
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/aura/dropdown-menu';
 const meta: Meta<typeof Breadcrumb> = {
-  title: "Primitives/Breadcrumb",
+  title: 'Primitives/Breadcrumb',
   component: Breadcrumb,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     className: {
-      control: "text",
-      description: "CSS classes for styling",
+      control: 'text',
       table: {
-        category: "Display",
+        category: 'Display',
       },
     },
     children: {
       control: false,
-      description: "Breadcrumb content (BreadcrumbList)",
       table: {
-        category: "Display",
+        category: 'Display',
       },
     },
   },
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
 };
-
 export default meta;
 type Story = StoryObj<typeof Breadcrumb>;
-
-/**
- * Basic breadcrumb with simple navigation links
- * Tests link rendering and navigation structure
- */
 export const Basic: Story = {
   parameters: {
     order: 1,
@@ -74,9 +67,8 @@ export const Basic: Story = {
     await expect(nav).toBeInTheDocument();
     const homeLink = canvas.getByText("Home");
     await expect(homeLink).toBeInTheDocument();
-    await expect(homeLink).toHaveAttribute("href", "/");
-
-    const projectsLink = canvas.getByText("Projects");
+    await expect(homeLink).toHaveAttribute('href', '/');
+    const projectsLink = canvas.getByText('Projects');
     await expect(projectsLink).toBeInTheDocument();
     const currentPage = canvas.getByText("Project Alpha");
     await expect(currentPage).toBeInTheDocument();
@@ -99,10 +91,6 @@ export const Basic: Story = {
     </Breadcrumb>
   ),
 };
-
-/**
- * Current page as a clickable link
- */
 export const CurrentPageLinked: Story = {
   parameters: {
     order: 2,
@@ -142,11 +130,6 @@ export const CurrentPageLinked: Story = {
     </Breadcrumb>
   ),
 };
-
-/**
- * Breadcrumb with ellipsis dropdown for hidden navigation items
- * Tests dropdown interaction within ellipsis
- */
 export const WithEllipsisDropdown: Story = {
   parameters: {
     order: 3,
@@ -200,10 +183,6 @@ export const WithEllipsisDropdown: Story = {
     </Breadcrumb>
   ),
 };
-
-/**
- * Simple ellipsis without dropdown (static)
- */
 export const StaticEllipsis: Story = {
   parameters: {
     order: 4,
@@ -247,11 +226,6 @@ export const StaticEllipsis: Story = {
     </Breadcrumb>
   ),
 };
-
-/**
- * Breadcrumb with action dropdown on current page
- * Tests dropdown interaction on the current page item
- */
 export const WithPageActions: Story = {
   parameters: {
     order: 5,
@@ -273,7 +247,7 @@ export const WithPageActions: Story = {
     await expect(canvasLink).toHaveAttribute("href", "/canvas");
     const pageButton = canvas.getByText("Test canvas").closest("button");
     await expect(pageButton).toBeInTheDocument();
-    await expect(pageButton).toHaveAttribute("aria-current", "page");
+    await expect(pageButton).toHaveAttribute('aria-current', 'page');
   },
   render: () => (
     <Breadcrumb>
@@ -406,7 +380,7 @@ export const Short: Story = {
     await expect(homeLink).toHaveAttribute("href", "/");
     const currentPage = canvas.getByText("Dashboard");
     await expect(currentPage).toBeInTheDocument();
-    await expect(currentPage).toHaveAttribute("aria-current", "page");
+    await expect(currentPage).toHaveAttribute('aria-current', 'page');
   },
   render: () => (
     <Breadcrumb>
@@ -422,10 +396,6 @@ export const Short: Story = {
     </Breadcrumb>
   ),
 };
-
-/**
- * Long breadcrumb path showing deep navigation
- */
 export const LongPath: Story = {
   parameters: {
     order: 8,
@@ -453,7 +423,7 @@ export const LongPath: Story = {
     await expect(projectsLink).toHaveAttribute("href", "/organization/teams/engineering/projects");
     const currentPage = canvas.getByText("Q1 2024 Planning");
     await expect(currentPage).toBeInTheDocument();
-    await expect(currentPage).toHaveAttribute("aria-current", "page");
+    await expect(currentPage).toHaveAttribute('aria-current', 'page');
   },
   render: () => (
     <Breadcrumb>
@@ -471,11 +441,15 @@ export const LongPath: Story = {
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-          <BreadcrumbLink href="/organization/teams/engineering">Engineering</BreadcrumbLink>
+          <BreadcrumbLink href="/organization/teams/engineering">
+            Engineering
+          </BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-          <BreadcrumbLink href="/organization/teams/engineering/projects">Projects</BreadcrumbLink>
+          <BreadcrumbLink href="/organization/teams/engineering/projects">
+            Projects
+          </BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
@@ -485,10 +459,6 @@ export const LongPath: Story = {
     </Breadcrumb>
   ),
 };
-
-/**
- * Breadcrumb with custom icon separator
- */
 export const CustomSeparator: Story = {
   parameters: {
     order: 9,
@@ -532,10 +502,6 @@ export const CustomSeparator: Story = {
     </Breadcrumb>
   ),
 };
-
-/**
- * Breadcrumb with icon in first item
- */
 export const WithIcon: Story = {
   parameters: {
     order: 10,
@@ -555,7 +521,7 @@ export const WithIcon: Story = {
     await expect(settingsLink).toHaveAttribute("href", "/settings");
     const currentPage = canvas.getByText("Profile");
     await expect(currentPage).toBeInTheDocument();
-    await expect(currentPage).toHaveAttribute("aria-current", "page");
+    await expect(currentPage).toHaveAttribute('aria-current', 'page');
   },
   render: () => (
     <Breadcrumb>
@@ -578,11 +544,6 @@ export const WithIcon: Story = {
     </Breadcrumb>
   ),
 };
-
-/**
- * Interactive breadcrumb demonstrating stateful behavior
- * Shows how to handle navigation with React state
- */
 export const Interactive: Story = {
   parameters: {
     order: 11,
@@ -605,34 +566,49 @@ export const Interactive: Story = {
       await userEvent.click(settingsButton);
     }
     await waitFor(() => {
-      const updatedLinks = within(nav).queryAllByRole("link");
+      const updatedLinks = within(nav).queryAllByRole('link');
       expect(updatedLinks.length).toBeGreaterThanOrEqual(1);
     });
   },
   render: function InteractiveBreadcrumb() {
-    const [path, setPath] = useState(["Home", "Projects", "Project Alpha"]);
-
+    const [path, setPath] = useState(['Home', 'Projects', 'Project Alpha']);
     const handleNavigate = (index: number) => {
       setPath(path.slice(0, index + 1));
     };
-
     const navigationOptions = [
-      { label: "Home", path: ["Home"] },
-      { label: "Projects", path: ["Home", "Projects"] },
-      { label: "Project Alpha", path: ["Home", "Projects", "Project Alpha"] },
-      { label: "Settings", path: ["Home", "Settings"] },
-      { label: "Profile", path: ["Home", "Settings", "Profile"] },
-      { label: "Teams", path: ["Home", "Teams"] },
       {
-        label: "Engineering",
-        path: ["Home", "Teams", "Engineering"],
+        label: 'Home',
+        path: ['Home'],
       },
       {
-        label: "Deep Path",
-        path: ["Home", "Organization", "Teams", "Engineering", "Projects"],
+        label: 'Projects',
+        path: ['Home', 'Projects'],
+      },
+      {
+        label: 'Project Alpha',
+        path: ['Home', 'Projects', 'Project Alpha'],
+      },
+      {
+        label: 'Settings',
+        path: ['Home', 'Settings'],
+      },
+      {
+        label: 'Profile',
+        path: ['Home', 'Settings', 'Profile'],
+      },
+      {
+        label: 'Teams',
+        path: ['Home', 'Teams'],
+      },
+      {
+        label: 'Engineering',
+        path: ['Home', 'Teams', 'Engineering'],
+      },
+      {
+        label: 'Deep Path',
+        path: ['Home', 'Organization', 'Teams', 'Engineering', 'Projects'],
       },
     ];
-
     return (
       <div className="flex flex-col gap-4">
         <Breadcrumb>
@@ -660,7 +636,9 @@ export const Interactive: Story = {
           </BreadcrumbList>
         </Breadcrumb>
         <div className="flex flex-wrap gap-2 pt-2 border-t">
-          <p className="text-xs text-muted-foreground w-full mb-1">Navigate to:</p>
+          <p className="text-xs text-muted-foreground w-full mb-1">
+            Navigate to:
+          </p>
           {navigationOptions.map((option) => (
             <button
               key={option.label}
@@ -676,10 +654,6 @@ export const Interactive: Story = {
     );
   },
 };
-
-/**
- * Comparison of all link and page states side by side
- */
 export const StyleComparison: Story = {
   parameters: {
     order: 12,
@@ -700,7 +674,7 @@ export const StyleComparison: Story = {
     const testCanvasElements = canvas.getAllByText("Test canvas");
     const dropdownButton = testCanvasElements[0]?.closest("button");
     await expect(dropdownButton).toBeInTheDocument();
-    await expect(dropdownButton).toHaveAttribute("aria-current", "page");
+    await expect(dropdownButton).toHaveAttribute('aria-current', 'page');
   },
   render: () => (
     <div className="flex flex-col gap-6">
@@ -745,7 +719,9 @@ export const StyleComparison: Story = {
             <BreadcrumbItem>
               <DropdownMenu>
                 <DropdownMenuTrigger
-                  render={<BreadcrumbPageButton>Test canvas</BreadcrumbPageButton>}
+                  render={
+                    <BreadcrumbPageButton>Test canvas</BreadcrumbPageButton>
+                  }
                 />
                 <DropdownMenuContent align="start" className="w-72 p-0">
                   <div className="p-1">
@@ -769,10 +745,6 @@ export const StyleComparison: Story = {
     </div>
   ),
 };
-
-/**
- * Breadcrumb in a constrained container
- */
 export const ConstrainedContainer: Story = {
   parameters: {
     order: 13,
@@ -810,7 +782,9 @@ export const ConstrainedContainer: Story = {
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbLink href="/projects/design">Design System</BreadcrumbLink>
+            <BreadcrumbLink href="/projects/design">
+              Design System
+            </BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
@@ -821,10 +795,6 @@ export const ConstrainedContainer: Story = {
     </div>
   ),
 };
-
-/**
- * Very long item names
- */
 export const LongItemNames: Story = {
   parameters: {
     order: 14,
@@ -838,13 +808,15 @@ export const LongItemNames: Story = {
     const canvas = within(canvasElement);
     const homeLink = canvas.getByText("Home");
     await expect(homeLink).toBeInTheDocument();
-
-    const longLink = canvas.getByText("Department of Engineering and Technology Services");
-    await expect(longLink).toHaveAttribute("href", "/department");
-
-    const longPage = canvas.getByText("Enterprise Resource Planning System Implementation Project");
+    const longLink = canvas.getByText(
+      'Department of Engineering and Technology Services'
+    );
+    await expect(longLink).toHaveAttribute('href', '/department');
+    const longPage = canvas.getByText(
+      'Enterprise Resource Planning System Implementation Project'
+    );
     await expect(longPage).toBeInTheDocument();
-    await expect(longPage).toHaveAttribute("aria-current", "page");
+    await expect(longPage).toHaveAttribute('aria-current', 'page');
   },
   render: () => (
     <Breadcrumb>
@@ -868,10 +840,6 @@ export const LongItemNames: Story = {
     </Breadcrumb>
   ),
 };
-
-/**
- * Many items causing horizontal overflow
- */
 export const ManyItems: Story = {
   parameters: {
     order: 15,
@@ -941,10 +909,6 @@ export const ManyItems: Story = {
     </div>
   ),
 };
-
-/**
- * Single item only
- */
 export const SingleItem: Story = {
   parameters: {
     order: 16,
@@ -973,10 +937,6 @@ export const SingleItem: Story = {
     </Breadcrumb>
   ),
 };
-
-/**
- * Empty breadcrumb
- */
 export const Empty: Story = {
   parameters: {
     order: 17,
@@ -1001,10 +961,6 @@ export const Empty: Story = {
     </Breadcrumb>
   ),
 };
-
-/**
- * Combined edge cases in small container
- */
 export const SmallContainerManyLongItems: Story = {
   parameters: {
     order: 18,
@@ -1026,7 +982,7 @@ export const SmallContainerManyLongItems: Story = {
     await expect(longLink).toHaveAttribute("href", "/team");
     const currentPage = canvas.getByText("Component Library Documentation");
     await expect(currentPage).toBeInTheDocument();
-    await expect(currentPage).toHaveAttribute("aria-current", "page");
+    await expect(currentPage).toHaveAttribute('aria-current', 'page');
   },
   render: () => (
     <div className="w-64 border border-muted-foreground/20 p-3 rounded">
@@ -1040,14 +996,20 @@ export const SmallContainerManyLongItems: Story = {
             <DropdownMenu>
               <DropdownMenuTrigger render={<BreadcrumbEllipsisButton />} />
               <DropdownMenuContent>
-                <DropdownMenuItem render={<a href="/organization">Organization Management</a>} />
-                <DropdownMenuItem render={<a href="/department">Engineering Department</a>} />
+                <DropdownMenuItem
+                  render={<a href="/organization">Organization Management</a>}
+                />
+                <DropdownMenuItem
+                  render={<a href="/department">Engineering Department</a>}
+                />
               </DropdownMenuContent>
             </DropdownMenu>
           </BreadcrumbEllipsis>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbLink href="/team">Frontend Development Team</BreadcrumbLink>
+            <BreadcrumbLink href="/team">
+              Frontend Development Team
+            </BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>

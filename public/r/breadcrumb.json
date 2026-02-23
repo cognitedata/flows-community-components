@@ -8,10 +8,7 @@
     "@base-ui/react/use-render",
     "@tabler/icons-react"
   ],
-  "registryDependencies": [
-    "@aura/css",
-    "@aura/button"
-  ],
+  "registryDependencies": ["@aura/css", "@aura/button"],
   "files": [
     {
       "path": "src/components/ui/aura/breadcrumb/breadcrumb.tsx",

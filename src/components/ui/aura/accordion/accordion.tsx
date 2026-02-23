@@ -1,19 +1,21 @@
-import { Accordion as AccordionPrimitive } from "@base-ui/react/accordion";
-import { IconChevronDown } from "@tabler/icons-react";
-import { type ComponentProps, forwardRef, useMemo } from "react";
+import { Accordion as AccordionPrimitive } from '@base-ui/react/accordion';
+import { type Icon, IconChevronDown } from '@tabler/icons-react';
+import {
+  type ComponentProps,
+  type ComponentRef,
+  forwardRef,
+  useMemo,
+} from 'react';
 
-import { cn } from "@/lib/utils";
-import type { Icon } from "@tabler/icons-react";
-
-type AccordionType = "single" | "multiple";
+import { cn } from '../../../../lib/utils';
 
 type AccordionCommonProps = Omit<
   ComponentProps<typeof AccordionPrimitive.Root>,
-  "multiple" | "value" | "defaultValue" | "onValueChange"
+  'multiple' | 'value' | 'defaultValue' | 'onValueChange'
 >;
 
 type AccordionSingleProps = {
-  type?: "single";
+  type?: 'single';
   collapsible?: boolean;
   value?: string;
   defaultValue?: string;
@@ -21,88 +23,119 @@ type AccordionSingleProps = {
 };
 
 type AccordionMultipleProps = {
-  type: "multiple";
+  type: 'multiple';
   value?: string[];
   defaultValue?: string[];
   onValueChange?: (value: string[]) => void;
 };
 
-type AccordionProps = AccordionCommonProps & (AccordionSingleProps | AccordionMultipleProps);
+type AccordionProps = AccordionCommonProps &
+  (AccordionSingleProps | AccordionMultipleProps);
 
-const Accordion = forwardRef<React.ElementRef<typeof AccordionPrimitive.Root>, AccordionProps>(
-  (props, ref) => {
-    const { type = "single" } = props;
-    const multiple = type === "multiple";
-
-    const { collapsible = false } = (props as AccordionSingleProps) ?? {};
+const Accordion = forwardRef<
+  ComponentRef<typeof AccordionPrimitive.Root>,
+  AccordionProps
+>((props, ref) => {
+  if (props.type === 'multiple') {
     const {
       type: _type,
-      collapsible: _collapsible,
       value,
       defaultValue,
       onValueChange,
       ...rootProps
-    } = props as any;
+    } = props;
 
-    const controlledValue = useMemo(() => {
+    const controlledValue = useMemo<string[] | undefined>(() => {
       if (value === undefined) return undefined;
-      if (multiple) return Array.isArray(value) ? value : [value];
-      if (value === "") return [];
-      return [value];
-    }, [multiple, value]);
+      return value;
+    }, [value]);
 
-    const uncontrolledDefaultValue = useMemo(() => {
+    const uncontrolledDefaultValue = useMemo<string[] | undefined>(() => {
       if (defaultValue === undefined) return undefined;
-      if (multiple) return Array.isArray(defaultValue) ? defaultValue : [defaultValue];
-      if (defaultValue === "") return [];
-      return [defaultValue];
-    }, [defaultValue, multiple]);
+      return defaultValue;
+    }, [defaultValue]);
 
     return (
       <AccordionPrimitive.Root
         ref={ref}
         data-slot="accordion"
-        multiple={multiple}
-        value={controlledValue as any}
-        defaultValue={uncontrolledDefaultValue as any}
-        onValueChange={(nextValue, details) => {
-          if (multiple) {
-            onValueChange?.(nextValue.filter((v: unknown) => v != null) as any);
-            return;
-          }
-
-          if (collapsible === false && nextValue.length === 0) {
-            details.cancel();
-            return;
-          }
-
-          const next = nextValue[0];
-          onValueChange?.((next ?? "") as any);
+        multiple
+        value={controlledValue}
+        defaultValue={uncontrolledDefaultValue}
+        onValueChange={(nextValue) => {
+          if (!onValueChange) return;
+          const filtered = nextValue.filter(
+            (next): next is string => next != null
+          );
+          onValueChange(filtered);
         }}
         {...rootProps}
       />
     );
   }
-);
-Accordion.displayName = "Accordion";
+
+  const {
+    type: _type,
+    collapsible = false,
+    value,
+    defaultValue,
+    onValueChange,
+    ...rootProps
+  } = props;
+
+  const controlledValue = useMemo<string[] | undefined>(() => {
+    if (value === undefined) return undefined;
+    if (value === '') return [];
+    return [value];
+  }, [value]);
+
+  const uncontrolledDefaultValue = useMemo<string[] | undefined>(() => {
+    if (defaultValue === undefined) return undefined;
+    if (defaultValue === '') return [];
+    return [defaultValue];
+  }, [defaultValue]);
+
+  return (
+    <AccordionPrimitive.Root
+      ref={ref}
+      data-slot="accordion"
+      multiple={false}
+      value={controlledValue}
+      defaultValue={uncontrolledDefaultValue}
+      onValueChange={(nextValue, details) => {
+        if (!onValueChange) return;
+        if (!collapsible && nextValue.length === 0) {
+          details.cancel();
+          return;
+        }
+        onValueChange(nextValue[0] ?? '');
+      }}
+      {...rootProps}
+    />
+  );
+});
+Accordion.displayName = 'Accordion';
 
 const AccordionItem = forwardRef<
-  React.ElementRef<typeof AccordionPrimitive.Item>,
+  ComponentRef<typeof AccordionPrimitive.Item>,
   AccordionPrimitive.Item.Props
 >(({ className, ...props }, ref) => {
   return (
     <AccordionPrimitive.Item
       ref={ref}
       data-slot="accordion-item"
-      className={cn("mt-2 first:mt-0 rounded-md hover:bg-accent data-open:bg-accent", className)}
+      className={cn(
+        'mt-2 first:mt-0 rounded-md hover:bg-accent data-open:bg-accent',
+        className
+      )}
       {...props}
     />
   );
 });
-AccordionItem.displayName = "AccordionItem";
+AccordionItem.displayName = 'AccordionItem';
 
 const AccordionTrigger = forwardRef<
-  React.ElementRef<typeof AccordionPrimitive.Trigger>,
+  ComponentRef<typeof AccordionPrimitive.Trigger>,
   AccordionPrimitive.Trigger.Props & {
     icon?: Icon;
   }
@@ -115,7 +148,7 @@ const AccordionTrigger = forwardRef<
         ref={ref}
         data-slot="accordion-trigger"
         className={cn(
-          "focus-visible:border-ring focus-visible:ring-ring-shadow group/accordion-trigger flex flex-1 items-start justify-between gap-4 rounded-md p-2 text-left focus-visible:ring text-base leading-5 tracking-tightest font-medium transition-all outline-none disabled:pointer-events-none disabled:opacity-50",
+          'focus-visible:border-ring focus-visible:ring-ring-shadow group/accordion-trigger flex flex-1 items-start justify-between gap-4 rounded-md p-2 text-left focus-visible:ring text-base leading-5 tracking-tightest font-medium transition-all outline-none disabled:pointer-events-none disabled:opacity-50',
           className
         )}
         {...props}
@@ -131,10 +164,10 @@ const AccordionTrigger = forwardRef<
     </AccordionPrimitive.Header>
   );
 });
-AccordionTrigger.displayName = "AccordionTrigger";
+AccordionTrigger.displayName = 'AccordionTrigger';
 
 const AccordionContent = forwardRef<
-  React.ElementRef<typeof AccordionPrimitive.Panel>,
+  ComponentRef<typeof AccordionPrimitive.Panel>,
   AccordionPrimitive.Panel.Props
 >(({ className, children, ...props }, ref) => {
   return (
@@ -144,10 +177,10 @@ const AccordionContent = forwardRef<
       className="h-(--accordion-panel-height) overflow-hidden text-base leading-5 tracking-tightest transition-all duration-200 ease-out data-ending-style:h-0 data-starting-style:h-0"
       {...props}
     >
-      <div className={cn("px-2 pb-2 pt-0", className)}>{children}</div>
+      <div className={cn('px-2 pb-2 pt-0', className)}>{children}</div>
     </AccordionPrimitive.Panel>
   );
 });
-AccordionContent.displayName = "AccordionContent";
+AccordionContent.displayName = 'AccordionContent';
 
 export { Accordion, AccordionItem, AccordionTrigger, AccordionContent };

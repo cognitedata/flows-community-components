@@ -1,63 +1,50 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, within } from "@storybook/test";
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, within } from 'storybook/test';
 
-import { Button } from "@/components/ui/aura/button";
+import { Button } from '../button';
 
-import { Loader } from "./loader";
-
+import { Loader } from './loader';
 const meta: Meta<typeof Loader> = {
-  title: "AI/Loader",
+  title: 'AI/Loader',
   component: Loader,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     size: {
-      control: "number",
-      description: "Size of the loader in pixels",
+      control: 'number',
       table: {
-        category: "Variants/Styling",
-        type: { summary: "number" },
-        defaultValue: { summary: "16" },
+        category: 'Variants/Styling',
+        type: {
+          summary: 'number',
+        },
+        defaultValue: {
+          summary: '16',
+        },
       },
     },
     className: {
-      control: "text",
-      description: "Additional CSS classes",
+      control: 'text',
       table: {
-        category: "Variants/Styling",
+        category: 'Variants/Styling',
       },
     },
   },
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
 };
-
 export default meta;
 type Story = StoryObj<typeof Loader>;
-
-/**
- * Default loader.
- */
 export const Default: Story = {
   render: () => <Loader aria-label="Loading" />,
   parameters: {
     order: 1,
-    docs: {
-      description: {
-        story: "Default spinning loader.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const loader = canvas.getByLabelText("Loading");
+    const loader = canvas.getByLabelText('Loading');
     await expect(loader).toBeInTheDocument();
   },
 };
-
-/**
- * Different sizes.
- */
 export const Sizes: Story = {
   render: () => (
     <div className="flex items-center gap-8">
@@ -85,17 +72,8 @@ export const Sizes: Story = {
   ),
   parameters: {
     order: 2,
-    docs: {
-      description: {
-        story: "Loader in different sizes.",
-      },
-    },
   },
 };
-
-/**
- * Loader in button.
- */
 export const InButton: Story = {
   render: () => (
     <div className="flex gap-4">
@@ -115,17 +93,8 @@ export const InButton: Story = {
   ),
   parameters: {
     order: 3,
-    docs: {
-      description: {
-        story: "Loader used inside buttons to indicate loading state.",
-      },
-    },
   },
 };
-
-/**
- * Loader with text.
- */
 export const WithText: Story = {
   render: () => (
     <div className="space-y-4">
@@ -141,46 +110,32 @@ export const WithText: Story = {
         <Loader size={20} />
         <div>
           <p className="text-sm font-medium">Processing your request</p>
-          <p className="text-xs text-muted-foreground">This may take a moment</p>
+          <p className="text-xs text-muted-foreground">
+            This may take a moment
+          </p>
         </div>
       </div>
     </div>
   ),
   parameters: {
     order: 4,
-    docs: {
-      description: {
-        story: "Loader displayed alongside text.",
-      },
-    },
   },
 };
-
-/**
- * Centered loader.
- */
 export const Centered: Story = {
   render: () => (
     <div className="w-80 h-48 border rounded-lg flex items-center justify-center">
       <div className="flex flex-col items-center gap-2">
         <Loader size={32} />
-        <span className="text-sm text-muted-foreground">Loading content...</span>
+        <span className="text-sm text-muted-foreground">
+          Loading content...
+        </span>
       </div>
     </div>
   ),
   parameters: {
     order: 5,
-    docs: {
-      description: {
-        story: "Loader centered in a container.",
-      },
-    },
   },
 };
-
-/**
- * Loader in card.
- */
 export const InCard: Story = {
   render: () => (
     <div className="w-80 rounded-lg border p-4">
@@ -197,23 +152,16 @@ export const InCard: Story = {
   ),
   parameters: {
     order: 6,
-    docs: {
-      description: {
-        story: "Loader displayed in a card with skeleton content.",
-      },
-    },
   },
 };
-
-/**
- * Overlay loader.
- */
 export const Overlay: Story = {
   render: () => (
     <div className="relative w-80 h-48 border rounded-lg">
       <div className="p-4">
         <h3 className="font-medium mb-2">Content Area</h3>
-        <p className="text-sm text-muted-foreground">This content is being loaded or processed.</p>
+        <p className="text-sm text-muted-foreground">
+          This content is being loaded or processed.
+        </p>
       </div>
       <div className="absolute inset-0 bg-background/80 flex items-center justify-center rounded-lg">
         <div className="flex flex-col items-center gap-2">
@@ -225,17 +173,8 @@ export const Overlay: Story = {
   ),
   parameters: {
     order: 7,
-    docs: {
-      description: {
-        story: "Loader as an overlay on content.",
-      },
-    },
   },
 };
-
-/**
- * Custom colored loader.
- */
 export const CustomColors: Story = {
   render: () => (
     <div className="flex items-center gap-8">
@@ -248,22 +187,14 @@ export const CustomColors: Story = {
   ),
   parameters: {
     order: 8,
-    docs: {
-      description: {
-        story: "Loader with custom colors using className.",
-      },
-    },
   },
 };
-
-/**
- * Inline loader.
- */
 export const Inline: Story = {
   render: () => (
     <div className="space-y-2 text-sm">
       <p>
-        Fetching data <Loader size={14} className="inline-block mx-1" /> please wait.
+        Fetching data <Loader size={14} className="inline-block mx-1" /> please
+        wait.
       </p>
       <p>
         Status: <Loader size={14} className="inline-block mx-1" /> Connecting...
@@ -272,17 +203,8 @@ export const Inline: Story = {
   ),
   parameters: {
     order: 9,
-    docs: {
-      description: {
-        story: "Loader used inline within text.",
-      },
-    },
   },
 };
-
-/**
- * Accessible loading states.
- */
 export const Accessibility: Story = {
   render: () => (
     <div className="space-y-6">
@@ -293,15 +215,25 @@ export const Accessibility: Story = {
 
       <div>
         <h3 className="text-sm font-medium mb-2">With live region</h3>
-        <div role="status" aria-live="polite" className="flex items-center gap-2">
+        <div
+          role="status"
+          aria-live="polite"
+          className="flex items-center gap-2"
+        >
           <Loader size={16} />
           <span>Loading data...</span>
         </div>
       </div>
 
       <div>
-        <h3 className="text-sm font-medium mb-2">With assertive announcement</h3>
-        <div role="alert" aria-live="assertive" className="flex items-center gap-2">
+        <h3 className="text-sm font-medium mb-2">
+          With assertive announcement
+        </h3>
+        <div
+          role="alert"
+          aria-live="assertive"
+          className="flex items-center gap-2"
+        >
           <Loader size={16} />
           <span>Processing urgent request</span>
         </div>
@@ -318,17 +250,8 @@ export const Accessibility: Story = {
   ),
   parameters: {
     order: 10,
-    docs: {
-      description: {
-        story: "Loader with proper ARIA attributes for screen readers.",
-      },
-    },
   },
 };
-
-/**
- * Visual regression testing.
- */
 export const VisualRegression: Story = {
   render: () => (
     <div className="space-y-8 p-4">
@@ -353,7 +276,9 @@ export const VisualRegression: Story = {
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">In Button</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          In Button
+        </h3>
         <Button disabled>
           <Loader size={16} />
           Loading
@@ -361,7 +286,9 @@ export const VisualRegression: Story = {
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">With Text</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          With Text
+        </h3>
         <div className="flex items-center gap-2">
           <Loader size={16} />
           <span className="text-sm">Loading...</span>
@@ -371,20 +298,11 @@ export const VisualRegression: Story = {
   ),
   parameters: {
     order: 11,
-    docs: {
-      description: {
-        story: "Visual overview of loader variations.",
-      },
-    },
     chromatic: {
       pauseAnimationAtEnd: true,
     },
   },
 };
-
-/**
- * Interactive playground.
- */
 export const Playground: Story = {
   args: {
     size: 16,
@@ -392,10 +310,5 @@ export const Playground: Story = {
   render: (args) => <Loader {...args} />,
   parameters: {
     order: 99,
-    docs: {
-      description: {
-        story: "Interactive playground - use controls to experiment with loader props.",
-      },
-    },
   },
 };

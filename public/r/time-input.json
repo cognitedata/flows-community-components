@@ -9,7 +9,7 @@
   "files": [
     {
       "path": "src/components/ui/aura/time-input/time-input.tsx",
-      "content": "import type { ComponentProps } from \"react\";\n\nexport const TimeInput = ({ ...props }: ComponentProps<\"div\">) => {\n  return <div {...props} />;\n};\n",
+      "content": "import type { ComponentProps } from 'react';\n\nexport const TimeInput = ({ ...props }: ComponentProps<'div'>) => {\n  return <div {...props} />;\n};\n",
       "type": "registry:component",
       "target": "src/components/ui/aura/time-input.tsx"
     },
