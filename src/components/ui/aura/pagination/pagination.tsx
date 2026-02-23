@@ -8,8 +8,10 @@ import {
 import { cva } from 'class-variance-authority';
 import {
   type ComponentProps,
-  type ElementRef,
+  type ComponentRef,
   type KeyboardEvent,
+  type FocusEvent,
+  type ChangeEvent,
   createContext,
   forwardRef,
   useContext,
@@ -17,10 +19,9 @@ import {
 } from 'react';
 
 import { cn } from '../../../../lib/utils';
-
-import { Button } from '@/components/ui/aura/button';
-import { Input } from '@/components/ui/aura/input';
-import { SelectTrigger } from '@/components/ui/aura/select';
+import { Button } from '../button';
+import { Input } from '../input';
+import { SelectTrigger } from '../select';
 
 type PaginationSize = 'default' | 'small';
 
@@ -79,10 +80,7 @@ const getPaginationButtonStyles = (size: PaginationSize = 'default') => {
   return { buttonSize, radiusClass } as const;
 };
 
-/**
- * Pagination navigation container.
- */
-const Pagination = forwardRef<HTMLElement, ComponentProps<'nav'>>(
+const Pagination = forwardRef<ComponentRef<'nav'>, ComponentProps<'nav'>>(
   ({ className, ...props }, ref) => {
     return (
       <nav
@@ -97,11 +95,8 @@ const Pagination = forwardRef<HTMLElement, ComponentProps<'nav'>>(
 );
 Pagination.displayName = 'Pagination';
 
-/**
- * Pagination list container.
- */
 const PaginationContent = forwardRef<
-  HTMLUListElement,
+  ComponentRef<'ul'>,
   ComponentProps<'ul'> & { size?: PaginationSize }
 >(({ className, size = 'default', ...props }, ref) => {
   return (
@@ -118,10 +113,7 @@ const PaginationContent = forwardRef<
 });
 PaginationContent.displayName = 'PaginationContent';
 
-/**
- * Pagination list item wrapper.
- */
-const PaginationItem = forwardRef<HTMLLIElement, ComponentProps<'li'>>(
+const PaginationItem = forwardRef<ComponentRef<'li'>, ComponentProps<'li'>>(
   ({ className, ...props }, ref) => {
     return (
       <li
@@ -135,11 +127,8 @@ const PaginationItem = forwardRef<HTMLLIElement, ComponentProps<'li'>>(
 );
 PaginationItem.displayName = 'PaginationItem';
 
-/**
- * Pagination status text (e.g. "Page 3 of 10").
- */
 const PaginationStatus = forwardRef<
-  HTMLOutputElement,
+  ComponentRef<'output'>,
   ComponentProps<'output'> & { size?: PaginationSize }
 >(({ className, size, ...props }, ref) => {
   const inheritedSize = usePaginationSize();
@@ -159,11 +148,8 @@ const PaginationStatus = forwardRef<
 });
 PaginationStatus.displayName = 'PaginationStatus';
 
-/**
- * Pagination-aware select trigger that inherits pagination size.
- */
 const PaginationSelectTrigger = forwardRef<
-  ElementRef<typeof SelectTrigger>,
+  ComponentRef<typeof SelectTrigger>,
   ComponentProps<typeof SelectTrigger>
 >(({ className, size, ...props }, ref) => {
   const inheritedSize = usePaginationSize();
@@ -194,10 +180,7 @@ type PaginationLinkProps = {
   size?: PaginationSize;
 } & ComponentProps<'a'>;
 
-/**
- * Pagination link button for page selection.
- */
-const PaginationLink = forwardRef<HTMLAnchorElement, PaginationLinkProps>(
+const PaginationLink = forwardRef<ComponentRef<'a'>, PaginationLinkProps>(
   ({ className, isActive, isDisabled, size, ...props }, ref) => {
     const inheritedSize = usePaginationSize();
     const resolvedSize = size ?? inheritedSize;
@@ -230,11 +213,8 @@ const PaginationLink = forwardRef<HTMLAnchorElement, PaginationLinkProps>(
 );
 PaginationLink.displayName = 'PaginationLink';
 
-/**
- * Pagination control to jump to the first page.
- */
 const PaginationFirst = forwardRef<
-  HTMLAnchorElement,
+  ComponentRef<'a'>,
   Omit<PaginationLinkProps, 'isActive'>
 >(({ className, size, ...props }, ref) => {
   const inheritedSize = usePaginationSize();
@@ -268,11 +248,8 @@ const PaginationFirst = forwardRef<
 });
 PaginationFirst.displayName = 'PaginationFirst';
 
-/**
- * Pagination control to navigate to the previous page.
- */
 const PaginationPrevious = forwardRef<
-  HTMLAnchorElement,
+  ComponentRef<'a'>,
   Omit<PaginationLinkProps, 'isActive'>
 >(({ className, size, ...props }, ref) => {
   const inheritedSize = usePaginationSize();
@@ -306,11 +283,8 @@ const PaginationPrevious = forwardRef<
 });
 PaginationPrevious.displayName = 'PaginationPrevious';
 
-/**
- * Pagination control to navigate to the next page.
- */
 const PaginationNext = forwardRef<
-  HTMLAnchorElement,
+  ComponentRef<'a'>,
   Omit<PaginationLinkProps, 'isActive'>
 >(({ className, size, ...props }, ref) => {
   const inheritedSize = usePaginationSize();
@@ -344,11 +318,8 @@ const PaginationNext = forwardRef<
 });
 PaginationNext.displayName = 'PaginationNext';
 
-/**
- * Pagination control to jump to the last page.
- */
 const PaginationLast = forwardRef<
-  HTMLAnchorElement,
+  ComponentRef<'a'>,
   Omit<PaginationLinkProps, 'isActive'>
 >(({ className, size, ...props }, ref) => {
   const inheritedSize = usePaginationSize();
@@ -382,11 +353,8 @@ const PaginationLast = forwardRef<
 });
 PaginationLast.displayName = 'PaginationLast';
 
-/**
- * Pagination ellipsis indicator for truncated page ranges.
- */
 const PaginationEllipsis = forwardRef<
-  HTMLSpanElement,
+  ComponentRef<'span'>,
   ComponentProps<'span'> & { size?: PaginationSize }
 >(({ className, size, ...props }, ref) => {
   const inheritedSize = usePaginationSize();
@@ -420,12 +388,8 @@ type PaginationTeleportProps = {
   'size' | 'value' | 'onChange' | 'children' | 'type'
 >;
 
-/**
- * Pagination teleport input - allows direct page number entry.
- * The entire "1/100" is an input, but only the current page number is editable.
- */
 const PaginationTeleport = forwardRef<
-  HTMLInputElement,
+  ComponentRef<typeof Input>,
   PaginationTeleportProps
 >(
   (
@@ -450,7 +414,7 @@ const PaginationTeleport = forwardRef<
       ? editingValue
       : `${currentPage}/${totalPages}`;
 
-    const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
+    const handleFocus = (e: FocusEvent<HTMLInputElement>) => {
       setIsEditing(true);
       setEditingValue(currentPage.toString());
       // Select all on focus for easy replacement
@@ -468,7 +432,7 @@ const PaginationTeleport = forwardRef<
       setEditingValue('');
     };
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
       const value = e.target.value;
 
       // Allow empty or numeric values only
@@ -509,12 +473,8 @@ const PaginationTeleport = forwardRef<
 );
 PaginationTeleport.displayName = 'PaginationTeleport';
 
-/**
- * Pagination results per page container.
- * Automatically wraps content in a list item (li).
- */
 const PaginationResultsPerPage = forwardRef<
-  HTMLLIElement,
+  ComponentRef<'li'>,
   ComponentProps<'li'>
 >(({ className, ...props }, ref) => {
   return (
@@ -528,11 +488,8 @@ const PaginationResultsPerPage = forwardRef<
 });
 PaginationResultsPerPage.displayName = 'PaginationResultsPerPage';
 
-/**
- * Pagination results per page label.
- */
 const PaginationResultsPerPageLabel = forwardRef<
-  HTMLSpanElement,
+  ComponentRef<'span'>,
   ComponentProps<'span'>
 >(({ className, ...props }, ref) => {
   return (
