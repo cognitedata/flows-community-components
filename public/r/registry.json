@@ -137,18 +137,18 @@
       ]
     },
     {
-      "name": "artifact-chart",
+      "name": "artifact",
       "type": "registry:component",
-      "title": "ArtifactChart",
-      "description": "A compositional card layout for displaying charts. Provides header, content, and footer primitives that can be composed with any Recharts chart type.",
+      "title": "Artifact",
+      "description": "A generic artifact card shell for composing primitive content such as chart, list, progress, and metric-focused layouts.",
       "registryDependencies": [
         "@aura/css",
         "@aura/card"
       ],
       "files": [
         {
-          "path": "src/components/ui/aura/artifact-chart/artifact-chart.tsx",
-          "target": "src/components/ui/aura/artifact-chart.tsx",
+          "path": "src/components/ui/aura/artifact/artifact.tsx",
+          "target": "src/components/ui/aura/artifact.tsx",
           "type": "registry:component"
         },
         {
@@ -200,6 +200,28 @@
         {
           "path": "src/components/ui/aura/dropdown-menu/dropdown-menu.tsx",
           "target": "src/components/ui/aura/dropdown-menu.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "artifact-chart",
+      "type": "registry:component",
+      "title": "ArtifactChart",
+      "description": "A compositional card layout for displaying charts. Provides header, content, and footer primitives that can be composed with any Recharts chart type.",
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/card"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/artifact-chart/artifact-chart.tsx",
+          "target": "src/components/ui/aura/artifact-chart.tsx",
           "type": "registry:component"
         },
         {
@@ -880,6 +902,30 @@
         {
           "path": "src/components/ui/aura/conversation/conversation.tsx",
           "target": "src/components/ui/aura/conversation.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "count",
+      "type": "registry:component",
+      "title": "Count",
+      "description": "Numeric counter primitives",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/count/count.tsx",
+          "target": "src/components/ui/aura/count.tsx",
           "type": "registry:component"
         },
         {

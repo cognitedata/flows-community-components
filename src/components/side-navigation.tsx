@@ -40,6 +40,7 @@ const primitivesNavigation: NavigationItem[] = [
       { href: '/primitives/accordion', label: 'Accordion' },
       { href: '/primitives/alert', label: 'Alert' },
       { href: '/primitives/alert-dialog', label: 'Alert dialog' },
+      { href: '/primitives/artifact', label: 'Artifact' },
       { href: '/primitives/avatar', label: 'Avatar' },
       { href: '/primitives/badge', label: 'Badge' },
       { href: '/primitives/banner', label: 'Banner' },

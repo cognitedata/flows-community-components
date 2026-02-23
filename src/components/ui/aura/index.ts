@@ -31,6 +31,9 @@ export {
 } from './alert-dialog/alert-dialog';
 export { AlertDialogMetadata } from './alert-dialog/alert-dialog.metadata';
 
+export { Artifact, ArtifactTitle } from './artifact/artifact';
+export { ArtifactMetadata } from './artifact/artifact.metadata';
+
 export {
   ArtifactChart,
   ArtifactChartHeader,
@@ -128,9 +131,13 @@ export { CalendarMetadata } from './calendar/calendar.metadata';
 export {
   Card,
   CardHeader,
-  CardIcon,
+  CardHeaderLeft,
   CardHeaderRight,
+  CardHeaderContent,
   CardFooter,
+  CardFooterLeft,
+  CardFooterCenter,
+  CardFooterRight,
   CardTitle,
   CardActions,
   CardDescription,
@@ -271,6 +278,9 @@ export {
   ConversationScrollButton,
 } from './conversation/conversation';
 export { ConversationMetadata } from './conversation/conversation.metadata';
+
+export { Count, countVariants } from './count/count';
+export { CountMetadata } from './count/count.metadata';
 
 export {
   DatePicker,

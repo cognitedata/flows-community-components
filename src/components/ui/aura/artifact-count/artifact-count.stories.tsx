@@ -6,7 +6,6 @@ import { expect, userEvent, waitFor, within } from 'storybook/test';
 import {
   ArtifactCount,
   ArtifactCountContent,
-  ArtifactCountCount,
   ArtifactCountFooter,
   ArtifactCountFooterCenter,
   ArtifactCountFooterLeft,
@@ -23,6 +22,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from '@/components/ui/aura/chart';
+import { Count } from '@/components/ui/aura/count';
 const meta: Meta<typeof ArtifactCount> = {
   title: 'Primitives/Artifact - Count',
   component: ArtifactCount,
@@ -114,7 +114,7 @@ export const Basic: Story = {
   render: () => (
     <ArtifactCount className="w-md">
       <ArtifactCountHeader>
-        <ArtifactCountCount variant="warning">3</ArtifactCountCount>
+        <Count variant="warning">3</Count>
         <span className="text-base font-medium leading-5 tracking-tightest">
           Active alarms
         </span>
@@ -150,7 +150,7 @@ export const WithFooter: Story = {
   render: () => (
     <ArtifactCount className="w-md">
       <ArtifactCountHeader className="items-end">
-        <ArtifactCountCount variant="critical">392°C</ArtifactCountCount>
+        <Count variant="critical">392°C</Count>
         <div className="flex flex-1 items-end justify-between">
           <div className="flex flex-col">
             <span className="text-base font-medium">Temperature</span>
@@ -210,9 +210,7 @@ export const WithChart: Story = {
     return (
       <ArtifactCount className="w-md gap-2">
         <ArtifactCountHeader className="items-end">
-          <ArtifactCountCount variant="default">
-            {currentTemp}
-          </ArtifactCountCount>
+          <Count variant="default">{currentTemp}</Count>
           <div className="flex flex-1 items-end justify-between">
             <div className="flex flex-col">
               <span className="text-base font-medium">Bar</span>
@@ -316,7 +314,7 @@ export const Interactive: Story = {
     return (
       <ArtifactCount className="w-md">
         <ArtifactCountHeader>
-          <ArtifactCountCount variant="warning">{value}°C</ArtifactCountCount>
+          <Count variant="warning">{value}°C</Count>
         </ArtifactCountHeader>
         <ArtifactCountSeparator />
         <ArtifactCountFooter className="text-muted-foreground">
@@ -359,7 +357,7 @@ export const EdgeCaseEmpty: Story = {
   render: () => (
     <ArtifactCount className="w-md">
       <ArtifactCountHeader>
-        <ArtifactCountCount variant="default">0</ArtifactCountCount>
+        <Count variant="default">0</Count>
       </ArtifactCountHeader>
     </ArtifactCount>
   ),
@@ -371,7 +369,7 @@ export const EdgeCaseLongText: Story = {
   render: () => (
     <ArtifactCount className="w-md">
       <ArtifactCountHeader className="items-end">
-        <ArtifactCountCount variant="warning">128</ArtifactCountCount>
+        <Count variant="warning">128</Count>
         <div className="flex flex-1 items-end justify-between">
           <div className="flex flex-col">
             <span className="text-base font-medium">
@@ -401,7 +399,7 @@ export const EdgeCaseSpecialCharacters: Story = {
   render: () => (
     <ArtifactCount className="w-md">
       <ArtifactCountHeader className="items-end">
-        <ArtifactCountCount variant="critical">99+</ArtifactCountCount>
+        <Count variant="critical">99+</Count>
         <div className="flex flex-1 items-end justify-between">
           <div className="flex flex-col">
             <span className="text-base font-medium">
@@ -495,9 +493,7 @@ export const Playground: PlaygroundStory = {
   render: (args) => (
     <ArtifactCount className={args.className}>
       <ArtifactCountHeader className="items-end">
-        <ArtifactCountCount variant={args.variant}>
-          {args.count}
-        </ArtifactCountCount>
+        <Count variant={args.variant}>{args.count}</Count>
         <div className="flex flex-1 items-end justify-between">
           <div className="flex flex-col">
             <span className="text-base font-medium">{args.title}</span>
