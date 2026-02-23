@@ -2,28 +2,23 @@ import { AlertDialog as AlertDialogPrimitive } from '@base-ui/react/alert-dialog
 import { type ComponentProps, type ComponentRef, forwardRef } from 'react';
 
 import { cn, getPortalContainer } from '../../../../lib/utils';
-
-import { Button } from '@/components/ui/aura/button';
+import { Button } from '../button';
 
 function AlertDialog(props: AlertDialogPrimitive.Root.Props) {
   return <AlertDialogPrimitive.Root data-slot="alert-dialog" {...props} />;
 }
 AlertDialog.displayName = 'AlertDialog';
 
-const AlertDialogTrigger = forwardRef<
-  HTMLButtonElement,
-  AlertDialogPrimitive.Trigger.Props
->(({ children, ...props }, ref) => {
+function AlertDialogTrigger({
+  children,
+  ...props
+}: AlertDialogPrimitive.Trigger.Props) {
   return (
-    <AlertDialogPrimitive.Trigger
-      ref={ref}
-      data-slot="alert-dialog-trigger"
-      {...props}
-    >
+    <AlertDialogPrimitive.Trigger data-slot="alert-dialog-trigger" {...props}>
       {children}
     </AlertDialogPrimitive.Trigger>
   );
-});
+}
 AlertDialogTrigger.displayName = 'AlertDialogTrigger';
 
 function AlertDialogPortal(props: AlertDialogPrimitive.Portal.Props) {
@@ -66,7 +61,7 @@ const AlertDialogContent = forwardRef<
         ref={ref}
         data-slot="alert-dialog-content"
         className={cn(
-          'bg-popover fixed top-[50%] left-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] translate-x-[-50%] translate-y-[-50%] gap-4 rounded-lg border border-border p-6 shadow-xl outline-none transition duration-200 data-[starting-style]:opacity-0 data-[starting-style]:scale-95 data-[ending-style]:opacity-0 data-[ending-style]:scale-95 sm:max-w-md',
+          'bg-popover fixed inset-x-4 top-1/2 z-50 grid -translate-y-1/2 gap-4 rounded-lg border border-border p-6 shadow-xl outline-none transition duration-200 data-[starting-style]:opacity-0 data-[starting-style]:scale-95 data-[ending-style]:opacity-0 data-[ending-style]:scale-95 sm:inset-x-0 sm:left-1/2 sm:w-full sm:max-w-md sm:-translate-x-1/2',
           className
         )}
         {...props}
@@ -76,38 +71,37 @@ const AlertDialogContent = forwardRef<
 });
 AlertDialogContent.displayName = 'AlertDialogContent';
 
-const AlertDialogHeader = forwardRef<HTMLDivElement, ComponentProps<'div'>>(
-  ({ className, ...props }, ref) => {
-    return (
-      <div
-        ref={ref}
-        data-slot="alert-dialog-header"
-        className={cn(
-          'flex flex-col gap-2 text-center sm:text-left',
-          className
-        )}
-        {...props}
-      />
-    );
-  }
-);
+const AlertDialogHeader = forwardRef<
+  ComponentRef<'div'>,
+  ComponentProps<'div'>
+>(({ className, ...props }, ref) => {
+  return (
+    <div
+      ref={ref}
+      data-slot="alert-dialog-header"
+      className={cn('flex flex-col gap-2 text-center sm:text-left', className)}
+      {...props}
+    />
+  );
+});
 AlertDialogHeader.displayName = 'AlertDialogHeader';
 
-const AlertDialogFooter = forwardRef<HTMLDivElement, ComponentProps<'div'>>(
-  ({ className, ...props }, ref) => {
-    return (
-      <div
-        ref={ref}
-        data-slot="alert-dialog-footer"
-        className={cn(
-          'flex flex-col-reverse gap-2 sm:flex-row sm:justify-end',
-          className
-        )}
-        {...props}
-      />
-    );
-  }
-);
+const AlertDialogFooter = forwardRef<
+  ComponentRef<'div'>,
+  ComponentProps<'div'>
+>(({ className, ...props }, ref) => {
+  return (
+    <div
+      ref={ref}
+      data-slot="alert-dialog-footer"
+      className={cn(
+        'flex flex-col-reverse gap-2 sm:flex-row sm:justify-end',
+        className
+      )}
+      {...props}
+    />
+  );
+});
 AlertDialogFooter.displayName = 'AlertDialogFooter';
 
 const AlertDialogTitle = forwardRef<
@@ -137,7 +131,7 @@ const AlertDialogDescription = forwardRef<
       ref={ref}
       data-slot="alert-dialog-description"
       className={cn(
-        'text-muted-foreground text-base font-normal leading-5 tracking-tightest ',
+        'text-muted-foreground text-base font-normal leading-5 tracking-tightest',
         className
       )}
       {...props}
@@ -147,7 +141,7 @@ const AlertDialogDescription = forwardRef<
 AlertDialogDescription.displayName = 'AlertDialogDescription';
 
 const AlertDialogAction = forwardRef<
-  HTMLButtonElement,
+  ComponentRef<typeof AlertDialogPrimitive.Close>,
   AlertDialogPrimitive.Close.Props
 >(({ className, ...props }, ref) => {
   return (
@@ -162,7 +156,7 @@ const AlertDialogAction = forwardRef<
 AlertDialogAction.displayName = 'AlertDialogAction';
 
 const AlertDialogCancel = forwardRef<
-  HTMLButtonElement,
+  ComponentRef<typeof AlertDialogPrimitive.Close>,
   AlertDialogPrimitive.Close.Props
 >(({ className, ...props }, ref) => {
   return (

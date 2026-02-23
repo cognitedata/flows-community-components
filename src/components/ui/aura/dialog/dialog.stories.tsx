@@ -3,6 +3,10 @@ import { IconChevronLeft } from '@tabler/icons-react';
 import { useState } from 'react';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
 
+import { Button } from '../button';
+import { Input } from '../input';
+import { Label } from '../label';
+
 import {
   Dialog,
   DialogClose,
@@ -13,10 +17,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from './dialog';
-
-import { Button } from '@/components/ui/aura/button';
-import { Input } from '@/components/ui/aura/input';
-import { Label } from '@/components/ui/aura/label';
 const meta: Meta<typeof Dialog> = {
   title: 'Primitives/Dialog',
   component: Dialog,
@@ -214,7 +214,7 @@ export const ScrollingContent: Story = {
   render: () => (
     <Dialog>
       <DialogTrigger render={<Button>Terms & Conditions</Button>} />
-      <DialogContent className="max-h-[80vh] overflow-y-auto">
+      <DialogContent className="max-h-dvh overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Terms of Service</DialogTitle>
           <DialogDescription>

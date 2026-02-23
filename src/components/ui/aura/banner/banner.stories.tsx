@@ -18,6 +18,7 @@ import {
   BannerStatus,
   BannerTitle,
 } from './banner';
+
 const meta: Meta<typeof Banner> = {
   title: 'Primitives/Banner',
   component: Banner,
@@ -27,67 +28,54 @@ const meta: Meta<typeof Banner> = {
       control: 'select',
       options: ['default', 'neutral', 'destructive', 'warning'],
       table: {
-        category: 'Display',
-        type: {
-          summary: '"default" | "neutral" | "destructive" | "warning"',
-        },
-        defaultValue: {
-          summary: 'default',
-        },
+        category: 'Variants/Styling',
+        type: { summary: '"default" | "neutral" | "destructive" | "warning"' },
+        defaultValue: { summary: 'default' },
       },
     },
     inset: {
       control: 'boolean',
       table: {
-        category: 'Display',
-        type: {
-          summary: 'boolean',
-        },
-        defaultValue: {
-          summary: 'false',
-        },
+        category: 'Variants/Styling',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
       },
     },
     className: {
       control: 'text',
       table: {
-        category: 'Display',
+        category: 'Variants/Styling',
       },
     },
+
     visible: {
       control: 'boolean',
       table: {
-        category: 'State',
-        type: {
-          summary: 'boolean',
-        },
+        category: 'Behavior',
+        type: { summary: 'boolean' },
       },
     },
     defaultVisible: {
       control: 'boolean',
       table: {
-        category: 'State',
-        type: {
-          summary: 'boolean',
-        },
-        defaultValue: {
-          summary: 'true',
-        },
+        category: 'Behavior',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'true' },
       },
     },
+
     onClose: {
       action: 'closed',
       table: {
         category: 'Events',
-        type: {
-          summary: '() => void',
-        },
+        type: { summary: '() => void' },
       },
     },
+
     children: {
       control: false,
       table: {
-        category: 'Internal',
+        category: 'Content',
       },
     },
   },
@@ -95,8 +83,10 @@ const meta: Meta<typeof Banner> = {
     layout: 'centered',
   },
 };
+
 export default meta;
 type Story = StoryObj<typeof Banner>;
+
 export const Basic: Story = {
   parameters: {
     order: 1,
@@ -104,11 +94,7 @@ export const Basic: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await expect(canvas.getByText('Banner title')).toBeInTheDocument();
-    const banner = canvasElement.querySelector('[class*="bg-mountain"]');
-    await expect(banner).toBeInTheDocument();
-    const actionButton = canvas.getByRole('button', {
-      name: /action/i,
-    });
+    const actionButton = canvas.getByRole('button', { name: /action/i });
     await expect(actionButton).toBeInTheDocument();
   },
   render: () => (
@@ -123,6 +109,7 @@ export const Basic: Story = {
     </div>
   ),
 };
+
 export const Variants: Story = {
   parameters: {
     order: 2,
@@ -133,8 +120,6 @@ export const Variants: Story = {
     await expect(canvas.getByText('Neutral variant')).toBeInTheDocument();
     await expect(canvas.getByText('Destructive variant')).toBeInTheDocument();
     await expect(canvas.getByText('Warning variant')).toBeInTheDocument();
-    const banners = canvasElement.querySelectorAll('[class*="bg-"]');
-    await expect(banners.length).toBeGreaterThanOrEqual(4);
   },
   render: () => (
     <div className="w-100 space-y-4">
@@ -157,6 +142,7 @@ export const Variants: Story = {
     </div>
   ),
 };
+
 export const WithStatus: Story = {
   parameters: {
     order: 3,
@@ -185,20 +171,19 @@ export const WithStatus: Story = {
     </div>
   ),
 };
+
 export const MultipleActions: Story = {
   parameters: {
     order: 4,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const duplicateButton = canvas.getByRole('button', {
-      name: /duplicate/i,
-    });
-    const editButton = canvas.getByRole('button', {
-      name: /edit/i,
-    });
+    const duplicateButton = canvas.getByRole('button', { name: /duplicate/i });
+    const editButton = canvas.getByRole('button', { name: /edit/i });
+
     await expect(duplicateButton).toBeInTheDocument();
     await expect(editButton).toBeInTheDocument();
+
     await userEvent.click(duplicateButton);
   },
   render: () => (
@@ -217,6 +202,7 @@ export const MultipleActions: Story = {
     </div>
   ),
 };
+
 export const Dismissible: Story = {
   parameters: {
     order: 5,
@@ -225,13 +211,9 @@ export const Dismissible: Story = {
     const canvas = within(canvasElement);
     const bannerTitle = canvas.getByText('This banner can be dismissed');
     await expect(bannerTitle).toBeInTheDocument();
-    const closeButton = canvas.getByRole('button', {
-      name: 'Close banner',
-    });
+    const closeButton = canvas.getByRole('button', { name: 'Close banner' });
     await expect(closeButton).toBeInTheDocument();
-    const actionButton = canvas.getByRole('button', {
-      name: /learn more/i,
-    });
+    const actionButton = canvas.getByRole('button', { name: /learn more/i });
     await expect(actionButton).toBeInTheDocument();
   },
   render: function DismissibleStory() {
@@ -249,6 +231,7 @@ export const Dismissible: Story = {
     );
   },
 };
+
 export const ControlledVisibility: Story = {
   parameters: {
     order: 6,
@@ -269,10 +252,9 @@ export const ControlledVisibility: Story = {
           canvas.queryByText('Controlled visibility banner')
         ).not.toBeInTheDocument();
       },
-      {
-        timeout: 300,
-      }
+      { timeout: 300 }
     );
+
     await userEvent.click(toggleButton);
     await waitFor(
       () => {
@@ -280,13 +262,12 @@ export const ControlledVisibility: Story = {
           canvas.getByText('Controlled visibility banner')
         ).toBeInTheDocument();
       },
-      {
-        timeout: 300,
-      }
+      { timeout: 300 }
     );
   },
   render: function ControlledVisibilityStory() {
     const [visible, setVisible] = useState(true);
+
     return (
       <div className="space-y-4">
         <Banner visible={visible} onClose={() => setVisible(false)}>
@@ -307,6 +288,7 @@ export const ControlledVisibility: Story = {
     );
   },
 };
+
 export const Inset: Story = {
   parameters: {
     order: 7,
@@ -314,8 +296,6 @@ export const Inset: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await expect(canvas.getByText('Inset banner')).toBeInTheDocument();
-    const banner = canvasElement.querySelector('[class*="rounded-lg"]');
-    await expect(banner).toBeInTheDocument();
   },
   render: () => (
     <div className="p-6 bg-card rounded-lg border">
@@ -329,6 +309,7 @@ export const Inset: Story = {
     </div>
   ),
 };
+
 export const ReadOnlyWarning: Story = {
   parameters: {
     order: 8,
@@ -338,9 +319,7 @@ export const ReadOnlyWarning: Story = {
     await expect(
       canvas.getByText('Read only. Duplicate to make changes.')
     ).toBeInTheDocument();
-    const duplicateButton = canvas.getByRole('button', {
-      name: /duplicate/i,
-    });
+    const duplicateButton = canvas.getByRole('button', { name: /duplicate/i });
     await expect(duplicateButton).toBeInTheDocument();
     await userEvent.click(duplicateButton);
   },
@@ -359,6 +338,7 @@ export const ReadOnlyWarning: Story = {
     </div>
   ),
 };
+
 export const SuccessNotification: Story = {
   parameters: {
     order: 9,
@@ -376,6 +356,7 @@ export const SuccessNotification: Story = {
   },
   render: function SuccessNotificationStory() {
     const [visible, setVisible] = useState(true);
+
     if (!visible) {
       return (
         <button
@@ -387,6 +368,7 @@ export const SuccessNotification: Story = {
         </button>
       );
     }
+
     return (
       <Banner variant="neutral" visible={visible}>
         <BannerIcon icon={IconCheck} />
@@ -400,6 +382,7 @@ export const SuccessNotification: Story = {
     );
   },
 };
+
 export const ErrorNotification: Story = {
   parameters: {
     order: 10,
@@ -409,9 +392,7 @@ export const ErrorNotification: Story = {
     await expect(
       canvas.getByText('Failed to save changes')
     ).toBeInTheDocument();
-    const retryButton = canvas.getByRole('button', {
-      name: /retry/i,
-    });
+    const retryButton = canvas.getByRole('button', { name: /retry/i });
     await expect(retryButton).toBeInTheDocument();
     await userEvent.click(retryButton);
   },
@@ -428,6 +409,7 @@ export const ErrorNotification: Story = {
     </div>
   ),
 };
+
 export const WarningNotification: Story = {
   parameters: {
     order: 11,
@@ -437,9 +419,7 @@ export const WarningNotification: Story = {
     await expect(
       canvas.getByText('Your trial expires in 3 days')
     ).toBeInTheDocument();
-    const upgradeButton = canvas.getByRole('button', {
-      name: /upgrade/i,
-    });
+    const upgradeButton = canvas.getByRole('button', { name: /upgrade/i });
     await expect(upgradeButton).toBeInTheDocument();
   },
   render: () => (
@@ -455,6 +435,7 @@ export const WarningNotification: Story = {
     </div>
   ),
 };
+
 export const Playground: Story = {
   args: {
     variant: 'default',

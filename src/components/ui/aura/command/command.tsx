@@ -8,14 +8,13 @@ import {
 } from 'react';
 
 import { cn } from '../../../../lib/utils';
-
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/aura/dialog';
+} from '../dialog';
 
 const Command = forwardRef<
   ComponentRef<typeof CommandPrimitive>,
@@ -57,7 +56,6 @@ function CommandDialog({
       </DialogHeader>
       <DialogContent
         data-slot="command-dialog"
-        data-testid="command-dialog-content"
         className={cn('overflow-hidden p-0', className)}
         showCloseButton={showCloseButton}
       >

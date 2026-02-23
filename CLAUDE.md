@@ -119,6 +119,7 @@ For files under `src/components/ui/aura/**`, prefer relative imports (for exampl
 - Dialog play tests are more reliable when opening via trigger and querying portal content with `within(document.body).findByRole("dialog")`.
 - Component files should order imports as React, third-party, then local aliases, and use `ComponentRef<...>` in `forwardRef` signatures.
 - In story play functions, prefer semantic alert/button queries (`getByRole`/`findByRole`) over `querySelector('[data-slot=...]')` for more stable interaction tests.
+- Avoid bracketed arbitrary Tailwind values in overlays/modals; follow the existing `dialog.tsx` positioning pattern (`top-1/2`, `-translate-y-1/2`, and `sm:-translate-x-1/2`) instead.
 - Avoid Tailwind bracket arbitrary grid templates (e.g. `grid-cols-[...]`); prefer a semantic layout (often flex) by extracting known slot children and rendering them in a predictable structure.
 - For emoji shown in JSX text/content, wrap each emoji in `<span role="img" aria-label="...">...</span>` for explicit accessible naming.
 - Keep `*.metadata.ts` files metadata-only; remove any runtime/component code from them.
@@ -139,6 +140,7 @@ For files under `src/components/ui/aura/**`, prefer relative imports (for exampl
 - Set per-component Figma links in `src/lib/primitives-catalog.ts`; catalog and component pages use those URLs to enable clickable Figma icons.
 - Conversation stories should keep play assertions semantic (`getByRole`/`findAllByRole`) and avoid helper components inside story render functions.
 - For components that accept a `render` element and forward accessibility props, set the accessible label once on the component to avoid duplicate `aria-label` attributes on both wrapper and inner element.
+- In Aura stories, avoid DOM traversal selectors in play functions; prefer semantic role/text queries for the interacted element.
 
 # Storybook Stories
 
