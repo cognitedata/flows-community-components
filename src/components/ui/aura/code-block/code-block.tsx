@@ -1,3 +1,4 @@
+import { IconCheck, IconCopy, IconSelector } from '@tabler/icons-react';
 import {
   type ComponentProps,
   type ComponentRef,
@@ -7,13 +8,16 @@ import {
   useContext,
   useEffect,
   useState,
-} from "react";
+} from 'react';
+import type { BundledLanguage } from 'shiki';
 
-import { IconCheck, IconCopy, IconSelector } from "@tabler/icons-react";
-import type { BundledLanguage } from "shiki";
-
-import { Button } from "@/components/ui/aura/button";
-import { cn, escapeHtml, highlightCode, isStorybookTestEnv } from "@/lib/utils";
+import {
+  cn,
+  escapeHtml,
+  highlightCode,
+  isStorybookTestEnv,
+} from '../../../../lib/utils';
+import { Button } from '../button';
 
 type CodeBlockProps = HTMLAttributes<HTMLDivElement> & {
   code: string;
@@ -32,14 +36,14 @@ type CodeBlockContextType = {
 };
 
 const CodeBlockContext = createContext<CodeBlockContextType>({
-  code: "",
-  copyText: "",
+  code: '',
+  copyText: '',
   isCollapsed: false,
   setIsCollapsed: () => {},
   lineCount: 0,
 });
 
-const CodeBlock = forwardRef<ComponentRef<"div">, CodeBlockProps>(
+const CodeBlock = forwardRef<ComponentRef<'div'>, CodeBlockProps>(
   (
     {
       code,
@@ -53,11 +57,11 @@ const CodeBlock = forwardRef<ComponentRef<"div">, CodeBlockProps>(
     },
     ref
   ) => {
-    const [html, setHtml] = useState<string>("");
-    const [darkHtml, setDarkHtml] = useState<string>("");
+    const [html, setHtml] = useState<string>('');
+    const [darkHtml, setDarkHtml] = useState<string>('');
     const [isCollapsed, setIsCollapsed] = useState(collapsed);
 
-    const lineCount = code.split("\n").length;
+    const lineCount = code.split('\n').length;
     const textToCopy = copyText ?? code;
 
     useEffect(() => {
@@ -79,7 +83,7 @@ const CodeBlock = forwardRef<ComponentRef<"div">, CodeBlockProps>(
           }
         })
         .catch((error) => {
-          console.error("Failed to highlight code:", error);
+          console.error('Failed to highlight code:', error);
 
           if (!isCancelled) {
             const escaped = escapeHtml(code);
@@ -108,7 +112,7 @@ const CodeBlock = forwardRef<ComponentRef<"div">, CodeBlockProps>(
           ref={ref}
           data-slot="code-block"
           className={cn(
-            "group/code-block relative w-full overflow-hidden rounded-md bg-background text-foreground",
+            'group/code-block relative w-full overflow-hidden rounded-md bg-background text-foreground',
             className
           )}
           {...props}
@@ -116,16 +120,16 @@ const CodeBlock = forwardRef<ComponentRef<"div">, CodeBlockProps>(
           <div className="relative">
             <div
               className={cn(
-                "dark:hidden [&>pre]:m-0 [&>pre]:bg-card [&>pre]:p-4 [&>pre]:text-foreground [&>pre]:text-sm [&_code]:font-mono [&_code]:text-sm [&>pre]:overflow-x-auto",
-                isCollapsed && "max-h-26 overflow-y-hidden"
+                'dark:hidden [&>pre]:m-0 [&>pre]:bg-card [&>pre]:p-4 [&>pre]:text-foreground [&>pre]:text-sm [&_code]:font-mono [&_code]:text-sm [&>pre]:overflow-x-auto',
+                isCollapsed && 'max-h-26 overflow-y-hidden'
               )}
               // biome-ignore lint/security/noDangerouslySetInnerHtml: required to render trusted Shiki HTML
               dangerouslySetInnerHTML={{ __html: html }}
             />
             <div
               className={cn(
-                "hidden dark:block [&>pre]:m-0 [&>pre]:bg-card [&>pre]:p-4 [&>pre]:text-foreground [&>pre]:text-sm [&_code]:font-mono [&_code]:text-sm [&>pre]:overflow-x-auto",
-                isCollapsed && "max-h-26 overflow-y-hidden"
+                'hidden dark:block [&>pre]:m-0 [&>pre]:bg-card [&>pre]:p-4 [&>pre]:text-foreground [&>pre]:text-sm [&_code]:font-mono [&_code]:text-sm [&>pre]:overflow-x-auto',
+                isCollapsed && 'max-h-26 overflow-y-hidden'
               )}
               // biome-ignore lint/security/noDangerouslySetInnerHtml: required to render trusted Shiki HTML
               dangerouslySetInnerHTML={{ __html: darkHtml }}
@@ -144,7 +148,7 @@ const CodeBlock = forwardRef<ComponentRef<"div">, CodeBlockProps>(
     );
   }
 );
-CodeBlock.displayName = "CodeBlock";
+CodeBlock.displayName = 'CodeBlock';
 
 type CodeBlockCopyButtonProps = ComponentProps<typeof Button> & {
   onCopy?: () => void;
@@ -152,57 +156,49 @@ type CodeBlockCopyButtonProps = ComponentProps<typeof Button> & {
   timeout?: number;
 };
 
-const CodeBlockCopyButton = forwardRef<ComponentRef<typeof Button>, CodeBlockCopyButtonProps>(
-  ({ onCopy, onError, timeout = 2000, children, className, ...props }, ref) => {
-    const [isCopied, setIsCopied] = useState(false);
-    const { copyText } = useContext(CodeBlockContext);
+const CodeBlockCopyButton = forwardRef<
+  ComponentRef<typeof Button>,
+  CodeBlockCopyButtonProps
+>(({ onCopy, onError, timeout = 2000, children, className, ...props }, ref) => {
+  const [isCopied, setIsCopied] = useState(false);
+  const { copyText } = useContext(CodeBlockContext);
 
-    const copyToClipboard = async () => {
-      if (typeof window === "undefined" || !navigator?.clipboard?.writeText) {
-        onError?.(new Error("Clipboard API not available"));
-        return;
-      }
+  const copyToClipboard = async () => {
+    if (typeof window === 'undefined' || !navigator?.clipboard?.writeText) {
+      onError?.(new Error('Clipboard API not available'));
+      return;
+    }
 
-      try {
-        if (navigator.permissions?.query) {
-          const permissionStatus = await navigator.permissions.query({
-            name: "clipboard-write" as PermissionName,
-          });
+    try {
+      await navigator.clipboard.writeText(copyText);
+      setIsCopied(true);
+      onCopy?.();
+      setTimeout(() => setIsCopied(false), timeout);
+    } catch (error: unknown) {
+      console.warn('Clipboard write failed:', error);
+      onError?.(
+        error instanceof Error ? error : new Error('Clipboard write failed')
+      );
+    }
+  };
 
-          if (permissionStatus.state === "denied") {
-            onError?.(new Error("Clipboard access denied by browser policy"));
-            return;
-          }
-        }
+  const Icon = isCopied ? IconCheck : IconCopy;
 
-        await navigator.clipboard.writeText(copyText);
-        setIsCopied(true);
-        onCopy?.();
-        setTimeout(() => setIsCopied(false), timeout);
-      } catch (error) {
-        console.warn("Clipboard write failed:", error);
-        onError?.(error as Error);
-      }
-    };
-
-    const Icon = isCopied ? IconCheck : IconCopy;
-
-    return (
-      <Button
-        ref={ref}
-        data-slot="code-block-copy-button"
-        className={cn("shrink-0", className)}
-        onClick={copyToClipboard}
-        size="icon"
-        variant="secondary"
-        {...props}
-      >
-        {children ?? <Icon size={14} />}
-      </Button>
-    );
-  }
-);
-CodeBlockCopyButton.displayName = "CodeBlockCopyButton";
+  return (
+    <Button
+      ref={ref}
+      data-slot="code-block-copy-button"
+      className={cn('shrink-0', className)}
+      onClick={copyToClipboard}
+      size="icon"
+      variant="secondary"
+      {...props}
+    >
+      {children ?? <Icon size={14} />}
+    </Button>
+  );
+});
+CodeBlockCopyButton.displayName = 'CodeBlockCopyButton';
 
 type CodeBlockCollapseButtonProps = ComponentProps<typeof Button>;
 
@@ -210,7 +206,8 @@ const CodeBlockCollapseButton = forwardRef<
   ComponentRef<typeof Button>,
   CodeBlockCollapseButtonProps
 >(({ children, className, ...props }, ref) => {
-  const { isCollapsed, setIsCollapsed, lineCount } = useContext(CodeBlockContext);
+  const { isCollapsed, setIsCollapsed, lineCount } =
+    useContext(CodeBlockContext);
 
   if (lineCount <= 1) {
     return null;
@@ -220,7 +217,7 @@ const CodeBlockCollapseButton = forwardRef<
     <Button
       ref={ref}
       data-slot="code-block-collapse-button"
-      className={cn("shrink-0", className)}
+      className={cn('shrink-0', className)}
       onClick={() => setIsCollapsed(!isCollapsed)}
       size="icon"
       variant="secondary"
@@ -230,8 +227,6 @@ const CodeBlockCollapseButton = forwardRef<
     </Button>
   );
 });
-CodeBlockCollapseButton.displayName = "CodeBlockCollapseButton";
+CodeBlockCollapseButton.displayName = 'CodeBlockCollapseButton';
 
-export { CodeBlock };
-export { CodeBlockCopyButton };
-export { CodeBlockCollapseButton };
+export { CodeBlock, CodeBlockCollapseButton, CodeBlockCopyButton };

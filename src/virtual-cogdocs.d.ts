@@ -1,4 +1,4 @@
-declare module "virtual:cogdocs" {
+declare module 'virtual:cogdocs' {
   export interface CogDocsPage {
     slug: string;
     title: string;
