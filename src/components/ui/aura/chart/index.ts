@@ -7,6 +7,7 @@
  * import { ChartContainer, ChartTooltip, ChartLegend } from '@/components/ui/aura/chart';
  */
 export {
+  Chart,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,

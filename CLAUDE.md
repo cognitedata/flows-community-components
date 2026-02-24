@@ -115,6 +115,7 @@ For files under `src/components/ui/aura/**`, prefer relative imports (for exampl
 - Collapsible play tests are more stable when asserting `data-panel-open` and scoping queries to the panel.
 - Tooltip play tests should avoid retry-based interaction fallbacks; fix root causes and prefer deterministic semantic checks.
 - Hover card play tests are more reliable when asserting open-state attributes with deterministic waits (no retry fallbacks).
+- For hover-card stories, use `canvasElement.ownerDocument` when asserting portal-mounted open state (`[data-slot="hover-card-content"][data-open]`) to avoid canvas-only query gaps.
 - Dropdown menu play tests are more reliable when querying portal content with `within(document.body).findByRole("menu")` and semantic menu item roles.
 - Dialog play tests are more reliable when opening via trigger and querying portal content with `within(document.body).findByRole("dialog")`.
 - Component files should order imports as React, third-party, then local aliases, and use `ComponentRef<...>` in `forwardRef` signatures.
@@ -138,9 +139,20 @@ For files under `src/components/ui/aura/**`, prefer relative imports (for exampl
 - In stories, prefer typed data arrays (for example `ComponentProps<typeof X>`) over `as const` casts for literal variants.
 - When updating component metadata statuses from a list, update only existing `*.metadata.ts` files and skip missing components without creating placeholders.
 - Set per-component Figma links in `src/lib/primitives-catalog.ts`; catalog and component pages use those URLs to enable clickable Figma icons.
+- The `Chart` primitive stories should demonstrate chart-only rendering and avoid wrapping examples in artifact/card layout primitives.
+<<<<<<< Updated upstream
 - Conversation stories should keep play assertions semantic (`getByRole`/`findAllByRole`) and avoid helper components inside story render functions.
 - For components that accept a `render` element and forward accessibility props, set the accessible label once on the component to avoid duplicate `aria-label` attributes on both wrapper and inner element.
 - In Aura stories, avoid DOM traversal selectors in play functions; prefer semantic role/text queries for the interacted element.
+=======
+<<<<<<< Updated upstream
+=======
+- Conversation stories should keep play assertions semantic (`getByRole`/`findAllByRole`) and avoid helper components inside story render functions.
+- For components that accept a `render` element and forward accessibility props, set the accessible label once on the component to avoid duplicate `aria-label` attributes on both wrapper and inner element.
+- In Aura stories, avoid DOM traversal selectors in play functions; prefer semantic role/text queries for the interacted element.
+- When promoting a primitive from placeholder to implemented, update both `implemented`/`comingSoon` in `src/lib/primitives-catalog.ts` and add the primitive route under the Primitives section in `src/components/side-navigation.tsx`.
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
 
 # Storybook Stories
 

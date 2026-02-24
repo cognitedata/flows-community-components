@@ -169,6 +169,7 @@ export type {
 export { ChainOfThoughtMetadata } from './chain-of-thought/chain-of-thought.metadata';
 
 export {
+  Chart,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
