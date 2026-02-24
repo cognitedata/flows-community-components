@@ -18,7 +18,6 @@ import {
 
 import { Button } from '@/components/ui/aura/button';
 import {
-  type ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
@@ -99,7 +98,7 @@ const temperatureChartConfig = {
     label: 'Temperature',
     color: 'hsl(239 84% 67%)',
   },
-} satisfies ChartConfig;
+} satisfies ComponentProps<typeof ChartContainer>['config'];
 export const Basic: Story = {
   parameters: {
     order: 1,

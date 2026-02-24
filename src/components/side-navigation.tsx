@@ -48,6 +48,7 @@ const primitivesNavigation: NavigationItem[] = [
       { href: '/primitives/button-group', label: 'Button group' },
       { href: '/primitives/calendar', label: 'Calendar' },
       { href: '/primitives/card', label: 'Card' },
+      { href: '/primitives/chart', label: 'Chart' },
       { href: '/primitives/checkbox', label: 'Checkbox' },
       { href: '/primitives/collapsible', label: 'Collapsible' },
       { href: '/primitives/combobox', label: 'Combobox' },

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { IconTrendingUp } from '@tabler/icons-react';
-import { useId, useState } from 'react';
+import { type ComponentProps, useId, useState } from 'react';
 import {
   Area,
   AreaChart,
@@ -28,7 +28,6 @@ import {
 
 import { CardActions, CardHeaderRight } from '@/components/ui/aura/card';
 import {
-  type ChartConfig,
   ChartContainer,
   ChartLegend,
   ChartLegendContent,
@@ -59,7 +58,7 @@ const sharedChartConfig = {
     label: 'unit',
     color: 'var(--color-chart-fjord-solid)',
   },
-} satisfies ChartConfig;
+} satisfies ComponentProps<typeof ChartContainer>['config'];
 
 const sharedChartData = [
   {
@@ -98,7 +97,7 @@ const areaChartConfig = {
     label: 'R402',
     color: 'rgba(47, 85, 234, 0.5)',
   },
-} satisfies ChartConfig;
+} satisfies ComponentProps<typeof ChartContainer>['config'];
 
 const areaChartData = [
   {
@@ -142,7 +141,7 @@ const lineChartConfig = {
     label: 'Secondary',
     color: 'rgba(47, 85, 234, 0.5)',
   },
-} satisfies ChartConfig;
+} satisfies ComponentProps<typeof ChartContainer>['config'];
 
 const lineChartData = [
   {
@@ -197,7 +196,7 @@ const barChartConfig = {
     label: 'Count',
     color: 'url(#barGradient)',
   },
-} satisfies ChartConfig;
+} satisfies ComponentProps<typeof ChartContainer>['config'];
 
 const barChartData = [
   {

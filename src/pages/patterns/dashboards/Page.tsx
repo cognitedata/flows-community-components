@@ -7,7 +7,7 @@ import {
   IconTemperature as Thermometer,
   IconTrendingUp as TrendingUp,
 } from '@tabler/icons-react';
-import { useEffect, useState } from 'react';
+import { type ComponentProps, useEffect, useState } from 'react';
 import {
   Area,
   AreaChart,
@@ -32,7 +32,6 @@ import {
   CardTitle,
 } from '@/components/ui/aura/card';
 import {
-  type ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
@@ -168,14 +167,14 @@ const chartConfig = {
     label: 'Downtime',
     color: 'hsl(var(--chart-2))',
   },
-} satisfies ChartConfig;
+} satisfies ComponentProps<typeof ChartContainer>['config'];
 
 const temperatureChartConfig = {
   temperature: {
     label: 'Temperature',
     color: 'hsl(var(--chart-3))',
   },
-} satisfies ChartConfig;
+} satisfies ComponentProps<typeof ChartContainer>['config'];
 
 // Asset health status data
 const assetHealthData = [
@@ -215,7 +214,7 @@ const assetHealthConfig = {
     label: 'Critical',
     color: 'hsl(0 84% 45%)',
   },
-} satisfies ChartConfig;
+} satisfies ComponentProps<typeof ChartContainer>['config'];
 
 function EquipmentUptimeChart() {
   const [animationKey, setAnimationKey] = useState(0);
