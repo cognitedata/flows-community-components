@@ -847,11 +847,11 @@ export const IconSizes: Story = {
       (badge) =>
         badge.classList.contains('px-1.5') && badge.classList.contains('py-1')
     );
-    iconSizeBadges.forEach((badge) => {
+    for (const badge of iconSizeBadges) {
       expect(badge).toHaveClass('px-1.5');
       expect(badge).toHaveClass('py-1');
       expect(badge).toHaveClass('rounded-md');
-    });
+    }
     await expect(iconSizeBadges.length).toBe(4);
   },
 };
@@ -893,10 +893,14 @@ export const DotIndicators: Story = {
   },
   play: async ({ canvasElement }) => {
     const badges = canvasElement.querySelectorAll('[data-slot="badge"]');
-    badges.forEach((badge) => {
+    for (const badge of badges) {
       expect(badge).toHaveClass('rounded-full');
-    });
-    const firstDot = badges[0] as HTMLElement;
+    }
+    const firstDot = badges.item(0);
+    expect(firstDot).not.toBeNull();
+    if (!firstDot) {
+      return;
+    }
     await expect(firstDot).toHaveClass('size-2');
     await expect(firstDot).toHaveClass('bg-destructive-foreground');
   },
@@ -909,15 +913,19 @@ export const ClickInteraction: Story = {
     const canvas = within(canvasElement);
     const initialLabel = canvas.getByText('Click me');
     const badge = initialLabel.closest('[data-slot="badge"]');
+    expect(badge).not.toBeNull();
+    if (!badge) {
+      return;
+    }
     await expect(badge).toBeInTheDocument();
     await expect(badge).toHaveClass('cursor-pointer');
-    await userEvent.hover(badge!);
+    await userEvent.hover(badge);
     await expect(badge).toHaveClass('hover:bg-secondary-hover');
-    await userEvent.click(badge!);
+    await userEvent.click(badge);
     await waitFor(() => {
       expect(canvas.getByText('Clicked!')).toBeInTheDocument();
     });
-    await userEvent.click(badge!);
+    await userEvent.click(badge);
     await waitFor(() => {
       expect(canvas.getByText('Click me')).toBeInTheDocument();
     });
@@ -978,32 +986,18 @@ export const KeyboardInteractions: Story = {
         <div className="flex flex-wrap gap-2">
           <Badge
             variant="closable"
-            role="button"
-            tabIndex={0}
+            render={<button type="button" />}
             aria-label="Toggle badge 1"
             onClick={() => setBadge1Active(!badge1Active)}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                setBadge1Active(!badge1Active);
-              }
-            }}
           >
             Badge 1
             <IconX className="size-3" aria-hidden="true" />
           </Badge>
           <Badge
             variant="closable"
-            role="button"
-            tabIndex={0}
+            render={<button type="button" />}
             aria-label="Toggle badge 2"
             onClick={() => setBadge2Active(!badge2Active)}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                setBadge2Active(!badge2Active);
-              }
-            }}
           >
             Badge 2
             <IconX className="size-3" aria-hidden="true" />
@@ -1032,7 +1026,7 @@ export const Accessibility: Story = {
       name: /Remove tag: JavaScript/i,
     });
     await expect(interactiveBadge).toBeInTheDocument();
-    await expect(interactiveBadge).toHaveAttribute('tabIndex', '0');
+    await expect(interactiveBadge).toBeEnabled();
     await userEvent.tab();
     await userEvent.tab();
     await userEvent.tab();
@@ -1060,12 +1054,8 @@ export const Accessibility: Story = {
       </div>
       <Badge
         variant="closable"
-        role="button"
-        tabIndex={0}
+        render={<button type="button" />}
         aria-label="Remove tag: JavaScript"
-        onKeyDown={(e) => {
-          if (e.key === 'Enter') e.preventDefault();
-        }}
       >
         JavaScript
         <IconX className="size-3" aria-hidden="true" />
@@ -1127,9 +1117,9 @@ export const EdgeCaseEmpty: Story = {
   play: async ({ canvasElement }) => {
     const badges = canvasElement.querySelectorAll('[data-slot="badge"]');
     await expect(badges.length).toBe(3);
-    badges.forEach((badge) => {
+    for (const badge of badges) {
       expect(badge).toHaveClass('inline-flex');
-    });
+    }
   },
 };
 export const EdgeCaseLongText: Story = {
@@ -1198,12 +1188,12 @@ export const EdgeCaseIconOnly: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const badges = canvasElement.querySelectorAll('[data-slot="badge"]');
-    badges.forEach((badge) => {
+    for (const badge of badges) {
       const icon = badge.querySelector('svg');
       expect(icon).toBeInTheDocument();
       expect(icon).toHaveAttribute('aria-hidden', 'true');
       expect(badge).toHaveAttribute('aria-label');
-    });
+    }
     await expect(canvas.getByLabelText('Success')).toBeInTheDocument();
     await expect(canvas.getByLabelText('Error')).toBeInTheDocument();
     await expect(canvas.getByLabelText('Warning')).toBeInTheDocument();
@@ -1312,9 +1302,9 @@ export const EdgeCaseTinyDots: Story = {
   },
   play: async ({ canvasElement }) => {
     const dots = canvasElement.querySelectorAll('[data-slot="badge"]');
-    dots.forEach((dot) => {
+    for (const dot of dots) {
       expect(dot).toHaveClass('size-2');
       expect(dot).toHaveClass('rounded-full');
-    });
+    }
   },
 };

@@ -1,13 +1,11 @@
 import { type ComponentProps, type ComponentRef, forwardRef } from 'react';
 
 import { cn } from '../../../../lib/utils';
+import { Breadcrumb } from '../breadcrumb';
+import { Button } from '../button';
+import { SidebarInset, SidebarProvider } from '../sidebar';
 
-import { Breadcrumb } from '@/components/ui/aura/breadcrumb';
-import { Button } from '@/components/ui/aura/button';
-import { SidebarInset, SidebarProvider } from '@/components/ui/aura/sidebar';
-
-// Topbar wrapper component
-const Topbar = forwardRef<HTMLDivElement, ComponentProps<'div'>>(
+const Topbar = forwardRef<ComponentRef<'div'>, ComponentProps<'div'>>(
   ({ className, ...props }, ref) => {
     return (
       <div
@@ -24,8 +22,7 @@ const Topbar = forwardRef<HTMLDivElement, ComponentProps<'div'>>(
 );
 Topbar.displayName = 'Topbar';
 
-// Topbar left section (for breadcrumbs)
-const TopbarLeft = forwardRef<HTMLDivElement, ComponentProps<'div'>>(
+const TopbarLeft = forwardRef<ComponentRef<'div'>, ComponentProps<'div'>>(
   ({ className, ...props }, ref) => {
     return (
       <div
@@ -39,8 +36,7 @@ const TopbarLeft = forwardRef<HTMLDivElement, ComponentProps<'div'>>(
 );
 TopbarLeft.displayName = 'TopbarLeft';
 
-// Topbar center section
-const TopbarCenter = forwardRef<HTMLDivElement, ComponentProps<'div'>>(
+const TopbarCenter = forwardRef<ComponentRef<'div'>, ComponentProps<'div'>>(
   ({ className, ...props }, ref) => {
     return (
       <div
@@ -54,8 +50,7 @@ const TopbarCenter = forwardRef<HTMLDivElement, ComponentProps<'div'>>(
 );
 TopbarCenter.displayName = 'TopbarCenter';
 
-// Topbar right section (for action buttons)
-const TopbarRight = forwardRef<HTMLDivElement, ComponentProps<'div'>>(
+const TopbarRight = forwardRef<ComponentRef<'div'>, ComponentProps<'div'>>(
   ({ className, ...props }, ref) => {
     return (
       <div
@@ -69,26 +64,25 @@ const TopbarRight = forwardRef<HTMLDivElement, ComponentProps<'div'>>(
 );
 TopbarRight.displayName = 'TopbarRight';
 
-// Topbar with sidebar integration
-const TopbarWithSidebar = forwardRef<HTMLDivElement, ComponentProps<'div'>>(
-  ({ className, children, ...props }, ref) => {
-    return (
-      <SidebarProvider>
-        <div
-          ref={ref}
-          data-slot="topbar-with-sidebar"
-          className={cn('flex min-h-screen w-full', className)}
-          {...props}
-        >
-          {children}
-        </div>
-      </SidebarProvider>
-    );
-  }
-);
+const TopbarWithSidebar = forwardRef<
+  ComponentRef<'div'>,
+  ComponentProps<'div'>
+>(({ className, children, ...props }, ref) => {
+  return (
+    <SidebarProvider>
+      <div
+        ref={ref}
+        data-slot="topbar-with-sidebar"
+        className={cn('flex min-h-screen w-full', className)}
+        {...props}
+      >
+        {children}
+      </div>
+    </SidebarProvider>
+  );
+});
 TopbarWithSidebar.displayName = 'TopbarWithSidebar';
 
-// Topbar content wrapper (main page content area)
 const TopbarContent = forwardRef<
   ComponentRef<typeof SidebarInset>,
   ComponentProps<typeof SidebarInset>
@@ -104,7 +98,6 @@ const TopbarContent = forwardRef<
 });
 TopbarContent.displayName = 'TopbarContent';
 
-// Topbar breadcrumbs wrapper
 const TopbarBreadcrumbs = forwardRef<
   ComponentRef<typeof Breadcrumb>,
   ComponentProps<typeof Breadcrumb>
@@ -120,9 +113,8 @@ const TopbarBreadcrumbs = forwardRef<
 });
 TopbarBreadcrumbs.displayName = 'TopbarBreadcrumbs';
 
-// Topbar action button wrapper
 const TopbarAction = forwardRef<
-  HTMLButtonElement,
+  ComponentRef<typeof Button>,
   ComponentProps<typeof Button>
 >(({ className, ...props }, ref) => {
   return (

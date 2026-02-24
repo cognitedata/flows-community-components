@@ -270,8 +270,8 @@ const RAW_PRIMITIVES_CATALOG: PrimitiveCatalogSeed[] = [
     section: 'primitive',
     eosGaRequired: true,
     duneGaRequired: true,
-    implemented: false,
-    comingSoon: true,
+    implemented: true,
+    comingSoon: false,
   },
   {
     slug: 'date-picker',
@@ -772,16 +772,17 @@ const RAW_PRIMITIVES_CATALOG: PrimitiveCatalogSeed[] = [
     aliases: ['breadcrumb-topbar'],
   },
   {
-    slug: 'tree-view',
-    name: 'Tree view',
+    slug: 'treeview',
+    name: 'TreeView',
     description: 'Hierarchical tree navigation',
     section: 'primitive',
     figmaUrl:
-      'https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=6331-19698&p=f&m=dev',
+      'https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=6331-19698&p=f&t=GliNjcCWyFkWS9tg-0',
     eosGaRequired: true,
     duneGaRequired: true,
-    implemented: false,
-    comingSoon: true,
+    implemented: true,
+    comingSoon: false,
+    aliases: ['tree-view'],
   },
   {
     slug: 'typography',

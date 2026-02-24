@@ -102,7 +102,6 @@ function Badge({
     defaultTagName: 'span',
     props: mergeProps<'span'>(
       {
-        'data-slot': 'badge',
         className: cn(
           badgeVariants({
             variant,
@@ -121,8 +120,8 @@ function Badge({
           dot && isEmpty && !urgent && 'bg-neutral-foreground',
           className
         ),
-      } as any,
-      { ...props, children } as any
+      },
+      { ...props, children }
     ),
     render,
     state: {
