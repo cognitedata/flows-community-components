@@ -496,8 +496,8 @@ export {
   paginationEllipsisVariants,
   paginationLinkVariants,
   paginationStatusVariants,
-} from './pagination/pagination';
-export { PaginationMetadata } from './pagination/pagination.metadata';
+  PaginationMetadata,
+} from './pagination';
 
 export { Popover, PopoverTrigger, PopoverContent } from './popover/popover';
 export { PopoverMetadata } from './popover/popover.metadata';
