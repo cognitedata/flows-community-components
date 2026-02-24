@@ -126,6 +126,7 @@ For files under `src/components/ui/aura/**`, prefer relative imports (for exampl
 - For emoji shown in JSX text/content, wrap each emoji in `<span role="img" aria-label="...">...</span>` for explicit accessible naming.
 - Keep `*.metadata.ts` files metadata-only; remove any runtime/component code from them.
 - Do not include `importPath` in `*.metadata.ts` files.
+- Keep `llmUsage` in `*.metadata.ts` files because it helps LLMs understand component and story usage patterns.
 - Component `*.metadata.ts` files should include `name`, `status`, and `description` fields for the registry build script.
 - Catalog grouping/filtering should rely on metadata `status`; do not use legacy `progressStatus`.
 - Export blocks should list one export per line within a single `export { ... }` block (no separate `export { X };` lines).
@@ -145,6 +146,7 @@ For files under `src/components/ui/aura/**`, prefer relative imports (for exampl
 - Conversation stories should keep play assertions semantic (`getByRole`/`findAllByRole`) and avoid helper components inside story render functions.
 - For components that accept a `render` element and forward accessibility props, set the accessible label once on the component to avoid duplicate `aria-label` attributes on both wrapper and inner element.
 - In Aura stories, avoid DOM traversal selectors in play functions; prefer semantic role/text queries for the interacted element.
+- In story play tests, avoid `canvasElement.querySelectorAll('[data-slot=\"skeleton\"]')`; prefer semantic queries (for example role/text-based) and only fall back to slot selectors when no semantic target exists.
 - Progress stories should assert state via semantic `progressbar` ARIA attributes (`aria-valuenow`, min/max/name) instead of querying internal indicator slots.
 
 # Storybook Stories
