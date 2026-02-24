@@ -1,4 +1,15 @@
-import { Toolbar } from './toolbar';
+import {
+  Toolbar,
+  ToolbarButton,
+  ToolbarSeparator,
+  ToolbarGroup,
+} from './toolbar';
 import { ToolbarMetadata } from './toolbar.metadata';
 
-export { Toolbar, ToolbarMetadata };
+export {
+  Toolbar,
+  ToolbarButton,
+  ToolbarSeparator,
+  ToolbarGroup,
+  ToolbarMetadata,
+};
