@@ -42,7 +42,6 @@ const meta: Meta<typeof Toaster> = {
       control: {
         type: 'boolean',
       },
-      description: 'Use rich colors for toast types',
       table: {
         category: 'Variants/Styling',
         type: {
