@@ -1,18 +1,20 @@
-/**
- * Chart Component
- *
- * Chart components built with Recharts for data visualization.
- *
- * @example
- * import { ChartContainer, ChartTooltip, ChartLegend } from '@/components/ui/aura/chart';
- */
-export {
+import {
+  Chart,
   ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
   ChartLegend,
   ChartLegendContent,
   ChartStyle,
-} from "./chart";
-export type { ChartConfig } from "./chart";
-export { ChartMetadata } from "./chart.metadata";
+  ChartTooltip,
+  ChartTooltipContent,
+} from './chart';
+import { ChartMetadata } from './chart.metadata';
+export {
+  Chart,
+  ChartContainer,
+  ChartLegend,
+  ChartLegendContent,
+  ChartMetadata,
+  ChartStyle,
+  ChartTooltip,
+  ChartTooltipContent,
+};

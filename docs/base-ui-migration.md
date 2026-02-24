@@ -6,7 +6,7 @@ Aura’s primitives under `src/components/ui/aura/*` have been migrated from Rad
 
 - No Radix imports in source: `rg "@radix-ui/" src` returns nothing.
 - Registry metadata uses Base UI: `registry.json` contains no `@radix-ui/*` deps.
-- Formatting/lint passes: `./node_modules/@biomejs/biome/bin/biome check .`
+- Formatting/lint passes: `pnpm run lint`
 - Build passes after installing deps: `pnpm install && pnpm build`
 
 ## Mapping (Aura component → Base UI primitive)
@@ -41,4 +41,3 @@ Aura’s primitives under `src/components/ui/aura/*` have been migrated from Rad
 - Radix `useControllableState` is replaced with a local hook (`src/lib/use-controllable-state.ts:11`).
 - Radix `Slot` is replaced with a small local Slot utility (`src/lib/slot.tsx:43`) for the few places still needing it.
 - Portals continue to mount into Aura’s scoped container via `getPortalContainer()` when Base UI’s Portal supports `container`.
-

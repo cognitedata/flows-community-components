@@ -3,33 +3,19 @@ import {
   InlineCitationCard,
   InlineCitationCardBody,
   InlineCitationCardTrigger,
-  InlineCitationCarousel,
-  InlineCitationCarouselContent,
-  InlineCitationCarouselHeader,
-  InlineCitationCarouselIndex,
-  InlineCitationCarouselItem,
-  InlineCitationCarouselNext,
-  InlineCitationCarouselPrev,
   InlineCitationGroup,
   InlineCitationLink,
   InlineCitationQuote,
   InlineCitationSource,
   InlineCitationText,
-} from "./inline-citation";
-import { InlineCitationMetadata } from "./inline-citation.metadata";
+} from './inline-citation';
+import { InlineCitationMetadata } from './inline-citation.metadata';
 
 export {
   InlineCitation,
   InlineCitationCard,
   InlineCitationCardBody,
   InlineCitationCardTrigger,
-  InlineCitationCarousel,
-  InlineCitationCarouselContent,
-  InlineCitationCarouselHeader,
-  InlineCitationCarouselIndex,
-  InlineCitationCarouselItem,
-  InlineCitationCarouselNext,
-  InlineCitationCarouselPrev,
   InlineCitationGroup,
   InlineCitationLink,
   InlineCitationQuote,

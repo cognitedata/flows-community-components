@@ -1,5 +1,5 @@
-import { IconX } from "@tabler/icons-react";
-import { type VariantProps, cva } from "class-variance-authority";
+import { IconX } from '@tabler/icons-react';
+import { type VariantProps, cva } from 'class-variance-authority';
 import {
   type ComponentProps,
   type ComponentRef,
@@ -7,12 +7,13 @@ import {
   createContext,
   forwardRef,
   useContext,
-} from "react";
-import { useControllableState } from "../../../../lib/use-controllable-state";
-import { cn } from "../../../../lib/utils";
-import { Button } from "../button";
+} from 'react';
 
-type AlertVariant = "default" | "secondary" | "warning" | "error";
+import { useControllableState } from '../../../../lib/use-controllable-state';
+import { cn } from '../../../../lib/utils';
+import { Button } from '../button';
+
+type AlertVariant = 'default' | 'secondary' | 'warning' | 'error';
 
 type AlertContextProps = {
   show: boolean;
@@ -23,37 +24,48 @@ type AlertContextProps = {
 const AlertContext = createContext<AlertContextProps>({
   show: true,
   setShow: () => {},
-  variant: "default",
+  variant: 'default',
 });
 
 const alertVariants = cva(
-  "relative w-full rounded-md pt-2.5 pr-3 has-[>button[data-slot=alert-close]]:pr-12 pb-2 pl-3 text-sm grid has-[>svg]:grid-cols-[auto_1fr] grid-cols-[0_1fr] has-[>svg]:gap-x-2 has-[>svg]:gap-y-1 items-start [&>svg]:size-4 [&>svg]:translate-y-0.65 [&>svg]:shrink-0",
+  'relative w-full rounded-md pt-2.5 pr-3 has-[>button[data-slot=alert-close]]:pr-12 pb-2 pl-3 text-sm grid has-[>svg]:grid-cols-[auto_1fr] grid-cols-[0_1fr] has-[>svg]:gap-x-2 has-[>svg]:gap-y-1 items-start [&>svg]:size-4 [&>svg]:translate-y-0.65 [&>svg]:shrink-0',
   {
     variants: {
       variant: {
-        default: "bg-undefined-alternative text-card-foreground [&>svg]:text-undefined-foreground",
-        secondary: "bg-neutral-alternative text-foreground [&>svg]:text-neutral-foreground",
-        warning: "bg-warning-alternative [&>svg]:text-warning-foreground",
-        error: "bg-destructive-alternative text-foreground [&>svg]:text-destructive-foreground",
+        default:
+          'bg-undefined-alternative text-card-foreground [&>svg]:text-undefined-foreground',
+        secondary:
+          'bg-neutral-alternative text-foreground [&>svg]:text-neutral-foreground',
+        warning: 'bg-warning-alternative [&>svg]:text-warning-foreground',
+        error:
+          'bg-destructive-alternative text-foreground [&>svg]:text-destructive-foreground',
       },
     },
     defaultVariants: {
-      variant: "default",
+      variant: 'default',
     },
   }
 );
 
-type AlertProps = ComponentProps<"div"> &
-  Omit<VariantProps<typeof alertVariants>, "variant"> & {
+type AlertProps = ComponentProps<'div'> &
+  Omit<VariantProps<typeof alertVariants>, 'variant'> & {
     variant?: AlertVariant;
     visible?: boolean;
     defaultVisible?: boolean;
     onClose?: () => void;
   };
 
-const Alert = forwardRef<ComponentRef<"div">, AlertProps>(
+const Alert = forwardRef<ComponentRef<'div'>, AlertProps>(
   (
-    { className, variant = "default", visible, defaultVisible = true, onClose, children, ...props },
+    {
+      className,
+      variant = 'default',
+      visible,
+      defaultVisible = true,
+      onClose,
+      children,
+      ...props
+    },
     ref
   ) => {
     const [show, setShow] = useControllableState({
@@ -61,7 +73,7 @@ const Alert = forwardRef<ComponentRef<"div">, AlertProps>(
       prop: visible,
       onChange: onClose,
     });
-    const alertVariant = variant ?? "default";
+    const alertVariant = variant ?? 'default';
 
     if (!show) {
       return null;
@@ -83,16 +95,16 @@ const Alert = forwardRef<ComponentRef<"div">, AlertProps>(
     );
   }
 );
-Alert.displayName = "Alert";
+Alert.displayName = 'Alert';
 
 const alertTitleVariants: Record<AlertVariant, string> = {
-  default: "text-undefined-foreground",
-  secondary: "text-neutral-foreground",
-  warning: "text-warning-foreground",
-  error: "text-destructive-foreground",
+  default: 'text-undefined-foreground',
+  secondary: 'text-neutral-foreground',
+  warning: 'text-warning-foreground',
+  error: 'text-destructive-foreground',
 };
 
-const AlertTitle = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
+const AlertTitle = forwardRef<ComponentRef<'div'>, ComponentProps<'div'>>(
   ({ className, ...props }, ref) => {
     const { variant } = useContext(AlertContext);
     return (
@@ -100,7 +112,7 @@ const AlertTitle = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
         ref={ref}
         data-slot="alert-title"
         className={cn(
-          "text-base font-medium leading-5 tracking-tightest",
+          'text-base font-medium leading-5 tracking-tightest',
           alertTitleVariants[variant],
           className
         )}
@@ -109,16 +121,16 @@ const AlertTitle = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
     );
   }
 );
-AlertTitle.displayName = "AlertTitle";
+AlertTitle.displayName = 'AlertTitle';
 
 const alertDescriptionVariants: Record<AlertVariant, string> = {
-  default: "text-card-foreground",
-  secondary: "text-foreground",
-  warning: "text-card-foreground",
-  error: "text-foreground",
+  default: 'text-card-foreground',
+  secondary: 'text-foreground',
+  warning: 'text-card-foreground',
+  error: 'text-foreground',
 };
 
-const AlertDescription = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
+const AlertDescription = forwardRef<ComponentRef<'div'>, ComponentProps<'div'>>(
   ({ className, ...props }, ref) => {
     const { variant } = useContext(AlertContext);
     return (
@@ -126,7 +138,7 @@ const AlertDescription = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
         ref={ref}
         data-slot="alert-description"
         className={cn(
-          "col-start-2 grid justify-items-start gap-1 text-sm font-normal leading-4.5 tracking-tight items-center",
+          'col-start-2 grid justify-items-start gap-1 text-sm font-normal leading-4.5 tracking-tight items-center',
           alertDescriptionVariants[variant],
           className
         )}
@@ -135,46 +147,50 @@ const AlertDescription = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
     );
   }
 );
-AlertDescription.displayName = "AlertDescription";
+AlertDescription.displayName = 'AlertDescription';
 
-const AlertActions = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
+const AlertActions = forwardRef<ComponentRef<'div'>, ComponentProps<'div'>>(
   ({ className, ...props }, ref) => (
     <div
       ref={ref}
       data-slot="alert-actions"
-      className={cn("col-start-2 flex flex-wrap items-start gap-2 pt-1", className)}
+      className={cn(
+        'col-start-2 flex flex-wrap items-start gap-2 pt-1',
+        className
+      )}
       {...props}
     />
   )
 );
-AlertActions.displayName = "AlertActions";
+AlertActions.displayName = 'AlertActions';
 
-const AlertButton = forwardRef<ComponentRef<"button">, ComponentProps<"button">>(
-  ({ className, ...props }, ref) => {
-    const { variant } = useContext(AlertContext);
+const AlertButton = forwardRef<
+  ComponentRef<'button'>,
+  ComponentProps<'button'>
+>(({ className, ...props }, ref) => {
+  const { variant } = useContext(AlertContext);
 
-    const hoverClasses: Record<AlertVariant, string> = {
-      default: "hover:bg-undefined-hover",
-      secondary: "hover:bg-neutral-hover",
-      warning: "hover:bg-warning-hover",
-      error: "hover:bg-destructive-hover",
-    };
+  const hoverClasses: Record<AlertVariant, string> = {
+    default: 'hover:bg-undefined-hover',
+    secondary: 'hover:bg-neutral-hover',
+    warning: 'hover:bg-warning-hover',
+    error: 'hover:bg-destructive-hover',
+  };
 
-    return (
-      <Button
-        ref={ref}
-        data-slot="alert-button"
-        variant="ghost"
-        size="sm"
-        className={cn("text-foreground", hoverClasses[variant], className)}
-        {...props}
-      />
-    );
-  }
-);
-AlertButton.displayName = "AlertButton";
+  return (
+    <Button
+      ref={ref}
+      data-slot="alert-button"
+      variant="ghost"
+      size="sm"
+      className={cn('text-foreground', hoverClasses[variant], className)}
+      {...props}
+    />
+  );
+});
+AlertButton.displayName = 'AlertButton';
 
-const AlertClose = forwardRef<ComponentRef<"button">, ComponentProps<"button">>(
+const AlertClose = forwardRef<ComponentRef<'button'>, ComponentProps<'button'>>(
   ({ className, onClick, ...props }, ref) => {
     const { setShow } = useContext(AlertContext);
 
@@ -190,7 +206,7 @@ const AlertClose = forwardRef<ComponentRef<"button">, ComponentProps<"button">>(
         variant="ghost"
         size="icon-sm"
         className={cn(
-          "absolute top-3 right-4 h-3.5 w-3.5 p-0 opacity-70 hover:opacity-100 text-foreground",
+          'absolute top-3 right-4 h-3.5 w-3.5 p-0 opacity-70 hover:opacity-100 text-foreground',
           className
         )}
         onClick={handleClick}
@@ -202,6 +218,13 @@ const AlertClose = forwardRef<ComponentRef<"button">, ComponentProps<"button">>(
     );
   }
 );
-AlertClose.displayName = "AlertClose";
+AlertClose.displayName = 'AlertClose';
 
-export { Alert, AlertTitle, AlertDescription, AlertActions, AlertButton, AlertClose };
+export {
+  Alert,
+  AlertTitle,
+  AlertDescription,
+  AlertActions,
+  AlertButton,
+  AlertClose,
+};

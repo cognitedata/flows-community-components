@@ -1,4 +1,5 @@
-import { HelperText } from "./helper-text";
-import { HelperTextMetadata } from "./helper-text.metadata";
+import { HelperText } from './helper-text';
 
-export { HelperText, HelperTextMetadata };
+/** Helper text exports. */
+export { HelperText };
+export { HelperTextMetadata } from './helper-text.metadata';
