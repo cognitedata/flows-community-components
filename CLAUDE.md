@@ -142,6 +142,7 @@ For files under `src/components/ui/aura/**`, prefer relative imports (for exampl
 - For components that accept a `render` element and forward accessibility props, set the accessible label once on the component to avoid duplicate `aria-label` attributes on both wrapper and inner element.
 - In Aura stories, avoid DOM traversal selectors in play functions; prefer semantic role/text queries for the interacted element.
 - For table stories, prefer tokenized width utilities (`w-12`, `w-24`) and semantic role assertions over arbitrary bracket values and `querySelector` checks.
+- For fixed-width table behavior with long text, use `table-fixed` on the table and `truncate` on header/data cells to keep columns stable and clip overflow content.
 
 # Storybook Stories
 

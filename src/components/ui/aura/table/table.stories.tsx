@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { IconInnerShadowTopLeft } from '@tabler/icons-react';
 import { expect, within } from 'storybook/test';
 
+import { Avatar, AvatarFallback } from '../avatar';
 import { Badge } from '../badge';
 
 import {
@@ -12,7 +14,6 @@ import {
   TableHeader,
   TableRow,
 } from './table';
-import { IconInnerShadowTopLeft } from '@tabler/icons-react';
 
 const meta: Meta<typeof Table> = {
   title: 'Primitives/Table',
@@ -56,6 +57,21 @@ const assets: AssetRow[] = [
   },
 ];
 
+const longContentAssets: AssetRow[] = [
+  {
+    name: 'Compressor train diagnostics report for offshore production line and vibration anomaly correlation details',
+    status: 'Running',
+    badge: 'Investigation in progress with cross-team incident response',
+    owner: 'Platform Operations Team',
+  },
+  {
+    name: 'Hydraulic pressure variance analysis for wellhead module under transient startup conditions',
+    status: 'Badge',
+    badge: 'Root cause analysis pending final validation and review',
+    owner: 'Reliability Engineering',
+  },
+];
+
 export const Default: Story = {
   parameters: { order: 1 },
   render: () => (
@@ -71,7 +87,7 @@ export const Default: Story = {
       <TableBody>
         {assets.map((asset) => (
           <TableRow key={asset.name}>
-            <TableCell className="font-medium">{asset.name}</TableCell>
+            <TableCell>{asset.name}</TableCell>
             <TableCell>
               <Badge
                 variant={asset.status === 'Running' ? 'inProgress' : 'error'}
@@ -81,9 +97,46 @@ export const Default: Story = {
                 {asset.status}
               </Badge>
             </TableCell>
-            <TableCell><Badge variant="secondary">
+            <TableCell>
+              <Badge variant="mountain">{asset.badge}</Badge>
+            </TableCell>
+            <TableCell>
+              <Avatar variant="fjord" sizes="xxsm">
+                <AvatarFallback>{asset.owner}</AvatarFallback>
+              </Avatar>
+            </TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const table = await canvas.findByRole('table');
+    await expect(table).toBeInTheDocument();
+    const rows = await canvas.findAllByRole('row');
+    await expect(rows).toHaveLength(3);
+  },
+};
 
-              {asset.badge}</Badge></TableCell>
+export const LongContent: Story = {
+  parameters: { order: 2 },
+  render: () => (
+    <Table>
+      <TableHeader>
+        <TableRow>
+          <TableHead>Name</TableHead>
+          <TableHead>Status</TableHead>
+          <TableHead>Badge</TableHead>
+          <TableHead>Owner</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {longContentAssets.map((asset) => (
+          <TableRow key={asset.name}>
+            <TableCell>{asset.name}</TableCell>
+            <TableCell>{asset.status}</TableCell>
+            <TableCell>{asset.badge}</TableCell>
             <TableCell>{asset.owner}</TableCell>
           </TableRow>
         ))}
@@ -95,47 +148,12 @@ export const Default: Story = {
     const table = await canvas.findByRole('table');
     await expect(table).toBeInTheDocument();
     const rows = await canvas.findAllByRole('row');
-    await expect(rows).toHaveLength(6);
+    await expect(rows).toHaveLength(3);
   },
 };
 
-export const WithBadges: Story = {
-  parameters: { order: 5 },
-  render: () => (
-    <Table>
-      <TableHeader>
-        <TableRow>
-          <TableHead>Name</TableHead>
-          <TableHead>Status</TableHead>
-          <TableHead>Badge</TableHead>
-          <TableHead>Owner</TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {assets.map((asset) => (
-          <TableRow key={asset.name}>
-            <TableCell className="font-medium">{asset.name}</TableCell>
-            <TableCell>
-              <Badge
-                variant={asset.status === 'Running' ? 'inProgress' : 'error'}
-                outline
-              >
-                {asset.status}
-              </Badge>
-            </TableCell>
-            <TableCell>
-              <Badge variant="secondary">{asset.badge}</Badge>
-            </TableCell>
-            <TableCell>{asset.owner}</TableCell>
-          </TableRow>
-        ))}
-      </TableBody>
-    </Table>
-  ),
-};
-
 export const EmptyState: Story = {
-  parameters: { order: 6 },
+  parameters: { order: 3 },
   render: () => (
     <Table>
       <TableHeader>
@@ -148,7 +166,7 @@ export const EmptyState: Story = {
       </TableHeader>
       <TableBody>
         <TableRow>
-          <TableCell colSpan={4} className="h-24 text-center">
+          <TableCell colSpan={4} className="h-12 text-center">
             No assets found.
           </TableCell>
         </TableRow>
@@ -162,7 +180,6 @@ export const Playground: Story = {
   args: { className: '' },
   render: (args) => (
     <Table {...args}>
-      <TableCaption>Asset table draft</TableCaption>
       <TableHeader>
         <TableRow>
           <TableHead>Name</TableHead>
