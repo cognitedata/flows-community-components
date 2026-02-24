@@ -180,7 +180,6 @@ export {
   ChartLegendContent,
   ChartStyle,
 } from './chart/chart';
-export type { ChartConfig } from './chart/chart';
 export { ChartMetadata } from './chart/chart.metadata';
 
 export { Checkbox } from './checkbox/checkbox';

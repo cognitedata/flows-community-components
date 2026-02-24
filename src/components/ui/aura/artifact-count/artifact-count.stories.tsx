@@ -4,11 +4,7 @@ import { CartesianGrid, Line, LineChart, XAxis, YAxis } from 'recharts';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
 
 import { Button } from '../button';
-import {
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from '../chart';
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from '../chart';
 
 import {
   ArtifactCount,

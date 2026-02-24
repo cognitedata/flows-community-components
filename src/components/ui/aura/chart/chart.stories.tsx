@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useId, useState } from 'react';
+import { type ComponentProps, useId, useState } from 'react';
 import {
   Area,
   AreaChart,
@@ -16,13 +16,7 @@ import {
 } from 'recharts';
 import { expect, within } from 'storybook/test';
 
-import {
-  type ChartConfig,
-  Chart,
-  ChartLegend,
-  ChartLegendContent,
-  ChartTooltip,
-} from './chart';
+import { Chart, ChartLegend, ChartLegendContent, ChartTooltip } from './chart';
 
 const meta: Meta<typeof Chart> = {
   title: 'Primitives/Chart',
@@ -47,7 +41,7 @@ export const PieChartStory: Story = {
       slice3: { label: 'C', color: 'var(--color-chart-fjord-opacity-2)' },
       slice4: { label: 'D', color: 'var(--color-chart-fjord-opacity-1)' },
       slice5: { label: 'E', color: 'var(--color-chart-fjord-solid)' },
-    } satisfies ChartConfig;
+    } satisfies ComponentProps<typeof Chart>['config'];
 
     const pieData = [
       { id: 'slice1', value: 225, fill: 'var(--color-slice1)' },
@@ -120,11 +114,16 @@ export const PieChartStory: Story = {
 
 export const StackedAreaChart: Story = {
   parameters: { order: 2 },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(await canvas.findByText('R401')).toBeInTheDocument();
+    await expect(await canvas.findByText('R402')).toBeInTheDocument();
+  },
   render: function StackedAreaChartRender() {
     const areaConfig = {
       r401: { label: 'R401', color: 'rgba(47, 85, 234, 0.8)' },
       r402: { label: 'R402', color: 'rgba(47, 85, 234, 0.5)' },
-    } satisfies ChartConfig;
+    } satisfies ComponentProps<typeof Chart>['config'];
 
     const areaData = [
       { time: '02:00', r401: 280, r402: 120 },
@@ -186,11 +185,16 @@ export const StackedAreaChart: Story = {
 
 export const MultiLineChart: Story = {
   parameters: { order: 3 },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(await canvas.findByText('Primary')).toBeInTheDocument();
+    await expect(await canvas.findByText('Secondary')).toBeInTheDocument();
+  },
   render: function MultiLineChartRender() {
     const lineConfig = {
       primary: { label: 'Primary', color: 'rgba(47, 85, 234, 0.8)' },
       secondary: { label: 'Secondary', color: 'rgba(47, 85, 234, 0.5)' },
-    } satisfies ChartConfig;
+    } satisfies ComponentProps<typeof Chart>['config'];
 
     const lineData = [
       { date: 'Apr 1', primary: 40, secondary: 80 },
@@ -239,10 +243,15 @@ export const MultiLineChart: Story = {
 
 export const HorizontalBarChartStory: Story = {
   parameters: { order: 4 },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(await canvas.findByText('Assets')).toBeInTheDocument();
+    await expect(await canvas.findByText('Time series')).toBeInTheDocument();
+  },
   render: function HorizontalBarChartStoryRender() {
     const barConfig = {
       value: { label: 'Count', color: 'url(#barGradient)' },
-    } satisfies ChartConfig;
+    } satisfies ComponentProps<typeof Chart>['config'];
 
     const barData = [
       { name: 'Assets', value: 106 },
@@ -298,6 +307,12 @@ export const HorizontalBarChartStory: Story = {
 
 export const RadialChart: Story = {
   parameters: { order: 5 },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect((await canvas.findAllByText('unit')).length).toBeGreaterThan(
+      0
+    );
+  },
   render: function RadialChartRender() {
     type RadialRingDatum = {
       name: string;
