@@ -261,8 +261,8 @@ export {
   ContextMenuSubContent,
   ContextMenuSubTrigger,
   ContextMenuRadioGroup,
-} from './context-menu/context-menu';
-export { ContextMenuMetadata } from './context-menu/context-menu.metadata';
+  ContextMenuMetadata,
+} from './context-menu';
 
 export {
   Conversation,

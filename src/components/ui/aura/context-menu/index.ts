@@ -15,6 +15,7 @@ import {
   ContextMenuSubTrigger,
   ContextMenuRadioGroup,
 } from './context-menu';
+import { ContextMenuMetadata } from './context-menu.metadata';
 
 export {
   ContextMenu,
@@ -32,5 +33,5 @@ export {
   ContextMenuSubContent,
   ContextMenuSubTrigger,
   ContextMenuRadioGroup,
+  ContextMenuMetadata,
 };
-export { ContextMenuMetadata } from './context-menu.metadata';
