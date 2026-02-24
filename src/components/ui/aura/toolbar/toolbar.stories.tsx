@@ -1,11 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import {
-  IconBold,
-  IconHandGrab,
-  IconItalic,
-  IconPointer,
-  IconUnderline,
-} from '@tabler/icons-react';
+import { IconHandGrab, IconPointer } from '@tabler/icons-react';
 
 import { Toggle } from '../toggle';
 
