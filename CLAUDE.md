@@ -113,12 +113,14 @@ For files under `src/components/ui/aura/**`, prefer relative imports (for exampl
 - Tooltip delay stories are more stable with deterministic waits and without interaction retries.
 - Storybook stories should omit description metadata and explanatory comments; keep examples self-explanatory through naming and structure.
 - Collapsible play tests are more stable when asserting `data-panel-open` and scoping queries to the panel.
+- Topbar wrapper sections should use `ComponentRef<"div">` with `ComponentProps<"div">` for consistent forwardRef typing.
 - Tooltip play tests should avoid retry-based interaction fallbacks; fix root causes and prefer deterministic semantic checks.
 - Hover card play tests are more reliable when asserting open-state attributes with deterministic waits (no retry fallbacks).
 - Dropdown menu play tests are more reliable when querying portal content with `within(document.body).findByRole("menu")` and semantic menu item roles.
 - Dialog play tests are more reliable when opening via trigger and querying portal content with `within(document.body).findByRole("dialog")`.
 - Component files should order imports as React, third-party, then local aliases, and use `ComponentRef<...>` in `forwardRef` signatures.
 - In story play functions, prefer semantic alert/button queries (`getByRole`/`findByRole`) over `querySelector('[data-slot=...]')` for more stable interaction tests.
+- In Aura story files, use relative component imports (for example `../button`) instead of `@/components/ui/aura/*` aliases.
 - Avoid bracketed arbitrary Tailwind values in overlays/modals; follow the existing `dialog.tsx` positioning pattern (`top-1/2`, `-translate-y-1/2`, and `sm:-translate-x-1/2`) instead.
 - Avoid Tailwind bracket arbitrary grid templates (e.g. `grid-cols-[...]`); prefer a semantic layout (often flex) by extracting known slot children and rendering them in a predictable structure.
 - For emoji shown in JSX text/content, wrap each emoji in `<span role="img" aria-label="...">...</span>` for explicit accessible naming.
@@ -141,6 +143,7 @@ For files under `src/components/ui/aura/**`, prefer relative imports (for exampl
 - Suggestion stories should query open select content semantically via `within(document.body).queryByRole("listbox")` and keep `parameters.order` set on every story export.
 - Suggestion stories should use design-token widths (for example `w-52`, `max-w-xl`) instead of arbitrary bracket widths for prompt cards and wrappers.
 - `SuggestionItem` values should come from an explicit `value` prop instead of deriving from `children`.
+- For Base UI `Slider`, type `onValueChange` from `SliderPrimitive.Root.Props<readonly number[]>["onValueChange"]` to avoid `as` casts, and default to a single-thumb value when no `value`/`defaultValue` is provided.
 - Conversation stories should keep play assertions semantic (`getByRole`/`findAllByRole`) and avoid helper components inside story render functions.
 - For components that accept a `render` element and forward accessibility props, set the accessible label once on the component to avoid duplicate `aria-label` attributes on both wrapper and inner element.
 - In Aura stories, avoid DOM traversal selectors in play functions; prefer semantic role/text queries for the interacted element.

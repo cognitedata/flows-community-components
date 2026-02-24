@@ -1,25 +1,12 @@
-import { IconArrowLeft, IconArrowRight } from '@tabler/icons-react';
 import {
   type ComponentProps,
   type ComponentRef,
   type ComponentType,
-  createContext,
   forwardRef,
-  startTransition,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
 } from 'react';
 
 import { cn, getHostname } from '../../../../lib/utils';
 import { Badge } from '../badge';
-import {
-  Carousel,
-  type CarouselApi,
-  CarouselContent,
-  CarouselItem,
-} from '../carousel';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '../hover-card';
 
 type InlineCitationProps = ComponentProps<'span'>;
@@ -127,178 +114,6 @@ const InlineCitationCardBody = ({
     {...props}
   />
 );
-
-const CarouselApiContext = createContext<CarouselApi | undefined>(undefined);
-
-const useCarouselApi = () => {
-  const context = useContext(CarouselApiContext);
-  return context;
-};
-
-type InlineCitationCarouselProps = ComponentProps<typeof Carousel>;
-
-const InlineCitationCarousel = ({
-  className,
-  children,
-  ...props
-}: InlineCitationCarouselProps) => {
-  const [api, setApi] = useState<CarouselApi>();
-
-  return (
-    <CarouselApiContext.Provider value={api}>
-      <Carousel
-        data-slot="inline-citation-carousel"
-        className={cn('w-full', className)}
-        setApi={setApi}
-        {...props}
-      >
-        {children}
-      </Carousel>
-    </CarouselApiContext.Provider>
-  );
-};
-
-type InlineCitationCarouselContentProps = ComponentProps<'div'>;
-
-const InlineCitationCarouselContent = (
-  props: InlineCitationCarouselContentProps
-) => (
-  <CarouselContent data-slot="inline-citation-carousel-content" {...props} />
-);
-
-type InlineCitationCarouselItemProps = ComponentProps<'div'>;
-
-const InlineCitationCarouselItem = forwardRef<
-  ComponentRef<'div'>,
-  InlineCitationCarouselItemProps
->(({ className, ...props }, ref) => (
-  <CarouselItem
-    ref={ref}
-    data-slot="inline-citation-carousel-item"
-    className={cn('w-full space-y-2 p-4 pl-8', className)}
-    {...props}
-  />
-));
-InlineCitationCarouselItem.displayName = 'InlineCitationCarouselItem';
-
-type InlineCitationCarouselHeaderProps = ComponentProps<'div'>;
-
-const InlineCitationCarouselHeader = forwardRef<
-  ComponentRef<'div'>,
-  InlineCitationCarouselHeaderProps
->(({ className, ...props }, ref) => (
-  <div
-    ref={ref}
-    data-slot="inline-citation-carousel-header"
-    className={cn(
-      'flex items-center justify-between gap-2 rounded-t-md bg-secondary p-2',
-      className
-    )}
-    {...props}
-  />
-));
-InlineCitationCarouselHeader.displayName = 'InlineCitationCarouselHeader';
-
-type InlineCitationCarouselIndexProps = ComponentProps<'div'>;
-
-const InlineCitationCarouselIndex = forwardRef<
-  ComponentRef<'div'>,
-  InlineCitationCarouselIndexProps
->(({ children, className, ...props }, ref) => {
-  const api = useCarouselApi();
-  const [current, setCurrent] = useState(0);
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    if (!api) {
-      return;
-    }
-
-    startTransition(() => {
-      setCount(api.scrollSnapList().length);
-      setCurrent(api.selectedScrollSnap() + 1);
-    });
-
-    api.on('select', () => {
-      setCurrent(api.selectedScrollSnap() + 1);
-    });
-  }, [api]);
-
-  return (
-    <div
-      ref={ref}
-      data-slot="inline-citation-carousel-index"
-      className={cn(
-        'flex flex-1 items-center justify-end px-3 py-1 text-muted-foreground text-xs',
-        className
-      )}
-      {...props}
-    >
-      {children ?? `${current}/${count}`}
-    </div>
-  );
-});
-InlineCitationCarouselIndex.displayName = 'InlineCitationCarouselIndex';
-
-type InlineCitationCarouselPrevProps = ComponentProps<'button'>;
-
-const InlineCitationCarouselPrev = forwardRef<
-  ComponentRef<'button'>,
-  InlineCitationCarouselPrevProps
->(({ className, ...props }, ref) => {
-  const api = useCarouselApi();
-
-  const handleClick = useCallback(() => {
-    if (api) {
-      api.scrollPrev();
-    }
-  }, [api]);
-
-  return (
-    <button
-      ref={ref}
-      data-slot="inline-citation-carousel-prev"
-      aria-label="Previous"
-      className={cn('shrink-0', className)}
-      onClick={handleClick}
-      type="button"
-      {...props}
-    >
-      <IconArrowLeft className="size-4 text-muted-foreground" />
-    </button>
-  );
-});
-InlineCitationCarouselPrev.displayName = 'InlineCitationCarouselPrev';
-
-type InlineCitationCarouselNextProps = ComponentProps<'button'>;
-
-const InlineCitationCarouselNext = forwardRef<
-  ComponentRef<'button'>,
-  InlineCitationCarouselNextProps
->(({ className, ...props }, ref) => {
-  const api = useCarouselApi();
-
-  const handleClick = useCallback(() => {
-    if (api) {
-      api.scrollNext();
-    }
-  }, [api]);
-
-  return (
-    <button
-      ref={ref}
-      data-slot="inline-citation-carousel-next"
-      aria-label="Next"
-      className={cn('shrink-0', className)}
-      onClick={handleClick}
-      type="button"
-      {...props}
-    >
-      <IconArrowRight className="size-4 text-muted-foreground" />
-    </button>
-  );
-});
-InlineCitationCarouselNext.displayName = 'InlineCitationCarouselNext';
 
 type InlineCitationSourceProps = ComponentProps<'div'> & {
   title?: string;
@@ -430,13 +245,6 @@ export {
   InlineCitationCard,
   InlineCitationCardTrigger,
   InlineCitationCardBody,
-  InlineCitationCarousel,
-  InlineCitationCarouselContent,
-  InlineCitationCarouselItem,
-  InlineCitationCarouselHeader,
-  InlineCitationCarouselIndex,
-  InlineCitationCarouselPrev,
-  InlineCitationCarouselNext,
   InlineCitationSource,
   InlineCitationQuote,
   InlineCitationLink,

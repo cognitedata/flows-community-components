@@ -56,6 +56,9 @@ export {
 } from './artifact-count/artifact-count';
 export { ArtifactCountMetadata } from './artifact-count/artifact-count.metadata';
 
+export { Count, countVariants } from './count/count';
+export { CountMetadata } from './count/count.metadata';
+
 export {
   ArtifactList,
   ArtifactListContent,
@@ -371,13 +374,6 @@ export {
   InlineCitationCard,
   InlineCitationCardTrigger,
   InlineCitationCardBody,
-  InlineCitationCarousel,
-  InlineCitationCarouselContent,
-  InlineCitationCarouselItem,
-  InlineCitationCarouselHeader,
-  InlineCitationCarouselIndex,
-  InlineCitationCarouselPrev,
-  InlineCitationCarouselNext,
   InlineCitationSource,
   InlineCitationQuote,
   InlineCitationLink,
