@@ -112,6 +112,7 @@ For files under `src/components/ui/aura/**`, prefer relative imports (for exampl
 - Don't export prop types from components. Use inline typing (`type MessageProps = ...`) instead of `export type`. Consumers can use `ComponentProps<typeof Component>` if they need access to types. Follow the pattern used by Badge, Card, Button, Dialog, and AlertDialog components.
 - Tooltip delay stories are more stable with deterministic waits and without interaction retries.
 - Storybook stories should omit description metadata and explanatory comments; keep examples self-explanatory through naming and structure.
+- Playground stories should define grouped `argTypes` (for example Display, Content, Accessibility, Events) with clear control metadata and descriptions for interactive docs.
 - Collapsible play tests are more stable when asserting `data-panel-open` and scoping queries to the panel.
 - Tooltip play tests should avoid retry-based interaction fallbacks; fix root causes and prefer deterministic semantic checks.
 - Hover card play tests are more reliable when asserting open-state attributes with deterministic waits (no retry fallbacks).

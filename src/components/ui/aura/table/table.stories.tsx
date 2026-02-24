@@ -8,7 +8,6 @@ import { Badge } from '../badge';
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -177,7 +176,34 @@ export const EmptyState: Story = {
 
 export const Playground: Story = {
   parameters: { order: 99 },
-  args: { className: '' },
+  args: { className: '', 'aria-label': 'Asset status table' },
+  argTypes: {
+    className: {
+      control: 'text',
+      description: 'Custom CSS classes applied to the table element.',
+      table: { category: 'Display' },
+    },
+    children: {
+      description: 'Table content composed of header, body, rows, and cells.',
+      table: { category: 'Content' },
+      control: false,
+    },
+    'aria-label': {
+      control: 'text',
+      description: 'Accessible name announced by assistive technologies.',
+      table: { category: 'Accessibility' },
+    },
+    onClick: {
+      action: 'click',
+      description: 'Called when the table is clicked.',
+      table: { category: 'Events' },
+    },
+    onKeyDown: {
+      action: 'keyDown',
+      description: 'Called when a key is pressed while the table is focused.',
+      table: { category: 'Events' },
+    },
+  },
   render: (args) => (
     <Table {...args}>
       <TableHeader>
