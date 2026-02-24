@@ -693,10 +693,10 @@ export const ChartBasic: Story = {
           </CardHeaderContent>
         </CardHeader>
         <CardContent>
-          <div className="relative flex items-center justify-center">
+          <div className="relative mx-auto">
             <ChartContainer
               config={chartConfig}
-              className="h-70 w-100 overflow-visible"
+              className="aspect-5/4 overflow-visible"
             >
               <PieChart style={{ overflow: 'visible' }}>
                 <ChartTooltip
