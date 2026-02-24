@@ -80,7 +80,7 @@ export const Default: Story = {
     await expect(
       canvas.getByRole('navigation', { name: /pagination/i })
     ).toBeInTheDocument();
-    await expect(canvas.getByRole('link', { name: '8' })).toHaveAttribute(
+    await expect(canvas.getByRole('button', { name: '8' })).toHaveAttribute(
       'aria-current',
       'page'
     );
@@ -541,7 +541,7 @@ export const Controlled: Story = {
     const canvas = within(canvasElement);
     await expect(canvas.getByText('Page 1 of 100')).toBeInTheDocument();
     await userEvent.click(
-      canvas.getByRole('link', { name: /go to next page/i })
+      canvas.getByRole('button', { name: /go to next page/i })
     );
     await waitFor(() => {
       expect(canvas.getByText('Page 2 of 100')).toBeInTheDocument();

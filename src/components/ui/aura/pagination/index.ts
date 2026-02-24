@@ -17,6 +17,7 @@ import {
   paginationLinkVariants,
   paginationStatusVariants,
 } from './pagination';
+import { PaginationMetadata } from './pagination.metadata';
 
 export {
   Pagination,
@@ -36,5 +37,5 @@ export {
   paginationEllipsisVariants,
   paginationLinkVariants,
   paginationStatusVariants,
+  PaginationMetadata,
 };
-export { PaginationMetadata } from './pagination.metadata';
