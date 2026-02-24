@@ -418,9 +418,6 @@ export const Accessibility: Story = {
   ),
 };
 
-/**
- * Visual regression testing.
- */
 export const VisualRegression: Story = {
   parameters: {
     order: 10,
