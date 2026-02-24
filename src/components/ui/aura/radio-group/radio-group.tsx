@@ -3,7 +3,12 @@ import { RadioGroup as RadioGroupPrimitive } from '@base-ui/react/radio-group';
 import { IconCircle } from '@tabler/icons-react';
 import { type ComponentRef, forwardRef } from 'react';
 
-import { cn, disabledState, focusState, invalidState } from '@/lib/utils';
+import {
+  cn,
+  disabledState,
+  focusState,
+  invalidState,
+} from '../../../../lib/utils';
 
 type Orientation = 'horizontal' | 'vertical';
 

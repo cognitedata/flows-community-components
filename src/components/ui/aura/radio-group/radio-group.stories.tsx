@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within } from 'storybook/test';
 import { type ComponentProps, useState } from 'react';
+import { expect, userEvent, within } from 'storybook/test';
+
+import { Button } from '../button';
+import { Label } from '../label';
 
 import { RadioGroup, RadioGroupItem } from './radio-group';
-
-import { Button } from '@/components/ui/aura/button';
-import { Label } from '@/components/ui/aura/label';
 
 type StoryPlayContext = { canvasElement: HTMLElement };
 
@@ -75,17 +75,9 @@ const meta: Meta<typeof RadioGroup> = {
 export default meta;
 type Story = StoryObj<typeof RadioGroup>;
 
-/**
- * Default radio group.
- */
 export const Default: Story = {
   parameters: {
     order: 1,
-    docs: {
-      description: {
-        story: 'Basic radio group usage.',
-      },
-    },
   },
   play: async ({ canvasElement }: StoryPlayContext) => {
     const canvas = within(canvasElement);
@@ -116,17 +108,9 @@ export const Default: Story = {
   ),
 };
 
-/**
- * Radio group with description.
- */
 export const WithDescription: Story = {
   parameters: {
     order: 2,
-    docs: {
-      description: {
-        story: 'Radio options with descriptions for additional context.',
-      },
-    },
   },
   render: () => (
     <RadioGroup defaultValue="comfortable">
@@ -161,17 +145,9 @@ export const WithDescription: Story = {
   ),
 };
 
-/**
- * Horizontal radio group.
- */
 export const Horizontal: Story = {
   parameters: {
     order: 3,
-    docs: {
-      description: {
-        story: 'Radio group with horizontal orientation.',
-      },
-    },
   },
   render: () => (
     <RadioGroup defaultValue="medium" orientation="horizontal">
@@ -191,17 +167,9 @@ export const Horizontal: Story = {
   ),
 };
 
-/**
- * Disabled radio group.
- */
 export const Disabled: Story = {
   parameters: {
     order: 4,
-    docs: {
-      description: {
-        story: 'Disabled radio group prevents interaction.',
-      },
-    },
   },
   play: async ({ canvasElement }: StoryPlayContext) => {
     const canvas = within(canvasElement);
@@ -239,17 +207,9 @@ export const Disabled: Story = {
   ),
 };
 
-/**
- * Individual disabled items.
- */
 export const DisabledItems: Story = {
   parameters: {
     order: 5,
-    docs: {
-      description: {
-        story: 'Radio group with some items disabled.',
-      },
-    },
   },
   render: () => (
     <RadioGroup defaultValue="available1">
@@ -271,17 +231,9 @@ export const DisabledItems: Story = {
   ),
 };
 
-/**
- * Controlled radio group.
- */
 export const Controlled: Story = {
   parameters: {
     order: 6,
-    docs: {
-      description: {
-        story: 'Controlled radio group with external state management.',
-      },
-    },
   },
   play: async ({ canvasElement }: StoryPlayContext) => {
     const canvas = within(canvasElement);
@@ -343,17 +295,9 @@ export const Controlled: Story = {
   },
 };
 
-/**
- * Radio group in form.
- */
 export const InForm: Story = {
   parameters: {
     order: 7,
-    docs: {
-      description: {
-        story: 'Radio group used within a form.',
-      },
-    },
   },
   render: () => (
     <form
@@ -391,17 +335,9 @@ export const InForm: Story = {
   ),
 };
 
-/**
- * All radio group states.
- */
 export const AllStates: Story = {
   parameters: {
     order: 8,
-    docs: {
-      description: {
-        story: 'All radio group states for comparison.',
-      },
-    },
   },
   render: () => (
     <div className="space-y-6">
@@ -439,17 +375,9 @@ export const AllStates: Story = {
   ),
 };
 
-/**
- * Keyboard navigation and ARIA attributes.
- */
 export const Accessibility: Story = {
   parameters: {
     order: 9,
-    docs: {
-      description: {
-        story: 'Demonstrates keyboard navigation and ARIA support.',
-      },
-    },
   },
   play: async ({ canvasElement }: StoryPlayContext) => {
     const canvas = within(canvasElement);
@@ -496,11 +424,6 @@ export const Accessibility: Story = {
 export const VisualRegression: Story = {
   parameters: {
     order: 10,
-    docs: {
-      description: {
-        story: 'Comprehensive visual overview for regression testing.',
-      },
-    },
     chromatic: {
       disableSnapshot: false,
     },
@@ -566,17 +489,9 @@ export const VisualRegression: Story = {
   ),
 };
 
-/**
- * Interactive playground.
- */
 export const Playground: Story = {
   parameters: {
     order: 99,
-    docs: {
-      description: {
-        story: 'Interactive playground.',
-      },
-    },
   },
   args: {
     defaultValue: 'option1',
