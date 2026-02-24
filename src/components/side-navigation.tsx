@@ -54,6 +54,7 @@ const primitivesNavigation: NavigationItem[] = [
       { href: '/primitives/combobox', label: 'Combobox' },
       { href: '/primitives/command', label: 'Command' },
       { href: '/primitives/context-menu', label: 'Context menu' },
+      { href: '/primitives/count', label: 'Count' },
       { href: '/primitives/date-picker', label: 'Date picker' },
       { href: '/primitives/dialog', label: 'Dialog' },
       { href: '/primitives/drawer', label: 'Drawer' },
