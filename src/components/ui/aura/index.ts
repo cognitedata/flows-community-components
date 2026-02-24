@@ -369,8 +369,7 @@ export { EffectsMetadata } from "./effects/effects.metadata";
 export { HelperText } from "./helper-text/helper-text";
 export { HelperTextMetadata } from "./helper-text/helper-text.metadata";
 
-export { HoverCard, HoverCardTrigger, HoverCardContent } from "./hover-card/hover-card";
-export { HoverCardMetadata } from "./hover-card/hover-card.metadata";
+export { HoverCard, HoverCardTrigger, HoverCardContent, HoverCardMetadata } from "./hover-card";
 
 export { ConversationEmptyStateIcon } from "./icon-conversation-empty-state/icon-conversation-empty-state";
 

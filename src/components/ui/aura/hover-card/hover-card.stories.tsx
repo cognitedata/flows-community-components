@@ -105,18 +105,12 @@ async function testHoverInteraction(
   );
   await expect(trigger).toBeInTheDocument();
   await userEvent.hover(trigger);
-  const popup = await waitFor(
-    () => {
-      const node = canvasElement.ownerDocument.querySelector(
-        '[data-slot="hover-card-content"][data-open]'
-      );
-      expect(node).not.toBeNull();
-      return node;
-    },
-    { timeout }
-  );
-  if (!(popup instanceof HTMLElement)) {
-    throw new Error("Hover card content did not open as an HTMLElement");
+  const popupText = await within(document.body).findByText(contentText, undefined, {
+    timeout,
+  });
+  const popup = popupText.closest('[data-slot="hover-card-content"]');
+  if (!popup) {
+    throw new Error("Hover card content did not open");
   }
   await expect(popup).toHaveAttribute("data-open");
   await expect(popup).toHaveTextContent(contentText);
@@ -124,10 +118,7 @@ async function testHoverInteraction(
   await userEvent.unhover(trigger);
   await waitFor(
     () => {
-      const hoverCard = canvasElement.ownerDocument.querySelector(
-        '[data-slot="hover-card-content"][data-open]'
-      );
-      expect(hoverCard).toBeNull();
+      expect(within(document.body).queryByText(contentText)).toBeNull();
     },
     {
       timeout,
@@ -455,18 +446,12 @@ export const ControlledWithCustomDelays: Story = {
     );
     await expect(trigger).toBeInTheDocument();
     await userEvent.hover(trigger);
-    const hoverCard = await waitFor(
-      () => {
-        const node = canvasElement.ownerDocument.querySelector(
-          '[data-slot="hover-card-content"][data-open]'
-        );
-        expect(node).not.toBeNull();
-        return node;
-      },
-      { timeout: 2000 }
-    );
-    if (!(hoverCard instanceof HTMLElement)) {
-      throw new Error("Controlled hover card did not open as an HTMLElement");
+    const hoverCardText = await within(document.body).findByText(/custom delays/i, undefined, {
+      timeout: 2000,
+    });
+    const hoverCard = hoverCardText.closest('[data-slot="hover-card-content"]');
+    if (!hoverCard) {
+      throw new Error("Controlled hover card did not open");
     }
     await expect(hoverCard).toHaveAttribute("data-open");
     await expect(hoverCard).toHaveTextContent(/custom delays/i);
