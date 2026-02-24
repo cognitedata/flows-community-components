@@ -5,7 +5,7 @@ import Image from "next/image"
 import React from "react"
 import { useTheme } from "@/components/theme-provider"
 import Link from "next/link"
-import { SegmentedControl, SegmentedControlList, SegmentedControlTrigger } from "@/components/ui/aura/segmented-control"
+import { SegmentedControl, SegmentedControlList, SegmentedControlButton } from "@/components/ui/aura/segmented-control"
 import { Button } from "@/components/ui/aura/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/aura/card"
 import { Input } from "@/components/ui/aura/input"
@@ -135,18 +135,18 @@ export default function ShiftHandoverAppPage() {
           <div className="hidden md:flex">
             <SegmentedControl defaultValue="apps">
               <SegmentedControlList className="grid grid-cols-3">
-                <SegmentedControlTrigger value="overview" className="flex items-center gap-2">
+                <SegmentedControlButton value="overview" className="flex items-center gap-2">
                   <BarChart3 className="h-4 w-4" />
                   Overview
-                </SegmentedControlTrigger>
-                <SegmentedControlTrigger value="views" className="flex items-center gap-2">
+                </SegmentedControlButton>
+                <SegmentedControlButton value="views" className="flex items-center gap-2">
                   <Shapes className="h-4 w-4" />
                   Views
-                </SegmentedControlTrigger>
-                <SegmentedControlTrigger value="apps" className="flex items-center gap-2">
+                </SegmentedControlButton>
+                <SegmentedControlButton value="apps" className="flex items-center gap-2">
                   <AppWindow className="h-4 w-4" />
                   App library
-                </SegmentedControlTrigger>
+                </SegmentedControlButton>
               </SegmentedControlList>
             </SegmentedControl>
           </div>
@@ -234,9 +234,9 @@ export default function ShiftHandoverAppPage() {
                   <Label className="text-muted-foreground">Shift type</Label>
                   <SegmentedControl value={shiftType} onValueChange={(v) => setShiftType(v as typeof shiftType)}>
                     <SegmentedControlList className="grid grid-cols-3 w-full">
-                      <SegmentedControlTrigger value="morning">Morning</SegmentedControlTrigger>
-                      <SegmentedControlTrigger value="day">Day</SegmentedControlTrigger>
-                      <SegmentedControlTrigger value="night">Night</SegmentedControlTrigger>
+                      <SegmentedControlButton value="morning">Morning</SegmentedControlButton>
+                      <SegmentedControlButton value="day">Day</SegmentedControlButton>
+                      <SegmentedControlButton value="night">Night</SegmentedControlButton>
                     </SegmentedControlList>
                   </SegmentedControl>
                 </div>

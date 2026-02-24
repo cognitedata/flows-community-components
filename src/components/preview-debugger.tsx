@@ -20,7 +20,7 @@ import {
   SegmentedControl,
   SegmentedControlContent,
   SegmentedControlList,
-  SegmentedControlTrigger,
+  SegmentedControlButton,
 } from '@/components/ui/aura/segmented-control';
 
 interface PreviewDebuggerProps {
@@ -160,13 +160,13 @@ export function PreviewDebugger({
       <CardContent>
         <SegmentedControl defaultValue="analysis" className="w-full">
           <SegmentedControlList className="grid w-full grid-cols-3">
-            <SegmentedControlTrigger value="analysis">
+            <SegmentedControlButton value="analysis">
               Analysis
-            </SegmentedControlTrigger>
-            <SegmentedControlTrigger value="errors">
+            </SegmentedControlButton>
+            <SegmentedControlButton value="errors">
               Errors
-            </SegmentedControlTrigger>
-            <SegmentedControlTrigger value="help">Help</SegmentedControlTrigger>
+            </SegmentedControlButton>
+            <SegmentedControlButton value="help">Help</SegmentedControlButton>
           </SegmentedControlList>
 
           <SegmentedControlContent value="analysis" className="space-y-4">
@@ -333,7 +333,7 @@ export function PreviewDebugger({
                       <li>Card, CardHeader, CardTitle, CardContent</li>
                       <li>
                         SegmentedControl, SegmentedControlList,
-                        SegmentedControlTrigger, SegmentedControlContent
+                        SegmentedControlButton, SegmentedControlContent
                       </li>
                     </ul>
                   </div>

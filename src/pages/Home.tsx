@@ -36,7 +36,7 @@ import {
   SegmentedControl,
   SegmentedControlContent,
   SegmentedControlList,
-  SegmentedControlTrigger,
+  SegmentedControlButton,
 } from '@/components/ui/aura/segmented-control';
 const duneDocsUrl = 'https://laughing-adventure-r6kwpyy.pages.github.io/';
 
@@ -231,18 +231,18 @@ export default function HomePage() {
               <SegmentedControl defaultValue="dune" className="w-full">
                 <div className="flex justify-center mb-8">
                   <SegmentedControlList className="h-12 p-1 bg-muted/50 backdrop-blur-sm border border-border/50">
-                    <SegmentedControlTrigger
+                    <SegmentedControlButton
                       value="dune"
                       className="h-full px-6 text-base data-[active]:bg-background data-[active]:shadow-sm"
                     >
                       Create with Dune
-                    </SegmentedControlTrigger>
-                    <SegmentedControlTrigger
+                    </SegmentedControlButton>
+                    <SegmentedControlButton
                       value="custom"
                       className="h-full px-6 text-base data-[active]:bg-background data-[active]:shadow-sm"
                     >
                       Custom installation
-                    </SegmentedControlTrigger>
+                    </SegmentedControlButton>
                   </SegmentedControlList>
                 </div>
 

@@ -24,7 +24,7 @@ import {
   SegmentedControl,
   SegmentedControlContent,
   SegmentedControlList,
-  SegmentedControlTrigger,
+  SegmentedControlButton,
 } from '@/components/ui/aura/segmented-control';
 
 // Utility functions for color conversion
@@ -1427,21 +1427,21 @@ export default function ThemingPage() {
                     className="w-full"
                   >
                     <SegmentedControlList className="grid w-full grid-cols-5">
-                      <SegmentedControlTrigger value="css-variables">
+                      <SegmentedControlButton value="css-variables">
                         CSS
-                      </SegmentedControlTrigger>
-                      <SegmentedControlTrigger value="tailwind">
+                      </SegmentedControlButton>
+                      <SegmentedControlButton value="tailwind">
                         Tailwind
-                      </SegmentedControlTrigger>
-                      <SegmentedControlTrigger value="globals">
+                      </SegmentedControlButton>
+                      <SegmentedControlButton value="globals">
                         Global CSS
-                      </SegmentedControlTrigger>
-                      <SegmentedControlTrigger value="provider">
+                      </SegmentedControlButton>
+                      <SegmentedControlButton value="provider">
                         Provider
-                      </SegmentedControlTrigger>
-                      <SegmentedControlTrigger value="install">
+                      </SegmentedControlButton>
+                      <SegmentedControlButton value="install">
                         Install
-                      </SegmentedControlTrigger>
+                      </SegmentedControlButton>
                     </SegmentedControlList>
 
                     <SegmentedControlContent
@@ -1568,18 +1568,18 @@ export default function ThemingPage() {
               <CardContent>
                 <SegmentedControl defaultValue="primitives" className="w-full">
                   <SegmentedControlList className="grid w-full grid-cols-4">
-                    <SegmentedControlTrigger value="primitives">
+                    <SegmentedControlButton value="primitives">
                       Primitives
-                    </SegmentedControlTrigger>
-                    <SegmentedControlTrigger value="cards">
+                    </SegmentedControlButton>
+                    <SegmentedControlButton value="cards">
                       Cards
-                    </SegmentedControlTrigger>
-                    <SegmentedControlTrigger value="forms">
+                    </SegmentedControlButton>
+                    <SegmentedControlButton value="forms">
                       Forms
-                    </SegmentedControlTrigger>
-                    <SegmentedControlTrigger value="dashboard">
+                    </SegmentedControlButton>
+                    <SegmentedControlButton value="dashboard">
                       Dashboard
-                    </SegmentedControlTrigger>
+                    </SegmentedControlButton>
                   </SegmentedControlList>
 
                   <SegmentedControlContent
@@ -1822,15 +1822,15 @@ export default function ThemingPage() {
                               className="w-full"
                             >
                               <SegmentedControlList>
-                                <SegmentedControlTrigger value="tab1">
+                                <SegmentedControlButton value="tab1">
                                   Tab 1
-                                </SegmentedControlTrigger>
-                                <SegmentedControlTrigger value="tab2">
+                                </SegmentedControlButton>
+                                <SegmentedControlButton value="tab2">
                                   Tab 2
-                                </SegmentedControlTrigger>
-                                <SegmentedControlTrigger value="tab3">
+                                </SegmentedControlButton>
+                                <SegmentedControlButton value="tab3">
                                   Tab 3
-                                </SegmentedControlTrigger>
+                                </SegmentedControlButton>
                               </SegmentedControlList>
                               <SegmentedControlContent
                                 value="tab1"

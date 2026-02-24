@@ -28,7 +28,7 @@ function SegmentedControlList({
   );
 }
 
-function SegmentedControlTrigger({
+function SegmentedControlButton({
   className,
   ...props
 }: TabsPrimitive.Tab.Props) {
@@ -60,6 +60,6 @@ function SegmentedControlContent({
 export {
   SegmentedControl,
   SegmentedControlList,
-  SegmentedControlTrigger,
+  SegmentedControlButton,
   SegmentedControlContent,
 };

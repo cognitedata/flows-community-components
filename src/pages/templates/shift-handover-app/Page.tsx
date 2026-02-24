@@ -47,7 +47,7 @@ import {
 import {
   SegmentedControl,
   SegmentedControlList,
-  SegmentedControlTrigger,
+  SegmentedControlButton,
 } from '@/components/ui/aura/segmented-control';
 import {
   Select,
@@ -218,27 +218,27 @@ export default function ShiftHandoverAppPage() {
           <div className="hidden md:flex">
             <SegmentedControl defaultValue="apps">
               <SegmentedControlList className="grid grid-cols-3">
-                <SegmentedControlTrigger
+                <SegmentedControlButton
                   value="overview"
                   className="flex items-center gap-2"
                 >
                   <BarChart3 className="h-4 w-4" />
                   Overview
-                </SegmentedControlTrigger>
-                <SegmentedControlTrigger
+                </SegmentedControlButton>
+                <SegmentedControlButton
                   value="views"
                   className="flex items-center gap-2"
                 >
                   <Shapes className="h-4 w-4" />
                   Views
-                </SegmentedControlTrigger>
-                <SegmentedControlTrigger
+                </SegmentedControlButton>
+                <SegmentedControlButton
                   value="apps"
                   className="flex items-center gap-2"
                 >
                   <AppWindow className="h-4 w-4" />
                   App library
-                </SegmentedControlTrigger>
+                </SegmentedControlButton>
               </SegmentedControlList>
             </SegmentedControl>
           </div>
@@ -349,15 +349,15 @@ export default function ShiftHandoverAppPage() {
                     onValueChange={(v) => setShiftType(v as typeof shiftType)}
                   >
                     <SegmentedControlList className="grid grid-cols-3 w-full">
-                      <SegmentedControlTrigger value="morning">
+                      <SegmentedControlButton value="morning">
                         Morning
-                      </SegmentedControlTrigger>
-                      <SegmentedControlTrigger value="day">
+                      </SegmentedControlButton>
+                      <SegmentedControlButton value="day">
                         Day
-                      </SegmentedControlTrigger>
-                      <SegmentedControlTrigger value="night">
+                      </SegmentedControlButton>
+                      <SegmentedControlButton value="night">
                         Night
-                      </SegmentedControlTrigger>
+                      </SegmentedControlButton>
                     </SegmentedControlList>
                   </SegmentedControl>
                 </div>
