@@ -140,6 +140,7 @@ For files under `src/components/ui/aura/**`, prefer relative imports (for exampl
 - Set per-component Figma links in `src/lib/primitives-catalog.ts`; catalog and component pages use those URLs to enable clickable Figma icons.
 - Suggestion stories should query open select content semantically via `within(document.body).queryByRole("listbox")` and keep `parameters.order` set on every story export.
 - Suggestion stories should use design-token widths (for example `w-52`, `max-w-xl`) instead of arbitrary bracket widths for prompt cards and wrappers.
+- `SuggestionItem` values should come from an explicit `value` prop instead of deriving from `children`.
 - Conversation stories should keep play assertions semantic (`getByRole`/`findAllByRole`) and avoid helper components inside story render functions.
 - For components that accept a `render` element and forward accessibility props, set the accessible label once on the component to avoid duplicate `aria-label` attributes on both wrapper and inner element.
 - In Aura stories, avoid DOM traversal selectors in play functions; prefer semantic role/text queries for the interacted element.

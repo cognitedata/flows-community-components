@@ -209,12 +209,10 @@ export const SelectMode: Story = {
     await userEvent.click(trigger);
     await waitForSelectContentOpen();
     await expect(
-      within(document.body).getByText(
-        'Prioritize critical equipment in resource allocation'
-      )
+      within(document.body).getByText('Show me the pressure on valve 10')
     ).toBeInTheDocument();
     const item = within(document.body).getByText(
-      'Prioritize critical equipment in resource allocation'
+      'Show me the pressure on valve 10'
     );
     await userEvent.click(item);
     await waitForSelectContentClosed();
@@ -229,13 +227,22 @@ export const SelectMode: Story = {
           <SuggestionValue placeholder="AI prompt suggestion 2" />
         </SuggestionTrigger>
         <SuggestionContent>
-          <SuggestionItem icon={<IconGauge className="size-4" />}>
+          <SuggestionItem
+            value="Show me the pressure on valve 10"
+            icon={<IconGauge className="size-4" />}
+          >
             Show me the pressure on valve 10
           </SuggestionItem>
-          <SuggestionItem icon={<IconActivity className="size-4" />}>
+          <SuggestionItem
+            value="What's the status of pump 3?"
+            icon={<IconActivity className="size-4" />}
+          >
             What&apos;s the status of pump 3?
           </SuggestionItem>
-          <SuggestionItem icon={<IconChartLine className="size-4" />}>
+          <SuggestionItem
+            value="Display temperature trends for zone A"
+            icon={<IconChartLine className="size-4" />}
+          >
             Display temperature trends for zone A
           </SuggestionItem>
         </SuggestionContent>
@@ -272,13 +279,22 @@ export const KeyboardInteractions: Story = {
           <SuggestionValue placeholder="Use keyboard to navigate..." />
         </SuggestionTrigger>
         <SuggestionContent>
-          <SuggestionItem icon={<IconGauge className="size-4" />}>
+          <SuggestionItem
+            value="First option"
+            icon={<IconGauge className="size-4" />}
+          >
             First option
           </SuggestionItem>
-          <SuggestionItem icon={<IconActivity className="size-4" />}>
+          <SuggestionItem
+            value="Second option"
+            icon={<IconActivity className="size-4" />}
+          >
             Second option
           </SuggestionItem>
-          <SuggestionItem icon={<IconChartLine className="size-4" />}>
+          <SuggestionItem
+            value="Third option"
+            icon={<IconChartLine className="size-4" />}
+          >
             Third option
           </SuggestionItem>
         </SuggestionContent>
@@ -302,10 +318,16 @@ export const Grouped: Story = {
         <SuggestionContent>
           <SuggestionGroup>
             <SuggestionLabel>Equipment Status</SuggestionLabel>
-            <SuggestionItem icon={<IconGauge className="size-4" />}>
+            <SuggestionItem
+              value="Show me the pressure on valve 10"
+              icon={<IconGauge className="size-4" />}
+            >
               Show me the pressure on valve 10
             </SuggestionItem>
-            <SuggestionItem icon={<IconActivity className="size-4" />}>
+            <SuggestionItem
+              value="What's the current status of pump 3?"
+              icon={<IconActivity className="size-4" />}
+            >
               What&apos;s the current status of pump 3?
             </SuggestionItem>
           </SuggestionGroup>
@@ -314,10 +336,16 @@ export const Grouped: Story = {
 
           <SuggestionGroup>
             <SuggestionLabel>Historical Data</SuggestionLabel>
-            <SuggestionItem icon={<IconChartLine className="size-4" />}>
+            <SuggestionItem
+              value="Display temperature trends for zone A"
+              icon={<IconChartLine className="size-4" />}
+            >
               Display temperature trends for zone A
             </SuggestionItem>
-            <SuggestionItem icon={<IconHistory className="size-4" />}>
+            <SuggestionItem
+              value="Show me yesterday's flow rates"
+              icon={<IconHistory className="size-4" />}
+            >
               Show me yesterday&apos;s flow rates
             </SuggestionItem>
           </SuggestionGroup>
@@ -372,13 +400,22 @@ export const InteractiveSelect: Story = {
             />
           </SuggestionTrigger>
           <SuggestionContent>
-            <SuggestionItem icon={<IconGauge className="size-4" />}>
+            <SuggestionItem
+              value="Show me the pressure on valve 10"
+              icon={<IconGauge className="size-4" />}
+            >
               Show me the pressure on valve 10
             </SuggestionItem>
-            <SuggestionItem icon={<IconActivity className="size-4" />}>
+            <SuggestionItem
+              value="What's the status of pump 3?"
+              icon={<IconActivity className="size-4" />}
+            >
               What&apos;s the status of pump 3?
             </SuggestionItem>
-            <SuggestionItem icon={<IconChartLine className="size-4" />}>
+            <SuggestionItem
+              value="Display temperature trends for zone A"
+              icon={<IconChartLine className="size-4" />}
+            >
               Display temperature trends for zone A
             </SuggestionItem>
           </SuggestionContent>
@@ -410,10 +447,16 @@ export const MultipleSelects: Story = {
             <SuggestionValue placeholder="Select equipment query..." />
           </SuggestionTrigger>
           <SuggestionContent>
-            <SuggestionItem icon={<IconGauge className="size-4" />}>
+            <SuggestionItem
+              value="Show me the pressure on valve 10"
+              icon={<IconGauge className="size-4" />}
+            >
               Show me the pressure on valve 10
             </SuggestionItem>
-            <SuggestionItem icon={<IconActivity className="size-4" />}>
+            <SuggestionItem
+              value="What's the status of pump 3?"
+              icon={<IconActivity className="size-4" />}
+            >
               What&apos;s the status of pump 3?
             </SuggestionItem>
           </SuggestionContent>
@@ -424,10 +467,16 @@ export const MultipleSelects: Story = {
             <SuggestionValue placeholder="Select data query..." />
           </SuggestionTrigger>
           <SuggestionContent>
-            <SuggestionItem icon={<IconChartLine className="size-4" />}>
+            <SuggestionItem
+              value="Display temperature trends for zone A"
+              icon={<IconChartLine className="size-4" />}
+            >
               Display temperature trends for zone A
             </SuggestionItem>
-            <SuggestionItem icon={<IconHistory className="size-4" />}>
+            <SuggestionItem
+              value="Show me yesterday's flow rates"
+              icon={<IconHistory className="size-4" />}
+            >
               Show me yesterday&apos;s flow rates
             </SuggestionItem>
           </SuggestionContent>
@@ -456,10 +505,16 @@ export const MixedModes: Story = {
             <SuggestionValue placeholder="More options..." />
           </SuggestionTrigger>
           <SuggestionContent>
-            <SuggestionItem icon={<IconGauge className="size-4" />}>
+            <SuggestionItem
+              value="Show me the pressure on valve 10"
+              icon={<IconGauge className="size-4" />}
+            >
               Show me the pressure on valve 10
             </SuggestionItem>
-            <SuggestionItem icon={<IconActivity className="size-4" />}>
+            <SuggestionItem
+              value="What's the status of pump 3?"
+              icon={<IconActivity className="size-4" />}
+            >
               What&apos;s the status of pump 3?
             </SuggestionItem>
           </SuggestionContent>
@@ -487,7 +542,7 @@ export const FollowUpCards: Story = {
           variant="ghost"
         >
           <span className="space-y-1">
-            <span className="block text-xs font-medium leading-tigher text-muted-foreground">
+            <span className="block text-xs font-medium leading-tighter text-muted-foreground">
               Follow up
             </span>
             <span className="block text-base leading-tightest leading-5 font-normal text-foreground whitespace-normal">
@@ -561,13 +616,22 @@ export const AISuggestionMode: Story = {
           <SuggestionValue placeholder="AI prompt suggestion 1" />
         </SuggestionTrigger>
         <SuggestionContent>
-          <SuggestionItem icon={<IconGauge className="size-4" />}>
+          <SuggestionItem
+            value="Prioritize critical equipment in resource allocation"
+            icon={<IconGauge className="size-4" />}
+          >
             Prioritize critical equipment in resource allocation
           </SuggestionItem>
-          <SuggestionItem icon={<IconActivity className="size-4" />}>
+          <SuggestionItem
+            value="Break down tasks by production line and urgency"
+            icon={<IconActivity className="size-4" />}
+          >
             Break down tasks by production line and urgency
           </SuggestionItem>
-          <SuggestionItem icon={<IconChartLine className="size-4" />}>
+          <SuggestionItem
+            value="Create a timeline for the top three risk areas"
+            icon={<IconChartLine className="size-4" />}
+          >
             Create a timeline for the top three risk areas
           </SuggestionItem>
         </SuggestionContent>

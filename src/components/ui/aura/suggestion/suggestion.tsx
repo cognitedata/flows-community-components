@@ -190,8 +190,9 @@ const SuggestionContent = ({
 
 type SuggestionItemProps = Omit<
   ComponentProps<typeof SelectItemPrimitive>,
-  'value'
+  'onSelect'
 > & {
+  value: string;
   icon?: ReactNode;
 };
 
@@ -199,26 +200,20 @@ const SuggestionItem = ({
   className,
   children,
   icon,
+  value,
   ...props
 }: SuggestionItemProps) => {
   const { onItemSelect } = useSuggestion();
 
-  const textValue = useMemo(() => {
-    if (typeof children === 'string') {
-      return children;
-    }
-    return String(children);
-  }, [children]);
-
   const handleSelect = () => {
-    onItemSelect(textValue);
+    onItemSelect(value);
   };
 
   return (
     <SelectItemPrimitive
       className={className}
       icon={icon}
-      value={textValue}
+      value={value}
       onSelect={handleSelect}
       {...props}
     >
