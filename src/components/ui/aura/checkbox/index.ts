@@ -8,5 +8,5 @@
  *
  * <Checkbox checked={checked} onCheckedChange={setChecked} />
  */
-export { Checkbox } from "./checkbox";
-export { CheckboxMetadata } from "./checkbox.metadata";
+export { Checkbox } from './checkbox';
+export { CheckboxMetadata } from './checkbox.metadata';

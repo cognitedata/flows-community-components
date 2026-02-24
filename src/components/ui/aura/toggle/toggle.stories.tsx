@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import {
   IconAlignCenter,
   IconAlignLeft,
@@ -6,87 +6,88 @@ import {
   IconBold,
   IconItalic,
   IconUnderline,
-} from "@tabler/icons-react";
-import { useState } from "react";
-import { expect, userEvent, within } from "storybook/test";
-import { Toggle } from "./toggle";
+} from '@tabler/icons-react';
+import { useState } from 'react';
+import { expect, userEvent, within } from 'storybook/test';
+
+import { Toggle } from './toggle';
 
 const meta: Meta<typeof Toggle> = {
-  title: "Primitives/Toggle",
+  title: 'Primitives/Toggle',
   component: Toggle,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     variant: {
-      control: "select",
-      options: ["default", "outline"],
+      control: 'select',
+      options: ['default', 'outline'],
       table: {
-        category: "Variants/Styling",
+        category: 'Variants/Styling',
         type: {
           summary: '"default" | "outline"',
         },
         defaultValue: {
-          summary: "default",
+          summary: 'default',
         },
       },
     },
     size: {
-      control: "select",
-      options: ["default", "sm", "lg"],
+      control: 'select',
+      options: ['default', 'sm', 'lg'],
       table: {
-        category: "Variants/Styling",
+        category: 'Variants/Styling',
         type: {
           summary: '"default" | "sm" | "lg"',
         },
         defaultValue: {
-          summary: "default",
+          summary: 'default',
         },
       },
     },
     pressed: {
-      control: "boolean",
+      control: 'boolean',
       table: {
-        category: "Behavior",
+        category: 'Behavior',
         type: {
-          summary: "boolean",
+          summary: 'boolean',
         },
       },
     },
     defaultPressed: {
-      control: "boolean",
+      control: 'boolean',
       table: {
-        category: "Behavior",
+        category: 'Behavior',
         type: {
-          summary: "boolean",
+          summary: 'boolean',
         },
         defaultValue: {
-          summary: "false",
+          summary: 'false',
         },
       },
     },
     disabled: {
-      control: "boolean",
+      control: 'boolean',
       table: {
-        category: "Behavior",
+        category: 'Behavior',
         type: {
-          summary: "boolean",
+          summary: 'boolean',
         },
         defaultValue: {
-          summary: "false",
+          summary: 'false',
         },
       },
     },
     onPressedChange: {
-      action: "pressedChange",
+      action: 'pressedChange',
       table: {
-        category: "Events",
+        category: 'Events',
         type: {
-          summary: "(pressed: boolean) => void",
+          summary: '(pressed: boolean) => void',
         },
       },
     },
   },
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
 };
 export default meta;
@@ -102,13 +103,13 @@ export const Default: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const toggle = canvas.getByRole("button");
+    const toggle = canvas.getByRole('button');
     await expect(toggle).toBeInTheDocument();
-    await expect(toggle).not.toHaveAttribute("data-pressed");
+    await expect(toggle).not.toHaveAttribute('data-pressed');
     await userEvent.click(toggle);
-    await expect(toggle).toHaveAttribute("data-pressed");
+    await expect(toggle).toHaveAttribute('data-pressed');
     await userEvent.click(toggle);
-    await expect(toggle).not.toHaveAttribute("data-pressed");
+    await expect(toggle).not.toHaveAttribute('data-pressed');
   },
 };
 export const WithText: Story = {
@@ -161,8 +162,8 @@ export const DefaultPressed: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const toggle = canvas.getByRole("button");
-    await expect(toggle).toHaveAttribute("data-pressed");
+    const toggle = canvas.getByRole('button');
+    await expect(toggle).toHaveAttribute('data-pressed');
   },
 };
 export const Disabled: Story = {
@@ -181,7 +182,7 @@ export const Disabled: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const toggles = await canvas.findAllByRole("button");
+    const toggles = await canvas.findAllByRole('button');
     for (const toggle of toggles) {
       await expect(toggle).toBeDisabled();
     }
@@ -192,7 +193,11 @@ export const Controlled: Story = {
     const [pressed, setPressed] = useState(false);
     return (
       <div className="space-y-4">
-        <Toggle pressed={pressed} onPressedChange={setPressed} aria-label="Toggle bold">
+        <Toggle
+          pressed={pressed}
+          onPressedChange={setPressed}
+          aria-label="Toggle bold"
+        >
           <IconBold className="size-4" />
           Bold
         </Toggle>
@@ -212,7 +217,9 @@ export const Controlled: Story = {
             Unpress
           </button>
         </div>
-        <p className="text-sm text-muted-foreground">Pressed: {pressed ? "true" : "false"}</p>
+        <p className="text-sm text-muted-foreground">
+          Pressed: {pressed ? 'true' : 'false'}
+        </p>
       </div>
     );
   },
@@ -227,10 +234,20 @@ export const ToolbarExample: Story = {
     const [underline, setUnderline] = useState(false);
     return (
       <div className="flex items-center gap-1 rounded-md border p-1">
-        <Toggle pressed={bold} onPressedChange={setBold} aria-label="Toggle bold" size="sm">
+        <Toggle
+          pressed={bold}
+          onPressedChange={setBold}
+          aria-label="Toggle bold"
+          size="sm"
+        >
           <IconBold className="size-4" />
         </Toggle>
-        <Toggle pressed={italic} onPressedChange={setItalic} aria-label="Toggle italic" size="sm">
+        <Toggle
+          pressed={italic}
+          onPressedChange={setItalic}
+          aria-label="Toggle italic"
+          size="sm"
+        >
           <IconItalic className="size-4" />
         </Toggle>
         <Toggle
@@ -250,28 +267,30 @@ export const ToolbarExample: Story = {
 };
 export const SingleSelectGroup: Story = {
   render: function SingleSelectToggle() {
-    const [alignment, setAlignment] = useState<"left" | "center" | "right">("left");
+    const [alignment, setAlignment] = useState<'left' | 'center' | 'right'>(
+      'left'
+    );
     return (
       <div className="flex items-center gap-1 rounded-md border p-1">
         <Toggle
-          pressed={alignment === "left"}
-          onPressedChange={() => setAlignment("left")}
+          pressed={alignment === 'left'}
+          onPressedChange={() => setAlignment('left')}
           aria-label="Align left"
           size="sm"
         >
           <IconAlignLeft className="size-4" />
         </Toggle>
         <Toggle
-          pressed={alignment === "center"}
-          onPressedChange={() => setAlignment("center")}
+          pressed={alignment === 'center'}
+          onPressedChange={() => setAlignment('center')}
           aria-label="Align center"
           size="sm"
         >
           <IconAlignCenter className="size-4" />
         </Toggle>
         <Toggle
-          pressed={alignment === "right"}
-          onPressedChange={() => setAlignment("right")}
+          pressed={alignment === 'right'}
+          onPressedChange={() => setAlignment('right')}
           aria-label="Align right"
           size="sm"
         >
@@ -321,7 +340,9 @@ export const VisualRegression: Story = {
   render: () => (
     <div className="space-y-6 p-4">
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">Variants</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          Variants
+        </h3>
         <div className="flex gap-4">
           <Toggle aria-label="Default">
             <IconBold className="size-4" />
@@ -372,8 +393,8 @@ export const VisualRegression: Story = {
 };
 export const Playground: Story = {
   args: {
-    variant: "default",
-    size: "default",
+    variant: 'default',
+    size: 'default',
     disabled: false,
     defaultPressed: false,
   },

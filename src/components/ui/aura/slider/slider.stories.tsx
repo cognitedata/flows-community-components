@@ -1,114 +1,117 @@
-import { Label } from "@/components/ui/aura/label";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { useState } from "react";
-import { expect, userEvent, waitFor, within } from "storybook/test";
-import { Slider } from "./slider";
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { useState } from 'react';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
+
+import { Label } from '../label';
+
+import { Slider } from './slider';
+
 const meta: Meta<typeof Slider> = {
-  title: "Primitives/Slider",
+  title: 'Primitives/Slider',
   component: Slider,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     value: {
-      control: "object",
+      control: 'object',
       table: {
-        category: "State",
+        category: 'Behavior',
         type: {
-          summary: "number[]",
+          summary: 'number[]',
         },
       },
     },
     defaultValue: {
-      control: "object",
+      control: 'object',
       table: {
-        category: "State",
+        category: 'Behavior',
         type: {
-          summary: "number[]",
+          summary: 'number[]',
         },
       },
     },
     min: {
-      control: "number",
+      control: 'number',
       table: {
-        category: "Range",
+        category: 'Behavior',
         type: {
-          summary: "number",
+          summary: 'number',
         },
         defaultValue: {
-          summary: "0",
+          summary: '0',
         },
       },
     },
     max: {
-      control: "number",
+      control: 'number',
       table: {
-        category: "Range",
+        category: 'Behavior',
         type: {
-          summary: "number",
+          summary: 'number',
         },
         defaultValue: {
-          summary: "100",
+          summary: '100',
         },
       },
     },
     step: {
-      control: "number",
+      control: 'number',
       table: {
-        category: "Range",
+        category: 'Behavior',
         type: {
-          summary: "number",
+          summary: 'number',
         },
         defaultValue: {
-          summary: "1",
+          summary: '1',
         },
       },
     },
     disabled: {
-      control: "boolean",
+      control: 'boolean',
       table: {
-        category: "State",
+        category: 'Behavior',
         type: {
-          summary: "boolean",
+          summary: 'boolean',
         },
         defaultValue: {
-          summary: "false",
+          summary: 'false',
         },
       },
     },
     orientation: {
-      control: "select",
-      options: ["horizontal", "vertical"],
+      control: 'select',
+      options: ['horizontal', 'vertical'],
       table: {
-        category: "Layout",
+        category: 'Variants/Styling',
         type: {
           summary: '"horizontal" | "vertical"',
         },
         defaultValue: {
-          summary: "horizontal",
+          summary: 'horizontal',
         },
       },
     },
     onValueChange: {
-      action: "valueChange",
+      action: 'valueChange',
       table: {
-        category: "Events",
+        category: 'Events',
         type: {
-          summary: "(value: number[]) => void",
+          summary: '(value: number[]) => void',
         },
       },
     },
     className: {
-      control: "text",
+      control: 'text',
       table: {
-        category: "Styling",
+        category: 'Variants/Styling',
       },
     },
   },
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
   decorators: [
     (Story) => (
-      <div className="w-[300px]">
+      <div className="w-80">
         <Story />
       </div>
     ),
@@ -118,11 +121,11 @@ export default meta;
 type Story = StoryObj<typeof Slider>;
 export const Default: Story = {
   render: () => <Slider defaultValue={[50]} />,
+  parameters: { order: 1 },
   play: async ({ canvasElement }) => {
-    const slider = canvasElement.querySelector('[data-slot="slider"]');
+    const canvas = within(canvasElement);
+    const slider = await canvas.findByRole('slider');
     await expect(slider).toBeInTheDocument();
-    const thumb = canvasElement.querySelector('[data-slot="slider-thumb"]');
-    await expect(thumb).toBeInTheDocument();
   },
 };
 export const WithLabel: Story = {
@@ -131,12 +134,15 @@ export const WithLabel: Story = {
     return (
       <div className="space-y-4">
         <div className="flex justify-between items-center">
-          <Label>Volume</Label>
+          <Label htmlFor="slider-volume">Volume</Label>
           <span className="text-sm text-muted-foreground">{value[0]}%</span>
         </div>
-        <Slider value={value} onValueChange={setValue} />
+        <Slider id="slider-volume" value={value} onValueChange={setValue} />
       </div>
     );
+  },
+  parameters: {
+    order: 2,
   },
 };
 export const RangeSlider: Story = {
@@ -145,14 +151,23 @@ export const RangeSlider: Story = {
     return (
       <div className="space-y-4">
         <div className="flex justify-between items-center">
-          <Label>Price Range</Label>
+          <Label htmlFor="slider-price-range">Price Range</Label>
           <span className="text-sm text-muted-foreground">
             ${value[0]} - ${value[1]}
           </span>
         </div>
-        <Slider value={value} onValueChange={setValue} min={0} max={100} />
+        <Slider
+          id="slider-price-range"
+          value={value}
+          onValueChange={setValue}
+          min={0}
+          max={100}
+        />
       </div>
     );
+  },
+  parameters: {
+    order: 3,
   },
 };
 export const CustomRange: Story = {
@@ -161,10 +176,17 @@ export const CustomRange: Story = {
     return (
       <div className="space-y-4">
         <div className="flex justify-between items-center">
-          <Label>Budget</Label>
+          <Label htmlFor="slider-budget">Budget</Label>
           <span className="text-sm text-muted-foreground">${value[0]}</span>
         </div>
-        <Slider value={value} onValueChange={setValue} min={100} max={1000} step={50} />
+        <Slider
+          id="slider-budget"
+          value={value}
+          onValueChange={setValue}
+          min={100}
+          max={1000}
+          step={50}
+        />
         <div className="flex justify-between text-xs text-muted-foreground">
           <span>$100</span>
           <span>$1000</span>
@@ -172,28 +194,42 @@ export const CustomRange: Story = {
       </div>
     );
   },
+  parameters: {
+    order: 4,
+  },
 };
 export const Disabled: Story = {
   render: () => (
     <div className="space-y-4">
       <div className="space-y-2">
-        <Label className="opacity-50">Disabled slider</Label>
-        <Slider defaultValue={[50]} disabled />
+        <Label className="opacity-50" htmlFor="slider-disabled-single">
+          Disabled slider
+        </Label>
+        <Slider id="slider-disabled-single" defaultValue={[50]} disabled />
       </div>
       <div className="space-y-2">
-        <Label className="opacity-50">Disabled range</Label>
-        <Slider defaultValue={[25, 75]} disabled />
+        <Label className="opacity-50" htmlFor="slider-disabled-range">
+          Disabled range
+        </Label>
+        <Slider id="slider-disabled-range" defaultValue={[25, 75]} disabled />
       </div>
     </div>
   ),
+  parameters: {
+    order: 5,
+  },
 };
 export const Vertical: Story = {
   render: function VerticalSlider() {
     const [value, setValue] = useState([50]);
     return (
-      <div className="flex items-center gap-8 h-[200px]">
+      <div className="flex items-center gap-8 h-52">
         <div className="flex flex-col items-center gap-2">
-          <Slider value={value} onValueChange={setValue} orientation="vertical" />
+          <Slider
+            value={value}
+            onValueChange={setValue}
+            orientation="vertical"
+          />
           <span className="text-sm text-muted-foreground">{value[0]}%</span>
         </div>
         <div className="flex flex-col items-center gap-2">
@@ -205,11 +241,14 @@ export const Vertical: Story = {
   },
   decorators: [
     (Story) => (
-      <div className="h-[250px] flex items-center justify-center">
+      <div className="h-64 flex items-center justify-center">
         <Story />
       </div>
     ),
   ],
+  parameters: {
+    order: 6,
+  },
 };
 export const Controlled: Story = {
   render: function ControlledSlider() {
@@ -244,12 +283,15 @@ export const Controlled: Story = {
       </div>
     );
   },
+  parameters: {
+    order: 7,
+  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const maxButton = canvas.getByText("Max");
+    const maxButton = await canvas.findByRole('button', { name: 'Max' });
     await userEvent.click(maxButton);
     await waitFor(() => {
-      const valueText = canvas.getByText("Value: 100");
+      const valueText = canvas.getByText('Value: 100');
       expect(valueText).toBeInTheDocument();
     });
   },
@@ -263,7 +305,13 @@ export const StepIncrements: Story = {
           <Label>Rating (1-5)</Label>
           <span className="text-sm text-muted-foreground">{value[0]}</span>
         </div>
-        <Slider value={value} onValueChange={setValue} min={1} max={5} step={1} />
+        <Slider
+          value={value}
+          onValueChange={setValue}
+          min={1}
+          max={5}
+          step={1}
+        />
         <div className="flex justify-between text-xs text-muted-foreground">
           {[1, 2, 3, 4, 5].map((n) => (
             <span key={n}>{n}</span>
@@ -272,7 +320,11 @@ export const StepIncrements: Story = {
       </div>
     );
   },
+  parameters: {
+    order: 8,
+  },
 };
+
 export const MultipleSliders: Story = {
   render: function MultipleSlidersForm() {
     const [settings, setSettings] = useState({
@@ -291,33 +343,53 @@ export const MultipleSliders: Story = {
         <div className="space-y-2">
           <div className="flex justify-between">
             <Label>Brightness</Label>
-            <span className="text-sm text-muted-foreground">{settings.brightness[0]}%</span>
+            <span className="text-sm text-muted-foreground">
+              {settings.brightness[0]}%
+            </span>
           </div>
-          <Slider value={settings.brightness} onValueChange={updateSetting("brightness")} />
+          <Slider
+            value={settings.brightness}
+            onValueChange={updateSetting('brightness')}
+          />
         </div>
         <div className="space-y-2">
           <div className="flex justify-between">
             <Label>Contrast</Label>
-            <span className="text-sm text-muted-foreground">{settings.contrast[0]}%</span>
+            <span className="text-sm text-muted-foreground">
+              {settings.contrast[0]}%
+            </span>
           </div>
-          <Slider value={settings.contrast} onValueChange={updateSetting("contrast")} />
+          <Slider
+            value={settings.contrast}
+            onValueChange={updateSetting('contrast')}
+          />
         </div>
         <div className="space-y-2">
           <div className="flex justify-between">
             <Label>Saturation</Label>
-            <span className="text-sm text-muted-foreground">{settings.saturation[0]}%</span>
+            <span className="text-sm text-muted-foreground">
+              {settings.saturation[0]}%
+            </span>
           </div>
-          <Slider value={settings.saturation} onValueChange={updateSetting("saturation")} />
+          <Slider
+            value={settings.saturation}
+            onValueChange={updateSetting('saturation')}
+          />
         </div>
       </div>
     );
   },
+  parameters: {
+    order: 9,
+  },
 };
 export const VisualRegression: Story = {
   render: () => (
-    <div className="space-y-8 p-4 w-[350px]">
+    <div className="space-y-8 p-4 w-88">
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">Single Thumb</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          Single Thumb
+        </h3>
         <Slider defaultValue={[0]} />
         <Slider defaultValue={[50]} />
         <Slider defaultValue={[100]} />
@@ -329,13 +401,16 @@ export const VisualRegression: Story = {
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">Disabled</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          Disabled
+        </h3>
         <Slider defaultValue={[50]} disabled />
         <Slider defaultValue={[25, 75]} disabled />
       </div>
     </div>
   ),
   parameters: {
+    order: 10,
     chromatic: {
       disableSnapshot: false,
     },
@@ -355,7 +430,10 @@ export const Playground: Story = {
     max: 100,
     step: 1,
     disabled: false,
-    orientation: "horizontal",
+    orientation: 'horizontal',
+  },
+  parameters: {
+    order: 99,
   },
   render: (args) => <Slider {...args} />,
 };
