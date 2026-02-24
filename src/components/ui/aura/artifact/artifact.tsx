@@ -1,7 +1,7 @@
 import { type ComponentProps, type ComponentRef, forwardRef } from 'react';
 
 import { cn } from '../../../../lib/utils';
-import { Card, CardTitle } from '../card';
+import { Card, CardDescription, CardTitle } from '../card';
 
 const Artifact = forwardRef<
   ComponentRef<typeof Card>,
@@ -30,4 +30,17 @@ const ArtifactTitle = forwardRef<
 ));
 ArtifactTitle.displayName = 'ArtifactTitle';
 
-export { Artifact, ArtifactTitle };
+const ArtifactDescription = forwardRef<
+  ComponentRef<typeof CardDescription>,
+  ComponentProps<typeof CardDescription>
+>(({ className, ...props }, ref) => (
+  <CardDescription
+    ref={ref}
+    className={cn('', className)}
+    {...props}
+  />
+));
+ArtifactDescription.displayName = 'ArtifactDescription';
+
+export { Artifact, ArtifactDescription, ArtifactTitle };
+

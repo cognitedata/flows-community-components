@@ -147,6 +147,7 @@ For files under `src/components/ui/aura/**`, prefer relative imports (for exampl
 - Use `CardHeader` as a flex container with `CardHeaderContent` as the central stacked title/description area; avoid row/column grid positioning classes in header subcomponents.
 - Use shared `CardFooterLeft`, `CardFooterCenter`, and `CardFooterRight` subcomponents from `Card` instead of redefining footer alignment helpers in stories.
 - Do not keep `CardIcon` as an alias; use `CardHeaderLeft` directly as the single left-slot API.
+- When composing Artifact headers, pair `ArtifactTitle` with `ArtifactDescription` wrappers for consistent Artifact-level semantics over `CardTitle`/`CardDescription`.
 
 # Storybook Stories
 

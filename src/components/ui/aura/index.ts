@@ -31,7 +31,11 @@ export {
 } from './alert-dialog/alert-dialog';
 export { AlertDialogMetadata } from './alert-dialog/alert-dialog.metadata';
 
-export { Artifact, ArtifactTitle } from './artifact/artifact';
+export {
+  Artifact,
+  ArtifactTitle,
+  ArtifactDescription,
+} from './artifact/artifact';
 export { ArtifactMetadata } from './artifact/artifact.metadata';
 
 export {
