@@ -701,7 +701,7 @@ export {
   SegmentedControl,
   SegmentedControlContent,
   SegmentedControlList,
-  SegmentedControlTrigger,
+  SegmentedControlButton,
 } from './segmented-control/segmented-control';
 export { SegmentedControlMetadata } from './segmented-control/segmented-control.metadata';
 

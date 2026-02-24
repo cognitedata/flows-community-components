@@ -2,7 +2,7 @@ import {
   SegmentedControl,
   SegmentedControlContent,
   SegmentedControlList,
-  SegmentedControlTrigger,
+  SegmentedControlButton,
 } from './segmented-control';
 import { SegmentedControlMetadata } from './segmented-control.metadata';
 
@@ -10,6 +10,6 @@ export {
   SegmentedControl,
   SegmentedControlContent,
   SegmentedControlList,
-  SegmentedControlTrigger,
+  SegmentedControlButton,
   SegmentedControlMetadata,
 };

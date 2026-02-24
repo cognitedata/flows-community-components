@@ -14,7 +14,7 @@ import {
   SegmentedControl,
   SegmentedControlContent,
   SegmentedControlList,
-  SegmentedControlTrigger,
+  SegmentedControlButton,
 } from './segmented-control';
 
 const meta: Meta<typeof SegmentedControl> = {
@@ -89,15 +89,13 @@ export const Default: Story = {
   render: () => (
     <SegmentedControl defaultValue="account">
       <SegmentedControlList>
-        <SegmentedControlTrigger value="account">
-          Account
-        </SegmentedControlTrigger>
-        <SegmentedControlTrigger value="password">
+        <SegmentedControlButton value="account">Account</SegmentedControlButton>
+        <SegmentedControlButton value="password">
           Password
-        </SegmentedControlTrigger>
-        <SegmentedControlTrigger value="settings">
+        </SegmentedControlButton>
+        <SegmentedControlButton value="settings">
           Settings
-        </SegmentedControlTrigger>
+        </SegmentedControlButton>
       </SegmentedControlList>
       <SegmentedControlContent value="account" className="p-4">
         <p className="text-sm text-muted-foreground">
@@ -143,18 +141,18 @@ export const WithIcons: Story = {
   render: () => (
     <SegmentedControl defaultValue="profile">
       <SegmentedControlList>
-        <SegmentedControlTrigger value="profile">
+        <SegmentedControlButton value="profile">
           <IconUser className="size-4" />
           Profile
-        </SegmentedControlTrigger>
-        <SegmentedControlTrigger value="notifications">
+        </SegmentedControlButton>
+        <SegmentedControlButton value="notifications">
           <IconBell className="size-4" />
           Notifications
-        </SegmentedControlTrigger>
-        <SegmentedControlTrigger value="security">
+        </SegmentedControlButton>
+        <SegmentedControlButton value="security">
           <IconLock className="size-4" />
           Security
-        </SegmentedControlTrigger>
+        </SegmentedControlButton>
       </SegmentedControlList>
       <SegmentedControlContent value="profile" className="p-4">
         <p className="text-sm text-muted-foreground">
@@ -184,15 +182,9 @@ export const Controlled: Story = {
       <div className="space-y-4">
         <SegmentedControl value={activeTab} onValueChange={setActiveTab}>
           <SegmentedControlList>
-            <SegmentedControlTrigger value="tab1">
-              Tab 1
-            </SegmentedControlTrigger>
-            <SegmentedControlTrigger value="tab2">
-              Tab 2
-            </SegmentedControlTrigger>
-            <SegmentedControlTrigger value="tab3">
-              Tab 3
-            </SegmentedControlTrigger>
+            <SegmentedControlButton value="tab1">Tab 1</SegmentedControlButton>
+            <SegmentedControlButton value="tab2">Tab 2</SegmentedControlButton>
+            <SegmentedControlButton value="tab3">Tab 3</SegmentedControlButton>
           </SegmentedControlList>
           <SegmentedControlContent value="tab1" className="p-4">
             Content for Tab 1
@@ -239,18 +231,18 @@ export const DisabledTabs: Story = {
   render: () => (
     <SegmentedControl defaultValue="enabled1">
       <SegmentedControlList>
-        <SegmentedControlTrigger value="enabled1">
+        <SegmentedControlButton value="enabled1">
           Enabled
-        </SegmentedControlTrigger>
-        <SegmentedControlTrigger value="disabled1" disabled>
+        </SegmentedControlButton>
+        <SegmentedControlButton value="disabled1" disabled>
           Disabled
-        </SegmentedControlTrigger>
-        <SegmentedControlTrigger value="enabled2">
+        </SegmentedControlButton>
+        <SegmentedControlButton value="enabled2">
           Also Enabled
-        </SegmentedControlTrigger>
-        <SegmentedControlTrigger value="disabled2" disabled>
+        </SegmentedControlButton>
+        <SegmentedControlButton value="disabled2" disabled>
           Also Disabled
-        </SegmentedControlTrigger>
+        </SegmentedControlButton>
       </SegmentedControlList>
       <SegmentedControlContent value="enabled1" className="p-4">
         First enabled tab content.
@@ -276,15 +268,13 @@ export const RichContent: Story = {
   render: () => (
     <SegmentedControl defaultValue="overview">
       <SegmentedControlList>
-        <SegmentedControlTrigger value="overview">
+        <SegmentedControlButton value="overview">
           Overview
-        </SegmentedControlTrigger>
-        <SegmentedControlTrigger value="analytics">
+        </SegmentedControlButton>
+        <SegmentedControlButton value="analytics">
           Analytics
-        </SegmentedControlTrigger>
-        <SegmentedControlTrigger value="reports">
-          Reports
-        </SegmentedControlTrigger>
+        </SegmentedControlButton>
+        <SegmentedControlButton value="reports">Reports</SegmentedControlButton>
       </SegmentedControlList>
       <SegmentedControlContent value="overview" className="p-4 space-y-4">
         <h3 className="font-medium">Dashboard Overview</h3>
@@ -321,15 +311,15 @@ export const FullWidth: Story = {
   render: () => (
     <SegmentedControl defaultValue="all" className="w-full">
       <SegmentedControlList className="w-full">
-        <SegmentedControlTrigger value="all" className="flex-1">
+        <SegmentedControlButton value="all" className="flex-1">
           All
-        </SegmentedControlTrigger>
-        <SegmentedControlTrigger value="active" className="flex-1">
+        </SegmentedControlButton>
+        <SegmentedControlButton value="active" className="flex-1">
           Active
-        </SegmentedControlTrigger>
-        <SegmentedControlTrigger value="archived" className="flex-1">
+        </SegmentedControlButton>
+        <SegmentedControlButton value="archived" className="flex-1">
           Archived
-        </SegmentedControlTrigger>
+        </SegmentedControlButton>
       </SegmentedControlList>
       <SegmentedControlContent value="all" className="p-4">
         Showing all items.
@@ -350,15 +340,15 @@ export const VisualRegression: Story = {
         <h3 className="text-sm font-semibold text-muted-foreground">Basic</h3>
         <SegmentedControl defaultValue="tab1">
           <SegmentedControlList>
-            <SegmentedControlTrigger value="tab1">
+            <SegmentedControlButton value="tab1">
               Active Tab
-            </SegmentedControlTrigger>
-            <SegmentedControlTrigger value="tab2">
+            </SegmentedControlButton>
+            <SegmentedControlButton value="tab2">
               Inactive Tab
-            </SegmentedControlTrigger>
-            <SegmentedControlTrigger value="tab3" disabled>
+            </SegmentedControlButton>
+            <SegmentedControlButton value="tab3" disabled>
               Disabled
-            </SegmentedControlTrigger>
+            </SegmentedControlButton>
           </SegmentedControlList>
           <SegmentedControlContent value="tab1" className="p-4">
             Tab content here.
@@ -372,14 +362,14 @@ export const VisualRegression: Story = {
         </h3>
         <SegmentedControl defaultValue="settings">
           <SegmentedControlList>
-            <SegmentedControlTrigger value="user">
+            <SegmentedControlButton value="user">
               <IconUser className="size-4" />
               User
-            </SegmentedControlTrigger>
-            <SegmentedControlTrigger value="settings">
+            </SegmentedControlButton>
+            <SegmentedControlButton value="settings">
               <IconSettings className="size-4" />
               Settings
-            </SegmentedControlTrigger>
+            </SegmentedControlButton>
           </SegmentedControlList>
           <SegmentedControlContent value="settings" className="p-4">
             Settings content.
@@ -393,15 +383,15 @@ export const VisualRegression: Story = {
         </h3>
         <SegmentedControl defaultValue="first">
           <SegmentedControlList className="w-full">
-            <SegmentedControlTrigger value="first" className="flex-1">
+            <SegmentedControlButton value="first" className="flex-1">
               First
-            </SegmentedControlTrigger>
-            <SegmentedControlTrigger value="second" className="flex-1">
+            </SegmentedControlButton>
+            <SegmentedControlButton value="second" className="flex-1">
               Second
-            </SegmentedControlTrigger>
-            <SegmentedControlTrigger value="third" className="flex-1">
+            </SegmentedControlButton>
+            <SegmentedControlButton value="third" className="flex-1">
               Third
-            </SegmentedControlTrigger>
+            </SegmentedControlButton>
           </SegmentedControlList>
         </SegmentedControl>
       </div>
@@ -425,15 +415,9 @@ export const Playground: Story = {
   render: (args) => (
     <SegmentedControl {...args}>
       <SegmentedControlList>
-        <SegmentedControlTrigger value="tab1">
-          First Tab
-        </SegmentedControlTrigger>
-        <SegmentedControlTrigger value="tab2">
-          Second Tab
-        </SegmentedControlTrigger>
-        <SegmentedControlTrigger value="tab3">
-          Third Tab
-        </SegmentedControlTrigger>
+        <SegmentedControlButton value="tab1">First Tab</SegmentedControlButton>
+        <SegmentedControlButton value="tab2">Second Tab</SegmentedControlButton>
+        <SegmentedControlButton value="tab3">Third Tab</SegmentedControlButton>
       </SegmentedControlList>
       <SegmentedControlContent value="tab1" className="p-4">
         Content for the first tab.

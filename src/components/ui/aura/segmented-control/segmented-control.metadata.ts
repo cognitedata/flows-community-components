@@ -6,5 +6,5 @@ export const SegmentedControlMetadata: ComponentMeta = {
   description:
     'A segmented control component built on Base UI Tabs for organizing content.',
   llmUsage:
-    'Use `<SegmentedControl>` with `<SegmentedControlList>`, `<SegmentedControlTrigger>`, and `<SegmentedControlContent>` for segmented navigation.',
+    'Use `<SegmentedControl>` with `<SegmentedControlList>`, `<SegmentedControlButton>`, and `<SegmentedControlContent>` for segmented navigation.',
 };

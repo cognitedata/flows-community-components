@@ -19,7 +19,7 @@ import {
   SegmentedControl,
   SegmentedControlContent,
   SegmentedControlList,
-  SegmentedControlTrigger,
+  SegmentedControlButton,
 } from '@/components/ui/aura/segmented-control';
 
 interface DynamicComponentRendererProps {
@@ -44,7 +44,7 @@ const availableComponents = {
   SegmentedControl,
   SegmentedControlContent,
   SegmentedControlList,
-  SegmentedControlTrigger,
+  SegmentedControlButton,
   useState: React.useState,
   useEffect: React.useEffect,
   useMemo: React.useMemo,
