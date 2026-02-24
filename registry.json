@@ -934,30 +934,6 @@
       ]
     },
     {
-      "name": "count",
-      "type": "registry:component",
-      "title": "Count",
-      "description": "Numeric counter primitives",
-      "dependencies": [
-        "class-variance-authority"
-      ],
-      "registryDependencies": [
-        "@aura/css"
-      ],
-      "files": [
-        {
-          "path": "src/components/ui/aura/count/count.tsx",
-          "target": "src/components/ui/aura/count.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "src/globals.css",
-          "target": "src/styles.css",
-          "type": "registry:component"
-        }
-      ]
-    },
-    {
       "name": "date-picker",
       "type": "registry:component",
       "title": "DatePicker",

@@ -71,10 +71,7 @@ const CardHeader = forwardRef<ComponentRef<'div'>, ComponentProps<'div'>>(
       <div
         ref={ref}
         data-slot="card-header"
-        className={cn(
-          '@container/card-header group/card-header flex items-start gap-2 px-4 pt-4',
-          className
-        )}
+        className={cn('flex items-start gap-2 px-4 pt-4', className)}
         {...props}
       />
     );

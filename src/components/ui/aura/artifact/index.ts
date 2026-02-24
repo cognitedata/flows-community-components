@@ -1,7 +1,4 @@
-/**
- * Artifact Component
- *
- * A generic artifact shell for composing primitive content in a card layout.
- */
-export { Artifact, ArtifactTitle, ArtifactDescription } from './artifact';
-export { ArtifactMetadata } from './artifact.metadata';
+import { Artifact, ArtifactDescription, ArtifactTitle } from './artifact';
+import { ArtifactMetadata } from './artifact.metadata';
+
+export { Artifact, ArtifactDescription, ArtifactMetadata, ArtifactTitle };

@@ -1,5 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { IconSettings2, IconTrendingUp } from '@tabler/icons-react';
+import {
+  IconAlertCircleFilled,
+  IconAlertTriangleFilled,
+  IconSettings2,
+  IconTrendingUp,
+} from '@tabler/icons-react';
 import { type ComponentProps, useState } from 'react';
 import {
   CartesianGrid,
@@ -14,6 +19,7 @@ import {
 import { expect, within } from 'storybook/test';
 
 import {
+  CardActions,
   CardContent,
   CardFooter,
   CardFooterCenter,
@@ -26,6 +32,7 @@ import {
 } from '../card';
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from '../chart';
 import { Count } from '../count';
+import { DropdownMenuItem } from '../dropdown-menu';
 import {
   List,
   ListItem,
@@ -36,6 +43,7 @@ import {
 } from '../list';
 import { Progress } from '../progress';
 import { Separator } from '../separator';
+import { TreeView, TreeViewItem } from '../treeview';
 
 import { Artifact, ArtifactDescription, ArtifactTitle } from './artifact';
 
@@ -92,15 +100,15 @@ export const CountActiveAlarms: Story = {
       </CardContent>
       <CardFooter className="text-sm">
         <CardFooterLeft>
-          <span className="text-muted-foreground">Critical:</span>
+          <span className="text-muted-foreground">Critical:</span>{' '}
           <span className="font-medium">0</span>
         </CardFooterLeft>
         <CardFooterCenter>
-          <span className="text-muted-foreground">High:</span>
+          <span className="text-muted-foreground">High:</span>{' '}
           <span className="font-medium">2</span>
         </CardFooterCenter>
         <CardFooterRight>
-          <span className="text-muted-foreground">Medium:</span>
+          <span className="text-muted-foreground">Medium:</span>{' '}
           <span className="font-medium">1</span>
         </CardFooterRight>
       </CardFooter>
@@ -140,11 +148,11 @@ export const CountTemperature: Story = {
       </CardContent>
       <CardFooter className="text-sm">
         <CardFooterLeft>
-          <span className="text-muted-foreground">Min:</span>
+          <span className="text-muted-foreground">Min:</span>{' '}
           <span className="font-medium">384°C</span>
         </CardFooterLeft>
         <CardFooterRight>
-          <span className="text-muted-foreground">Max:</span>
+          <span className="text-muted-foreground">Max:</span>{' '}
           <span className="font-medium">390°C</span>
         </CardFooterRight>
       </CardFooter>
@@ -256,19 +264,19 @@ export const ListTimeline: Story = {
         <List>
           <ListItem variant="upcoming">
             <ListItemTitle>Inspection</ListItemTitle>
-            <ListItemStatus>Dec 22, 2024 5:00 AM</ListItemStatus>
+            <ListItemDescription>Dec 22, 2024 5:00 AM</ListItemDescription>
           </ListItem>
           <ListItem variant="now">
             <ListItemTitle>Event</ListItemTitle>
-            <ListItemStatus>Today 3:05 PM</ListItemStatus>
+            <ListItemDescription>Today 3:05 PM</ListItemDescription>
           </ListItem>
           <ListItem variant="completed">
             <ListItemTitle>Inspection</ListItemTitle>
-            <ListItemStatus>1 d ago</ListItemStatus>
+            <ListItemDescription>1 d ago</ListItemDescription>
           </ListItem>
           <ListItem variant="completed">
             <ListItemTitle>Inspection</ListItemTitle>
-            <ListItemStatus>Dec 17, 2024 9:00 AM</ListItemStatus>
+            <ListItemDescription>Dec 17, 2024 9:00 AM</ListItemDescription>
           </ListItem>
         </List>
       </CardContent>
@@ -383,7 +391,6 @@ export const ListRecentChatSummary: Story = {
 export const ProgressBasic: Story = {
   name: 'Progress: Basic',
   parameters: { order: 7 },
-  args: { className: 'w-96' },
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
     const title = canvas.getByText('Progress title');
@@ -414,9 +421,158 @@ export const ProgressBasic: Story = {
   ),
 };
 
+export const AlertWarning: Story = {
+  name: 'Alert: Warning',
+  parameters: { order: 8 },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText('Alert title')).toBeInTheDocument();
+    await expect(canvas.getByText('P-401')).toBeInTheDocument();
+    await expect(
+      canvas.getByText('Vibration levels have exceeded normal operating range')
+    ).toBeInTheDocument();
+    await expect(canvas.getByText('Detected: 5 min ago')).toBeInTheDocument();
+  },
+  render: () => (
+    <Artifact className="w-md">
+      <CardHeader>
+        <CardHeaderLeft>
+          <IconAlertTriangleFilled
+            aria-label="Warning alert"
+            className="size-4 text-warning-foreground mt-0.5"
+          />
+        </CardHeaderLeft>
+        <CardHeaderContent>
+          <ArtifactTitle>Alert title</ArtifactTitle>
+          <ArtifactDescription>P-401</ArtifactDescription>
+        </CardHeaderContent>
+      </CardHeader>
+      <CardFooter className="flex-col text-sm pt-4">
+        <div className="font-medium text-card-foreground">
+          Vibration levels have exceeded normal operating range
+        </div>
+        <div className="text-muted-foreground">Detected: 5 min ago</div>
+      </CardFooter>
+    </Artifact>
+  ),
+};
+
+export const AlertCritical: Story = {
+  name: 'Alert: Critical',
+  parameters: { order: 9 },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText('Alert title')).toBeInTheDocument();
+    await expect(canvas.getByText('P-401')).toBeInTheDocument();
+    await expect(
+      canvas.getByText('Vibration levels have exceeded normal operating range')
+    ).toBeInTheDocument();
+    await expect(canvas.getByText('Detected: 5 min ago')).toBeInTheDocument();
+  },
+  render: () => (
+    <Artifact className="w-md">
+      <CardHeader>
+        <CardHeaderLeft>
+          <IconAlertCircleFilled
+            aria-label="Critical alert"
+            className="size-4 text-destructive-foreground mt-0.5"
+          />
+        </CardHeaderLeft>
+        <CardHeaderContent>
+          <ArtifactTitle>Alert title</ArtifactTitle>
+          <ArtifactDescription>P-401</ArtifactDescription>
+        </CardHeaderContent>
+      </CardHeader>
+      <CardFooter className="flex-col text-sm pt-4">
+        <div className="font-medium text-card-foreground">
+          Vibration levels have exceeded normal operating range
+        </div>
+        <div className="text-muted-foreground">Detected: 5 min ago</div>
+      </CardFooter>
+    </Artifact>
+  ),
+};
+
+export const AlertCriticalCompact: Story = {
+  name: 'Alert: Critical Compact',
+  parameters: { order: 10 },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText('Critical')).toBeInTheDocument();
+    await expect(canvas.getByText('P-401')).toBeInTheDocument();
+  },
+  render: () => (
+    <Artifact className="w-fit">
+      <CardHeader className="pb-4">
+        <CardHeaderLeft>
+          <IconAlertCircleFilled
+            aria-label="Critical alert"
+            className="size-4 text-destructive-foreground mt-0.5"
+          />
+        </CardHeaderLeft>
+        <CardHeaderContent>
+          <ArtifactTitle>Critical</ArtifactTitle>
+          <ArtifactDescription>P-401</ArtifactDescription>
+        </CardHeaderContent>
+      </CardHeader>
+    </Artifact>
+  ),
+};
+
+export const TreeViewPlantHierarchy: Story = {
+  name: 'TreeView: Plant Hierarchy',
+  parameters: { order: 11 },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText('Plant asset hierarchy')).toBeInTheDocument();
+    await expect(canvas.getByText('1 warning')).toBeInTheDocument();
+    await expect(canvas.getByText('Process unit 21')).toBeInTheDocument();
+    await expect(canvas.getByText('Feed system')).toBeInTheDocument();
+    await expect(canvas.getByText('Feed Pump A')).toBeInTheDocument();
+    await expect(canvas.getByText('Feed Pump B')).toBeInTheDocument();
+    await expect(canvas.getByText('Drain system')).toBeInTheDocument();
+    await expect(canvas.getByText('Process unit 22')).toBeInTheDocument();
+    await expect(canvas.getAllByLabelText(/warning/i).length).toBeGreaterThan(
+      1
+    );
+  },
+  render: () => (
+    <Artifact className="w-sm hover:bg-card">
+      <CardHeader>
+        <CardHeaderContent>
+          <ArtifactTitle>Plant asset hierarchy</ArtifactTitle>
+          <ArtifactDescription>1 warning</ArtifactDescription>
+        </CardHeaderContent>
+        <CardHeaderRight>
+          <CardActions>
+            <DropdownMenuItem>View details</DropdownMenuItem>
+            <DropdownMenuItem>Open source asset</DropdownMenuItem>
+          </CardActions>
+        </CardHeaderRight>
+      </CardHeader>
+      <CardContent>
+        <TreeView defaultExpanded={['process-21', 'feed-system']}>
+          <TreeViewItem value="process-21" label="Process unit 21">
+            <TreeViewItem value="feed-system" label="Feed system">
+              <TreeViewItem
+                value="pump-a"
+                label="Feed Pump A"
+                status="warning"
+              />
+              <TreeViewItem value="pump-b" label="Feed Pump B" />
+            </TreeViewItem>
+            <TreeViewItem value="drain-system" label="Drain system" />
+          </TreeViewItem>
+          <TreeViewItem value="process-22" label="Process unit 22" />
+        </TreeView>
+      </CardContent>
+    </Artifact>
+  ),
+};
+
 export const ChartBasic: Story = {
   name: 'Chart: Pie',
-  parameters: { order: 8 },
+  parameters: { order: 12 },
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
     await expect(await canvas.findByText('Chart title')).toBeInTheDocument();

@@ -2,7 +2,7 @@ import type { ComponentMeta } from '../../../../lib/types';
 
 export const ArtifactMetadata: ComponentMeta = {
   name: 'Artifact',
-  status: 'draft',
+  status: 'in-progress-code-review',
   description:
     'A generic artifact card shell for composing primitive content such as chart, list, progress, and metric-focused layouts.',
   llmUsage:
