@@ -33,11 +33,11 @@ import {
   CodeBlockCopyButton,
 } from '@/components/ui/aura/code-block';
 import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from '@/components/ui/aura/tabs';
+  SegmentedControl,
+  SegmentedControlContent,
+  SegmentedControlList,
+  SegmentedControlTrigger,
+} from '@/components/ui/aura/segmented-control';
 const duneDocsUrl = 'https://laughing-adventure-r6kwpyy.pages.github.io/';
 
 const componentsJson = `{
@@ -228,25 +228,28 @@ export default function HomePage() {
             </div>
 
             <div className="max-w-3xl mx-auto">
-              <Tabs defaultValue="dune" className="w-full">
+              <SegmentedControl defaultValue="dune" className="w-full">
                 <div className="flex justify-center mb-8">
-                  <TabsList className="h-12 p-1 bg-muted/50 backdrop-blur-sm border border-border/50">
-                    <TabsTrigger
+                  <SegmentedControlList className="h-12 p-1 bg-muted/50 backdrop-blur-sm border border-border/50">
+                    <SegmentedControlTrigger
                       value="dune"
                       className="h-full px-6 text-base data-[active]:bg-background data-[active]:shadow-sm"
                     >
                       Create with Dune
-                    </TabsTrigger>
-                    <TabsTrigger
+                    </SegmentedControlTrigger>
+                    <SegmentedControlTrigger
                       value="custom"
                       className="h-full px-6 text-base data-[active]:bg-background data-[active]:shadow-sm"
                     >
                       Custom installation
-                    </TabsTrigger>
-                  </TabsList>
+                    </SegmentedControlTrigger>
+                  </SegmentedControlList>
                 </div>
 
-                <TabsContent value="dune" className="space-y-8 mt-0">
+                <SegmentedControlContent
+                  value="dune"
+                  className="space-y-8 mt-0"
+                >
                   <Card className="overflow-hidden border-border/50 bg-card/50 backdrop-blur-sm">
                     <CardHeader>
                       <div className="flex flex-col md:flex-row md:items-start gap-6">
@@ -284,9 +287,12 @@ export default function HomePage() {
                       </div>
                     </CardContent>
                   </Card>
-                </TabsContent>
+                </SegmentedControlContent>
 
-                <TabsContent value="custom" className="space-y-8 mt-0">
+                <SegmentedControlContent
+                  value="custom"
+                  className="space-y-8 mt-0"
+                >
                   <Card className="overflow-hidden border-border/50 bg-card/50 backdrop-blur-sm">
                     <CardHeader>
                       <div className="flex flex-col md:flex-row md:items-start gap-6">
@@ -342,8 +348,8 @@ export default function HomePage() {
                       </CodeBlock>
                     </CardContent>
                   </Card>
-                </TabsContent>
-              </Tabs>
+                </SegmentedControlContent>
+              </SegmentedControl>
             </div>
           </div>
         </div>
