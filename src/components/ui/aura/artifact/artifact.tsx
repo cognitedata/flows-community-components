@@ -34,13 +34,8 @@ const ArtifactDescription = forwardRef<
   ComponentRef<typeof CardDescription>,
   ComponentProps<typeof CardDescription>
 >(({ className, ...props }, ref) => (
-  <CardDescription
-    ref={ref}
-    className={cn('', className)}
-    {...props}
-  />
+  <CardDescription ref={ref} className={cn('', className)} {...props} />
 ));
 ArtifactDescription.displayName = 'ArtifactDescription';
 
 export { Artifact, ArtifactDescription, ArtifactTitle };
-
