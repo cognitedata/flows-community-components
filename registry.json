@@ -1034,13 +1034,9 @@
       "type": "registry:component",
       "title": "InlineCitation",
       "description": "Components for displaying inline citations and source references.",
-      "dependencies": [
-        "@tabler/icons-react"
-      ],
       "registryDependencies": [
         "@aura/css",
         "@aura/badge",
-        "@aura/carousel",
         "@aura/hover-card"
       ],
       "files": [

@@ -2,9 +2,10 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
 
+import { Label } from '../label';
+
 import { Slider } from './slider';
 
-import { Label } from '@/components/ui/aura/label';
 const meta: Meta<typeof Slider> = {
   title: 'Primitives/Slider',
   component: Slider,
@@ -13,7 +14,7 @@ const meta: Meta<typeof Slider> = {
     value: {
       control: 'object',
       table: {
-        category: 'State',
+        category: 'Behavior',
         type: {
           summary: 'number[]',
         },
@@ -22,7 +23,7 @@ const meta: Meta<typeof Slider> = {
     defaultValue: {
       control: 'object',
       table: {
-        category: 'State',
+        category: 'Behavior',
         type: {
           summary: 'number[]',
         },
@@ -31,7 +32,7 @@ const meta: Meta<typeof Slider> = {
     min: {
       control: 'number',
       table: {
-        category: 'Range',
+        category: 'Behavior',
         type: {
           summary: 'number',
         },
@@ -43,7 +44,7 @@ const meta: Meta<typeof Slider> = {
     max: {
       control: 'number',
       table: {
-        category: 'Range',
+        category: 'Behavior',
         type: {
           summary: 'number',
         },
@@ -55,7 +56,7 @@ const meta: Meta<typeof Slider> = {
     step: {
       control: 'number',
       table: {
-        category: 'Range',
+        category: 'Behavior',
         type: {
           summary: 'number',
         },
@@ -67,7 +68,7 @@ const meta: Meta<typeof Slider> = {
     disabled: {
       control: 'boolean',
       table: {
-        category: 'State',
+        category: 'Behavior',
         type: {
           summary: 'boolean',
         },
@@ -80,7 +81,7 @@ const meta: Meta<typeof Slider> = {
       control: 'select',
       options: ['horizontal', 'vertical'],
       table: {
-        category: 'Layout',
+        category: 'Variants/Styling',
         type: {
           summary: '"horizontal" | "vertical"',
         },
@@ -101,7 +102,7 @@ const meta: Meta<typeof Slider> = {
     className: {
       control: 'text',
       table: {
-        category: 'Styling',
+        category: 'Variants/Styling',
       },
     },
   },
@@ -110,7 +111,7 @@ const meta: Meta<typeof Slider> = {
   },
   decorators: [
     (Story) => (
-      <div className="w-[300px]">
+      <div className="w-80">
         <Story />
       </div>
     ),
@@ -120,11 +121,11 @@ export default meta;
 type Story = StoryObj<typeof Slider>;
 export const Default: Story = {
   render: () => <Slider defaultValue={[50]} />,
+  parameters: { order: 1 },
   play: async ({ canvasElement }) => {
-    const slider = canvasElement.querySelector('[data-slot="slider"]');
+    const canvas = within(canvasElement);
+    const slider = await canvas.findByRole('slider');
     await expect(slider).toBeInTheDocument();
-    const thumb = canvasElement.querySelector('[data-slot="slider-thumb"]');
-    await expect(thumb).toBeInTheDocument();
   },
 };
 export const WithLabel: Story = {
@@ -133,12 +134,15 @@ export const WithLabel: Story = {
     return (
       <div className="space-y-4">
         <div className="flex justify-between items-center">
-          <Label>Volume</Label>
+          <Label htmlFor="slider-volume">Volume</Label>
           <span className="text-sm text-muted-foreground">{value[0]}%</span>
         </div>
-        <Slider value={value} onValueChange={setValue} />
+        <Slider id="slider-volume" value={value} onValueChange={setValue} />
       </div>
     );
+  },
+  parameters: {
+    order: 2,
   },
 };
 export const RangeSlider: Story = {
@@ -147,14 +151,23 @@ export const RangeSlider: Story = {
     return (
       <div className="space-y-4">
         <div className="flex justify-between items-center">
-          <Label>Price Range</Label>
+          <Label htmlFor="slider-price-range">Price Range</Label>
           <span className="text-sm text-muted-foreground">
             ${value[0]} - ${value[1]}
           </span>
         </div>
-        <Slider value={value} onValueChange={setValue} min={0} max={100} />
+        <Slider
+          id="slider-price-range"
+          value={value}
+          onValueChange={setValue}
+          min={0}
+          max={100}
+        />
       </div>
     );
+  },
+  parameters: {
+    order: 3,
   },
 };
 export const CustomRange: Story = {
@@ -163,10 +176,11 @@ export const CustomRange: Story = {
     return (
       <div className="space-y-4">
         <div className="flex justify-between items-center">
-          <Label>Budget</Label>
+          <Label htmlFor="slider-budget">Budget</Label>
           <span className="text-sm text-muted-foreground">${value[0]}</span>
         </div>
         <Slider
+          id="slider-budget"
           value={value}
           onValueChange={setValue}
           min={100}
@@ -180,26 +194,36 @@ export const CustomRange: Story = {
       </div>
     );
   },
+  parameters: {
+    order: 4,
+  },
 };
 export const Disabled: Story = {
   render: () => (
     <div className="space-y-4">
       <div className="space-y-2">
-        <Label className="opacity-50">Disabled slider</Label>
-        <Slider defaultValue={[50]} disabled />
+        <Label className="opacity-50" htmlFor="slider-disabled-single">
+          Disabled slider
+        </Label>
+        <Slider id="slider-disabled-single" defaultValue={[50]} disabled />
       </div>
       <div className="space-y-2">
-        <Label className="opacity-50">Disabled range</Label>
-        <Slider defaultValue={[25, 75]} disabled />
+        <Label className="opacity-50" htmlFor="slider-disabled-range">
+          Disabled range
+        </Label>
+        <Slider id="slider-disabled-range" defaultValue={[25, 75]} disabled />
       </div>
     </div>
   ),
+  parameters: {
+    order: 5,
+  },
 };
 export const Vertical: Story = {
   render: function VerticalSlider() {
     const [value, setValue] = useState([50]);
     return (
-      <div className="flex items-center gap-8 h-[200px]">
+      <div className="flex items-center gap-8 h-52">
         <div className="flex flex-col items-center gap-2">
           <Slider
             value={value}
@@ -217,11 +241,14 @@ export const Vertical: Story = {
   },
   decorators: [
     (Story) => (
-      <div className="h-[250px] flex items-center justify-center">
+      <div className="h-64 flex items-center justify-center">
         <Story />
       </div>
     ),
   ],
+  parameters: {
+    order: 6,
+  },
 };
 export const Controlled: Story = {
   render: function ControlledSlider() {
@@ -256,9 +283,12 @@ export const Controlled: Story = {
       </div>
     );
   },
+  parameters: {
+    order: 7,
+  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const maxButton = canvas.getByText('Max');
+    const maxButton = await canvas.findByRole('button', { name: 'Max' });
     await userEvent.click(maxButton);
     await waitFor(() => {
       const valueText = canvas.getByText('Value: 100');
@@ -290,7 +320,11 @@ export const StepIncrements: Story = {
       </div>
     );
   },
+  parameters: {
+    order: 8,
+  },
 };
+
 export const MultipleSliders: Story = {
   render: function MultipleSlidersForm() {
     const [settings, setSettings] = useState({
@@ -345,10 +379,13 @@ export const MultipleSliders: Story = {
       </div>
     );
   },
+  parameters: {
+    order: 9,
+  },
 };
 export const VisualRegression: Story = {
   render: () => (
-    <div className="space-y-8 p-4 w-[350px]">
+    <div className="space-y-8 p-4 w-88">
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">
           Single Thumb
@@ -373,6 +410,7 @@ export const VisualRegression: Story = {
     </div>
   ),
   parameters: {
+    order: 10,
     chromatic: {
       disableSnapshot: false,
     },
@@ -393,6 +431,9 @@ export const Playground: Story = {
     step: 1,
     disabled: false,
     orientation: 'horizontal',
+  },
+  parameters: {
+    order: 99,
   },
   render: (args) => <Slider {...args} />,
 };
