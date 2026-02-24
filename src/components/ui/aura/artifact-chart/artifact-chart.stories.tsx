@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { IconTrendingUp } from '@tabler/icons-react';
-import { useId, useState } from 'react';
+import { type ComponentProps, useId, useState } from 'react';
 import {
   Area,
   AreaChart,
@@ -17,6 +17,15 @@ import {
 } from 'recharts';
 import { expect, within } from 'storybook/test';
 
+import { CardActions, CardHeaderRight } from '../card';
+import {
+  ChartContainer,
+  ChartLegend,
+  ChartLegendContent,
+  ChartTooltip,
+} from '../chart';
+import { DropdownMenuItem, DropdownMenuSeparator } from '../dropdown-menu';
+
 import {
   ArtifactChart,
   ArtifactChartContent,
@@ -25,20 +34,7 @@ import {
   ArtifactChartHeader,
   ArtifactChartTitle,
 } from './artifact-chart';
-
-import { CardActions, CardHeaderRight } from '@/components/ui/aura/card';
-import {
-  type ChartConfig,
-  ChartContainer,
-  ChartLegend,
-  ChartLegendContent,
-  ChartTooltip,
-} from '@/components/ui/aura/chart';
-import {
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-} from '@/components/ui/aura/dropdown-menu';
-const sharedChartConfig = {
+const sharedChartConfig: ComponentProps<typeof ChartContainer>['config'] = {
   slice1: {
     label: 'unit',
     color: 'var(--color-chart-fjord-opacity-4)',
@@ -59,9 +55,15 @@ const sharedChartConfig = {
     label: 'unit',
     color: 'var(--color-chart-fjord-solid)',
   },
-} satisfies ChartConfig;
+};
 
-const sharedChartData = [
+type SharedSliceId = keyof typeof sharedChartConfig;
+
+const sharedChartData: Array<{
+  id: SharedSliceId;
+  value: number;
+  fill: string;
+}> = [
   {
     id: 'slice1',
     value: 225,
@@ -89,7 +91,7 @@ const sharedChartData = [
   },
 ];
 
-const areaChartConfig = {
+const areaChartConfig: ComponentProps<typeof ChartContainer>['config'] = {
   r401: {
     label: 'R401',
     color: 'rgba(47, 85, 234, 0.8)',
@@ -98,7 +100,7 @@ const areaChartConfig = {
     label: 'R402',
     color: 'rgba(47, 85, 234, 0.5)',
   },
-} satisfies ChartConfig;
+};
 
 const areaChartData = [
   {
@@ -133,7 +135,7 @@ const areaChartData = [
   },
 ];
 
-const lineChartConfig = {
+const lineChartConfig: ComponentProps<typeof ChartContainer>['config'] = {
   strong: {
     label: 'Primary',
     color: 'rgba(47, 85, 234, 0.8)',
@@ -142,7 +144,7 @@ const lineChartConfig = {
     label: 'Secondary',
     color: 'rgba(47, 85, 234, 0.5)',
   },
-} satisfies ChartConfig;
+};
 
 const lineChartData = [
   {
@@ -192,12 +194,12 @@ const lineChartData = [
   },
 ];
 
-const barChartConfig = {
+const barChartConfig: ComponentProps<typeof ChartContainer>['config'] = {
   value: {
     label: 'Count',
     color: 'url(#barGradient)',
   },
-} satisfies ChartConfig;
+};
 
 const barChartData = [
   {
@@ -378,6 +380,27 @@ const renderLabel = (payload: PieLabelRenderProps) => {
     </g>
   );
 };
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null;
+}
+
+function getPieTooltipData(
+  payloadItem: unknown
+): { id: string; value: number } | null {
+  if (!isRecord(payloadItem)) {
+    return null;
+  }
+  const payload = isRecord(payloadItem.payload) ? payloadItem.payload : null;
+  const idValue = payload?.id;
+  const value = payloadItem.value;
+
+  if (typeof idValue !== 'string' || typeof value !== 'number') {
+    return null;
+  }
+
+  return { id: idValue, value };
+}
 export const Basic: Story = {
   parameters: {
     order: 1,
@@ -420,12 +443,9 @@ export const Basic: Story = {
                   cursor={false}
                   content={({ active, payload }) => {
                     if (!active || !payload?.length) return null;
-                    const data = payload[0];
-                    const id = data.payload?.id as string;
-                    const value = data.value as number;
-                    const color =
-                      sharedChartConfig[id as keyof typeof sharedChartConfig]
-                        ?.color;
+                    const data = getPieTooltipData(payload[0]);
+                    if (!data) return null;
+                    const color = sharedChartConfig[data.id]?.color;
                     return (
                       <div className="flex items-center gap-4 rounded-md bg-popover p-2 shadow-md">
                         <div className="flex items-center gap-1.5">
@@ -440,7 +460,7 @@ export const Basic: Story = {
                           </span>
                         </div>
                         <span className="text-sm text-foreground">
-                          {value.toLocaleString()}
+                          {data.value.toLocaleString()}
                         </span>
                       </div>
                     );
@@ -479,10 +499,7 @@ export const Basic: Story = {
                 <span
                   className="h-2 w-2 rounded-sm"
                   style={{
-                    backgroundColor:
-                      sharedChartConfig[
-                        item.id as keyof typeof sharedChartConfig
-                      ]?.color,
+                    backgroundColor: sharedChartConfig[item.id]?.color,
                   }}
                 />
                 <span className="text-sm leading-4 text-muted-foreground">
@@ -544,12 +561,9 @@ export const WithHeader: Story = {
                   cursor={false}
                   content={({ active, payload }) => {
                     if (!active || !payload?.length) return null;
-                    const data = payload[0];
-                    const id = data.payload?.id as string;
-                    const value = data.value as number;
-                    const color =
-                      sharedChartConfig[id as keyof typeof sharedChartConfig]
-                        ?.color;
+                    const data = getPieTooltipData(payload[0]);
+                    if (!data) return null;
+                    const color = sharedChartConfig[data.id]?.color;
                     return (
                       <div className="flex items-center gap-4 rounded-md bg-popover p-2 shadow-md">
                         <div className="flex items-center gap-1.5">
@@ -564,7 +578,7 @@ export const WithHeader: Story = {
                           </span>
                         </div>
                         <span className="text-sm text-foreground">
-                          {value.toLocaleString()}
+                          {data.value.toLocaleString()}
                         </span>
                       </div>
                     );
@@ -603,10 +617,7 @@ export const WithHeader: Story = {
                 <span
                   className="h-2 w-2 rounded-sm"
                   style={{
-                    backgroundColor:
-                      sharedChartConfig[
-                        item.id as keyof typeof sharedChartConfig
-                      ]?.color,
+                    backgroundColor: sharedChartConfig[item.id]?.color,
                   }}
                 />
                 <span className="text-sm leading-4 text-muted-foreground">
@@ -650,12 +661,9 @@ export const WithFooter: Story = {
                   cursor={false}
                   content={({ active, payload }) => {
                     if (!active || !payload?.length) return null;
-                    const data = payload[0];
-                    const id = data.payload?.id as string;
-                    const value = data.value as number;
-                    const color =
-                      sharedChartConfig[id as keyof typeof sharedChartConfig]
-                        ?.color;
+                    const data = getPieTooltipData(payload[0]);
+                    if (!data) return null;
+                    const color = sharedChartConfig[data.id]?.color;
                     return (
                       <div className="flex items-center gap-4 rounded-md bg-popover p-2 shadow-md">
                         <div className="flex items-center gap-1.5">
@@ -670,7 +678,7 @@ export const WithFooter: Story = {
                           </span>
                         </div>
                         <span className="text-sm text-foreground">
-                          {value.toLocaleString()}
+                          {data.value.toLocaleString()}
                         </span>
                       </div>
                     );
@@ -709,10 +717,7 @@ export const WithFooter: Story = {
                 <span
                   className="h-2 w-2 rounded-sm"
                   style={{
-                    backgroundColor:
-                      sharedChartConfig[
-                        item.id as keyof typeof sharedChartConfig
-                      ]?.color,
+                    backgroundColor: sharedChartConfig[item.id]?.color,
                   }}
                 />
                 <span className="text-sm leading-4 text-muted-foreground">
@@ -780,12 +785,9 @@ export const WithActions: Story = {
                   cursor={false}
                   content={({ active, payload }) => {
                     if (!active || !payload?.length) return null;
-                    const data = payload[0];
-                    const id = data.payload?.id as string;
-                    const value = data.value as number;
-                    const color =
-                      sharedChartConfig[id as keyof typeof sharedChartConfig]
-                        ?.color;
+                    const data = getPieTooltipData(payload[0]);
+                    if (!data) return null;
+                    const color = sharedChartConfig[data.id]?.color;
                     return (
                       <div className="flex items-center gap-4 rounded-md bg-popover p-2 shadow-md">
                         <div className="flex items-center gap-1.5">
@@ -800,7 +802,7 @@ export const WithActions: Story = {
                           </span>
                         </div>
                         <span className="text-sm text-foreground">
-                          {value.toLocaleString()}
+                          {data.value.toLocaleString()}
                         </span>
                       </div>
                     );
@@ -839,10 +841,7 @@ export const WithActions: Story = {
                 <span
                   className="h-2 w-2 rounded-sm"
                   style={{
-                    backgroundColor:
-                      sharedChartConfig[
-                        item.id as keyof typeof sharedChartConfig
-                      ]?.color,
+                    backgroundColor: sharedChartConfig[item.id]?.color,
                   }}
                 />
                 <span className="text-sm leading-4 text-muted-foreground">
@@ -898,12 +897,9 @@ export const MinimalHeader: Story = {
                   cursor={false}
                   content={({ active, payload }) => {
                     if (!active || !payload?.length) return null;
-                    const data = payload[0];
-                    const id = data.payload?.id as string;
-                    const value = data.value as number;
-                    const color =
-                      sharedChartConfig[id as keyof typeof sharedChartConfig]
-                        ?.color;
+                    const data = getPieTooltipData(payload[0]);
+                    if (!data) return null;
+                    const color = sharedChartConfig[data.id]?.color;
                     return (
                       <div className="flex items-center gap-4 rounded-md bg-popover p-2 shadow-md">
                         <div className="flex items-center gap-1.5">
@@ -918,7 +914,7 @@ export const MinimalHeader: Story = {
                           </span>
                         </div>
                         <span className="text-sm text-foreground">
-                          {value.toLocaleString()}
+                          {data.value.toLocaleString()}
                         </span>
                       </div>
                     );
@@ -957,10 +953,7 @@ export const MinimalHeader: Story = {
                 <span
                   className="h-2 w-2 rounded-sm"
                   style={{
-                    backgroundColor:
-                      sharedChartConfig[
-                        item.id as keyof typeof sharedChartConfig
-                      ]?.color,
+                    backgroundColor: sharedChartConfig[item.id]?.color,
                   }}
                 />
                 <span className="text-sm leading-4 text-muted-foreground">
@@ -1083,12 +1076,9 @@ export const InteractiveDataToggle: Story = {
                   cursor={false}
                   content={({ active, payload }) => {
                     if (!active || !payload?.length) return null;
-                    const data = payload[0];
-                    const id = data.payload?.id as string;
-                    const value = data.value as number;
-                    const color =
-                      sharedChartConfig[id as keyof typeof sharedChartConfig]
-                        ?.color;
+                    const data = getPieTooltipData(payload[0]);
+                    if (!data) return null;
+                    const color = sharedChartConfig[data.id]?.color;
                     return (
                       <div className="flex items-center gap-4 rounded-md bg-popover p-2 shadow-md">
                         <div className="flex items-center gap-1.5">
@@ -1103,7 +1093,7 @@ export const InteractiveDataToggle: Story = {
                           </span>
                         </div>
                         <span className="text-sm text-foreground">
-                          {value.toLocaleString()}
+                          {data.value.toLocaleString()}
                         </span>
                       </div>
                     );
@@ -1142,10 +1132,7 @@ export const InteractiveDataToggle: Story = {
                 <span
                   className="h-2 w-2 rounded-sm"
                   style={{
-                    backgroundColor:
-                      sharedChartConfig[
-                        item.id as keyof typeof sharedChartConfig
-                      ]?.color,
+                    backgroundColor: sharedChartConfig[item.id]?.color,
                   }}
                 />
                 <span className="text-sm leading-4 text-muted-foreground">
@@ -1209,12 +1196,9 @@ export const EdgeCaseLongText: Story = {
                   cursor={false}
                   content={({ active, payload }) => {
                     if (!active || !payload?.length) return null;
-                    const data = payload[0];
-                    const id = data.payload?.id as string;
-                    const value = data.value as number;
-                    const color =
-                      sharedChartConfig[id as keyof typeof sharedChartConfig]
-                        ?.color;
+                    const data = getPieTooltipData(payload[0]);
+                    if (!data) return null;
+                    const color = sharedChartConfig[data.id]?.color;
                     return (
                       <div className="flex items-center gap-4 rounded-md bg-popover p-2 shadow-md">
                         <div className="flex items-center gap-1.5">
@@ -1229,7 +1213,7 @@ export const EdgeCaseLongText: Story = {
                           </span>
                         </div>
                         <span className="text-sm text-foreground">
-                          {value.toLocaleString()}
+                          {data.value.toLocaleString()}
                         </span>
                       </div>
                     );
@@ -1268,10 +1252,7 @@ export const EdgeCaseLongText: Story = {
                 <span
                   className="h-2 w-2 rounded-sm"
                   style={{
-                    backgroundColor:
-                      sharedChartConfig[
-                        item.id as keyof typeof sharedChartConfig
-                      ]?.color,
+                    backgroundColor: sharedChartConfig[item.id]?.color,
                   }}
                 />
                 <span className="text-sm leading-4 text-muted-foreground">
@@ -1360,10 +1341,7 @@ export const VisualRegression: Story = {
                 <span
                   className="h-2 w-2 rounded-sm"
                   style={{
-                    backgroundColor:
-                      sharedChartConfig[
-                        item.id as keyof typeof sharedChartConfig
-                      ]?.color,
+                    backgroundColor: sharedChartConfig[item.id]?.color,
                   }}
                 />
                 <span className="text-sm leading-4 text-muted-foreground">
@@ -1519,9 +1497,11 @@ export const StackedAreaChart: Story = {
                   return (
                     <div className="rounded border border-border bg-popover px-2 py-1 shadow-md">
                       {payload.map((entry) => {
-                        const key = entry.dataKey as string;
-                        const config =
-                          areaChartConfig[key as keyof typeof areaChartConfig];
+                        if (typeof entry.dataKey !== 'string') {
+                          return null;
+                        }
+                        const key = entry.dataKey;
+                        const config = areaChartConfig[key];
                         return (
                           <div key={key} className="flex items-center gap-4">
                             <div className="flex items-center gap-1.5">
@@ -1651,9 +1631,11 @@ export const MultiLineChart: Story = {
                   return (
                     <div className="rounded border border-border bg-popover px-2 py-1 shadow-md">
                       {payload.map((entry) => {
-                        const key = entry.dataKey as string;
-                        const config =
-                          lineChartConfig[key as keyof typeof lineChartConfig];
+                        if (typeof entry.dataKey !== 'string') {
+                          return null;
+                        }
+                        const key = entry.dataKey;
+                        const config = lineChartConfig[key];
                         return (
                           <div key={key} className="flex items-center gap-4">
                             <div className="flex items-center gap-1.5">
@@ -1802,8 +1784,16 @@ export const HorizontalBarChart: Story = {
                 content={({ active, payload }) => {
                   if (!active || !payload?.length) return null;
                   const data = payload[0];
-                  const name = data.payload?.name as string;
-                  const value = data.value as number;
+                  if (
+                    !isRecord(data) ||
+                    !isRecord(data.payload) ||
+                    typeof data.payload.name !== 'string' ||
+                    typeof data.value !== 'number'
+                  ) {
+                    return null;
+                  }
+                  const name = data.payload.name;
+                  const value = data.value;
                   return (
                     <div className="flex items-center gap-4 rounded border border-border bg-popover px-2 py-1 shadow-md">
                       <div className="flex items-center gap-1.5">

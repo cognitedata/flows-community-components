@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { IconSettings2, IconTrendingUp } from '@tabler/icons-react';
-import { useState } from 'react';
+import { type ComponentProps, useState } from 'react';
 import {
   CartesianGrid,
   Line,
@@ -24,12 +24,7 @@ import {
   CardHeaderLeft,
   CardHeaderRight,
 } from '../card';
-import {
-  type ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from '../chart';
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from '../chart';
 import { Count } from '../count';
 import {
   List,
@@ -182,7 +177,7 @@ export const CountBarTrend: Story = {
         label: 'Temperature',
         color: 'hsl(239 84% 67%)',
       },
-    } satisfies ChartConfig;
+    } satisfies ComponentProps<typeof ChartContainer>['config'];
     return (
       <Artifact className="w-sm">
         <CardHeader>
@@ -456,7 +451,7 @@ export const ChartBasic: Story = {
         label: 'unit',
         color: 'var(--color-chart-fjord-solid)',
       },
-    } satisfies ChartConfig;
+    } satisfies ComponentProps<typeof ChartContainer>['config'];
     const chartData = [
       { id: 'slice1', value: 225, fill: 'var(--color-slice1)' },
       { id: 'slice2', value: 225, fill: 'var(--color-slice2)' },
@@ -494,9 +489,12 @@ export const ChartBasic: Story = {
         </g>
       );
     };
-    function isChartConfigKey(key: string): key is keyof typeof chartConfig {
+    function isChartConfigKey(
+      key: string
+    ): key is Extract<keyof typeof chartConfig, string> {
       return key in chartConfig;
     }
+
     function PieChartTooltipContent({
       active,
       payload,

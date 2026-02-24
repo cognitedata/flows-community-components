@@ -3,6 +3,10 @@ import { type ComponentProps, useEffect, useState } from 'react';
 import { CartesianGrid, Line, LineChart, XAxis, YAxis } from 'recharts';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
 
+import { Button } from '../button';
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from '../chart';
+import { Count } from '../count';
+
 import {
   ArtifactCount,
   ArtifactCountContent,
@@ -14,15 +18,6 @@ import {
   ArtifactCountSeparator,
   ArtifactCountTag,
 } from './artifact-count';
-
-import { Button } from '@/components/ui/aura/button';
-import {
-  type ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from '@/components/ui/aura/chart';
-import { Count } from '@/components/ui/aura/count';
 const meta: Meta<typeof ArtifactCount> = {
   title: 'Primitives/Artifact - Count',
   component: ArtifactCount,
@@ -99,7 +94,7 @@ const temperatureChartConfig = {
     label: 'Temperature',
     color: 'hsl(239 84% 67%)',
   },
-} satisfies ChartConfig;
+} satisfies ComponentProps<typeof ChartContainer>['config'];
 export const Basic: Story = {
   parameters: {
     order: 1,
@@ -415,7 +410,12 @@ export const EdgeCaseSpecialCharacters: Story = {
         <ArtifactCountFooterLeft>
           Notes: “Overheat” — check valve #4
         </ArtifactCountFooterLeft>
-        <ArtifactCountFooterRight>Notify on-call ⚠️</ArtifactCountFooterRight>
+        <ArtifactCountFooterRight>
+          Notify on-call{' '}
+          <span role="img" aria-label="warning">
+            ⚠️
+          </span>
+        </ArtifactCountFooterRight>
       </ArtifactCountFooter>
     </ArtifactCount>
   ),
