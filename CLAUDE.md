@@ -128,7 +128,7 @@ For files under `src/components/ui/aura/**`, prefer relative imports (for exampl
 - Do not include `importPath` in `*.metadata.ts` files.
 - Component `*.metadata.ts` files should include `name`, `status`, and `description` fields for the registry build script.
 - Catalog grouping/filtering should rely on metadata `status`; do not use legacy `progressStatus`.
-- Export blocks should list one export per line within a single `export { ... }` block (no separate `export { X };` lines).
+- Keep exports in a single `export { ... }` block. Allow a single-line export block unless it exceeds print width; when it wraps, use one export per line (avoid multiple separate export statements).
 - `getPortalContainer` supports optional `id`, `className`, and `style` overrides only at first container creation; once cached, custom options are ignored to avoid side effects on subsequent calls.
 - For Base UI tooltip delay tests, avoid mouse-move “keepalive” events during the delay; they can prevent the delayed open from triggering. Prefer `hover` + deterministic wait, with a single hover retry if needed.
 - Prefer a closure-scoped cancellation flag in async `useEffect` flows to avoid stale updates after unmount.
