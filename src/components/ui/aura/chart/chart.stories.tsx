@@ -84,7 +84,7 @@ export const PieChartStory: Story = {
 
     return (
       <div className="relative w-full max-w-100">
-        <Chart config={pieConfig} className="h-70 w-full overflow-visible">
+        <Chart config={pieConfig} className="aspect-5/4 overflow-visible">
           <PieChart style={{ overflow: 'visible' }}>
             <ChartTooltip cursor={false} />
             <Pie
