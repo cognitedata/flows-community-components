@@ -5,6 +5,7 @@ import { expect, userEvent, waitFor, within } from 'storybook/test';
 import { Button } from '../button';
 import { Input } from '../input';
 import { Label } from '../label';
+import { Textarea } from '../textarea';
 
 import {
   Drawer,
@@ -58,8 +59,10 @@ const meta: Meta<typeof Drawer> = {
     layout: 'centered',
   },
 };
+
 export default meta;
 type Story = StoryObj<typeof Drawer>;
+
 export const Default: Story = {
   render: () => (
     <Drawer>
@@ -67,22 +70,18 @@ export const Default: Story = {
         <Button>Open Drawer</Button>
       </DrawerTrigger>
       <DrawerContent>
-        <DrawerHeader>
+        <DrawerHeader className="w-full max-w-md">
           <DrawerTitle>Drawer Title</DrawerTitle>
           <DrawerDescription>
             This is a drawer description that provides context.
           </DrawerDescription>
         </DrawerHeader>
-        <div className="p-4">
-          <p className="text-sm text-muted-foreground">
-            Drawer content goes here. This drawer slides up from the bottom.
-          </p>
-        </div>
-        <DrawerFooter>
+        <div className="h-20 border border-dashed w-full rounded-md" />
+        <DrawerFooter className="w-full max-w-md">
+          <Button>Continue</Button>
           <DrawerClose asChild>
             <Button variant="outline">Cancel</Button>
           </DrawerClose>
-          <Button>Save</Button>
         </DrawerFooter>
       </DrawerContent>
     </Drawer>
@@ -100,6 +99,7 @@ export const Default: Story = {
     await body.findByRole('dialog', { name: /drawer title/i });
   },
 };
+
 export const RightDrawer: Story = {
   render: () => (
     <Drawer direction="right">
@@ -107,33 +107,50 @@ export const RightDrawer: Story = {
         <Button>Open Right Drawer</Button>
       </DrawerTrigger>
       <DrawerContent>
-        <DrawerHeader>
+        <DrawerHeader className="w-full">
           <DrawerTitle>Settings</DrawerTitle>
           <DrawerDescription>
             Manage your application settings.
           </DrawerDescription>
         </DrawerHeader>
-        <div className="p-4 space-y-4">
+        <div className="space-y-4 w-full my-6">
           <div className="grid gap-1.5">
             <Label htmlFor="name">Name</Label>
-            <Input id="name" placeholder="Enter name" />
+            <Input id="name" />
           </div>
           <div className="grid gap-1.5">
             <Label htmlFor="email">Email</Label>
-            <Input id="email" type="email" placeholder="Enter email" />
+            <Input id="email" type="email" />
           </div>
         </div>
-        <DrawerFooter>
+        <DrawerFooter className="w-full">
+          <Button>Save</Button>
           <DrawerClose asChild>
-            <Button variant="outline">Cancel</Button>
+            <Button variant="outline">Close</Button>
           </DrawerClose>
-          <Button>Save changes</Button>
         </DrawerFooter>
       </DrawerContent>
     </Drawer>
   ),
   parameters: {
     order: 2,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const body = within(document.body);
+
+    const trigger = canvas.getByRole('button', { name: /open right drawer/i });
+    await userEvent.click(trigger);
+
+    const dialog = await body.findByRole('dialog', { name: /settings/i });
+    const closeButton = within(dialog).getByRole('button', { name: /close/i });
+    await userEvent.click(closeButton);
+
+    await waitFor(() => {
+      expect(
+        body.queryByRole('dialog', { name: /settings/i })
+      ).not.toBeInTheDocument();
+    });
   },
 };
 export const LeftDrawer: Story = {
@@ -143,43 +160,36 @@ export const LeftDrawer: Story = {
         <Button>Open Left Drawer</Button>
       </DrawerTrigger>
       <DrawerContent>
-        <DrawerHeader>
+        <DrawerHeader className="w-full">
           <DrawerTitle>Navigation</DrawerTitle>
           <DrawerDescription>Quick access to all sections.</DrawerDescription>
         </DrawerHeader>
-        <div className="p-4">
-          <nav className="space-y-2">
-            <a
-              href="/dashboard"
-              className="block p-2 rounded hover:bg-accent text-sm"
-            >
-              Dashboard
-            </a>
-            <a
-              href="/projects"
-              className="block p-2 rounded hover:bg-accent text-sm"
-            >
-              Projects
-            </a>
-            <a
-              href="/team"
-              className="block p-2 rounded hover:bg-accent text-sm"
-            >
-              Team
-            </a>
-            <a
-              href="/settings"
-              className="block p-2 rounded hover:bg-accent text-sm"
-            >
-              Settings
-            </a>
-          </nav>
-        </div>
-        <DrawerFooter>
+        <nav className="space-y-2 w-full">
+          <a
+            href="/dashboard"
+            className="block p-2 rounded hover:bg-accent text-sm"
+          >
+            Dashboard
+          </a>
+          <a
+            href="/projects"
+            className="block p-2 rounded hover:bg-accent text-sm"
+          >
+            Projects
+          </a>
+          <a href="/team" className="block p-2 rounded hover:bg-accent text-sm">
+            Team
+          </a>
+          <a
+            href="/settings"
+            className="block p-2 rounded hover:bg-accent text-sm"
+          >
+            Settings
+          </a>
+        </nav>
+        <DrawerFooter className="w-full">
           <DrawerClose asChild>
-            <Button variant="outline" className="w-full">
-              Close
-            </Button>
+            <Button variant="outline">Close</Button>
           </DrawerClose>
         </DrawerFooter>
       </DrawerContent>
@@ -187,6 +197,22 @@ export const LeftDrawer: Story = {
   ),
   parameters: {
     order: 3,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const body = within(document.body);
+
+    const trigger = canvas.getByRole('button', { name: /open left drawer/i });
+    await userEvent.click(trigger);
+
+    await userEvent.keyboard('{Escape}');
+
+    await waitFor(() => {
+      expect(
+        body.queryByRole('dialog', { name: /navigation/i })
+      ).not.toBeInTheDocument();
+    });
+
   },
 };
 export const TopDrawer: Story = {
@@ -196,23 +222,21 @@ export const TopDrawer: Story = {
         <Button>Open Top Drawer</Button>
       </DrawerTrigger>
       <DrawerContent>
-        <DrawerHeader>
+        <DrawerHeader className="w-full">
           <DrawerTitle>Notifications</DrawerTitle>
           <DrawerDescription>You have 3 unread messages.</DrawerDescription>
         </DrawerHeader>
-        <div className="p-4">
-          <div className="space-y-2">
-            <div className="p-2 rounded bg-accent/50">
-              <p className="text-sm font-medium">New message from John</p>
-              <p className="text-xs text-muted-foreground">2 minutes ago</p>
-            </div>
-            <div className="p-2 rounded bg-accent/50">
-              <p className="text-sm font-medium">Project update</p>
-              <p className="text-xs text-muted-foreground">1 hour ago</p>
-            </div>
+        <div className="space-y-2 w-full">
+          <div className="p-2 rounded bg-accent/50">
+            <p className="text-sm font-medium">New message from John</p>
+            <p className="text-xs text-muted-foreground">2 minutes ago</p>
+          </div>
+          <div className="p-2 rounded bg-accent/50">
+            <p className="text-sm font-medium">Project update</p>
+            <p className="text-xs text-muted-foreground">1 hour ago</p>
           </div>
         </div>
-        <DrawerFooter>
+        <DrawerFooter className="w-full">
           <DrawerClose asChild>
             <Button variant="outline">Dismiss</Button>
           </DrawerClose>
@@ -223,6 +247,25 @@ export const TopDrawer: Story = {
   ),
   parameters: {
     order: 4,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const body = within(document.body);
+
+    const trigger = canvas.getByRole('button', { name: /open top drawer/i });
+    await userEvent.click(trigger);
+
+    const dialog = await body.findByRole('dialog', { name: /notifications/i });
+    const dismissButton = within(dialog).getByRole('button', {
+      name: /dismiss/i,
+    });
+    await userEvent.click(dismissButton);
+
+    await waitFor(() => {
+      expect(
+        body.queryByRole('dialog', { name: /notifications/i })
+      ).not.toBeInTheDocument();
+    });
   },
 };
 export const Controlled: Story = {
@@ -241,14 +284,16 @@ export const Controlled: Story = {
         </p>
         <Drawer open={open} onOpenChange={setOpen}>
           <DrawerContent>
-            <DrawerHeader>
+            <DrawerHeader className="w-full">
               <DrawerTitle>Controlled Drawer</DrawerTitle>
               <DrawerDescription>
                 This drawer&apos;s open state is controlled externally.
               </DrawerDescription>
             </DrawerHeader>
-            <DrawerFooter>
-              <Button onClick={() => setOpen(false)}>Close</Button>
+            <DrawerFooter className="w-full">
+              <Button variant="outline" onClick={() => setOpen(false)}>
+                Close
+              </Button>
             </DrawerFooter>
           </DrawerContent>
         </Drawer>
@@ -266,13 +311,13 @@ export const WithForm: Story = {
         <Button>Edit Profile</Button>
       </DrawerTrigger>
       <DrawerContent>
-        <DrawerHeader>
+        <DrawerHeader className="w-full">
           <DrawerTitle>Edit Profile</DrawerTitle>
           <DrawerDescription>
             Update your profile information.
           </DrawerDescription>
         </DrawerHeader>
-        <div className="p-4 space-y-4">
+        <div className="space-y-4 w-full mb-12">
           <div className="grid gap-1.5">
             <Label htmlFor="drawer-name">Full name</Label>
             <Input id="drawer-name" defaultValue="John Doe" />
@@ -287,18 +332,14 @@ export const WithForm: Story = {
           </div>
           <div className="grid gap-1.5">
             <Label htmlFor="drawer-bio">Bio</Label>
-            <textarea
-              id="drawer-bio"
-              className="min-h-20 w-full rounded-md border px-3 py-2 text-sm"
-              placeholder="Tell us about yourself"
-            />
+            <Textarea id="drawer-bio" />
           </div>
         </div>
-        <DrawerFooter>
+        <DrawerFooter className="w-full">
+          <Button>Save changes</Button>
           <DrawerClose asChild>
             <Button variant="outline">Cancel</Button>
           </DrawerClose>
-          <Button>Save changes</Button>
         </DrawerFooter>
       </DrawerContent>
     </Drawer>
@@ -313,14 +354,14 @@ export const WithScrollingContent: Story = {
       <DrawerTrigger asChild>
         <Button>Terms & Conditions</Button>
       </DrawerTrigger>
-      <DrawerContent className="max-h-screen">
-        <DrawerHeader>
+      <DrawerContent className="max-h-[80vh]">
+        <DrawerHeader className="w-full">
           <DrawerTitle>Terms of Service</DrawerTitle>
           <DrawerDescription>
             Please read and accept our terms.
           </DrawerDescription>
         </DrawerHeader>
-        <div className="p-4 overflow-y-auto max-h-75 text-sm text-muted-foreground">
+        <div className="overflow-y-auto max-h-75 text-sm text-muted-foreground">
           {Array.from(
             {
               length: 10,
@@ -334,11 +375,11 @@ export const WithScrollingContent: Story = {
             )
           )}
         </div>
-        <DrawerFooter>
+        <DrawerFooter className="w-full">
+          <Button>Accept</Button>
           <DrawerClose asChild>
             <Button variant="outline">Decline</Button>
           </DrawerClose>
-          <Button>Accept</Button>
         </DrawerFooter>
       </DrawerContent>
     </Drawer>
@@ -374,20 +415,20 @@ export const AsyncAction: Story = {
                 Simulates an asynchronous operation when saving changes.
               </DrawerDescription>
             </DrawerHeader>
-            <div className="p-4 space-y-2">
+            <div className=" space-y-2">
               <p className="text-sm text-muted-foreground">
                 Change some settings, then click Save to trigger an async
                 action.
               </p>
               <Input placeholder="Setting value" />
             </div>
-            <DrawerFooter>
-              <DrawerClose asChild>
-                <Button variant="outline">Cancel</Button>
-              </DrawerClose>
+            <DrawerFooter className="w-full">
               <Button onClick={handleSave} disabled={loading}>
                 {loading ? 'Saving...' : 'Save'}
               </Button>
+              <DrawerClose asChild>
+                <Button variant="outline">Cancel</Button>
+              </DrawerClose>
             </DrawerFooter>
           </DrawerContent>
         </Drawer>
@@ -440,15 +481,15 @@ export const KeyboardInteractions: Story = {
                 close.
               </DrawerDescription>
             </DrawerHeader>
-            <div className="p-4 flex flex-col gap-2">
+            <div className="flex gap-2 my-4 self-start">
               <Button variant="outline" onClick={() => setActivated(true)}>
                 Keyboard Action
               </Button>
-              <Button variant="outline" onClick={() => setActivated(false)}>
+              <Button variant="ghost" onClick={() => setActivated(false)}>
                 Reset
               </Button>
             </div>
-            <DrawerFooter>
+            <DrawerFooter className="w-full">
               <DrawerClose asChild>
                 <Button variant="outline">Close</Button>
               </DrawerClose>
