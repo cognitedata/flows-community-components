@@ -11,6 +11,7 @@ import { useState } from 'react';
 import { expect, userEvent, within } from 'storybook/test';
 
 import { Toggle } from './toggle';
+
 const meta: Meta<typeof Toggle> = {
   title: 'Primitives/Toggle',
   component: Toggle,
@@ -20,7 +21,7 @@ const meta: Meta<typeof Toggle> = {
       control: 'select',
       options: ['default', 'outline'],
       table: {
-        category: 'Appearance',
+        category: 'Variants/Styling',
         type: {
           summary: '"default" | "outline"',
         },
@@ -33,7 +34,7 @@ const meta: Meta<typeof Toggle> = {
       control: 'select',
       options: ['default', 'sm', 'lg'],
       table: {
-        category: 'Appearance',
+        category: 'Variants/Styling',
         type: {
           summary: '"default" | "sm" | "lg"',
         },
@@ -45,7 +46,7 @@ const meta: Meta<typeof Toggle> = {
     pressed: {
       control: 'boolean',
       table: {
-        category: 'State',
+        category: 'Behavior',
         type: {
           summary: 'boolean',
         },
@@ -54,7 +55,7 @@ const meta: Meta<typeof Toggle> = {
     defaultPressed: {
       control: 'boolean',
       table: {
-        category: 'State',
+        category: 'Behavior',
         type: {
           summary: 'boolean',
         },
@@ -66,7 +67,7 @@ const meta: Meta<typeof Toggle> = {
     disabled: {
       control: 'boolean',
       table: {
-        category: 'State',
+        category: 'Behavior',
         type: {
           summary: 'boolean',
         },
@@ -97,6 +98,9 @@ export const Default: Story = {
       <IconBold className="size-4" />
     </Toggle>
   ),
+  parameters: {
+    order: 1,
+  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const toggle = canvas.getByRole('button');
@@ -115,6 +119,19 @@ export const WithText: Story = {
       Italic
     </Toggle>
   ),
+  parameters: {
+    order: 2,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const toggle = canvas.getByRole('button', { name: 'Toggle italic' });
+    await expect(toggle).toBeInTheDocument();
+    await expect(toggle).not.toHaveAttribute('data-pressed');
+    await userEvent.click(toggle);
+    await expect(toggle).toHaveAttribute('data-pressed');
+    await userEvent.click(toggle);
+    await expect(toggle).not.toHaveAttribute('data-pressed');
+  },
 };
 export const Outline: Story = {
   render: () => (
@@ -122,6 +139,9 @@ export const Outline: Story = {
       <IconBold className="size-4" />
     </Toggle>
   ),
+  parameters: {
+    order: 3,
+  },
 };
 export const Sizes: Story = {
   render: () => (
@@ -137,6 +157,9 @@ export const Sizes: Story = {
       </Toggle>
     </div>
   ),
+  parameters: {
+    order: 4,
+  },
 };
 export const DefaultPressed: Story = {
   render: () => (
@@ -144,6 +167,9 @@ export const DefaultPressed: Story = {
       <IconBold className="size-4" />
     </Toggle>
   ),
+  parameters: {
+    order: 5,
+  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const toggle = canvas.getByRole('button');
@@ -161,9 +187,12 @@ export const Disabled: Story = {
       </Toggle>
     </div>
   ),
+  parameters: {
+    order: 6,
+  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const toggles = canvas.getAllByRole('button');
+    const toggles = await canvas.findAllByRole('button');
     for (const toggle of toggles) {
       await expect(toggle).toBeDisabled();
     }
@@ -204,6 +233,19 @@ export const Controlled: Story = {
       </div>
     );
   },
+  parameters: {
+    order: 7,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const toggle = canvas.getByRole('button', { name: 'Toggle bold' });
+    const pressButton = canvas.getByRole('button', { name: 'Press' });
+    await userEvent.click(pressButton);
+    await expect(toggle).toHaveAttribute('data-pressed');
+    const unpressButton = canvas.getByRole('button', { name: 'Unpress' });
+    await userEvent.click(unpressButton);
+    await expect(toggle).not.toHaveAttribute('data-pressed');
+  },
 };
 export const ToolbarExample: Story = {
   render: function ToolbarToggle() {
@@ -238,6 +280,25 @@ export const ToolbarExample: Story = {
         </Toggle>
       </div>
     );
+  },
+  parameters: {
+    order: 8,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const boldToggle = canvas.getByRole('button', { name: 'Toggle bold' });
+    const italicToggle = canvas.getByRole('button', { name: 'Toggle italic' });
+    const underlineToggle = canvas.getByRole('button', {
+      name: 'Toggle underline',
+    });
+    await userEvent.click(boldToggle);
+    await expect(boldToggle).toHaveAttribute('data-pressed');
+    await expect(italicToggle).not.toHaveAttribute('data-pressed');
+    await expect(underlineToggle).not.toHaveAttribute('data-pressed');
+    await userEvent.click(italicToggle);
+    await expect(italicToggle).toHaveAttribute('data-pressed');
+    await expect(boldToggle).toHaveAttribute('data-pressed');
+    await expect(underlineToggle).not.toHaveAttribute('data-pressed');
   },
 };
 export const SingleSelectGroup: Story = {
@@ -274,6 +335,31 @@ export const SingleSelectGroup: Story = {
       </div>
     );
   },
+  parameters: {
+    order: 9,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const alignLeftToggle = canvas.getByRole('button', { name: 'Align left' });
+    const alignCenterToggle = canvas.getByRole('button', {
+      name: 'Align center',
+    });
+    const alignRightToggle = canvas.getByRole('button', {
+      name: 'Align right',
+    });
+    await userEvent.click(alignLeftToggle);
+    await expect(alignLeftToggle).toHaveAttribute('data-pressed');
+    await expect(alignCenterToggle).not.toHaveAttribute('data-pressed');
+    await expect(alignRightToggle).not.toHaveAttribute('data-pressed');
+    await userEvent.click(alignCenterToggle);
+    await expect(alignLeftToggle).not.toHaveAttribute('data-pressed');
+    await expect(alignCenterToggle).toHaveAttribute('data-pressed');
+    await expect(alignRightToggle).not.toHaveAttribute('data-pressed');
+    await userEvent.click(alignRightToggle);
+    await expect(alignLeftToggle).not.toHaveAttribute('data-pressed');
+    await expect(alignCenterToggle).not.toHaveAttribute('data-pressed');
+    await expect(alignRightToggle).toHaveAttribute('data-pressed');
+  },
 };
 export const AllStates: Story = {
   render: () => (
@@ -304,6 +390,9 @@ export const AllStates: Story = {
       </div>
     </div>
   ),
+  parameters: {
+    order: 10,
+  },
 };
 export const VisualRegression: Story = {
   render: () => (
@@ -354,6 +443,7 @@ export const VisualRegression: Story = {
     </div>
   ),
   parameters: {
+    order: 11,
     chromatic: {
       disableSnapshot: false,
     },
@@ -371,4 +461,7 @@ export const Playground: Story = {
       <IconBold className="size-4" />
     </Toggle>
   ),
+  parameters: {
+    order: 99,
+  },
 };
