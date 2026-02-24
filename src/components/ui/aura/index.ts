@@ -697,8 +697,13 @@ export {
 } from './table/table';
 export { TableMetadata } from './table/table.metadata';
 
-export { Tabs, TabsList, TabsTrigger, TabsContent } from './tabs/tabs';
-export { TabsMetadata } from './tabs/tabs.metadata';
+export {
+  SegmentedControl,
+  SegmentedControlContent,
+  SegmentedControlList,
+  SegmentedControlTrigger,
+} from './segmented-control/segmented-control';
+export { SegmentedControlMetadata } from './segmented-control/segmented-control.metadata';
 
 export { Textarea } from './textarea/textarea';
 export { TextareaMetadata } from './textarea/textarea.metadata';

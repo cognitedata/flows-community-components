@@ -1435,6 +1435,30 @@
       ]
     },
     {
+      "name": "segmented-control",
+      "type": "registry:component",
+      "title": "Segmented Control",
+      "description": "A segmented control component built on Base UI Tabs for organizing content.",
+      "dependencies": [
+        "@base-ui/react/tabs"
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/segmented-control/segmented-control.tsx",
+          "target": "src/components/ui/aura/segmented-control.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "sheet",
       "type": "registry:component",
       "title": "Sheet",
@@ -1690,30 +1714,6 @@
         {
           "path": "src/components/ui/aura/table/table.tsx",
           "target": "src/components/ui/aura/table.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "src/globals.css",
-          "target": "src/styles.css",
-          "type": "registry:component"
-        }
-      ]
-    },
-    {
-      "name": "tabs",
-      "type": "registry:component",
-      "title": "Tabs",
-      "description": "A tabs component built on Base UI Tabs for organizing content.",
-      "dependencies": [
-        "@base-ui/react/tabs"
-      ],
-      "registryDependencies": [
-        "@aura/css"
-      ],
-      "files": [
-        {
-          "path": "src/components/ui/aura/tabs/tabs.tsx",
-          "target": "src/components/ui/aura/tabs.tsx",
           "type": "registry:component"
         },
         {

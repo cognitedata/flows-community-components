@@ -45,6 +45,11 @@ import {
   PopoverTrigger,
 } from '@/components/ui/aura/popover';
 import {
+  SegmentedControl,
+  SegmentedControlList,
+  SegmentedControlTrigger,
+} from '@/components/ui/aura/segmented-control';
+import {
   Select,
   SelectContent,
   SelectItem,
@@ -52,7 +57,6 @@ import {
   SelectValue,
 } from '@/components/ui/aura/select';
 import { Separator } from '@/components/ui/aura/separator';
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/aura/tabs';
 import { Textarea } from '@/components/ui/aura/textarea';
 
 type ChecklistItem = {
@@ -212,25 +216,31 @@ export default function ShiftHandoverAppPage() {
             />
           </div>
           <div className="hidden md:flex">
-            <Tabs defaultValue="apps">
-              <TabsList className="grid grid-cols-3">
-                <TabsTrigger
+            <SegmentedControl defaultValue="apps">
+              <SegmentedControlList className="grid grid-cols-3">
+                <SegmentedControlTrigger
                   value="overview"
                   className="flex items-center gap-2"
                 >
                   <BarChart3 className="h-4 w-4" />
                   Overview
-                </TabsTrigger>
-                <TabsTrigger value="views" className="flex items-center gap-2">
+                </SegmentedControlTrigger>
+                <SegmentedControlTrigger
+                  value="views"
+                  className="flex items-center gap-2"
+                >
                   <Shapes className="h-4 w-4" />
                   Views
-                </TabsTrigger>
-                <TabsTrigger value="apps" className="flex items-center gap-2">
+                </SegmentedControlTrigger>
+                <SegmentedControlTrigger
+                  value="apps"
+                  className="flex items-center gap-2"
+                >
                   <AppWindow className="h-4 w-4" />
                   App library
-                </TabsTrigger>
-              </TabsList>
-            </Tabs>
+                </SegmentedControlTrigger>
+              </SegmentedControlList>
+            </SegmentedControl>
           </div>
           <div className="flex items-center gap-2">
             <Button variant="ghost" size="icon" className="h-8 w-8">
@@ -334,16 +344,22 @@ export default function ShiftHandoverAppPage() {
                 </div>
                 <div className="space-y-2">
                   <Label className="text-muted-foreground">Shift type</Label>
-                  <Tabs
+                  <SegmentedControl
                     value={shiftType}
                     onValueChange={(v) => setShiftType(v as typeof shiftType)}
                   >
-                    <TabsList className="grid grid-cols-3 w-full">
-                      <TabsTrigger value="morning">Morning</TabsTrigger>
-                      <TabsTrigger value="day">Day</TabsTrigger>
-                      <TabsTrigger value="night">Night</TabsTrigger>
-                    </TabsList>
-                  </Tabs>
+                    <SegmentedControlList className="grid grid-cols-3 w-full">
+                      <SegmentedControlTrigger value="morning">
+                        Morning
+                      </SegmentedControlTrigger>
+                      <SegmentedControlTrigger value="day">
+                        Day
+                      </SegmentedControlTrigger>
+                      <SegmentedControlTrigger value="night">
+                        Night
+                      </SegmentedControlTrigger>
+                    </SegmentedControlList>
+                  </SegmentedControl>
                 </div>
               </div>
 

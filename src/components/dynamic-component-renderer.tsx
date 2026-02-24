@@ -16,11 +16,11 @@ import {
 import { Input } from '@/components/ui/aura/input';
 import { Label } from '@/components/ui/aura/label';
 import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from '@/components/ui/aura/tabs';
+  SegmentedControl,
+  SegmentedControlContent,
+  SegmentedControlList,
+  SegmentedControlTrigger,
+} from '@/components/ui/aura/segmented-control';
 
 interface DynamicComponentRendererProps {
   code: string;
@@ -41,10 +41,10 @@ const availableComponents = {
   Badge,
   Input,
   Label,
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
+  SegmentedControl,
+  SegmentedControlContent,
+  SegmentedControlList,
+  SegmentedControlTrigger,
   useState: React.useState,
   useEffect: React.useEffect,
   useMemo: React.useMemo,
