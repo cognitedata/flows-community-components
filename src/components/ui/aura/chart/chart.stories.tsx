@@ -309,9 +309,9 @@ export const RadialChart: Story = {
   parameters: { order: 5 },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect((await canvas.findAllByText('unit')).length).toBeGreaterThan(
-      0
-    );
+    await expect(
+      await canvas.findByRole('img', { name: 'Radial ring chart' })
+    ).toBeInTheDocument();
   },
   render: function RadialChartRender() {
     type RadialRingDatum = {
@@ -374,7 +374,8 @@ export const RadialChart: Story = {
           <svg
             viewBox={`0 0 ${viewBoxSize} ${viewBoxSize}`}
             className="h-full w-full"
-            aria-hidden="true"
+            role="img"
+            aria-label="Radial ring chart"
             onMouseLeave={() => setHoveredRing(null)}
             onMouseMove={handleMouseMove}
           >
