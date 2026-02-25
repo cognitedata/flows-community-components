@@ -1,3 +1,5 @@
 /** Sources components for references and citations. */
-export { Sources, SourcesTitle, Source } from './sources';
-export { SourcesMetadata } from './sources.metadata';
+import { Source, Sources, SourcesTitle } from './sources';
+import { SourcesMetadata } from './sources.metadata';
+
+export { Source, Sources, SourcesMetadata, SourcesTitle };

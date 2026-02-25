@@ -212,7 +212,6 @@ export const LeftDrawer: Story = {
         body.queryByRole('dialog', { name: /navigation/i })
       ).not.toBeInTheDocument();
     });
-
   },
 };
 export const TopDrawer: Story = {
