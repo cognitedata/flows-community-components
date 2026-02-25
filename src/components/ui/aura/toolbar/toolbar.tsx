@@ -4,11 +4,19 @@ import type { VariantProps } from 'class-variance-authority';
 import { cn } from '../../../../lib/utils';
 import { toggleVariants } from '../toggle';
 
-function Toolbar({ className, ...props }: ToolbarPrimitive.Root.Props) {
+function Toolbar({
+  orientation,
+  className,
+  ...props
+}: ToolbarPrimitive.Root.Props) {
   return (
     <ToolbarPrimitive.Root
       data-slot="toolbar"
-      className={cn('flex items-center p-1 gap-1 rounded-lg border shadow-md')}
+      className={cn(
+        'flex items-center p-1 gap-1 rounded-lg border shadow-md data-[orientation=vertical]:flex-col data-[orientation=horizontal]:flex-row',
+        className
+      )}
+      orientation={orientation}
       {...props}
     />
   );
@@ -36,7 +44,10 @@ function ToolbarSeparator({
   return (
     <ToolbarPrimitive.Separator
       data-slot="toolbar-separator"
-      className={cn('h-4 w-px bg-border', className)}
+      className={cn(
+        'bg-border data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-4 data-[orientation=vertical]:h-4 data-[orientation=vertical]:w-px',
+        className
+      )}
       {...props}
     />
   );

@@ -1,20 +1,48 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { IconHandGrab, IconPointer } from '@tabler/icons-react';
-
-import { Toggle } from '../toggle';
+import {
+  IconAlignLeft,
+  IconAlignRight,
+  IconBold,
+  IconItalic,
+  IconPointer,
+  IconUnderline,
+} from '@tabler/icons-react';
+import { expect, userEvent, within } from 'storybook/test';
 
 import {
-  Toolbar,
-  ToolbarButton,
-  ToolbarGroup,
-  ToolbarSeparator,
-} from './toolbar';
+  SegmentedControl,
+  SegmentedControlButton,
+  SegmentedControlList,
+} from '../segmented-control';
+import {
+  Select,
+  SelectContent,
+  SelectTrigger,
+  SelectValue,
+  SelectItem,
+} from '../select';
+import { Toggle } from '../toggle';
+
+import { Toolbar, ToolbarButton, ToolbarSeparator } from './toolbar';
 
 const meta: Meta<typeof Toolbar> = {
   title: 'Primitives/Toolbar',
   component: Toolbar,
   tags: ['autodocs'],
   argTypes: {
+    orientation: {
+      control: 'select',
+      options: ['horizontal', 'vertical'],
+      table: {
+        category: 'Variants/Orientation',
+        type: {
+          summary: '"horizontal" | "vertical"',
+        },
+        defaultValue: {
+          summary: 'horizontal',
+        },
+      },
+    },
     className: {
       control: 'text',
       table: {
@@ -36,15 +64,276 @@ export const Default: Story = {
   },
   render: () => (
     <Toolbar>
-      <ToolbarGroup>
-        <ToolbarButton>
+      <ToolbarButton render={<Toggle aria-label="Toggle bold" />}>
+        <IconBold />
+      </ToolbarButton>
+      <ToolbarButton render={<Toggle aria-label="Toggle italic" />}>
+        <IconItalic />
+      </ToolbarButton>
+      <ToolbarButton render={<Toggle aria-label="Toggle underline" />}>
+        <IconUnderline />
+      </ToolbarButton>
+    </Toolbar>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const toolbar = canvas.getByRole('toolbar');
+    await expect(toolbar).toBeInTheDocument();
+    const boldToggle = canvas.getByRole('button', { name: 'Toggle bold' });
+    await expect(boldToggle).toBeInTheDocument();
+    await userEvent.click(boldToggle);
+    await expect(boldToggle).toHaveAttribute('data-pressed');
+  },
+};
+
+export const Vertical: Story = {
+  parameters: {
+    order: 2,
+  },
+  render: () => (
+    <Toolbar orientation="vertical">
+      <ToolbarButton render={<Toggle />}>
+        <IconBold />
+      </ToolbarButton>
+      <ToolbarButton render={<Toggle />}>
+        <IconItalic />
+      </ToolbarButton>
+      <ToolbarButton render={<Toggle />}>
+        <IconUnderline />
+      </ToolbarButton>
+    </Toolbar>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const toolbar = canvas.getByRole('toolbar');
+    await expect(toolbar).toBeInTheDocument();
+  },
+};
+
+export const WithSeparator: Story = {
+  parameters: {
+    order: 3,
+  },
+  render: () => (
+    <Toolbar>
+      <ToolbarButton>
+        <IconPointer />
+      </ToolbarButton>
+      <ToolbarSeparator />
+      <ToolbarButton render={<Toggle />}>
+        <IconBold />
+      </ToolbarButton>
+      <ToolbarButton render={<Toggle />}>
+        <IconItalic />
+      </ToolbarButton>
+      <ToolbarButton render={<Toggle />}>
+        <IconUnderline />
+      </ToolbarButton>
+    </Toolbar>
+  ),
+};
+
+export const WithSegmentedControl: Story = {
+  parameters: {
+    order: 3,
+  },
+  render: () => (
+    <Toolbar>
+      <ToolbarButton>
+        <IconPointer />
+      </ToolbarButton>
+      <ToolbarSeparator />
+      <ToolbarButton render={<Toggle />}>
+        <IconBold />
+      </ToolbarButton>
+      <ToolbarButton render={<Toggle />}>
+        <IconItalic />
+      </ToolbarButton>
+      <ToolbarButton render={<Toggle />}>
+        <IconUnderline />
+      </ToolbarButton>
+      <SegmentedControl>
+        <SegmentedControlList>
+          <SegmentedControlButton value="left">
+            <IconAlignLeft />
+            Align left
+          </SegmentedControlButton>
+          <SegmentedControlButton value="right">
+            <IconAlignRight />
+            Align right
+          </SegmentedControlButton>
+        </SegmentedControlList>
+      </SegmentedControl>
+    </Toolbar>
+  ),
+};
+
+export const WithSelect: Story = {
+  parameters: {
+    order: 4,
+  },
+  render: () => (
+    <Toolbar>
+      <ToolbarButton>
+        <IconPointer />
+      </ToolbarButton>
+      <ToolbarSeparator />
+      <ToolbarButton render={<Toggle />}>
+        <IconBold />
+      </ToolbarButton>
+      <ToolbarButton render={<Toggle />}>
+        <IconItalic />
+      </ToolbarButton>
+      <ToolbarButton render={<Toggle />}>
+        <IconUnderline />
+      </ToolbarButton>
+      <Select>
+        <ToolbarButton variant="outline" size="sm" render={<SelectTrigger />}>
+          <SelectValue placeholder="Zoom" />
+        </ToolbarButton>
+        <SelectContent>
+          <SelectItem value="100%">100%</SelectItem>
+          <SelectItem value="75%">75%</SelectItem>
+          <SelectItem value="50%">50%</SelectItem>
+          <SelectItem value="25%">25%</SelectItem>
+        </SelectContent>
+      </Select>
+    </Toolbar>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const toolbar = canvas.getByRole('toolbar');
+    await expect(toolbar).toBeInTheDocument();
+    await userEvent.click(canvas.getByRole('combobox'));
+    await userEvent.keyboard('{ArrowDown}');
+    await userEvent.keyboard('{Enter}');
+    await expect(canvas.getByText('100%')).toBeInTheDocument();
+  },
+};
+
+export const Accessibility: Story = {
+  parameters: {
+    order: 5,
+  },
+  render: () => (
+    <div className="flex items-start flex-col gap-4">
+      <h3 className="text-sm font-semibold text-muted-foreground">
+        Horizontal
+      </h3>
+      <Toolbar aria-label="Horizontal toolbar">
+        <ToolbarButton aria-label="Select pointer tool">
           <IconPointer />
         </ToolbarButton>
-        <ToolbarButton render={<Toggle />}>
-          <IconHandGrab />
+        <ToolbarSeparator />
+        <ToolbarButton aria-label="Bold text" render={<Toggle />}>
+          <IconBold />
         </ToolbarButton>
-      </ToolbarGroup>
-      <ToolbarSeparator />
-    </Toolbar>
+        <ToolbarButton aria-label="Italic text" render={<Toggle />}>
+          <IconItalic />
+        </ToolbarButton>
+        <ToolbarButton aria-label="Underline text" render={<Toggle />}>
+          <IconUnderline />
+        </ToolbarButton>
+        <Select>
+          <ToolbarButton variant="outline" size="sm" render={<SelectTrigger />}>
+            <SelectValue placeholder="Zoom" />
+          </ToolbarButton>
+          <SelectContent>
+            <SelectItem value="100%">100%</SelectItem>
+            <SelectItem value="75%">75%</SelectItem>
+            <SelectItem value="50%">50%</SelectItem>
+            <SelectItem value="25%">25%</SelectItem>
+          </SelectContent>
+        </Select>
+      </Toolbar>
+      <h3 className="text-sm font-semibold text-muted-foreground">Vertical</h3>
+      <Toolbar orientation="vertical" aria-label="Vertical toolbar">
+        <ToolbarButton aria-label="Select pointer tool">
+          <IconPointer />
+        </ToolbarButton>
+        <ToolbarSeparator />
+        <ToolbarButton aria-label="Bold text" render={<Toggle />}>
+          <IconBold />
+        </ToolbarButton>
+        <ToolbarButton aria-label="Italic text" render={<Toggle />}>
+          <IconItalic />
+        </ToolbarButton>
+        <ToolbarButton aria-label="Underline text" render={<Toggle />}>
+          <IconUnderline />
+        </ToolbarButton>
+      </Toolbar>
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const horizontalToolbar = canvas.getByRole('toolbar', {
+      name: 'Horizontal toolbar',
+    });
+    const [horizontalPointerButton] =
+      within(horizontalToolbar).getAllByRole('button');
+    await userEvent.click(horizontalPointerButton);
+    await expect(horizontalPointerButton).toHaveFocus();
+    await userEvent.keyboard('{ArrowRight}');
+    await expect(
+      within(horizontalToolbar).getByRole('button', { name: 'Bold text' })
+    ).toHaveFocus();
+
+    const verticalToolbar = canvas.getByRole('toolbar', {
+      name: 'Vertical toolbar',
+    });
+    const [verticalPointerButton] =
+      within(verticalToolbar).getAllByRole('button');
+    await userEvent.click(verticalPointerButton);
+    await expect(verticalPointerButton).toHaveFocus();
+    await userEvent.keyboard('{ArrowDown}');
+    await expect(
+      within(verticalToolbar).getByRole('button', { name: 'Bold text' })
+    ).toHaveFocus();
+    await userEvent.keyboard('{ArrowUp}');
+    await expect(verticalPointerButton).toHaveFocus();
+  },
+};
+
+export const VisualRegression: Story = {
+  parameters: {
+    order: 6,
+    chromatic: {
+      disableSnapshot: false,
+    },
+  },
+  render: () => (
+    <div className="flex items-start gap-4">
+      <Toolbar aria-label="Horizontal toolbar">
+        <ToolbarButton aria-label="Select pointer tool">
+          <IconPointer />
+        </ToolbarButton>
+        <ToolbarSeparator />
+        <ToolbarButton aria-label="Bold text" render={<Toggle />}>
+          <IconBold />
+        </ToolbarButton>
+        <ToolbarButton aria-label="Italic text" render={<Toggle />}>
+          <IconItalic />
+        </ToolbarButton>
+        <ToolbarButton aria-label="Underline text" render={<Toggle />}>
+          <IconUnderline />
+        </ToolbarButton>
+      </Toolbar>
+      <Toolbar orientation="vertical" aria-label="Vertical toolbar">
+        <ToolbarButton aria-label="Select pointer tool">
+          <IconPointer />
+        </ToolbarButton>
+        <ToolbarSeparator />
+        <ToolbarButton aria-label="Bold text" render={<Toggle />}>
+          <IconBold />
+        </ToolbarButton>
+        <ToolbarButton aria-label="Italic text" render={<Toggle />}>
+          <IconItalic />
+        </ToolbarButton>
+        <ToolbarButton aria-label="Underline text" render={<Toggle />}>
+          <IconUnderline />
+        </ToolbarButton>
+      </Toolbar>
+    </div>
   ),
 };
