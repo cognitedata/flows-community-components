@@ -118,7 +118,6 @@ For files under `src/components/ui/aura/**`, prefer relative imports (for exampl
 - Hover card play tests are more reliable when asserting open-state attributes with deterministic waits (no retry fallbacks).
 - Dropdown menu play tests are more reliable when querying portal content with `within(document.body).findByRole("menu")` and semantic menu item roles.
 - Dialog play tests are more reliable when opening via trigger and querying portal content with `within(document.body).findByRole("dialog")`.
-- Component files should order imports as React, third-party, then local aliases, and use `ComponentRef<...>` in `forwardRef` signatures.
 - In story play functions, prefer semantic alert/button queries (`getByRole`/`findByRole`) over `querySelector('[data-slot=...]')` for more stable interaction tests.
 - In Aura story files, use relative component imports (for example `../button`) instead of `@/components/ui/aura/*` aliases.
 - Avoid bracketed arbitrary Tailwind values in overlays/modals; follow the existing `dialog.tsx` positioning pattern (`top-1/2`, `-translate-y-1/2`, and `sm:-translate-x-1/2`) instead.
@@ -126,24 +125,31 @@ For files under `src/components/ui/aura/**`, prefer relative imports (for exampl
 - For emoji shown in JSX text/content, wrap each emoji in `<span role="img" aria-label="...">...</span>` for explicit accessible naming.
 - Keep `*.metadata.ts` files metadata-only; remove any runtime/component code from them.
 - Do not include `importPath` in `*.metadata.ts` files.
+- Keep `llmUsage` in `*.metadata.ts` files because it helps LLMs understand component and story usage patterns.
 - Component `*.metadata.ts` files should include `name`, `status`, and `description` fields for the registry build script.
 - Catalog grouping/filtering should rely on metadata `status`; do not use legacy `progressStatus`.
-- Export blocks should list one export per line within a single `export { ... }` block (no separate `export { X };` lines).
+- Keep exports in a single `export { ... }` block. Allow a single-line export block unless it exceeds print width; when it wraps, use one export per line (avoid multiple separate export statements).
 - `getPortalContainer` supports optional `id`, `className`, and `style` overrides only at first container creation; once cached, custom options are ignored to avoid side effects on subsequent calls.
 - For Base UI tooltip delay tests, avoid mouse-move “keepalive” events during the delay; they can prevent the delayed open from triggering. Prefer `hover` + deterministic wait, with a single hover retry if needed.
 - Prefer a closure-scoped cancellation flag in async `useEffect` flows to avoid stale updates after unmount.
 - For static brand images in app code, import from `src/assets` so Vite rewrites URLs correctly for base-path deployments.
+- For portal stories, prefer `canvas.findByTestId()` and add a stable `data-testid` on the dialog content wrapper when semantic queries are not practical.
+- When `noImplicitAny` is enabled, type Storybook `play` contexts explicitly (e.g. `({ canvasElement }: { canvasElement: HTMLElement })`) and type Playground `args` with `ComponentProps<typeof Component>`.
 - For portal stories, prefer semantic queries first; use test ids only in test code when mocking and no semantic query is available.
 - Accordion story play tests are more robust when asserting trigger `aria-expanded` state changes instead of querying open panels by implementation-specific selectors.
 - Aura components use relative paths (`../../../../lib/*`) for lib imports instead of `@/lib/*` to support portable/registry installs.
 - Registry dependency extraction must account for relative component imports (for example `../helper-text`) so `registryDependencies` stays correct.
 - In stories, prefer typed data arrays (for example `ComponentProps<typeof X>`) over `as const` casts for literal variants.
+- For chart config typing in stories/pages, prefer `ComponentProps<typeof ChartContainer>["config"]` (or `ComponentProps<typeof Chart>["config"]`) instead of importing/exporting `ChartConfig` types.
 - When updating component metadata statuses from a list, update only existing `*.metadata.ts` files and skip missing components without creating placeholders.
 - Set per-component Figma links in `src/lib/primitives-catalog.ts`; catalog and component pages use those URLs to enable clickable Figma icons.
+- Drawer play tests are more reliable when querying portal dialogs via `within(document.body).findByRole("dialog", { name: /.../i })` and then scoping button queries with `within(dialog).getByRole(...)`.
 - For Base UI `Slider`, type `onValueChange` from `SliderPrimitive.Root.Props<readonly number[]>["onValueChange"]` to avoid `as` casts, and default to a single-thumb value when no `value`/`defaultValue` is provided.
 - Conversation stories should keep play assertions semantic (`getByRole`/`findAllByRole`) and avoid helper components inside story render functions.
 - For components that accept a `render` element and forward accessibility props, set the accessible label once on the component to avoid duplicate `aria-label` attributes on both wrapper and inner element.
 - In Aura stories, avoid DOM traversal selectors in play functions; prefer semantic role/text queries for the interacted element.
+- In story play tests, avoid `canvasElement.querySelectorAll('[data-slot=\"skeleton\"]')`; prefer semantic queries (for example role/text-based) and only fall back to slot selectors when no semantic target exists.
+- Progress stories should assert state via semantic `progressbar` ARIA attributes (`aria-valuenow`, min/max/name) instead of querying internal indicator slots.
 - Toolbar accessibility stories are more reliable when each toolbar has a distinct `aria-label` and keyboard navigation assertions are scoped with `within(toolbar)` for the intended orientation.
 
 # Storybook Stories
