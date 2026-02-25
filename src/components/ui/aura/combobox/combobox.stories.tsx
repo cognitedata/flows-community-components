@@ -606,13 +606,20 @@ export const WithCheckboxes: Story = {
     const trigger = canvas.getByRole('combobox');
     await expect(trigger).toHaveTextContent('2 selected');
     await userEvent.click(trigger);
-    await waitFor(() => {
-      expect(body.getAllByRole('option').length).toBeGreaterThanOrEqual(5);
+    const notificationsOption = await body.findByRole('option', {
+      name: /email notifications/i,
     });
-    const checkboxes = body.getAllByRole('checkbox');
-    await expect(checkboxes[0]).toBeChecked();
-    await expect(checkboxes[1]).toBeChecked();
-    await expect(checkboxes[2]).not.toBeChecked();
+    const marketingOption = await body.findByRole('option', {
+      name: /marketing emails/i,
+    });
+    const updatesOption = await body.findByRole('option', {
+      name: /product updates/i,
+    });
+    await expect(
+      within(notificationsOption).getByRole('checkbox')
+    ).toBeChecked();
+    await expect(within(marketingOption).getByRole('checkbox')).toBeChecked();
+    await expect(within(updatesOption).getByRole('checkbox')).not.toBeChecked();
     await userEvent.click(
       await body.findByRole('option', { name: /product updates/i })
     );
@@ -720,10 +727,9 @@ export const KeyboardNavigation: Story = {
     await body.findByPlaceholderText('Search users...');
     await userEvent.keyboard('{ArrowDown}');
     await waitFor(() => {
-      const selectedItem = body.getAllByRole('option').find((option) => {
-        return option.getAttribute('aria-selected') === 'true';
-      });
-      expect(selectedItem).toBeDefined();
+      expect(
+        body.getByRole('option', { name: /dennis rodman/i })
+      ).toHaveAttribute('aria-selected', 'true');
     });
     await userEvent.keyboard('{Escape}');
     await waitFor(() => {
