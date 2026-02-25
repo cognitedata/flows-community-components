@@ -118,7 +118,6 @@ For files under `src/components/ui/aura/**`, prefer relative imports (for exampl
 - Hover card play tests are more reliable when asserting open-state attributes with deterministic waits (no retry fallbacks).
 - Dropdown menu play tests are more reliable when querying portal content with `within(document.body).findByRole("menu")` and semantic menu item roles.
 - Dialog play tests are more reliable when opening via trigger and querying portal content with `within(document.body).findByRole("dialog")`.
-- Component files should order imports as React, third-party, then local aliases, and use `ComponentRef<...>` in `forwardRef` signatures.
 - In story play functions, prefer semantic alert/button queries (`getByRole`/`findByRole`) over `querySelector('[data-slot=...]')` for more stable interaction tests.
 - In Aura story files, use relative component imports (for example `../button`) instead of `@/components/ui/aura/*` aliases.
 - Avoid bracketed arbitrary Tailwind values in overlays/modals; follow the existing `dialog.tsx` positioning pattern (`top-1/2`, `-translate-y-1/2`, and `sm:-translate-x-1/2`) instead.
