@@ -1,10 +1,3 @@
-/**
- * Suggestion Component
- *
- * A dual-mode suggestion component for AI chat interfaces.
- * Use simple button mode for quick queries, or dropdown mode
- * for organised query options.
- */
 import {
   Suggestion,
   SuggestionContent,
@@ -16,6 +9,7 @@ import {
   SuggestionValue,
   Suggestions,
 } from './suggestion';
+import { SuggestionMetadata } from './suggestion.metadata';
 
 export {
   Suggestions,
@@ -27,5 +21,5 @@ export {
   SuggestionGroup,
   SuggestionLabel,
   SuggestionSeparator,
+  SuggestionMetadata,
 };
-export { SuggestionMetadata } from './suggestion.metadata';

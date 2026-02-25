@@ -557,7 +557,7 @@ export const FollowUpCards: Story = {
           variant="ghost"
         >
           <span className="space-y-1">
-            <span className="block text-xs font-medium leading-tigher text-muted-foreground">
+            <span className="block text-xs font-medium leading-tighter text-muted-foreground">
               Follow up
             </span>
             <span className="block text-base leading-tightest leading-5 font-normal text-foreground whitespace-normal">
@@ -572,7 +572,7 @@ export const FollowUpCards: Story = {
           variant="ghost"
         >
           <span className="space-y-1">
-            <span className="block text-xs font-medium leading-tigher text-muted-foreground">
+            <span className="block text-xs font-medium leading-tighter text-muted-foreground">
               Follow up
             </span>
             <span className="block text-base leading-tightest leading-5 font-normal text-foreground whitespace-normal">

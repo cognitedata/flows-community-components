@@ -145,6 +145,7 @@ For files under `src/components/ui/aura/**`, prefer relative imports (for exampl
 - Set per-component Figma links in `src/lib/primitives-catalog.ts`; catalog and component pages use those URLs to enable clickable Figma icons.
 - Suggestion stories should query open select content semantically via `within(document.body).queryByRole("listbox")` and keep `parameters.order` set on every story export.
 - Suggestion stories should use design-token widths (for example `w-52`, `max-w-xl`) instead of arbitrary bracket widths for prompt cards and wrappers.
+- Suggestion stories should use the valid typography utility `leading-tighter`; avoid typos like `leading-tigher`.
 - `SuggestionItem` values should come from an explicit `value` prop instead of deriving from `children`.
 - Drawer play tests are more reliable when querying portal dialogs via `within(document.body).findByRole("dialog", { name: /.../i })` and then scoping button queries with `within(dialog).getByRole(...)`.
 - For Base UI `Slider`, type `onValueChange` from `SliderPrimitive.Root.Props<readonly number[]>["onValueChange"]` to avoid `as` casts, and default to a single-thumb value when no `value`/`defaultValue` is provided.
