@@ -214,18 +214,40 @@
       "type": "registry:component",
       "title": "ArtifactCount",
       "description": "A compositional count artifact widget component for displaying prominent values with optional content and footer context.",
-      "dependencies": [
-        "class-variance-authority"
-      ],
       "registryDependencies": [
         "@aura/css",
         "@aura/card",
+        "@aura/count",
         "@aura/separator"
       ],
       "files": [
         {
           "path": "src/components/ui/aura/artifact-count/artifact-count.tsx",
           "target": "src/components/ui/aura/artifact-count.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "count",
+      "type": "registry:component",
+      "title": "Count",
+      "description": "Numeric counter primitives",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/count/count.tsx",
+          "target": "src/components/ui/aura/count.tsx",
           "type": "registry:component"
         },
         {
@@ -1012,13 +1034,9 @@
       "type": "registry:component",
       "title": "InlineCitation",
       "description": "Components for displaying inline citations and source references.",
-      "dependencies": [
-        "@tabler/icons-react"
-      ],
       "registryDependencies": [
         "@aura/css",
         "@aura/badge",
-        "@aura/carousel",
         "@aura/hover-card"
       ],
       "files": [

@@ -7,8 +7,11 @@ import {
   IconSettings,
   IconUser,
 } from '@tabler/icons-react';
-import { type ComponentProps, useState } from 'react';
+import { type ComponentProps, type ReactNode, useState } from 'react';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
+
+import { Button } from '../button';
+import { Label } from '../label';
 
 import {
   Select,
@@ -20,9 +23,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from './select';
-
-import { Button } from '@/components/ui/aura/button';
-import { Label } from '@/components/ui/aura/label';
 const basicOptions = [
   {
     label: 'Option 1',
@@ -199,25 +199,32 @@ const longTextOptions = [
 
 const specialCharacterOptions = [
   {
-    label: '🎉 Party time!',
+    label: 'Party time!',
+    renderLabel: (
+      <>
+        <span role="img" aria-label="party popper">
+          🎉
+        </span>{' '}
+        Party time!
+      </>
+    ),
     value: 'emoji1',
   },
   {
-    label: '🚀 Launch',
+    label: 'Launch',
+    renderLabel: (
+      <>
+        <span role="img" aria-label="rocket">
+          🚀
+        </span>{' '}
+        Launch
+      </>
+    ),
     value: 'emoji2',
   },
-  {
-    label: "Option with <HTML> & 'quotes'",
-    value: 'special1',
-  },
-  {
-    label: 'C++ & C# & Java',
-    value: 'special2',
-  },
-  {
-    label: 'Ü니코드文字',
-    value: 'unicode',
-  },
+  { label: "Option with <HTML> & 'quotes'", value: 'special1' },
+  { label: 'C++ & C# & Java', value: 'special2' },
+  { label: 'Ü니코드文字', value: 'unicode' },
 ];
 
 const languageOptions = [
@@ -267,6 +274,15 @@ const meta: Meta<typeof Select> = {
   title: 'Primitives/Select',
   component: Select,
   tags: ['autodocs'],
+  decorators: [
+    (Story) => (
+      <div className="flex justify-center">
+        <div className="w-125">
+          <Story />
+        </div>
+      </div>
+    ),
+  ],
   argTypes: {
     open: {
       control: 'boolean',
@@ -398,7 +414,8 @@ export const WithLabel: Story = {
 export const WithIcons: Story = {
   render: function SelectWithIcons() {
     const [value, setValue] = useState('settings');
-    const iconMap: Record<string, React.ReactNode> = {
+
+    const iconMap: Record<string, ReactNode> = {
       user: <IconUser className="size-4" />,
       mail: <IconMail className="size-4" />,
       settings: <IconSettings className="size-4" />,
@@ -931,7 +948,9 @@ export const EdgeCaseSpecialCharacters: Story = {
         <SelectContent>
           {specialCharacterOptions.map((option) => (
             <SelectItem key={option.value} value={option.value}>
-              {option.label}
+              {'renderLabel' in option && option.renderLabel
+                ? option.renderLabel
+                : option.label}
             </SelectItem>
           ))}
         </SelectContent>
@@ -955,8 +974,8 @@ export const MultipleSelection: Story = {
           <Select
             items={languageOptions}
             multiple
-            value={value as any}
-            onValueChange={(newValue: any) => setValue(newValue)}
+            value={value}
+            onValueChange={setValue}
           >
             <SelectTrigger id="languages" className="w-75">
               <SelectValue placeholder="Select languages">

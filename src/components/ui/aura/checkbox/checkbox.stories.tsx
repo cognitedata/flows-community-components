@@ -1,10 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useState } from 'react';
+import { type ComponentProps, useState } from 'react';
 import { expect, userEvent, within } from 'storybook/test';
+
+import { Label } from '../label';
 
 import { Checkbox } from './checkbox';
 
-import { Label } from '@/components/ui/aura/label';
+type StoryPlayContext = { canvasElement: HTMLElement };
+
 const meta: Meta<typeof Checkbox> = {
   title: 'Primitives/Checkbox',
   component: Checkbox,
@@ -13,69 +16,50 @@ const meta: Meta<typeof Checkbox> = {
     checked: {
       control: 'boolean',
       table: {
-        category: 'State',
-        type: {
-          summary: 'boolean | "indeterminate"',
-        },
+        category: 'Behavior',
+        type: { summary: 'boolean | "indeterminate"' },
       },
     },
     defaultChecked: {
       control: 'boolean',
       table: {
-        category: 'State',
-        type: {
-          summary: 'boolean',
-        },
-        defaultValue: {
-          summary: 'false',
-        },
+        category: 'Behavior',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
       },
     },
     disabled: {
       control: 'boolean',
       table: {
-        category: 'State',
-        type: {
-          summary: 'boolean',
-        },
-        defaultValue: {
-          summary: 'false',
-        },
+        category: 'Behavior',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
       },
     },
     required: {
       control: 'boolean',
       table: {
-        category: 'Validation',
-        type: {
-          summary: 'boolean',
-        },
-        defaultValue: {
-          summary: 'false',
-        },
+        category: 'Behavior',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
       },
     },
     name: {
       control: 'text',
       table: {
-        category: 'Form',
-        type: {
-          summary: 'string',
-        },
+        category: 'Advanced',
+        type: { summary: 'string' },
       },
     },
     value: {
       control: 'text',
       table: {
-        category: 'Form',
-        type: {
-          summary: 'string',
-        },
-        defaultValue: {
-          summary: 'on',
-        },
+        category: 'Advanced',
+        type: { summary: 'string' },
+        defaultValue: { summary: 'on' },
       },
     },
+
     onCheckedChange: {
       action: 'checkedChange',
       table: {
@@ -88,7 +72,7 @@ const meta: Meta<typeof Checkbox> = {
     className: {
       control: 'text',
       table: {
-        category: 'Styling',
+        category: 'Variants/Styling',
       },
     },
   },
@@ -105,7 +89,10 @@ export const Default: Story = {
       <Label htmlFor="default">Accept terms and conditions</Label>
     </div>
   ),
-  play: async ({ canvasElement }) => {
+  parameters: {
+    order: 1,
+  },
+  play: async ({ canvasElement }: StoryPlayContext) => {
     const canvas = within(canvasElement);
     const checkbox = canvas.getByRole('checkbox');
     await expect(checkbox).toBeInTheDocument();
@@ -123,7 +110,10 @@ export const DefaultChecked: Story = {
       <Label htmlFor="checked">Receive marketing emails</Label>
     </div>
   ),
-  play: async ({ canvasElement }) => {
+  parameters: {
+    order: 2,
+  },
+  play: async ({ canvasElement }: StoryPlayContext) => {
     const canvas = within(canvasElement);
     const checkbox = canvas.getByRole('checkbox');
     await expect(checkbox).toBeChecked();
@@ -146,9 +136,13 @@ export const Disabled: Story = {
       </div>
     </div>
   ),
-  play: async ({ canvasElement }) => {
+  parameters: {
+    order: 3,
+  },
+  play: async ({ canvasElement }: StoryPlayContext) => {
     const canvas = within(canvasElement);
-    const checkboxes = canvas.getAllByRole('checkbox');
+    const checkboxes = await canvas.findAllByRole('checkbox');
+
     for (const checkbox of checkboxes) {
       await expect(checkbox).toHaveAttribute('data-disabled');
     }
@@ -196,13 +190,16 @@ export const Controlled: Story = {
       </div>
     );
   },
-  play: async ({ canvasElement }) => {
+  parameters: {
+    order: 4,
+  },
+  play: async ({ canvasElement }: StoryPlayContext) => {
     const canvas = within(canvasElement);
-    const checkButton = canvas.getByText('Check');
+    const checkButton = canvas.getByRole('button', { name: 'Check' });
     await userEvent.click(checkButton);
     const checkbox = canvas.getByRole('checkbox');
     await expect(checkbox).toBeChecked();
-    const uncheckButton = canvas.getByText('Uncheck');
+    const uncheckButton = canvas.getByRole('button', { name: 'Uncheck' });
     await userEvent.click(uncheckButton);
     await expect(checkbox).not.toBeChecked();
   },
@@ -251,6 +248,9 @@ export const Indeterminate: Story = {
       </div>
     );
   },
+  parameters: {
+    order: 5,
+  },
 };
 export const CheckboxGroup: Story = {
   render: function CheckboxGroupExample() {
@@ -297,7 +297,10 @@ export const CheckboxGroup: Story = {
       </div>
     );
   },
-  play: async ({ canvasElement }) => {
+  parameters: {
+    order: 6,
+  },
+  play: async ({ canvasElement }: StoryPlayContext) => {
     const canvas = within(canvasElement);
     const emailCheckbox = canvas.getByLabelText('Email notifications');
     await expect(emailCheckbox).toBeChecked();
@@ -319,7 +322,7 @@ export const WithValidation: Story = {
         <Checkbox id="terms" required />
         <Label htmlFor="terms">
           I agree to the terms and conditions{' '}
-          <span className="text-red-500">*</span>
+          <span className="text-destructive">*</span>
         </Label>
       </div>
       <button
@@ -330,6 +333,9 @@ export const WithValidation: Story = {
       </button>
     </form>
   ),
+  parameters: {
+    order: 7,
+  },
 };
 export const IconOnly: Story = {
   render: () => (
@@ -339,6 +345,9 @@ export const IconOnly: Story = {
       <Checkbox aria-label="Option 3" disabled />
     </div>
   ),
+  parameters: {
+    order: 8,
+  },
 };
 export const AllStates: Story = {
   render: () => (
@@ -365,6 +374,9 @@ export const AllStates: Story = {
       </div>
     </div>
   ),
+  parameters: {
+    order: 9,
+  },
 };
 export const VisualRegression: Story = {
   render: () => (
@@ -396,7 +408,6 @@ export const VisualRegression: Story = {
           </div>
         </div>
       </div>
-
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">
           Without Labels
@@ -410,6 +421,7 @@ export const VisualRegression: Story = {
     </div>
   ),
   parameters: {
+    order: 10,
     chromatic: {
       disableSnapshot: false,
     },
@@ -421,10 +433,13 @@ export const Playground: Story = {
     defaultChecked: false,
     required: false,
   },
-  render: (args) => (
+  render: (args: ComponentProps<typeof Checkbox>) => (
     <div className="flex items-center space-x-2">
       <Checkbox id="playground" {...args} />
       <Label htmlFor="playground">Playground checkbox</Label>
     </div>
   ),
+  parameters: {
+    order: 99,
+  },
 };
