@@ -64,7 +64,7 @@ const standardStops = [
   '950',
 ];
 
-// Mountain has additional white/black and 10 stop
+// Mountain has additional white and 10/1000 stops
 const mountainStops = [
   'white',
   '10',
@@ -82,7 +82,7 @@ const mountainStops = [
   '800',
   '900',
   '950',
-  'black',
+  '1000',
 ];
 
 // Color palettes - the single source of truth for Aura colors
@@ -98,11 +98,7 @@ export const colorPalettes: ColorPalette[] = [
       name: stop,
       cssVar: `--mountain-${stop}`,
       tailwindClass:
-        stop === 'white'
-          ? 'bg-mountain-white'
-          : stop === 'black'
-            ? 'bg-mountain-black'
-            : `bg-mountain-${stop}`,
+        stop === 'white' ? 'bg-mountain-white' : `bg-mountain-${stop}`,
     })),
   },
   {

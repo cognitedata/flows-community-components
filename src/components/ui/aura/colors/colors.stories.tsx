@@ -74,7 +74,7 @@ export const BasePalettes: Story = {
     await expect(canvas.getByText('Mountain')).toBeInTheDocument();
     await expect(canvas.getByText('Fjord')).toBeInTheDocument();
     await expect(canvas.getByText('white')).toBeInTheDocument();
-    await expect(canvas.getByText('black')).toBeInTheDocument();
+    await expect(canvas.getByText('1000')).toBeInTheDocument();
   },
   render: () => (
     <div className="space-y-8" data-testid="base-palettes">

@@ -346,7 +346,7 @@
 
   /* Mountain */
   --mountain-white: rgb(255, 255, 255);
-  --mountain-black: rgb(0, 0, 0);
+  --mountain-1000: rgb(17, 18, 19);
   --mountain-10: rgb(249, 250, 250);
   --mountain-50: rgb(241, 242, 243);
   --mountain-100: rgb(228, 230, 232);
@@ -361,7 +361,7 @@
   --mountain-700: rgb(64, 70, 74);
   --mountain-800: rgb(45, 49, 52);
   --mountain-900: rgb(33, 36, 38);
-  --mountain-950: rgb(17, 18, 19);
+  --mountain-950: rgb(25, 27, 29);
 
   /* Fjord */
   --fjord-50: rgb(239, 242, 253);

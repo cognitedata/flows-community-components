@@ -36,7 +36,7 @@ const colorPalettes = [
       { name: '800', var: '--mountain-800' },
       { name: '900', var: '--mountain-900' },
       { name: '950', var: '--mountain-950' },
-      { name: 'black', var: '--mountain-black' },
+      { name: '1000', var: '--mountain-1000' },
     ],
   },
   {
