@@ -9,6 +9,7 @@ import {
   BreadcrumbPageButton,
   BreadcrumbSeparator,
 } from './breadcrumb';
+import { BreadcrumbMetadata } from './breadcrumb.metadata';
 
 export {
   Breadcrumb,
@@ -20,5 +21,5 @@ export {
   BreadcrumbSeparator,
   BreadcrumbEllipsis,
   BreadcrumbEllipsisButton,
+  BreadcrumbMetadata,
 };
-export { BreadcrumbMetadata } from './breadcrumb.metadata';

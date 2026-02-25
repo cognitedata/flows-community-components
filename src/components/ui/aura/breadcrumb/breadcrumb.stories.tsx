@@ -217,7 +217,7 @@ export const WithPageActions: Story = {
 
     const canvasLink = canvas.getByText('Canvas');
     await expect(canvasLink).toHaveAttribute('href', '/canvas');
-    const pageButton = canvas.getByText('Test canvas').closest('button');
+    const pageButton = canvas.getByRole('button', { name: 'Test canvas' });
     await expect(pageButton).toBeInTheDocument();
     await expect(pageButton).toHaveAttribute('aria-current', 'page');
   },
@@ -609,8 +609,7 @@ export const StyleComparison: Story = {
     const nonInteractivePage = canvas.getByText('Try hovering');
     await expect(nonInteractivePage).toBeInTheDocument();
     await expect(nonInteractivePage).toHaveAttribute('aria-current', 'page');
-    const testCanvasElements = canvas.getAllByText('Test canvas');
-    const dropdownButton = testCanvasElements[0]?.closest('button');
+    const dropdownButton = canvas.getByRole('button', { name: 'Test canvas' });
     await expect(dropdownButton).toBeInTheDocument();
     await expect(dropdownButton).toHaveAttribute('aria-current', 'page');
   },
