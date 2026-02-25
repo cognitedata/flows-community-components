@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
-import { expect, userEvent, waitFor, within } from 'storybook/test';
+import { expect, userEvent, within } from 'storybook/test';
 
 import {
   Menubar,
@@ -26,7 +26,7 @@ const meta: Meta<typeof Menubar> = {
       control: 'select',
       options: ['default', 'sm'],
       table: {
-        category: 'Appearance',
+        category: 'Variants/Styling',
         type: {
           summary: '"default" | "sm"',
         },
@@ -38,7 +38,7 @@ const meta: Meta<typeof Menubar> = {
     className: {
       control: 'text',
       table: {
-        category: 'Styling',
+        category: 'Variants/Styling',
       },
     },
   },
@@ -105,16 +105,15 @@ export const Default: Story = {
       </MenubarMenu>
     </Menubar>
   ),
+  parameters: {
+    order: 1,
+  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const fileTrigger = canvas.getByText('File');
+    const fileTrigger = canvas.getByRole('menuitem', { name: 'File' });
     await userEvent.click(fileTrigger);
-    await waitFor(() => {
-      const menuContent = document.querySelector(
-        '[data-slot="menubar-content"]'
-      );
-      expect(menuContent).toBeInTheDocument();
-    });
+    const menu = await within(document.body).findByRole('menu');
+    expect(menu).toBeInTheDocument();
   },
 };
 export const WithCheckboxItems: Story = {
@@ -147,6 +146,9 @@ export const WithCheckboxItems: Story = {
       </Menubar>
     );
   },
+  parameters: {
+    order: 2,
+  },
 };
 export const WithRadioGroup: Story = {
   render: function RadioMenubar() {
@@ -165,6 +167,9 @@ export const WithRadioGroup: Story = {
         </MenubarMenu>
       </Menubar>
     );
+  },
+  parameters: {
+    order: 3,
   },
 };
 export const WithSubmenus: Story = {
@@ -192,6 +197,9 @@ export const WithSubmenus: Story = {
       </MenubarMenu>
     </Menubar>
   ),
+  parameters: {
+    order: 4,
+  },
 };
 export const WithDestructiveItem: Story = {
   render: () => (
@@ -208,6 +216,9 @@ export const WithDestructiveItem: Story = {
       </MenubarMenu>
     </Menubar>
   ),
+  parameters: {
+    order: 5,
+  },
 };
 export const FullExample: Story = {
   render: function FullMenubar() {
@@ -294,6 +305,9 @@ export const FullExample: Story = {
       </Menubar>
     );
   },
+  parameters: {
+    order: 6,
+  },
 };
 export const VisualRegression: Story = {
   render: () => (
@@ -320,6 +334,7 @@ export const VisualRegression: Story = {
     </div>
   ),
   parameters: {
+    order: 7,
     chromatic: {
       disableSnapshot: false,
     },
@@ -349,4 +364,7 @@ export const Playground: Story = {
       </MenubarMenu>
     </Menubar>
   ),
+  parameters: {
+    order: 99,
+  },
 };

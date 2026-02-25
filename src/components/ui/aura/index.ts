@@ -56,6 +56,9 @@ export {
 } from './artifact-count/artifact-count';
 export { ArtifactCountMetadata } from './artifact-count/artifact-count.metadata';
 
+export { Count, countVariants } from './count/count';
+export { CountMetadata } from './count/count.metadata';
+
 export {
   ArtifactList,
   ArtifactListContent,
@@ -169,6 +172,7 @@ export type {
 export { ChainOfThoughtMetadata } from './chain-of-thought/chain-of-thought.metadata';
 
 export {
+  Chart,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
@@ -176,7 +180,6 @@ export {
   ChartLegendContent,
   ChartStyle,
 } from './chart/chart';
-export type { ChartConfig } from './chart/chart';
 export { ChartMetadata } from './chart/chart.metadata';
 
 export { Checkbox } from './checkbox/checkbox';
@@ -371,13 +374,6 @@ export {
   InlineCitationCard,
   InlineCitationCardTrigger,
   InlineCitationCardBody,
-  InlineCitationCarousel,
-  InlineCitationCarouselContent,
-  InlineCitationCarouselItem,
-  InlineCitationCarouselHeader,
-  InlineCitationCarouselIndex,
-  InlineCitationCarouselPrev,
-  InlineCitationCarouselNext,
   InlineCitationSource,
   InlineCitationQuote,
   InlineCitationLink,
