@@ -134,6 +134,8 @@ For files under `src/components/ui/aura/**`, prefer relative imports (for exampl
 - For Base UI tooltip delay tests, avoid mouse-move “keepalive” events during the delay; they can prevent the delayed open from triggering. Prefer `hover` + deterministic wait, with a single hover retry if needed.
 - Prefer a closure-scoped cancellation flag in async `useEffect` flows to avoid stale updates after unmount.
 - For static brand images in app code, import from `src/assets` so Vite rewrites URLs correctly for base-path deployments.
+- For portal stories, prefer `canvas.findByTestId()` and add a stable `data-testid` on the dialog content wrapper when semantic queries are not practical.
+- When `noImplicitAny` is enabled, type Storybook `play` contexts explicitly (e.g. `({ canvasElement }: { canvasElement: HTMLElement })`) and type Playground `args` with `ComponentProps<typeof Component>`.
 - For portal stories, prefer semantic queries first; use test ids only in test code when mocking and no semantic query is available.
 - Accordion story play tests are more robust when asserting trigger `aria-expanded` state changes instead of querying open panels by implementation-specific selectors.
 - Aura components use relative paths (`../../../../lib/*`) for lib imports instead of `@/lib/*` to support portable/registry installs.
