@@ -474,6 +474,9 @@ export {
 } from './message/message';
 export { MessageMetadata } from './message/message.metadata';
 
+export { PageLoader } from './page-loader/page-loader';
+export { PageLoaderMetadata } from './page-loader/page-loader.metadata';
+
 export {
   Pagination,
   PaginationContent,
