@@ -2,7 +2,6 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
 
-import { Avatar, AvatarFallback, AvatarImage } from '../avatar';
 import { Badge } from '../badge';
 import { Button } from '../button';
 
@@ -131,35 +130,6 @@ async function testHoverInteraction(
     }
   );
 }
-const SAMPLE_USERS = [
-  {
-    name: 'Sarah Johnson',
-    handle: '@sarah',
-    role: 'Product Designer',
-    avatar: 'https://i.pravatar.cc/150?img=1',
-    bio: 'Passionate about creating intuitive and delightful user experiences. Leading the design system initiative.',
-    team: 'Design Team',
-    joined: 'Joined March 2023',
-  },
-  {
-    name: 'Michael Chen',
-    handle: '@michael',
-    role: 'Frontend Engineer',
-    avatar: 'https://i.pravatar.cc/150?img=2',
-    bio: 'Full-stack developer specialising in React and TypeScript. Building scalable web applications.',
-    team: 'Engineering Team',
-    joined: 'Joined January 2022',
-  },
-  {
-    name: 'Emily Rodriguez',
-    handle: '@emily',
-    role: 'UX Researcher',
-    avatar: 'https://i.pravatar.cc/150?img=3',
-    bio: 'Uncovering user insights through research and data analysis. Advocate for evidence-based design.',
-    team: 'Research Team',
-    joined: 'Joined July 2023',
-  },
-];
 export const Basic: Story = {
   parameters: {
     order: 1,
@@ -178,10 +148,6 @@ export const Basic: Story = {
           <HoverCardTrigger render={<Button variant="link">@nextjs</Button>} />
           <HoverCardContent className="w-80">
             <div className="flex justify-between space-x-4">
-              <Avatar>
-                <AvatarImage src="https://github.com/vercel.png" />
-                <AvatarFallback>VC</AvatarFallback>
-              </Avatar>
               <div className="space-y-1">
                 <h4 className="text-sm font-semibold">@nextjs</h4>
                 <p className="text-sm">
@@ -577,90 +543,6 @@ export const Minimal: Story = {
     </div>
   ),
 };
-export const MultipleInList: Story = {
-  parameters: {
-    order: 10,
-  },
-  play: async ({ canvasElement }) => {
-    await testHoverInteraction(
-      canvasElement,
-      /Sarah Johnson/i,
-      /Product Designer/i
-    );
-    await testHoverInteraction(
-      canvasElement,
-      /Michael Chen/i,
-      /Frontend Engineer/i
-    );
-    await testHoverInteraction(
-      canvasElement,
-      /Emily Rodriguez/i,
-      /UX Researcher/i
-    );
-  },
-  render: () => {
-    return (
-      <div className="flex flex-col gap-3 min-h-80 p-4">
-        {SAMPLE_USERS.map((user) => {
-          const initials = user.name
-            .split(' ')
-            .map((n) => n[0])
-            .join('');
-          return (
-            <div
-              key={user.handle}
-              className="flex items-center gap-3 p-3 rounded-lg border"
-            >
-              <HoverCard>
-                <HoverCardTrigger
-                  render={
-                    <button
-                      type="button"
-                      className="flex items-center gap-3 hover:opacity-80 transition-opacity"
-                    >
-                      <Avatar>
-                        <AvatarImage src={user.avatar} />
-                        <AvatarFallback>{initials}</AvatarFallback>
-                      </Avatar>
-                      <div className="text-left">
-                        <p className="text-sm font-medium">{user.name}</p>
-                        <p className="text-xs text-muted-foreground">
-                          {user.handle}
-                        </p>
-                      </div>
-                    </button>
-                  }
-                />
-                <HoverCardContent className="w-80">
-                  <div className="flex gap-4">
-                    <Avatar className="h-12 w-12">
-                      <AvatarImage src={user.avatar} />
-                      <AvatarFallback>{initials}</AvatarFallback>
-                    </Avatar>
-                    <div className="space-y-2 flex-1">
-                      <div>
-                        <h4 className="text-sm font-semibold">{user.name}</h4>
-                        <p className="text-sm text-muted-foreground">
-                          {user.role}
-                        </p>
-                      </div>
-                      <p className="text-sm">{user.bio}</p>
-                      <div className="flex items-center gap-4 pt-1 text-xs text-muted-foreground">
-                        <span>{user.team}</span>
-                        <span>•</span>
-                        <span>{user.joined}</span>
-                      </div>
-                    </div>
-                  </div>
-                </HoverCardContent>
-              </HoverCard>
-            </div>
-          );
-        })}
-      </div>
-    );
-  },
-};
 export const Playground: Story = {
   parameters: {
     order: 99,
@@ -674,10 +556,6 @@ export const Playground: Story = {
           />
           <HoverCardContent className="w-80">
             <div className="flex justify-between space-x-4">
-              <Avatar>
-                <AvatarImage src="https://github.com/shadcn.png" />
-                <AvatarFallback>SC</AvatarFallback>
-              </Avatar>
               <div className="space-y-1">
                 <h4 className="text-sm font-semibold">@shadcn</h4>
                 <p className="text-sm">

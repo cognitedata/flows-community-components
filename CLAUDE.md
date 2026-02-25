@@ -150,6 +150,7 @@ For files under `src/components/ui/aura/**`, prefer relative imports (for exampl
 - In Aura stories, avoid DOM traversal selectors in play functions; prefer semantic role/text queries for the interacted element.
 - In story play tests, avoid `canvasElement.querySelectorAll('[data-slot=\"skeleton\"]')`; prefer semantic queries (for example role/text-based) and only fall back to slot selectors when no semantic target exists.
 - Progress stories should assert state via semantic `progressbar` ARIA attributes (`aria-valuenow`, min/max/name) instead of querying internal indicator slots.
+- Story assets used in play-tested stories should use reserved `.test` domains to avoid external traffic dependencies.
 
 # Storybook Stories
 
