@@ -352,6 +352,9 @@ export {
 } from './effects/effects';
 export { EffectsMetadata } from './effects/effects.metadata';
 
+export { EmptyState } from './empty-state/empty-state';
+export { EmptyStateMetadata } from './empty-state/empty-state.metadata';
+
 export { HelperText } from './helper-text/helper-text';
 export { HelperTextMetadata } from './helper-text/helper-text.metadata';
 

@@ -1,9 +1,8 @@
 import { IconExternalLink } from '@tabler/icons-react';
 import { type ComponentProps } from 'react';
 
+import { cn } from '../../../../lib/utils';
 import { Button } from '../button';
-
-import { cn } from '@/lib/utils';
 
 type EmptyStateProps = {
   title: string;
@@ -70,17 +69,15 @@ const EmptyState = ({
         {primaryAction}
       </div>
       {helpLink && (
-        <div className="text-muted-foreground text-sm">
-          <Button
-            variant="link"
-            size="sm"
-            render={<a {...helpLink} />}
-            nativeButton={false}
-          >
-            {helpLink.label}
-            <IconExternalLink />
-          </Button>
-        </div>
+        <Button
+          variant="link"
+          size="sm"
+          render={<a {...helpLink} />}
+          nativeButton={false}
+        >
+          {helpLink.label}
+          <IconExternalLink />
+        </Button>
       )}
     </div>
   );
