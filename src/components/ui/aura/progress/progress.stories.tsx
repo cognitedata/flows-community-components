@@ -2,10 +2,10 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useEffect, useState } from 'react';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
 
-import { Progress } from './progress';
+import { Button } from '../button';
+import { Label } from '../label';
 
-import { Button } from '@/components/ui/aura/button';
-import { Label } from '@/components/ui/aura/label';
+import { Progress } from './progress';
 const meta: Meta<typeof Progress> = {
   title: 'Primitives/Progress',
   component: Progress,
@@ -76,10 +76,8 @@ export const Basic: Story = {
     await expect(progressbar).toBeInTheDocument();
     await expect(progressbar).toHaveAccessibleName('Progress: 50%');
     await expect(progressbar).toHaveAttribute('aria-valuenow', '50');
-    const indicator = canvasElement.querySelector(
-      '[data-slot="progress-indicator"]'
-    );
-    await expect(indicator).toBeInTheDocument();
+    await expect(progressbar).toHaveAttribute('aria-valuemin', '0');
+    await expect(progressbar).toHaveAttribute('aria-valuemax', '100');
   },
 };
 export const CustomAriaLabel: Story = {
