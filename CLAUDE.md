@@ -144,6 +144,7 @@ For files under `src/components/ui/aura/**`, prefer relative imports (for exampl
 - For chart config typing in stories/pages, prefer `ComponentProps<typeof ChartContainer>["config"]` (or `ComponentProps<typeof Chart>["config"]`) instead of importing/exporting `ChartConfig` types.
 - When updating component metadata statuses from a list, update only existing `*.metadata.ts` files and skip missing components without creating placeholders.
 - Set per-component Figma links in `src/lib/primitives-catalog.ts`; catalog and component pages use those URLs to enable clickable Figma icons.
+- Drawer play tests are more reliable when querying portal dialogs via `within(document.body).findByRole("dialog", { name: /.../i })` and then scoping button queries with `within(dialog).getByRole(...)`.
 - For Base UI `Slider`, type `onValueChange` from `SliderPrimitive.Root.Props<readonly number[]>["onValueChange"]` to avoid `as` casts, and default to a single-thumb value when no `value`/`defaultValue` is provided.
 - Conversation stories should keep play assertions semantic (`getByRole`/`findAllByRole`) and avoid helper components inside story render functions.
 - For components that accept a `render` element and forward accessibility props, set the accessible label once on the component to avoid duplicate `aria-label` attributes on both wrapper and inner element.
