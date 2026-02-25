@@ -10,7 +10,14 @@ import { Toaster as Sonner, type ToasterProps } from 'sonner';
 
 import { useTheme } from '../../../theme-provider';
 
-const Toaster = ({ ...props }: ToasterProps) => {
+const toasterStyle: CSSProperties & Record<`--${string}`, string> = {
+  '--normal-bg': 'var(--popover)',
+  '--normal-text': 'var(--popover-foreground)',
+  '--normal-border': 'var(--border)',
+  '--border-radius': 'var(--radius)',
+};
+
+const Toaster = ({ style, ...props }: ToasterProps) => {
   const { resolvedTheme } = useTheme();
 
   return (
@@ -25,14 +32,7 @@ const Toaster = ({ ...props }: ToasterProps) => {
         error: <IconAlertOctagon className="size-4" />,
         loading: <IconLoader2 className="size-4 animate-spin" />,
       }}
-      style={
-        {
-          '--normal-bg': 'var(--popover)',
-          '--normal-text': 'var(--popover-foreground)',
-          '--normal-border': 'var(--border)',
-          '--border-radius': 'var(--radius)',
-        } as CSSProperties
-      }
+      style={{ ...toasterStyle, ...style }}
       {...props}
     />
   );
