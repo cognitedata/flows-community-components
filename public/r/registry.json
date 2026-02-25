@@ -1826,7 +1826,7 @@
       ],
       "registryDependencies": [
         "@aura/css",
-        "@aura/toggle"
+        "@aura/button"
       ],
       "files": [
         {

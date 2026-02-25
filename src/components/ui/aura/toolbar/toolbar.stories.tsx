@@ -3,6 +3,7 @@ import {
   IconAlignLeft,
   IconAlignRight,
   IconBold,
+  IconDotsVertical,
   IconItalic,
   IconPointer,
   IconUnderline,
@@ -174,30 +175,25 @@ export const WithSelect: Story = {
   },
   render: () => (
     <Toolbar>
-      <ToolbarButton>
-        <IconPointer />
-      </ToolbarButton>
-      <ToolbarSeparator />
-      <ToolbarButton render={<Toggle />}>
-        <IconBold />
-      </ToolbarButton>
-      <ToolbarButton render={<Toggle />}>
-        <IconItalic />
-      </ToolbarButton>
-      <ToolbarButton render={<Toggle />}>
-        <IconUnderline />
-      </ToolbarButton>
       <Select>
-        <ToolbarButton variant="outline" size="sm" render={<SelectTrigger />}>
-          <SelectValue placeholder="Zoom" />
+        <ToolbarButton
+          className="min-w-0 w-content"
+          size="sm"
+          render={<SelectTrigger />}
+        >
+          <SelectValue placeholder="Select version" />
         </ToolbarButton>
         <SelectContent>
-          <SelectItem value="100%">100%</SelectItem>
-          <SelectItem value="75%">75%</SelectItem>
-          <SelectItem value="50%">50%</SelectItem>
-          <SelectItem value="25%">25%</SelectItem>
+          <SelectItem value="1.0.0">1.0.0</SelectItem>
+          <SelectItem value="1.1.0">1.1.0</SelectItem>
+          <SelectItem value="1.2.0">1.2.0</SelectItem>
+          <SelectItem value="1.3.0">1.3.0</SelectItem>
         </SelectContent>
       </Select>
+      <ToolbarSeparator />
+      <ToolbarButton>
+        <IconDotsVertical />
+      </ToolbarButton>
     </Toolbar>
   ),
   play: async ({ canvasElement }) => {
@@ -207,7 +203,7 @@ export const WithSelect: Story = {
     await userEvent.click(canvas.getByRole('combobox'));
     await userEvent.keyboard('{ArrowDown}');
     await userEvent.keyboard('{Enter}');
-    await expect(canvas.getByText('100%')).toBeInTheDocument();
+    await expect(canvas.getByText('1.0.0')).toBeInTheDocument();
   },
 };
 
@@ -234,15 +230,19 @@ export const Accessibility: Story = {
         <ToolbarButton aria-label="Underline text" render={<Toggle />}>
           <IconUnderline />
         </ToolbarButton>
-        <Select>
-          <ToolbarButton variant="outline" size="sm" render={<SelectTrigger />}>
-            <SelectValue placeholder="Zoom" />
+        <Select defaultValue="100%">
+          <ToolbarButton
+            className="min-w-10"
+            size="sm"
+            render={<SelectTrigger />}
+          >
+            <SelectValue placeholder="Select version" />
           </ToolbarButton>
           <SelectContent>
             <SelectItem value="100%">100%</SelectItem>
-            <SelectItem value="75%">75%</SelectItem>
-            <SelectItem value="50%">50%</SelectItem>
-            <SelectItem value="25%">25%</SelectItem>
+            <SelectItem value="75%">75</SelectItem>
+            <SelectItem value="50%">50</SelectItem>
+            <SelectItem value="25%">25</SelectItem>
           </SelectContent>
         </Select>
       </Toolbar>

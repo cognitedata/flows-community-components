@@ -2,7 +2,7 @@ import { Toolbar as ToolbarPrimitive } from '@base-ui/react/toolbar';
 import type { VariantProps } from 'class-variance-authority';
 
 import { cn } from '../../../../lib/utils';
-import { toggleVariants } from '../toggle';
+import { buttonVariants } from '../button';
 
 function Toolbar({
   orientation,
@@ -13,7 +13,7 @@ function Toolbar({
     <ToolbarPrimitive.Root
       data-slot="toolbar"
       className={cn(
-        'flex items-center p-1 gap-1 rounded-lg border shadow-md data-[orientation=vertical]:flex-col data-[orientation=horizontal]:flex-row',
+        'flex items-center justify-start p-1 gap-1 rounded-lg border shadow-md data-[orientation=vertical]:flex-col data-[orientation=horizontal]:flex-row',
         className
       )}
       orientation={orientation}
@@ -24,14 +24,14 @@ function Toolbar({
 
 function ToolbarButton({
   className,
-  variant,
+  variant = 'ghost',
   size,
   ...props
-}: ToolbarPrimitive.Button.Props & VariantProps<typeof toggleVariants>) {
+}: ToolbarPrimitive.Button.Props & VariantProps<typeof buttonVariants>) {
   return (
     <ToolbarPrimitive.Button
       data-slot="toolbar-button"
-      className={cn(toggleVariants({ variant, size, className }))}
+      className={cn(buttonVariants({ variant, size, className }))}
       {...props}
     />
   );
