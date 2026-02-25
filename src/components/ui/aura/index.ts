@@ -172,6 +172,7 @@ export type {
 export { ChainOfThoughtMetadata } from './chain-of-thought/chain-of-thought.metadata';
 
 export {
+  Chart,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
@@ -179,7 +180,6 @@ export {
   ChartLegendContent,
   ChartStyle,
 } from './chart/chart';
-export type { ChartConfig } from './chart/chart';
 export { ChartMetadata } from './chart/chart.metadata';
 
 export { Checkbox } from './checkbox/checkbox';
