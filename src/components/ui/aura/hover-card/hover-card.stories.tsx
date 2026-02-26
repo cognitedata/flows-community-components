@@ -189,7 +189,7 @@ export const Basic: Story = {
     return (
       <div className="flex justify-center items-center min-h-80">
         <HoverCard>
-          <HoverCardTrigger render={<Button variant="link">@nextjs</Button>} />
+          <HoverCardTrigger render={<Button variant="ghost">@nextjs</Button>} />
           <HoverCardContent className="w-80">
             <div className="flex justify-between space-x-4">
               <Avatar>
@@ -594,7 +594,7 @@ export const Minimal: Story = {
     <div className="flex justify-center items-center min-h-80">
       <HoverCard>
         <HoverCardTrigger
-          render={<Button variant="link">Hover for info</Button>}
+          render={<Button variant="ghost">Hover for info</Button>}
         />
         <HoverCardContent>
           <p className="text-sm">Simple contextual information</p>

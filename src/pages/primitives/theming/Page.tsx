@@ -1596,7 +1596,12 @@ export default function ThemingPage() {
                                 <Button variant="destructive">
                                   Destructive
                                 </Button>
-                                <Button variant="link">Link</Button>
+                                <a
+                                  href="#"
+                                  className="text-foreground-link underline-offset-4 hover:underline text-sm font-medium"
+                                >
+                                  Link
+                                </a>
                               </div>
                             </div>
 

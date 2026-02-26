@@ -131,6 +131,7 @@ For files under `src/components/ui/aura/**`, prefer relative imports (for exampl
 - Keep exports in a single `export { ... }` block. Allow a single-line export block unless it exceeds print width; when it wraps, use one export per line (avoid multiple separate export statements).
 - `getPortalContainer` supports optional `id`, `className`, and `style` overrides only at first container creation; once cached, custom options are ignored to avoid side effects on subsequent calls.
 - For Base UI tooltip delay tests, avoid mouse-move “keepalive” events during the delay; they can prevent the delayed open from triggering. Prefer `hover` + deterministic wait, with a single hover retry if needed.
+- `Button` no longer supports a `link` variant; use semantic anchors/text-link styles for navigational links instead of button variants.
 - Prefer a closure-scoped cancellation flag in async `useEffect` flows to avoid stale updates after unmount.
 - For static brand images in app code, import from `src/assets` so Vite rewrites URLs correctly for base-path deployments.
 - For portal stories, prefer `canvas.findByTestId()` and add a stable `data-testid` on the dialog content wrapper when semantic queries are not practical.

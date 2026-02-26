@@ -20,14 +20,7 @@ const meta: Meta<typeof Button> = {
   argTypes: {
     variant: {
       control: 'select',
-      options: [
-        'default',
-        'destructive',
-        'secondary',
-        'outline',
-        'ghost',
-        'link',
-      ],
+      options: ['default', 'destructive', 'secondary', 'outline', 'ghost'],
       table: {
         category: 'Variants/Styling',
         type: {
@@ -173,20 +166,6 @@ export const Destructive: Story = {
     await userEvent.click(button);
   },
 };
-export const Link: Story = {
-  render: () => <Button variant="link">Link Button</Button>,
-  parameters: {
-    order: 6,
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const button = canvas.getByRole('button', {
-      name: /link button/i,
-    });
-    await expect(button).toBeInTheDocument();
-    await expect(button).toHaveClass(/link/);
-  },
-};
 export const AllVariants: Story = {
   render: () => (
     <div className="flex flex-wrap items-center justify-center gap-3">
@@ -231,7 +210,6 @@ export const MainComponent: Story = {
       'outline',
       'ghost',
       'destructive',
-      'link',
     ] as const;
     const sizePairs = [
       {
@@ -252,7 +230,6 @@ export const MainComponent: Story = {
       ghost: '[&>button]:bg-accent dark:[&>button]:bg-accent/50',
       destructive:
         '[&>button]:bg-destructive-hover dark:[&>button]:bg-destructive-hover',
-      link: '[&>button]:bg-accent/50 dark:[&>button]:bg-accent/30 [&>button]:underline',
     } as const;
     return (
       <div className="flex flex-wrap gap-3 flex-col w-full">
@@ -667,7 +644,6 @@ export const VisualRegression: Story = {
           <Button variant="outline">Outline</Button>
           <Button variant="ghost">Ghost</Button>
           <Button variant="destructive">Destructive</Button>
-          <Button variant="link">Link</Button>
         </div>
       </div>
 
