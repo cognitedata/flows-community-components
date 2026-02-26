@@ -45,11 +45,15 @@ const ComboboxCustom = forwardRef<ComponentRef<typeof Button>, ComboboxProps>(
     ref
   ) => {
     const [open, setOpen] = useState(false);
-    const [selectedValue, setSelectedValue] = useState(value || '');
+    const [internalValue, setInternalValue] = useState(value ?? '');
+    const isControlled = value !== undefined;
+    const selectedValue = isControlled ? value : internalValue;
 
     const handleValueChange = (newValue: string) => {
       const finalValue = newValue === selectedValue ? '' : newValue;
-      setSelectedValue(finalValue);
+      if (!isControlled) {
+        setInternalValue(finalValue);
+      }
       onValueChange?.(finalValue);
       setOpen(false);
     };

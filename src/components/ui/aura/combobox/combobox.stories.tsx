@@ -27,50 +27,65 @@ import {
 import { HelperText } from '../helper-text';
 import { Label } from '../label';
 import { Popover, PopoverContent, PopoverTrigger } from '../popover';
-const meta: Meta<typeof Popover> = {
+
+import { Combobox } from './combobox';
+
+const meta: Meta<typeof Combobox> = {
   title: 'Primitives/Combobox',
-  component: Popover,
+  component: Combobox,
   tags: ['autodocs'],
   argTypes: {
-    open: {
-      control: 'boolean',
-      table: {
-        category: 'State',
-        type: {
-          summary: 'boolean',
-        },
-      },
-    },
-    defaultOpen: {
-      control: 'boolean',
-      table: {
-        category: 'State',
-        type: {
-          summary: 'boolean',
-        },
-        defaultValue: {
-          summary: 'false',
-        },
-      },
-    },
-    modal: {
-      control: 'boolean',
+    value: {
+      control: 'text',
       table: {
         category: 'Behavior',
         type: {
-          summary: 'boolean',
-        },
-        defaultValue: {
-          summary: 'true',
+          summary: 'string',
         },
       },
     },
-    onOpenChange: {
-      action: 'openChanged',
+    onValueChange: {
+      action: 'valueChanged',
       table: {
         category: 'Events',
         type: {
-          summary: '(open: boolean) => void',
+          summary: '(value: string) => void',
+        },
+      },
+    },
+    options: {
+      control: false,
+      table: {
+        category: 'Content',
+        type: {
+          summary: 'Array<{ value: string; label: string }>',
+        },
+      },
+    },
+    placeholder: {
+      control: 'text',
+      table: {
+        category: 'Content',
+        type: {
+          summary: 'string',
+        },
+      },
+    },
+    searchPlaceholder: {
+      control: 'text',
+      table: {
+        category: 'Content',
+        type: {
+          summary: 'string',
+        },
+      },
+    },
+    emptyText: {
+      control: 'text',
+      table: {
+        category: 'Content',
+        type: {
+          summary: 'string',
         },
       },
     },
@@ -78,12 +93,12 @@ const meta: Meta<typeof Popover> = {
   parameters: {
     layout: 'centered',
     actions: {
-      handles: ['openChanged'],
+      handles: ['valueChanged'],
     },
   },
 };
 export default meta;
-type Story = StoryObj<typeof Popover>;
+type Story = StoryObj<typeof Combobox>;
 const users = [
   {
     value: 'dennis-rodman',
