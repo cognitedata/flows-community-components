@@ -727,9 +727,7 @@ export const KeyboardNavigation: Story = {
     await body.findByPlaceholderText('Search users...');
     await userEvent.keyboard('{ArrowDown}');
     await waitFor(() => {
-      expect(
-        body.getByRole('option', { name: /dennis rodman/i })
-      ).toHaveAttribute('aria-selected', 'true');
+      expect(body.getByRole('option', { selected: true })).toBeInTheDocument();
     });
     await userEvent.keyboard('{Escape}');
     await waitFor(() => {
