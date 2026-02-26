@@ -134,6 +134,8 @@ For files under `src/components/ui/aura/**`, prefer relative imports (for exampl
 - Prefer a closure-scoped cancellation flag in async `useEffect` flows to avoid stale updates after unmount.
 - For static brand images in app code, import from `src/assets` so Vite rewrites URLs correctly for base-path deployments.
 - For portal stories, prefer `canvas.findByTestId()` and add a stable `data-testid` on the dialog content wrapper when semantic queries are not practical.
+- Breadcrumb examples that mirror product UI can combine a static `BreadcrumbEllipsis` in the path with a `BreadcrumbPageButton` dropdown for current-page actions.
+- Breadcrumb stories should include `parameters.order` for every story and avoid inline `//` comments inside play functions.
 - When `noImplicitAny` is enabled, type Storybook `play` contexts explicitly (e.g. `({ canvasElement }: { canvasElement: HTMLElement })`) and type Playground `args` with `ComponentProps<typeof Component>`.
 - For portal stories, prefer semantic queries first; use test ids only in test code when mocking and no semantic query is available.
 - Accordion story play tests are more robust when asserting trigger `aria-expanded` state changes instead of querying open panels by implementation-specific selectors.
@@ -148,8 +150,11 @@ For files under `src/components/ui/aura/**`, prefer relative imports (for exampl
 - Conversation stories should keep play assertions semantic (`getByRole`/`findAllByRole`) and avoid helper components inside story render functions.
 - For components that accept a `render` element and forward accessibility props, set the accessible label once on the component to avoid duplicate `aria-label` attributes on both wrapper and inner element.
 - In Aura stories, avoid DOM traversal selectors in play functions; prefer semantic role/text queries for the interacted element.
+  <<<<<<< HEAD
+- # Breadcrumb story assertions for `BreadcrumbPageButton` should query by role/name (`getByRole("button", { name: ... })`) instead of chaining `.closest("button")`.
 - In story play tests, avoid `canvasElement.querySelectorAll('[data-slot=\"skeleton\"]')`; prefer semantic queries (for example role/text-based) and only fall back to slot selectors when no semantic target exists.
 - Progress stories should assert state via semantic `progressbar` ARIA attributes (`aria-valuenow`, min/max/name) instead of querying internal indicator slots.
+  > > > > > > > main
 
 # Storybook Stories
 
