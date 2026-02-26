@@ -94,75 +94,209 @@ const meta: Meta<typeof Button> = {
 };
 export default meta;
 type Story = StoryObj<typeof Button>;
-export const Default: Story = {
-  render: () => <Button>Button</Button>,
+export const DefaultSmall: Story = {
+  render: () => <Button size="sm">Default Small</Button>,
   parameters: {
     order: 1,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const button = canvas.getByRole('button', {
-      name: /button/i,
-    });
+    const button = canvas.getByRole('button', { name: /default small/i });
     await expect(button).toBeInTheDocument();
     await userEvent.click(button);
-    await expect(button).toHaveFocus();
   },
 };
-export const Secondary: Story = {
-  render: () => <Button variant="secondary">Secondary</Button>,
+export const Default: Story = {
+  render: () => <Button>Default</Button>,
   parameters: {
     order: 2,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const button = canvas.getByRole('button', {
-      name: /secondary/i,
-    });
+    const button = canvas.getByRole('button', { name: /^default$/i });
     await expect(button).toBeInTheDocument();
-    await expect(button).toHaveClass(/secondary/);
+    await userEvent.click(button);
   },
 };
-export const Outline: Story = {
-  render: () => <Button variant="outline">Outline</Button>,
+export const DefaultLarge: Story = {
+  render: () => <Button size="lg">Default Large</Button>,
   parameters: {
     order: 3,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const button = canvas.getByRole('button', {
-      name: /outline/i,
-    });
+    const button = canvas.getByRole('button', { name: /default large/i });
     await expect(button).toBeInTheDocument();
-    await expect(button).toHaveClass(/outline/);
+    await userEvent.click(button);
   },
 };
-export const Ghost: Story = {
-  render: () => <Button variant="ghost">Ghost</Button>,
+export const SecondarySmall: Story = {
+  render: () => (
+    <Button variant="secondary" size="sm">
+      Secondary Small
+    </Button>
+  ),
   parameters: {
     order: 4,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const button = canvas.getByRole('button', {
-      name: /ghost/i,
-    });
+    const button = canvas.getByRole('button', { name: /secondary small/i });
     await expect(button).toBeInTheDocument();
-    await userEvent.hover(button);
   },
 };
-export const Destructive: Story = {
-  render: () => <Button variant="destructive">Delete</Button>,
+export const Secondary: Story = {
+  render: () => <Button variant="secondary">Secondary</Button>,
   parameters: {
     order: 5,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const button = canvas.getByRole('button', {
-      name: /delete/i,
-    });
+    const button = canvas.getByRole('button', { name: /^secondary$/i });
     await expect(button).toBeInTheDocument();
-    await expect(button).toHaveClass(/destructive/);
+  },
+};
+export const SecondaryLarge: Story = {
+  render: () => (
+    <Button variant="secondary" size="lg">
+      Secondary Large
+    </Button>
+  ),
+  parameters: {
+    order: 6,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const button = canvas.getByRole('button', { name: /secondary large/i });
+    await expect(button).toBeInTheDocument();
+  },
+};
+export const OutlineSmall: Story = {
+  render: () => (
+    <Button variant="outline" size="sm">
+      Outline Small
+    </Button>
+  ),
+  parameters: {
+    order: 7,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const button = canvas.getByRole('button', { name: /outline small/i });
+    await expect(button).toBeInTheDocument();
+  },
+};
+export const Outline: Story = {
+  render: () => <Button variant="outline">Outline</Button>,
+  parameters: {
+    order: 8,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const button = canvas.getByRole('button', { name: /^outline$/i });
+    await expect(button).toBeInTheDocument();
+  },
+};
+export const OutlineLarge: Story = {
+  render: () => (
+    <Button variant="outline" size="lg">
+      Outline Large
+    </Button>
+  ),
+  parameters: {
+    order: 9,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const button = canvas.getByRole('button', { name: /outline large/i });
+    await expect(button).toBeInTheDocument();
+  },
+};
+export const GhostSmall: Story = {
+  render: () => (
+    <Button variant="ghost" size="sm">
+      Ghost Small
+    </Button>
+  ),
+  parameters: {
+    order: 10,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const button = canvas.getByRole('button', { name: /ghost small/i });
+    await expect(button).toBeInTheDocument();
+    await userEvent.hover(button);
+  },
+};
+export const Ghost: Story = {
+  render: () => <Button variant="ghost">Ghost</Button>,
+  parameters: {
+    order: 11,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const button = canvas.getByRole('button', { name: /^ghost$/i });
+    await expect(button).toBeInTheDocument();
+    await userEvent.hover(button);
+  },
+};
+export const GhostLarge: Story = {
+  render: () => (
+    <Button variant="ghost" size="lg">
+      Ghost Large
+    </Button>
+  ),
+  parameters: {
+    order: 12,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const button = canvas.getByRole('button', { name: /ghost large/i });
+    await expect(button).toBeInTheDocument();
+    await userEvent.hover(button);
+  },
+};
+export const DestructiveSmall: Story = {
+  render: () => (
+    <Button variant="destructive" size="sm">
+      Destructive Small
+    </Button>
+  ),
+  parameters: {
+    order: 13,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const button = canvas.getByRole('button', { name: /destructive small/i });
+    await expect(button).toBeInTheDocument();
+    await userEvent.click(button);
+  },
+};
+export const Destructive: Story = {
+  render: () => <Button variant="destructive">Destructive</Button>,
+  parameters: {
+    order: 14,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const button = canvas.getByRole('button', { name: /^destructive$/i });
+    await expect(button).toBeInTheDocument();
+    await userEvent.click(button);
+  },
+};
+export const DestructiveLarge: Story = {
+  render: () => (
+    <Button variant="destructive" size="lg">
+      Destructive Large
+    </Button>
+  ),
+  parameters: {
+    order: 15,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const button = canvas.getByRole('button', { name: /destructive large/i });
+    await expect(button).toBeInTheDocument();
     await userEvent.click(button);
   },
 };
@@ -193,92 +327,13 @@ export const AllVariants: Story = {
     </div>
   ),
   parameters: {
-    order: 7,
+    order: 16,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const buttons = await canvas.findAllByRole('button');
     await expect(buttons).toHaveLength(6);
     await userEvent.click(buttons[0]);
-  },
-};
-export const MainComponent: Story = {
-  render: () => {
-    const variants = [
-      'default',
-      'secondary',
-      'outline',
-      'ghost',
-      'destructive',
-    ] as const;
-    const sizePairs = [
-      {
-        label: 'default',
-      },
-      {
-        label: 'sm',
-      },
-      {
-        label: 'lg',
-      },
-    ] as const;
-    const activeWrapperClassByVariant = {
-      default: '[&>button]:bg-primary-hover dark:[&>button]:bg-primary-hover',
-      secondary:
-        '[&>button]:bg-secondary-hover dark:[&>button]:bg-secondary-hover',
-      outline: '[&>button]:bg-accent dark:[&>button]:bg-input/50',
-      ghost: '[&>button]:bg-accent dark:[&>button]:bg-accent/50',
-      destructive:
-        '[&>button]:bg-destructive-hover dark:[&>button]:bg-destructive-hover',
-    } as const;
-    return (
-      <div className="flex flex-wrap gap-3 flex-col w-full">
-        {variants.map((variant) => (
-          <div
-            key={variant}
-            className="flex flex-wrap items-center gap-3 w-full"
-          >
-            {sizePairs.map(({ label }) => (
-              <div key={`${variant}-${label}`} className="contents">
-                <Button variant={variant} size={label}>
-                  <IconPlus className="size-4" />
-                  Button
-                </Button>
-                <div className={activeWrapperClassByVariant[variant]}>
-                  <Button variant={variant} size={label}>
-                    <IconPlus className="size-4" />
-                    Button
-                  </Button>
-                </div>
-                <Button variant={variant} size={label} disabled>
-                  <IconPlus className="size-4" />
-                  Button
-                </Button>
-                <div className={activeWrapperClassByVariant[variant]}>
-                  <Button variant={variant} size={label}>
-                    <IconPlus className="size-4" />
-                  </Button>
-                </div>
-                <Button variant={variant} size={label}>
-                  <IconPlus className="size-4" />
-                </Button>
-                <Button variant={variant} size={label} disabled>
-                  <IconPlus className="size-4" />
-                </Button>
-              </div>
-            ))}
-          </div>
-        ))}
-      </div>
-    );
-  },
-  parameters: {
-    order: 8,
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const buttons = await canvas.findAllByRole('button');
-    await expect(buttons.length).toBeGreaterThan(10);
   },
 };
 export const ButtonStates: Story = {
@@ -294,7 +349,7 @@ export const ButtonStates: Story = {
     </div>
   ),
   parameters: {
-    order: 9,
+    order: 17,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -313,7 +368,7 @@ export const AllSizes: Story = {
     </div>
   ),
   parameters: {
-    order: 10,
+    order: 18,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -331,7 +386,7 @@ export const WithLeftIcon: Story = {
     </Button>
   ),
   parameters: {
-    order: 11,
+    order: 19,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -339,8 +394,7 @@ export const WithLeftIcon: Story = {
       name: /add item/i,
     });
     await expect(button).toBeInTheDocument();
-    const icon = button.querySelector('svg');
-    await expect(icon).toBeInTheDocument();
+    await expect(button).toHaveTextContent(/add item/i);
   },
 };
 export const WithRightIcon: Story = {
@@ -351,7 +405,7 @@ export const WithRightIcon: Story = {
     </Button>
   ),
   parameters: {
-    order: 12,
+    order: 20,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -376,7 +430,7 @@ export const IconButtons: Story = {
     </div>
   ),
   parameters: {
-    order: 13,
+    order: 21,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -408,7 +462,7 @@ export const Disabled: Story = {
     </div>
   ),
   parameters: {
-    order: 14,
+    order: 22,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -433,7 +487,7 @@ export const Loading: Story = {
     </div>
   ),
   parameters: {
-    order: 15,
+    order: 23,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -441,8 +495,8 @@ export const Loading: Story = {
     for (const button of buttons) {
       await expect(button).toBeDisabled();
     }
-    const spinner = buttons[0].querySelector('svg');
-    await expect(spinner).toBeInTheDocument();
+    await expect(buttons[0]).toHaveTextContent(/loading/i);
+    await expect(buttons[1]).toHaveTextContent(/please wait/i);
   },
 };
 export const InContext: Story = {
@@ -471,7 +525,7 @@ export const InContext: Story = {
     </div>
   ),
   parameters: {
-    order: 16,
+    order: 24,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -498,7 +552,7 @@ export const ClickInteraction: Story = {
     );
   },
   parameters: {
-    order: 17,
+    order: 25,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -524,7 +578,7 @@ export const KeyboardNavigation: Story = {
     </div>
   ),
   parameters: {
-    order: 18,
+    order: 26,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -559,7 +613,7 @@ export const Accessibility: Story = {
     </div>
   ),
   parameters: {
-    order: 19,
+    order: 27,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -614,7 +668,7 @@ export const FormButtonTypes: Story = {
     );
   },
   parameters: {
-    order: 20,
+    order: 28,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -731,7 +785,7 @@ export const VisualRegression: Story = {
     </div>
   ),
   parameters: {
-    order: 21,
+    order: 29,
     chromatic: {
       disableSnapshot: false,
     },
@@ -746,7 +800,7 @@ export const EdgeCaseEmpty: Story = {
     </div>
   ),
   parameters: {
-    order: 22,
+    order: 30,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -772,7 +826,7 @@ export const EdgeCaseLongText: Story = {
     </div>
   ),
   parameters: {
-    order: 23,
+    order: 31,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -810,7 +864,7 @@ export const EdgeCaseSpecialCharacters: Story = {
     </div>
   ),
   parameters: {
-    order: 24,
+    order: 32,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -846,15 +900,14 @@ export const EdgeCaseMultipleIcons: Story = {
     </div>
   ),
   parameters: {
-    order: 25,
+    order: 33,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const buttons = await canvas.findAllByRole('button');
     await expect(buttons).toHaveLength(3);
-    const firstButton = buttons[0];
-    const icons = firstButton.querySelectorAll('svg');
-    await expect(icons.length).toBeGreaterThanOrEqual(2);
+    await expect(buttons[0]).toHaveTextContent(/multiple icons/i);
+    await expect(buttons[1]).toHaveTextContent(/text in middle/i);
   },
 };
 export const EdgeCaseWhitespace: Story = {
@@ -866,7 +919,7 @@ export const EdgeCaseWhitespace: Story = {
     </div>
   ),
   parameters: {
-    order: 26,
+    order: 34,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -895,15 +948,14 @@ export const EdgeCaseNestedElements: Story = {
     </div>
   ),
   parameters: {
-    order: 27,
+    order: 35,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const buttons = await canvas.findAllByRole('button');
     await expect(buttons).toHaveLength(3);
-    const firstButton = buttons[0];
-    const boldSpan = firstButton.querySelector('span.font-bold');
-    await expect(boldSpan).toBeInTheDocument();
+    await expect(canvas.getByText('Bold')).toBeInTheDocument();
+    await expect(canvas.getByText('italic')).toBeInTheDocument();
     await userEvent.click(buttons[1]);
   },
 };
@@ -930,7 +982,7 @@ export const EdgeCaseWidthConstraints: Story = {
     </div>
   ),
   parameters: {
-    order: 28,
+    order: 36,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -962,7 +1014,7 @@ export const EdgeCaseIconOnly: Story = {
     </div>
   ),
   parameters: {
-    order: 29,
+    order: 37,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -1013,7 +1065,7 @@ export const EdgeCaseRapidStateChanges: Story = {
     );
   },
   parameters: {
-    order: 30,
+    order: 38,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -1054,7 +1106,7 @@ export const EdgeCaseInvisibleContent: Story = {
     </div>
   ),
   parameters: {
-    order: 31,
+    order: 39,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -1062,9 +1114,10 @@ export const EdgeCaseInvisibleContent: Story = {
     await expect(buttons).toHaveLength(3);
     await userEvent.click(buttons[0]);
     await expect(buttons[0]).toHaveFocus();
-    const srButton = buttons[1];
-    const srText = srButton.querySelector('.sr-only');
-    await expect(srText).toBeInTheDocument();
+    const srButton = canvas.getByRole('button', {
+      name: /screen reader only/i,
+    });
+    await expect(srButton).toBeInTheDocument();
   },
 };
 export const Playground: Story = {

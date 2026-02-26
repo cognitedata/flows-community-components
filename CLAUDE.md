@@ -132,6 +132,9 @@ For files under `src/components/ui/aura/**`, prefer relative imports (for exampl
 - `getPortalContainer` supports optional `id`, `className`, and `style` overrides only at first container creation; once cached, custom options are ignored to avoid side effects on subsequent calls.
 - For Base UI tooltip delay tests, avoid mouse-move “keepalive” events during the delay; they can prevent the delayed open from triggering. Prefer `hover` + deterministic wait, with a single hover retry if needed.
 - `Button` no longer supports a `link` variant; use semantic anchors/text-link styles for navigational links instead of button variants.
+- Keep `Button` `Default` story aligned with the default row in the matrix demo (default variant across sizes and icon/text state permutations).
+- Mirror the same size/state/icon matrix pattern for each core `Button` variant story (`secondary`, `outline`, `ghost`, `destructive`) to keep story coverage consistent.
+- Prefer size-specific variant stories for Button docs (`VariantSmall`, `Variant`, `VariantLarge`) when the goal is clearer Storybook navigation.
 - Prefer a closure-scoped cancellation flag in async `useEffect` flows to avoid stale updates after unmount.
 - For static brand images in app code, import from `src/assets` so Vite rewrites URLs correctly for base-path deployments.
 - For portal stories, prefer `canvas.findByTestId()` and add a stable `data-testid` on the dialog content wrapper when semantic queries are not practical.
