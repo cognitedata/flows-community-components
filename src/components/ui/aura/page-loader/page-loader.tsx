@@ -15,14 +15,6 @@ const PageLoader = ({
   info,
   ...props
 }: PageLoaderProps) => {
-  // const textColorClass = darkMode ? 'text-white' : 'text-black';
-  // const showInfo = Boolean(infoTitle) || Boolean(infoText);
-  // const infoWidth = width * 3;
-  // const mergedStyle: CSSProperties = {
-  //   width,
-  //   ...style,
-  // };
-
   return (
     <div
       data-slot="page-loader"

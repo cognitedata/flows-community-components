@@ -52,7 +52,7 @@ export const Basic: Story = {
   render: () => <PageLoader />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByLabelText('Page loading')).toBeInTheDocument();
+    await expect(canvas.getByText('Loading page...')).toBeInTheDocument();
   },
 };
 
