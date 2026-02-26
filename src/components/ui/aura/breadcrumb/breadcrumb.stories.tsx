@@ -557,10 +557,13 @@ export const Interactive: Story = {
       <div className="flex flex-col gap-4">
         <Breadcrumb>
           <BreadcrumbList>
-            {path.map((item, index) => (
-              <div key={item} className="contents">
-                <BreadcrumbItem>
-                  {index === path.length - 1 ? (
+            {path.flatMap((item, index) => {
+              const itemKey = `${item}-${index}`;
+              const isLastItem = index === path.length - 1;
+
+              return [
+                <BreadcrumbItem key={itemKey}>
+                  {isLastItem ? (
                     <BreadcrumbPage>{item}</BreadcrumbPage>
                   ) : (
                     <BreadcrumbLink
@@ -573,10 +576,12 @@ export const Interactive: Story = {
                       {item}
                     </BreadcrumbLink>
                   )}
-                </BreadcrumbItem>
-                {index < path.length - 1 && <BreadcrumbSeparator />}
-              </div>
-            ))}
+                </BreadcrumbItem>,
+                ...(isLastItem
+                  ? []
+                  : [<BreadcrumbSeparator key={`${itemKey}-separator`} />]),
+              ];
+            })}
           </BreadcrumbList>
         </Breadcrumb>
         <div className="flex flex-wrap gap-2 pt-2 border-t">
