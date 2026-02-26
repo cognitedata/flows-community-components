@@ -3,7 +3,8 @@ import { type ComponentRef, forwardRef } from 'react';
 
 import { cn, getPortalContainer } from '../../../../lib/utils';
 function TooltipProvider({
-  delayDuration = 0,
+  delayDuration,
+  timeout = 0,
   ...props
 }: Omit<TooltipPrimitive.Provider.Props, 'delay'> & {
   delayDuration?: number;
@@ -12,6 +13,7 @@ function TooltipProvider({
     <TooltipPrimitive.Provider
       data-slot="tooltip-provider"
       delay={delayDuration}
+      timeout={timeout}
       {...props}
     />
   );
@@ -35,11 +37,12 @@ function Tooltip({
 const TooltipTrigger = forwardRef<
   HTMLButtonElement,
   TooltipPrimitive.Trigger.Props
->((props, ref) => {
+>(({ delay = 700, ...props }, ref) => {
   return (
     <TooltipPrimitive.Trigger
       ref={ref}
       data-slot="tooltip-trigger"
+      delay={delay}
       {...props}
     />
   );

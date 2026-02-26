@@ -790,9 +790,10 @@ export const WithDelay: Story = {
     await waitForTooltipClosed();
   },
   render: () => (
-    <TooltipProvider delayDuration={1500}>
+    <TooltipProvider>
       <Tooltip>
         <TooltipTrigger
+          delay={1500}
           render={<Button variant="outline">Hover me (with delay)</Button>}
         />
         <TooltipContent>
