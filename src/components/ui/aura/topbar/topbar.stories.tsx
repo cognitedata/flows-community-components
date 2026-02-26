@@ -5,7 +5,6 @@ import {
   IconEdit,
   IconFileText,
   IconHomeFilled,
-  IconLayoutSidebar,
   IconPlus,
   IconSettings,
   IconShare,
@@ -13,14 +12,6 @@ import {
 } from '@tabler/icons-react';
 import { useState } from 'react';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
-
-import {
-  Topbar,
-  TopbarBreadcrumbs,
-  TopbarCenter,
-  TopbarLeft,
-  TopbarRight,
-} from './topbar';
 
 import {
   AlertDialog,
@@ -32,20 +23,16 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from '@/components/ui/aura/alert-dialog';
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from '@/components/ui/aura/avatar';
+} from '../alert-dialog';
+import { Avatar, AvatarFallback, AvatarImage } from '../avatar';
 import {
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from '@/components/ui/aura/breadcrumb';
-import { Button } from '@/components/ui/aura/button';
+} from '../breadcrumb';
+import { Button } from '../button';
 import {
   Sidebar,
   SidebarContent,
@@ -60,8 +47,15 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarProvider,
-  SidebarTrigger,
-} from '@/components/ui/aura/sidebar';
+} from '../sidebar';
+
+import {
+  Topbar,
+  TopbarBreadcrumbs,
+  TopbarCenter,
+  TopbarLeft,
+  TopbarRight,
+} from './topbar';
 
 const meta: Meta<typeof Topbar> = {
   title: 'Primitives/Topbar',
@@ -87,21 +81,21 @@ export const Basic: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const sidebarButton = canvas.getByRole('button', {
-      name: /sidebar/i,
-    });
-    await expect(sidebarButton).toBeInTheDocument();
-    const actionButtons = canvas.getAllByRole('button');
-    await expect(actionButtons.length).toBeGreaterThan(0);
+    await expect(
+      canvas.getByRole('button', { name: 'Button' })
+    ).toBeInTheDocument();
+    await expect(
+      canvas.getByRole('button', { name: /share/i })
+    ).toBeInTheDocument();
+    await expect(
+      canvas.getByRole('link', { name: /go to home/i })
+    ).toBeInTheDocument();
   },
   render: function TopbarBasicStory() {
     return (
-      <div className="w-full overflow-hidden">
+      <div className="w-full overflow-hidden p-4">
         <Topbar>
           <TopbarLeft>
-            <Button variant="ghost" size="icon-sm" aria-label="Toggle sidebar">
-              <IconLayoutSidebar className="h-4.5 w-4.5" />
-            </Button>
             <TopbarBreadcrumbs>
               <BreadcrumbList>
                 <BreadcrumbItem>
@@ -149,12 +143,9 @@ export const WithCenterContent: Story = {
   },
   render: function TopbarWithCenterContentStory() {
     return (
-      <div className="w-full overflow-hidden">
+      <div className="w-full overflow-hidden p-4">
         <Topbar>
           <TopbarLeft>
-            <Button variant="ghost" size="icon-sm" aria-label="Toggle sidebar">
-              <IconLayoutSidebar className="h-4.5 w-4.5" />
-            </Button>
             <TopbarBreadcrumbs>
               <BreadcrumbList>
                 <BreadcrumbItem>
@@ -192,20 +183,16 @@ export const EosStyle: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const newChatButton = canvas.getByRole('button', {
-      name: /new chat/i,
-    });
+
+    const newChatButton = canvas.getByRole('button', { name: /new chat/i });
     await expect(newChatButton).toBeInTheDocument();
     await expect(newChatButton).toBeEnabled();
   },
   render: function TopbarEosStyleStory() {
     return (
-      <div className="w-full">
+      <div className="w-full p-4">
         <Topbar>
           <TopbarLeft>
-            <Button variant="ghost" size="icon" aria-label="Toggle sidebar">
-              <IconLayoutSidebar className="h-4 w-4" />
-            </Button>
             <TopbarBreadcrumbs>
               <BreadcrumbList>
                 <BreadcrumbItem>
@@ -273,7 +260,7 @@ export const Minimal: Story = {
   },
   render: function TopbarMinimalStory() {
     return (
-      <div className="w-full overflow-hidden">
+      <div className="w-full overflow-hidden p-4">
         <Topbar>
           <TopbarLeft>
             <TopbarBreadcrumbs>
@@ -321,12 +308,9 @@ export const WithMultipleActions: Story = {
   },
   render: function TopbarWithMultipleActionsStory() {
     return (
-      <div className="w-full overflow-hidden">
+      <div className="w-full overflow-hidden p-4">
         <Topbar>
           <TopbarLeft>
-            <Button variant="ghost" size="icon-sm" aria-label="Toggle sidebar">
-              <IconLayoutSidebar className="h-4.5 w-4.5" />
-            </Button>
             <TopbarBreadcrumbs>
               <BreadcrumbList>
                 <BreadcrumbItem>
@@ -370,16 +354,18 @@ export const WithSidebar: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const sidebarTrigger = canvas.getByRole('button', {
-      name: /toggle sidebar/i,
-    });
-    await expect(sidebarTrigger).toBeInTheDocument();
-    const sidebarLabel = canvas.getByText('Platform');
-    await expect(sidebarLabel).toBeInTheDocument();
-    const activeItem = canvas.getByText('Overview');
-    await expect(activeItem).toBeInTheDocument();
-    await userEvent.click(sidebarTrigger);
-    await expect(sidebarLabel).toBeInTheDocument();
+    await expect(canvas.getByText('Platform')).toBeInTheDocument();
+    await expect(canvas.getByText('Overview')).toBeInTheDocument();
+    await expect(
+      canvas.getByRole('button', {
+        name: /new item/i,
+      })
+    ).toBeInTheDocument();
+    await expect(
+      canvas.getByRole('button', {
+        name: /share/i,
+      })
+    ).toBeInTheDocument();
   },
   render: function TopbarWithSidebarStory() {
     return (
@@ -471,7 +457,6 @@ export const WithSidebar: Story = {
             <SidebarInset>
               <Topbar>
                 <TopbarLeft>
-                  <SidebarTrigger />
                   <TopbarBreadcrumbs>
                     <BreadcrumbList>
                       <BreadcrumbItem>
@@ -548,10 +533,10 @@ export const Interactive: Story = {
         timeout: 5000,
       }
     );
-    const newItemButton = canvas.getByRole('button', {
-      name: /new item/i,
-    });
+
+    const newItemButton = canvas.getByRole('button', { name: /new item/i });
     await userEvent.click(newItemButton);
+
     await waitFor(
       () => {
         expect(canvas.getByText(/last clicked: new-item/i)).toBeInTheDocument();
@@ -560,10 +545,10 @@ export const Interactive: Story = {
         timeout: 5000,
       }
     );
-    const shareButton = canvas.getByRole('button', {
-      name: /share/i,
-    });
+
+    const shareButton = canvas.getByRole('button', { name: /share/i });
     await userEvent.click(shareButton);
+
     await waitFor(
       () => {
         expect(canvas.getByText(/last clicked: share/i)).toBeInTheDocument();
@@ -572,25 +557,16 @@ export const Interactive: Story = {
         timeout: 5000,
       }
     );
-    const homeLink = canvas.getByRole('link', {
-      name: 'Home',
-    });
+
+    const homeLink = canvas.getByRole('link', { name: 'Home' });
     await userEvent.click(homeLink);
   },
   render: function TopbarInteractiveStory() {
     const [clicked, setClicked] = useState<string | null>(null);
     return (
-      <div className="w-full overflow-hidden">
+      <div className="w-full overflow-hidden p-4">
         <Topbar>
           <TopbarLeft>
-            <Button
-              variant="ghost"
-              size="icon-sm"
-              aria-label="Toggle sidebar"
-              onClick={() => setClicked('sidebar')}
-            >
-              <IconLayoutSidebar className="h-4.5 w-4.5" />
-            </Button>
             <TopbarBreadcrumbs>
               <BreadcrumbList>
                 <BreadcrumbItem>
@@ -654,12 +630,9 @@ export const LongBreadcrumb: Story = {
   },
   render: function TopbarLongBreadcrumbStory() {
     return (
-      <div className="w-full overflow-hidden">
+      <div className="w-full overflow-hidden p-4">
         <Topbar>
           <TopbarLeft>
-            <Button variant="ghost" size="icon-sm" aria-label="Toggle sidebar">
-              <IconLayoutSidebar className="h-4.5 w-4.5" />
-            </Button>
             <TopbarBreadcrumbs>
               <BreadcrumbList>
                 <BreadcrumbItem>
@@ -703,25 +676,15 @@ export const LongBreadcrumb: Story = {
   },
 };
 export const Playground: Story = {
-  args: {
-    className: '',
-  },
   parameters: {
     order: 99,
   },
-  render: function TopbarPlaygroundStory(args) {
+  render: function TopbarPlaygroundStory() {
     return (
       <div className="flex items-center justify-center p-24">
-        <div className="w-full overflow-hidden border rounded-lg">
-          <Topbar {...args}>
+        <div className="w-full overflow-hidden">
+          <Topbar>
             <TopbarLeft>
-              <Button
-                variant="ghost"
-                size="icon-sm"
-                aria-label="Toggle sidebar"
-              >
-                <IconLayoutSidebar className="h-4.5 w-4.5" />
-              </Button>
               <TopbarBreadcrumbs>
                 <BreadcrumbList>
                   <BreadcrumbItem>

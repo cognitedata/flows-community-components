@@ -1,5 +1,4 @@
 import {
-  type CSSProperties,
   type ComponentProps,
   type ComponentType,
   type ReactNode,
@@ -12,8 +11,7 @@ import * as RechartsPrimitive from 'recharts';
 
 import { cn } from '../../../../lib/utils';
 
-// Format: { THEME_NAME: CSS_SELECTOR }
-const THEMES = { light: '', dark: '.dark' } as const;
+const THEMES: Record<'light' | 'dark', string> = { light: '', dark: '.dark' };
 
 export type ChartConfig = {
   [k in string]: {
@@ -87,28 +85,36 @@ const ChartStyle = ({ id, config }: { id: string; config: ChartConfig }) => {
 
   return (
     <style
-      // biome-ignore lint/security/noDangerouslySetInnerHtml: Required for dynamic chart theming
       dangerouslySetInnerHTML={{
         __html: Object.entries(THEMES)
-          .map(
-            ([theme, prefix]) => `
+          .map(([themeName, prefix]) => {
+            if (themeName !== 'light' && themeName !== 'dark') {
+              return '';
+            }
+            const cssVariables = colorConfig
+              .map(([key, itemConfig]) => {
+                const color = itemConfig.theme?.[themeName] || itemConfig.color;
+                return color ? `  --color-${key}: ${color};` : null;
+              })
+              .filter((color): color is string => color !== null)
+              .join('\n');
+            return `
 ${prefix} [data-chart=${id}] {
-${colorConfig
-  .map(([key, itemConfig]) => {
-    const color =
-      itemConfig.theme?.[theme as keyof typeof itemConfig.theme] ||
-      itemConfig.color;
-    return color ? `  --color-${key}: ${color};` : null;
-  })
-  .join('\n')}
+${cssVariables}
 }
-`
-          )
+`;
+          })
           .join('\n'),
       }}
     />
   );
 };
+
+type ChartProps = ComponentProps<typeof ChartContainer>;
+
+function Chart(props: ChartProps) {
+  return <ChartContainer {...props} />;
+}
 
 const ChartTooltip = RechartsPrimitive.Tooltip;
 
@@ -125,7 +131,7 @@ type TooltipPayloadItem = {
 
 type ChartTooltipContentProps = Omit<
   ComponentProps<typeof RechartsPrimitive.Tooltip>,
-  'content'
+  'content' | 'formatter' | 'labelFormatter'
 > &
   ComponentProps<'div'> & {
     hideLabel?: boolean;
@@ -135,6 +141,17 @@ type ChartTooltipContentProps = Omit<
     labelKey?: string;
     payload?: TooltipPayloadItem[];
     label?: string | number;
+    formatter?: (
+      value: string | number,
+      name: string | number,
+      item: TooltipPayloadItem,
+      index: number,
+      payload: Record<string, unknown> | undefined
+    ) => ReactNode;
+    labelFormatter?: (
+      value: ReactNode,
+      payload: TooltipPayloadItem[]
+    ) => ReactNode;
   };
 
 function ChartTooltipContent({
@@ -164,13 +181,13 @@ function ChartTooltipContent({
     const itemConfig = getPayloadConfigFromPayload(config, item, key);
     const value =
       !labelKey && typeof label === 'string'
-        ? config[label as keyof typeof config]?.label || label
+        ? config[label]?.label || label
         : itemConfig?.label;
 
     if (labelFormatter) {
       return (
         <div className={cn('font-medium', labelClassName)}>
-          {labelFormatter(value, payload as never)}
+          {labelFormatter(value, payload)}
         </div>
       );
     }
@@ -210,7 +227,11 @@ function ChartTooltipContent({
           .map((item: TooltipPayloadItem, index: number) => {
             const key = `${nameKey || item.name || item.dataKey || 'value'}`;
             const itemConfig = getPayloadConfigFromPayload(config, item, key);
-            const indicatorColor = color || item.payload?.fill || item.color;
+            const payloadFill =
+              isRecord(item.payload) && typeof item.payload.fill === 'string'
+                ? item.payload.fill
+                : undefined;
+            const indicatorColor = color || payloadFill || item.color;
 
             return (
               <div
@@ -224,9 +245,9 @@ function ChartTooltipContent({
                   formatter(
                     item.value,
                     item.name,
-                    item as never,
+                    item,
                     index,
-                    item.payload as never
+                    isRecord(item.payload) ? item.payload : undefined
                   )
                 ) : (
                   <>
@@ -235,22 +256,17 @@ function ChartTooltipContent({
                     ) : (
                       !hideIndicator && (
                         <div
-                          className={cn(
-                            'shrink-0 rounded-sm border-(--color-border) bg-(--color-bg)',
-                            {
-                              'h-2.5 w-2.5': indicator === 'dot',
-                              'w-1': indicator === 'line',
-                              'w-0 border border-dashed bg-transparent':
-                                indicator === 'dashed',
-                              'my-0.5': nestLabel && indicator === 'dashed',
-                            }
-                          )}
-                          style={
-                            {
-                              '--color-bg': indicatorColor,
-                              '--color-border': indicatorColor,
-                            } as CSSProperties
-                          }
+                          className={cn('shrink-0 rounded-sm', {
+                            'h-2.5 w-2.5': indicator === 'dot',
+                            'w-1': indicator === 'line',
+                            'w-0 border border-dashed bg-transparent':
+                              indicator === 'dashed',
+                            'my-0.5': nestLabel && indicator === 'dashed',
+                          })}
+                          style={{
+                            backgroundColor: indicatorColor,
+                            borderColor: indicatorColor,
+                          }}
                         />
                       )
                     )}
@@ -351,46 +367,51 @@ function ChartLegendContent({
   );
 }
 
-// Helper to extract item config from a payload.
 function getPayloadConfigFromPayload(
   config: ChartConfig,
   payload: unknown,
   key: string
 ) {
-  if (typeof payload !== 'object' || payload === null) {
+  if (!isRecord(payload)) {
     return undefined;
   }
+  const payloadRecord = payload;
 
-  const payloadPayload =
-    'payload' in payload &&
-    typeof payload.payload === 'object' &&
-    payload.payload !== null
-      ? payload.payload
-      : undefined;
+  const payloadPayload = isRecord(payloadRecord.payload)
+    ? payloadRecord.payload
+    : undefined;
 
   let configLabelKey: string = key;
 
-  if (
-    key in payload &&
-    typeof payload[key as keyof typeof payload] === 'string'
-  ) {
-    configLabelKey = payload[key as keyof typeof payload] as string;
-  } else if (
-    payloadPayload &&
-    key in payloadPayload &&
-    typeof payloadPayload[key as keyof typeof payloadPayload] === 'string'
-  ) {
-    configLabelKey = payloadPayload[
-      key as keyof typeof payloadPayload
-    ] as string;
+  const directValue = getStringValue(payloadRecord, key);
+  if (directValue) {
+    configLabelKey = directValue;
+  } else {
+    const nestedValue = payloadPayload
+      ? getStringValue(payloadPayload, key)
+      : undefined;
+    if (nestedValue) {
+      configLabelKey = nestedValue;
+    }
   }
 
-  return configLabelKey in config
-    ? config[configLabelKey]
-    : config[key as keyof typeof config];
+  return config[configLabelKey] ?? config[key];
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null;
+}
+
+function getStringValue(
+  value: Record<string, unknown>,
+  key: string
+): string | undefined {
+  const nestedValue = value[key];
+  return typeof nestedValue === 'string' ? nestedValue : undefined;
 }
 
 export {
+  Chart,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
