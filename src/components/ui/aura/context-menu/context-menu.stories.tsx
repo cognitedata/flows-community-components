@@ -6,6 +6,7 @@ import {
   ContextMenu,
   ContextMenuCheckboxItem,
   ContextMenuContent,
+  ContextMenuGroup,
   ContextMenuItem,
   ContextMenuLabel,
   ContextMenuRadioGroup,
@@ -116,26 +117,28 @@ export const WithCheckboxItems: Story = {
           Right click here
         </ContextMenuTrigger>
         <ContextMenuContent className="w-64">
-          <ContextMenuLabel>Appearance</ContextMenuLabel>
-          <ContextMenuSeparator />
-          <ContextMenuCheckboxItem
-            checked={showStatusBar}
-            onCheckedChange={setShowStatusBar}
-          >
-            Status Bar
-          </ContextMenuCheckboxItem>
-          <ContextMenuCheckboxItem
-            checked={showActivityBar}
-            onCheckedChange={setShowActivityBar}
-          >
-            Activity Bar
-          </ContextMenuCheckboxItem>
-          <ContextMenuCheckboxItem
-            checked={showPanel}
-            onCheckedChange={setShowPanel}
-          >
-            Panel
-          </ContextMenuCheckboxItem>
+          <ContextMenuGroup>
+            <ContextMenuLabel>Appearance</ContextMenuLabel>
+            <ContextMenuSeparator />
+            <ContextMenuCheckboxItem
+              checked={showStatusBar}
+              onCheckedChange={setShowStatusBar}
+            >
+              Status Bar
+            </ContextMenuCheckboxItem>
+            <ContextMenuCheckboxItem
+              checked={showActivityBar}
+              onCheckedChange={setShowActivityBar}
+            >
+              Activity Bar
+            </ContextMenuCheckboxItem>
+            <ContextMenuCheckboxItem
+              checked={showPanel}
+              onCheckedChange={setShowPanel}
+            >
+              Panel
+            </ContextMenuCheckboxItem>
+          </ContextMenuGroup>
         </ContextMenuContent>
       </ContextMenu>
     );
@@ -153,17 +156,21 @@ export const WithRadioGroup: Story = {
           Right click here
         </ContextMenuTrigger>
         <ContextMenuContent className="w-64">
-          <ContextMenuLabel>People</ContextMenuLabel>
-          <ContextMenuSeparator />
-          <ContextMenuRadioGroup value={person} onValueChange={setPerson}>
-            <ContextMenuRadioItem value="pedro">
-              Pedro Duarte
-            </ContextMenuRadioItem>
-            <ContextMenuRadioItem value="colm">Colm Tuite</ContextMenuRadioItem>
-            <ContextMenuRadioItem value="james">
-              James Wilson
-            </ContextMenuRadioItem>
-          </ContextMenuRadioGroup>
+          <ContextMenuGroup>
+            <ContextMenuLabel>People</ContextMenuLabel>
+            <ContextMenuSeparator />
+            <ContextMenuRadioGroup value={person} onValueChange={setPerson}>
+              <ContextMenuRadioItem value="pedro">
+                Pedro Duarte
+              </ContextMenuRadioItem>
+              <ContextMenuRadioItem value="colm">
+                Colm Tuite
+              </ContextMenuRadioItem>
+              <ContextMenuRadioItem value="james">
+                James Wilson
+              </ContextMenuRadioItem>
+            </ContextMenuRadioGroup>
+          </ContextMenuGroup>
         </ContextMenuContent>
       </ContextMenu>
     );
