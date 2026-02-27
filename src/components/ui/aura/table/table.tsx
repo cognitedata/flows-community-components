@@ -2,15 +2,22 @@ import type { ComponentProps } from 'react';
 
 import { cn } from '../../../../lib/utils';
 
+const getTitleFromChildren = (children: ComponentProps<'td'>['children']) => {
+  if (typeof children === 'string' || typeof children === 'number') {
+    return String(children);
+  }
+  return undefined;
+};
+
 function Table({ className, ...props }: ComponentProps<'table'>) {
   return (
     <div
       data-slot="table-container"
-      className="relative w-full overflow-x-auto"
+      className="relative w-full overflow-x-auto border-y bg-default"
     >
       <table
         data-slot="table"
-        className={cn('w-full caption-bottom text-sm', className)}
+        className={cn('w-full table-fixed caption-bottom text-sm', className)}
         {...props}
       />
     </div>
@@ -21,7 +28,7 @@ function TableHeader({ className, ...props }: ComponentProps<'thead'>) {
   return (
     <thead
       data-slot="table-header"
-      className={cn('[&_tr]:border-b', className)}
+      className={cn('bg-muted/40 [&_tr]:border-b', className)}
       {...props}
     />
   );
@@ -31,7 +38,10 @@ function TableBody({ className, ...props }: ComponentProps<'tbody'>) {
   return (
     <tbody
       data-slot="table-body"
-      className={cn('[&_tr:last-child]:border-0', className)}
+      className={cn(
+        '[&_tr:nth-child(even)]:bg-muted [&_tr:last-child]:border-0',
+        className
+      )}
       {...props}
     />
   );
@@ -55,7 +65,7 @@ function TableRow({ className, ...props }: ComponentProps<'tr'>) {
     <tr
       data-slot="table-row"
       className={cn(
-        'hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors',
+        'border-b transition-colors hover:bg-muted/30 data-[state=selected]:bg-muted',
         className
       )}
       {...props}
@@ -63,29 +73,49 @@ function TableRow({ className, ...props }: ComponentProps<'tr'>) {
   );
 }
 
-function TableHead({ className, ...props }: ComponentProps<'th'>) {
+function TableHead({
+  className,
+  children,
+  title,
+  ...props
+}: ComponentProps<'th'>) {
+  const resolvedTitle = title ?? getTitleFromChildren(children);
+
   return (
     <th
       data-slot="table-head"
+      title={resolvedTitle}
       className={cn(
-        'text-foreground h-10 px-2 text-left align-middle font-medium whitespace-nowrap [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-0.5',
+        'text-primary h-9 px-3 text-left align-middle text-sm font-medium truncate [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-0.5',
         className
       )}
       {...props}
-    />
+    >
+      {children}
+    </th>
   );
 }
 
-function TableCell({ className, ...props }: ComponentProps<'td'>) {
+function TableCell({
+  className,
+  children,
+  title,
+  ...props
+}: ComponentProps<'td'>) {
+  const resolvedTitle = title ?? getTitleFromChildren(children);
+
   return (
     <td
       data-slot="table-cell"
+      title={resolvedTitle}
       className={cn(
-        'p-2 align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-0.5',
+        'h-11 px-3 text-sm font-normal align-middle truncate [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-0.5',
         className
       )}
       {...props}
-    />
+    >
+      {children}
+    </td>
   );
 }
 
