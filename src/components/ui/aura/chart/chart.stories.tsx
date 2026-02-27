@@ -22,7 +22,7 @@ const meta: Meta<typeof Chart> = {
   title: 'Primitives/Chart',
   component: Chart,
   tags: ['autodocs', 'ai-elements'],
-  parameters: { layout: 'centered' },
+  parameters: { layout: 'padded' },
 };
 
 export default meta;
@@ -83,8 +83,8 @@ export const PieChartStory: Story = {
     };
 
     return (
-      <div className="relative w-full max-w-100">
-        <Chart config={pieConfig} className="h-70 w-full overflow-visible">
+      <div className="relative mx-auto w-full max-w-100">
+        <Chart config={pieConfig} className="aspect-5/4 overflow-visible">
           <PieChart style={{ overflow: 'visible' }}>
             <ChartTooltip cursor={false} />
             <Pie
@@ -135,50 +135,55 @@ export const StackedAreaChart: Story = {
     ];
 
     return (
-      <Chart config={areaConfig} className="h-60 w-full max-w-120">
-        <AreaChart
-          data={areaData}
-          margin={{ left: 0, right: 0, top: 10, bottom: 0 }}
-        >
-          <defs>
-            <linearGradient id="areaGradientR401" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="rgba(47, 85, 234, 0.13)" />
-              <stop offset="100%" stopColor="rgba(47, 85, 234, 0.04)" />
-            </linearGradient>
-            <linearGradient id="areaGradientR402" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="rgba(47, 85, 234, 0.48)" />
-              <stop offset="100%" stopColor="rgba(47, 85, 234, 0.3)" />
-            </linearGradient>
-          </defs>
-          <XAxis
-            dataKey="time"
-            tickLine={false}
-            axisLine={false}
-            tick={{ fontSize: 12, fill: 'var(--color-muted-foreground)' }}
-            tickMargin={8}
-          />
-          <ChartTooltip
-            cursor={{ stroke: 'var(--color-muted-foreground)', strokeWidth: 1 }}
-          />
-          <Area
-            type="monotone"
-            dataKey="r401"
-            stroke="#2F55EA"
-            strokeWidth={1}
-            fill="url(#areaGradientR401)"
-            dot={false}
-          />
-          <Area
-            type="monotone"
-            dataKey="r402"
-            stroke="#2F55EA"
-            strokeWidth={1}
-            fill="url(#areaGradientR402)"
-            dot={false}
-          />
-          <ChartLegend content={<ChartLegendContent />} />
-        </AreaChart>
-      </Chart>
+      <div className="relative mx-auto w-full max-w-100">
+        <Chart config={areaConfig} className="aspect-5/4">
+          <AreaChart
+            data={areaData}
+            margin={{ left: 0, right: 0, top: 10, bottom: 0 }}
+          >
+            <defs>
+              <linearGradient id="areaGradientR401" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="rgba(47, 85, 234, 0.13)" />
+                <stop offset="100%" stopColor="rgba(47, 85, 234, 0.04)" />
+              </linearGradient>
+              <linearGradient id="areaGradientR402" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="rgba(47, 85, 234, 0.48)" />
+                <stop offset="100%" stopColor="rgba(47, 85, 234, 0.3)" />
+              </linearGradient>
+            </defs>
+            <XAxis
+              dataKey="time"
+              tickLine={false}
+              axisLine={false}
+              tick={{ fontSize: 12, fill: 'var(--color-muted-foreground)' }}
+              tickMargin={8}
+            />
+            <ChartTooltip
+              cursor={{
+                stroke: 'var(--color-muted-foreground)',
+                strokeWidth: 1,
+              }}
+            />
+            <Area
+              type="monotone"
+              dataKey="r401"
+              stroke="#2F55EA"
+              strokeWidth={1}
+              fill="url(#areaGradientR401)"
+              dot={false}
+            />
+            <Area
+              type="monotone"
+              dataKey="r402"
+              stroke="#2F55EA"
+              strokeWidth={1}
+              fill="url(#areaGradientR402)"
+              dot={false}
+            />
+            <ChartLegend content={<ChartLegendContent />} />
+          </AreaChart>
+        </Chart>
+      </div>
     );
   },
 };
@@ -205,38 +210,43 @@ export const MultiLineChart: Story = {
     ];
 
     return (
-      <Chart config={lineConfig} className="h-60 w-full max-w-120">
-        <LineChart
-          data={lineData}
-          margin={{ left: 0, right: 0, top: 10, bottom: 0 }}
-        >
-          <XAxis
-            dataKey="date"
-            tickLine={false}
-            axisLine={false}
-            tick={{ fontSize: 12, fill: 'var(--color-muted-foreground)' }}
-            tickMargin={8}
-          />
-          <ChartTooltip
-            cursor={{ stroke: 'var(--color-muted-foreground)', strokeWidth: 1 }}
-          />
-          <Line
-            type="monotone"
-            dataKey="secondary"
-            stroke="var(--color-secondary)"
-            strokeWidth={2}
-            dot={false}
-          />
-          <Line
-            type="monotone"
-            dataKey="primary"
-            stroke="var(--color-primary)"
-            strokeWidth={2}
-            dot={false}
-          />
-          <ChartLegend content={<ChartLegendContent />} />
-        </LineChart>
-      </Chart>
+      <div className="relative mx-auto w-full max-w-100">
+        <Chart config={lineConfig} className="aspect-5/4">
+          <LineChart
+            data={lineData}
+            margin={{ left: 0, right: 0, top: 10, bottom: 0 }}
+          >
+            <XAxis
+              dataKey="date"
+              tickLine={false}
+              axisLine={false}
+              tick={{ fontSize: 12, fill: 'var(--color-muted-foreground)' }}
+              tickMargin={8}
+            />
+            <ChartTooltip
+              cursor={{
+                stroke: 'var(--color-muted-foreground)',
+                strokeWidth: 1,
+              }}
+            />
+            <Line
+              type="monotone"
+              dataKey="secondary"
+              stroke="var(--color-secondary)"
+              strokeWidth={2}
+              dot={false}
+            />
+            <Line
+              type="monotone"
+              dataKey="primary"
+              stroke="var(--color-primary)"
+              strokeWidth={2}
+              dot={false}
+            />
+            <ChartLegend content={<ChartLegendContent />} />
+          </LineChart>
+        </Chart>
+      </div>
     );
   },
 };
@@ -264,43 +274,47 @@ export const HorizontalBarChartStory: Story = {
     const barGradientId = useId();
 
     return (
-      <Chart config={barConfig} className="h-60 w-full max-w-120">
-        <BarChart
-          data={barData}
-          layout="vertical"
-          margin={{ left: 0, right: 40 }}
-        >
-          <defs>
-            <linearGradient id={barGradientId} x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stopColor="rgba(47, 85, 234, 0.35)" />
-              <stop offset="100%" stopColor="rgba(47, 85, 234, 0.65)" />
-            </linearGradient>
-          </defs>
-          <YAxis
-            dataKey="name"
-            type="category"
-            tickLine={false}
-            axisLine={false}
-            width={90}
-            tick={{ fontSize: 14, fill: 'var(--color-muted-foreground)' }}
-          />
-          <XAxis type="number" hide />
-          <ChartTooltip cursor={{ fill: 'var(--color-muted)', opacity: 0.3 }} />
-          <Bar
-            dataKey="value"
-            fill={`url(#${barGradientId})`}
-            radius={[0, 4, 4, 0]}
-            barSize={24}
+      <div className="relative mx-auto w-full max-w-100">
+        <Chart config={barConfig} className="aspect-5/4">
+          <BarChart
+            data={barData}
+            layout="vertical"
+            margin={{ left: 0, right: 40 }}
           >
-            {barData.map((entry) => (
-              <Cell
-                key={entry.name}
-                className="transition-opacity duration-200 hover:opacity-80"
-              />
-            ))}
-          </Bar>
-        </BarChart>
-      </Chart>
+            <defs>
+              <linearGradient id={barGradientId} x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stopColor="rgba(47, 85, 234, 0.35)" />
+                <stop offset="100%" stopColor="rgba(47, 85, 234, 0.65)" />
+              </linearGradient>
+            </defs>
+            <YAxis
+              dataKey="name"
+              type="category"
+              tickLine={false}
+              axisLine={false}
+              width={90}
+              tick={{ fontSize: 14, fill: 'var(--color-muted-foreground)' }}
+            />
+            <XAxis type="number" hide />
+            <ChartTooltip
+              cursor={{ fill: 'var(--color-muted)', opacity: 0.3 }}
+            />
+            <Bar
+              dataKey="value"
+              fill={`url(#${barGradientId})`}
+              radius={[0, 4, 4, 0]}
+              barSize={24}
+            >
+              {barData.map((entry) => (
+                <Cell
+                  key={entry.name}
+                  className="transition-opacity duration-200 hover:opacity-80"
+                />
+              ))}
+            </Bar>
+          </BarChart>
+        </Chart>
+      </div>
     );
   },
 };
@@ -369,7 +383,7 @@ export const RadialChart: Story = {
     const outerRadius = viewBoxSize / 2 - strokeWidth / 2;
 
     return (
-      <div className="relative w-full max-w-64">
+      <div className="relative mx-auto w-full max-w-64">
         <div className="aspect-square w-full">
           <svg
             viewBox={`0 0 ${viewBoxSize} ${viewBoxSize}`}

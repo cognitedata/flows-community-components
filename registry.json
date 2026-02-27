@@ -1561,7 +1561,7 @@
       "name": "suggestion",
       "type": "registry:component",
       "title": "Suggestion",
-      "description": "A dual-mode suggestion component for AI chat interfaces. Use simple button mode for quick queries, or dropdown mode for organised query options.",
+      "description": "A dual-mode suggestion component for AI chat interfaces. Use simple button mode for quick queries, or dropdown mode for organized query options.",
       "registryDependencies": [
         "@aura/css",
         "@aura/button",
@@ -1630,7 +1630,7 @@
       "name": "table",
       "type": "registry:component",
       "title": "Table",
-      "description": "A table component for displaying tabular data.",
+      "description": "A semantic table primitive for displaying structured data.",
       "registryDependencies": [
         "@aura/css"
       ],

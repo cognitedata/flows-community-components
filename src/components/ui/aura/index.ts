@@ -185,9 +185,7 @@ export type {
 } from './colors/colors';
 export { ColorsMetadata } from './colors/colors.metadata';
 
-export { Combobox, ComboboxCustom } from './combobox/combobox';
-export type { ComboboxProps } from './combobox/combobox';
-export { ComboboxMetadata } from './combobox/combobox.metadata';
+export { Combobox, ComboboxCustom, ComboboxMetadata } from './combobox';
 
 export {
   Command,
@@ -616,19 +614,8 @@ export {
   SuggestionTrigger,
   SuggestionValue,
   Suggestions,
-} from './suggestion/suggestion';
-export type {
-  SuggestionContentProps,
-  SuggestionGroupProps,
-  SuggestionItemProps,
-  SuggestionLabelProps,
-  SuggestionProps,
-  SuggestionSeparatorProps,
-  SuggestionTriggerProps,
-  SuggestionValueProps,
-  SuggestionsProps,
-} from './suggestion/suggestion';
-export { SuggestionMetadata } from './suggestion/suggestion.metadata';
+  SuggestionMetadata,
+} from './suggestion';
 
 export { SwapSlot } from './swap-slot/swap-slot';
 export type { SwapSlotProps } from './swap-slot/swap-slot';
@@ -640,14 +627,14 @@ export { SwitchMetadata } from './switch/switch.metadata';
 export {
   Table,
   TableBody,
-  TableCaption,
-  TableCell,
   TableFooter,
   TableHead,
   TableHeader,
   TableRow,
-} from './table/table';
-export { TableMetadata } from './table/table.metadata';
+  TableCaption,
+  TableCell,
+  TableMetadata,
+} from './table';
 
 export { Tabs, TabsContent, TabsList, TabsTrigger } from './tabs/tabs';
 export { TabsMetadata } from './tabs/tabs.metadata';
