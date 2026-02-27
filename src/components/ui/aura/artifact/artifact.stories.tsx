@@ -534,9 +534,7 @@ export const TreeViewPlantHierarchy: Story = {
     await expect(canvas.getByText('Feed Pump B')).toBeInTheDocument();
     await expect(canvas.getByText('Drain system')).toBeInTheDocument();
     await expect(canvas.getByText('Process unit 22')).toBeInTheDocument();
-    await expect(canvas.getAllByLabelText(/warning/i).length).toBeGreaterThan(
-      1
-    );
+    await expect(canvas.getAllByLabelText(/warning/i)).toHaveLength(1);
   },
   render: () => (
     <Artifact className="w-sm hover:bg-card">
