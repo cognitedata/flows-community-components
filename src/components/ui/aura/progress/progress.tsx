@@ -12,7 +12,9 @@ const Progress = forwardRef<
     ref
   ) => {
     const safeValue = value ?? 0;
-    const percentage = (safeValue * 100) / max;
+    const safeMax = max > 0 ? max : 100;
+    const clampedValue = Math.max(0, Math.min(safeValue, safeMax));
+    const percentage = (clampedValue * 100) / safeMax;
     const defaultAriaLabel = `Progress: ${Math.round(percentage)}%`;
 
     return (
@@ -20,8 +22,8 @@ const Progress = forwardRef<
         ref={ref}
         data-slot="progress"
         className={cn('w-full', className)}
-        value={safeValue}
-        max={max}
+        value={clampedValue}
+        max={safeMax}
         aria-label={ariaLabel ?? defaultAriaLabel}
         {...props}
       >

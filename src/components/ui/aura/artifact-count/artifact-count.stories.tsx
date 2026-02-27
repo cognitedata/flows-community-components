@@ -4,12 +4,7 @@ import { CartesianGrid, Line, LineChart, XAxis, YAxis } from 'recharts';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
 
 import { Button } from '../button';
-import {
-  type ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from '../chart';
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from '../chart';
 
 import {
   ArtifactCount,
@@ -23,7 +18,6 @@ import {
   ArtifactCountSeparator,
   ArtifactCountTag,
 } from './artifact-count';
-
 const meta: Meta<typeof ArtifactCount> = {
   title: 'Primitives/Artifact - Count',
   component: ArtifactCount,
@@ -100,7 +94,7 @@ const temperatureChartConfig = {
     label: 'Temperature',
     color: 'hsl(239 84% 67%)',
   },
-} satisfies ChartConfig;
+} satisfies ComponentProps<typeof ChartContainer>['config'];
 export const Basic: Story = {
   parameters: {
     order: 1,
