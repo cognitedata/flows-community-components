@@ -56,6 +56,9 @@ export {
 } from './artifact-count/artifact-count';
 export { ArtifactCountMetadata } from './artifact-count/artifact-count.metadata';
 
+export { Count, countVariants } from './count/count';
+export { CountMetadata } from './count/count.metadata';
+
 export {
   ArtifactList,
   ArtifactListContent,
@@ -169,6 +172,7 @@ export type {
 export { ChainOfThoughtMetadata } from './chain-of-thought/chain-of-thought.metadata';
 
 export {
+  Chart,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
@@ -176,7 +180,6 @@ export {
   ChartLegendContent,
   ChartStyle,
 } from './chart/chart';
-export type { ChartConfig } from './chart/chart';
 export { ChartMetadata } from './chart/chart.metadata';
 
 export { Checkbox } from './checkbox/checkbox';
@@ -216,9 +219,7 @@ export {
 } from './colors/colors';
 export { ColorsMetadata } from './colors/colors.metadata';
 
-export { Combobox, ComboboxCustom } from './combobox/combobox';
-export type { ComboboxProps } from './combobox/combobox';
-export { ComboboxMetadata } from './combobox/combobox.metadata';
+export { Combobox, ComboboxCustom, ComboboxMetadata } from './combobox';
 
 export {
   Command,
@@ -371,13 +372,6 @@ export {
   InlineCitationCard,
   InlineCitationCardTrigger,
   InlineCitationCardBody,
-  InlineCitationCarousel,
-  InlineCitationCarouselContent,
-  InlineCitationCarouselItem,
-  InlineCitationCarouselHeader,
-  InlineCitationCarouselIndex,
-  InlineCitationCarouselPrev,
-  InlineCitationCarouselNext,
   InlineCitationSource,
   InlineCitationQuote,
   InlineCitationLink,
@@ -654,19 +648,8 @@ export {
   SuggestionGroup,
   SuggestionLabel,
   SuggestionSeparator,
-} from './suggestion/suggestion';
-export type {
-  SuggestionsProps,
-  SuggestionProps,
-  SuggestionTriggerProps,
-  SuggestionValueProps,
-  SuggestionContentProps,
-  SuggestionItemProps,
-  SuggestionGroupProps,
-  SuggestionLabelProps,
-  SuggestionSeparatorProps,
-} from './suggestion/suggestion';
-export { SuggestionMetadata } from './suggestion/suggestion.metadata';
+  SuggestionMetadata,
+} from './suggestion';
 
 export { SwapSlot } from './swap-slot/swap-slot';
 export type { SwapSlotProps } from './swap-slot/swap-slot';
@@ -684,11 +667,16 @@ export {
   TableRow,
   TableCell,
   TableCaption,
-} from './table/table';
-export { TableMetadata } from './table/table.metadata';
+  TableMetadata,
+} from './table';
 
-export { Tabs, TabsList, TabsTrigger, TabsContent } from './tabs/tabs';
-export { TabsMetadata } from './tabs/tabs.metadata';
+export {
+  SegmentedControl,
+  SegmentedControlContent,
+  SegmentedControlList,
+  SegmentedControlButton,
+} from './segmented-control/segmented-control';
+export { SegmentedControlMetadata } from './segmented-control/segmented-control.metadata';
 
 export { Textarea } from './textarea/textarea';
 export { TextareaMetadata } from './textarea/textarea.metadata';

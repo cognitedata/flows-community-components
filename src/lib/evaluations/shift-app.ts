@@ -5,7 +5,7 @@ import Image from "next/image"
 import React from "react"
 import { useTheme } from "@/components/theme-provider"
 import Link from "next/link"
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/aura/tabs"
+import { SegmentedControl, SegmentedControlList, SegmentedControlButton } from "@/components/ui/aura/segmented-control"
 import { Button } from "@/components/ui/aura/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/aura/card"
 import { Input } from "@/components/ui/aura/input"
@@ -133,22 +133,22 @@ export default function ShiftHandoverAppPage() {
             <Image src="/cognite-logo.png" alt="Cognite" width={32} height={32} className="rounded" />
           </div>
           <div className="hidden md:flex">
-            <Tabs defaultValue="apps">
-              <TabsList className="grid grid-cols-3">
-                <TabsTrigger value="overview" className="flex items-center gap-2">
+            <SegmentedControl defaultValue="apps">
+              <SegmentedControlList className="grid grid-cols-3">
+                <SegmentedControlButton value="overview" className="flex items-center gap-2">
                   <BarChart3 className="h-4 w-4" />
                   Overview
-                </TabsTrigger>
-                <TabsTrigger value="views" className="flex items-center gap-2">
+                </SegmentedControlButton>
+                <SegmentedControlButton value="views" className="flex items-center gap-2">
                   <Shapes className="h-4 w-4" />
                   Views
-                </TabsTrigger>
-                <TabsTrigger value="apps" className="flex items-center gap-2">
+                </SegmentedControlButton>
+                <SegmentedControlButton value="apps" className="flex items-center gap-2">
                   <AppWindow className="h-4 w-4" />
                   App library
-                </TabsTrigger>
-              </TabsList>
-            </Tabs>
+                </SegmentedControlButton>
+              </SegmentedControlList>
+            </SegmentedControl>
           </div>
           <div className="flex items-center gap-2">
             <Button variant="ghost" size="icon" className="h-8 w-8">
@@ -232,13 +232,13 @@ export default function ShiftHandoverAppPage() {
                 </div>
                 <div className="space-y-2">
                   <Label className="text-muted-foreground">Shift type</Label>
-                  <Tabs value={shiftType} onValueChange={(v) => setShiftType(v as typeof shiftType)}>
-                    <TabsList className="grid grid-cols-3 w-full">
-                      <TabsTrigger value="morning">Morning</TabsTrigger>
-                      <TabsTrigger value="day">Day</TabsTrigger>
-                      <TabsTrigger value="night">Night</TabsTrigger>
-                    </TabsList>
-                  </Tabs>
+                  <SegmentedControl value={shiftType} onValueChange={(v) => setShiftType(v as typeof shiftType)}>
+                    <SegmentedControlList className="grid grid-cols-3 w-full">
+                      <SegmentedControlButton value="morning">Morning</SegmentedControlButton>
+                      <SegmentedControlButton value="day">Day</SegmentedControlButton>
+                      <SegmentedControlButton value="night">Night</SegmentedControlButton>
+                    </SegmentedControlList>
+                  </SegmentedControl>
                 </div>
               </div>
 

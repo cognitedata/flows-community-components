@@ -214,18 +214,40 @@
       "type": "registry:component",
       "title": "ArtifactCount",
       "description": "A compositional count artifact widget component for displaying prominent values with optional content and footer context.",
-      "dependencies": [
-        "class-variance-authority"
-      ],
       "registryDependencies": [
         "@aura/css",
         "@aura/card",
+        "@aura/count",
         "@aura/separator"
       ],
       "files": [
         {
           "path": "src/components/ui/aura/artifact-count/artifact-count.tsx",
           "target": "src/components/ui/aura/artifact-count.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "count",
+      "type": "registry:component",
+      "title": "Count",
+      "description": "Numeric counter primitives",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/count/count.tsx",
+          "target": "src/components/ui/aura/count.tsx",
           "type": "registry:component"
         },
         {
@@ -1012,13 +1034,9 @@
       "type": "registry:component",
       "title": "InlineCitation",
       "description": "Components for displaying inline citations and source references.",
-      "dependencies": [
-        "@tabler/icons-react"
-      ],
       "registryDependencies": [
         "@aura/css",
         "@aura/badge",
-        "@aura/carousel",
         "@aura/hover-card"
       ],
       "files": [
@@ -1435,6 +1453,30 @@
       ]
     },
     {
+      "name": "segmented-control",
+      "type": "registry:component",
+      "title": "Segmented Control",
+      "description": "A segmented control component built on Base UI Tabs for organizing content.",
+      "dependencies": [
+        "@base-ui/react/tabs"
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/segmented-control/segmented-control.tsx",
+          "target": "src/components/ui/aura/segmented-control.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "sheet",
       "type": "registry:component",
       "title": "Sheet",
@@ -1613,7 +1655,7 @@
       "name": "suggestion",
       "type": "registry:component",
       "title": "Suggestion",
-      "description": "A dual-mode suggestion component for AI chat interfaces. Use simple button mode for quick queries, or dropdown mode for organised query options.",
+      "description": "A dual-mode suggestion component for AI chat interfaces. Use simple button mode for quick queries, or dropdown mode for organized query options.",
       "registryDependencies": [
         "@aura/css",
         "@aura/button",
@@ -1682,7 +1724,7 @@
       "name": "table",
       "type": "registry:component",
       "title": "Table",
-      "description": "A table component for displaying tabular data.",
+      "description": "A semantic table primitive for displaying structured data.",
       "registryDependencies": [
         "@aura/css"
       ],
@@ -1690,30 +1732,6 @@
         {
           "path": "src/components/ui/aura/table/table.tsx",
           "target": "src/components/ui/aura/table.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "src/globals.css",
-          "target": "src/styles.css",
-          "type": "registry:component"
-        }
-      ]
-    },
-    {
-      "name": "tabs",
-      "type": "registry:component",
-      "title": "Tabs",
-      "description": "A tabs component built on Base UI Tabs for organizing content.",
-      "dependencies": [
-        "@base-ui/react/tabs"
-      ],
-      "registryDependencies": [
-        "@aura/css"
-      ],
-      "files": [
-        {
-          "path": "src/components/ui/aura/tabs/tabs.tsx",
-          "target": "src/components/ui/aura/tabs.tsx",
           "type": "registry:component"
         },
         {
