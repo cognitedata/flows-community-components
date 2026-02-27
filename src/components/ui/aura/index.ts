@@ -219,9 +219,7 @@ export {
 } from './colors/colors';
 export { ColorsMetadata } from './colors/colors.metadata';
 
-export { Combobox, ComboboxCustom } from './combobox/combobox';
-export type { ComboboxProps } from './combobox/combobox';
-export { ComboboxMetadata } from './combobox/combobox.metadata';
+export { Combobox, ComboboxCustom, ComboboxMetadata } from './combobox';
 
 export {
   Command,
@@ -653,19 +651,8 @@ export {
   SuggestionGroup,
   SuggestionLabel,
   SuggestionSeparator,
-} from './suggestion/suggestion';
-export type {
-  SuggestionsProps,
-  SuggestionProps,
-  SuggestionTriggerProps,
-  SuggestionValueProps,
-  SuggestionContentProps,
-  SuggestionItemProps,
-  SuggestionGroupProps,
-  SuggestionLabelProps,
-  SuggestionSeparatorProps,
-} from './suggestion/suggestion';
-export { SuggestionMetadata } from './suggestion/suggestion.metadata';
+  SuggestionMetadata,
+} from './suggestion';
 
 export { SwapSlot } from './swap-slot/swap-slot';
 export type { SwapSlotProps } from './swap-slot/swap-slot';

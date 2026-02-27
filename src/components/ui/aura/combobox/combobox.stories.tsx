@@ -7,15 +7,14 @@ import {
   IconUser,
   IconX,
 } from '@tabler/icons-react';
-import { useState } from 'react';
+import { type KeyboardEvent, type MouseEvent, useState } from 'react';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
 
 import { cn } from '../../../../lib/utils';
-
-import { Avatar, AvatarFallback } from '@/components/ui/aura/avatar';
-import { Badge } from '@/components/ui/aura/badge';
-import { Button } from '@/components/ui/aura/button';
-import { Checkbox } from '@/components/ui/aura/checkbox';
+import { Avatar, AvatarFallback } from '../avatar';
+import { Badge } from '../badge';
+import { Button } from '../button';
+import { Checkbox } from '../checkbox';
 import {
   Command,
   CommandEmpty,
@@ -24,59 +23,69 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-} from '@/components/ui/aura/command';
-import { HelperText } from '@/components/ui/aura/helper-text';
-import { Label } from '@/components/ui/aura/label';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/aura/popover';
+} from '../command';
+import { HelperText } from '../helper-text';
+import { Label } from '../label';
+import { Popover, PopoverContent, PopoverTrigger } from '../popover';
 
-const meta: Meta<typeof Popover> = {
+import { Combobox } from './combobox';
+
+const meta: Meta<typeof Combobox> = {
   title: 'Primitives/Combobox',
-  component: Popover,
+  component: Combobox,
   tags: ['autodocs'],
   argTypes: {
-    open: {
-      control: 'boolean',
-      table: {
-        category: 'State',
-        type: {
-          summary: 'boolean',
-        },
-      },
-    },
-    defaultOpen: {
-      control: 'boolean',
-      table: {
-        category: 'State',
-        type: {
-          summary: 'boolean',
-        },
-        defaultValue: {
-          summary: 'false',
-        },
-      },
-    },
-    modal: {
-      control: 'boolean',
+    value: {
+      control: 'text',
       table: {
         category: 'Behavior',
         type: {
-          summary: 'boolean',
-        },
-        defaultValue: {
-          summary: 'true',
+          summary: 'string',
         },
       },
     },
-    onOpenChange: {
-      action: 'openChanged',
+    onValueChange: {
+      action: 'valueChanged',
       table: {
         category: 'Events',
         type: {
-          summary: '(open: boolean) => void',
+          summary: '(value: string) => void',
+        },
+      },
+    },
+    options: {
+      control: false,
+      table: {
+        category: 'Content',
+        type: {
+          summary: 'Array<{ value: string; label: string }>',
+        },
+      },
+    },
+    placeholder: {
+      control: 'text',
+      table: {
+        category: 'Content',
+        type: {
+          summary: 'string',
+        },
+      },
+    },
+    searchPlaceholder: {
+      control: 'text',
+      table: {
+        category: 'Content',
+        type: {
+          summary: 'string',
+        },
+      },
+    },
+    emptyText: {
+      control: 'text',
+      table: {
+        category: 'Content',
+        type: {
+          summary: 'string',
         },
       },
     },
@@ -84,12 +93,12 @@ const meta: Meta<typeof Popover> = {
   parameters: {
     layout: 'centered',
     actions: {
-      handles: ['openChanged'],
+      handles: ['valueChanged'],
     },
   },
 };
 export default meta;
-type Story = StoryObj<typeof Popover>;
+type Story = StoryObj<typeof Combobox>;
 const users = [
   {
     value: 'dennis-rodman',
@@ -180,25 +189,31 @@ export const Basic: Story = {
     await expect(trigger).toHaveAttribute('aria-expanded', 'false');
     await expect(trigger).toHaveTextContent('Michael Jordan');
     await userEvent.click(trigger);
-    const searchInput = (await body.findByPlaceholderText(
+    const searchInput = await body.findByPlaceholderText(
       'Search users...',
       undefined,
       {
         timeout: 1000,
       }
-    )) as HTMLInputElement;
-    await expect(trigger).toHaveAttribute('aria-expanded', 'true');
-    const commandList = canvasElement.ownerDocument.querySelector(
-      '[data-slot="command-list"]'
     );
-    await expect(commandList).toBeInTheDocument();
-    await expect(commandList).toHaveTextContent('Dennis Rodman');
-    await expect(commandList).toHaveTextContent('Michael Jordan');
-    await expect(commandList).toHaveTextContent('Scottie Pippen');
+    await expect(trigger).toHaveAttribute('aria-expanded', 'true');
+    await expect(
+      body.getByRole('option', { name: /dennis rodman/i })
+    ).toBeInTheDocument();
+    await expect(
+      body.getByRole('option', { name: /michael jordan/i })
+    ).toBeInTheDocument();
+    await expect(
+      body.getByRole('option', { name: /scottie pippen/i })
+    ).toBeInTheDocument();
     await userEvent.type(searchInput, 'Dennis');
     await waitFor(() => {
-      expect(commandList).toHaveTextContent('Dennis Rodman');
-      expect(commandList).not.toHaveTextContent('Michael Jordan');
+      expect(
+        body.getByRole('option', { name: /dennis rodman/i })
+      ).toBeInTheDocument();
+      expect(
+        body.queryByRole('option', { name: /michael jordan/i })
+      ).not.toBeInTheDocument();
     });
   },
   render: function BasicStory() {
@@ -299,9 +314,7 @@ export const WithAddNew: Story = {
     const body = within(canvasElement.ownerDocument.body);
     const trigger = canvas.getByRole('combobox');
     await userEvent.click(trigger);
-    const searchInput = (await body.findByPlaceholderText(
-      'Search users...'
-    )) as HTMLInputElement;
+    const searchInput = await body.findByPlaceholderText('Search users...');
     await userEvent.clear(searchInput);
     await userEvent.type(searchInput, 'Steve Kerr');
     await body.findByRole('button', {
@@ -466,12 +479,7 @@ export const MultiSelect: Story = {
     await expect(trigger).toHaveTextContent('Observation');
     await userEvent.click(trigger);
     await body.findByPlaceholderText('Search data type...');
-    const commandItems = canvasElement.ownerDocument.querySelectorAll(
-      '[data-slot="command-item"]'
-    );
-    if (commandItems[0]) {
-      await userEvent.click(commandItems[0] as Element);
-    }
+    await userEvent.click(await body.findByRole('option', { name: /asset/i }));
     await body.findByPlaceholderText('Search data type...');
   },
   render: function MultiSelectStory() {
@@ -496,10 +504,7 @@ export const MultiSelect: Story = {
           : [...prev, value]
       );
     };
-    const handleRemove = (
-      value: string,
-      e: React.MouseEvent | React.KeyboardEvent
-    ) => {
+    const handleRemove = (value: string, e: MouseEvent | KeyboardEvent) => {
       e.stopPropagation();
       e.preventDefault();
       setSelectedValues((prev) => prev.filter((v) => v !== value));
@@ -612,25 +617,27 @@ export const WithCheckboxes: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const body = within(canvasElement.ownerDocument.body);
     const trigger = canvas.getByRole('combobox');
     await expect(trigger).toHaveTextContent('2 selected');
     await userEvent.click(trigger);
-    await waitFor(() => {
-      const commandItems = canvasElement.ownerDocument.querySelectorAll(
-        '[data-slot="command-item"]'
-      );
-      expect(commandItems.length).toBeGreaterThanOrEqual(5);
+    const notificationsOption = await body.findByRole('option', {
+      name: /email notifications/i,
     });
-    const checkboxes = canvasElement.ownerDocument.querySelectorAll(
-      '[data-slot="checkbox"]'
+    const marketingOption = await body.findByRole('option', {
+      name: /marketing emails/i,
+    });
+    const updatesOption = await body.findByRole('option', {
+      name: /product updates/i,
+    });
+    await expect(
+      within(notificationsOption).getByRole('checkbox')
+    ).toBeChecked();
+    await expect(within(marketingOption).getByRole('checkbox')).toBeChecked();
+    await expect(within(updatesOption).getByRole('checkbox')).not.toBeChecked();
+    await userEvent.click(
+      await body.findByRole('option', { name: /product updates/i })
     );
-    expect(checkboxes[0]).toHaveAttribute('data-checked');
-    expect(checkboxes[1]).toHaveAttribute('data-checked');
-    expect(checkboxes[2]).not.toHaveAttribute('data-checked');
-    const commandItems = canvasElement.ownerDocument.querySelectorAll(
-      '[data-slot="command-item"]'
-    );
-    await userEvent.click(commandItems[2] as Element);
     await waitFor(() => {
       expect(trigger).toHaveTextContent('3 selected');
     });
@@ -726,39 +733,22 @@ export const KeyboardNavigation: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const body = within(canvasElement.ownerDocument.body);
     const trigger = canvas.getByRole('combobox');
-    trigger.focus();
-    await expect(trigger).toHaveFocus();
-    await userEvent.keyboard('{Enter}');
+    await userEvent.click(trigger);
     await waitFor(() => {
-      if (trigger.getAttribute('aria-expanded') !== 'true') {
-        throw new Error('Combobox did not open via keyboard.');
-      }
-    }).catch(async () => {
-      await userEvent.click(trigger);
-      await waitFor(() => {
-        expect(trigger).toHaveAttribute('aria-expanded', 'true');
-      });
+      expect(trigger).toHaveAttribute('aria-expanded', 'true');
     });
-    await waitFor(() => {
-      const input = canvasElement.ownerDocument.querySelector(
-        '[data-slot="command-input"]'
-      );
-      expect(input).toBeInTheDocument();
-    });
+    await body.findByPlaceholderText('Search users...');
     await userEvent.keyboard('{ArrowDown}');
     await waitFor(() => {
-      const selectedItem = canvasElement.ownerDocument.querySelector(
-        '[data-selected="true"]'
-      );
-      expect(selectedItem).toBeInTheDocument();
+      expect(body.getByRole('option', { selected: true })).toBeInTheDocument();
     });
     await userEvent.keyboard('{Escape}');
     await waitFor(() => {
-      const input = canvasElement.ownerDocument.querySelector(
-        '[data-slot="command-input"]'
-      );
-      expect(input).not.toBeInTheDocument();
+      expect(
+        body.queryByPlaceholderText('Search users...')
+      ).not.toBeInTheDocument();
     });
   },
   render: function KeyboardNavigationStory() {
@@ -1021,18 +1011,13 @@ export const ComplexInteractive: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const body = within(canvasElement.ownerDocument.body);
     const trigger = canvas.getByRole('combobox');
     await userEvent.click(trigger);
     await waitFor(() => {
-      const commandItems = canvasElement.ownerDocument.querySelectorAll(
-        '[data-slot="command-item"]'
-      );
-      expect(commandItems.length).toBeGreaterThanOrEqual(10);
+      expect(body.getAllByRole('option').length).toBeGreaterThanOrEqual(10);
     });
-    const commandItems = canvasElement.ownerDocument.querySelectorAll(
-      '[data-slot="command-item"]'
-    );
-    await userEvent.click(commandItems[0] as Element);
+    await userEvent.click(body.getByRole('option', { name: 'Menu item 1' }));
     await waitFor(() => {
       expect(trigger).toHaveTextContent('Menu item 1');
     });
