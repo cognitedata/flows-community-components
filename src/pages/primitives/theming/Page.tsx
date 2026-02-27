@@ -21,11 +21,11 @@ import {
 import { Input } from '@/components/ui/aura/input';
 import { Label } from '@/components/ui/aura/label';
 import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from '@/components/ui/aura/tabs';
+  SegmentedControl,
+  SegmentedControlContent,
+  SegmentedControlList,
+  SegmentedControlButton,
+} from '@/components/ui/aura/segmented-control';
 
 // Utility functions for color conversion
 function hslToHex(hsl: string): string {
@@ -1422,16 +1422,29 @@ export default function ThemingPage() {
 
                 {/* Export System */}
                 <div className="mt-6 space-y-4">
-                  <Tabs defaultValue="css-variables" className="w-full">
-                    <TabsList className="grid w-full grid-cols-5">
-                      <TabsTrigger value="css-variables">CSS</TabsTrigger>
-                      <TabsTrigger value="tailwind">Tailwind</TabsTrigger>
-                      <TabsTrigger value="globals">Global CSS</TabsTrigger>
-                      <TabsTrigger value="provider">Provider</TabsTrigger>
-                      <TabsTrigger value="install">Install</TabsTrigger>
-                    </TabsList>
+                  <SegmentedControl
+                    defaultValue="css-variables"
+                    className="w-full"
+                  >
+                    <SegmentedControlList className="grid w-full grid-cols-5">
+                      <SegmentedControlButton value="css-variables">
+                        CSS
+                      </SegmentedControlButton>
+                      <SegmentedControlButton value="tailwind">
+                        Tailwind
+                      </SegmentedControlButton>
+                      <SegmentedControlButton value="globals">
+                        Global CSS
+                      </SegmentedControlButton>
+                      <SegmentedControlButton value="provider">
+                        Provider
+                      </SegmentedControlButton>
+                      <SegmentedControlButton value="install">
+                        Install
+                      </SegmentedControlButton>
+                    </SegmentedControlList>
 
-                    <TabsContent
+                    <SegmentedControlContent
                       value="css-variables"
                       className="space-y-4 mt-6"
                     >
@@ -1449,9 +1462,12 @@ export default function ThemingPage() {
                           <code>{generateCSSVariables(theme)}</code>
                         </pre>
                       </div>
-                    </TabsContent>
+                    </SegmentedControlContent>
 
-                    <TabsContent value="tailwind" className="space-y-4 mt-6">
+                    <SegmentedControlContent
+                      value="tailwind"
+                      className="space-y-4 mt-6"
+                    >
                       <div className="flex items-center justify-between">
                         <div>
                           <h4 className="font-medium">
@@ -1469,9 +1485,12 @@ export default function ThemingPage() {
                           <code>{generateTailwindConfig(theme)}</code>
                         </pre>
                       </div>
-                    </TabsContent>
+                    </SegmentedControlContent>
 
-                    <TabsContent value="globals" className="space-y-4 mt-6">
+                    <SegmentedControlContent
+                      value="globals"
+                      className="space-y-4 mt-6"
+                    >
                       <div className="flex items-center justify-between">
                         <div>
                           <h4 className="font-medium">globals.css</h4>
@@ -1486,9 +1505,12 @@ export default function ThemingPage() {
                           <code>{generateGlobalCSS(theme)}</code>
                         </pre>
                       </div>
-                    </TabsContent>
+                    </SegmentedControlContent>
 
-                    <TabsContent value="provider" className="space-y-4 mt-6">
+                    <SegmentedControlContent
+                      value="provider"
+                      className="space-y-4 mt-6"
+                    >
                       <div className="flex items-center justify-between">
                         <div>
                           <h4 className="font-medium">Theme Provider</h4>
@@ -1503,9 +1525,12 @@ export default function ThemingPage() {
                           <code>{generateThemeProvider()}</code>
                         </pre>
                       </div>
-                    </TabsContent>
+                    </SegmentedControlContent>
 
-                    <TabsContent value="install" className="space-y-4 mt-6">
+                    <SegmentedControlContent
+                      value="install"
+                      className="space-y-4 mt-6"
+                    >
                       <div className="flex items-center justify-between">
                         <div>
                           <h4 className="font-medium">Installation Guide</h4>
@@ -1520,8 +1545,8 @@ export default function ThemingPage() {
                           <code>{generateInstallGuide()}</code>
                         </pre>
                       </div>
-                    </TabsContent>
-                  </Tabs>
+                    </SegmentedControlContent>
+                  </SegmentedControl>
                 </div>
               </CardContent>
             </Card>
@@ -1541,15 +1566,26 @@ export default function ThemingPage() {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <Tabs defaultValue="primitives" className="w-full">
-                  <TabsList className="grid w-full grid-cols-4">
-                    <TabsTrigger value="primitives">Primitives</TabsTrigger>
-                    <TabsTrigger value="cards">Cards</TabsTrigger>
-                    <TabsTrigger value="forms">Forms</TabsTrigger>
-                    <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
-                  </TabsList>
+                <SegmentedControl defaultValue="primitives" className="w-full">
+                  <SegmentedControlList className="grid w-full grid-cols-4">
+                    <SegmentedControlButton value="primitives">
+                      Primitives
+                    </SegmentedControlButton>
+                    <SegmentedControlButton value="cards">
+                      Cards
+                    </SegmentedControlButton>
+                    <SegmentedControlButton value="forms">
+                      Forms
+                    </SegmentedControlButton>
+                    <SegmentedControlButton value="dashboard">
+                      Dashboard
+                    </SegmentedControlButton>
+                  </SegmentedControlList>
 
-                  <TabsContent value="primitives" className="space-y-6 mt-6">
+                  <SegmentedControlContent
+                    value="primitives"
+                    className="space-y-6 mt-6"
+                  >
                     <div
                       className="theme-preview p-6 rounded-lg"
                       style={
@@ -1781,13 +1817,25 @@ export default function ThemingPage() {
                             Navigation & Tabs
                           </h3>
                           <div className="space-y-4">
-                            <Tabs defaultValue="tab1" className="w-full">
-                              <TabsList>
-                                <TabsTrigger value="tab1">Tab 1</TabsTrigger>
-                                <TabsTrigger value="tab2">Tab 2</TabsTrigger>
-                                <TabsTrigger value="tab3">Tab 3</TabsTrigger>
-                              </TabsList>
-                              <TabsContent value="tab1" className="mt-4">
+                            <SegmentedControl
+                              defaultValue="tab1"
+                              className="w-full"
+                            >
+                              <SegmentedControlList>
+                                <SegmentedControlButton value="tab1">
+                                  Tab 1
+                                </SegmentedControlButton>
+                                <SegmentedControlButton value="tab2">
+                                  Tab 2
+                                </SegmentedControlButton>
+                                <SegmentedControlButton value="tab3">
+                                  Tab 3
+                                </SegmentedControlButton>
+                              </SegmentedControlList>
+                              <SegmentedControlContent
+                                value="tab1"
+                                className="mt-4"
+                              >
                                 <Card>
                                   <CardContent className="pt-6">
                                     <p className="text-sm">
@@ -1796,8 +1844,11 @@ export default function ThemingPage() {
                                     </p>
                                   </CardContent>
                                 </Card>
-                              </TabsContent>
-                              <TabsContent value="tab2" className="mt-4">
+                              </SegmentedControlContent>
+                              <SegmentedControlContent
+                                value="tab2"
+                                className="mt-4"
+                              >
                                 <Card>
                                   <CardContent className="pt-6">
                                     <p className="text-sm">
@@ -1805,8 +1856,11 @@ export default function ThemingPage() {
                                     </p>
                                   </CardContent>
                                 </Card>
-                              </TabsContent>
-                              <TabsContent value="tab3" className="mt-4">
+                              </SegmentedControlContent>
+                              <SegmentedControlContent
+                                value="tab3"
+                                className="mt-4"
+                              >
                                 <Card>
                                   <CardContent className="pt-6">
                                     <p className="text-sm">
@@ -1814,8 +1868,8 @@ export default function ThemingPage() {
                                     </p>
                                   </CardContent>
                                 </Card>
-                              </TabsContent>
-                            </Tabs>
+                              </SegmentedControlContent>
+                            </SegmentedControl>
                           </div>
                         </div>
 
@@ -1898,9 +1952,12 @@ export default function ThemingPage() {
                         </div>
                       </div>
                     </div>
-                  </TabsContent>
+                  </SegmentedControlContent>
 
-                  <TabsContent value="cards" className="space-y-4 mt-6">
+                  <SegmentedControlContent
+                    value="cards"
+                    className="space-y-4 mt-6"
+                  >
                     <div
                       className="theme-preview p-6 rounded-lg"
                       style={
@@ -1997,9 +2054,12 @@ export default function ThemingPage() {
                         </Card>
                       </div>
                     </div>
-                  </TabsContent>
+                  </SegmentedControlContent>
 
-                  <TabsContent value="forms" className="space-y-4 mt-6">
+                  <SegmentedControlContent
+                    value="forms"
+                    className="space-y-4 mt-6"
+                  >
                     <div
                       className="theme-preview p-6 rounded-lg"
                       style={
@@ -2109,9 +2169,12 @@ export default function ThemingPage() {
                         </Card>
                       </div>
                     </div>
-                  </TabsContent>
+                  </SegmentedControlContent>
 
-                  <TabsContent value="dashboard" className="space-y-6 mt-6">
+                  <SegmentedControlContent
+                    value="dashboard"
+                    className="space-y-6 mt-6"
+                  >
                     <div
                       className="theme-preview p-6 rounded-lg"
                       style={
@@ -2307,8 +2370,8 @@ export default function ThemingPage() {
                         </Card>
                       </div>
                     </div>
-                  </TabsContent>
-                </Tabs>
+                  </SegmentedControlContent>
+                </SegmentedControl>
               </CardContent>
             </Card>
           </div>
