@@ -405,10 +405,12 @@ export const ProgressBasic: Story = {
   render: () => (
     <Artifact className="w-96">
       <CardHeader className="items-center gap-2">
-        <ArtifactTitle>Progress title</ArtifactTitle>
-        <ArtifactDescription className="text-base">
-          8 of 12 tasks complete
-        </ArtifactDescription>
+        <CardHeaderContent>
+          <ArtifactTitle>Progress title</ArtifactTitle>
+          <ArtifactDescription className="text-base">
+            8 of 12 tasks complete
+          </ArtifactDescription>
+        </CardHeaderContent>
       </CardHeader>
       <CardContent className="px-4 py-4.5 flex w-full items-center justify-between gap-2">
         <Progress value={32} />
