@@ -667,8 +667,8 @@ export {
   TableRow,
   TableCell,
   TableCaption,
-} from './table/table';
-export { TableMetadata } from './table/table.metadata';
+  TableMetadata,
+} from './table';
 
 export { Tabs, TabsList, TabsTrigger, TabsContent } from './tabs/tabs';
 export { TabsMetadata } from './tabs/tabs.metadata';
