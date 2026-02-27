@@ -2,15 +2,12 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
 
+import { Avatar, AvatarFallback, AvatarImage } from '../avatar';
+import { Badge } from '../badge';
+import { Button } from '../button';
+
 import { HoverCard, HoverCardContent, HoverCardTrigger } from './hover-card';
 
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from '@/components/ui/aura/avatar';
-import { Badge } from '@/components/ui/aura/badge';
-import { Button } from '@/components/ui/aura/button';
 const meta: Meta<typeof HoverCard> = {
   title: 'Primitives/Hover Card',
   component: HoverCard,
@@ -96,10 +93,11 @@ type Story = StoryObj<typeof HoverCard>;
 async function testHoverInteraction(
   canvasElement: HTMLElement,
   triggerName: RegExp,
-  contentText: RegExp,
+  contentText: RegExp | string,
   timeout = 2000
 ) {
   const canvas = within(canvasElement);
+  const body = within(canvasElement.ownerDocument.body);
   const trigger = await canvas.findByRole(
     'button',
     {
@@ -110,35 +108,31 @@ async function testHoverInteraction(
     }
   );
   await expect(trigger).toBeInTheDocument();
-  const waitForOpenHoverCard = async () => {
-    await waitFor(
-      () => {
-        const hoverCard = document.querySelector(
-          '[data-slot="hover-card-content"][data-open]'
-        ) as HTMLElement | null;
-        expect(hoverCard).toBeInTheDocument();
-        expect(hoverCard).toHaveTextContent(contentText);
-      },
-      {
-        timeout,
-      }
-    );
-  };
   await userEvent.hover(trigger);
-  try {
-    await waitForOpenHoverCard();
-  } catch {
-    await userEvent.unhover(trigger);
-    await userEvent.hover(trigger);
-    await waitForOpenHoverCard();
+  const popup = await waitFor(
+    () => {
+      const node = canvasElement.ownerDocument.querySelector(
+        '[data-slot="hover-card-content"][data-open]'
+      );
+      expect(node).not.toBeNull();
+      return node;
+    },
+    { timeout }
+  );
+  if (!popup) {
+    throw new Error('Hover card content did not open');
   }
+  await expect(popup).toHaveTextContent(contentText);
+  await expect(popup).toHaveAttribute('data-open');
+  await expect(body.getByText(contentText)).toBeInTheDocument();
+
   await userEvent.unhover(trigger);
   await waitFor(
     () => {
-      const hoverCard = document.querySelector(
+      const hoverCard = canvasElement.ownerDocument.querySelector(
         '[data-slot="hover-card-content"][data-open]'
       );
-      expect(hoverCard).not.toBeInTheDocument();
+      expect(hoverCard).toBeNull();
     },
     {
       timeout,
@@ -499,6 +493,7 @@ export const ControlledWithCustomDelays: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const body = within(canvasElement.ownerDocument.body);
     const trigger = await canvas.findByRole(
       'button',
       {
@@ -509,33 +504,28 @@ export const ControlledWithCustomDelays: Story = {
       }
     );
     await expect(trigger).toBeInTheDocument();
-    const waitForOpenHoverCard = async () => {
-      await waitFor(
-        () => {
-          const hoverCard = document.querySelector(
-            '[data-slot="hover-card-content"][data-open]'
-          ) as HTMLElement | null;
-          expect(hoverCard).toBeInTheDocument();
-          expect(hoverCard).toHaveTextContent(/custom delays/i);
-        },
-        {
-          timeout: 2000,
-        }
-      );
-    };
     await userEvent.hover(trigger);
-    try {
-      await waitForOpenHoverCard();
-    } catch {
-      await userEvent.unhover(trigger);
-      await userEvent.hover(trigger);
-      await waitForOpenHoverCard();
+    const hoverCard = await waitFor(
+      () => {
+        const node = canvasElement.ownerDocument.querySelector(
+          '[data-slot="hover-card-content"][data-open]'
+        );
+        expect(node).not.toBeNull();
+        return node;
+      },
+      {
+        timeout: 2000,
+      }
+    );
+    if (!hoverCard) {
+      throw new Error('Controlled hover card did not open');
     }
-    const hoverCard = document.querySelector(
-      '[data-slot="hover-card-content"][data-open]'
-    ) as HTMLElement | null;
-    expect(hoverCard).toBeInTheDocument();
-    const closeButton = within(hoverCard as HTMLElement).getByRole('button', {
+    if (!(hoverCard instanceof HTMLElement)) {
+      throw new Error('Controlled hover card is not an HTMLElement');
+    }
+    await expect(hoverCard).toHaveAttribute('data-open');
+    await expect(body.getByText(/custom delays/i)).toBeInTheDocument();
+    const closeButton = within(hoverCard).getByRole('button', {
       name: /Close/i,
     });
     await userEvent.click(closeButton);
