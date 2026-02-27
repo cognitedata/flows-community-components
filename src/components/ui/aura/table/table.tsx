@@ -2,6 +2,13 @@ import type { ComponentProps } from 'react';
 
 import { cn } from '../../../../lib/utils';
 
+const getTitleFromChildren = (children: ComponentProps<'td'>['children']) => {
+  if (typeof children === 'string' || typeof children === 'number') {
+    return String(children);
+  }
+  return undefined;
+};
+
 function Table({ className, ...props }: ComponentProps<'table'>) {
   return (
     <div
@@ -66,29 +73,49 @@ function TableRow({ className, ...props }: ComponentProps<'tr'>) {
   );
 }
 
-function TableHead({ className, ...props }: ComponentProps<'th'>) {
+function TableHead({
+  className,
+  children,
+  title,
+  ...props
+}: ComponentProps<'th'>) {
+  const resolvedTitle = title ?? getTitleFromChildren(children);
+
   return (
     <th
       data-slot="table-head"
+      title={resolvedTitle}
       className={cn(
         'text-primary h-9 px-3 text-left align-middle text-sm font-medium truncate [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-0.5',
         className
       )}
       {...props}
-    />
+    >
+      {children}
+    </th>
   );
 }
 
-function TableCell({ className, ...props }: ComponentProps<'td'>) {
+function TableCell({
+  className,
+  children,
+  title,
+  ...props
+}: ComponentProps<'td'>) {
+  const resolvedTitle = title ?? getTitleFromChildren(children);
+
   return (
     <td
       data-slot="table-cell"
+      title={resolvedTitle}
       className={cn(
         'h-11 px-3 text-sm font-normal align-middle truncate [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-0.5',
         className
       )}
       {...props}
-    />
+    >
+      {children}
+    </td>
   );
 }
 
