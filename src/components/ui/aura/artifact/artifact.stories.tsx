@@ -539,7 +539,7 @@ export const TreeViewPlantHierarchy: Story = {
     ).toBeGreaterThanOrEqual(1);
   },
   render: () => (
-    <Artifact className="w-sm hover:bg-card">
+    <Artifact className="w-sm">
       <CardHeader>
         <CardHeaderContent>
           <ArtifactTitle>Plant asset hierarchy</ArtifactTitle>
