@@ -23,7 +23,7 @@ const Card = forwardRef<ComponentRef<'div'>, ComponentProps<'div'>>(
         ref={ref}
         data-slot="card"
         className={cn(
-          'bg-card text-card-foreground flex flex-col rounded-lg hover:bg-accent',
+          'bg-card text-card-foreground flex flex-col rounded-lg',
           className
         )}
         {...props}

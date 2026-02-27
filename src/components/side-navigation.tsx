@@ -72,6 +72,7 @@ const primitivesNavigation: NavigationItem[] = [
       { href: '/primitives/popover', label: 'Popover' },
       { href: '/primitives/progress', label: 'Progress' },
       { href: '/primitives/radio-group', label: 'Radio group' },
+      { href: '/primitives/segmented-control', label: 'Segmented control' },
       { href: '/primitives/select', label: 'Select' },
       { href: '/primitives/separator', label: 'Separator' },
       { href: '/primitives/skeleton', label: 'Skeleton' },

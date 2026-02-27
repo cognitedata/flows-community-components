@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-  "name": "tabs",
-  "title": "Tabs",
-  "description": "A tabs component built on Base UI Tabs for organizing content.",
+  "name": "segmented-control",
+  "title": "Segmented Control",
+  "description": "A segmented control component built on Base UI Tabs for organizing content.",
   "dependencies": [
     "@base-ui/react/tabs"
   ],
@@ -11,10 +11,10 @@
   ],
   "files": [
     {
-      "path": "src/components/ui/aura/tabs/tabs.tsx",
-      "content": "import { Tabs as TabsPrimitive } from '@base-ui/react/tabs';\n\nimport { cn } from '../../../../lib/utils';\n\nfunction Tabs({ className, ...props }: TabsPrimitive.Root.Props) {\n  return (\n    <TabsPrimitive.Root\n      data-slot=\"tabs\"\n      className={cn('flex flex-col gap-2', className)}\n      {...props}\n    />\n  );\n}\n\nfunction TabsList({ className, ...props }: TabsPrimitive.List.Props) {\n  return (\n    <TabsPrimitive.List\n      data-slot=\"tabs-list\"\n      className={cn(\n        'bg-muted text-muted-foreground inline-flex h-9 w-fit items-center justify-center rounded-lg p-0.75',\n        className\n      )}\n      {...props}\n    />\n  );\n}\n\nfunction TabsTrigger({ className, ...props }: TabsPrimitive.Tab.Props) {\n  return (\n    <TabsPrimitive.Tab\n      data-slot=\"tabs-trigger\"\n      className={cn(\n        \"data-active:bg-background dark:data-active:text-foreground focus-visible:border-ring focus-visible:ring-ring-shadow focus-visible:outline-ring dark:data-active:border-input dark:data-active:bg-input/30 text-foreground dark:text-muted-foreground inline-flex h-[calc(100%-1px)] flex-1 items-center justify-center gap-1.5 rounded-md border border-transparent px-2 py-1 text-sm font-medium whitespace-nowrap transition-[color,box-shadow] focus-visible:ring focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 data-active:shadow-sm [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4\",\n        className\n      )}\n      {...props}\n    />\n  );\n}\n\nfunction TabsContent({ className, ...props }: TabsPrimitive.Panel.Props) {\n  return (\n    <TabsPrimitive.Panel\n      data-slot=\"tabs-content\"\n      className={cn('flex-1 outline-none', className)}\n      {...props}\n    />\n  );\n}\n\nexport { Tabs, TabsList, TabsTrigger, TabsContent };\n",
+      "path": "src/components/ui/aura/segmented-control/segmented-control.tsx",
+      "content": "import { Tabs as TabsPrimitive } from '@base-ui/react/tabs';\n\nimport { cn } from '../../../../lib/utils';\n\nfunction SegmentedControl({ className, ...props }: TabsPrimitive.Root.Props) {\n  return (\n    <TabsPrimitive.Root\n      data-slot=\"segmented-control\"\n      className={cn('flex flex-col gap-2', className)}\n      {...props}\n    />\n  );\n}\n\nfunction SegmentedControlList({\n  className,\n  ...props\n}: TabsPrimitive.List.Props) {\n  return (\n    <TabsPrimitive.List\n      data-slot=\"segmented-control-list\"\n      className={cn(\n        'bg-muted text-muted-foreground inline-flex h-9 w-fit items-center justify-center rounded-lg p-0.75',\n        className\n      )}\n      {...props}\n    />\n  );\n}\n\nfunction SegmentedControlButton({\n  className,\n  ...props\n}: TabsPrimitive.Tab.Props) {\n  return (\n    <TabsPrimitive.Tab\n      data-slot=\"segmented-control-trigger\"\n      className={cn(\n        \"data-active:bg-background dark:data-active:text-foreground focus-visible:border-ring focus-visible:ring-ring-shadow focus-visible:outline-ring dark:data-active:border-input dark:data-active:bg-input/30 text-foreground dark:text-muted-foreground inline-flex h-[calc(100%-1px)] flex-1 items-center justify-center gap-1.5 rounded-md border border-transparent px-2 py-1 text-sm font-medium whitespace-nowrap transition-[color,box-shadow] focus-visible:ring focus-visible:outline-1 data-disabled:pointer-events-none data-disabled:opacity-50 data-active:shadow-sm [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4\",\n        className\n      )}\n      {...props}\n    />\n  );\n}\n\nfunction SegmentedControlContent({\n  className,\n  ...props\n}: TabsPrimitive.Panel.Props) {\n  return (\n    <TabsPrimitive.Panel\n      data-slot=\"segmented-control-content\"\n      className={cn('flex-1 outline-none', className)}\n      {...props}\n    />\n  );\n}\n\nexport {\n  SegmentedControl,\n  SegmentedControlList,\n  SegmentedControlButton,\n  SegmentedControlContent,\n};\n",
       "type": "registry:component",
-      "target": "src/components/ui/aura/tabs.tsx"
+      "target": "src/components/ui/aura/segmented-control.tsx"
     },
     {
       "path": "src/globals.css",
