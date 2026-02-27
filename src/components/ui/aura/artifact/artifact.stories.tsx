@@ -764,3 +764,80 @@ export const ChartBasic: Story = {
     );
   },
 };
+
+export const CountTemperatureNarrowContainer: Story = {
+  name: 'Count: Temperature Narrow Container',
+  parameters: { order: 13 },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText('Temperature')).toBeInTheDocument();
+    await expect(canvas.getByText('V-192')).toBeInTheDocument();
+    await expect(canvas.getByText('Since 2hrs ago')).toBeInTheDocument();
+    await expect(canvas.getByText('Min:')).toBeInTheDocument();
+    await expect(canvas.getByText('Max:')).toBeInTheDocument();
+  },
+  render: () => (
+    <Artifact className="w-56">
+      <CardHeader>
+        <CardHeaderLeft>
+          <Count variant="critical">392°C</Count>
+        </CardHeaderLeft>
+        <CardHeaderContent>
+          <ArtifactTitle>Temperature</ArtifactTitle>
+          <ArtifactDescription>V-192</ArtifactDescription>
+        </CardHeaderContent>
+        <CardHeaderRight className="items-end self-stretch">
+          <span className="text-sm text-muted-foreground">Since 2hrs ago</span>
+        </CardHeaderRight>
+      </CardHeader>
+      <CardContent>
+        <Separator />
+      </CardContent>
+      <CardFooter className="text-sm">
+        <CardFooterLeft>
+          <span className="text-muted-foreground">Min:</span>{' '}
+          <span className="font-medium">384°C</span>
+        </CardFooterLeft>
+        <CardFooterRight>
+          <span className="text-muted-foreground">Max:</span>{' '}
+          <span className="font-medium">390°C</span>
+        </CardFooterRight>
+      </CardFooter>
+    </Artifact>
+  ),
+};
+
+export const HeaderOverflowTriplet: Story = {
+  name: 'Edge Case: Header Overflow Triplet',
+  parameters: { order: 14 },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    await expect(
+      canvas.getByText('Critical Resource Allocation Overview')
+    ).toBeInTheDocument();
+    await expect(canvas.getByText('Cluster A - Unit 7')).toBeInTheDocument();
+    await expect(canvas.getByText('Updated 4m ago')).toBeInTheDocument();
+  },
+  render: () => (
+    <Artifact className="w-64">
+      <CardHeader>
+        <CardHeaderLeft>
+          <Count variant="warning">12</Count>
+        </CardHeaderLeft>
+        <CardHeaderContent>
+          <ArtifactTitle>Critical Resource Allocation Overview</ArtifactTitle>
+          <ArtifactDescription>Cluster A - Unit 7</ArtifactDescription>
+        </CardHeaderContent>
+        <CardHeaderRight className="items-end self-stretch">
+          <span className="text-sm text-muted-foreground">Updated 4m ago</span>
+        </CardHeaderRight>
+      </CardHeader>
+      <CardContent>
+        <Separator />
+      </CardContent>
+      <CardFooter className="text-sm text-muted-foreground">
+        Review assignments for constrained operations window.
+      </CardFooter>
+    </Artifact>
+  ),
+};
