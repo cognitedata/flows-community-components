@@ -19,10 +19,9 @@ import {
   SuggestionValue,
   Suggestions,
 } from './suggestion';
-const getOpenSelectContent = () =>
-  document.querySelector(
-    '[data-slot="select-content"][data-open]'
-  ) as HTMLElement | null;
+
+const getOpenSelectContent = () => within(document.body).queryByRole('listbox');
+
 const waitForSelectContentOpen = async () => {
   await waitFor(
     () => {
@@ -127,15 +126,18 @@ const meta: Meta<typeof Suggestion> = {
 export default meta;
 type Story = StoryObj<typeof Suggestion>;
 export const Basic: Story = {
+  parameters: {
+    order: 1,
+  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const suggestion1 = canvas.getByRole('button', {
-      name: /AI prompt suggestion 1/i,
+      name: /Suggestion 1/i,
     });
     await expect(suggestion1).toBeInTheDocument();
     await userEvent.click(suggestion1);
     const suggestion2 = canvas.getByRole('button', {
-      name: /AI prompt suggestion 2/i,
+      name: /Suggestion 2/i,
     });
     await expect(suggestion2).toBeInTheDocument();
   },
@@ -144,30 +146,24 @@ export const Basic: Story = {
       args.onClick?.(value);
     };
     return (
-      <div className="flex flex-wrap gap-2 max-w-[80%]">
-        <Suggestion
-          suggestion="AI prompt suggestion 1"
-          onClick={handleSuggestion}
-        />
-        <Suggestion
-          suggestion="AI prompt suggestion 2"
-          onClick={handleSuggestion}
-        />
-        <Suggestion
-          suggestion="AI prompt suggestion 3"
-          onClick={handleSuggestion}
-        />
+      <div className="flex max-w-xl flex-wrap gap-2">
+        <Suggestion suggestion="Suggestion 1" onClick={handleSuggestion} />
+        <Suggestion suggestion="Suggestion 2" onClick={handleSuggestion} />
+        <Suggestion suggestion="Suggestion 3" onClick={handleSuggestion} />
       </div>
     );
   },
 };
 export const WithScrollableWrapper: Story = {
+  parameters: {
+    order: 2,
+  },
   render: function SuggestionScrollableStory(args) {
     const handleSuggestion = (value: string) => {
       args.onClick?.(value);
     };
     return (
-      <Suggestions className="w-[500px]">
+      <Suggestions className="w-full max-w-xl">
         <Suggestion suggestion="Suggestion 1" onClick={handleSuggestion} />
         <Suggestion suggestion="Suggestion 2" onClick={handleSuggestion} />
         <Suggestion suggestion="Suggestion 3" onClick={handleSuggestion} />
@@ -179,6 +175,9 @@ export const WithScrollableWrapper: Story = {
   },
 };
 export const ButtonVariants: Story = {
+  parameters: {
+    order: 3,
+  },
   render: function SuggestionVariantsStory(args) {
     const handleSuggestion = (value: string) => {
       args.onClick?.(value);
@@ -200,6 +199,9 @@ export const ButtonVariants: Story = {
   },
 };
 export const SelectMode: Story = {
+  parameters: {
+    order: 4,
+  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const trigger = canvas.getByRole('combobox');
@@ -225,13 +227,22 @@ export const SelectMode: Story = {
           <SuggestionValue placeholder="AI prompt suggestion 2" />
         </SuggestionTrigger>
         <SuggestionContent>
-          <SuggestionItem icon={<IconGauge className="size-4" />}>
+          <SuggestionItem
+            value="Show me the pressure on valve 10"
+            icon={<IconGauge className="size-4" />}
+          >
             Show me the pressure on valve 10
           </SuggestionItem>
-          <SuggestionItem icon={<IconActivity className="size-4" />}>
+          <SuggestionItem
+            value="What's the status of pump 3?"
+            icon={<IconActivity className="size-4" />}
+          >
             What&apos;s the status of pump 3?
           </SuggestionItem>
-          <SuggestionItem icon={<IconChartLine className="size-4" />}>
+          <SuggestionItem
+            value="Display temperature trends for zone A"
+            icon={<IconChartLine className="size-4" />}
+          >
             Display temperature trends for zone A
           </SuggestionItem>
         </SuggestionContent>
@@ -240,6 +251,9 @@ export const SelectMode: Story = {
   },
 };
 export const KeyboardInteractions: Story = {
+  parameters: {
+    order: 5,
+  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const trigger = canvas.getByRole('combobox');
@@ -265,13 +279,22 @@ export const KeyboardInteractions: Story = {
           <SuggestionValue placeholder="Use keyboard to navigate..." />
         </SuggestionTrigger>
         <SuggestionContent>
-          <SuggestionItem icon={<IconGauge className="size-4" />}>
+          <SuggestionItem
+            value="First option"
+            icon={<IconGauge className="size-4" />}
+          >
             First option
           </SuggestionItem>
-          <SuggestionItem icon={<IconActivity className="size-4" />}>
+          <SuggestionItem
+            value="Second option"
+            icon={<IconActivity className="size-4" />}
+          >
             Second option
           </SuggestionItem>
-          <SuggestionItem icon={<IconChartLine className="size-4" />}>
+          <SuggestionItem
+            value="Third option"
+            icon={<IconChartLine className="size-4" />}
+          >
             Third option
           </SuggestionItem>
         </SuggestionContent>
@@ -280,6 +303,9 @@ export const KeyboardInteractions: Story = {
   },
 };
 export const Grouped: Story = {
+  parameters: {
+    order: 6,
+  },
   render: function SuggestionGroupedStory(args) {
     const handleSuggestion = (value: string) => {
       args.onValueChange?.(value);
@@ -292,10 +318,16 @@ export const Grouped: Story = {
         <SuggestionContent>
           <SuggestionGroup>
             <SuggestionLabel>Equipment Status</SuggestionLabel>
-            <SuggestionItem icon={<IconGauge className="size-4" />}>
+            <SuggestionItem
+              value="Show me the pressure on valve 10"
+              icon={<IconGauge className="size-4" />}
+            >
               Show me the pressure on valve 10
             </SuggestionItem>
-            <SuggestionItem icon={<IconActivity className="size-4" />}>
+            <SuggestionItem
+              value="What's the current status of pump 3?"
+              icon={<IconActivity className="size-4" />}
+            >
               What&apos;s the current status of pump 3?
             </SuggestionItem>
           </SuggestionGroup>
@@ -304,10 +336,16 @@ export const Grouped: Story = {
 
           <SuggestionGroup>
             <SuggestionLabel>Historical Data</SuggestionLabel>
-            <SuggestionItem icon={<IconChartLine className="size-4" />}>
+            <SuggestionItem
+              value="Display temperature trends for zone A"
+              icon={<IconChartLine className="size-4" />}
+            >
               Display temperature trends for zone A
             </SuggestionItem>
-            <SuggestionItem icon={<IconHistory className="size-4" />}>
+            <SuggestionItem
+              value="Show me yesterday's flow rates"
+              icon={<IconHistory className="size-4" />}
+            >
               Show me yesterday&apos;s flow rates
             </SuggestionItem>
           </SuggestionGroup>
@@ -317,6 +355,9 @@ export const Grouped: Story = {
   },
 };
 export const InteractiveSelect: Story = {
+  parameters: {
+    order: 7,
+  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const trigger = canvas.getByRole('combobox');
@@ -324,9 +365,7 @@ export const InteractiveSelect: Story = {
     expect(canvas.queryByText(/Last selected:/)).not.toBeInTheDocument();
     await userEvent.click(trigger);
     await waitForSelectContentOpen();
-    const content = getOpenSelectContent();
-    expect(content).toBeInTheDocument();
-    const item = within(content as HTMLElement).getByText(
+    const item = within(document.body).getByText(
       "What's the status of pump 3?"
     );
     await userEvent.click(item);
@@ -361,13 +400,22 @@ export const InteractiveSelect: Story = {
             />
           </SuggestionTrigger>
           <SuggestionContent>
-            <SuggestionItem icon={<IconGauge className="size-4" />}>
+            <SuggestionItem
+              value="Show me the pressure on valve 10"
+              icon={<IconGauge className="size-4" />}
+            >
               Show me the pressure on valve 10
             </SuggestionItem>
-            <SuggestionItem icon={<IconActivity className="size-4" />}>
+            <SuggestionItem
+              value="What's the status of pump 3?"
+              icon={<IconActivity className="size-4" />}
+            >
               What&apos;s the status of pump 3?
             </SuggestionItem>
-            <SuggestionItem icon={<IconChartLine className="size-4" />}>
+            <SuggestionItem
+              value="Display temperature trends for zone A"
+              icon={<IconChartLine className="size-4" />}
+            >
               Display temperature trends for zone A
             </SuggestionItem>
           </SuggestionContent>
@@ -382,6 +430,9 @@ export const InteractiveSelect: Story = {
   },
 };
 export const MultipleSelects: Story = {
+  parameters: {
+    order: 8,
+  },
   render: function SuggestionMultipleSelectsStory(args) {
     const handleSuggestion1 = (value: string) => {
       args.onValueChange?.(value);
@@ -396,10 +447,16 @@ export const MultipleSelects: Story = {
             <SuggestionValue placeholder="Select equipment query..." />
           </SuggestionTrigger>
           <SuggestionContent>
-            <SuggestionItem icon={<IconGauge className="size-4" />}>
+            <SuggestionItem
+              value="Show me the pressure on valve 10"
+              icon={<IconGauge className="size-4" />}
+            >
               Show me the pressure on valve 10
             </SuggestionItem>
-            <SuggestionItem icon={<IconActivity className="size-4" />}>
+            <SuggestionItem
+              value="What's the status of pump 3?"
+              icon={<IconActivity className="size-4" />}
+            >
               What&apos;s the status of pump 3?
             </SuggestionItem>
           </SuggestionContent>
@@ -410,10 +467,16 @@ export const MultipleSelects: Story = {
             <SuggestionValue placeholder="Select data query..." />
           </SuggestionTrigger>
           <SuggestionContent>
-            <SuggestionItem icon={<IconChartLine className="size-4" />}>
+            <SuggestionItem
+              value="Display temperature trends for zone A"
+              icon={<IconChartLine className="size-4" />}
+            >
               Display temperature trends for zone A
             </SuggestionItem>
-            <SuggestionItem icon={<IconHistory className="size-4" />}>
+            <SuggestionItem
+              value="Show me yesterday's flow rates"
+              icon={<IconHistory className="size-4" />}
+            >
               Show me yesterday&apos;s flow rates
             </SuggestionItem>
           </SuggestionContent>
@@ -423,6 +486,9 @@ export const MultipleSelects: Story = {
   },
 };
 export const MixedModes: Story = {
+  parameters: {
+    order: 9,
+  },
   render: function SuggestionMixedStory(args) {
     const handleButtonClick = (value: string) => {
       args.onClick?.(value);
@@ -439,15 +505,137 @@ export const MixedModes: Story = {
             <SuggestionValue placeholder="More options..." />
           </SuggestionTrigger>
           <SuggestionContent>
-            <SuggestionItem icon={<IconGauge className="size-4" />}>
+            <SuggestionItem
+              value="Show me the pressure on valve 10"
+              icon={<IconGauge className="size-4" />}
+            >
               Show me the pressure on valve 10
             </SuggestionItem>
-            <SuggestionItem icon={<IconActivity className="size-4" />}>
+            <SuggestionItem
+              value="What's the status of pump 3?"
+              icon={<IconActivity className="size-4" />}
+            >
               What&apos;s the status of pump 3?
             </SuggestionItem>
           </SuggestionContent>
         </Suggestion>
       </div>
+    );
+  },
+};
+
+export const FollowUpCards: Story = {
+  parameters: {
+    order: 10,
+  },
+  render: function SuggestionFollowUpCardsStory(args) {
+    const handleSuggestion = (value: string) => {
+      args.onClick?.(value);
+    };
+
+    return (
+      <Suggestions className="w-max gap-2">
+        <Suggestion
+          className="w-52 items-start justify-start rounded-lg bg-muted p-4 text-left hover:bg-muted"
+          suggestion="Prioritize critical equipment in resource allocation"
+          onClick={handleSuggestion}
+          variant="ghost"
+        >
+          <span className="space-y-1">
+            <span className="block text-xs font-medium leading-tighter text-muted-foreground">
+              Follow up
+            </span>
+            <span className="block text-base leading-tightest leading-5 font-normal text-foreground whitespace-normal">
+              Prioritize critical equipment in resource allocation
+            </span>
+          </span>
+        </Suggestion>
+        <Suggestion
+          className="w-52 items-start justify-start rounded-lg bg-muted p-4 text-left hover:bg-muted"
+          suggestion="Prioritize critical equipment in resource allocation"
+          onClick={handleSuggestion}
+          variant="ghost"
+        >
+          <span className="space-y-1">
+            <span className="block text-xs font-medium leading-tighter text-muted-foreground">
+              Follow up
+            </span>
+            <span className="block text-base leading-tightest leading-5 font-normal text-foreground whitespace-normal">
+              Prioritize critical equipment in resource allocation
+            </span>
+          </span>
+        </Suggestion>
+        <Suggestion
+          className="w-52 items-start justify-start rounded-lg bg-muted p-4 text-left hover:bg-muted"
+          suggestion="Prioritize critical equipment in resource allocation"
+          onClick={handleSuggestion}
+          variant="ghost"
+        >
+          <span className="space-y-1">
+            <span className="block text-xs font-medium leading-tighter text-muted-foreground">
+              Follow up
+            </span>
+            <span className="block text-base leading-tightest leading-5 font-normal text-foreground whitespace-normal">
+              Prioritize critical equipment in resource allocation
+            </span>
+          </span>
+        </Suggestion>
+      </Suggestions>
+    );
+  },
+};
+export const AISuggestionMode: Story = {
+  parameters: {
+    order: 11,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const trigger = canvas.getByRole('combobox');
+    await expect(trigger).toBeInTheDocument();
+    await userEvent.click(trigger);
+    await waitForSelectContentOpen();
+    await expect(
+      within(document.body).getByText(
+        /prioritize critical equipment in resource allocation/i
+      )
+    ).toBeInTheDocument();
+    const item = within(document.body).getByText(
+      /prioritize critical equipment in resource allocation/i
+    );
+    await userEvent.click(item);
+    await waitForSelectContentClosed();
+  },
+  render: function AISuggestionModeStory(args) {
+    const handleSuggestion = (value: string) => {
+      args.onValueChange?.(value);
+    };
+
+    return (
+      <Suggestion onValueChange={handleSuggestion}>
+        <SuggestionTrigger aria-label="Select a suggestion">
+          <SuggestionValue placeholder="AI prompt suggestion 1" />
+        </SuggestionTrigger>
+        <SuggestionContent>
+          <SuggestionItem
+            value="Prioritize critical equipment in resource allocation"
+            icon={<IconGauge className="size-4" />}
+          >
+            Prioritize critical equipment in resource allocation
+          </SuggestionItem>
+          <SuggestionItem
+            value="Break down tasks by production line and urgency"
+            icon={<IconActivity className="size-4" />}
+          >
+            Break down tasks by production line and urgency
+          </SuggestionItem>
+          <SuggestionItem
+            value="Create a timeline for the top three risk areas"
+            icon={<IconChartLine className="size-4" />}
+          >
+            Create a timeline for the top three risk areas
+          </SuggestionItem>
+        </SuggestionContent>
+      </Suggestion>
     );
   },
 };
