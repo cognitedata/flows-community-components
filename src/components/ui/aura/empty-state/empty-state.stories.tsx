@@ -104,9 +104,76 @@ export const Basic: Story = {
   ),
 };
 
-export const WithActions: Story = {
+export const Small: Story = {
   parameters: {
     order: 2,
+  },
+  render: () => (
+    <EmptyState
+      title="No results"
+      body="Try adjusting your search parameters and try again."
+      size="sm"
+      primaryAction={
+        <Button variant="secondary" size="sm">
+          <IconPlus />
+          Create extraction pipeline
+        </Button>
+      }
+      secondaryAction={
+        <Button variant="ghost" size="sm">
+          Back
+          <IconArrowLeft />
+        </Button>
+      }
+    />
+  ),
+};
+
+export const AllSizes: Story = {
+  parameters: {
+    order: 3,
+  },
+  render: () => {
+    return (
+      <div className="flex flex-col gap-4">
+        <h3 className="text-sm font-medium tracking-tightest mb-2">Default</h3>
+        <EmptyState
+          title="No Access"
+          body="This canvas is private, you must request access to view or edit it."
+          primaryAction={<Button>Request access</Button>}
+          secondaryAction={
+            <Button variant="outline">
+              <IconArrowLeft />
+              Back
+            </Button>
+          }
+          helpLink={{ label: 'Learn more', href: '#' }}
+        />
+        <h3 className="text-sm font-medium tracking-tightest mb-2">Small</h3>
+        <EmptyState
+          title="No Access"
+          body="This canvas is private, you must request access to view or edit it."
+          size="sm"
+          primaryAction={
+            <Button variant="secondary" size="sm">
+              Request access
+            </Button>
+          }
+          secondaryAction={
+            <Button variant="ghost" size="sm">
+              Back
+              <IconArrowLeft />
+            </Button>
+          }
+        />
+      </div>
+    );
+  },
+};
+
+export const WithActions: Story = {
+  parameters: {
+    order: 4,
   },
   render: () => (
     <EmptyState
@@ -125,7 +192,7 @@ export const WithActions: Story = {
 
 export const WithHelpLink: Story = {
   parameters: {
-    order: 3,
+    order: 5,
   },
   render: () => (
     <EmptyState
@@ -143,22 +210,47 @@ export const WithHelpLink: Story = {
   ),
 };
 
-export const Small: Story = {
+export const NarrowContainer: Story = {
   parameters: {
-    order: 4,
+    order: 6,
+  },
+  render: () => (
+    <div className="w-56 p-4 border border-dashed border-gray-300 rounded-md">
+      <EmptyState
+        title="No matches found"
+        body="Try broadening your search terms or removing filters."
+        primaryAction={<Button>Clear filters</Button>}
+        secondaryAction={
+          <Button variant="outline">
+            <IconArrowLeft />
+            Back
+          </Button>
+        }
+      />
+    </div>
+  ),
+};
+
+export const LongBody: Story = {
+  parameters: {
+    order: 7,
   },
   render: () => (
     <EmptyState
-      title="No data yet"
-      body="Try adjusting your search parameters and try again."
-      size="sm"
+      title="No extraction pipelines available"
+      body="Extraction pipelines help you move and transform data between systems. Create a new pipeline to define your source, destination, and transformation steps, then monitor status and troubleshoot failures directly from this page."
       primaryAction={
-        <Button variant="secondary" size="sm">
+        <Button>
           <IconPlus />
           Create extraction pipeline
         </Button>
       }
-      helpLink={{ label: 'Learn more', href: '#' }}
+      secondaryAction={
+        <Button variant="outline">
+          <IconArrowLeft />
+          Back
+        </Button>
+      }
     />
   ),
 };

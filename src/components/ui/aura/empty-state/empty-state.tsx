@@ -28,9 +28,9 @@ const EmptyState = ({
   return (
     <div
       className={cn(
-        'flex flex-col items-center gap-6 size-full w-full justify-center text-center',
-        size === 'default' && 'max-w-96',
-        size === 'sm' && 'max-w-80',
+        'flex flex-col items-center size-full w-full justify-center text-center max-w-96',
+        size === 'default' && 'gap-6',
+        size === 'sm' && 'gap-3',
         className
       )}
       {...props}
@@ -38,8 +38,8 @@ const EmptyState = ({
       {icon}
       <div
         className={cn(
-          size === 'default' && 'mb-8 space-y-4',
-          size === 'sm' && 'mb-4 space-y-2'
+          size === 'default' && 'mb-2 space-y-4',
+          size === 'sm' && 'mb-3 space-y-2'
         )}
       >
         <h3
@@ -65,13 +65,22 @@ const EmptyState = ({
         {body && typeof body !== 'string' && body}
       </div>
       <div className="flex flex-col gap-5 items-center">
-        <div className="flex gap-2">
-          {secondaryAction}
-          {primaryAction}
-        </div>
+        {size === 'default' && (
+          <div className="flex gap-2">
+            {secondaryAction}
+            {primaryAction}
+          </div>
+        )}
+        {size === 'sm' && (
+          <div className="flex gap-2 flex-col items-center">
+            {primaryAction}
+            {secondaryAction}
+          </div>
+        )}
         {helpLink && (
           <Button
             variant="ghost"
+            size={size}
             render={<a href={helpLink.href} target="_blank" />}
             nativeButton={false}
           >
