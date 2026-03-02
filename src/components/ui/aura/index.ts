@@ -219,9 +219,7 @@ export {
 } from './colors/colors';
 export { ColorsMetadata } from './colors/colors.metadata';
 
-export { Combobox, ComboboxCustom } from './combobox/combobox';
-export type { ComboboxProps } from './combobox/combobox';
-export { ComboboxMetadata } from './combobox/combobox.metadata';
+export { Combobox, ComboboxCustom, ComboboxMetadata } from './combobox';
 
 export {
   Command,
@@ -264,8 +262,8 @@ export {
   ContextMenuSubContent,
   ContextMenuSubTrigger,
   ContextMenuRadioGroup,
-} from './context-menu/context-menu';
-export { ContextMenuMetadata } from './context-menu/context-menu.metadata';
+  ContextMenuMetadata,
+} from './context-menu';
 
 export {
   Conversation,
@@ -492,8 +490,8 @@ export {
   paginationEllipsisVariants,
   paginationLinkVariants,
   paginationStatusVariants,
-} from './pagination/pagination';
-export { PaginationMetadata } from './pagination/pagination.metadata';
+  PaginationMetadata,
+} from './pagination';
 
 export { Popover, PopoverTrigger, PopoverContent } from './popover/popover';
 export { PopoverMetadata } from './popover/popover.metadata';
@@ -650,19 +648,8 @@ export {
   SuggestionGroup,
   SuggestionLabel,
   SuggestionSeparator,
-} from './suggestion/suggestion';
-export type {
-  SuggestionsProps,
-  SuggestionProps,
-  SuggestionTriggerProps,
-  SuggestionValueProps,
-  SuggestionContentProps,
-  SuggestionItemProps,
-  SuggestionGroupProps,
-  SuggestionLabelProps,
-  SuggestionSeparatorProps,
-} from './suggestion/suggestion';
-export { SuggestionMetadata } from './suggestion/suggestion.metadata';
+  SuggestionMetadata,
+} from './suggestion';
 
 export { SwapSlot } from './swap-slot/swap-slot';
 export type { SwapSlotProps } from './swap-slot/swap-slot';
@@ -680,8 +667,8 @@ export {
   TableRow,
   TableCell,
   TableCaption,
-} from './table/table';
-export { TableMetadata } from './table/table.metadata';
+  TableMetadata,
+} from './table';
 
 export {
   SegmentedControl,

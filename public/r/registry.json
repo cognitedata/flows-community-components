@@ -1724,7 +1724,7 @@
       "name": "table",
       "type": "registry:component",
       "title": "Table",
-      "description": "A table component for displaying tabular data.",
+      "description": "A semantic table primitive for displaying structured data.",
       "registryDependencies": [
         "@aura/css"
       ],

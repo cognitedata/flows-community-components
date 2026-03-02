@@ -333,6 +333,86 @@ export const FullWidth: Story = {
     </SegmentedControl>
   ),
 };
+export const LongLabels: Story = {
+  parameters: {
+    order: 7,
+  },
+  render: () => (
+    <SegmentedControl defaultValue="operations">
+      <SegmentedControlList className="w-full">
+        <SegmentedControlButton value="operations" className="flex-1">
+          Operations Overview
+        </SegmentedControlButton>
+        <SegmentedControlButton value="maintenance" className="flex-1">
+          Maintenance Planning
+        </SegmentedControlButton>
+        <SegmentedControlButton value="compliance" className="flex-1">
+          Regulatory Compliance
+        </SegmentedControlButton>
+      </SegmentedControlList>
+      <SegmentedControlContent value="operations" className="p-4">
+        Operations overview content.
+      </SegmentedControlContent>
+      <SegmentedControlContent value="maintenance" className="p-4">
+        Maintenance planning content.
+      </SegmentedControlContent>
+      <SegmentedControlContent value="compliance" className="p-4">
+        Regulatory compliance content.
+      </SegmentedControlContent>
+    </SegmentedControl>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const maintenanceTab = canvas.getByRole('tab', {
+      name: 'Maintenance Planning',
+    });
+    await userEvent.click(maintenanceTab);
+    await expect(maintenanceTab).toHaveAttribute('aria-selected', 'true');
+    await expect(
+      canvas.getByText('Maintenance planning content.')
+    ).toBeVisible();
+  },
+};
+export const VeryNarrowContainer: Story = {
+  parameters: {
+    order: 8,
+  },
+  render: () => (
+    <div className="w-48">
+      <SegmentedControl defaultValue="one">
+        <SegmentedControlList className="w-full">
+          <SegmentedControlButton value="one" className="flex-1">
+            Segment One
+          </SegmentedControlButton>
+          <SegmentedControlButton value="two" className="flex-1">
+            Segment Two
+          </SegmentedControlButton>
+          <SegmentedControlButton value="three" className="flex-1">
+            Segment Three
+          </SegmentedControlButton>
+        </SegmentedControlList>
+        <SegmentedControlContent value="one" className="p-4">
+          First segment content.
+        </SegmentedControlContent>
+        <SegmentedControlContent value="two" className="p-4">
+          Second segment content.
+        </SegmentedControlContent>
+        <SegmentedControlContent value="three" className="p-4">
+          Third segment content.
+        </SegmentedControlContent>
+      </SegmentedControl>
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const tabs = canvas.getAllByRole('tab');
+    await expect(tabs).toHaveLength(3);
+    await userEvent.click(canvas.getByRole('tab', { name: 'Segment Three' }));
+    await expect(
+      canvas.getByRole('tab', { name: 'Segment Three' })
+    ).toHaveAttribute('aria-selected', 'true');
+  },
+};
 export const VisualRegression: Story = {
   render: () => (
     <div className="space-y-8">
@@ -398,7 +478,7 @@ export const VisualRegression: Story = {
     </div>
   ),
   parameters: {
-    order: 7,
+    order: 9,
     chromatic: {
       disableSnapshot: false,
     },

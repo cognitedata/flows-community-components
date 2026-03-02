@@ -112,12 +112,15 @@ For files under `src/components/ui/aura/**`, prefer relative imports (for exampl
 - Don't export prop types from components. Use inline typing (`type MessageProps = ...`) instead of `export type`. Consumers can use `ComponentProps<typeof Component>` if they need access to types. Follow the pattern used by Badge, Card, Button, Dialog, and AlertDialog components.
 - Tooltip delay stories are more stable with deterministic waits and without interaction retries.
 - Storybook stories should omit description metadata and explanatory comments; keep examples self-explanatory through naming and structure.
+- Playground stories should define grouped `argTypes` (for example Display, Content, Accessibility, Events) with clear control metadata and descriptions for interactive docs.
 - Collapsible play tests are more stable when asserting `data-panel-open` and scoping queries to the panel.
 - Topbar wrapper sections should use `ComponentRef<"div">` with `ComponentProps<"div">` for consistent forwardRef typing.
 - Tooltip play tests should avoid retry-based interaction fallbacks; fix root causes and prefer deterministic semantic checks.
 - Hover card play tests are more reliable when asserting open-state attributes with deterministic waits (no retry fallbacks).
 - Dropdown menu play tests are more reliable when querying portal content with `within(document.body).findByRole("menu")` and semantic menu item roles.
 - Dialog play tests are more reliable when opening via trigger and querying portal content with `within(document.body).findByRole("dialog")`.
+- Pagination play tests are most reliable when validating teleport and navigation via semantic textbox/link roles plus deterministic `waitFor` assertions after Enter/click interactions.
+- Component files should order imports as React, third-party, then local aliases, and use `ComponentRef<...>` in `forwardRef` signatures.
 - In story play functions, prefer semantic alert/button queries (`getByRole`/`findByRole`) over `querySelector('[data-slot=...]')` for more stable interaction tests.
 - In Aura story files, use relative component imports (for example `../button`) instead of `@/components/ui/aura/*` aliases.
 - Avoid bracketed arbitrary Tailwind values in overlays/modals; follow the existing `dialog.tsx` positioning pattern (`top-1/2`, `-translate-y-1/2`, and `sm:-translate-x-1/2`) instead.
@@ -134,6 +137,8 @@ For files under `src/components/ui/aura/**`, prefer relative imports (for exampl
 - Prefer a closure-scoped cancellation flag in async `useEffect` flows to avoid stale updates after unmount.
 - For static brand images in app code, import from `src/assets` so Vite rewrites URLs correctly for base-path deployments.
 - For portal stories, prefer `canvas.findByTestId()` and add a stable `data-testid` on the dialog content wrapper when semantic queries are not practical.
+- Breadcrumb examples that mirror product UI can combine a static `BreadcrumbEllipsis` in the path with a `BreadcrumbPageButton` dropdown for current-page actions.
+- Breadcrumb stories should include `parameters.order` for every story and avoid inline `//` comments inside play functions.
 - When `noImplicitAny` is enabled, type Storybook `play` contexts explicitly (e.g. `({ canvasElement }: { canvasElement: HTMLElement })`) and type Playground `args` with `ComponentProps<typeof Component>`.
 - For portal stories, prefer semantic queries first; use test ids only in test code when mocking and no semantic query is available.
 - Accordion story play tests are more robust when asserting trigger `aria-expanded` state changes instead of querying open panels by implementation-specific selectors.
@@ -143,11 +148,18 @@ For files under `src/components/ui/aura/**`, prefer relative imports (for exampl
 - For chart config typing in stories/pages, prefer `ComponentProps<typeof ChartContainer>["config"]` (or `ComponentProps<typeof Chart>["config"]`) instead of importing/exporting `ChartConfig` types.
 - When updating component metadata statuses from a list, update only existing `*.metadata.ts` files and skip missing components without creating placeholders.
 - Set per-component Figma links in `src/lib/primitives-catalog.ts`; catalog and component pages use those URLs to enable clickable Figma icons.
+- Suggestion stories should query open select content semantically via `within(document.body).queryByRole("listbox")` and keep `parameters.order` set on every story export.
+- Suggestion stories should use design-token widths (for example `w-52`, `max-w-xl`) instead of arbitrary bracket widths for prompt cards and wrappers.
+- Suggestion stories should use the valid typography utility `leading-tighter`; avoid typos like `leading-tigher`.
+- `SuggestionItem` values should come from an explicit `value` prop instead of deriving from `children`.
 - Drawer play tests are more reliable when querying portal dialogs via `within(document.body).findByRole("dialog", { name: /.../i })` and then scoping button queries with `within(dialog).getByRole(...)`.
 - For Base UI `Slider`, type `onValueChange` from `SliderPrimitive.Root.Props<readonly number[]>["onValueChange"]` to avoid `as` casts, and default to a single-thumb value when no `value`/`defaultValue` is provided.
 - Conversation stories should keep play assertions semantic (`getByRole`/`findAllByRole`) and avoid helper components inside story render functions.
 - For components that accept a `render` element and forward accessibility props, set the accessible label once on the component to avoid duplicate `aria-label` attributes on both wrapper and inner element.
 - In Aura stories, avoid DOM traversal selectors in play functions; prefer semantic role/text queries for the interacted element.
+- For table stories, prefer tokenized width utilities (`w-12`, `w-24`) and semantic role assertions over arbitrary bracket values and `querySelector` checks.
+- For fixed-width table behavior with long text, use `table-fixed` on the table and `truncate` on header/data cells to keep columns stable and clip overflow content.
+- Breadcrumb story assertions for `BreadcrumbPageButton` should query by role/name (`getByRole("button", { name: ... })`) instead of chaining `.closest("button")`.
 - In story play tests, avoid `canvasElement.querySelectorAll('[data-slot=\"skeleton\"]')`; prefer semantic queries (for example role/text-based) and only fall back to slot selectors when no semantic target exists.
 - Progress stories should assert state via semantic `progressbar` ARIA attributes (`aria-valuenow`, min/max/name) instead of querying internal indicator slots.
 - Toolbar accessibility stories are more reliable when each toolbar has a distinct `aria-label` and keyboard navigation assertions are scoped with `within(toolbar)` for the intended orientation.
