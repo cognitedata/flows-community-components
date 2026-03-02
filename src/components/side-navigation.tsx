@@ -85,6 +85,7 @@ const primitivesNavigation: NavigationItem[] = [
       { href: '/primitives/textarea', label: 'Textarea' },
       { href: '/primitives/time-input', label: 'Time input' },
       { href: '/primitives/toggle', label: 'Toggle' },
+      { href: '/primitives/toolbar', label: 'Toolbar' },
       { href: '/primitives/tooltip', label: 'Tooltip' },
       { href: '/primitives/topbar', label: 'Topbar' },
       { href: '/primitives/treeview', label: 'TreeView' },
