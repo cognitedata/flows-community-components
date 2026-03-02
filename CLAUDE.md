@@ -112,12 +112,15 @@ For files under `src/components/ui/aura/**`, prefer relative imports (for exampl
 - Don't export prop types from components. Use inline typing (`type MessageProps = ...`) instead of `export type`. Consumers can use `ComponentProps<typeof Component>` if they need access to types. Follow the pattern used by Badge, Card, Button, Dialog, and AlertDialog components.
 - Tooltip delay stories are more stable with deterministic waits and without interaction retries.
 - Storybook stories should omit description metadata and explanatory comments; keep examples self-explanatory through naming and structure.
+- Playground stories should define grouped `argTypes` (for example Display, Content, Accessibility, Events) with clear control metadata and descriptions for interactive docs.
 - Collapsible play tests are more stable when asserting `data-panel-open` and scoping queries to the panel.
 - Topbar wrapper sections should use `ComponentRef<"div">` with `ComponentProps<"div">` for consistent forwardRef typing.
 - Tooltip play tests should avoid retry-based interaction fallbacks; fix root causes and prefer deterministic semantic checks.
 - Hover card play tests are more reliable when asserting open-state attributes with deterministic waits (no retry fallbacks).
 - Dropdown menu play tests are more reliable when querying portal content with `within(document.body).findByRole("menu")` and semantic menu item roles.
 - Dialog play tests are more reliable when opening via trigger and querying portal content with `within(document.body).findByRole("dialog")`.
+- Pagination play tests are most reliable when validating teleport and navigation via semantic textbox/link roles plus deterministic `waitFor` assertions after Enter/click interactions.
+- Component files should order imports as React, third-party, then local aliases, and use `ComponentRef<...>` in `forwardRef` signatures.
 - In story play functions, prefer semantic alert/button queries (`getByRole`/`findByRole`) over `querySelector('[data-slot=...]')` for more stable interaction tests.
 - In Aura story files, use relative component imports (for example `../button`) instead of `@/components/ui/aura/*` aliases.
 - Avoid bracketed arbitrary Tailwind values in overlays/modals; follow the existing `dialog.tsx` positioning pattern (`top-1/2`, `-translate-y-1/2`, and `sm:-translate-x-1/2`) instead.
@@ -154,8 +157,9 @@ For files under `src/components/ui/aura/**`, prefer relative imports (for exampl
 - Conversation stories should keep play assertions semantic (`getByRole`/`findAllByRole`) and avoid helper components inside story render functions.
 - For components that accept a `render` element and forward accessibility props, set the accessible label once on the component to avoid duplicate `aria-label` attributes on both wrapper and inner element.
 - In Aura stories, avoid DOM traversal selectors in play functions; prefer semantic role/text queries for the interacted element.
-  <<<<<<< HEAD
-- # Breadcrumb story assertions for `BreadcrumbPageButton` should query by role/name (`getByRole("button", { name: ... })`) instead of chaining `.closest("button")`.
+- For table stories, prefer tokenized width utilities (`w-12`, `w-24`) and semantic role assertions over arbitrary bracket values and `querySelector` checks.
+- For fixed-width table behavior with long text, use `table-fixed` on the table and `truncate` on header/data cells to keep columns stable and clip overflow content.
+- Breadcrumb story assertions for `BreadcrumbPageButton` should query by role/name (`getByRole("button", { name: ... })`) instead of chaining `.closest("button")`.
 - In story play tests, avoid `canvasElement.querySelectorAll('[data-slot=\"skeleton\"]')`; prefer semantic queries (for example role/text-based) and only fall back to slot selectors when no semantic target exists.
 - Progress stories should assert state via semantic `progressbar` ARIA attributes (`aria-valuenow`, min/max/name) instead of querying internal indicator slots.
 - For full-page loading states, prefer a dedicated `PageLoader` primitive over reusing inline spinners, and expose `disableFixedCenter` for embedding in constrained containers.

@@ -17,11 +17,11 @@ import {
   CardTitle,
 } from '@/components/ui/aura/card';
 import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from '@/components/ui/aura/tabs';
+  SegmentedControl,
+  SegmentedControlContent,
+  SegmentedControlList,
+  SegmentedControlButton,
+} from '@/components/ui/aura/segmented-control';
 
 interface PreviewDebuggerProps {
   code: string;
@@ -158,14 +158,18 @@ export function PreviewDebugger({
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <Tabs defaultValue="analysis" className="w-full">
-          <TabsList className="grid w-full grid-cols-3">
-            <TabsTrigger value="analysis">Analysis</TabsTrigger>
-            <TabsTrigger value="errors">Errors</TabsTrigger>
-            <TabsTrigger value="help">Help</TabsTrigger>
-          </TabsList>
+        <SegmentedControl defaultValue="analysis" className="w-full">
+          <SegmentedControlList className="grid w-full grid-cols-3">
+            <SegmentedControlButton value="analysis">
+              Analysis
+            </SegmentedControlButton>
+            <SegmentedControlButton value="errors">
+              Errors
+            </SegmentedControlButton>
+            <SegmentedControlButton value="help">Help</SegmentedControlButton>
+          </SegmentedControlList>
 
-          <TabsContent value="analysis" className="space-y-4">
+          <SegmentedControlContent value="analysis" className="space-y-4">
             {analysis && (
               <>
                 {/* Component Status */}
@@ -262,9 +266,9 @@ export function PreviewDebugger({
                 )}
               </>
             )}
-          </TabsContent>
+          </SegmentedControlContent>
 
-          <TabsContent value="errors" className="space-y-4">
+          <SegmentedControlContent value="errors" className="space-y-4">
             {errors.length > 0 ? (
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
@@ -297,9 +301,9 @@ export function PreviewDebugger({
                 </p>
               </div>
             )}
-          </TabsContent>
+          </SegmentedControlContent>
 
-          <TabsContent value="help" className="space-y-4">
+          <SegmentedControlContent value="help" className="space-y-4">
             <div className="space-y-4">
               <div>
                 <h4 className="font-medium mb-2">Component Format</h4>
@@ -327,7 +331,10 @@ export function PreviewDebugger({
                     <p className="font-medium text-muted-foreground">Layout</p>
                     <ul className="space-y-1">
                       <li>Card, CardHeader, CardTitle, CardContent</li>
-                      <li>Tabs, TabsList, TabsTrigger, TabsContent</li>
+                      <li>
+                        SegmentedControl, SegmentedControlList,
+                        SegmentedControlButton, SegmentedControlContent
+                      </li>
                     </ul>
                   </div>
                   <div>
@@ -350,8 +357,8 @@ export function PreviewDebugger({
                 </p>
               </div>
             </div>
-          </TabsContent>
-        </Tabs>
+          </SegmentedControlContent>
+        </SegmentedControl>
       </CardContent>
     </Card>
   );

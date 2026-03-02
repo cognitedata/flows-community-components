@@ -262,8 +262,8 @@ export {
   ContextMenuSubContent,
   ContextMenuSubTrigger,
   ContextMenuRadioGroup,
-} from './context-menu/context-menu';
-export { ContextMenuMetadata } from './context-menu/context-menu.metadata';
+  ContextMenuMetadata,
+} from './context-menu';
 
 export {
   Conversation,
@@ -493,8 +493,8 @@ export {
   paginationEllipsisVariants,
   paginationLinkVariants,
   paginationStatusVariants,
-} from './pagination/pagination';
-export { PaginationMetadata } from './pagination/pagination.metadata';
+  PaginationMetadata,
+} from './pagination';
 
 export { Popover, PopoverTrigger, PopoverContent } from './popover/popover';
 export { PopoverMetadata } from './popover/popover.metadata';
@@ -670,11 +670,16 @@ export {
   TableRow,
   TableCell,
   TableCaption,
-} from './table/table';
-export { TableMetadata } from './table/table.metadata';
+  TableMetadata,
+} from './table';
 
-export { Tabs, TabsList, TabsTrigger, TabsContent } from './tabs/tabs';
-export { TabsMetadata } from './tabs/tabs.metadata';
+export {
+  SegmentedControl,
+  SegmentedControlContent,
+  SegmentedControlList,
+  SegmentedControlButton,
+} from './segmented-control/segmented-control';
+export { SegmentedControlMetadata } from './segmented-control/segmented-control.metadata';
 
 export { Textarea } from './textarea/textarea';
 export { TextareaMetadata } from './textarea/textarea.metadata';
