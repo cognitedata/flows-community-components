@@ -356,8 +356,8 @@ const RAW_PRIMITIVES_CATALOG: PrimitiveCatalogSeed[] = [
       'https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=4652-32441&p=f&m=dev',
     eosGaRequired: true,
     duneGaRequired: true,
-    implemented: false,
-    comingSoon: true,
+    implemented: true,
+    comingSoon: false,
   },
   {
     slug: 'file-upload',

@@ -11,7 +11,7 @@ type EmptyStateProps = {
   body?: string | React.ReactNode;
   primaryAction?: React.ReactNode;
   secondaryAction?: React.ReactNode;
-  helpLink?: { label: string } & ComponentProps<'a'>;
+  helpLink?: { label: string; href: string };
 };
 
 const EmptyState = ({
@@ -28,8 +28,8 @@ const EmptyState = ({
   return (
     <div
       className={cn(
-        'flex flex-col items-center gap-3 size-full w-full justify-center text-center',
-        size === 'default' && 'max-w-90',
+        'flex flex-col items-center gap-6 size-full w-full justify-center text-center',
+        size === 'default' && 'max-w-96',
         size === 'sm' && 'max-w-80',
         className
       )}
@@ -38,7 +38,7 @@ const EmptyState = ({
       {icon}
       <div
         className={cn(
-          size === 'default' && 'mb-10 space-y-3',
+          size === 'default' && 'mb-8 space-y-4',
           size === 'sm' && 'mb-4 space-y-2'
         )}
       >
@@ -64,21 +64,22 @@ const EmptyState = ({
         )}
         {body && typeof body !== 'string' && body}
       </div>
-      <div className="flex gap-2">
-        {secondaryAction}
-        {primaryAction}
+      <div className="flex flex-col gap-5 items-center">
+        <div className="flex gap-2">
+          {secondaryAction}
+          {primaryAction}
+        </div>
+        {helpLink && (
+          <Button
+            variant="ghost"
+            render={<a href={helpLink.href} target="_blank" />}
+            nativeButton={false}
+          >
+            {helpLink.label}
+            <IconExternalLink className="size-4" />
+          </Button>
+        )}
       </div>
-      {helpLink && (
-        <Button
-          variant="link"
-          size="sm"
-          render={<a {...helpLink} />}
-          nativeButton={false}
-        >
-          {helpLink.label}
-          <IconExternalLink />
-        </Button>
-      )}
     </div>
   );
 };

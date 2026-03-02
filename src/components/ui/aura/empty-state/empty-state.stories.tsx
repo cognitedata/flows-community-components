@@ -87,7 +87,7 @@ export const Basic: Story = {
   render: () => (
     <EmptyState
       title="No data yet"
-      body="Try adjusting your search parameters and try again."
+      body="When you create a new extraction pipeline, you can monitor your data pipelines here."
       primaryAction={
         <Button>
           <IconPlus />
