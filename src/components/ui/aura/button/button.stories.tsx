@@ -143,6 +143,7 @@ export const SecondarySmall: Story = {
     const canvas = within(canvasElement);
     const button = canvas.getByRole('button', { name: /secondary small/i });
     await expect(button).toBeInTheDocument();
+    await userEvent.click(button);
   },
 };
 export const Secondary: Story = {
@@ -154,6 +155,7 @@ export const Secondary: Story = {
     const canvas = within(canvasElement);
     const button = canvas.getByRole('button', { name: /^secondary$/i });
     await expect(button).toBeInTheDocument();
+    await userEvent.click(button);
   },
 };
 export const SecondaryLarge: Story = {
@@ -169,6 +171,7 @@ export const SecondaryLarge: Story = {
     const canvas = within(canvasElement);
     const button = canvas.getByRole('button', { name: /secondary large/i });
     await expect(button).toBeInTheDocument();
+    await userEvent.click(button);
   },
 };
 export const OutlineSmall: Story = {
@@ -184,6 +187,7 @@ export const OutlineSmall: Story = {
     const canvas = within(canvasElement);
     const button = canvas.getByRole('button', { name: /outline small/i });
     await expect(button).toBeInTheDocument();
+    await userEvent.click(button);
   },
 };
 export const Outline: Story = {
@@ -195,6 +199,7 @@ export const Outline: Story = {
     const canvas = within(canvasElement);
     const button = canvas.getByRole('button', { name: /^outline$/i });
     await expect(button).toBeInTheDocument();
+    await userEvent.click(button);
   },
 };
 export const OutlineLarge: Story = {
@@ -210,6 +215,7 @@ export const OutlineLarge: Story = {
     const canvas = within(canvasElement);
     const button = canvas.getByRole('button', { name: /outline large/i });
     await expect(button).toBeInTheDocument();
+    await userEvent.click(button);
   },
 };
 export const GhostSmall: Story = {
@@ -225,6 +231,7 @@ export const GhostSmall: Story = {
     const canvas = within(canvasElement);
     const button = canvas.getByRole('button', { name: /ghost small/i });
     await expect(button).toBeInTheDocument();
+    await userEvent.click(button);
     await userEvent.hover(button);
   },
 };
@@ -237,6 +244,7 @@ export const Ghost: Story = {
     const canvas = within(canvasElement);
     const button = canvas.getByRole('button', { name: /^ghost$/i });
     await expect(button).toBeInTheDocument();
+    await userEvent.click(button);
     await userEvent.hover(button);
   },
 };
@@ -253,6 +261,7 @@ export const GhostLarge: Story = {
     const canvas = within(canvasElement);
     const button = canvas.getByRole('button', { name: /ghost large/i });
     await expect(button).toBeInTheDocument();
+    await userEvent.click(button);
     await userEvent.hover(button);
   },
 };
@@ -376,6 +385,7 @@ export const AllSizes: Story = {
     await expect(buttons).toHaveLength(3);
     const smallButton = canvas.getByText('Small');
     await expect(smallButton).toBeInTheDocument();
+    await userEvent.click(smallButton);
   },
 };
 export const WithLeftIcon: Story = {
@@ -394,6 +404,7 @@ export const WithLeftIcon: Story = {
       name: /add item/i,
     });
     await expect(button).toBeInTheDocument();
+    await userEvent.click(button);
     await expect(button).toHaveTextContent(/add item/i);
   },
 };
@@ -413,6 +424,7 @@ export const WithRightIcon: Story = {
       name: /download/i,
     });
     await expect(button).toBeInTheDocument();
+    await userEvent.click(button);
   },
 };
 export const IconButtons: Story = {
@@ -440,7 +452,9 @@ export const IconButtons: Story = {
     await expect(smallButton).toBeInTheDocument();
     await expect(defaultButton).toBeInTheDocument();
     await expect(largeButton).toBeInTheDocument();
+    await userEvent.click(smallButton);
     await userEvent.click(defaultButton);
+    await userEvent.click(largeButton);
   },
 };
 export const Disabled: Story = {
@@ -533,6 +547,8 @@ export const InContext: Story = {
     const saveButton = canvas.getByText('Save Changes');
     await expect(cancelButton).toBeInTheDocument();
     await expect(saveButton).toBeInTheDocument();
+    await userEvent.click(cancelButton);
+    await userEvent.click(saveButton);
     const settingsButton = canvas.getByRole('button', {
       name: /settings/i,
     });
@@ -872,8 +888,10 @@ export const EdgeCaseSpecialCharacters: Story = {
       name: /emoji button/i,
     });
     await expect(emojiButton).toBeInTheDocument();
+    await userEvent.click(emojiButton);
     const specialButton = canvas.getByText(/Special <Characters>/);
     await expect(specialButton).toBeInTheDocument();
+    await userEvent.click(specialButton);
     const chineseButton = canvas.getByText('中文按钮');
     await userEvent.click(chineseButton);
   },
@@ -1025,6 +1043,7 @@ export const EdgeCaseIconOnly: Story = {
     await expect(labeledIconButton).toBeInTheDocument();
     await expect(labeledSettingsButton).toBeInTheDocument();
     await userEvent.click(labeledIconButton);
+    await userEvent.click(labeledSettingsButton);
   },
 };
 export const EdgeCaseRapidStateChanges: Story = {
@@ -1118,6 +1137,7 @@ export const EdgeCaseInvisibleContent: Story = {
       name: /screen reader only/i,
     });
     await expect(srButton).toBeInTheDocument();
+    await userEvent.click(srButton);
   },
 };
 export const Playground: Story = {
