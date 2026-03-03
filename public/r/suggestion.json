@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "suggestion",
   "title": "Suggestion",
-  "description": "A dual-mode suggestion component for AI chat interfaces. Use simple button mode for quick queries, or dropdown mode for organised query options.",
+  "description": "A dual-mode suggestion component for AI chat interfaces. Use simple button mode for quick queries, or dropdown mode for organized query options.",
   "registryDependencies": [
     "@aura/css",
     "@aura/button",
