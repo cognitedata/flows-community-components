@@ -530,6 +530,13 @@ const MessageResponse = memo(
       data-slot="message-response"
       className={cn(
         'size-full',
+        '[&_div[data-streamdown="mermaid-block"]]:bg-card',
+        '[&_div[data-streamdown="mermaid-block"]]:text-card-foreground',
+        '[&_div[data-streamdown="mermaid-block"]]:flex',
+        '[&_div[data-streamdown="mermaid-block"]]:flex-col',
+        '[&_div[data-streamdown="mermaid-block"]]:rounded-lg',
+        '[&_div[data-streamdown="mermaid-block"]]:hover:bg-accent',
+        '[&_div[data-streamdown="mermaid-block"]]:border-0',
         '[&_div[data-streamdown="mermaid-block"]_.relative.w-full]:min-h-28',
         '[&_div[data-streamdown="mermaid-block"]_>div>.fixed]:z-[200]',
         '[&_div[data-streamdown="mermaid-block"]_.fixed.inset-0_.flex-col.absolute]:fixed',
