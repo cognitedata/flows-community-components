@@ -1,8 +1,8 @@
-import { Dialog as DialogPrimitive } from "@base-ui/react/dialog";
-import { IconX } from "@tabler/icons-react";
-import type { ComponentProps, ReactNode } from "react";
+import { Dialog as DialogPrimitive } from '@base-ui/react/dialog';
+import { IconX } from '@tabler/icons-react';
+import type { ComponentProps, ReactNode } from 'react';
 
-import { cn, getPortalContainer } from "../../../../lib/utils";
+import { cn, getPortalContainer } from '../../../../lib/utils';
 
 function Dialog({ ...props }: DialogPrimitive.Root.Props) {
   return <DialogPrimitive.Root data-slot="dialog" {...props} />;
@@ -18,7 +18,11 @@ function DialogTrigger({ children, ...props }: DialogPrimitive.Trigger.Props) {
 
 function DialogPortal({ ...props }: DialogPrimitive.Portal.Props) {
   return (
-    <DialogPrimitive.Portal data-slot="dialog-portal" {...props} container={getPortalContainer()} />
+    <DialogPrimitive.Portal
+      data-slot="dialog-portal"
+      {...props}
+      container={getPortalContainer()}
+    />
   );
 }
 
@@ -33,12 +37,15 @@ function DialogClose({
   );
 }
 
-function DialogOverlay({ className, ...props }: DialogPrimitive.Backdrop.Props) {
+function DialogOverlay({
+  className,
+  ...props
+}: DialogPrimitive.Backdrop.Props) {
   return (
     <DialogPrimitive.Backdrop
       data-slot="dialog-overlay"
       className={cn(
-        "fixed inset-0 z-50 bg-black/50 transition-opacity duration-200 data-open:opacity-100 data-closed:opacity-0",
+        'fixed inset-0 z-50 bg-black/50 transition-opacity duration-200 data-open:opacity-100 data-closed:opacity-0',
         className
       )}
       {...props}
@@ -60,7 +67,7 @@ function DialogContent({
       <DialogPrimitive.Popup
         data-slot="dialog-content"
         className={cn(
-          "bg-popover fixed inset-x-4 top-1/2 z-50 grid -translate-y-1/2 rounded-xl border px-5 py-5 mb-2.5 shadow-xl outline-none transition-opacity duration-200 data-open:opacity-100 data-closed:opacity-0 sm:inset-x-0 sm:left-1/2 sm:w-full sm:max-w-lg sm:-translate-x-1/2",
+          'bg-popover fixed inset-x-4 top-1/2 z-50 grid -translate-y-1/2 rounded-xl border px-5 py-5 mb-2.5 shadow-xl outline-none transition-opacity duration-200 data-open:opacity-100 data-closed:opacity-0 sm:inset-x-0 sm:left-1/2 sm:w-full sm:max-w-lg sm:-translate-x-1/2',
           className
         )}
         {...props}
@@ -85,42 +92,54 @@ function DialogContent({
   );
 }
 
-function DialogHeader({ className, ...props }: ComponentProps<"div">) {
+function DialogHeader({ className, ...props }: ComponentProps<'div'>) {
   return (
     <div
       data-slot="dialog-header"
-      className={cn("flex flex-col gap-2 text-left pb-2", className)}
+      className={cn('flex flex-col gap-2 text-left pb-2', className)}
       {...props}
     />
   );
 }
 
-function DialogFooter({ className, ...props }: ComponentProps<"div">) {
+function DialogFooter({ className, ...props }: ComponentProps<'div'>) {
   return (
     <div
       data-slot="dialog-footer"
-      className={cn("flex flex-col-reverse gap-2 sm:flex-row sm:justify-end pt-3", className)}
+      className={cn(
+        'flex flex-col-reverse gap-2 sm:flex-row sm:justify-end pt-3',
+        className
+      )}
       {...props}
     />
   );
 }
 
-function DialogTitle({ className, ...props }: ComponentProps<typeof DialogPrimitive.Title>) {
+function DialogTitle({
+  className,
+  ...props
+}: ComponentProps<typeof DialogPrimitive.Title>) {
   return (
     <DialogPrimitive.Title
       data-slot="dialog-title"
-      className={cn("text-lg font-medium text-foreground leading-6 tracking-tightest", className)}
+      className={cn(
+        'text-lg font-medium text-foreground leading-6 tracking-tightest',
+        className
+      )}
       {...props}
     />
   );
 }
 
-function DialogDescription({ className, ...props }: DialogPrimitive.Description.Props) {
+function DialogDescription({
+  className,
+  ...props
+}: DialogPrimitive.Description.Props) {
   return (
     <DialogPrimitive.Description
       data-slot="dialog-description"
       className={cn(
-        "text-muted-foreground text-base font-normal leading-5 tracking-tightest pt-2",
+        'text-muted-foreground text-base font-normal leading-5 tracking-tightest pt-2',
         className
       )}
       {...props}

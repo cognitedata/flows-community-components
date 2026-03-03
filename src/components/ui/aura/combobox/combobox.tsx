@@ -1,7 +1,13 @@
-import { IconCaretUpDown, IconCheck } from "@tabler/icons-react";
-import { forwardRef, useState } from "react";
+import { IconCaretUpDown, IconCheck } from '@tabler/icons-react';
+import {
+  type ComponentProps,
+  type ComponentRef,
+  forwardRef,
+  useState,
+} from 'react';
 
-import { Button } from "@/components/ui/aura/button";
+import { cn } from '../../../../lib/utils';
+import { Button } from '../button';
 import {
   Command,
   CommandEmpty,
@@ -9,132 +15,45 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@/components/ui/aura/command";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/aura/popover";
-import { cn } from "../../../../lib/utils";
+} from '../command';
+import { Popover, PopoverContent, PopoverTrigger } from '../popover';
 
-const frameworks = [
-  {
-    value: "next.js",
-    label: "Next.js",
-  },
-  {
-    value: "sveltekit",
-    label: "SvelteKit",
-  },
-  {
-    value: "nuxt.js",
-    label: "Nuxt.js",
-  },
-  {
-    value: "remix",
-    label: "Remix",
-  },
-  {
-    value: "astro",
-    label: "Astro",
-  },
-  {
-    value: "wordpress",
-    label: "WordPress",
-  },
-  {
-    value: "express.js",
-    label: "Express.js",
-  },
-  {
-    value: "nest.js",
-    label: "Nest.js",
-  },
-];
-
-export const Combobox = forwardRef<HTMLButtonElement>((props, ref) => {
-  const [open, setOpen] = useState(false);
-  const [value, setValue] = useState("");
-
-  return (
-    <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger
-        render={
-          <Button
-            ref={ref}
-            data-slot="combobox-trigger"
-            variant="outline"
-            role="combobox"
-            aria-expanded={open}
-            className="w-50 justify-between"
-            {...props}
-          >
-            {value
-              ? frameworks.find((framework) => framework.value === value)?.label
-              : "Select framework..."}
-            <IconCaretUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-          </Button>
-        }
-      />
-      <PopoverContent className="w-50 p-0">
-        <Command>
-          <CommandInput placeholder="Search framework..." />
-          <CommandList>
-            <CommandEmpty>No framework found.</CommandEmpty>
-            <CommandGroup>
-              {frameworks.map((framework) => (
-                <CommandItem
-                  key={framework.value}
-                  value={framework.value}
-                  onSelect={(currentValue) => {
-                    setValue(currentValue === value ? "" : currentValue);
-                    setOpen(false);
-                  }}
-                >
-                  <IconCheck
-                    className={cn(
-                      "mr-2 h-4 w-4",
-                      value === framework.value ? "opacity-100" : "opacity-0"
-                    )}
-                  />
-                  {framework.label}
-                </CommandItem>
-              ))}
-            </CommandGroup>
-          </CommandList>
-        </Command>
-      </PopoverContent>
-    </Popover>
-  );
-});
-Combobox.displayName = "Combobox";
-
-export interface ComboboxProps {
+type ComboboxProps = Omit<
+  ComponentProps<typeof Button>,
+  'value' | 'onChange'
+> & {
   options: Array<{ value: string; label: string }>;
   value?: string;
   onValueChange?: (value: string) => void;
   placeholder?: string;
   searchPlaceholder?: string;
   emptyText?: string;
-  className?: string;
-}
+};
 
-export const ComboboxCustom = forwardRef<HTMLButtonElement, ComboboxProps>(
+const ComboboxCustom = forwardRef<ComponentRef<typeof Button>, ComboboxProps>(
   (
     {
       options,
       value,
       onValueChange,
-      placeholder = "Select option...",
-      searchPlaceholder = "Search...",
-      emptyText = "No option found.",
+      placeholder = 'Select option...',
+      searchPlaceholder = 'Search...',
+      emptyText = 'No option found.',
       className,
       ...props
     },
     ref
   ) => {
     const [open, setOpen] = useState(false);
-    const [selectedValue, setSelectedValue] = useState(value || "");
+    const [internalValue, setInternalValue] = useState(value ?? '');
+    const isControlled = value !== undefined;
+    const selectedValue = isControlled ? value : internalValue;
 
     const handleValueChange = (newValue: string) => {
-      const finalValue = newValue === selectedValue ? "" : newValue;
-      setSelectedValue(finalValue);
+      const finalValue = newValue === selectedValue ? '' : newValue;
+      if (!isControlled) {
+        setInternalValue(finalValue);
+      }
       onValueChange?.(finalValue);
       setOpen(false);
     };
@@ -149,11 +68,12 @@ export const ComboboxCustom = forwardRef<HTMLButtonElement, ComboboxProps>(
               variant="outline"
               role="combobox"
               aria-expanded={open}
-              className={cn("w-50 justify-between", className)}
+              className={cn('w-50 justify-between', className)}
               {...props}
             >
               {selectedValue
-                ? options.find((option) => option.value === selectedValue)?.label
+                ? options.find((option) => option.value === selectedValue)
+                    ?.label
                 : placeholder}
               <IconCaretUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
             </Button>
@@ -166,11 +86,17 @@ export const ComboboxCustom = forwardRef<HTMLButtonElement, ComboboxProps>(
               <CommandEmpty>{emptyText}</CommandEmpty>
               <CommandGroup>
                 {options.map((option) => (
-                  <CommandItem key={option.value} value={option.value} onSelect={handleValueChange}>
+                  <CommandItem
+                    key={option.value}
+                    value={option.value}
+                    onSelect={handleValueChange}
+                  >
                     <IconCheck
                       className={cn(
-                        "mr-2 h-4 w-4",
-                        selectedValue === option.value ? "opacity-100" : "opacity-0"
+                        'mr-2 h-4 w-4',
+                        selectedValue === option.value
+                          ? 'opacity-100'
+                          : 'opacity-0'
                       )}
                     />
                     {option.label}
@@ -184,4 +110,13 @@ export const ComboboxCustom = forwardRef<HTMLButtonElement, ComboboxProps>(
     );
   }
 );
-ComboboxCustom.displayName = "ComboboxCustom";
+ComboboxCustom.displayName = 'ComboboxCustom';
+
+const Combobox = forwardRef<ComponentRef<typeof Button>, ComboboxProps>(
+  (props, ref) => {
+    return <ComboboxCustom ref={ref} {...props} />;
+  }
+);
+Combobox.displayName = 'Combobox';
+
+export { Combobox, ComboboxCustom };

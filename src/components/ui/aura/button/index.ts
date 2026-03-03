@@ -1,6 +1,3 @@
 /** Button component exports. */
-export {
-  Button,
-  buttonVariants,
-} from "./button";
-export { ButtonMetadata } from "./button.metadata";
+export { Button, buttonVariants } from './button';
+export { ButtonMetadata } from './button.metadata';

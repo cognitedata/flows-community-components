@@ -48,7 +48,6 @@ export {
   SidebarSeparator,
   SidebarTrigger,
   SidebarUserProfile,
-  // eslint-disable-next-line react-refresh/only-export-components
   useSidebar,
-} from "./sidebar";
-export { SidebarMetadata } from "./sidebar.metadata";
+} from './sidebar';
+export { SidebarMetadata } from './sidebar.metadata';

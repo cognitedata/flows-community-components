@@ -1,18 +1,17 @@
-/**
- * Drawer Component
- *
- * A sliding drawer component built with Vaul for mobile-friendly modals.
- *
- * @example
- * import { Drawer, DrawerTrigger, DrawerContent, DrawerTitle } from '@/components/ui/aura/drawer';
- *
- * <Drawer>
- *   <DrawerTrigger>Open</DrawerTrigger>
- *   <DrawerContent>
- *     <DrawerTitle>Drawer Title</DrawerTitle>
- *   </DrawerContent>
- * </Drawer>
- */
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerOverlay,
+  DrawerPortal,
+  DrawerTitle,
+  DrawerTrigger,
+} from './drawer';
+import { DrawerMetadata } from './drawer.metadata';
+
 export {
   Drawer,
   DrawerPortal,
@@ -24,5 +23,5 @@ export {
   DrawerFooter,
   DrawerTitle,
   DrawerDescription,
-} from "./drawer";
-export { DrawerMetadata } from "./drawer.metadata";
+  DrawerMetadata,
+};

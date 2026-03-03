@@ -6,8 +6,8 @@ import {
   InputGroupInput,
   InputGroupText,
   InputGroupTextarea,
-} from "./input-group";
-import { InputGroupMetadata } from "./input-group.metadata";
+} from './input-group';
+import { InputGroupMetadata } from './input-group.metadata';
 
 export {
   InputGroup,
