@@ -8,10 +8,9 @@
  * folder structure when components are installed via the registry.
  */
 
-import { execSync } from "node:child_process";
-import * as fs from "node:fs";
-import * as path from "node:path";
-import { fileURLToPath } from "node:url";
+import * as fs from 'node:fs';
+import * as path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 // Get __dirname equivalent in ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -41,14 +40,14 @@ interface Registry {
   items: RegistryItem[];
 }
 
-const uiCogniteDir = path.join(__dirname, "../src/components/ui/aura");
-const registryOutput = path.join(__dirname, "../registry.json");
+const uiCogniteDir = path.join(__dirname, '../src/components/ui/aura');
+const registryOutput = path.join(__dirname, '../registry.json');
 
 // Registry metadata (shadcn validates registry namespaces start with "@")
-const registryName = "@aura";
-const registryHomepage = "https://cognitedata.github.io/aura/";
+const registryName = '@aura';
+const registryHomepage = 'https://cognitedata.github.io/aura/';
 // Registry namespace used when emitting registryDependencies (consumer registry alias)
-const registryDependencyNamespace = "@aura";
+const registryDependencyNamespace = '@aura';
 
 /**
  * Misc "file" items that should always be present in the registry output.
@@ -58,26 +57,27 @@ const registryDependencyNamespace = "@aura";
  */
 const miscRegistryItems: RegistryItem[] = [
   {
-    name: "theme",
-    type: "registry:file",
-    title: "Theme",
-    description: "Theme component.",
+    name: 'theme',
+    type: 'registry:file',
+    title: 'Theme',
+    description: 'Theme component.',
     files: [
-      { path: "src/styleScope.ts", type: "registry:item" },
-      { path: "src/styleScope.d.ts", type: "registry:item" },
+      { path: 'src/styleScope.ts', type: 'registry:item' },
+      { path: 'src/styleScope.d.ts', type: 'registry:item' },
     ],
   },
   {
-    name: "css",
-    type: "registry:component",
-    title: "CSS",
-    description: "Installs Aura global styles (import once in your app entrypoint).",
-    dependencies: ["tw-animate-css"],
+    name: 'css',
+    type: 'registry:component',
+    title: 'CSS',
+    description:
+      'Installs Aura global styles (import once in your app entrypoint).',
+    dependencies: ['tw-animate-css'],
     files: [
       {
-        path: "src/globals.css",
-        target: "src/styles.css",
-        type: "registry:component",
+        path: 'src/globals.css',
+        target: 'src/styles.css',
+        type: 'registry:component',
       },
     ],
   },
@@ -95,15 +95,21 @@ function getComponents(): string[] {
     const flatFiles = entries
       .filter(
         (entry) =>
-          entry.isFile() && entry.name.endsWith(".tsx") && entry.name !== "reasoning-original.tsx"
+          entry.isFile() &&
+          entry.name.endsWith('.tsx') &&
+          entry.name !== 'reasoning-original.tsx'
       )
-      .map((entry) => entry.name.replace(".tsx", ""));
+      .map((entry) => entry.name.replace('.tsx', ''));
 
     // Get folder-based components (folders containing componentName/componentName.tsx)
     const folderComponents = entries
       .filter((entry) => entry.isDirectory())
       .filter((entry) => {
-        const componentFile = path.join(uiCogniteDir, entry.name, `${entry.name}.tsx`);
+        const componentFile = path.join(
+          uiCogniteDir,
+          entry.name,
+          `${entry.name}.tsx`
+        );
         return fs.existsSync(componentFile);
       })
       .map((entry) => entry.name);
@@ -115,7 +121,9 @@ function getComponents(): string[] {
     ];
 
     if (allComponents.length > 0) {
-      console.log(`\n✅ Found ${allComponents.length} component(s) in ui/cognite:\n`);
+      console.log(
+        `\n✅ Found ${allComponents.length} component(s) in ui/cognite:\n`
+      );
       for (const file of allComponents) {
         console.log(`   - ${file}`);
       }
@@ -124,7 +132,9 @@ function getComponents(): string[] {
   }
 
   if (components.length === 0) {
-    console.log("⚠️  No components found in ui/cognite directory. Creating empty registry.");
+    console.log(
+      '⚠️  No components found in ui/cognite directory. Creating empty registry.'
+    );
   }
 
   return components;
@@ -164,7 +174,7 @@ function collectRegistryDependencies(
   if (deps) {
     for (const depName of deps) {
       // Remove @aura/ prefix if present to get clean component name
-      const cleanDepName = depName.replace(/^@aura\//, "");
+      const cleanDepName = depName.replace(/^@aura\//, '');
       if (graph.has(cleanDepName)) {
         collectRegistryDependencies(cleanDepName, graph, collected);
       }
@@ -175,7 +185,11 @@ function collectRegistryDependencies(
 // Get the file path for a component
 // Checks if component is in a subfolder first, falls back to flat file
 function getComponentPath(componentName: string): string {
-  const subfolderPath = path.join(uiCogniteDir, componentName, `${componentName}.tsx`);
+  const subfolderPath = path.join(
+    uiCogniteDir,
+    componentName,
+    `${componentName}.tsx`
+  );
   if (fs.existsSync(subfolderPath)) {
     return `src/components/ui/aura/${componentName}/${componentName}.tsx`;
   }
@@ -192,14 +206,14 @@ function getComponentTargetPath(componentName: string): string {
  * Filters out local imports, React, and relative imports.
  */
 function extractDependenciesFromFile(filePath: string): string[] {
-  const fullPath = path.join(__dirname, "..", filePath);
+  const fullPath = path.join(__dirname, '..', filePath);
 
   if (!fs.existsSync(fullPath)) {
     return [];
   }
 
   try {
-    const content = fs.readFileSync(fullPath, "utf8");
+    const content = fs.readFileSync(fullPath, 'utf8');
     const dependencies = new Set<string>();
 
     // Match import statements - handles various import patterns:
@@ -218,16 +232,16 @@ function extractDependenciesFromFile(filePath: string): string[] {
 
       // Skip local imports (starting with @/, ./, ../)
       if (
-        packageName.startsWith("@/") ||
-        packageName.startsWith("./") ||
-        packageName.startsWith("../")
+        packageName.startsWith('@/') ||
+        packageName.startsWith('./') ||
+        packageName.startsWith('../')
       ) {
         match = importRegex.exec(content);
         continue;
       }
 
       // Skip React and React DOM (peer dependencies)
-      if (packageName === "react" || packageName === "react-dom") {
+      if (packageName === 'react' || packageName === 'react-dom') {
         match = importRegex.exec(content);
         continue;
       }
@@ -263,7 +277,7 @@ function autoDetectComponentFiles(componentName: string): RegistryFile[] {
       files.push({
         path: `src/components/ui/aura/${componentName}/${componentName}.tsx`,
         target: `src/components/ui/aura/${componentName}.tsx`,
-        type: "registry:component",
+        type: 'registry:component',
       });
     }
   } else {
@@ -272,7 +286,7 @@ function autoDetectComponentFiles(componentName: string): RegistryFile[] {
     if (fs.existsSync(flatFile)) {
       files.push({
         path: `src/components/ui/aura/${componentName}.tsx`,
-        type: "registry:component",
+        type: 'registry:component',
       });
     }
   }
@@ -284,29 +298,32 @@ function autoDetectComponentFiles(componentName: string): RegistryFile[] {
  * Infer component type from file path.
  */
 function inferComponentType(filePath: string): string {
-  if (filePath.includes("/hooks/")) {
-    return "registry:hook";
+  if (filePath.includes('/hooks/')) {
+    return 'registry:hook';
   }
-  if (filePath.includes("/lib/")) {
-    return "registry:lib";
+  if (filePath.includes('/lib/')) {
+    return 'registry:lib';
   }
-  if (filePath.includes("/components/ui/aura/")) {
-    return "registry:component";
+  if (filePath.includes('/components/ui/aura/')) {
+    return 'registry:component';
   }
-  return "registry:component"; // Default
+  return 'registry:component'; // Default
 }
 
 /**
  * Extract metadata from .metadata.ts file if it exists, otherwise fall back to JSDoc.
  */
-function extractJSDocMetadata(filePath: string): { title?: string; description?: string } {
+function extractJSDocMetadata(filePath: string): {
+  title?: string;
+  description?: string;
+} {
   // First, check for a .metadata.ts file
-  const metadataPath = filePath.replace(/\.tsx?$/, ".metadata.ts");
-  const fullMetadataPath = path.join(__dirname, "..", metadataPath);
+  const metadataPath = filePath.replace(/\.tsx?$/, '.metadata.ts');
+  const fullMetadataPath = path.join(__dirname, '..', metadataPath);
 
   if (fs.existsSync(fullMetadataPath)) {
     try {
-      const content = fs.readFileSync(fullMetadataPath, "utf8");
+      const content = fs.readFileSync(fullMetadataPath, 'utf8');
 
       // Extract name and description from metadata file
       // Look for patterns like: name: "Button", description: "..."
@@ -330,14 +347,14 @@ function extractJSDocMetadata(filePath: string): { title?: string; description?:
   }
 
   // Fall back to JSDoc extraction from component file
-  const fullPath = path.join(__dirname, "..", filePath);
+  const fullPath = path.join(__dirname, '..', filePath);
 
   if (!fs.existsSync(fullPath)) {
     return {};
   }
 
   try {
-    const content = fs.readFileSync(fullPath, "utf8");
+    const content = fs.readFileSync(fullPath, 'utf8');
     const metadata: { title?: string; description?: string } = {};
 
     // Match JSDoc comments
@@ -357,7 +374,8 @@ function extractJSDocMetadata(filePath: string): { title?: string; description?:
 
       // Look for @component or component name in comments
       const componentMatch =
-        jsdoc.match(/@component\s+(\w+)/i) || jsdoc.match(/(?:component|Component)\s+(\w+)/i);
+        jsdoc.match(/@component\s+(\w+)/i) ||
+        jsdoc.match(/(?:component|Component)\s+(\w+)/i);
       if (componentMatch) {
         metadata.title = componentMatch[1];
       }
@@ -383,18 +401,26 @@ function extractJSDocMetadata(filePath: string): { title?: string; description?:
 
 /**
  * Parse local imports to find registry dependencies (component-to-component dependencies).
- * Looks for imports from @/components/ui/aura/* and maps them to registry component names.
+ * Looks for imports from:
+ * - @/components/ui/aura/*
+ * - relative paths that resolve into src/components/ui/aura/*
+ *
+ * Then maps them to registry component names.
  */
 function extractRegistryDependenciesFromFile(filePath: string): string[] {
-  const fullPath = path.join(__dirname, "..", filePath);
+  const fullPath = path.join(__dirname, '..', filePath);
 
   if (!fs.existsSync(fullPath)) {
     return [];
   }
 
   try {
-    const content = fs.readFileSync(fullPath, "utf8");
+    const content = fs.readFileSync(fullPath, 'utf8');
     const dependencies = new Set<string>();
+
+    const currentComponent = filePath.match(
+      /src\/components\/ui\/aura\/([^/]+)/
+    )?.[1];
 
     // Match imports from @/components/ui/aura/*
     // Pattern handles:
@@ -412,16 +438,67 @@ function extractRegistryDependenciesFromFile(filePath: string): string[] {
 
       // Extract component name from import path
       // Handle both direct imports (button) and subfolder imports (button/button)
-      const componentName = importPath.split("/")[0];
+      const componentName = importPath.split('/')[0];
 
       // Skip if it's the same component (self-import)
       // Handle both flat files (button.tsx) and subfolder files (prompt-input/prompt-input.tsx)
-      const currentComponent = filePath.match(/src\/components\/ui\/aura\/([^\/]+)/)?.[1];
       if (componentName !== currentComponent) {
         dependencies.add(componentName);
       }
 
       match = localImportRegex.exec(content);
+    }
+
+    // Also match relative imports that resolve into src/components/ui/aura/*
+    //
+    // This is important for the Aura registry build because component-to-component imports
+    // often use relative paths (for portability), and those must still be expressed as
+    // registryDependencies so consumers install the required sibling components.
+    const importRegex =
+      /^import\s+(?:type\s+)?(?:\{[^}]*\}|\*\s+as\s+\w+|\w+(?:\s*,\s*\{[^}]*\})?)\s+from\s+["']([^"']+)["']/gm;
+
+    let relativeMatch: RegExpExecArray | null = importRegex.exec(content);
+    while (relativeMatch !== null) {
+      const importPath = relativeMatch[1] as string;
+
+      if (!importPath.startsWith('./') && !importPath.startsWith('../')) {
+        relativeMatch = importRegex.exec(content);
+        continue;
+      }
+
+      const resolved = path.resolve(path.dirname(fullPath), importPath);
+      const relativeToUi = path.relative(uiCogniteDir, resolved);
+
+      // Ignore relative imports that don't resolve under src/components/ui/aura/
+      if (relativeToUi.startsWith('..') || path.isAbsolute(relativeToUi)) {
+        relativeMatch = importRegex.exec(content);
+        continue;
+      }
+
+      const firstSegment = relativeToUi.split(path.sep)[0];
+      const candidateComponent = firstSegment?.replace(/\.(tsx?|jsx?)$/, '');
+      if (!candidateComponent || candidateComponent === currentComponent) {
+        relativeMatch = importRegex.exec(content);
+        continue;
+      }
+
+      const folderComponentPath = path.join(
+        uiCogniteDir,
+        candidateComponent,
+        `${candidateComponent}.tsx`
+      );
+      const flatComponentPath = path.join(
+        uiCogniteDir,
+        `${candidateComponent}.tsx`
+      );
+      const isKnownComponent =
+        fs.existsSync(folderComponentPath) || fs.existsSync(flatComponentPath);
+
+      if (isKnownComponent) {
+        dependencies.add(candidateComponent);
+      }
+
+      relativeMatch = importRegex.exec(content);
     }
 
     return Array.from(dependencies).sort();
@@ -445,19 +522,19 @@ function extractDependenciesForComponent(item: RegistryItem): string[] {
 
     // Only process registry component/hook/lib files
     if (
-      !fileType.includes("registry:component") &&
-      !fileType.includes("registry:hook") &&
-      !fileType.includes("registry:lib")
+      !fileType.includes('registry:component') &&
+      !fileType.includes('registry:hook') &&
+      !fileType.includes('registry:lib')
     ) {
       return false;
     }
 
     // Skip stories, metadata, and index files (re-exports)
     if (
-      fileName.includes(".stories.") ||
-      fileName.includes(".metadata.") ||
-      fileName === "index.tsx" ||
-      fileName === "index.ts"
+      fileName.includes('.stories.') ||
+      fileName.includes('.metadata.') ||
+      fileName === 'index.tsx' ||
+      fileName === 'index.ts'
     ) {
       return false;
     }
@@ -480,7 +557,10 @@ function extractDependenciesForComponent(item: RegistryItem): string[] {
 /**
  * Process files for a component, resolving paths and adding targets for subfolder components.
  */
-function processComponentFiles(files: RegistryFile[], componentName: string): RegistryFile[] {
+function processComponentFiles(
+  files: RegistryFile[],
+  componentName: string
+): RegistryFile[] {
   return files.map((file: RegistryFile) => {
     // If file already has a target, preserve both path and target as-is
     if (file.target) {
@@ -488,7 +568,9 @@ function processComponentFiles(files: RegistryFile[], componentName: string): Re
     }
 
     // Extract component name from file path
-    const pathMatch = file.path.match(/src\/components\/ui\/aura\/([^\/]+)\.tsx$/);
+    const pathMatch = file.path.match(
+      /src\/components\/ui\/aura\/([^/]+)\.tsx$/
+    );
     if (pathMatch) {
       const actualPath = getComponentPath(componentName);
       const targetPath = getComponentTargetPath(componentName);
@@ -534,78 +616,85 @@ function buildRegistry(components: string[]): Registry {
     console.log(
       `\n📦 Added ${
         additionalDeps.length
-      } registry dependency component(s): ${additionalDeps.join(", ")}`
+      } registry dependency component(s): ${additionalDeps.join(', ')}`
     );
   }
 
   // Generate registry items from discovered components
-  const registryItems: RegistryItem[] = Array.from(allComponentsToInclude).map((componentName) => {
-    const componentPath = getComponentPath(componentName);
-    const baseFiles = autoDetectComponentFiles(componentName);
-    const componentType =
-      baseFiles.length > 0 ? inferComponentType(baseFiles[0].path) : "registry:component";
-    const jsdocMetadata = extractJSDocMetadata(componentPath);
+  const registryItems: RegistryItem[] = Array.from(allComponentsToInclude).map(
+    (componentName) => {
+      const componentPath = getComponentPath(componentName);
+      const baseFiles = autoDetectComponentFiles(componentName);
+      const componentType =
+        baseFiles.length > 0
+          ? inferComponentType(baseFiles[0].path)
+          : 'registry:component';
+      const jsdocMetadata = extractJSDocMetadata(componentPath);
 
-    // Extract npm package dependencies
-    const itemWithFiles = { name: componentName, files: baseFiles };
-    const extractedDeps = extractDependenciesForComponent(itemWithFiles);
+      // Extract npm package dependencies
+      const itemWithFiles = { name: componentName, files: baseFiles };
+      const extractedDeps = extractDependenciesForComponent(itemWithFiles);
 
-    // Extract registry dependencies from graph
-    const registryDepsFromGraph = graph.get(componentName) || new Set<string>();
+      // Extract registry dependencies from graph
+      const registryDepsFromGraph =
+        graph.get(componentName) || new Set<string>();
 
-    // Add 'css' to registry dependencies for all components (except css itself)
-    const registryDependenciesRaw =
-      componentType === "registry:component" && componentName !== "css"
-        ? Array.from(new Set(["css", ...Array.from(registryDepsFromGraph)]))
-        : Array.from(registryDepsFromGraph);
+      // Add 'css' to registry dependencies for all components (except css itself)
+      const registryDependenciesRaw =
+        componentType === 'registry:component' && componentName !== 'css'
+          ? Array.from(new Set(['css', ...Array.from(registryDepsFromGraph)]))
+          : Array.from(registryDepsFromGraph);
 
-    const registryDependencies =
-      registryDependenciesRaw.length > 0
-        ? registryDependenciesRaw.map((dep) => {
-            // If already qualified (e.g. "@aura/button") leave it alone
-            if (dep.includes("/")) {
-              return dep;
-            }
-            return `${registryDependencyNamespace}/${dep}`;
-          })
-        : undefined;
+      const registryDependencies =
+        registryDependenciesRaw.length > 0
+          ? registryDependenciesRaw.map((dep) => {
+              // If already qualified (e.g. "@aura/button") leave it alone
+              if (dep.includes('/')) {
+                return dep;
+              }
+              return `${registryDependencyNamespace}/${dep}`;
+            })
+          : undefined;
 
-    // Process files
-    const processedFiles = processComponentFiles(baseFiles, componentName);
+      // Process files
+      const processedFiles = processComponentFiles(baseFiles, componentName);
 
-    // Add globals.css to all component files (not hooks, libs, or misc items)
-    const finalFiles = [...processedFiles];
-    if (componentType === "registry:component" && componentName !== "css") {
-      // Check if globals.css is already in the files array
-      const hasGlobalsCss = finalFiles.some(
-        (f) => f.path === "src/globals.css" || f.path.includes("globals.css")
-      );
+      // Add globals.css to all component files (not hooks, libs, or misc items)
+      const finalFiles = [...processedFiles];
+      if (componentType === 'registry:component' && componentName !== 'css') {
+        // Check if globals.css is already in the files array
+        const hasGlobalsCss = finalFiles.some(
+          (f) => f.path === 'src/globals.css' || f.path.includes('globals.css')
+        );
 
-      if (!hasGlobalsCss) {
-        finalFiles.push({
-          path: "src/globals.css",
-          target: "src/styles.css",
-          type: "registry:component",
-        });
+        if (!hasGlobalsCss) {
+          finalFiles.push({
+            path: 'src/globals.css',
+            target: 'src/styles.css',
+            type: 'registry:component',
+          });
+        }
       }
-    }
 
-    return {
-      name: componentName,
-      type: componentType,
-      title: jsdocMetadata.title || componentName,
-      description: jsdocMetadata.description || "",
-      dependencies: extractedDeps.length > 0 ? extractedDeps : undefined,
-      registryDependencies,
-      files: finalFiles,
-    };
-  });
+      return {
+        name: componentName,
+        type: componentType,
+        title: jsdocMetadata.title || componentName,
+        description: jsdocMetadata.description || '',
+        dependencies: extractedDeps.length > 0 ? extractedDeps : undefined,
+        registryDependencies,
+        files: finalFiles,
+      };
+    }
+  );
 
   const miscItemNames = new Set(miscRegistryItems.map((i) => i.name));
-  const itemsWithoutMiscNameClashes = registryItems.filter((i) => !miscItemNames.has(i.name));
+  const itemsWithoutMiscNameClashes = registryItems.filter(
+    (i) => !miscItemNames.has(i.name)
+  );
 
   return {
-    $schema: "https://ui.shadcn.com/schema/registry.json",
+    $schema: 'https://ui.shadcn.com/schema/registry.json',
     name: registryName,
     homepage: registryHomepage,
     items: [...miscRegistryItems, ...itemsWithoutMiscNameClashes],
@@ -616,61 +705,47 @@ function buildRegistry(components: string[]): Registry {
 async function main(): Promise<void> {
   try {
     // Display build information
-    console.log(`\n${"=".repeat(70)}`);
-    console.log("🔨 BUILDING COMPONENT REGISTRY");
-    console.log("   Source: ui/cognite");
-    console.log("   Output: All paths → src/components/ui/aura/");
-    console.log("=".repeat(70));
+    console.log(`\n${'='.repeat(70)}`);
+    console.log('🔨 BUILDING COMPONENT REGISTRY');
+    console.log('   Source: ui/cognite');
+    console.log('   Output: All paths → src/components/ui/aura/');
+    console.log('='.repeat(70));
 
     // Get components from ui/cognite directory
     const components: string[] = getComponents();
 
     if (components.length === 0) {
-      console.log("\n⚠️  No components found in ui/cognite directory");
-      console.log("   Registry will be empty (no components to build)");
+      console.log('\n⚠️  No components found in ui/cognite directory');
+      console.log('   Registry will be empty (no components to build)');
     }
 
     // Show what will be built
-    console.log(`\n${"─".repeat(70)}`);
-    console.log("📋 COMPONENTS TO BE BUILT:");
-    console.log("─".repeat(70));
+    console.log(`\n${'─'.repeat(70)}`);
+    console.log('📋 COMPONENTS TO BE BUILT:');
+    console.log('─'.repeat(70));
 
     if (components.length > 0) {
-      console.log(`\n   ${components.join(", ")}`);
+      console.log(`\n   ${components.join(', ')}`);
       console.log(`\n   Total: ${components.length} component(s)`);
     } else {
-      console.log("\n   (none)");
+      console.log('\n   (none)');
     }
 
-    console.log(`\n${"─".repeat(70)}`);
-    console.log("📁 OUTPUT:");
-    console.log("─".repeat(70));
-    console.log("\n   registry.json → Root directory");
-    console.log("   Component files → public/r/*.json (via shadcn build)");
-    console.log("   All paths point to src/components/ui/aura/");
+    console.log(`\n${'─'.repeat(70)}`);
+    console.log('📁 OUTPUT:');
+    console.log('─'.repeat(70));
+    console.log('\n   registry.json → Root directory');
+    console.log('   Component files → public/r/*.json (via shadcn build)');
+    console.log('   All paths point to src/components/ui/aura/');
 
     // Build the registry entirely from filesystem discovery
-    console.log("\n⏳ Building registry...");
-    console.log("📦 Extracting dependencies from component files...");
+    console.log('\n⏳ Building registry...');
+    console.log('📦 Extracting dependencies from component files...');
     const registry: Registry = buildRegistry(components);
 
     fs.writeFileSync(registryOutput, `${JSON.stringify(registry, null, 2)}\n`);
 
-    // Format the generated registry.json with Biome
-    try {
-      console.log("🔧 Formatting registry.json with Biome...");
-      execSync("pnpm biome format --write registry.json", {
-        cwd: path.join(__dirname, ".."),
-        stdio: "pipe",
-      });
-      console.log("✨ Formatted registry.json");
-    } catch (error) {
-      console.warn(
-        "⚠️  Failed to format registry.json with Biome (file may need manual formatting)"
-      );
-    }
-
-    console.log("\n✅ Successfully built registry.json");
+    console.log('\n✅ Successfully built registry.json');
     console.log(`📦 Registry contains ${registry.items.length} component(s)`);
 
     // Summary of dependency extraction
@@ -685,29 +760,29 @@ async function main(): Promise<void> {
 
     if (components.length > 0) {
       console.log(
-        `\n🎉 Components built: ${registry.items.map((i: RegistryItem) => i.name).join(", ")}`
+        `\n🎉 Components built: ${registry.items.map((i: RegistryItem) => i.name).join(', ')}`
       );
     }
 
-    console.log(`\n${"=".repeat(70)}`);
-    console.log("✨ BUILD COMPLETE");
-    console.log(`${"=".repeat(70)}\n`);
+    console.log(`\n${'='.repeat(70)}`);
+    console.log('✨ BUILD COMPLETE');
+    console.log(`${'='.repeat(70)}\n`);
 
     if (components.length > 0) {
-      console.log("📝 Next steps:");
-      console.log("  1. The registry:build command will now:");
-      console.log("     - Clean public/r/ directory");
-      console.log("     - Run shadcn build to generate component .json files");
-      console.log("  2. Commit and push the changes");
-      console.log("  3. Deploy your site to make components available\n");
+      console.log('📝 Next steps:');
+      console.log('  1. The registry:build command will now:');
+      console.log('     - Clean public/r/ directory');
+      console.log('     - Run shadcn build to generate component .json files');
+      console.log('  2. Commit and push the changes');
+      console.log('  3. Deploy your site to make components available\n');
     } else {
       console.log(
-        "ℹ️  Note: No components to build. Add .tsx files to:\n     - src/components/ui/aura/\n"
+        'ℹ️  Note: No components to build. Add .tsx files to:\n     - src/components/ui/aura/\n'
       );
     }
   } catch (error: unknown) {
     const errorMessage = error instanceof Error ? error.message : String(error);
-    console.error("\n❌ Failed to build registry:", errorMessage);
+    console.error('\n❌ Failed to build registry:', errorMessage);
     process.exit(1);
   }
 }

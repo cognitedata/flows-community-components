@@ -1,32 +1,23 @@
-/**
- * Table Component
- *
- * A table component for displaying tabular data.
- *
- * @example
- * import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@/components/ui/aura/table';
- *
- * <Table>
- *   <TableHeader>
- *     <TableRow>
- *       <TableHead>Name</TableHead>
- *     </TableRow>
- *   </TableHeader>
- *   <TableBody>
- *     <TableRow>
- *       <TableCell>Value</TableCell>
- *     </TableRow>
- *   </TableBody>
- * </Table>
- */
-export {
+import {
   Table,
-  TableHeader,
   TableBody,
+  TableCaption,
+  TableCell,
   TableFooter,
   TableHead,
+  TableHeader,
   TableRow,
-  TableCell,
+} from './table';
+import { TableMetadata } from './table.metadata';
+
+export {
+  Table,
+  TableBody,
   TableCaption,
-} from "./table";
-export { TableMetadata } from "./table.metadata";
+  TableCell,
+  TableFooter,
+  TableHead,
+  TableHeader,
+  TableMetadata,
+  TableRow,
+};

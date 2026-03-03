@@ -1,10 +1,12 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor, within } from "@storybook/test";
-import { useState } from "react";
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { useState } from 'react';
+import { userEvent, within } from 'storybook/test';
+
 import {
   ContextMenu,
   ContextMenuCheckboxItem,
   ContextMenuContent,
+  ContextMenuGroup,
   ContextMenuItem,
   ContextMenuLabel,
   ContextMenuRadioGroup,
@@ -15,28 +17,25 @@ import {
   ContextMenuSubContent,
   ContextMenuSubTrigger,
   ContextMenuTrigger,
-} from "./context-menu";
-
+} from './context-menu';
 const meta: Meta<typeof ContextMenu> = {
-  title: "Primitives/Context Menu",
+  title: 'Primitives/Context Menu',
   component: ContextMenu,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {},
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
 };
-
 export default meta;
 type Story = StoryObj<typeof ContextMenu>;
-
-/**
- * Default context menu.
- */
 export const Default: Story = {
+  parameters: {
+    order: 1,
+  },
   render: () => (
     <ContextMenu>
-      <ContextMenuTrigger className="flex h-[150px] w-[300px] items-center justify-center rounded-md border border-dashed text-sm">
+      <ContextMenuTrigger className="flex h-36 w-75 items-center justify-center rounded-md border border-dashed text-sm">
         Right click here
       </ContextMenuTrigger>
       <ContextMenuContent className="w-64">
@@ -57,35 +56,24 @@ export const Default: Story = {
       </ContextMenuContent>
     </ContextMenu>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: "Default context menu triggered by right-click.",
-      },
-    },
-  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const trigger = canvas.getByText("Right click here");
-
-    // Right-click to open context menu
-    await userEvent.pointer({ target: trigger, keys: "[MouseRight]" });
-
-    // Wait for menu to appear
-    await waitFor(() => {
-      const menu = document.querySelector('[data-slot="context-menu-content"]');
-      expect(menu).toBeInTheDocument();
+    const body = within(canvasElement.ownerDocument.body);
+    const trigger = canvas.getByText('Right click here');
+    await userEvent.pointer({
+      target: trigger,
+      keys: '[MouseRight]',
     });
+    await body.findByRole('menu');
   },
 };
-
-/**
- * Context menu with submenus.
- */
 export const WithSubmenus: Story = {
+  parameters: {
+    order: 2,
+  },
   render: () => (
     <ContextMenu>
-      <ContextMenuTrigger className="flex h-[150px] w-[300px] items-center justify-center rounded-md border border-dashed text-sm">
+      <ContextMenuTrigger className="flex h-36 w-75 items-center justify-center rounded-md border border-dashed text-sm">
         Right click here
       </ContextMenuTrigger>
       <ContextMenuContent className="w-64">
@@ -114,94 +102,87 @@ export const WithSubmenus: Story = {
       </ContextMenuContent>
     </ContextMenu>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: "Context menu with nested submenus.",
-      },
-    },
-  },
 };
-
-/**
- * Context menu with checkbox items.
- */
 export const WithCheckboxItems: Story = {
+  parameters: {
+    order: 3,
+  },
   render: function CheckboxContextMenu() {
     const [showStatusBar, setShowStatusBar] = useState(true);
     const [showActivityBar, setShowActivityBar] = useState(false);
     const [showPanel, setShowPanel] = useState(false);
-
     return (
       <ContextMenu>
-        <ContextMenuTrigger className="flex h-[150px] w-[300px] items-center justify-center rounded-md border border-dashed text-sm">
+        <ContextMenuTrigger className="flex h-36 w-75 items-center justify-center rounded-md border border-dashed text-sm">
           Right click here
         </ContextMenuTrigger>
         <ContextMenuContent className="w-64">
-          <ContextMenuLabel>Appearance</ContextMenuLabel>
-          <ContextMenuSeparator />
-          <ContextMenuCheckboxItem checked={showStatusBar} onCheckedChange={setShowStatusBar}>
-            Status Bar
-          </ContextMenuCheckboxItem>
-          <ContextMenuCheckboxItem checked={showActivityBar} onCheckedChange={setShowActivityBar}>
-            Activity Bar
-          </ContextMenuCheckboxItem>
-          <ContextMenuCheckboxItem checked={showPanel} onCheckedChange={setShowPanel}>
-            Panel
-          </ContextMenuCheckboxItem>
+          <ContextMenuGroup>
+            <ContextMenuLabel>Appearance</ContextMenuLabel>
+            <ContextMenuSeparator />
+            <ContextMenuCheckboxItem
+              checked={showStatusBar}
+              onCheckedChange={setShowStatusBar}
+            >
+              Status Bar
+            </ContextMenuCheckboxItem>
+            <ContextMenuCheckboxItem
+              checked={showActivityBar}
+              onCheckedChange={setShowActivityBar}
+            >
+              Activity Bar
+            </ContextMenuCheckboxItem>
+            <ContextMenuCheckboxItem
+              checked={showPanel}
+              onCheckedChange={setShowPanel}
+            >
+              Panel
+            </ContextMenuCheckboxItem>
+          </ContextMenuGroup>
         </ContextMenuContent>
       </ContextMenu>
     );
   },
-  parameters: {
-    docs: {
-      description: {
-        story: "Context menu with checkbox items for toggle options.",
-      },
-    },
-  },
 };
-
-/**
- * Context menu with radio group.
- */
 export const WithRadioGroup: Story = {
+  parameters: {
+    order: 4,
+  },
   render: function RadioContextMenu() {
-    const [person, setPerson] = useState("pedro");
-
+    const [person, setPerson] = useState('pedro');
     return (
       <ContextMenu>
-        <ContextMenuTrigger className="flex h-[150px] w-[300px] items-center justify-center rounded-md border border-dashed text-sm">
+        <ContextMenuTrigger className="flex h-36 w-75 items-center justify-center rounded-md border border-dashed text-sm">
           Right click here
         </ContextMenuTrigger>
         <ContextMenuContent className="w-64">
-          <ContextMenuLabel>People</ContextMenuLabel>
-          <ContextMenuSeparator />
-          <ContextMenuRadioGroup value={person} onValueChange={setPerson}>
-            <ContextMenuRadioItem value="pedro">Pedro Duarte</ContextMenuRadioItem>
-            <ContextMenuRadioItem value="colm">Colm Tuite</ContextMenuRadioItem>
-            <ContextMenuRadioItem value="james">James Wilson</ContextMenuRadioItem>
-          </ContextMenuRadioGroup>
+          <ContextMenuGroup>
+            <ContextMenuLabel>People</ContextMenuLabel>
+            <ContextMenuSeparator />
+            <ContextMenuRadioGroup value={person} onValueChange={setPerson}>
+              <ContextMenuRadioItem value="pedro">
+                Pedro Duarte
+              </ContextMenuRadioItem>
+              <ContextMenuRadioItem value="colm">
+                Colm Tuite
+              </ContextMenuRadioItem>
+              <ContextMenuRadioItem value="james">
+                James Wilson
+              </ContextMenuRadioItem>
+            </ContextMenuRadioGroup>
+          </ContextMenuGroup>
         </ContextMenuContent>
       </ContextMenu>
     );
   },
-  parameters: {
-    docs: {
-      description: {
-        story: "Context menu with radio group for single selection.",
-      },
-    },
-  },
 };
-
-/**
- * Context menu with destructive item.
- */
 export const WithDestructiveItem: Story = {
+  parameters: {
+    order: 5,
+  },
   render: () => (
     <ContextMenu>
-      <ContextMenuTrigger className="flex h-[150px] w-[300px] items-center justify-center rounded-md border border-dashed text-sm">
+      <ContextMenuTrigger className="flex h-36 w-75 items-center justify-center rounded-md border border-dashed text-sm">
         Right click here
       </ContextMenuTrigger>
       <ContextMenuContent className="w-64">
@@ -216,22 +197,14 @@ export const WithDestructiveItem: Story = {
       </ContextMenuContent>
     </ContextMenu>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: "Context menu with a destructive delete action.",
-      },
-    },
-  },
 };
-
-/**
- * Context menu with disabled items.
- */
 export const WithDisabledItems: Story = {
+  parameters: {
+    order: 6,
+  },
   render: () => (
     <ContextMenu>
-      <ContextMenuTrigger className="flex h-[150px] w-[300px] items-center justify-center rounded-md border border-dashed text-sm">
+      <ContextMenuTrigger className="flex h-36 w-75 items-center justify-center rounded-md border border-dashed text-sm">
         Right click here
       </ContextMenuTrigger>
       <ContextMenuContent className="w-64">
@@ -244,28 +217,21 @@ export const WithDisabledItems: Story = {
       </ContextMenuContent>
     </ContextMenu>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: "Context menu with some items disabled.",
-      },
-    },
-  },
 };
-
-/**
- * File manager context menu.
- */
 export const FileManagerExample: Story = {
+  parameters: {
+    order: 7,
+  },
   render: function FileManagerContextMenu() {
-    const [viewMode, setViewMode] = useState("list");
-
+    const [viewMode, setViewMode] = useState('list');
     return (
       <ContextMenu>
-        <ContextMenuTrigger className="flex h-[200px] w-[400px] items-center justify-center rounded-md border border-dashed text-sm bg-muted/20">
+        <ContextMenuTrigger className="flex h-50 w-100 items-center justify-center rounded-md border border-dashed text-sm bg-muted/20">
           <div className="text-center">
             <p className="font-medium">File Manager Area</p>
-            <p className="text-muted-foreground text-xs">Right click for options</p>
+            <p className="text-muted-foreground text-xs">
+              Right click for options
+            </p>
           </div>
         </ContextMenuTrigger>
         <ContextMenuContent className="w-64">
@@ -279,11 +245,18 @@ export const FileManagerExample: Story = {
           <ContextMenuSub>
             <ContextMenuSubTrigger>View</ContextMenuSubTrigger>
             <ContextMenuSubContent className="w-48">
-              <ContextMenuRadioGroup value={viewMode} onValueChange={setViewMode}>
+              <ContextMenuRadioGroup
+                value={viewMode}
+                onValueChange={setViewMode}
+              >
                 <ContextMenuRadioItem value="icons">Icons</ContextMenuRadioItem>
                 <ContextMenuRadioItem value="list">List</ContextMenuRadioItem>
-                <ContextMenuRadioItem value="columns">Columns</ContextMenuRadioItem>
-                <ContextMenuRadioItem value="gallery">Gallery</ContextMenuRadioItem>
+                <ContextMenuRadioItem value="columns">
+                  Columns
+                </ContextMenuRadioItem>
+                <ContextMenuRadioItem value="gallery">
+                  Gallery
+                </ContextMenuRadioItem>
               </ContextMenuRadioGroup>
             </ContextMenuSubContent>
           </ContextMenuSub>
@@ -308,23 +281,18 @@ export const FileManagerExample: Story = {
       </ContextMenu>
     );
   },
+};
+export const VisualRegression: Story = {
   parameters: {
-    docs: {
-      description: {
-        story: "Context menu example for a file manager application.",
-      },
+    order: 8,
+    chromatic: {
+      disableSnapshot: false,
     },
   },
-};
-
-/**
- * Visual regression testing.
- */
-export const VisualRegression: Story = {
   render: () => (
     <div className="p-4">
       <ContextMenu>
-        <ContextMenuTrigger className="flex h-[100px] w-[200px] items-center justify-center rounded-md border border-dashed text-sm">
+        <ContextMenuTrigger className="flex h-25 w-50 items-center justify-center rounded-md border border-dashed text-sm">
           Right click here
         </ContextMenuTrigger>
         <ContextMenuContent className="w-48">
@@ -336,25 +304,14 @@ export const VisualRegression: Story = {
       </ContextMenu>
     </div>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: "Context menu trigger for visual regression testing.",
-      },
-    },
-    chromatic: {
-      disableSnapshot: false,
-    },
-  },
 };
-
-/**
- * Interactive playground.
- */
 export const Playground: Story = {
+  parameters: {
+    order: 99,
+  },
   render: () => (
     <ContextMenu>
-      <ContextMenuTrigger className="flex h-[150px] w-[300px] items-center justify-center rounded-md border border-dashed text-sm">
+      <ContextMenuTrigger className="flex h-36 w-75 items-center justify-center rounded-md border border-dashed text-sm">
         Right click to open menu
       </ContextMenuTrigger>
       <ContextMenuContent className="w-64">
@@ -372,11 +329,4 @@ export const Playground: Story = {
       </ContextMenuContent>
     </ContextMenu>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: "Interactive context menu example.",
-      },
-    },
-  },
 };

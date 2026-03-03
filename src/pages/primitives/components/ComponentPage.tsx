@@ -1,59 +1,65 @@
-import figmaIcon from "@/assets/figma-logo.svg";
-import storybookIcon from "@/assets/icon-storybook-default.svg";
-import { InstallationCommand } from "@/components/installation-command";
-import { StoriesRenderer } from "@/components/stories-renderer";
-import { Badge } from "@/components/ui/aura/badge";
-import { Button } from "@/components/ui/aura/button";
-import type { ComponentMeta } from "@/lib/component-examples";
-import { getComponentMeta } from "@/lib/component-registry";
+import {
+  IconArrowLeft,
+  IconCheck,
+  IconQuestionMark,
+  IconX,
+} from '@tabler/icons-react';
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+
+import figmaIcon from '@/assets/figma-logo.svg';
+import storybookIcon from '@/assets/icon-storybook-default.svg';
+import { InstallationCommand } from '@/components/installation-command';
+import { StoriesRenderer } from '@/components/stories-renderer';
+import { Badge } from '@/components/ui/aura/badge';
+import { Button } from '@/components/ui/aura/button';
+import { getComponentMeta } from '@/lib/component-registry';
 import {
   type ComponentStatusType,
   getComponentStatusClasses,
   getStatusMessage,
-} from "@/lib/component-status";
-import { getStatusLabel } from "@/lib/component-status";
+} from '@/lib/component-status';
+import { getStatusLabel } from '@/lib/component-status';
 import {
   getPrimitiveCatalogEntry,
   getPrimitiveFigmaBadgeProps,
   getPrimitiveFigmaLabel,
   getPrimitiveFigmaUrl,
   getPrimitiveGaBadgeProps,
-} from "@/lib/primitives-catalog";
-import { IconArrowLeft, IconCheck, IconQuestionMark, IconX } from "@tabler/icons-react";
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+} from '@/lib/primitives-catalog';
+import type { ComponentMeta } from '@/lib/types';
 
 function toTitleCase(str: string): string {
   return str
-    .split("-")
+    .split('-')
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
+    .join(' ');
 }
 
 function toStorybookSlug(name: string): string {
   return name
     .toLowerCase()
-    .replace(/\s*\(.*?\)\s*/g, " ")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
+    .replace(/\s*\(.*?\)\s*/g, ' ')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
 }
 
 const externalIconClass =
-  "size-6 grayscale opacity-70 mix-blend-multiply transition-all duration-150 group-hover:grayscale-0 group-hover:opacity-100 group-hover:mix-blend-normal";
+  'size-6 grayscale opacity-70 mix-blend-multiply transition-all duration-150 group-hover:grayscale-0 group-hover:opacity-100 group-hover:mix-blend-normal';
 
 function GaBadgeContent({
   product,
   required,
 }: {
-  product: "Eos" | "Dune";
+  product: 'Eos' | 'Dune';
   required: boolean | null;
 }) {
   const toneClass =
     required === true
-      ? "text-green-700 dark:text-green-400"
+      ? 'text-green-700 dark:text-green-400'
       : required === false
-        ? "text-red-700 dark:text-red-400"
-        : "text-muted-foreground";
+        ? 'text-red-700 dark:text-red-400'
+        : 'text-muted-foreground';
 
   return (
     <span className={`inline-flex items-center gap-1 ${toneClass}`}>
@@ -75,7 +81,7 @@ export default function ComponentPage() {
   const [meta, setMeta] = useState<ComponentMeta | null>(null);
   const [loading, setLoading] = useState(true);
   const catalogEntry = slug ? getPrimitiveCatalogEntry(slug) : null;
-  const resolvedSlug = catalogEntry?.slug || slug || "";
+  const resolvedSlug = catalogEntry?.slug || slug || '';
 
   useEffect(() => {
     async function loadMeta() {
@@ -107,19 +113,21 @@ export default function ComponentPage() {
   }
 
   const componentName = catalogEntry?.name || meta?.name || toTitleCase(slug);
-  const componentStatus: ComponentStatusType = meta?.status || "draft";
+  const componentStatus: ComponentStatusType = meta?.status || 'draft';
   const statusClasses = getComponentStatusClasses(componentStatus);
   const statusLabel = getStatusLabel(componentStatus);
   const statusMessage = getStatusMessage(componentStatus);
-  const description = catalogEntry?.description || meta?.description || "Component documentation";
-  const storybookCategory = catalogEntry?.section === "foundation" ? "foundations" : "primitives";
+  const description =
+    catalogEntry?.description || meta?.description || 'Component documentation';
+  const storybookCategory =
+    catalogEntry?.section === 'foundation' ? 'foundations' : 'primitives';
   const storybookUrl = `https://cognitedata.github.io/aura/storybook/?path=/docs/${storybookCategory}-${toStorybookSlug(componentName)}--docs`;
   const hasStorybookLink = ![
-    "assets",
-    "icons",
-    "action-toolbar",
-    "file-upload",
-    "select-panel",
+    'assets',
+    'icons',
+    'action-toolbar',
+    'file-upload',
+    'select-panel',
   ].includes(resolvedSlug);
   const hasDisabledFigma = false;
   const figmaBadgeProps = catalogEntry
@@ -139,7 +147,11 @@ export default function ComponentPage() {
       <div className="max-w-4xl mx-auto py-10">
         <div className="space-y-8">
           <div className="flex items-center gap-4">
-            <Button variant="secondary" size="sm" onClick={() => navigate("/primitives")}>
+            <Button
+              variant="secondary"
+              size="sm"
+              onClick={() => navigate('/primitives')}
+            >
               <IconArrowLeft className="h-4 w-4 mr-2" />
               Back to Components
             </Button>
@@ -148,7 +160,9 @@ export default function ComponentPage() {
           <div className="space-y-4">
             <div className="flex items-start justify-between gap-4 mb-2">
               <div className="flex min-w-0 flex-wrap items-center gap-3">
-                <h1 className="text-3xl font-bold tracking-tight">{componentName}</h1>
+                <h1 className="text-3xl font-bold tracking-tight">
+                  {componentName}
+                </h1>
                 <Badge variant="secondary">Primitive</Badge>
                 <Badge variant="secondary" className={statusClasses}>
                   {statusLabel}
@@ -177,7 +191,11 @@ export default function ComponentPage() {
                       title="Open in Figma"
                       aria-label="Open in Figma"
                     >
-                      <img src={figmaIcon} alt="" className={externalIconClass} />
+                      <img
+                        src={figmaIcon}
+                        alt=""
+                        className={externalIconClass}
+                      />
                     </a>
                   ))}
                 {hasStorybookLink ? (
@@ -189,7 +207,11 @@ export default function ComponentPage() {
                     title="Open in Storybook"
                     aria-label="Open in Storybook"
                   >
-                    <img src={storybookIcon} alt="" className={externalIconClass} />
+                    <img
+                      src={storybookIcon}
+                      alt=""
+                      className={externalIconClass}
+                    />
                   </a>
                 ) : (
                   <span
@@ -220,20 +242,27 @@ export default function ComponentPage() {
                 outline={eosGaBadgeProps?.outline}
                 className={eosGaBadgeProps?.className}
               >
-                <GaBadgeContent product="Eos" required={catalogEntry.eosGaRequired} />
+                <GaBadgeContent
+                  product="Eos"
+                  required={catalogEntry.eosGaRequired}
+                />
               </Badge>
               <Badge
                 variant={duneGaBadgeProps?.variant}
                 outline={duneGaBadgeProps?.outline}
                 className={duneGaBadgeProps?.className}
               >
-                <GaBadgeContent product="Dune" required={catalogEntry.duneGaRequired} />
+                <GaBadgeContent
+                  product="Dune"
+                  required={catalogEntry.duneGaRequired}
+                />
               </Badge>
             </div>
             <div className="p-4 rounded-lg border border-dashed bg-muted/30">
               <p className="text-sm text-muted-foreground">
-                This primitive is tracked in metadata and is not implemented yet. A placeholder is
-                shown until stories and metadata-backed implementation are available.
+                This primitive is tracked in metadata and is not implemented
+                yet. A placeholder is shown until stories and metadata-backed
+                implementation are available.
               </p>
             </div>
           </div>
@@ -247,7 +276,11 @@ export default function ComponentPage() {
       <div className="space-y-8">
         {/* Navigation */}
         <div className="flex items-center gap-4">
-          <Button variant="secondary" size="sm" onClick={() => navigate("/primitives")}>
+          <Button
+            variant="secondary"
+            size="sm"
+            onClick={() => navigate('/primitives')}
+          >
             <IconArrowLeft className="h-4 w-4 mr-2" />
             Back to Components
           </Button>
@@ -257,7 +290,9 @@ export default function ComponentPage() {
         <div className="space-y-4">
           <div className="flex items-start justify-between gap-4 mb-2">
             <div className="flex min-w-0 flex-wrap items-center gap-3">
-              <h1 className="text-3xl font-bold tracking-tight">{componentName}</h1>
+              <h1 className="text-3xl font-bold tracking-tight">
+                {componentName}
+              </h1>
               <Badge variant="secondary">Component</Badge>
               <Badge variant="secondary" className={statusClasses}>
                 {statusLabel}
@@ -298,7 +333,11 @@ export default function ComponentPage() {
                   title="Open in Storybook"
                   aria-label="Open in Storybook"
                 >
-                  <img src={storybookIcon} alt="" className={externalIconClass} />
+                  <img
+                    src={storybookIcon}
+                    alt=""
+                    className={externalIconClass}
+                  />
                 </a>
               ) : (
                 <span
@@ -330,24 +369,31 @@ export default function ComponentPage() {
                 outline={eosGaBadgeProps?.outline}
                 className={eosGaBadgeProps?.className}
               >
-                <GaBadgeContent product="Eos" required={catalogEntry.eosGaRequired} />
+                <GaBadgeContent
+                  product="Eos"
+                  required={catalogEntry.eosGaRequired}
+                />
               </Badge>
               <Badge
                 variant={duneGaBadgeProps?.variant}
                 outline={duneGaBadgeProps?.outline}
                 className={duneGaBadgeProps?.className}
               >
-                <GaBadgeContent product="Dune" required={catalogEntry.duneGaRequired} />
+                <GaBadgeContent
+                  product="Dune"
+                  required={catalogEntry.duneGaRequired}
+                />
               </Badge>
             </div>
           )}
-          {componentStatus !== "stable" && componentStatus !== "ready-for-ga" && (
-            <div className={`p-4 rounded-lg border ${statusClasses}`}>
-              <p className="text-sm">
-                <strong>Note:</strong> {statusMessage}
-              </p>
-            </div>
-          )}
+          {componentStatus !== 'stable' &&
+            componentStatus !== 'ready-for-ga' && (
+              <div className={`p-4 rounded-lg border ${statusClasses}`}>
+                <p className="text-sm">
+                  <strong>Note:</strong> {statusMessage}
+                </p>
+              </div>
+            )}
         </div>
 
         {/* Examples Section */}
@@ -359,7 +405,11 @@ export default function ComponentPage() {
         {/* Installation Section */}
         <section>
           <h2 className="text-2xl font-bold mb-6">Installation</h2>
-          <InstallationCommand component={resolvedSlug} dependencies={[]} componentCode="" />
+          <InstallationCommand
+            component={resolvedSlug}
+            dependencies={[]}
+            componentCode=""
+          />
         </section>
 
         {/* Guidelines Section */}
@@ -367,7 +417,9 @@ export default function ComponentPage() {
           <h2 className="text-2xl font-bold mb-6">Guidelines</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-3">
-              <h3 className="font-semibold text-green-700 dark:text-green-400">Do</h3>
+              <h3 className="font-semibold text-green-700 dark:text-green-400">
+                Do
+              </h3>
               <div className="p-4 rounded-lg border bg-green-50 border-green-200 dark:bg-green-950/20 dark:border-green-800">
                 <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
                   <li>Use semantic variants and sizes appropriately.</li>
@@ -377,7 +429,9 @@ export default function ComponentPage() {
               </div>
             </div>
             <div className="space-y-3">
-              <h3 className="font-semibold text-red-700 dark:text-red-400">Don&apos;t</h3>
+              <h3 className="font-semibold text-red-700 dark:text-red-400">
+                Don&apos;t
+              </h3>
               <div className="p-4 rounded-lg border bg-red-50 border-red-200 dark:bg-red-950/20 dark:border-red-800">
                 <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
                   <li>Don&apos;t override tokens with hard-coded colors.</li>
