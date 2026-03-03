@@ -10,8 +10,10 @@
 
 @theme inline {
   /* Container query breakpoint overrides for layout system */
-  --container-2xl: 40rem; /* 640px - Override Tailwind's default 672px */
-  --container-8xl: 96rem; /* 1536px - Custom breakpoint for widest layouts */
+  --container-2xl: 40rem;
+  /* 640px - Override Tailwind's default 672px */
+  --container-8xl: 96rem;
+  /* 1536px - Custom breakpoint for widest layouts */
 
   /* Typography scale overrides - font sizes */
   --text-2xs: 0.625rem;
@@ -55,18 +57,23 @@
   --tracking-tightest: -0.1px;
   --shadow-sm: 0 1px 2px 0 var(--effect-shadow-sm);
   /* tooltips; small containers */
-  --shadow-default: 0 1px 3px 0 var(--effect-shadow-md), 0 1px 2px 0 var(--effect-shadow-sm);
+  --shadow-default: 0 1px 3px 0 var(--effect-shadow-md),
+  0 1px 2px 0 var(--effect-shadow-sm);
   /* menus; popovers; hover cards */
-  --shadow-md: 0 4px 6px -1px var(--effect-shadow-md), 0 2px 4px -1px var(--effect-shadow-sm);
+  --shadow-md: 0 4px 6px -1px var(--effect-shadow-md),
+  0 2px 4px -1px var(--effect-shadow-sm);
   /* sonner; temporary elements */
-  --shadow-lg: 0 10px 15px -3px var(--effect-shadow-lg), 0 4px 6px -2px var(--effect-shadow-sm);
+  --shadow-lg: 0 10px 15px -3px var(--effect-shadow-lg),
+  0 4px 6px -2px var(--effect-shadow-sm);
   /* modals; dialogs without backdrop overlay */
-  --shadow-xl: 0 20px 25px -5px var(--effect-shadow-xl), 0 10px 10px -5px var(--effect-shadow-lg);
+  --shadow-xl: 0 20px 25px -5px var(--effect-shadow-xl),
+  0 10px 10px -5px var(--effect-shadow-lg);
   /* modals; dialogs with backdrop overlay */
-  --shadow-focus-ring: 0 0 0 2px var(--ring), 0 0 0 4px var(--ring-shadow);
+  --shadow-focus-ring: 0 0 0 2px var(--ring),
+  0 0 0 4px var(--ring-shadow);
   /* default focus ring: inner border (2px dark) + outer glow (4px light, 2px visible beyond inner) */
-  --shadow-focus-ring-destructive: 0 0 0 2px var(--ring-destructive), 0 0 0 4px
-    var(--ring-destructive-shadow);
+  --shadow-focus-ring-destructive: 0 0 0 2px var(--ring-destructive),
+  0 0 0 4px var(--ring-destructive-shadow);
   /* destructive focus ring: inner border (2px dark) + outer glow (4px light, 2px visible beyond inner) */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -722,49 +729,35 @@
   --decorative-foreground-gray: var(--gray-650);
 
   /* Gradient tokens */
-  --gradient-nordic: linear-gradient(
-    -100deg,
-    var(--nordic-50) 0%,
-    var(--nordic-400) 44%,
-    var(--nordic-200) 100%
-  );
-  --gradient-aurora: linear-gradient(
-    -100deg,
-    var(--aurora-50) 0%,
-    var(--aurora-400) 50%,
-    var(--aurora-200) 100%
-  );
-  --gradient-dusk: linear-gradient(
-    -100deg,
-    var(--dusk-50) 0%,
-    var(--dusk-400) 48%,
-    var(--dusk-200) 100%
-  );
-  --gradient-equinox: linear-gradient(
-    -100deg,
-    var(--dusk-600) 0%,
-    var(--dusk-300) 40%,
-    var(--aurora-50) 60%,
-    var(--aurora-100) 100%
-  );
-  --gradient-summer: linear-gradient(
-    -100deg,
-    var(--nordic-100) 0%,
-    var(--dusk-50) 50%,
-    var(--aurora-100) 100%
-  );
-  --gradient-spring: linear-gradient(
-    -100deg,
-    var(--aurora-50) 0%,
-    var(--nordic-100) 50%,
-    var(--aurora-100) 100%
-  );
-  --gradient-fall: linear-gradient(
-    -100deg,
-    var(--fjord-550) 0%,
-    var(--dusk-550) 50%,
-    var(--dusk-300) 100%
-  );
+  --gradient-nordic: linear-gradient(-100deg,
+      var(--nordic-50) 0%,
+      var(--nordic-400) 44%,
+      var(--nordic-200) 100%);
+  --gradient-aurora: linear-gradient(-100deg,
+      var(--aurora-50) 0%,
+      var(--aurora-400) 50%,
+      var(--aurora-200) 100%);
+  --gradient-dusk: linear-gradient(-100deg,
+      var(--dusk-50) 0%,
+      var(--dusk-400) 48%,
+      var(--dusk-200) 100%);
+  --gradient-equinox: linear-gradient(-100deg,
+      var(--dusk-600) 0%,
+      var(--dusk-300) 40%,
+      var(--aurora-50) 60%,
+      var(--aurora-100) 100%);
+  --gradient-summer: linear-gradient(-100deg,
+      var(--nordic-100) 0%,
+      var(--dusk-50) 50%,
+      var(--aurora-100) 100%);
+  --gradient-spring: linear-gradient(-100deg,
+      var(--aurora-50) 0%,
+      var(--nordic-100) 50%,
+      var(--aurora-100) 100%);
+  --gradient-fall: linear-gradient(-100deg,
+      var(--fjord-550) 0%,
+      var(--dusk-550) 50%,
+      var(--dusk-300) 100%);
 
   /* Sidebar */
   --sidebar: var(--mountain-900);
@@ -928,49 +921,35 @@
   --decorative-foreground-gray: var(--gray-400);
 
   /* Gradient tokens */
-  --gradient-nordic: linear-gradient(
-    -100deg,
-    var(--nordic-900) 0%,
-    var(--nordic-600) 44%,
-    var(--nordic-800) 100%
-  );
-  --gradient-aurora: linear-gradient(
-    -100deg,
-    var(--aurora-900) 0%,
-    var(--aurora-600) 50%,
-    var(--aurora-800) 100%
-  );
-  --gradient-dusk: linear-gradient(
-    -100deg,
-    var(--dusk-900) 0%,
-    var(--dusk-600) 48%,
-    var(--dusk-800) 100%
-  );
-  --gradient-equinox: linear-gradient(
-    -100deg,
-    var(--dusk-400) 0%,
-    var(--dusk-700) 40%,
-    var(--aurora-950) 60%,
-    var(--aurora-900) 100%
-  );
-  --gradient-summer: linear-gradient(
-    -100deg,
-    var(--nordic-900) 0%,
-    var(--dusk-950) 50%,
-    var(--aurora-900) 100%
-  );
-  --gradient-spring: linear-gradient(
-    -100deg,
-    var(--aurora-950) 0%,
-    var(--nordic-900) 50%,
-    var(--aurora-900) 100%
-  );
-  --gradient-fall: linear-gradient(
-    -100deg,
-    var(--fjord-450) 0%,
-    var(--dusk-450) 50%,
-    var(--dusk-700) 100%
-  );
+  --gradient-nordic: linear-gradient(-100deg,
+      var(--nordic-900) 0%,
+      var(--nordic-600) 44%,
+      var(--nordic-800) 100%);
+  --gradient-aurora: linear-gradient(-100deg,
+      var(--aurora-900) 0%,
+      var(--aurora-600) 50%,
+      var(--aurora-800) 100%);
+  --gradient-dusk: linear-gradient(-100deg,
+      var(--dusk-900) 0%,
+      var(--dusk-600) 48%,
+      var(--dusk-800) 100%);
+  --gradient-equinox: linear-gradient(-100deg,
+      var(--dusk-400) 0%,
+      var(--dusk-700) 40%,
+      var(--aurora-950) 60%,
+      var(--aurora-900) 100%);
+  --gradient-summer: linear-gradient(-100deg,
+      var(--nordic-900) 0%,
+      var(--dusk-950) 50%,
+      var(--aurora-900) 100%);
+  --gradient-spring: linear-gradient(-100deg,
+      var(--aurora-950) 0%,
+      var(--nordic-900) 50%,
+      var(--aurora-900) 100%);
+  --gradient-fall: linear-gradient(-100deg,
+      var(--fjord-450) 0%,
+      var(--dusk-450) 50%,
+      var(--dusk-700) 100%);
 
   /* Sidebar */
   --sidebar: var(--mountain-900);
