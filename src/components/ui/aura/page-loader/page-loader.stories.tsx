@@ -33,7 +33,7 @@ const meta: Meta<typeof PageLoader> = {
   decorators: [
     (Story) => {
       return (
-        <div className="min-h-80 w-full">
+        <div className="min-h-80 w-full relative scale-100">
           <Story />
         </div>
       );
