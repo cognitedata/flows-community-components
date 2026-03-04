@@ -987,7 +987,7 @@
     {
       "name": "empty-state",
       "type": "registry:component",
-      "title": "Empty state",
+      "title": "EmptyState",
       "description": "Empty-state illustrations and messaging",
       "dependencies": [
         "@tabler/icons-react"

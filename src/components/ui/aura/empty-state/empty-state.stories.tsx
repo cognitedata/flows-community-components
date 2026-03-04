@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { IconArrowLeft, IconPlus } from '@tabler/icons-react';
+import { expect, within } from 'storybook/test';
 
 import { Button } from '../button';
 
@@ -102,6 +103,19 @@ export const Basic: Story = {
       }
     />
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const title = canvas.getByText('No data yet');
+    await expect(title).toBeInTheDocument();
+    const body = canvas.getByText(
+      'When you create a new extraction pipeline, you can monitor your data pipelines here.'
+    );
+    await expect(body).toBeInTheDocument();
+    const buttons = await canvas.findAllByRole('button');
+    await expect(buttons).toHaveLength(2);
+    expect(buttons[0]).toHaveTextContent('Back');
+    expect(buttons[1]).toHaveTextContent('Create extraction pipeline');
+  },
 };
 
 export const Small: Story = {
@@ -127,6 +141,13 @@ export const Small: Story = {
       }
     />
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const buttons = await canvas.findAllByRole('button');
+    await expect(buttons).toHaveLength(2);
+    expect(buttons[0]).toHaveTextContent('Create extraction pipeline');
+    expect(buttons[1]).toHaveTextContent('Back');
+  },
 };
 
 export const AllSizes: Story = {
@@ -188,6 +209,13 @@ export const WithActions: Story = {
       }
     />
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const buttons = await canvas.findAllByRole('button');
+    await expect(buttons).toHaveLength(2);
+    expect(buttons[0]).toHaveTextContent('Back');
+    expect(buttons[1]).toHaveTextContent('Request access');
+  },
 };
 
 export const WithHelpLink: Story = {
@@ -208,6 +236,14 @@ export const WithHelpLink: Story = {
       helpLink={{ label: 'Learn more', href: '#' }}
     />
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const link = canvas.getByText('Learn more');
+    await expect(link).toBeInTheDocument();
+    await expect(link).toHaveAttribute('href', '#');
+    await expect(link).toHaveAttribute('target', '_blank');
+    await expect(link).toHaveAttribute('rel', 'noopener noreferrer');
+  },
 };
 
 export const NarrowContainer: Story = {
@@ -253,4 +289,13 @@ export const LongBody: Story = {
       }
     />
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const title = canvas.getByText('No extraction pipelines available');
+    await expect(title).toBeInTheDocument();
+    const body = canvas.getByText(
+      'Extraction pipelines help you move and transform data between systems. Create a new pipeline to define your source, destination, and transformation steps, then monitor status and troubleshoot failures directly from this page.'
+    );
+    await expect(body).toBeInTheDocument();
+  },
 };
