@@ -80,6 +80,7 @@ export const Default: Story = {
     const canvas = within(canvasElement);
     const toolbar = canvas.getByRole('toolbar');
     await expect(toolbar).toBeInTheDocument();
+    await expect(toolbar).toHaveAttribute('data-orientation', 'horizontal');
     const boldToggle = canvas.getByRole('button', { name: 'Toggle bold' });
     await expect(boldToggle).toBeInTheDocument();
     await userEvent.click(boldToggle);
@@ -93,13 +94,13 @@ export const Vertical: Story = {
   },
   render: () => (
     <Toolbar orientation="vertical">
-      <ToolbarButton render={<Toggle />}>
+      <ToolbarButton render={<Toggle />} aria-label="Toggle bold">
         <IconBold />
       </ToolbarButton>
-      <ToolbarButton render={<Toggle />}>
+      <ToolbarButton render={<Toggle />} aria-label="Toggle italic">
         <IconItalic />
       </ToolbarButton>
-      <ToolbarButton render={<Toggle />}>
+      <ToolbarButton render={<Toggle />} aria-label="Toggle underline">
         <IconUnderline />
       </ToolbarButton>
     </Toolbar>
@@ -108,6 +109,7 @@ export const Vertical: Story = {
     const canvas = within(canvasElement);
     const toolbar = canvas.getByRole('toolbar');
     await expect(toolbar).toBeInTheDocument();
+    await expect(toolbar).toHaveAttribute('data-orientation', 'vertical');
   },
 };
 
@@ -117,17 +119,17 @@ export const WithSeparator: Story = {
   },
   render: () => (
     <Toolbar>
-      <ToolbarButton>
+      <ToolbarButton aria-label="Pointer tool">
         <IconPointer />
       </ToolbarButton>
       <ToolbarSeparator />
-      <ToolbarButton render={<Toggle />}>
+      <ToolbarButton render={<Toggle />} aria-label="Toggle bold">
         <IconBold />
       </ToolbarButton>
-      <ToolbarButton render={<Toggle />}>
+      <ToolbarButton render={<Toggle />} aria-label="Toggle italic">
         <IconItalic />
       </ToolbarButton>
-      <ToolbarButton render={<Toggle />}>
+      <ToolbarButton render={<Toggle />} aria-label="Toggle underline">
         <IconUnderline />
       </ToolbarButton>
     </Toolbar>
@@ -136,21 +138,21 @@ export const WithSeparator: Story = {
 
 export const WithSegmentedControl: Story = {
   parameters: {
-    order: 3,
+    order: 4,
   },
   render: () => (
     <Toolbar>
-      <ToolbarButton>
+      <ToolbarButton aria-label="Pointer tool">
         <IconPointer />
       </ToolbarButton>
       <ToolbarSeparator />
-      <ToolbarButton render={<Toggle />}>
+      <ToolbarButton render={<Toggle />} aria-label="Toggle bold">
         <IconBold />
       </ToolbarButton>
-      <ToolbarButton render={<Toggle />}>
+      <ToolbarButton render={<Toggle />} aria-label="Toggle italic">
         <IconItalic />
       </ToolbarButton>
-      <ToolbarButton render={<Toggle />}>
+      <ToolbarButton render={<Toggle />} aria-label="Toggle underline">
         <IconUnderline />
       </ToolbarButton>
       <SegmentedControl>
@@ -171,7 +173,7 @@ export const WithSegmentedControl: Story = {
 
 export const WithSelect: Story = {
   parameters: {
-    order: 4,
+    order: 5,
   },
   render: () => (
     <Toolbar>
@@ -209,7 +211,7 @@ export const WithSelect: Story = {
 
 export const Accessibility: Story = {
   parameters: {
-    order: 5,
+    order: 6,
   },
   render: () => (
     <div className="flex items-start flex-col gap-4">
@@ -297,7 +299,7 @@ export const Accessibility: Story = {
 
 export const VisualRegression: Story = {
   parameters: {
-    order: 6,
+    order: 7,
     chromatic: {
       disableSnapshot: false,
     },
