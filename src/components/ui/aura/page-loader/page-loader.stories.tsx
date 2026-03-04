@@ -33,7 +33,7 @@ const meta: Meta<typeof PageLoader> = {
   decorators: [
     (Story) => {
       return (
-        <div className="min-h-80 w-full relative scale-100">
+        <div className="min-h-80 w-full relative scale-100 py-8">
           <Story />
         </div>
       );
@@ -58,7 +58,7 @@ export const Basic: Story = {
 
 export const WithInfo: Story = {
   parameters: {
-    order: 3,
+    order: 2,
   },
   render: () => (
     <PageLoader
@@ -76,6 +76,13 @@ export const WithInfo: Story = {
       canvas.getByText('Syncing your data and applying the latest settings.')
     ).toBeInTheDocument();
   },
+};
+
+export const CustomColor: Story = {
+  parameters: {
+    order: 3,
+  },
+  render: () => <PageLoader className="text-aurora-300" />,
 };
 
 export const Slow: Story = {

@@ -1296,7 +1296,7 @@
     {
       "name": "page-loader",
       "type": "registry:component",
-      "title": "Page loader",
+      "title": "PageLoader",
       "description": "Loading state for full-page transitions",
       "registryDependencies": [
         "@aura/css"
