@@ -985,6 +985,31 @@
       ]
     },
     {
+      "name": "empty-state",
+      "type": "registry:component",
+      "title": "EmptyState",
+      "description": "Empty-state illustrations and messaging",
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/button"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/empty-state/empty-state.tsx",
+          "target": "src/components/ui/aura/empty-state.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "hover-card",
       "type": "registry:component",
       "title": "HoverCard",

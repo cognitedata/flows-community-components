@@ -162,6 +162,7 @@ For files under `src/components/ui/aura/**`, prefer relative imports (for exampl
 - Breadcrumb story assertions for `BreadcrumbPageButton` should query by role/name (`getByRole("button", { name: ... })`) instead of chaining `.closest("button")`.
 - In story play tests, avoid `canvasElement.querySelectorAll('[data-slot=\"skeleton\"]')`; prefer semantic queries (for example role/text-based) and only fall back to slot selectors when no semantic target exists.
 - Progress stories should assert state via semantic `progressbar` ARIA attributes (`aria-valuenow`, min/max/name) instead of querying internal indicator slots.
+- For composite link props that include display-only fields (for example `label`), strip non-anchor fields before spreading props onto `<a>` elements.
 - For full-page loading states, prefer a dedicated `PageLoader` primitive over reusing inline spinners, and expose `disableFixedCenter` for embedding in constrained containers.
 
 # Storybook Stories
