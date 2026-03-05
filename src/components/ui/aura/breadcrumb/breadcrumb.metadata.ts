@@ -2,7 +2,7 @@ import type { ComponentMeta } from '../../../../lib/types';
 
 export const BreadcrumbMetadata: ComponentMeta = {
   name: 'Breadcrumb',
-  status: 'needs-discussion',
+  status: 'ready-for-ga',
   description:
     'A navigation component showing the users location in a hierarchy.',
   llmUsage:

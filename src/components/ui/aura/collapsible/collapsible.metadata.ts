@@ -2,7 +2,7 @@ import type { ComponentMeta } from '../../../../lib/types';
 
 export const CollapsibleMetadata: ComponentMeta = {
   name: 'Collapsible',
-  status: 'in-progress-code-review',
+  status: 'ready-for-ga',
   description:
     'An interactive component that expands/collapses content, built on Base UI Collapsible primitives.',
   llmUsage:

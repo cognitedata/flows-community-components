@@ -2,7 +2,7 @@ import type { ComponentMeta } from '../../../../lib/types';
 
 export const HelperTextMetadata: ComponentMeta = {
   name: 'HelperText',
-  status: 'in-progress-code-review',
+  status: 'ready-for-ga',
   description:
     'A helper text component for form fields with validation states.',
   llmUsage:

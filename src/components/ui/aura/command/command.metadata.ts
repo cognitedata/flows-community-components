@@ -2,7 +2,7 @@ import type { ComponentMeta } from '../../../../lib/types';
 
 export const CommandMetadata: ComponentMeta = {
   name: 'Command',
-  status: 'in-progress-code-review',
+  status: 'ready-for-ga',
   description:
     'A command menu component for searchable command palettes, built with cmdk.',
   llmUsage:

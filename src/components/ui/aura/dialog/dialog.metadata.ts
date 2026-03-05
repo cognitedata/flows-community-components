@@ -2,7 +2,7 @@ import type { ComponentMeta } from '../../../../lib/types';
 
 export const DialogMetadata: ComponentMeta = {
   name: 'Dialog',
-  status: 'in-progress-code-review',
+  status: 'ready-for-ga',
   description:
     'A modal dialog with overlay, content, and close affordances built on Base UI Dialog.',
   llmUsage:

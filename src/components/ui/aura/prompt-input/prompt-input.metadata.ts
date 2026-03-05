@@ -2,7 +2,7 @@ import type { ComponentMeta } from '../../../../lib/types';
 
 export const PromptInputMetadata: ComponentMeta = {
   name: 'PromptInput',
-  status: 'in-progress-code-review',
+  status: 'ready-for-ga',
   description:
     'A comprehensive AI chat input component with support for attachments, model selection, speech input, command palettes, and rich formatting.',
   llmUsage:

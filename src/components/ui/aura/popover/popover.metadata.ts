@@ -2,7 +2,7 @@ import type { ComponentMeta } from '../../../../lib/types';
 
 export const PopoverMetadata: ComponentMeta = {
   name: 'Popover',
-  status: 'in-progress-code-review',
+  status: 'ready-for-ga',
   description:
     'A floating panel that displays content relative to a trigger, built on Base UI Popover primitives.',
   llmUsage:

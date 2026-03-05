@@ -2,7 +2,7 @@ import type { ComponentMeta } from '../../../../lib/types';
 
 export const SelectMetadata: ComponentMeta = {
   name: 'Select',
-  status: 'in-progress-code-review',
+  status: 'ready-for-ga',
   description:
     'A select dropdown component built on Base UI Select primitives.',
   llmUsage:

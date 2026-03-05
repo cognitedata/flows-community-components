@@ -2,6 +2,6 @@ import type { ComponentMeta } from '../../../../lib/types';
 
 export const LoaderMetadata: ComponentMeta = {
   name: 'Loader',
-  status: 'in-progress-code-review',
+  status: 'ready-for-ga',
   description: 'An animated loading indicator component.',
 };

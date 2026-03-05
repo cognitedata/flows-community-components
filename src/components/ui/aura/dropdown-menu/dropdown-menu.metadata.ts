@@ -2,7 +2,7 @@ import type { ComponentMeta } from '../../../../lib/types';
 
 export const DropdownMenuMetadata: ComponentMeta = {
   name: 'DropdownMenu',
-  status: 'in-progress-code-review',
+  status: 'ready-for-ga',
   description:
     'A dropdown menu with submenus, separators, and selection states, built on Base UI Dropdown Menu primitives.',
   llmUsage:

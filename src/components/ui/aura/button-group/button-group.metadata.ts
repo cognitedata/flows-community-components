@@ -2,7 +2,7 @@ import type { ComponentMeta } from '../../../../lib/types';
 
 export const ButtonGroupMetadata: ComponentMeta = {
   name: 'ButtonGroup',
-  status: 'in-progress-code-review',
+  status: 'ready-for-ga',
   description:
     'A component for grouping buttons with horizontal or vertical orientation.',
 };

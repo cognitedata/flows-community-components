@@ -2,7 +2,7 @@ import type { ComponentMeta } from '../../../../lib/types';
 
 export const AlertMetadata: ComponentMeta = {
   name: 'Alert',
-  status: 'in-progress-code-review',
+  status: 'ready-for-ga',
   description:
     'A dismissible alert component with multiple variants for displaying messages.',
   llmUsage:

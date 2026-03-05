@@ -2,6 +2,6 @@ import type { ComponentMeta } from '../../../../lib/types';
 
 export const SeparatorMetadata: ComponentMeta = {
   name: 'Separator',
-  status: 'in-progress-code-review',
+  status: 'ready-for-ga',
   description: 'A visual separator for dividing content.',
 };
