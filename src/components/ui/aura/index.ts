@@ -702,7 +702,12 @@ export {
 } from './tool/tool';
 export { ToolMetadata } from './tool/tool.metadata';
 
-export { Toolbar } from './toolbar/toolbar';
+export {
+  Toolbar,
+  ToolbarButton,
+  ToolbarSeparator,
+  ToolbarGroup,
+} from './toolbar/toolbar';
 export { ToolbarMetadata } from './toolbar/toolbar.metadata';
 
 export {

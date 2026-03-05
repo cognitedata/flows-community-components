@@ -4,15 +4,17 @@
   "title": "Toolbar",
   "description": "A toolbar component for grouping action buttons.",
   "dependencies": [
-    "@xyflow/react"
+    "@base-ui/react/toolbar",
+    "class-variance-authority"
   ],
   "registryDependencies": [
-    "@aura/css"
+    "@aura/css",
+    "@aura/button"
   ],
   "files": [
     {
       "path": "src/components/ui/aura/toolbar/toolbar.tsx",
-      "content": "import { NodeToolbar, Position } from '@xyflow/react';\nimport type { ComponentProps } from 'react';\n\nimport { cn } from '../../../../lib/utils';\n\ntype ToolbarProps = ComponentProps<typeof NodeToolbar>;\n\nexport const Toolbar = ({ className, ...props }: ToolbarProps) => (\n  <NodeToolbar\n    className={cn(\n      'flex items-center gap-1 rounded-sm border bg-background p-1.5',\n      className\n    )}\n    position={Position.Bottom}\n    {...props}\n  />\n);\n",
+      "content": "import { Toolbar as ToolbarPrimitive } from '@base-ui/react/toolbar';\nimport type { VariantProps } from 'class-variance-authority';\nimport { forwardRef, type ComponentRef } from 'react';\n\nimport { cn } from '../../../../lib/utils';\nimport { buttonVariants } from '../button';\n\nconst Toolbar = forwardRef<\n  ComponentRef<typeof ToolbarPrimitive.Root>,\n  ToolbarPrimitive.Root.Props\n>(({ orientation, className, ...props }, ref) => {\n  return (\n    <ToolbarPrimitive.Root\n      ref={ref}\n      data-slot=\"toolbar\"\n      className={cn(\n        'flex items-center justify-start p-1 gap-1 rounded-lg border shadow-md data-[orientation=vertical]:flex-col data-[orientation=horizontal]:flex-row',\n        className\n      )}\n      orientation={orientation}\n      {...props}\n    />\n  );\n});\n\nconst ToolbarButton = forwardRef<\n  ComponentRef<typeof ToolbarPrimitive.Button>,\n  ToolbarPrimitive.Button.Props & VariantProps<typeof buttonVariants>\n>(({ className, variant = 'ghost', size, ...props }, ref) => {\n  return (\n    <ToolbarPrimitive.Button\n      ref={ref}\n      data-slot=\"toolbar-button\"\n      className={cn(buttonVariants({ variant, size, className }))}\n      {...props}\n    />\n  );\n});\n\nconst ToolbarSeparator = forwardRef<\n  ComponentRef<typeof ToolbarPrimitive.Separator>,\n  ToolbarPrimitive.Separator.Props\n>(({ className, ...props }, ref) => {\n  return (\n    <ToolbarPrimitive.Separator\n      ref={ref}\n      data-slot=\"toolbar-separator\"\n      className={cn(\n        'bg-border data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-4 data-[orientation=vertical]:h-4 data-[orientation=vertical]:w-px',\n        className\n      )}\n      {...props}\n    />\n  );\n});\n\nconst ToolbarGroup = forwardRef<\n  ComponentRef<typeof ToolbarPrimitive.Group>,\n  ToolbarPrimitive.Group.Props\n>(({ className, ...props }, ref) => {\n  return (\n    <ToolbarPrimitive.Group\n      ref={ref}\n      data-slot=\"toolbar-group\"\n      className={cn('flex items-center gap-1', className)}\n      {...props}\n    />\n  );\n});\n\nToolbar.displayName = 'Toolbar';\nToolbarButton.displayName = 'ToolbarButton';\nToolbarSeparator.displayName = 'ToolbarSeparator';\nToolbarGroup.displayName = 'ToolbarGroup';\n\nexport { Toolbar, ToolbarButton, ToolbarSeparator, ToolbarGroup };\n",
       "type": "registry:component",
       "target": "src/components/ui/aura/toolbar.tsx"
     },

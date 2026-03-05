@@ -1867,10 +1867,12 @@
       "title": "Toolbar",
       "description": "A toolbar component for grouping action buttons.",
       "dependencies": [
-        "@xyflow/react"
+        "@base-ui/react/toolbar",
+        "class-variance-authority"
       ],
       "registryDependencies": [
-        "@aura/css"
+        "@aura/css",
+        "@aura/button"
       ],
       "files": [
         {
