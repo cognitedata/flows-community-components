@@ -1294,6 +1294,27 @@
       ]
     },
     {
+      "name": "page-loader",
+      "type": "registry:component",
+      "title": "PageLoader",
+      "description": "Loading state for full-page transitions",
+      "registryDependencies": [
+        "@aura/css"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/page-loader/page-loader.tsx",
+          "target": "src/components/ui/aura/page-loader.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "pagination",
       "type": "registry:component",
       "title": "Pagination",

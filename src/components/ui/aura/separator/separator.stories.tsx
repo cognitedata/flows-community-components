@@ -238,7 +238,7 @@ export const CustomStyle: Story = {
       </div>
       <div>
         <p className="text-sm text-muted-foreground mb-2">Thicker</p>
-        <Separator className="h-0.5" />
+        <Separator className="data-[orientation=horizontal]:h-0.5" />
       </div>
       <div>
         <p className="text-sm text-muted-foreground mb-2">Colored</p>

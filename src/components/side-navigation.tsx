@@ -67,6 +67,7 @@ const primitivesNavigation: NavigationItem[] = [
       { href: '/primitives/label', label: 'Label' },
       { href: '/primitives/list', label: 'List' },
       { href: '/primitives/menubar', label: 'Menubar' },
+      { href: '/primitives/page-loader', label: 'Page loader' },
       { href: '/primitives/pagination', label: 'Pagination' },
       { href: '/primitives/popover', label: 'Popover' },
       { href: '/primitives/progress', label: 'Progress' },
