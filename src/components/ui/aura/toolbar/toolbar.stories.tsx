@@ -193,7 +193,7 @@ export const WithSelect: Story = {
         </SelectContent>
       </Select>
       <ToolbarSeparator />
-      <ToolbarButton>
+      <ToolbarButton aria-label="More options">
         <IconDotsVertical />
       </ToolbarButton>
     </Toolbar>
@@ -273,7 +273,7 @@ export const Accessibility: Story = {
       name: 'Horizontal toolbar',
     });
     const [horizontalPointerButton] =
-      within(horizontalToolbar).getAllByRole('button');
+      await within(horizontalToolbar).findAllByRole('button');
     await userEvent.click(horizontalPointerButton);
     await expect(horizontalPointerButton).toHaveFocus();
     await userEvent.keyboard('{ArrowRight}');
@@ -285,7 +285,7 @@ export const Accessibility: Story = {
       name: 'Vertical toolbar',
     });
     const [verticalPointerButton] =
-      within(verticalToolbar).getAllByRole('button');
+      await within(verticalToolbar).findAllByRole('button');
     await userEvent.click(verticalPointerButton);
     await expect(verticalPointerButton).toHaveFocus();
     await userEvent.keyboard('{ArrowDown}');
