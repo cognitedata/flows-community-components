@@ -501,8 +501,8 @@ const RAW_PRIMITIVES_CATALOG: PrimitiveCatalogSeed[] = [
     section: 'primitive',
     eosGaRequired: true,
     duneGaRequired: true,
-    implemented: false,
-    comingSoon: true,
+    implemented: true,
+    comingSoon: false,
   },
   {
     slug: 'pagination',
