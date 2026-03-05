@@ -45,6 +45,7 @@ const EmptyState = forwardRef<
 
     return (
       <div
+        data-slot="empty-state"
         ref={ref}
         className={cn(
           'flex flex-col items-center size-full w-full justify-center text-center max-w-96',

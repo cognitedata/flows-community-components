@@ -265,6 +265,19 @@ export const NarrowContainer: Story = {
       />
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const title = canvas.getByText('No matches found');
+    await expect(title).toBeInTheDocument();
+    const body = canvas.getByText(
+      'Try broadening your search terms or removing filters.'
+    );
+    await expect(body).toBeInTheDocument();
+    const buttons = await canvas.findAllByRole('button');
+    await expect(buttons).toHaveLength(2);
+    expect(buttons[0]).toHaveTextContent('Back');
+    expect(buttons[1]).toHaveTextContent('Clear filters');
+  },
 };
 
 export const LongBody: Story = {
