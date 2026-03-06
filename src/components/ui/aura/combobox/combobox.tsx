@@ -3,6 +3,7 @@ import {
   type ComponentProps,
   type ComponentRef,
   forwardRef,
+  useEffect,
   useState,
 } from 'react';
 
@@ -48,6 +49,12 @@ const ComboboxCustom = forwardRef<ComponentRef<typeof Button>, ComboboxProps>(
     const [internalValue, setInternalValue] = useState(value ?? '');
     const isControlled = value !== undefined;
     const selectedValue = isControlled ? value : internalValue;
+
+    useEffect(() => {
+      if (isControlled) {
+        setInternalValue(value ?? '');
+      }
+    }, [isControlled, value]);
 
     const handleValueChange = (newValue: string) => {
       const finalValue = newValue === selectedValue ? '' : newValue;
