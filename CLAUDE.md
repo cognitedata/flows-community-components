@@ -157,6 +157,13 @@ For files under `src/components/ui/aura/**`, prefer relative imports (for exampl
 - Conversation stories should keep play assertions semantic (`getByRole`/`findAllByRole`) and avoid helper components inside story render functions.
 - For components that accept a `render` element and forward accessibility props, set the accessible label once on the component to avoid duplicate `aria-label` attributes on both wrapper and inner element.
 - In Aura stories, avoid DOM traversal selectors in play functions; prefer semantic role/text queries for the interacted element.
+- Keep the generic `Artifact` component primitive-agnostic and showcase primitive-specific artifact layouts in stories.
+- Use `CardHeaderLeft`, `CardTitle`, `CardDescription`, and `CardHeaderRight` for card header layouts; use `ArtifactTitle` for artifact-style title styling (`text-base tracking-tighter`); avoid `CardIcon` in new stories.
+- Keep `Artifact` lightweight as a wrapper over `Card`; prefer composing artifact layouts with `Card` subcomponents and introduce artifact-specific subcomponents only when there is shared artifact-only behavior.
+- Use `CardHeader` as a flex container with `CardHeaderContent` as the central stacked title/description area; avoid row/column grid positioning classes in header subcomponents.
+- Use shared `CardFooterLeft`, `CardFooterCenter`, and `CardFooterRight` subcomponents from `Card` instead of redefining footer alignment helpers in stories.
+- Do not keep `CardIcon` as an alias; use `CardHeaderLeft` directly as the single left-slot API.
+- When composing Artifact headers, pair `ArtifactTitle` with `ArtifactDescription` wrappers for consistent Artifact-level semantics over `CardTitle`/`CardDescription`.
 - For table stories, prefer tokenized width utilities (`w-12`, `w-24`) and semantic role assertions over arbitrary bracket values and `querySelector` checks.
 - For fixed-width table behavior with long text, use `table-fixed` on the table and `truncate` on header/data cells to keep columns stable and clip overflow content.
 - Breadcrumb story assertions for `BreadcrumbPageButton` should query by role/name (`getByRole("button", { name: ... })`) instead of chaining `.closest("button")`.
