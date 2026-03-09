@@ -18,8 +18,8 @@ import {
   CardDescription,
   CardFooter,
   CardHeader,
+  CardHeaderLeft,
   CardHeaderRight,
-  CardIcon,
   CardTitle,
 } from './card';
 
@@ -152,11 +152,11 @@ export const WithBadgeInHeader: Story = {
   render: () => (
     <Card className="w-full max-w-sm">
       <CardHeader>
-        <CardIcon>
+        <CardHeaderLeft>
           <Badge variant="mountain" size="icon">
             <IconCube size={12} />
           </Badge>
-        </CardIcon>
+        </CardHeaderLeft>
         <CardTitle>Skarv</CardTitle>
         <CardDescription>Point cloud scene</CardDescription>
       </CardHeader>
@@ -192,11 +192,11 @@ export const WithHover: Story = {
   render: () => (
     <Card className="w-96">
       <CardHeader>
-        <CardIcon>
+        <CardHeaderLeft>
           <Badge variant="mountain" size="icon">
             <IconCube size={12} />
           </Badge>
-        </CardIcon>
+        </CardHeaderLeft>
         <CardTitle>Title</CardTitle>
         <CardDescription>Subtitle</CardDescription>
       </CardHeader>
@@ -341,11 +341,11 @@ export const WithIconAndActions: Story = {
   render: () => (
     <Card className="w-96">
       <CardHeader>
-        <CardIcon>
+        <CardHeaderLeft>
           <Badge variant="mountain" size="icon">
             <IconCube size={12} />
           </Badge>
-        </CardIcon>
+        </CardHeaderLeft>
         <CardTitle>Skarv Model</CardTitle>
         <CardDescription>Point cloud scene</CardDescription>
         <CardHeaderRight>
@@ -400,11 +400,11 @@ export const WithIconAndHeaderRight: Story = {
   render: () => (
     <Card className="w-96">
       <CardHeader>
-        <CardIcon>
+        <CardHeaderLeft>
           <Badge variant="mountain" size="icon">
             <IconCube size={12} />
           </Badge>
-        </CardIcon>
+        </CardHeaderLeft>
         <CardTitle>Skarv Model</CardTitle>
         <CardDescription>Point cloud scene</CardDescription>
         <CardHeaderRight>
@@ -572,11 +572,11 @@ export const Playground: Story = {
   render: () => (
     <Card className="w-96">
       <CardHeader>
-        <CardIcon>
+        <CardHeaderLeft>
           <Badge variant="fjord" size="icon">
             <IconCube size={12} />
           </Badge>
-        </CardIcon>
+        </CardHeaderLeft>
         <CardTitle>Playground Card</CardTitle>
         <CardDescription>
           Experiment with card props using the controls below

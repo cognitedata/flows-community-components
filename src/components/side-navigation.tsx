@@ -40,6 +40,7 @@ const primitivesNavigation: NavigationItem[] = [
       { href: '/primitives/accordion', label: 'Accordion' },
       { href: '/primitives/alert', label: 'Alert' },
       { href: '/primitives/alert-dialog', label: 'Alert dialog' },
+      { href: '/primitives/artifact', label: 'Artifact' },
       { href: '/primitives/avatar', label: 'Avatar' },
       { href: '/primitives/badge', label: 'Badge' },
       { href: '/primitives/banner', label: 'Banner' },
@@ -91,17 +92,6 @@ const primitivesNavigation: NavigationItem[] = [
       { href: '/primitives/tooltip', label: 'Tooltip' },
       { href: '/primitives/topbar', label: 'Topbar' },
       { href: '/primitives/treeview', label: 'TreeView' },
-    ],
-  },
-  {
-    href: '#',
-    label: 'Artifacts',
-    isSubsection: true,
-    children: [
-      { href: '/primitives/artifact-chart', label: 'Chart' },
-      { href: '/primitives/artifact-count', label: 'Count' },
-      { href: '/primitives/artifact-list', label: 'List' },
-      { href: '/primitives/artifact-progress', label: 'Progress' },
     ],
   },
 ];
