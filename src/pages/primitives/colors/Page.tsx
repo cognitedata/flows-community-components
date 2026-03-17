@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
 import { IconCheck } from '@tabler/icons-react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 import { Badge } from '@/components/ui/aura/badge';
 import {
@@ -378,9 +378,12 @@ function ColorSwatch({
     }
   };
 
-  useEffect(() => () => {
-    if (copiedTimeoutRef.current) clearTimeout(copiedTimeoutRef.current);
-  }, []);
+  useEffect(
+    () => () => {
+      if (copiedTimeoutRef.current) clearTimeout(copiedTimeoutRef.current);
+    },
+    []
+  );
 
   return (
     <Tooltip open={tooltipOpen} onOpenChange={setTooltipOpen}>
@@ -406,7 +409,11 @@ function ColorSwatch({
           </div>
         }
       />
-      <TooltipContent side="top" showArrow={false} className="!bg-secondary !text-secondary-foreground">
+      <TooltipContent
+        side="top"
+        showArrow={false}
+        className="!bg-secondary !text-secondary-foreground"
+      >
         <div className="flex items-center gap-2">
           <span className="font-medium">
             {paletteName} {color.name}
@@ -487,68 +494,68 @@ export default function ColorsPage() {
     <TooltipProvider>
       <div className="max-w-4xl mx-auto py-10">
         <div className="space-y-8">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight">Colors</h1>
-          <p className="text-lg text-muted-foreground mt-2">
-            Design tokens grouped by role and ordered per globals.css
-          </p>
-        </div>
-
-        {/* Base colors */}
-        <section className="space-y-6">
           <div>
-            <h2 className="text-2xl font-semibold mb-2">Base colors</h2>
-            <p className="text-muted-foreground">Mountain, Fjord</p>
-          </div>
-          <div className="space-y-6">
-            {basePalettes.map((palette) => (
-              <ColorPalette key={palette.name} palette={palette} />
-            ))}
-          </div>
-        </section>
-
-        {/* Decorative colors */}
-        <section className="space-y-6">
-          <div>
-            <h2 className="text-2xl font-semibold mb-2">Decorative colors</h2>
-            <p className="text-muted-foreground">Nordic, Aurora, Dusk</p>
-          </div>
-          <div className="space-y-6">
-            {decorativePalettes.map((palette) => (
-              <ColorPalette key={palette.name} palette={palette} />
-            ))}
-          </div>
-        </section>
-
-        {/* Semantic colors */}
-        <section className="space-y-6">
-          <div>
-            <h2 className="text-2xl font-semibold mb-2">Semantic colors</h2>
-            <p className="text-muted-foreground">Red, Amber, Green, Blue</p>
-          </div>
-          <div className="space-y-6">
-            {semanticPalettes.map((palette) => (
-              <ColorPalette key={palette.name} palette={palette} />
-            ))}
-          </div>
-        </section>
-
-        {/* Extended decorative colors */}
-        <section className="space-y-6">
-          <div>
-            <h2 className="text-2xl font-semibold mb-2">
-              Extended decorative colors
-            </h2>
-            <p className="text-muted-foreground">
-              Sky, Orange, Yellow, Gray, Pink
+            <h1 className="text-3xl font-bold tracking-tight">Colors</h1>
+            <p className="text-lg text-muted-foreground mt-2">
+              Design tokens grouped by role and ordered per globals.css
             </p>
           </div>
-          <div className="space-y-6">
-            {extendedPalettes.map((palette) => (
-              <ColorPalette key={palette.name} palette={palette} />
-            ))}
-          </div>
-        </section>
+
+          {/* Base colors */}
+          <section className="space-y-6">
+            <div>
+              <h2 className="text-2xl font-semibold mb-2">Base colors</h2>
+              <p className="text-muted-foreground">Mountain, Fjord</p>
+            </div>
+            <div className="space-y-6">
+              {basePalettes.map((palette) => (
+                <ColorPalette key={palette.name} palette={palette} />
+              ))}
+            </div>
+          </section>
+
+          {/* Decorative colors */}
+          <section className="space-y-6">
+            <div>
+              <h2 className="text-2xl font-semibold mb-2">Decorative colors</h2>
+              <p className="text-muted-foreground">Nordic, Aurora, Dusk</p>
+            </div>
+            <div className="space-y-6">
+              {decorativePalettes.map((palette) => (
+                <ColorPalette key={palette.name} palette={palette} />
+              ))}
+            </div>
+          </section>
+
+          {/* Semantic colors */}
+          <section className="space-y-6">
+            <div>
+              <h2 className="text-2xl font-semibold mb-2">Semantic colors</h2>
+              <p className="text-muted-foreground">Red, Amber, Green, Blue</p>
+            </div>
+            <div className="space-y-6">
+              {semanticPalettes.map((palette) => (
+                <ColorPalette key={palette.name} palette={palette} />
+              ))}
+            </div>
+          </section>
+
+          {/* Extended decorative colors */}
+          <section className="space-y-6">
+            <div>
+              <h2 className="text-2xl font-semibold mb-2">
+                Extended decorative colors
+              </h2>
+              <p className="text-muted-foreground">
+                Sky, Orange, Yellow, Gray, Pink
+              </p>
+            </div>
+            <div className="space-y-6">
+              {extendedPalettes.map((palette) => (
+                <ColorPalette key={palette.name} palette={palette} />
+              ))}
+            </div>
+          </section>
         </div>
       </div>
     </TooltipProvider>
