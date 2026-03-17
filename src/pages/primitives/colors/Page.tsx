@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { createPortal } from 'react-dom';
+import { IconCheck } from '@tabler/icons-react';
 
 import { Badge } from '@/components/ui/aura/badge';
 import {
@@ -8,6 +8,12 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/aura/card';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/aura/tooltip';
 
 // Color definitions using CSS variable names (values pulled from globals.css)
 // Groups and order follow globals.css:
@@ -320,11 +326,6 @@ const colorPalettes = [
   },
 ];
 
-// Helper function to copy text to clipboard
-const copyToClipboard = (text: string) => {
-  navigator.clipboard.writeText(text);
-};
-
 // Color swatch component
 function ColorSwatch({
   color,
@@ -334,12 +335,10 @@ function ColorSwatch({
   paletteName: string;
 }) {
   const swatchRef = useRef<HTMLDivElement | null>(null);
+  const copiedTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [hex, setHex] = useState<string>('');
-  const [showTooltip, setShowTooltip] = useState<boolean>(false);
-  const [tooltipPos, setTooltipPos] = useState<{
-    left: number;
-    top: number;
-  } | null>(null);
+  const [copied, setCopied] = useState<boolean>(false);
+  const [tooltipOpen, setTooltipOpen] = useState<boolean>(false);
 
   const rgbToHex = useMemo(
     () => (rgb: string) => {
@@ -363,78 +362,71 @@ function ColorSwatch({
     setHex(rgbToHex(bg));
   }, [rgbToHex]);
 
-  const handleCopyHex = () => {
-    if (hex) copyToClipboard(hex);
+  const handleCopyHex = async () => {
+    if (!hex) return;
+    try {
+      await navigator.clipboard.writeText(hex);
+      if (copiedTimeoutRef.current) clearTimeout(copiedTimeoutRef.current);
+      setCopied(true);
+      setTooltipOpen(true);
+      copiedTimeoutRef.current = setTimeout(() => {
+        setCopied(false);
+        setTooltipOpen(false);
+      }, 2000);
+    } catch {
+      // clipboard write failed (e.g. insecure context)
+    }
   };
 
-  const handleMouseEnter = () => {
-    if (!swatchRef.current) return;
-    const rect = swatchRef.current.getBoundingClientRect();
-    setTooltipPos({
-      left: rect.left + rect.width / 2,
-      top: Math.max(8, rect.top - 8),
-    });
-    setShowTooltip(true);
-  };
-
-  const handleMouseLeave = () => {
-    setShowTooltip(false);
-  };
+  useEffect(() => () => {
+    if (copiedTimeoutRef.current) clearTimeout(copiedTimeoutRef.current);
+  }, []);
 
   return (
-    <div
-      ref={swatchRef}
-      className="relative group cursor-pointer rounded-lg overflow-hidden"
-      style={{ backgroundColor: `var(${color.var})` }}
-      onClick={handleCopyHex}
-      onKeyDown={(e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          handleCopyHex();
-        }
-      }}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      title={hex ? `Click to copy ${hex}` : undefined}
-      role="button"
-      tabIndex={0}
-    >
-      <div className="aspect-square w-full min-h-[80px]" />
-
-      {showTooltip &&
-        tooltipPos &&
-        createPortal(
+    <Tooltip open={tooltipOpen} onOpenChange={setTooltipOpen}>
+      <TooltipTrigger
+        render={
           <div
-            style={{
-              position: 'fixed',
-              left: tooltipPos.left,
-              top: tooltipPos.top,
-              zIndex: 9999,
-              transform: 'translateX(-50%) translateY(-100%)',
+            className="relative group cursor-pointer rounded-lg overflow-hidden border border-border hover:ring-4 hover:ring-border hover:ring-offset-0"
+            onClick={handleCopyHex}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                handleCopyHex();
+              }
             }}
+            role="button"
+            tabIndex={0}
           >
-            <div className="pointer-events-auto rounded-md border border-white/10 bg-black/80 text-white shadow px-2 py-1 text-[10px] sm:text-xs flex items-center gap-2">
-              <span className="font-medium">
-                {paletteName} {color.name}
-              </span>
-              <span className="font-mono text-muted-foreground">
-                {hex || '...'}
-              </span>
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleCopyHex();
-                }}
-                className="ml-1 inline-flex items-center rounded-sm border px-1.5 py-0.5 text-[10px] hover:bg-accent hover:text-accent-foreground"
-              >
-                Copy
-              </button>
-            </div>
-          </div>,
-          document.body
-        )}
-    </div>
+            <div
+              ref={swatchRef}
+              className="aspect-square w-full min-h-[80px]"
+              style={{ backgroundColor: `var(${color.var})` }}
+            />
+          </div>
+        }
+      />
+      <TooltipContent side="top" showArrow={false} className="!bg-secondary !text-secondary-foreground">
+        <div className="flex items-center gap-2">
+          <span className="font-medium">
+            {paletteName} {color.name}
+          </span>
+          <span className="font-mono text-secondary-foreground">
+            {hex || '...'}
+          </span>
+          <Badge variant="default" className="ml-1 text-[10px]">
+            {copied ? (
+              <>
+                <IconCheck className="size-3 shrink-0" aria-hidden />
+                Copied
+              </>
+            ) : (
+              'Click to copy'
+            )}
+          </Badge>
+        </div>
+      </TooltipContent>
+    </Tooltip>
   );
 }
 
@@ -456,15 +448,14 @@ function ColorPalette({ palette }: { palette: (typeof colorPalettes)[0] }) {
   };
 
   return (
-    <Card className="w-full">
-      <CardHeader>
-        <div className="flex items-center justify-between">
+    <Card className="w-full bg-transparent shadow-none">
+      <CardHeader className="px-0">
+        <div className="flex items-center gap-1">
           <CardTitle className="text-xl">{palette.name}</CardTitle>
           {getCategoryBadge(palette.category)}
         </div>
-        <p className="text-sm text-muted-foreground">{palette.description}</p>
       </CardHeader>
-      <CardContent>
+      <CardContent className="px-0">
         <div className="grid grid-cols-7 gap-2">
           {palette.colors.map((color) => (
             <ColorSwatch
@@ -493,8 +484,9 @@ export default function ColorsPage() {
   );
 
   return (
-    <div className="max-w-4xl mx-auto py-10">
-      <div className="space-y-8">
+    <TooltipProvider>
+      <div className="max-w-4xl mx-auto py-10">
+        <div className="space-y-8">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Colors</h1>
           <p className="text-lg text-muted-foreground mt-2">
@@ -557,7 +549,8 @@ export default function ColorsPage() {
             ))}
           </div>
         </section>
+        </div>
       </div>
-    </div>
+    </TooltipProvider>
   );
 }
