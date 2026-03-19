@@ -163,7 +163,12 @@ const AlertDialogCancel = forwardRef<
     <AlertDialogPrimitive.Close
       ref={ref}
       data-slot="alert-dialog-cancel"
-      render={<Button variant="outline" className={className} />}
+      render={
+        <Button
+          variant="ghost"
+          className={cn('text-muted-foreground', className)}
+        />
+      }
       {...props}
     />
   );
