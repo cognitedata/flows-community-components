@@ -167,27 +167,19 @@ AlertActions.displayName = 'AlertActions';
 const AlertButton = forwardRef<
   ComponentRef<'button'>,
   ComponentProps<'button'>
->(({ className, ...props }, ref) => {
-  const { variant } = useContext(AlertContext);
-
-  const hoverClasses: Record<AlertVariant, string> = {
-    default: 'hover:bg-undefined-hover',
-    secondary: 'hover:bg-neutral-hover',
-    warning: 'hover:bg-warning-hover',
-    error: 'hover:bg-destructive-hover',
-  };
-
-  return (
-    <Button
-      ref={ref}
-      data-slot="alert-button"
-      variant="ghost"
-      size="sm"
-      className={cn('text-foreground', hoverClasses[variant], className)}
-      {...props}
-    />
-  );
-});
+>(({ className, ...props }, ref) => (
+  <Button
+    ref={ref}
+    data-slot="alert-button"
+    variant="ghost"
+    size="sm"
+    className={cn(
+      'text-foreground hover:bg-primary hover:text-primary-foreground',
+      className
+    )}
+    {...props}
+  />
+));
 AlertButton.displayName = 'AlertButton';
 
 const AlertClose = forwardRef<ComponentRef<'button'>, ComponentProps<'button'>>(
