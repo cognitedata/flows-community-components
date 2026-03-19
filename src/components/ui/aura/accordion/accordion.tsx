@@ -124,10 +124,7 @@ const AccordionItem = forwardRef<
     <AccordionPrimitive.Item
       ref={ref}
       data-slot="accordion-item"
-      className={cn(
-        'mt-2 first:mt-0 rounded-md hover:bg-accent data-open:bg-accent',
-        className
-      )}
+      className={cn('mt-2 first:mt-0 rounded-md', className)}
       {...props}
     />
   );
@@ -148,7 +145,7 @@ const AccordionTrigger = forwardRef<
         ref={ref}
         data-slot="accordion-trigger"
         className={cn(
-          'focus-visible:border-ring focus-visible:ring-ring-shadow group/accordion-trigger flex flex-1 items-start justify-between gap-4 rounded-md p-2 text-left focus-visible:ring text-base leading-5 tracking-tightest font-medium transition-all outline-none disabled:pointer-events-none disabled:opacity-50',
+          'focus-visible:border-ring focus-visible:ring-ring-shadow group/accordion-trigger flex flex-1 items-start justify-between gap-4 rounded-md p-2 text-left hover:bg-accent focus-visible:ring text-base leading-5 tracking-tightest font-medium transition-all outline-none disabled:pointer-events-none disabled:opacity-50',
           className
         )}
         {...props}
