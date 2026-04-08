@@ -12,6 +12,7 @@ import HomePage from './pages/Home';
 import LayoutsPageContent from './pages/layouts-page/Page';
 import MotionPage from './pages/motion/Page';
 import PatternsAgentChatPage from './pages/patterns/agent-chat/Page';
+import PatternsArtifactPage from './pages/patterns/artifact/Page';
 import PatternsDashboardsPage from './pages/patterns/dashboards/Page';
 import PatternsPage from './pages/patterns/Page';
 import PrimitivesColorsPage from './pages/primitives/colors/Page';
@@ -79,6 +80,7 @@ export const router = createBrowserRouter(
           children: [
             { index: true, element: <PatternsPage /> },
             { path: 'agent-chat', element: <PatternsAgentChatPage /> },
+            { path: 'artifact', element: <PatternsArtifactPage /> },
             { path: 'dashboards', element: <PatternsDashboardsPage /> },
           ],
         },

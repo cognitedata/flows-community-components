@@ -42,7 +42,8 @@ const CardTitle = forwardRef<
       ref={ref}
       data-slot="card-title"
       className={cn(
-        'tracking-tightest text-foreground text-lg font-medium',
+        'tracking-tightest text-foreground text-lg leading-6 font-medium row-start-1',
+        '[[data-slot=card-header]>&]:group-has-data-[slot=card-header-left]/card-header:col-start-2',
         className
       )}
       {...props}
@@ -57,7 +58,11 @@ const CardDescription = forwardRef<ComponentRef<'p'>, ComponentProps<'p'>>(
       <p
         ref={ref}
         data-slot="card-description"
-        className={cn('text-muted-foreground text-sm', className)}
+        className={cn(
+          'text-muted-foreground text-sm row-start-2',
+          '[[data-slot=card-header]>&]:group-has-data-[slot=card-header-left]/card-header:col-start-2',
+          className
+        )}
         {...props}
       />
     );
@@ -71,7 +76,14 @@ const CardHeader = forwardRef<ComponentRef<'div'>, ComponentProps<'div'>>(
       <div
         ref={ref}
         data-slot="card-header"
-        className={cn('flex items-start gap-2 px-4 pt-4', className)}
+        className={cn(
+          '@container/card-header group/card-header grid auto-rows-min items-start gap-x-3 px-4 pt-4',
+          'grid-cols-[1fr]',
+          'has-data-[slot=card-header-left]:grid-cols-[auto_1fr]',
+          'has-data-[slot=card-header-right]:grid-cols-[1fr_auto]',
+          'has-data-[slot=card-header-left]:has-data-[slot=card-header-right]:grid-cols-[auto_1fr_auto]',
+          className
+        )}
         {...props}
       />
     );
@@ -85,10 +97,13 @@ const CardHeaderLeft = forwardRef<ComponentRef<'div'>, ComponentProps<'div'>>(
       <div
         ref={ref}
         data-slot="card-header-left"
-        className={cn('self-start', className)}
+        className={cn(
+          className,
+          'col-start-1 row-start-1 row-span-2 self-stretch'
+        )}
         {...props}
       >
-        <div className="flex items-start">{children}</div>
+        <div className="flex h-full items-center">{children}</div>
       </div>
     );
   }
@@ -104,7 +119,7 @@ const CardHeaderContent = forwardRef<
       ref={ref}
       data-slot="card-header-content"
       className={cn(
-        'grid min-w-0 flex-1 content-center self-stretch',
+        'grid min-w-0 content-center self-stretch col-start-2 row-start-1 row-span-2',
         className
       )}
       {...props}
@@ -119,7 +134,10 @@ const CardHeaderRight = forwardRef<ComponentRef<'div'>, ComponentProps<'div'>>(
       <div
         ref={ref}
         data-slot="card-header-right"
-        className={cn('ml-auto self-start flex items-start', className)}
+        className={cn(
+          className,
+          'row-span-2 row-start-1 self-start justify-self-end'
+        )}
         {...props}
       />
     );
@@ -232,5 +250,6 @@ export {
   CardHeaderContent,
   CardHeaderLeft,
   CardHeaderRight,
-  CardTitle,
+  CardTitle
 };
+

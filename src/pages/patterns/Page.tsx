@@ -2,6 +2,11 @@ import { CatalogIndex } from '@/pages/components/CatalogIndex';
 
 const patterns = [
   {
+    name: 'Artifact',
+    url: '/patterns/artifact',
+    description: 'Card composition pattern variants',
+  },
+  {
     name: 'Agent chat',
     url: '/patterns/agent-chat',
     description: 'Conversational AI interface pattern',

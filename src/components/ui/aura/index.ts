@@ -31,13 +31,6 @@ export {
 } from './alert-dialog/alert-dialog';
 export { AlertDialogMetadata } from './alert-dialog/alert-dialog.metadata';
 
-export {
-  Artifact,
-  ArtifactDescription,
-  ArtifactTitle,
-} from './artifact/artifact';
-export { ArtifactMetadata } from './artifact/artifact.metadata';
-
 export { Count, countVariants } from './count/count';
 export { CountMetadata } from './count/count.metadata';
 

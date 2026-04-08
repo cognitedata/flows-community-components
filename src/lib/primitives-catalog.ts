@@ -83,16 +83,6 @@ const RAW_PRIMITIVES_CATALOG: PrimitiveCatalogSeed[] = [
     comingSoon: false,
   },
   {
-    slug: 'artifact',
-    name: 'Artifact',
-    description: 'Generic artifact card shell',
-    section: 'primitive',
-    eosGaRequired: true,
-    duneGaRequired: true,
-    implemented: true,
-    comingSoon: false,
-  },
-  {
     slug: 'assets',
     name: 'Assets',
     description: 'Logos, illustrations, and related brand assets.',
