@@ -44,6 +44,8 @@ const CardTitle = forwardRef<
       className={cn(
         'tracking-tightest text-foreground text-lg leading-6 font-medium row-start-1',
         '[[data-slot=card-header]>&]:group-has-data-[slot=card-header-left]/card-header:col-start-2',
+        '[[data-slot=card-header]:not(:has([data-slot=card-description]))>&]:row-span-2',
+        '[[data-slot=card-header]:not(:has([data-slot=card-description]))>&]:self-center',
         className
       )}
       {...props}
@@ -109,24 +111,6 @@ const CardHeaderLeft = forwardRef<ComponentRef<'div'>, ComponentProps<'div'>>(
   }
 );
 CardHeaderLeft.displayName = 'CardHeaderLeft';
-
-const CardHeaderContent = forwardRef<
-  ComponentRef<'div'>,
-  ComponentProps<'div'>
->(({ className, ...props }, ref) => {
-  return (
-    <div
-      ref={ref}
-      data-slot="card-header-content"
-      className={cn(
-        'grid min-w-0 content-center self-stretch col-start-2 row-start-1 row-span-2',
-        className
-      )}
-      {...props}
-    />
-  );
-});
-CardHeaderContent.displayName = 'CardHeaderContent';
 
 const CardHeaderRight = forwardRef<ComponentRef<'div'>, ComponentProps<'div'>>(
   ({ className, ...props }, ref) => {
@@ -247,7 +231,6 @@ export {
   CardFooterLeft,
   CardFooterRight,
   CardHeader,
-  CardHeaderContent,
   CardHeaderLeft,
   CardHeaderRight,
   CardTitle,

@@ -93,7 +93,6 @@ export {
   CardFooterLeft,
   CardFooterRight,
   CardHeader,
-  CardHeaderContent,
   CardHeaderLeft,
   CardHeaderRight,
   CardTitle,

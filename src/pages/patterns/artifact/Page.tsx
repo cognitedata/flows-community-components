@@ -19,6 +19,7 @@ import {
 } from 'recharts';
 
 import { ExamplePreview } from '@/components/example-preview';
+import { Avatar, AvatarFallback } from '@/components/ui/aura/avatar';
 import {
   Card,
   CardActions,
@@ -29,7 +30,6 @@ import {
   CardFooterLeft,
   CardFooterRight,
   CardHeader,
-  CardHeaderContent,
   CardHeaderLeft,
   CardHeaderRight,
   CardTitle,
@@ -93,10 +93,8 @@ function CountBarTrendCard() {
         <CardHeaderLeft>
           <Count variant="default">4.2</Count>
         </CardHeaderLeft>
-        <CardHeaderContent>
-          <CardTitle>Bar</CardTitle>
-          <CardDescription>V-192</CardDescription>
-        </CardHeaderContent>
+        <CardTitle>Bar</CardTitle>
+        <CardDescription>V-192</CardDescription>
         <CardHeaderRight className="items-end self-stretch">
           <span className="text-sm text-muted-foreground">Since 2hrs ago</span>
         </CardHeaderRight>
@@ -291,9 +289,7 @@ export default function ArtifactPatternPage() {
     <CardHeaderLeft>
       <Count variant="warning">3</Count>
     </CardHeaderLeft>
-    <CardHeaderContent>
-      <CardTitle>Active alarms</CardTitle>
-    </CardHeaderContent>
+    <CardTitle>Active alarms</CardTitle>
   </CardHeader>
   <CardContent>
     <Separator />
@@ -319,9 +315,7 @@ export default function ArtifactPatternPage() {
               <CardHeaderLeft>
                 <Count variant="warning">3</Count>
               </CardHeaderLeft>
-              <CardHeaderContent>
-                <CardTitle>Active alarms</CardTitle>
-              </CardHeaderContent>
+              <CardTitle>Active alarms</CardTitle>
             </CardHeader>
             <CardContent>
               <Separator />
@@ -350,10 +344,8 @@ export default function ArtifactPatternPage() {
     <CardHeaderLeft>
       <Count variant="critical">392°C</Count>
     </CardHeaderLeft>
-    <CardHeaderContent>
-      <CardTitle>Temperature</CardTitle>
-      <CardDescription>V-192</CardDescription>
-    </CardHeaderContent>
+    <CardTitle>Temperature</CardTitle>
+    <CardDescription>V-192</CardDescription>
     <CardHeaderRight>
       <span className="text-sm text-muted-foreground">Since 2hrs ago</span>
     </CardHeaderRight>
@@ -368,10 +360,8 @@ export default function ArtifactPatternPage() {
               <CardHeaderLeft>
                 <Count variant="critical">392°C</Count>
               </CardHeaderLeft>
-              <CardHeaderContent>
-                <CardTitle>Temperature</CardTitle>
-                <CardDescription>V-192</CardDescription>
-              </CardHeaderContent>
+              <CardTitle>Temperature</CardTitle>
+              <CardDescription>V-192</CardDescription>
               <CardHeaderRight className="items-end self-stretch">
                 <span className="text-sm text-muted-foreground">
                   Since 2hrs ago
@@ -401,10 +391,8 @@ export default function ArtifactPatternPage() {
     <CardHeaderLeft>
       <Count variant="default">4.2</Count>
     </CardHeaderLeft>
-    <CardHeaderContent>
-      <CardTitle>Bar</CardTitle>
-      <CardDescription>V-192</CardDescription>
-    </CardHeaderContent>
+    <CardTitle>Bar</CardTitle>
+    <CardDescription>V-192</CardDescription>
     <CardHeaderRight>
       <span className="text-sm text-muted-foreground">Since 2hrs ago</span>
     </CardHeaderRight>
@@ -646,10 +634,8 @@ export default function ArtifactPatternPage() {
     <CardHeaderLeft>
       <IconAlertTriangleFilled className="size-4 text-warning-foreground" />
     </CardHeaderLeft>
-    <CardHeaderContent>
-      <CardTitle>Alert title</CardTitle>
-      <CardDescription>P-401</CardDescription>
-    </CardHeaderContent>
+    <CardTitle>Alert title</CardTitle>
+    <CardDescription>P-401</CardDescription>
   </CardHeader>
   <CardFooter className="flex-col text-sm pt-4">
     <div className="font-medium text-card-foreground">
@@ -667,10 +653,8 @@ export default function ArtifactPatternPage() {
                   className="size-4 text-warning-foreground mt-0.5"
                 />
               </CardHeaderLeft>
-              <CardHeaderContent>
-                <CardTitle>Alert title</CardTitle>
-                <CardDescription>P-401</CardDescription>
-              </CardHeaderContent>
+              <CardTitle>Alert title</CardTitle>
+              <CardDescription>P-401</CardDescription>
             </CardHeader>
             <CardFooter className="flex-col text-sm pt-4">
               <div className="font-medium text-card-foreground">
@@ -688,10 +672,8 @@ export default function ArtifactPatternPage() {
     <CardHeaderLeft>
       <IconAlertCircleFilled className="size-4 text-destructive-foreground" />
     </CardHeaderLeft>
-    <CardHeaderContent>
-      <CardTitle>Critical</CardTitle>
-      <CardDescription>P-401</CardDescription>
-    </CardHeaderContent>
+    <CardTitle>Critical</CardTitle>
+    <CardDescription>P-401</CardDescription>
   </CardHeader>
 </Card>`}
         >
@@ -703,11 +685,76 @@ export default function ArtifactPatternPage() {
                   className="size-4 text-destructive-foreground mt-0.5"
                 />
               </CardHeaderLeft>
-              <CardHeaderContent>
-                <CardTitle>Critical</CardTitle>
-                <CardDescription>P-401</CardDescription>
-              </CardHeaderContent>
+              <CardTitle>Critical</CardTitle>
+              <CardDescription>P-401</CardDescription>
             </CardHeader>
+          </Card>
+        </PatternExample>
+
+        <PatternExample
+          title="Avatar: Operator handoff"
+          sourceCode={`<Card className="w-sm grid grid-rows-[auto_1fr_auto]">
+  <CardHeader>
+    <CardHeaderLeft>
+      <Avatar variant="fjord">
+        <AvatarFallback>AL</AvatarFallback>
+      </Avatar>
+    </CardHeaderLeft>
+    <CardTitle>Operator handoff</CardTitle>
+    <CardDescription>A. Larsen • Shift B • Distillation area</CardDescription>
+    <CardHeaderRight>
+      <CardActions>
+        <DropdownMenuItem>View profile</DropdownMenuItem>
+        <DropdownMenuItem>Open task board</DropdownMenuItem>
+        <DropdownMenuItem>Escalate to supervisor</DropdownMenuItem>
+      </CardActions>
+    </CardHeaderRight>
+  </CardHeader>
+  <CardContent className="space-y-3">
+    <p className="text-sm text-muted-foreground">
+      Handoff notes indicate unstable feed pressure and a pending valve inspection before startup.
+    </p>
+    <ul className="list-disc space-y-1 pl-5 text-sm text-card-foreground">
+      <li>Reviewed alarm history for V-204 and P-401.</li>
+      <li>Requested maintenance confirmation for temporary bypass status.</li>
+      <li>Scheduled follow-up check in 30 minutes.</li>
+    </ul>
+  </CardContent>
+</Card>`}
+        >
+          <Card className="w-sm grid grid-rows-[auto_1fr_auto]">
+            <CardHeader>
+              <CardHeaderLeft>
+                <Avatar variant="fjord">
+                  <AvatarFallback>AL</AvatarFallback>
+                </Avatar>
+              </CardHeaderLeft>
+              <CardTitle>Operator handoff</CardTitle>
+              <CardDescription>
+                A. Larsen • Shift B • Distillation area
+              </CardDescription>
+              <CardHeaderRight>
+                <CardActions>
+                  <DropdownMenuItem>View profile</DropdownMenuItem>
+                  <DropdownMenuItem>Open task board</DropdownMenuItem>
+                  <DropdownMenuItem>Escalate to supervisor</DropdownMenuItem>
+                </CardActions>
+              </CardHeaderRight>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              <p className="text-sm text-muted-foreground">
+                Handoff notes indicate unstable feed pressure and a pending
+                valve inspection before startup.
+              </p>
+              <ul className="list-disc space-y-1 pl-5 text-sm text-card-foreground">
+                <li>Reviewed alarm history for V-204 and P-401.</li>
+                <li>
+                  Requested maintenance confirmation for temporary bypass
+                  status.
+                </li>
+                <li>Scheduled follow-up check in 30 minutes.</li>
+              </ul>
+            </CardContent>
           </Card>
         </PatternExample>
 
