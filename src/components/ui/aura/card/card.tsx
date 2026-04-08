@@ -250,6 +250,5 @@ export {
   CardHeaderContent,
   CardHeaderLeft,
   CardHeaderRight,
-  CardTitle
+  CardTitle,
 };
-

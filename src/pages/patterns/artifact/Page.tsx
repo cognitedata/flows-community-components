@@ -18,6 +18,7 @@ import {
   YAxis,
 } from 'recharts';
 
+import { ExamplePreview } from '@/components/example-preview';
 import {
   Card,
   CardActions,
@@ -33,7 +34,11 @@ import {
   CardHeaderRight,
   CardTitle,
 } from '@/components/ui/aura/card';
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/aura/chart';
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from '@/components/ui/aura/chart';
 import { Count } from '@/components/ui/aura/count';
 import { DropdownMenuItem } from '@/components/ui/aura/dropdown-menu';
 import {
@@ -47,7 +52,6 @@ import {
 import { Progress } from '@/components/ui/aura/progress';
 import { Separator } from '@/components/ui/aura/separator';
 import { TreeView, TreeViewItem } from '@/components/ui/aura/treeview';
-import { ExamplePreview } from '@/components/example-preview';
 
 function PatternExample({
   title,
@@ -102,9 +106,17 @@ function CountBarTrendCard() {
       </CardContent>
       <CardContent className="flex w-full flex-col items-center gap-4 overflow-visible px-4 py-5">
         <ChartContainer config={trendConfig} className="h-48 w-full">
-          <LineChart data={trendData} margin={{ top: 12, right: 12, bottom: 12 }}>
+          <LineChart
+            data={trendData}
+            margin={{ top: 12, right: 12, bottom: 12 }}
+          >
             <CartesianGrid vertical={false} />
-            <XAxis dataKey="time" tickLine={false} axisLine={false} tickMargin={8} />
+            <XAxis
+              dataKey="time"
+              tickLine={false}
+              axisLine={false}
+              tickMargin={8}
+            />
             <YAxis
               tickLine={false}
               axisLine={false}
@@ -168,7 +180,11 @@ function ChartPieCard() {
           textAnchor="middle"
           dominantBaseline="central"
           fill={labelColor}
-          style={{ fontSize: '12px', fontWeight: 500, letterSpacing: '-0.08px' }}
+          style={{
+            fontSize: '12px',
+            fontWeight: 500,
+            letterSpacing: '-0.08px',
+          }}
         >
           {labelText}
         </text>
@@ -190,9 +206,15 @@ function ChartPieCard() {
       </CardHeader>
       <CardContent>
         <div className="relative mx-auto">
-          <ChartContainer config={chartConfig} className="aspect-5/4 overflow-visible">
+          <ChartContainer
+            config={chartConfig}
+            className="aspect-5/4 overflow-visible"
+          >
             <PieChart style={{ overflow: 'visible' }}>
-              <ChartTooltip content={<ChartTooltipContent indicator="dot" />} cursor={false} />
+              <ChartTooltip
+                content={<ChartTooltipContent indicator="dot" />}
+                cursor={false}
+              />
               <Pie
                 data={chartData}
                 dataKey="value"
@@ -213,7 +235,9 @@ function ChartPieCard() {
               <span className="block text-2xl font-medium text-foreground">
                 {(1125).toLocaleString()}
               </span>
-              <span className="block text-sm font-normal text-muted-foreground">Visitors</span>
+              <span className="block text-sm font-normal text-muted-foreground">
+                Visitors
+              </span>
             </div>
           </div>
         </div>
@@ -228,7 +252,9 @@ function ChartPieCard() {
                     : undefined,
                 }}
               />
-              <span className="text-sm leading-4 text-muted-foreground">unit</span>
+              <span className="text-sm leading-4 text-muted-foreground">
+                unit
+              </span>
             </div>
           ))}
         </div>
@@ -253,8 +279,8 @@ export default function ArtifactPatternPage() {
         <div className="space-y-2">
           <h1 className="text-3xl font-bold tracking-tight">Artifact</h1>
           <p className="text-lg text-muted-foreground">
-            Artifact configurations are now card composition patterns using Aura Card
-            sub-components.
+            Artifact configurations are now card composition patterns using Aura
+            Card sub-components.
           </p>
         </div>
 
@@ -347,7 +373,9 @@ export default function ArtifactPatternPage() {
                 <CardDescription>V-192</CardDescription>
               </CardHeaderContent>
               <CardHeaderRight className="items-end self-stretch">
-                <span className="text-sm text-muted-foreground">Since 2hrs ago</span>
+                <span className="text-sm text-muted-foreground">
+                  Since 2hrs ago
+                </span>
               </CardHeaderRight>
             </CardHeader>
             <CardContent>
@@ -443,7 +471,9 @@ export default function ArtifactPatternPage() {
               <List>
                 <ListItem variant="upcoming">
                   <ListItemTitle>Inspection</ListItemTitle>
-                  <ListItemDescription>Dec 22, 2024 5:00 AM</ListItemDescription>
+                  <ListItemDescription>
+                    Dec 22, 2024 5:00 AM
+                  </ListItemDescription>
                 </ListItem>
                 <ListItem variant="now">
                   <ListItemTitle>Event</ListItemTitle>
@@ -455,7 +485,9 @@ export default function ArtifactPatternPage() {
                 </ListItem>
                 <ListItem variant="completed">
                   <ListItemTitle>Inspection</ListItemTitle>
-                  <ListItemDescription>Dec 17, 2024 9:00 AM</ListItemDescription>
+                  <ListItemDescription>
+                    Dec 17, 2024 9:00 AM
+                  </ListItemDescription>
                 </ListItem>
               </List>
             </CardContent>
@@ -491,12 +523,16 @@ export default function ArtifactPatternPage() {
               <List>
                 <ListItem variant="error">
                   <ListItemTitle>Pump seal replacement</ListItemTitle>
-                  <ListItemDescription>P-401A requires new mechanical seal</ListItemDescription>
+                  <ListItemDescription>
+                    P-401A requires new mechanical seal
+                  </ListItemDescription>
                   <ListItemStatus>Overdue</ListItemStatus>
                 </ListItem>
                 <ListItem variant="now">
                   <ListItemTitle>Valve calibration</ListItemTitle>
-                  <ListItemDescription>Quarterly calibration check</ListItemDescription>
+                  <ListItemDescription>
+                    Quarterly calibration check
+                  </ListItemDescription>
                   <ListItemStatus>Due today</ListItemStatus>
                 </ListItem>
                 <ListItem variant="completed">
@@ -552,8 +588,9 @@ export default function ArtifactPatternPage() {
                   </ListItemIcon>
                   <ListItemTitle>Pump 3 cavitation detected</ListItemTitle>
                   <ListItemDescription>
-                    Suction pressure oscillations and elevated noise on P-003 during night shift;
-                    cavitation likely from low NPSH/blocked strainer.
+                    Suction pressure oscillations and elevated noise on P-003
+                    during night shift; cavitation likely from low NPSH/blocked
+                    strainer.
                   </ListItemDescription>
                 </ListItem>
                 <ListItem>
@@ -562,7 +599,8 @@ export default function ArtifactPatternPage() {
                   </ListItemIcon>
                   <ListItemTitle>Compressor C-5 surge events</ListItemTitle>
                   <ListItemDescription>
-                    Three start-up surge spikes with sluggish anti-surge valve response.
+                    Three start-up surge spikes with sluggish anti-surge valve
+                    response.
                   </ListItemDescription>
                 </ListItem>
               </List>
@@ -587,11 +625,15 @@ export default function ArtifactPatternPage() {
           <Card className="w-96 grid grid-rows-[auto_1fr_auto]">
             <CardHeader className="items-center">
               <CardTitle>Progress title</CardTitle>
-              <CardDescription className="text-base">8 of 12 tasks complete</CardDescription>
+              <CardDescription className="text-base">
+                8 of 12 tasks complete
+              </CardDescription>
             </CardHeader>
             <CardContent className="px-4 py-4.5 flex w-full items-center justify-between gap-2">
               <Progress value={32} />
-              <span className="text-muted-foreground text-sm leading-4.5 tracking-tight">32%</span>
+              <span className="text-muted-foreground text-sm leading-4.5 tracking-tight">
+                32%
+              </span>
             </CardContent>
             <CardFooter>On track for completion by Friday</CardFooter>
           </Card>
@@ -711,7 +753,11 @@ export default function ArtifactPatternPage() {
               <TreeView defaultExpanded={['process-21', 'feed-system']}>
                 <TreeViewItem value="process-21" label="Process unit 21">
                   <TreeViewItem value="feed-system" label="Feed system">
-                    <TreeViewItem value="pump-a" label="Feed Pump A" status="warning" />
+                    <TreeViewItem
+                      value="pump-a"
+                      label="Feed Pump A"
+                      status="warning"
+                    />
                     <TreeViewItem value="pump-b" label="Feed Pump B" />
                   </TreeViewItem>
                   <TreeViewItem value="drain-system" label="Drain system" />
