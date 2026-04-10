@@ -284,6 +284,18 @@ const RAW_PRIMITIVES_CATALOG: PrimitiveCatalogSeed[] = [
     comingSoon: false,
   },
   {
+    slug: 'data-grid-full',
+    name: 'Data grid full',
+    description:
+      'Advanced data grid with column pinning, sorting, selection, and virtualization',
+    section: 'primitive',
+    eosGaRequired: null,
+    duneGaRequired: null,
+    implemented: true,
+    comingSoon: false,
+    aliases: ['data-grid'],
+  },
+  {
     slug: 'date-picker',
     name: 'Date picker',
     description: 'Calendar date selector',
