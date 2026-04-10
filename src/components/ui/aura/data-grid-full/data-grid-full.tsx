@@ -47,14 +47,12 @@ const dataGridVariants = cva('', {
 
 type DataGridContextValue = {
   gridTemplateColumns: string;
-  pinnedColumnsWidth: number;
   pinnedColumnIds: Set<string>;
   columnCount: number;
 };
 
 const DataGridContext = createContext<DataGridContextValue>({
   gridTemplateColumns: '',
-  pinnedColumnsWidth: 0,
   pinnedColumnIds: new Set(),
   columnCount: 0,
 });
@@ -193,27 +191,13 @@ function DataGrid<TData>({
       .join(' ');
   }, [allColumns]);
 
-  const pinnedColumnsWidth = useMemo(() => {
-    return allColumns
-      .filter((col) => pinnedColumnIds.has(col.id))
-      .reduce((sum, col) => {
-        return sum + (col.columnDef.size ?? 120);
-      }, 0);
-  }, [allColumns, pinnedColumnIds]);
-
   const contextValue = useMemo<DataGridContextValue>(
     () => ({
       gridTemplateColumns,
-      pinnedColumnsWidth,
       pinnedColumnIds,
       columnCount: allColumns.length,
     }),
-    [
-      gridTemplateColumns,
-      pinnedColumnsWidth,
-      pinnedColumnIds,
-      allColumns.length,
-    ]
+    [gridTemplateColumns, pinnedColumnIds, allColumns.length]
   );
 
   return (
@@ -465,7 +449,7 @@ function DataGridCell({
       className={cn(
         'flex items-center px-3 text-sm font-normal truncate',
         isPinned && 'sticky z-10 bg-background dark:bg-background',
-        isPinned && isEvenRow && !isSelected && 'bg-muted',
+        isPinned && isEvenRow && !isSelected && 'bg-muted/50',
         isPinned && isSelected && 'bg-muted',
         isLastPinned && 'shadow-[2px_0_4px_-2px_rgba(0,0,0,0.1)]',
         className
