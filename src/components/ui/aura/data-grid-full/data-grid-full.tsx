@@ -254,7 +254,8 @@ function DataGrid<TData>({
                   const isPinned = pinnedColumnIds.has(header.column.id);
                   const isLastPinned =
                     isPinned &&
-                    pinnedColumns[pinnedColumns.length - 1] === header.column.id;
+                    pinnedColumns[pinnedColumns.length - 1] ===
+                      header.column.id;
                   const sortDirection = header.column.getIsSorted();
 
                   return (
@@ -275,7 +276,8 @@ function DataGrid<TData>({
                       className={cn(
                         'flex items-center px-3 text-left text-sm font-medium text-primary truncate',
                         isPinned && 'sticky left-0 z-10 bg-background',
-                        isLastPinned && 'shadow-[2px_0_4px_-2px_rgba(0,0,0,0.1)]',
+                        isLastPinned &&
+                          'shadow-[2px_0_4px_-2px_rgba(0,0,0,0.1)]',
                         header.column.getCanSort() &&
                           'cursor-pointer select-none hover:bg-muted/60'
                       )}
@@ -294,19 +296,19 @@ function DataGrid<TData>({
                           : undefined
                       }
                     >
-                    {(() => {
-                      if (header.isPlaceholder) return null;
-                      const renderedHeader = flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                      );
-                      return typeof renderedHeader === 'string' ||
-                        typeof renderedHeader === 'number' ? (
-                        <span className="truncate">{renderedHeader}</span>
-                      ) : (
-                        renderedHeader
-                      );
-                    })()}
+                      {(() => {
+                        if (header.isPlaceholder) return null;
+                        const renderedHeader = flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        );
+                        return typeof renderedHeader === 'string' ||
+                          typeof renderedHeader === 'number' ? (
+                          <span className="truncate">{renderedHeader}</span>
+                        ) : (
+                          renderedHeader
+                        );
+                      })()}
                       {sortDirection === 'asc' && (
                         <IconChevronUp className="ml-1 size-3.5 shrink-0" />
                       )}
@@ -515,6 +517,5 @@ export {
   DataGridCell,
   DataGridCheckboxCell,
   DataGridCheckboxHeader,
-  useDataGridContext
+  useDataGridContext,
 };
-

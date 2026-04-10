@@ -135,7 +135,9 @@ export const Default: Story = {
       { accessorKey: 'col5', header: 'Col 5' },
     ];
 
-    return <DataGrid data={data} columns={columns} getRowId={(row) => row.id} />;
+    return (
+      <DataGrid data={data} columns={columns} getRowId={(row) => row.id} />
+    );
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -159,7 +161,9 @@ export const RichContent: Story = {
       created: string;
       owner: string;
     };
-    type StatusBadgeVariant = NonNullable<ComponentProps<typeof Badge>['variant']>;
+    type StatusBadgeVariant = NonNullable<
+      ComponentProps<typeof Badge>['variant']
+    >;
     const statusVariantMap: Record<AssetRow['status'], StatusBadgeVariant> = {
       Running: 'inProgress',
       Failed: 'error',
@@ -247,7 +251,9 @@ export const RichContent: Story = {
       },
     ];
 
-    return <DataGrid data={data} columns={columns} getRowId={(row) => row.id} />;
+    return (
+      <DataGrid data={data} columns={columns} getRowId={(row) => row.id} />
+    );
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -490,7 +496,9 @@ export const WithPagination: Story = {
       created: string;
       owner: string;
     };
-    type StatusBadgeVariant = NonNullable<ComponentProps<typeof Badge>['variant']>;
+    type StatusBadgeVariant = NonNullable<
+      ComponentProps<typeof Badge>['variant']
+    >;
     const statusVariantMap: Record<AssetRow['status'], StatusBadgeVariant> = {
       Running: 'inProgress',
       Failed: 'error',
@@ -942,7 +950,9 @@ export const VisualRegression: Story = {
       created: string;
       owner: string;
     };
-    type StatusBadgeVariant = NonNullable<ComponentProps<typeof Badge>['variant']>;
+    type StatusBadgeVariant = NonNullable<
+      ComponentProps<typeof Badge>['variant']
+    >;
     const statusVariantMap: Record<AssetRow['status'], StatusBadgeVariant> = {
       Running: 'inProgress',
       Failed: 'error',
@@ -1174,7 +1184,9 @@ export const EdgeCaseSingleRow: Story = {
       { accessorKey: 'col4', header: 'Col 4' },
       { accessorKey: 'col5', header: 'Col 5' },
     ];
-    return <DataGrid data={data} columns={columns} getRowId={(row) => row.id} />;
+    return (
+      <DataGrid data={data} columns={columns} getRowId={(row) => row.id} />
+    );
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -1271,7 +1283,9 @@ export const Playground: Story = {
       created: string;
       owner: string;
     };
-    type StatusBadgeVariant = NonNullable<ComponentProps<typeof Badge>['variant']>;
+    type StatusBadgeVariant = NonNullable<
+      ComponentProps<typeof Badge>['variant']
+    >;
     const statusVariantMap: Record<AssetRow['status'], StatusBadgeVariant> = {
       Running: 'inProgress',
       Failed: 'error',
