@@ -1280,9 +1280,19 @@ export const HeaderCompositionControlledSearch: Story = {
     };
 
     const data: RowData[] = [
-      { id: '1', name: 'Pump health UT-654/111', status: 'Running', owner: 'PJ' },
+      {
+        id: '1',
+        name: 'Pump health UT-654/111',
+        status: 'Running',
+        owner: 'PJ',
+      },
       { id: '2', name: 'Compressor train A-14', status: 'Draft', owner: 'AL' },
-      { id: '3', name: 'Wellhead pressure BK-220', status: 'Archived', owner: 'RM' },
+      {
+        id: '3',
+        name: 'Wellhead pressure BK-220',
+        status: 'Archived',
+        owner: 'RM',
+      },
       { id: '4', name: 'Flow meter SK-91', status: 'Running', owner: 'KT' },
     ];
 
@@ -1307,7 +1317,11 @@ export const HeaderCompositionControlledSearch: Story = {
           <DataGridSubtitle>May 17, 2018 - Dec 24, 2022</DataGridSubtitle>
           <DataGridSearch placeholder="Search" />
           <DataGridHeaderActions>
-            <Button variant="ghost" size="icon-sm" aria-label="Enter full screen">
+            <Button
+              variant="ghost"
+              size="icon-sm"
+              aria-label="Enter full screen"
+            >
               <IconArrowsDiagonal className="size-4" />
             </Button>
             <Button variant="ghost" size="icon-sm" aria-label="More actions">
@@ -1331,7 +1345,12 @@ export const ActionsCellWithDropdownMenu: Story = {
     };
 
     const data: RowData[] = [
-      { id: '1', name: 'Compressor train A-14', status: 'Running', owner: 'AL' },
+      {
+        id: '1',
+        name: 'Compressor train A-14',
+        status: 'Running',
+        owner: 'AL',
+      },
       { id: '2', name: 'Pump health UT-654/111', status: 'Draft', owner: 'PJ' },
       { id: '3', name: 'Flow meter SK-91', status: 'Archived', owner: 'KT' },
     ];
@@ -1350,7 +1369,11 @@ export const ActionsCellWithDropdownMenu: Story = {
             <DropdownMenu>
               <DropdownMenuTrigger
                 render={
-                  <Button variant="ghost" size="icon-sm" aria-label="Open row actions">
+                  <Button
+                    variant="ghost"
+                    size="icon-sm"
+                    aria-label="Open row actions"
+                  >
                     <IconDots className="size-4" />
                   </Button>
                 }
@@ -1366,11 +1389,7 @@ export const ActionsCellWithDropdownMenu: Story = {
     ];
 
     return (
-      <DataGrid
-        data={data}
-        columns={columns}
-        getRowId={(row) => row.id}
-      />
+      <DataGrid data={data} columns={columns} getRowId={(row) => row.id} />
     );
   },
 };
@@ -1615,7 +1634,11 @@ export const Playground: Story = {
       >
         <DataGridHeader>
           <DataGridHeaderActions>
-            <Button variant="ghost" size="icon-sm" aria-label="Enter full screen">
+            <Button
+              variant="ghost"
+              size="icon-sm"
+              aria-label="Enter full screen"
+            >
               <IconArrowsDiagonal className="size-4" />
             </Button>
             <Button variant="ghost" size="icon-sm" aria-label="More actions">
