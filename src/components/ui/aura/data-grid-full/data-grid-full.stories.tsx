@@ -549,12 +549,13 @@ export const WithSorting: Story = {
     type StatusBadgeVariant = NonNullable<
       ComponentProps<typeof Badge>['variant']
     >;
-    const statusVariantMap: Record<SortableRow['status'], StatusBadgeVariant> = {
-      Running: 'success',
-      Failed: 'error',
-      Finished: 'inProgress',
-      'Needs attention': 'warning',
-    };
+    const statusVariantMap: Record<SortableRow['status'], StatusBadgeVariant> =
+      {
+        Running: 'success',
+        Failed: 'error',
+        Finished: 'inProgress',
+        'Needs attention': 'warning',
+      };
 
     const sortableData: SortableRow[] = [
       { id: '1', name: 'Alpha Pump', assets: 42, status: 'Running' },
