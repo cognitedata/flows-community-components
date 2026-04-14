@@ -201,17 +201,10 @@ function DataGrid<TData>({
   } = {
     columnPinning,
     globalFilter: resolvedSearchValue,
+    ...(hasControlledRowSelection ? { rowSelection } : {}),
+    ...(hasControlledSorting ? { sorting } : {}),
+    ...(hasControlledPagination ? { pagination } : {}),
   };
-
-  if (hasControlledRowSelection) {
-    tableState.rowSelection = rowSelection;
-  }
-  if (hasControlledSorting) {
-    tableState.sorting = sorting;
-  }
-  if (hasControlledPagination) {
-    tableState.pagination = pagination;
-  }
 
   const tableFeatureHandlers: {
     onRowSelectionChange?: OnChangeFn<RowSelectionState>;
