@@ -58,14 +58,6 @@ const meta: Meta<typeof DataGrid> = {
         defaultValue: { summary: 'default' },
       },
     },
-    striped: {
-      control: 'boolean',
-      table: {
-        category: 'Variants/Styling',
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'true' },
-      },
-    },
     enableRowSelection: {
       control: 'boolean',
       table: {
@@ -231,7 +223,7 @@ export const RichContent: Story = {
         cell: ({ row }) => {
           const { status } = row.original;
           return (
-            <Badge variant={statusVariantMap[status]} outline dot>
+            <Badge variant={statusVariantMap[status]} dot>
               {status}
             </Badge>
           );
@@ -313,6 +305,121 @@ export const PinnedColumns: Story = {
     const canvas = within(canvasElement);
     const grid = canvas.getByRole('grid');
     await expect(grid).toBeInTheDocument();
+  },
+};
+
+export const PinnedMultipleColumns: Story = {
+  parameters: { order: 3.1 },
+  render: () => {
+    type RowData = {
+      id: string;
+      name: string;
+      site: string;
+      status: string;
+      owner: string;
+      updated: string;
+    };
+
+    const data: RowData[] = Array.from({ length: 8 }, (_, i) => ({
+      id: String(i + 1),
+      name: `Asset ${i + 1}`,
+      site: i % 2 === 0 ? 'North' : 'South',
+      status: i % 3 === 0 ? 'Running' : 'Draft',
+      owner: i % 2 === 0 ? 'PJ' : 'AL',
+      updated: `2026-01-${String(i + 1).padStart(2, '0')}`,
+    }));
+
+    const columns: ColumnDef<RowData>[] = [
+      { accessorKey: 'name', header: 'Name', size: 180 },
+      { accessorKey: 'site', header: 'Site', size: 140 },
+      { accessorKey: 'status', header: 'Status', size: 140 },
+      { accessorKey: 'owner', header: 'Owner', size: 120 },
+      { accessorKey: 'updated', header: 'Updated', size: 140 },
+      ...Array.from({ length: 4 }, (_, i) => ({
+        id: `extra-${i}`,
+        accessorKey: 'status' as const,
+        header: `Extra ${i + 1}`,
+        size: 140,
+      })),
+    ];
+
+    return (
+      <div className="max-w-4xl">
+        <DataGrid
+          data={data}
+          columns={columns}
+          pinnedColumns={['name', 'site']}
+          getRowId={(row) => row.id}
+        />
+      </div>
+    );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByRole('grid')).toBeInTheDocument();
+  },
+};
+
+export const PinnedSelectionAndDataColumn: Story = {
+  parameters: { order: 3.2 },
+  render: function PinnedSelectionAndDataColumnStory() {
+    const [rowSelection, setRowSelection] = useState({});
+
+    type RowData = {
+      id: string;
+      name: string;
+      status: string;
+      owner: string;
+      region: string;
+    };
+
+    const data: RowData[] = Array.from({ length: 8 }, (_, i) => ({
+      id: String(i + 1),
+      name: `Equipment ${i + 1}`,
+      status: i % 2 === 0 ? 'Running' : 'Draft',
+      owner: i % 2 === 0 ? 'RM' : 'KT',
+      region: i % 2 === 0 ? 'EMEA' : 'AMER',
+    }));
+
+    const columns: ColumnDef<RowData>[] = [
+      { accessorKey: 'name', header: 'Name', size: 200 },
+      { accessorKey: 'status', header: 'Status', size: 150 },
+      { accessorKey: 'owner', header: 'Owner', size: 130 },
+      { accessorKey: 'region', header: 'Region', size: 130 },
+      ...Array.from({ length: 3 }, (_, i) => ({
+        id: `extra-col-${i}`,
+        accessorKey: 'owner' as const,
+        header: `Owner ${i + 1}`,
+        size: 130,
+      })),
+    ];
+
+    return (
+      <div className="max-w-4xl">
+        <DataGrid
+          data={data}
+          columns={[
+            {
+              id: 'select',
+              size: 44,
+              header: ({ table }) => <DataGridCheckboxHeader table={table} />,
+              cell: ({ row }) => <DataGridCheckboxCell row={row} />,
+            },
+            ...columns,
+          ]}
+          pinnedColumns={['select', 'name']}
+          enableRowSelection
+          rowSelection={rowSelection}
+          onRowSelectionChange={setRowSelection}
+          getRowId={(row) => row.id}
+        />
+      </div>
+    );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const checkboxes = canvas.getAllByRole('checkbox');
+    await expect(checkboxes.length).toBeGreaterThan(0);
   },
 };
 
@@ -437,7 +544,16 @@ export const WithSorting: Story = {
       id: string;
       name: string;
       assets: number;
-      status: string;
+      status: 'Running' | 'Failed' | 'Finished' | 'Needs attention';
+    };
+    type StatusBadgeVariant = NonNullable<
+      ComponentProps<typeof Badge>['variant']
+    >;
+    const statusVariantMap: Record<SortableRow['status'], StatusBadgeVariant> = {
+      Running: 'success',
+      Failed: 'error',
+      Finished: 'inProgress',
+      'Needs attention': 'warning',
     };
 
     const sortableData: SortableRow[] = [
@@ -456,7 +572,16 @@ export const WithSorting: Story = {
         enableSorting: true,
         size: 100,
       },
-      { accessorKey: 'status', header: 'Status', enableSorting: true },
+      {
+        accessorKey: 'status',
+        header: 'Status',
+        enableSorting: true,
+        cell: ({ row }) => (
+          <Badge variant={statusVariantMap[row.original.status]} dot>
+            {row.original.status}
+          </Badge>
+        ),
+      },
     ];
 
     return (
@@ -672,7 +797,7 @@ export const WithPagination: Story = {
         cell: ({ row }) => {
           const { status } = row.original;
           return (
-            <Badge variant={statusVariantMap[status]} outline dot>
+            <Badge variant={statusVariantMap[status]} dot>
               {status}
             </Badge>
           );
@@ -1029,7 +1154,7 @@ export const VisualRegression: Story = {
         cell: ({ row }) => {
           const { status } = row.original;
           return (
-            <Badge variant={statusVariantMap[status]} outline dot>
+            <Badge variant={statusVariantMap[status]} dot>
               {status}
             </Badge>
           );
@@ -1278,6 +1403,14 @@ export const HeaderCompositionControlledSearch: Story = {
       status: 'Running' | 'Draft' | 'Archived';
       owner: string;
     };
+    type StatusBadgeVariant = NonNullable<
+      ComponentProps<typeof Badge>['variant']
+    >;
+    const statusVariantMap: Record<RowData['status'], StatusBadgeVariant> = {
+      Running: 'success',
+      Draft: 'warning',
+      Archived: 'mountain',
+    };
 
     const data: RowData[] = [
       {
@@ -1298,8 +1431,26 @@ export const HeaderCompositionControlledSearch: Story = {
 
     const columns: ColumnDef<RowData>[] = [
       { accessorKey: 'name', header: 'Name' },
-      { accessorKey: 'status', header: 'Status', size: 140 },
-      { accessorKey: 'owner', header: 'Owner', size: 100 },
+      {
+        accessorKey: 'status',
+        header: 'Status',
+        size: 140,
+        cell: ({ row }) => (
+          <Badge variant={statusVariantMap[row.original.status]} dot>
+            {row.original.status}
+          </Badge>
+        ),
+      },
+      {
+        accessorKey: 'owner',
+        header: 'Owner',
+        size: 100,
+        cell: ({ row }) => (
+          <Avatar variant="fjord" sizes="xxsm">
+            <AvatarFallback>{row.original.owner}</AvatarFallback>
+          </Avatar>
+        ),
+      },
     ];
 
     const [searchValue, setSearchValue] = useState('');
@@ -1343,6 +1494,14 @@ export const ActionsCellWithDropdownMenu: Story = {
       status: 'Running' | 'Draft' | 'Archived';
       owner: string;
     };
+    type StatusBadgeVariant = NonNullable<
+      ComponentProps<typeof Badge>['variant']
+    >;
+    const statusVariantMap: Record<RowData['status'], StatusBadgeVariant> = {
+      Running: 'success',
+      Draft: 'warning',
+      Archived: 'mountain',
+    };
 
     const data: RowData[] = [
       {
@@ -1357,8 +1516,26 @@ export const ActionsCellWithDropdownMenu: Story = {
 
     const columns: ColumnDef<RowData>[] = [
       { accessorKey: 'name', header: 'Name' },
-      { accessorKey: 'status', header: 'Status', size: 140 },
-      { accessorKey: 'owner', header: 'Owner', size: 100 },
+      {
+        accessorKey: 'status',
+        header: 'Status',
+        size: 140,
+        cell: ({ row }) => (
+          <Badge variant={statusVariantMap[row.original.status]} dot>
+            {row.original.status}
+          </Badge>
+        ),
+      },
+      {
+        accessorKey: 'owner',
+        header: 'Owner',
+        size: 100,
+        cell: ({ row }) => (
+          <Avatar variant="fjord" sizes="xxsm">
+            <AvatarFallback>{row.original.owner}</AvatarFallback>
+          </Avatar>
+        ),
+      },
       {
         id: 'actions',
         header: () => null,
@@ -1555,7 +1732,7 @@ export const Playground: Story = {
         cell: ({ row }) => {
           const { status } = row.original;
           return (
-            <Badge variant={statusVariantMap[status]} outline dot>
+            <Badge variant={statusVariantMap[status]} dot>
               {status}
             </Badge>
           );

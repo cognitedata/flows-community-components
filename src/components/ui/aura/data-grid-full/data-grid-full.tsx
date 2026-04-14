@@ -20,13 +20,13 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 import { useVirtualizer } from '@tanstack/react-virtual';
-import { type VariantProps, cva } from 'class-variance-authority';
 import {
-  type CSSProperties,
   Children,
   type ComponentProps,
+  type ComponentRef,
   type ReactNode,
   createContext,
+  forwardRef,
   isValidElement,
   useCallback,
   useEffect,
@@ -36,26 +36,9 @@ import {
   useState,
 } from 'react';
 
-import { cn } from '../../../../lib/utils';
+import { cn, focusState } from '../../../../lib/utils';
 import { Checkbox } from '../checkbox';
 import { InputGroup, InputGroupAddon, InputGroupInput } from '../input-group';
-
-const dataGridVariants = cva('', {
-  variants: {
-    size: {
-      default: '',
-      compact: '',
-    },
-    striped: {
-      true: '',
-      false: '',
-    },
-  },
-  defaultVariants: {
-    size: 'default',
-    striped: true,
-  },
-});
 
 type DataGridContextValue = {
   gridTemplateColumns: string;
@@ -97,7 +80,6 @@ type DataGridProps<TData> = {
   manualPagination?: boolean;
   manualSorting?: boolean;
   size?: DataGridSize;
-  striped?: boolean;
   className?: string;
   children?: ReactNode;
   header?: ReactNode;
@@ -110,7 +92,7 @@ type DataGridProps<TData> = {
   rowHeight?: number;
   headerHeight?: number;
   estimateSize?: number;
-} & VariantProps<typeof dataGridVariants>;
+};
 
 function DataGrid<TData>({
   data,
@@ -128,7 +110,6 @@ function DataGrid<TData>({
   manualPagination = false,
   manualSorting = false,
   size = 'default',
-  striped = true,
   className,
   children,
   header,
@@ -147,6 +128,16 @@ function DataGrid<TData>({
   const resolvedSearchValue = searchValue ?? internalSearchValue;
   const previousSearchValueRef = useRef(resolvedSearchValue);
 
+  const hasControlledRowSelection = rowSelection !== undefined;
+  const hasControlledSorting = sorting !== undefined;
+  const hasControlledPagination = pagination !== undefined;
+  const isClientSorting = enableSorting && !manualSorting;
+  const isClientPagination = Boolean(pagination) && !manualPagination;
+  const shouldResetPageOnSearchChange =
+    hasControlledPagination &&
+    Boolean(onPaginationChange) &&
+    (pagination?.pageIndex ?? 0) !== 0;
+
   const columnPinning: ColumnPinningState = useMemo(
     () => ({ left: pinnedColumns, right: [] }),
     [pinnedColumns]
@@ -156,15 +147,10 @@ function DataGrid<TData>({
     () => new Set(pinnedColumns),
     [pinnedColumns]
   );
-
-  const handleSearchValueChange = useCallback(
-    (nextValue: string) => {
-      if (searchValue === undefined) {
-        setInternalSearchValue(nextValue);
-      }
-      onSearchValueChange?.(nextValue);
-    },
-    [onSearchValueChange, searchValue]
+  const lastPinnedColumnId = pinnedColumns[pinnedColumns.length - 1];
+  const customCellColumnIds = useMemo(
+    () => collectCustomCellColumnIds(columns),
+    [columns]
   );
 
   const { headerSlot, footerSlot } = useMemo(
@@ -177,33 +163,89 @@ function DataGrid<TData>({
     [headerSlot]
   );
 
+  const handleSearchValueChange = useCallback(
+    (nextValue: string) => {
+      if (searchValue === undefined) {
+        setInternalSearchValue(nextValue);
+      }
+      onSearchValueChange?.(nextValue);
+    },
+    [onSearchValueChange, searchValue]
+  );
+
   useEffect(() => {
     if (previousSearchValueRef.current === resolvedSearchValue) return;
     previousSearchValueRef.current = resolvedSearchValue;
-    if (!pagination || !onPaginationChange || pagination.pageIndex === 0) {
+    if (!shouldResetPageOnSearchChange || !pagination || !onPaginationChange) {
       return;
     }
 
     onPaginationChange((current) =>
       current.pageIndex === 0 ? current : { ...current, pageIndex: 0 }
     );
-  }, [onPaginationChange, pagination?.pageIndex, resolvedSearchValue]);
+  }, [
+    onPaginationChange,
+    pagination,
+    resolvedSearchValue,
+    shouldResetPageOnSearchChange,
+  ]);
 
   const searchPlaceholder = normalizedHeader.searchPlaceholder;
+
+  const tableState: {
+    columnPinning: ColumnPinningState;
+    globalFilter: string;
+    rowSelection?: RowSelectionState;
+    sorting?: SortingState;
+    pagination?: PaginationState;
+  } = {
+    columnPinning,
+    globalFilter: resolvedSearchValue,
+  };
+
+  if (hasControlledRowSelection) {
+    tableState.rowSelection = rowSelection;
+  }
+  if (hasControlledSorting) {
+    tableState.sorting = sorting;
+  }
+  if (hasControlledPagination) {
+    tableState.pagination = pagination;
+  }
+
+  const tableFeatureHandlers: {
+    onRowSelectionChange?: OnChangeFn<RowSelectionState>;
+    onSortingChange?: OnChangeFn<SortingState>;
+    onPaginationChange?: OnChangeFn<PaginationState>;
+  } = {};
+
+  if (onRowSelectionChange) {
+    tableFeatureHandlers.onRowSelectionChange = onRowSelectionChange;
+  }
+  if (onSortingChange) {
+    tableFeatureHandlers.onSortingChange = onSortingChange;
+  }
+  if (onPaginationChange) {
+    tableFeatureHandlers.onPaginationChange = onPaginationChange;
+  }
+
+  const tableFeatureModels: {
+    getSortedRowModel?: ReturnType<typeof getSortedRowModel>;
+    getPaginationRowModel?: ReturnType<typeof getPaginationRowModel>;
+  } = {};
+
+  if (isClientSorting) {
+    tableFeatureModels.getSortedRowModel = getSortedRowModel();
+  }
+  if (isClientPagination) {
+    tableFeatureModels.getPaginationRowModel = getPaginationRowModel();
+  }
 
   const table = useReactTable({
     data,
     columns,
-    state: {
-      columnPinning,
-      globalFilter: resolvedSearchValue,
-      ...(rowSelection !== undefined ? { rowSelection } : {}),
-      ...(sorting !== undefined ? { sorting } : {}),
-      ...(pagination !== undefined ? { pagination } : {}),
-    },
-    ...(onRowSelectionChange ? { onRowSelectionChange } : {}),
-    ...(onSortingChange ? { onSortingChange } : {}),
-    ...(onPaginationChange ? { onPaginationChange } : {}),
+    state: tableState,
+    ...tableFeatureHandlers,
     autoResetPageIndex: false,
     autoResetExpanded: false,
     enableRowSelection,
@@ -213,12 +255,7 @@ function DataGrid<TData>({
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     globalFilterFn,
-    ...(enableSorting && !manualSorting
-      ? { getSortedRowModel: getSortedRowModel() }
-      : {}),
-    ...(pagination && !manualPagination
-      ? { getPaginationRowModel: getPaginationRowModel() }
-      : {}),
+    ...tableFeatureModels,
     getRowId,
     rowCount,
   });
@@ -259,6 +296,19 @@ function DataGrid<TData>({
       .join(' ');
   }, [allColumns]);
 
+  const pinnedLeftByColumnId = useMemo(() => {
+    const leftById = new Map<string, number>();
+    let cumulativeLeft = 0;
+
+    for (const pinnedId of pinnedColumns) {
+      leftById.set(pinnedId, cumulativeLeft);
+      const pinnedColumn = allColumns.find((column) => column.id === pinnedId);
+      cumulativeLeft += pinnedColumn?.columnDef.size ?? 120;
+    }
+
+    return leftById;
+  }, [allColumns, pinnedColumns]);
+
   const contextValue = useMemo<DataGridContextValue>(
     () => ({
       gridTemplateColumns,
@@ -274,7 +324,6 @@ function DataGrid<TData>({
         data-slot="data-grid"
         className={cn(
           'relative flex h-full min-h-0 w-full flex-col bg-default text-sm',
-          dataGridVariants({ size, striped }),
           className
         )}
       >
@@ -325,10 +374,16 @@ function DataGrid<TData>({
                 {headerGroup.headers.map((header) => {
                   const isPinned = pinnedColumnIds.has(header.column.id);
                   const isLastPinned =
-                    isPinned &&
-                    pinnedColumns[pinnedColumns.length - 1] ===
-                      header.column.id;
+                    isPinned && lastPinnedColumnId === header.column.id;
                   const sortDirection = header.column.getIsSorted();
+                  const canSort = header.column.getCanSort();
+                  const renderedHeader = header.isPlaceholder
+                    ? null
+                    : flexRender(
+                        header.column.columnDef.header,
+                        header.getContext()
+                      );
+                  const headerTextValue = getTextValue(renderedHeader);
 
                   return (
                     <div
@@ -336,53 +391,52 @@ function DataGrid<TData>({
                       data-slot="data-grid-column-header"
                       role="columnheader"
                       aria-colindex={header.index + 1}
-                      aria-sort={
-                        sortDirection === 'asc'
-                          ? 'ascending'
-                          : sortDirection === 'desc'
-                            ? 'descending'
-                            : header.column.getCanSort()
-                              ? 'none'
-                              : undefined
-                      }
+                      aria-sort={getAriaSort(sortDirection, canSort)}
                       className={cn(
                         'flex items-center px-3 text-left text-sm font-medium text-muted-foreground',
                         isPinned && 'sticky left-0 z-10 bg-background',
                         isLastPinned &&
                           'relative after:pointer-events-none after:absolute after:inset-y-0 after:left-full after:w-2 after:content-[""] after:bg-linear-to-r after:from-border after:to-transparent after:opacity-70',
-                        header.column.getCanSort() &&
-                          'cursor-pointer select-none hover:bg-muted/60'
+                        canSort &&
+                          cn(
+                            'cursor-pointer select-none hover:bg-muted/60',
+                            focusState
+                          )
                       )}
+                      tabIndex={canSort ? 0 : undefined}
                       style={
                         isPinned
-                          ? getPinnedColumnStyle(
-                              header.column.id,
-                              pinnedColumns,
-                              allColumns
-                            )
+                          ? {
+                              position: 'sticky',
+                              left:
+                                pinnedLeftByColumnId.get(header.column.id) ?? 0,
+                              zIndex: 10,
+                            }
                           : undefined
                       }
                       onClick={
-                        header.column.getCanSort()
+                        canSort
                           ? header.column.getToggleSortingHandler()
                           : undefined
                       }
+                      onKeyDown={
+                        canSort
+                          ? (event) => {
+                              if (event.key !== 'Enter' && event.key !== ' ')
+                                return;
+                              event.preventDefault();
+                              header.column.toggleSorting();
+                            }
+                          : undefined
+                      }
                     >
-                      {(() => {
-                        if (header.isPlaceholder) return null;
-                        const renderedHeader = flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        );
-                        return typeof renderedHeader === 'string' ||
-                          typeof renderedHeader === 'number' ? (
-                          <span className="block min-w-0 flex-1 truncate">
-                            {renderedHeader}
-                          </span>
-                        ) : (
-                          renderedHeader
-                        );
-                      })()}
+                      {headerTextValue !== undefined ? (
+                        <span className="block min-w-0 flex-1 truncate">
+                          {headerTextValue}
+                        </span>
+                      ) : (
+                        renderedHeader
+                      )}
                       {sortDirection === 'asc' && (
                         <IconChevronUp className="ml-1 size-3.5 shrink-0" />
                       )}
@@ -405,7 +459,6 @@ function DataGrid<TData>({
               {virtualizer.getVirtualItems().map((virtualRow) => {
                 const row = rows[virtualRow.index];
                 const isSelected = row.getIsSelected();
-                const isEvenRow = virtualRow.index % 2 === 1;
 
                 return (
                   <div
@@ -419,52 +472,68 @@ function DataGrid<TData>({
                       'group absolute left-0 right-0 grid border-b bg-background transition-colors',
                       'hover:bg-active-muted-background',
                       isSelected && 'bg-active-muted-background',
-                      onRowClick && 'cursor-pointer'
+                      onRowClick &&
+                        cn(
+                          'cursor-pointer focus-visible:bg-active-muted-background',
+                          focusState
+                        )
                     )}
                     style={{
                       gridTemplateColumns,
                       height: virtualRow.size,
                       transform: `translateY(${virtualRow.start}px)`,
                     }}
+                    tabIndex={onRowClick ? 0 : undefined}
                     onClick={onRowClick ? () => onRowClick(row) : undefined}
+                    onKeyDown={
+                      onRowClick
+                        ? (event) => {
+                            if (event.key !== 'Enter' && event.key !== ' ')
+                              return;
+                            event.preventDefault();
+                            onRowClick(row);
+                          }
+                        : undefined
+                    }
                   >
                     {row.getVisibleCells().map((cell) => {
                       const isPinned = pinnedColumnIds.has(cell.column.id);
                       const isLastPinned =
-                        isPinned &&
-                        pinnedColumns[pinnedColumns.length - 1] ===
-                          cell.column.id;
-                      const rawCellValue = cell.getValue();
-                      const isTextCellValue =
-                        typeof rawCellValue === 'string' ||
-                        typeof rawCellValue === 'number';
+                        isPinned && lastPinnedColumnId === cell.column.id;
+                      const renderedCell = flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      );
+                      const hasCustomCellRenderer = customCellColumnIds.has(
+                        cell.column.id
+                      );
+                      const renderedTextValue = getTextValue(renderedCell);
+                      const rawTextValue = getTextValue(cell.getValue());
+                      const textValue =
+                        renderedTextValue ??
+                        (!hasCustomCellRenderer ? rawTextValue : undefined);
 
                       return (
                         <DataGridCell
                           key={cell.id}
                           isPinned={isPinned}
                           isLastPinned={isLastPinned}
-                          isSelected={isSelected}
-                          isEvenRow={striped && isEvenRow}
                           colIndex={cell.column.getIndex() + 1}
-                          textValue={
-                            isTextCellValue ? String(rawCellValue) : undefined
-                          }
-                          truncate={isTextCellValue}
+                          textValue={textValue}
+                          truncate={textValue !== undefined}
                           style={
                             isPinned
-                              ? getPinnedColumnStyle(
-                                  cell.column.id,
-                                  pinnedColumns,
-                                  allColumns
-                                )
+                              ? {
+                                  position: 'sticky',
+                                  left:
+                                    pinnedLeftByColumnId.get(cell.column.id) ??
+                                    0,
+                                  zIndex: 10,
+                                }
                               : undefined
                           }
                         >
-                          {flexRender(
-                            cell.column.columnDef.cell,
-                            cell.getContext()
-                          )}
+                          {renderedCell}
                         </DataGridCell>
                       );
                     })}
@@ -509,30 +578,43 @@ type DataGridTitleProps = {
   className?: string;
 };
 
-function DataGridTitle({ children, className }: DataGridTitleProps) {
-  if (!children) return null;
-  return (
-    <div
-      className={cn('truncate text-lg font-medium text-foreground', className)}
-    >
-      {children}
-    </div>
-  );
-}
+const DataGridTitle = forwardRef<ComponentRef<'div'>, DataGridTitleProps>(
+  function DataGridTitle({ children, className }, ref) {
+    if (!children) return null;
+    return (
+      <div
+        ref={ref}
+        className={cn(
+          'truncate text-lg font-medium text-foreground',
+          className
+        )}
+      >
+        {children}
+      </div>
+    );
+  }
+);
+DataGridTitle.displayName = 'DataGridTitle';
 
 type DataGridSubtitleProps = {
   children?: ReactNode;
   className?: string;
 };
 
-function DataGridSubtitle({ children, className }: DataGridSubtitleProps) {
-  if (!children) return null;
-  return (
-    <div className={cn('truncate text-sm text-muted-foreground', className)}>
-      {children}
-    </div>
-  );
-}
+const DataGridSubtitle = forwardRef<ComponentRef<'div'>, DataGridSubtitleProps>(
+  function DataGridSubtitle({ children, className }, ref) {
+    if (!children) return null;
+    return (
+      <div
+        ref={ref}
+        className={cn('truncate text-sm text-muted-foreground', className)}
+      >
+        {children}
+      </div>
+    );
+  }
+);
+DataGridSubtitle.displayName = 'DataGridSubtitle';
 
 type DataGridSearchProps = Omit<
   ComponentProps<typeof InputGroupInput>,
@@ -542,13 +624,13 @@ type DataGridSearchProps = Omit<
   onValueChange?: (value: string) => void;
 };
 
-function DataGridSearch({
-  className,
-  value,
-  onValueChange,
-  placeholder = 'Search',
-  ...props
-}: DataGridSearchProps) {
+const DataGridSearch = forwardRef<
+  ComponentRef<typeof InputGroupInput>,
+  DataGridSearchProps
+>(function DataGridSearch(
+  { className, value, onValueChange, placeholder = 'Search', ...props },
+  ref
+) {
   return (
     <InputGroup
       data-slot="data-grid-search"
@@ -564,6 +646,7 @@ function DataGridSearch({
         <IconSearch />
       </InputGroupAddon>
       <InputGroupInput
+        ref={ref}
         value={value}
         onChange={(event) => onValueChange?.(event.target.value)}
         placeholder={placeholder}
@@ -572,27 +655,30 @@ function DataGridSearch({
       />
     </InputGroup>
   );
-}
+});
+DataGridSearch.displayName = 'DataGridSearch';
 
 type DataGridHeaderActionsProps = {
   children?: ReactNode;
   className?: string;
 };
 
-function DataGridHeaderActions({
-  children,
-  className,
-}: DataGridHeaderActionsProps) {
+const DataGridHeaderActions = forwardRef<
+  ComponentRef<'div'>,
+  DataGridHeaderActionsProps
+>(function DataGridHeaderActions({ children, className }, ref) {
   if (!children) return null;
   return (
     <div
+      ref={ref}
       data-slot="data-grid-header-actions"
       className={cn('flex self-end items-end gap-2', className)}
     >
       {children}
     </div>
   );
-}
+});
+DataGridHeaderActions.displayName = 'DataGridHeaderActions';
 
 type NormalizedDataGridHeader = {
   title: ReactNode;
@@ -612,12 +698,134 @@ const EMPTY_HEADER: NormalizedDataGridHeader = {
   hasHeaderContent: false,
 };
 
-function normalizeDataGridHeader(header: ReactNode): NormalizedDataGridHeader {
-  if (!isValidElement<{ children?: ReactNode }>(header)) {
-    return EMPTY_HEADER;
+const SLOT_COMPONENT_NAMES = {
+  header: 'DataGridHeader',
+  footer: 'DataGridFooter',
+  title: 'DataGridTitle',
+  subtitle: 'DataGridSubtitle',
+  search: 'DataGridSearch',
+  headerActions: 'DataGridHeaderActions',
+} as const;
+
+function getAriaSort(sortDirection: false | 'asc' | 'desc', canSort: boolean) {
+  if (sortDirection === 'asc') return 'ascending' as const;
+  if (sortDirection === 'desc') return 'descending' as const;
+  return canSort ? ('none' as const) : undefined;
+}
+
+function isComponentMatch<TProps>(
+  element: ReactNode,
+  component: (props: TProps) => ReactNode,
+  componentName: string
+) {
+  if (!isValidElement(element)) return false;
+  if (element.type === component) return true;
+
+  if (typeof element.type === 'function') {
+    const typeWithDisplayName = element.type as {
+      name?: string;
+      displayName?: string;
+    };
+    return (
+      typeWithDisplayName.name === componentName ||
+      typeWithDisplayName.displayName === componentName
+    );
   }
 
-  if (header.type !== DataGridHeader) {
+  if (typeof element.type === 'object' && element.type !== null) {
+    const typeWithDisplayName = element.type as {
+      displayName?: string;
+    };
+    const displayName =
+      typeof typeWithDisplayName.displayName === 'string'
+        ? typeWithDisplayName.displayName
+        : undefined;
+    return displayName === componentName;
+  }
+
+  return false;
+}
+
+function isHeaderSlot(node: ReactNode) {
+  return isComponentMatch(node, DataGridHeader, SLOT_COMPONENT_NAMES.header);
+}
+
+function isFooterSlot(node: ReactNode) {
+  return isComponentMatch(node, DataGridFooter, SLOT_COMPONENT_NAMES.footer);
+}
+
+function isTitleSlot(node: ReactNode) {
+  return isComponentMatch(node, DataGridTitle, SLOT_COMPONENT_NAMES.title);
+}
+
+function isSubtitleSlot(node: ReactNode) {
+  return isComponentMatch(
+    node,
+    DataGridSubtitle,
+    SLOT_COMPONENT_NAMES.subtitle
+  );
+}
+
+function isSearchSlot(node: ReactNode) {
+  return isComponentMatch(node, DataGridSearch, SLOT_COMPONENT_NAMES.search);
+}
+
+function isHeaderActionsSlot(node: ReactNode) {
+  return isComponentMatch(
+    node,
+    DataGridHeaderActions,
+    SLOT_COMPONENT_NAMES.headerActions
+  );
+}
+
+function getTextValue(value: unknown) {
+  if (typeof value === 'string' || typeof value === 'number') {
+    return String(value);
+  }
+  return undefined;
+}
+
+function collectCustomCellColumnIds<TData>(columns: ColumnDef<TData>[]) {
+  const ids = new Set<string>();
+
+  const visit = (defs: ColumnDef<TData>[]) => {
+    for (const def of defs) {
+      const groupColumns =
+        'columns' in def
+          ? (def.columns as ColumnDef<TData>[] | undefined)
+          : undefined;
+
+      if (groupColumns?.length) {
+        visit(groupColumns);
+        continue;
+      }
+
+      const hasOwnCellRenderer = Object.prototype.hasOwnProperty.call(
+        def,
+        'cell'
+      );
+      if (!hasOwnCellRenderer) continue;
+
+      if ('id' in def && typeof def.id === 'string') {
+        ids.add(def.id);
+        continue;
+      }
+
+      if ('accessorKey' in def && typeof def.accessorKey === 'string') {
+        ids.add(def.accessorKey);
+      }
+    }
+  };
+
+  visit(columns);
+  return ids;
+}
+
+function normalizeDataGridHeader(header: ReactNode): NormalizedDataGridHeader {
+  if (
+    !isValidElement<{ children?: ReactNode }>(header) ||
+    !isHeaderSlot(header)
+  ) {
     return EMPTY_HEADER;
   }
 
@@ -630,17 +838,17 @@ function normalizeDataGridHeader(header: ReactNode): NormalizedDataGridHeader {
   Children.forEach(header.props.children, (child) => {
     if (!isValidElement(child)) return;
 
-    if (child.type === DataGridTitle) {
+    if (isTitleSlot(child)) {
       title = title ?? child;
       return;
     }
 
-    if (child.type === DataGridSubtitle) {
+    if (isSubtitleSlot(child)) {
       subtitle = subtitle ?? child;
       return;
     }
 
-    if (child.type === DataGridSearch) {
+    if (isSearchSlot(child)) {
       if (!hasSearch) {
         hasSearch = true;
         const props = child.props as DataGridSearchProps;
@@ -649,7 +857,7 @@ function normalizeDataGridHeader(header: ReactNode): NormalizedDataGridHeader {
       return;
     }
 
-    if (child.type === DataGridHeaderActions) {
+    if (isHeaderActionsSlot(child)) {
       actions = actions ?? child;
     }
   });
@@ -675,12 +883,9 @@ function resolveDataGridSlots(
   Children.forEach(children, (child) => {
     if (!isValidElement<{ children?: ReactNode }>(child)) return;
 
-    if (child.type === DataGridHeader && headerSlot == null) {
+    if (headerSlot == null && isHeaderSlot(child)) {
       headerSlot = child;
-      return;
-    }
-
-    if (child.type === DataGridFooter && footerSlot == null) {
+    } else if (footerSlot == null && isFooterSlot(child)) {
       footerSlot = child.props.children ?? null;
     }
   });
@@ -688,77 +893,57 @@ function resolveDataGridSlots(
   return { headerSlot, footerSlot };
 }
 
-function getPinnedColumnStyle(
-  columnId: string,
-  pinnedColumns: string[],
-  allColumns: {
-    id: string;
-    getSize: () => number;
-    columnDef: { size?: number };
-  }[]
-): CSSProperties {
-  const pinnedIndex = pinnedColumns.indexOf(columnId);
-  if (pinnedIndex <= 0) return { position: 'sticky', left: 0, zIndex: 10 };
-
-  let left = 0;
-  for (let i = 0; i < pinnedIndex; i++) {
-    const col = allColumns.find((c) => c.id === pinnedColumns[i]);
-    if (col) {
-      left += col.columnDef.size ?? 120;
-    }
-  }
-
-  return { position: 'sticky', left, zIndex: 10 };
-}
-
 type DataGridCellProps = ComponentProps<'div'> & {
   isPinned?: boolean;
   isLastPinned?: boolean;
-  isSelected?: boolean;
-  isEvenRow?: boolean;
   colIndex?: number;
   textValue?: string;
   truncate?: boolean;
 };
 
-function DataGridCell({
-  className,
-  children,
-  isPinned,
-  isLastPinned,
-  isSelected,
-  isEvenRow,
-  colIndex,
-  textValue,
-  truncate: shouldTruncate = true,
-  style,
-  ...props
-}: DataGridCellProps) {
-  return (
-    <div
-      data-slot="data-grid-cell"
-      role="gridcell"
-      aria-colindex={colIndex}
-      title={textValue}
-      className={cn(
-        'flex items-center px-3 text-sm font-normal',
-        'min-w-0',
-        isPinned && 'sticky z-10 bg-inherit',
-        isLastPinned &&
-          'relative after:pointer-events-none after:absolute after:inset-y-0 after:left-full after:w-2 after:content-[""] after:bg-linear-to-r after:from-border after:to-transparent after:opacity-70',
-        className
-      )}
-      style={style}
-      {...props}
-    >
-      {shouldTruncate && textValue !== undefined ? (
-        <span className="block min-w-0 flex-1 truncate">{textValue}</span>
-      ) : (
-        children
-      )}
-    </div>
-  );
-}
+const DataGridCell = forwardRef<ComponentRef<'div'>, DataGridCellProps>(
+  function DataGridCell(
+    {
+      className,
+      children,
+      isPinned,
+      isLastPinned,
+      colIndex,
+      textValue,
+      truncate: shouldTruncate = true,
+      style,
+      ...props
+    },
+    ref
+  ) {
+    return (
+      <div
+        ref={ref}
+        data-slot="data-grid-cell"
+        role="gridcell"
+        aria-colindex={colIndex}
+        title={textValue}
+        className={cn(
+          'flex items-center px-3 text-sm font-normal',
+          'min-w-0',
+          isPinned && 'sticky z-10 bg-inherit',
+          isLastPinned &&
+            'relative after:pointer-events-none after:absolute after:inset-y-0 after:left-full after:w-2 after:content-[""] after:bg-linear-to-r after:from-border after:to-transparent after:opacity-70',
+          className
+        )}
+        style={style}
+        {...props}
+      >
+        {shouldTruncate && textValue !== undefined ? (
+          <span className="block min-w-0 flex-1 truncate">{textValue}</span>
+        ) : (
+          children
+        )}
+      </div>
+    );
+  }
+);
+DataGridCell.displayName = 'DataGridCell';
 
 function DataGridCheckboxHeader<TData>({
   table,
