@@ -1,7 +1,12 @@
-import { IconChevronDown, IconChevronUp } from '@tabler/icons-react';
+import {
+  IconChevronDown,
+  IconChevronUp,
+  IconSearch,
+} from '@tabler/icons-react';
 import {
   type ColumnDef,
   type ColumnPinningState,
+  type FilterFnOption,
   type OnChangeFn,
   type PaginationState,
   type Row,
@@ -9,6 +14,7 @@ import {
   type SortingState,
   flexRender,
   getCoreRowModel,
+  getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
@@ -17,16 +23,22 @@ import { useVirtualizer } from '@tanstack/react-virtual';
 import { type VariantProps, cva } from 'class-variance-authority';
 import {
   type CSSProperties,
+  Children,
   type ComponentProps,
   type ReactNode,
   createContext,
+  isValidElement,
+  useCallback,
+  useEffect,
   useContext,
   useMemo,
   useRef,
+  useState,
 } from 'react';
 
 import { cn } from '../../../../lib/utils';
 import { Checkbox } from '../checkbox';
+import { InputGroup, InputGroupAddon, InputGroupInput } from '../input-group';
 
 const dataGridVariants = cva('', {
   variants: {
@@ -60,8 +72,8 @@ const DataGridContext = createContext<DataGridContextValue>({
 type DataGridSize = 'default' | 'compact';
 
 const ROW_HEIGHT_MAP: Record<DataGridSize, number> = {
-  default: 44,
-  compact: 36,
+  default: 36,
+  compact: 32,
 };
 
 const HEADER_HEIGHT_MAP: Record<DataGridSize, number> = {
@@ -87,9 +99,16 @@ type DataGridProps<TData> = {
   size?: DataGridSize;
   striped?: boolean;
   className?: string;
+  children?: ReactNode;
+  header?: ReactNode;
   onRowClick?: (row: Row<TData>) => void;
   footer?: ReactNode;
+  searchValue?: string;
+  onSearchValueChange?: (value: string) => void;
+  globalFilterFn?: FilterFnOption<TData>;
   getRowId?: (originalRow: TData, index: number) => string;
+  rowHeight?: number;
+  headerHeight?: number;
   estimateSize?: number;
 } & VariantProps<typeof dataGridVariants>;
 
@@ -111,12 +130,22 @@ function DataGrid<TData>({
   size = 'default',
   striped = true,
   className,
+  children,
+  header,
   onRowClick,
   footer,
+  searchValue,
+  onSearchValueChange,
+  globalFilterFn = 'auto',
   getRowId,
+  rowHeight,
+  headerHeight,
   estimateSize,
 }: DataGridProps<TData>) {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [internalSearchValue, setInternalSearchValue] = useState('');
+  const resolvedSearchValue = searchValue ?? internalSearchValue;
+  const previousSearchValueRef = useRef(resolvedSearchValue);
 
   const columnPinning: ColumnPinningState = useMemo(
     () => ({ left: pinnedColumns, right: [] }),
@@ -128,11 +157,46 @@ function DataGrid<TData>({
     [pinnedColumns]
   );
 
+  const handleSearchValueChange = useCallback(
+    (nextValue: string) => {
+      if (searchValue === undefined) {
+        setInternalSearchValue(nextValue);
+      }
+      onSearchValueChange?.(nextValue);
+    },
+    [onSearchValueChange, searchValue]
+  );
+
+  const { headerSlot, footerSlot } = useMemo(
+    () => resolveDataGridSlots(children, header, footer),
+    [children, footer, header]
+  );
+
+  const normalizedHeader = useMemo(
+    () => normalizeDataGridHeader(headerSlot),
+    [headerSlot]
+  );
+
+  useEffect(() => {
+    if (previousSearchValueRef.current === resolvedSearchValue) return;
+    previousSearchValueRef.current = resolvedSearchValue;
+    if (!pagination || !onPaginationChange || pagination.pageIndex === 0) {
+      return;
+    }
+
+    onPaginationChange((current) =>
+      current.pageIndex === 0 ? current : { ...current, pageIndex: 0 }
+    );
+  }, [onPaginationChange, pagination?.pageIndex, resolvedSearchValue]);
+
+  const searchPlaceholder = normalizedHeader.searchPlaceholder;
+
   const table = useReactTable({
     data,
     columns,
     state: {
       columnPinning,
+      globalFilter: resolvedSearchValue,
       ...(rowSelection !== undefined ? { rowSelection } : {}),
       ...(sorting !== undefined ? { sorting } : {}),
       ...(pagination !== undefined ? { pagination } : {}),
@@ -140,11 +204,15 @@ function DataGrid<TData>({
     ...(onRowSelectionChange ? { onRowSelectionChange } : {}),
     ...(onSortingChange ? { onSortingChange } : {}),
     ...(onPaginationChange ? { onPaginationChange } : {}),
+    autoResetPageIndex: false,
+    autoResetExpanded: false,
     enableRowSelection,
     enableSorting,
     manualPagination,
     manualSorting,
     getCoreRowModel: getCoreRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
+    globalFilterFn,
     ...(enableSorting && !manualSorting
       ? { getSortedRowModel: getSortedRowModel() }
       : {}),
@@ -159,20 +227,20 @@ function DataGrid<TData>({
   const headerGroups = table.getHeaderGroups();
   const allColumns = table.getAllColumns();
 
-  const rowHeight = estimateSize ?? ROW_HEIGHT_MAP[size];
-  const headerHeight = HEADER_HEIGHT_MAP[size];
+  const resolvedRowHeight = estimateSize ?? rowHeight ?? ROW_HEIGHT_MAP[size];
+  const resolvedHeaderHeight = headerHeight ?? HEADER_HEIGHT_MAP[size];
 
   const virtualizer = useVirtualizer({
     count: rows.length,
     getScrollElement: () => scrollContainerRef.current,
-    estimateSize: () => rowHeight,
+    estimateSize: () => resolvedRowHeight,
     overscan: 10,
   });
 
   const gridTemplateColumns = useMemo(() => {
-    const hasFlexibleColumn = allColumns.some((col) => {
-      return col.columnDef.size === undefined;
-    });
+    const hasFlexibleColumn = allColumns.some(
+      (col) => col.columnDef.size === undefined
+    );
 
     return allColumns
       .map((col, index) => {
@@ -205,11 +273,34 @@ function DataGrid<TData>({
       <div
         data-slot="data-grid"
         className={cn(
-          'relative flex h-full min-h-0 w-full flex-col border-y bg-default text-sm',
+          'relative flex h-full min-h-0 w-full flex-col bg-default text-sm',
           dataGridVariants({ size, striped }),
           className
         )}
       >
+        {normalizedHeader.hasHeaderContent && (
+          <div
+            data-slot="data-grid-header"
+            className="flex min-h-14 items-start gap-3 px-3 py-2"
+          >
+            <div className="flex flex-col min-w-0 flex-1 gap-1">
+              {normalizedHeader.title}
+              {normalizedHeader.subtitle}
+            </div>
+            {(normalizedHeader.hasSearch || normalizedHeader.actions) && (
+              <div className="ms-auto flex items-end gap-2 self-end">
+                {normalizedHeader.hasSearch && (
+                  <DataGridSearch
+                    value={resolvedSearchValue}
+                    onValueChange={handleSearchValueChange}
+                    placeholder={searchPlaceholder}
+                  />
+                )}
+                {normalizedHeader.actions}
+              </div>
+            )}
+          </div>
+        )}
         <div
           ref={scrollContainerRef}
           data-slot="data-grid-scroll-container"
@@ -225,13 +316,10 @@ function DataGrid<TData>({
                 data-slot="data-grid-header-row"
                 role="row"
                 aria-rowindex={1}
-                className={cn(
-                  'sticky top-0 z-20 grid border-b bg-background',
-                  size === 'compact' ? 'min-h-8' : 'min-h-9'
-                )}
+                className="sticky top-0 z-20 grid border-y bg-background"
                 style={{
                   gridTemplateColumns,
-                  minHeight: headerHeight,
+                  minHeight: resolvedHeaderHeight,
                 }}
               >
                 {headerGroup.headers.map((header) => {
@@ -258,10 +346,10 @@ function DataGrid<TData>({
                               : undefined
                       }
                       className={cn(
-                        'flex items-center px-3 text-left text-sm font-medium text-primary truncate',
+                        'flex items-center px-3 text-left text-sm font-medium text-muted-foreground',
                         isPinned && 'sticky left-0 z-10 bg-background',
                         isLastPinned &&
-                          'shadow-[2px_0_4px_-2px_rgba(0,0,0,0.1)]',
+                          'relative after:pointer-events-none after:absolute after:inset-y-0 after:left-full after:w-2 after:content-[""] after:bg-linear-to-r after:from-border after:to-transparent after:opacity-70',
                         header.column.getCanSort() &&
                           'cursor-pointer select-none hover:bg-muted/60'
                       )}
@@ -288,7 +376,9 @@ function DataGrid<TData>({
                         );
                         return typeof renderedHeader === 'string' ||
                           typeof renderedHeader === 'number' ? (
-                          <span className="truncate">{renderedHeader}</span>
+                          <span className="block min-w-0 flex-1 truncate">
+                            {renderedHeader}
+                          </span>
                         ) : (
                           renderedHeader
                         );
@@ -326,10 +416,9 @@ function DataGrid<TData>({
                     aria-rowindex={virtualRow.index + 2}
                     aria-selected={isSelected || undefined}
                     className={cn(
-                      'absolute left-0 right-0 grid border-b transition-colors',
+                      'group absolute left-0 right-0 grid border-b transition-colors',
                       'hover:bg-muted/30',
-                      isSelected && 'bg-muted',
-                      striped && isEvenRow && !isSelected && 'bg-muted/50',
+                      isSelected && 'bg-active-muted-background',
                       onRowClick && 'cursor-pointer'
                     )}
                     style={{
@@ -345,6 +434,10 @@ function DataGrid<TData>({
                         isPinned &&
                         pinnedColumns[pinnedColumns.length - 1] ===
                           cell.column.id;
+                      const rawCellValue = cell.getValue();
+                      const isTextCellValue =
+                        typeof rawCellValue === 'string' ||
+                        typeof rawCellValue === 'number';
 
                       return (
                         <DataGridCell
@@ -354,6 +447,10 @@ function DataGrid<TData>({
                           isSelected={isSelected}
                           isEvenRow={striped && isEvenRow}
                           colIndex={cell.column.getIndex() + 1}
+                          textValue={
+                            isTextCellValue ? String(rawCellValue) : undefined
+                          }
+                          truncate={isTextCellValue}
                           style={
                             isPinned
                               ? getPinnedColumnStyle(
@@ -378,17 +475,217 @@ function DataGrid<TData>({
           </div>
         </div>
 
-        {footer && (
+        {footerSlot && (
           <div
             data-slot="data-grid-footer"
             className="flex items-center justify-between border-t px-3 py-2"
           >
-            {footer}
+            {footerSlot}
           </div>
         )}
       </div>
     </DataGridContext.Provider>
   );
+}
+
+type DataGridHeaderProps = {
+  children?: ReactNode;
+};
+
+function DataGridHeader({ children }: DataGridHeaderProps) {
+  return <>{children}</>;
+}
+
+type DataGridFooterProps = {
+  children?: ReactNode;
+};
+
+function DataGridFooter({ children }: DataGridFooterProps) {
+  return <>{children}</>;
+}
+
+type DataGridTitleProps = {
+  children?: ReactNode;
+  className?: string;
+};
+
+function DataGridTitle({ children, className }: DataGridTitleProps) {
+  if (!children) return null;
+  return (
+    <div
+      className={cn('truncate text-lg font-medium text-foreground', className)}
+    >
+      {children}
+    </div>
+  );
+}
+
+type DataGridSubtitleProps = {
+  children?: ReactNode;
+  className?: string;
+};
+
+function DataGridSubtitle({ children, className }: DataGridSubtitleProps) {
+  if (!children) return null;
+  return (
+    <div className={cn('truncate text-sm text-muted-foreground', className)}>
+      {children}
+    </div>
+  );
+}
+
+type DataGridSearchProps = Omit<
+  ComponentProps<typeof InputGroupInput>,
+  'value' | 'onChange'
+> & {
+  value?: string;
+  onValueChange?: (value: string) => void;
+};
+
+function DataGridSearch({
+  className,
+  value,
+  onValueChange,
+  placeholder = 'Search',
+  ...props
+}: DataGridSearchProps) {
+  return (
+    <InputGroup
+      data-slot="data-grid-search"
+      className={cn(
+        'h-7 w-60 min-w-40 max-w-full self-end rounded-md border-muted-background bg-muted-background shadow-none has-[[data-slot=input-group-control]:focus-visible]:bg-background',
+        className
+      )}
+    >
+      <InputGroupAddon
+        align="inline-start"
+        className="px-2 text-muted-foreground [&>svg:not([class*='size-'])]:size-4"
+      >
+        <IconSearch />
+      </InputGroupAddon>
+      <InputGroupInput
+        value={value}
+        onChange={(event) => onValueChange?.(event.target.value)}
+        placeholder={placeholder}
+        className="h-7 text-sm text-muted-foreground placeholder:text-muted-foreground"
+        {...props}
+      />
+    </InputGroup>
+  );
+}
+
+type DataGridHeaderActionsProps = {
+  children?: ReactNode;
+  className?: string;
+};
+
+function DataGridHeaderActions({
+  children,
+  className,
+}: DataGridHeaderActionsProps) {
+  if (!children) return null;
+  return (
+    <div
+      data-slot="data-grid-header-actions"
+      className={cn('flex self-end items-end gap-2', className)}
+    >
+      {children}
+    </div>
+  );
+}
+
+type NormalizedDataGridHeader = {
+  title: ReactNode;
+  subtitle: ReactNode;
+  hasSearch: boolean;
+  searchPlaceholder: string;
+  actions: ReactNode;
+  hasHeaderContent: boolean;
+};
+
+const EMPTY_HEADER: NormalizedDataGridHeader = {
+  title: null,
+  subtitle: null,
+  hasSearch: false,
+  searchPlaceholder: 'Search…',
+  actions: null,
+  hasHeaderContent: false,
+};
+
+function normalizeDataGridHeader(header: ReactNode): NormalizedDataGridHeader {
+  if (!isValidElement<{ children?: ReactNode }>(header)) {
+    return EMPTY_HEADER;
+  }
+
+  if (header.type !== DataGridHeader) {
+    return EMPTY_HEADER;
+  }
+
+  let title: ReactNode = null;
+  let subtitle: ReactNode = null;
+  let hasSearch = false;
+  let searchPlaceholder = 'Search…';
+  let actions: ReactNode = null;
+
+  Children.forEach(header.props.children, (child) => {
+    if (!isValidElement(child)) return;
+
+    if (child.type === DataGridTitle) {
+      title = title ?? child;
+      return;
+    }
+
+    if (child.type === DataGridSubtitle) {
+      subtitle = subtitle ?? child;
+      return;
+    }
+
+    if (child.type === DataGridSearch) {
+      if (!hasSearch) {
+        hasSearch = true;
+        const props = child.props as DataGridSearchProps;
+        if (props.placeholder) searchPlaceholder = props.placeholder;
+      }
+      return;
+    }
+
+    if (child.type === DataGridHeaderActions) {
+      actions = actions ?? child;
+    }
+  });
+
+  return {
+    title,
+    subtitle,
+    hasSearch,
+    searchPlaceholder,
+    actions,
+    hasHeaderContent: Boolean(title || subtitle || hasSearch || actions),
+  };
+}
+
+function resolveDataGridSlots(
+  children: ReactNode,
+  headerProp: ReactNode,
+  footerProp: ReactNode
+) {
+  let headerSlot = headerProp;
+  let footerSlot = footerProp;
+
+  Children.forEach(children, (child) => {
+    if (!isValidElement<{ children?: ReactNode }>(child)) return;
+
+    if (child.type === DataGridHeader && headerSlot == null) {
+      headerSlot = child;
+      return;
+    }
+
+    if (child.type === DataGridFooter && footerSlot == null) {
+      footerSlot = child.props.children ?? null;
+    }
+  });
+
+  return { headerSlot, footerSlot };
 }
 
 function getPinnedColumnStyle(
@@ -420,6 +717,8 @@ type DataGridCellProps = ComponentProps<'div'> & {
   isSelected?: boolean;
   isEvenRow?: boolean;
   colIndex?: number;
+  textValue?: string;
+  truncate?: boolean;
 };
 
 function DataGridCell({
@@ -430,34 +729,36 @@ function DataGridCell({
   isSelected,
   isEvenRow,
   colIndex,
+  textValue,
+  truncate: shouldTruncate = true,
   style,
   ...props
 }: DataGridCellProps) {
-  const titleValue = useMemo(() => {
-    if (typeof children === 'string' || typeof children === 'number') {
-      return String(children);
-    }
-    return undefined;
-  }, [children]);
-
   return (
     <div
       data-slot="data-grid-cell"
       role="gridcell"
       aria-colindex={colIndex}
-      title={titleValue}
+      title={textValue}
       className={cn(
-        'flex items-center px-3 text-sm font-normal truncate',
-        isPinned && 'sticky z-10 bg-background dark:bg-background',
-        isPinned && isEvenRow && !isSelected && 'bg-muted/50',
-        isPinned && isSelected && 'bg-muted',
-        isLastPinned && 'shadow-[2px_0_4px_-2px_rgba(0,0,0,0.1)]',
+        'flex items-center px-3 text-sm font-normal',
+        'min-w-0',
+        isPinned &&
+          !isSelected &&
+          'sticky z-10 bg-background group-hover:bg-muted',
+        isPinned && isSelected && 'bg-active-muted-background',
+        isLastPinned &&
+          'relative after:pointer-events-none after:absolute after:inset-y-0 after:left-full after:w-2 after:content-[""] after:bg-linear-to-r after:from-border after:to-transparent after:opacity-70',
         className
       )}
       style={style}
       {...props}
     >
-      {children}
+      {shouldTruncate && textValue !== undefined ? (
+        <span className="block min-w-0 flex-1 truncate">{textValue}</span>
+      ) : (
+        children
+      )}
     </div>
   );
 }
@@ -501,5 +802,11 @@ export {
   DataGridCell,
   DataGridCheckboxCell,
   DataGridCheckboxHeader,
+  DataGridFooter,
+  DataGridHeader,
+  DataGridHeaderActions,
+  DataGridSearch,
+  DataGridSubtitle,
+  DataGridTitle,
   useDataGridContext,
 };

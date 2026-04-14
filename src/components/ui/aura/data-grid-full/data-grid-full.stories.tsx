@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { IconDots } from '@tabler/icons-react';
+import { IconArrowsDiagonal, IconDots } from '@tabler/icons-react';
 import type { ColumnDef } from '@tanstack/react-table';
 import { type ComponentProps, useMemo, useState } from 'react';
 import { expect, userEvent, within } from 'storybook/test';
@@ -33,6 +33,12 @@ import {
   DataGrid,
   DataGridCheckboxCell,
   DataGridCheckboxHeader,
+  DataGridFooter,
+  DataGridHeader,
+  DataGridHeaderActions,
+  DataGridSearch,
+  DataGridSubtitle,
+  DataGridTitle,
 } from './data-grid-full';
 
 const meta: Meta<typeof DataGrid> = {
@@ -357,22 +363,13 @@ export const SizeVariants: Story = {
             getRowId={(row) => row.id}
           />
         </div>
-        <div>
-          <h3 className="mb-2 text-sm font-medium">Non-striped</h3>
-          <DataGrid
-            data={data}
-            columns={columns}
-            striped={false}
-            getRowId={(row) => row.id}
-          />
-        </div>
       </div>
     );
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const grids = canvas.getAllByRole('grid');
-    await expect(grids.length).toBe(3);
+    await expect(grids.length).toBe(2);
   },
 };
 
@@ -654,6 +651,8 @@ export const WithPagination: Story = {
       (pagination.pageIndex + 1) * pagination.pageSize,
       data.length
     );
+    const effectivePageIndex = pagination.pageIndex;
+    const totalResults = data.length;
     const columns: ColumnDef<AssetRow>[] = [
       {
         accessorKey: 'name',
@@ -713,7 +712,7 @@ export const WithPagination: Story = {
                 <PaginationItem>
                   <PaginationFirst
                     href="#"
-                    isDisabled={pagination.pageIndex === 0}
+                    isDisabled={effectivePageIndex === 0}
                     onClick={(e) => {
                       e.preventDefault();
                       setPagination((p) => ({ ...p, pageIndex: 0 }));
@@ -723,7 +722,7 @@ export const WithPagination: Story = {
                 <PaginationItem>
                   <PaginationPrevious
                     href="#"
-                    isDisabled={pagination.pageIndex === 0}
+                    isDisabled={effectivePageIndex === 0}
                     onClick={(e) => {
                       e.preventDefault();
                       setPagination((p) => ({
@@ -735,7 +734,7 @@ export const WithPagination: Story = {
                 </PaginationItem>
                 <PaginationItem>
                   <PaginationTeleport
-                    currentPage={pagination.pageIndex + 1}
+                    currentPage={effectivePageIndex + 1}
                     totalPages={totalPages}
                     onPageChange={(page) =>
                       setPagination((p) => ({ ...p, pageIndex: page - 1 }))
@@ -745,7 +744,7 @@ export const WithPagination: Story = {
                 <PaginationItem>
                   <PaginationNext
                     href="#"
-                    isDisabled={pagination.pageIndex >= totalPages - 1}
+                    isDisabled={effectivePageIndex >= totalPages - 1}
                     onClick={(e) => {
                       e.preventDefault();
                       setPagination((p) => ({
@@ -758,7 +757,7 @@ export const WithPagination: Story = {
                 <PaginationItem>
                   <PaginationLast
                     href="#"
-                    isDisabled={pagination.pageIndex >= totalPages - 1}
+                    isDisabled={effectivePageIndex >= totalPages - 1}
                     onClick={(e) => {
                       e.preventDefault();
                       setPagination((p) => ({
@@ -792,7 +791,7 @@ export const WithPagination: Story = {
               </div>
               <PaginationItem>
                 <PaginationStatus>
-                  showing {startRow}-{endRow} of {data.length} results
+                  showing {startRow}-{endRow} of {totalResults} results
                 </PaginationStatus>
               </PaginationItem>
             </PaginationContent>
@@ -845,7 +844,7 @@ export const LargeDataset: Story = {
 };
 
 export const Accessibility: Story = {
-  parameters: { order: 9 },
+  parameters: { order: 99 },
   render: function AccessibilityStory() {
     const [rowSelection, setRowSelection] = useState({});
     const [sorting, setSorting] = useState<{ id: string; desc: boolean }[]>([]);
@@ -938,7 +937,7 @@ export const Accessibility: Story = {
 };
 
 export const VisualRegression: Story = {
-  parameters: { order: 10 },
+  parameters: { order: 105 },
   render: function VisualRegressionStory() {
     type AssetRow = {
       id: string;
@@ -1079,7 +1078,7 @@ export const VisualRegression: Story = {
 };
 
 export const EdgeCaseEmptyData: Story = {
-  parameters: { order: 11 },
+  parameters: { order: 100 },
   render: () => {
     type RowData = {
       id: string;
@@ -1109,7 +1108,7 @@ export const EdgeCaseEmptyData: Story = {
 };
 
 export const EdgeCaseLongText: Story = {
-  parameters: { order: 12 },
+  parameters: { order: 101 },
   render: () => {
     type LongTextRow = { id: string; name: string; description: string };
 
@@ -1157,7 +1156,7 @@ export const EdgeCaseLongText: Story = {
 };
 
 export const EdgeCaseSingleRow: Story = {
-  parameters: { order: 13 },
+  parameters: { order: 102 },
   render: () => {
     type RowData = {
       id: string;
@@ -1198,7 +1197,7 @@ export const EdgeCaseSingleRow: Story = {
 };
 
 export const EdgeCaseSingleColumn: Story = {
-  parameters: { order: 14 },
+  parameters: { order: 103 },
   render: () => {
     type RowData = {
       id: string;
@@ -1234,7 +1233,7 @@ export const EdgeCaseSingleColumn: Story = {
 };
 
 export const EdgeCaseManyColumns: Story = {
-  parameters: { order: 15 },
+  parameters: { order: 104 },
   render: () => {
     type WideRow = Record<string, string>;
     const wideColumns: ColumnDef<WideRow>[] = Array.from(
@@ -1270,8 +1269,114 @@ export const EdgeCaseManyColumns: Story = {
   },
 };
 
+export const HeaderCompositionControlledSearch: Story = {
+  parameters: { order: 96 },
+  render: () => {
+    type RowData = {
+      id: string;
+      name: string;
+      status: 'Running' | 'Draft' | 'Archived';
+      owner: string;
+    };
+
+    const data: RowData[] = [
+      { id: '1', name: 'Pump health UT-654/111', status: 'Running', owner: 'PJ' },
+      { id: '2', name: 'Compressor train A-14', status: 'Draft', owner: 'AL' },
+      { id: '3', name: 'Wellhead pressure BK-220', status: 'Archived', owner: 'RM' },
+      { id: '4', name: 'Flow meter SK-91', status: 'Running', owner: 'KT' },
+    ];
+
+    const columns: ColumnDef<RowData>[] = [
+      { accessorKey: 'name', header: 'Name' },
+      { accessorKey: 'status', header: 'Status', size: 140 },
+      { accessorKey: 'owner', header: 'Owner', size: 100 },
+    ];
+
+    const [searchValue, setSearchValue] = useState('');
+
+    return (
+      <DataGrid
+        data={data}
+        columns={columns}
+        searchValue={searchValue}
+        onSearchValueChange={setSearchValue}
+        getRowId={(row) => row.id}
+      >
+        <DataGridHeader>
+          <DataGridTitle>Table</DataGridTitle>
+          <DataGridSubtitle>May 17, 2018 - Dec 24, 2022</DataGridSubtitle>
+          <DataGridSearch placeholder="Search" />
+          <DataGridHeaderActions>
+            <Button variant="ghost" size="icon-sm" aria-label="Enter full screen">
+              <IconArrowsDiagonal className="size-4" />
+            </Button>
+            <Button variant="ghost" size="icon-sm" aria-label="More actions">
+              <IconDots className="size-4" />
+            </Button>
+          </DataGridHeaderActions>
+        </DataGridHeader>
+      </DataGrid>
+    );
+  },
+};
+
+export const ActionsCellWithDropdownMenu: Story = {
+  parameters: { order: 97 },
+  render: () => {
+    type RowData = {
+      id: string;
+      name: string;
+      status: 'Running' | 'Draft' | 'Archived';
+      owner: string;
+    };
+
+    const data: RowData[] = [
+      { id: '1', name: 'Compressor train A-14', status: 'Running', owner: 'AL' },
+      { id: '2', name: 'Pump health UT-654/111', status: 'Draft', owner: 'PJ' },
+      { id: '3', name: 'Flow meter SK-91', status: 'Archived', owner: 'KT' },
+    ];
+
+    const columns: ColumnDef<RowData>[] = [
+      { accessorKey: 'name', header: 'Name' },
+      { accessorKey: 'status', header: 'Status', size: 140 },
+      { accessorKey: 'owner', header: 'Owner', size: 100 },
+      {
+        id: 'actions',
+        header: () => null,
+        size: 56,
+        enableSorting: false,
+        cell: () => (
+          <div className="flex w-full justify-end">
+            <DropdownMenu>
+              <DropdownMenuTrigger
+                render={
+                  <Button variant="ghost" size="icon-sm" aria-label="Open row actions">
+                    <IconDots className="size-4" />
+                  </Button>
+                }
+              />
+              <DropdownMenuContent>
+                <DropdownMenuItem>Delete</DropdownMenuItem>
+                <DropdownMenuItem>Archive</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+        ),
+      },
+    ];
+
+    return (
+      <DataGrid
+        data={data}
+        columns={columns}
+        getRowId={(row) => row.id}
+      />
+    );
+  },
+};
+
 export const Playground: Story = {
-  parameters: { order: 99 },
+  parameters: { order: 106 },
   render: function PlaygroundStory() {
     type AssetRow = {
       id: string;
@@ -1296,6 +1401,13 @@ export const Playground: Story = {
       n >= 1000 ? `${(n / 1000).toFixed(1)}k+` : String(n);
     const [rowSelection, setRowSelection] = useState({});
     const [sorting, setSorting] = useState<{ id: string; desc: boolean }[]>([]);
+    const [searchValue, setSearchValue] = useState('');
+    const [pagination, setPagination] = useState({
+      pageIndex: 0,
+      pageSize: 5,
+    });
+    const [resultsPerPage, setResultsPerPage] = useState('5');
+    const [_row, setSelectedRowName] = useState<string | null>(null);
     const data: AssetRow[] = [
       {
         id: '1',
@@ -1337,7 +1449,73 @@ export const Playground: Story = {
         created: 'Sep 22, 2024',
         owner: 'KT',
       },
+      {
+        id: '5',
+        name: 'Turbine diagnostics TR-77',
+        assets: 8800,
+        status: 'Running',
+        tag: 'Optimization',
+        lastEdited: 'Aug 26, 2024',
+        created: 'Aug 11, 2024',
+        owner: 'SD',
+      },
+      {
+        id: '6',
+        name: 'Cooling loop CL-502',
+        assets: 19,
+        status: 'Finished',
+        tag: 'Maintenance',
+        lastEdited: 'Jul 19, 2024',
+        created: 'Jul 02, 2024',
+        owner: 'JW',
+      },
+      {
+        id: '7',
+        name: 'Separator vessel SV-18',
+        assets: 3250,
+        status: 'Failed',
+        tag: 'RCA',
+        lastEdited: 'Jun 18, 2024',
+        created: 'Jun 03, 2024',
+        owner: 'NB',
+      },
+      {
+        id: '8',
+        name: 'Hydraulic unit HY-312',
+        assets: 610,
+        status: 'Running',
+        tag: 'Monitoring',
+        lastEdited: 'May 22, 2024',
+        created: 'May 06, 2024',
+        owner: 'HF',
+      },
     ];
+
+    const normalizedSearchValue = searchValue.trim().toLowerCase();
+    const filteredRows = useMemo(() => {
+      if (!normalizedSearchValue) return data;
+
+      return data.filter((row) =>
+        Object.values(row).some((value) =>
+          String(value).toLowerCase().includes(normalizedSearchValue)
+        )
+      );
+    }, [data, normalizedSearchValue]);
+    const totalResults = filteredRows.length;
+    const totalPages = Math.max(
+      1,
+      Math.ceil(totalResults / pagination.pageSize)
+    );
+    const effectivePageIndex = Math.min(pagination.pageIndex, totalPages - 1);
+    const startRow =
+      totalResults === 0 ? 0 : effectivePageIndex * pagination.pageSize + 1;
+    const endRow =
+      totalResults === 0
+        ? 0
+        : Math.min(
+            (effectivePageIndex + 1) * pagination.pageSize,
+            totalResults
+          );
 
     const columns: ColumnDef<AssetRow>[] = [
       {
@@ -1418,14 +1596,129 @@ export const Playground: Story = {
           },
         ]}
         pinnedColumns={['select', 'name']}
+        size="compact"
         enableRowSelection
         enableSorting
         rowSelection={rowSelection}
         onRowSelectionChange={setRowSelection}
         sorting={sorting}
         onSortingChange={setSorting}
+        pagination={pagination}
+        onPaginationChange={setPagination}
+        rowCount={totalResults}
+        searchValue={searchValue}
+        onSearchValueChange={setSearchValue}
+        onRowClick={(row) => {
+          setSelectedRowName(row.original.name);
+        }}
         getRowId={(row) => row.id}
-      />
+      >
+        <DataGridHeader>
+          <DataGridHeaderActions>
+            <Button variant="ghost" size="icon-sm" aria-label="Enter full screen">
+              <IconArrowsDiagonal className="size-4" />
+            </Button>
+            <Button variant="ghost" size="icon-sm" aria-label="More actions">
+              <IconDots className="size-4" />
+            </Button>
+          </DataGridHeaderActions>
+          <DataGridSubtitle>May 17, 2018 - Dec 24, 2022</DataGridSubtitle>
+          <DataGridSearch placeholder="Search rows" />
+          <DataGridTitle>Table</DataGridTitle>
+        </DataGridHeader>
+        <DataGridFooter>
+          <Pagination className="w-full">
+            <PaginationContent className="w-full justify-between">
+              <div className="flex items-center gap-1">
+                <PaginationItem>
+                  <PaginationFirst
+                    href="#"
+                    isDisabled={pagination.pageIndex === 0}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setPagination((p) => ({ ...p, pageIndex: 0 }));
+                    }}
+                  />
+                </PaginationItem>
+                <PaginationItem>
+                  <PaginationPrevious
+                    href="#"
+                    isDisabled={pagination.pageIndex === 0}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setPagination((p) => ({
+                        ...p,
+                        pageIndex: Math.max(0, p.pageIndex - 1),
+                      }));
+                    }}
+                  />
+                </PaginationItem>
+                <PaginationItem>
+                  <PaginationTeleport
+                    currentPage={pagination.pageIndex + 1}
+                    totalPages={totalPages}
+                    onPageChange={(page) =>
+                      setPagination((p) => ({ ...p, pageIndex: page - 1 }))
+                    }
+                  />
+                </PaginationItem>
+                <PaginationItem>
+                  <PaginationNext
+                    href="#"
+                    isDisabled={pagination.pageIndex >= totalPages - 1}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setPagination((p) => ({
+                        ...p,
+                        pageIndex: Math.min(totalPages - 1, p.pageIndex + 1),
+                      }));
+                    }}
+                  />
+                </PaginationItem>
+                <PaginationItem>
+                  <PaginationLast
+                    href="#"
+                    isDisabled={pagination.pageIndex >= totalPages - 1}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setPagination((p) => ({
+                        ...p,
+                        pageIndex: totalPages - 1,
+                      }));
+                    }}
+                  />
+                </PaginationItem>
+                <PaginationResultsPerPage>
+                  <PaginationResultsPerPageLabel>
+                    Results per page
+                  </PaginationResultsPerPageLabel>
+                  <Select
+                    value={resultsPerPage}
+                    onValueChange={(val) => {
+                      setResultsPerPage(val);
+                      setPagination({ pageIndex: 0, pageSize: Number(val) });
+                    }}
+                  >
+                    <PaginationSelectTrigger>
+                      <SelectValue />
+                    </PaginationSelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="5">5</SelectItem>
+                      <SelectItem value="10">10</SelectItem>
+                      <SelectItem value="25">25</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </PaginationResultsPerPage>
+              </div>
+              <PaginationItem>
+                <PaginationStatus>
+                  showing {startRow}-{endRow} of {totalResults} results
+                </PaginationStatus>
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
+        </DataGridFooter>
+      </DataGrid>
     );
   },
 };
