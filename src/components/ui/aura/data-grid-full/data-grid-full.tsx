@@ -416,8 +416,8 @@ function DataGrid<TData>({
                     aria-rowindex={virtualRow.index + 2}
                     aria-selected={isSelected || undefined}
                     className={cn(
-                      'group absolute left-0 right-0 grid border-b transition-colors',
-                      'hover:bg-muted/30',
+                      'group absolute left-0 right-0 grid border-b bg-background transition-colors',
+                      'hover:bg-active-muted-background',
                       isSelected && 'bg-active-muted-background',
                       onRowClick && 'cursor-pointer'
                     )}
@@ -743,10 +743,7 @@ function DataGridCell({
       className={cn(
         'flex items-center px-3 text-sm font-normal',
         'min-w-0',
-        isPinned &&
-          !isSelected &&
-          'sticky z-10 bg-background group-hover:bg-muted',
-        isPinned && isSelected && 'bg-active-muted-background',
+        isPinned && 'sticky z-10 bg-inherit',
         isLastPinned &&
           'relative after:pointer-events-none after:absolute after:inset-y-0 after:left-full after:w-2 after:content-[""] after:bg-linear-to-r after:from-border after:to-transparent after:opacity-70',
         className
