@@ -2,11 +2,11 @@ import { IconArrowLeft, IconExternalLink } from '@tabler/icons-react';
 import { Link } from 'react-router-dom';
 
 import { Button } from '@/components/ui/aura/button';
+import { foundationMdxComponents } from '@/foundations/FoundationMdxComponents';
 import {
   type FoundationDocSlug,
   getFoundationDoc,
 } from '@/lib/foundation-docs';
-import { foundationMdxComponents } from '@/pages/primitives/foundations/FoundationMdxComponents';
 
 type FoundationDocPageProps = {
   slug: FoundationDocSlug;

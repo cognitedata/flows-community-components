@@ -1,4 +1,4 @@
-import FoundationDocPage from '@/pages/primitives/foundations/FoundationDocPage';
+import FoundationDocPage from '@/foundations/FoundationDocPage';
 
 export default function EffectsPage() {
   return <FoundationDocPage slug="effects" />;
