@@ -794,6 +794,34 @@
       ]
     },
     {
+      "name": "data-grid-full",
+      "type": "registry:component",
+      "title": "DataGrid",
+      "description": "A data grid component with column pinning, row selection, sorting, virtualization, and pagination support, built with TanStack Table and CSS Grid.",
+      "dependencies": [
+        "@tabler/icons-react",
+        "@tanstack/react-table",
+        "@tanstack/react-virtual",
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/checkbox"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/data-grid-full/data-grid-full.tsx",
+          "target": "src/components/ui/aura/data-grid-full.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "date-picker",
       "type": "registry:component",
       "title": "DatePicker",

@@ -1,0 +1,92 @@
+import { LayoutsFoundationDemos } from '@/pages/primitives/layouts/LayoutsFoundationDemos';
+import { FoundationDemoSection } from '@/pages/primitives/foundations/FoundationDemoSection';
+
+Aura Foundation layouts define responsive structure through container queries, stepped max widths, and predictable composition patterns. The goal is to make components responsive to the space they actually receive rather than to the overall viewport alone.
+
+## Breakpoint model
+
+Aura's layout documentation is built around container-query breakpoints.
+
+| Breakpoint | Range | Columns | Prefix |
+| --- | --- | --- | --- |
+| `base` | `0px - 639px` | `12` | none |
+| `2xl` | `640px - 767px` | `12` | `@2xl:` |
+| `3xl` | `768px - 1023px` | `12` | `@3xl:` |
+| `5xl` | `1024px - 1279px` | `12` | `@5xl:` |
+| `7xl` | `1280px - 1535px` | `12` | `@7xl:` |
+| `8xl` | `1536px+` | `12` | `@8xl:` |
+
+Container queries respond to parent width, not viewport width. That makes them a better fit for reusable surfaces such as cards, dashboard panels, and embedded work areas.
+
+## Container query guidance
+
+To use container query variants, give the parent a containment context:
+
+```tsx
+<div className="@container">
+  <div className="grid grid-cols-12 @3xl:gap-4 @5xl:px-6">
+    ...
+  </div>
+</div>
+```
+
+Guidance:
+
+- Add `@container` on the parent that owns available width.
+- Keep component layouts responsive to that container, not to the page viewport.
+- Use the same query language across demos and production components.
+
+## Stepped max-width system
+
+Centered layouts should scale progressively rather than becoming arbitrarily wide.
+
+| Breakpoint | Recommended class | Typical width |
+| --- | --- | --- |
+| `base` | `max-w-2xl` | Mobile / narrow surfaces |
+| `@2xl:` | `max-w-2xl` | Small tablet |
+| `@3xl:` | `max-w-3xl` | Tablet |
+| `@5xl:` | `max-w-5xl` | Laptop |
+| `@7xl:` | `max-w-7xl` | Desktop |
+| `@8xl:` | `max-w-8xl` | Wide desktop |
+
+## Composition patterns
+
+Foundation layouts should support a few repeatable compositions:
+
+- Page header plus body content
+- Sidebar plus content area
+- Dashboard grids
+- Content panels with persistent filters or metadata rail
+- Dense data views that collapse progressively
+
+Choose a composition based on reading flow and task priority, then adapt it with container-query spans instead of introducing one-off breakpoints.
+
+## Column span guidance
+
+Use span conventions to keep layouts legible:
+
+- Full-width content for major containers and immersive work areas
+- Medium spans for primary reading content
+- Narrow spans for metadata, controls, or supplemental information
+- Progressive collapse toward full width as container space decreases
+
+## Implementation guidance
+
+Build layouts on the shared grid and avoid hand-tuned breakpoint logic where the Foundation classes already express the intent:
+
+```tsx
+<div className="@container">
+  <div className="grid grid-cols-12 gap-3 @3xl:gap-4">
+    <main className="col-span-12 @5xl:col-span-8">...</main>
+    <aside className="col-span-12 @5xl:col-span-4">...</aside>
+  </div>
+</div>
+```
+
+<FoundationDemoSection
+  fullWidth
+  title="Interactive layout demos"
+  description="Resize the preview, toggle the grid overlay, and copy layout snippets."
+>
+  <LayoutsFoundationDemos />
+</FoundationDemoSection>

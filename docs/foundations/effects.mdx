@@ -1,0 +1,75 @@
+import { EffectsFoundationDemos } from '@/pages/primitives/effects/EffectsFoundationDemos';
+import { FoundationDemoSection } from '@/pages/primitives/foundations/FoundationDemoSection';
+
+Effects define how Aura expresses depth, focus, and motion feedback. They should be used consistently so states feel predictable across primitives and application surfaces.
+
+## Shadows
+
+Aura exposes a small shadow scale for elevation and layering.
+
+| Token | Tailwind class | Typical usage |
+| --- | --- | --- |
+| `--shadow-sm` | `shadow-sm` | Tooltips and small containers |
+| `--shadow-default` | `shadow-default` | Menus, popovers, hover cards |
+| `--shadow-md` | `shadow-md` | Toasts and temporary elements |
+| `--shadow-lg` | `shadow-lg` | Modals and dialogs without heavy overlay |
+| `--shadow-xl` | `shadow-xl` | High-elevation dialogs and overlays |
+
+Prefer the smallest shadow that communicates the required hierarchy.
+
+## Focus rings
+
+Keyboard focus indicators are part of the Foundation system and should not be improvised component by component.
+
+| Token | Usage |
+| --- | --- |
+| `shadow-focus-ring` | Default interactive elements |
+| `shadow-focus-ring-destructive` | Destructive or error-linked actions |
+
+Guidance:
+
+- Keep focus visible for all keyboard-accessible controls.
+- Use the destructive focus treatment only for destructive actions and destructive form contexts.
+- Do not replace focus styling with hover styling.
+
+## Border radius
+
+Border radius communicates hierarchy and component family. Use the existing radius scale rather than one-off values.
+
+- Smaller radii suit compact controls and dense utility UI.
+- Medium radii suit most cards, inputs, and default components.
+- Larger radii are reserved for more expressive or touch-first surfaces.
+- Full radius is appropriate for pills, circular controls, and avatars.
+
+## Transitions
+
+Transitions should support clarity, not decoration.
+
+- Keep durations short and consistent.
+- Animate the property that changed, not the entire element if avoidable.
+- Prefer color, opacity, transform, and shadow transitions.
+- Avoid long or theatrical motion on core workflow components.
+
+Typical patterns:
+
+- Button hover feedback
+- Card hover elevation
+- Input focus emphasis
+- Subtle menu and overlay entrance transitions
+
+## Implementation guidance
+
+Use shared utility classes and tokens instead of custom effect values:
+
+```tsx
+<button className="shadow-sm transition-colors hover:bg-primary-hover focus-visible:shadow-focus-ring">
+  Action
+</button>
+```
+
+<FoundationDemoSection
+  title="Live elevation and focus previews"
+  description="Light and dark previews for shadows and focus rings."
+>
+  <EffectsFoundationDemos />
+</FoundationDemoSection>

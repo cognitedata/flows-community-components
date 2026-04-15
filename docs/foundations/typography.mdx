@@ -1,0 +1,86 @@
+import { TypographyFoundationDemos } from '@/pages/primitives/typography/TypographyFoundationDemos';
+import { FoundationDemoSection } from '@/pages/primitives/foundations/FoundationDemoSection';
+
+Aura typography provides a small set of repeatable text styles for application UI, marketing surfaces, and code presentation. The priority is consistency and readability before visual novelty.
+
+## Text scale
+
+Application text styles are built on Inter and cover metadata through large page headers.
+
+| Token | Size / line height | Typical usage |
+| --- | --- | --- |
+| `xxs/normal` | `10 / 12` | Metadata and very short labels |
+| `xs/normal` | `12 / 14` | Chart labels and dense UI |
+| `sm/normal` | `14 / 18` | Secondary text and short labels |
+| `base/normal` | `16 / 20` | Default body copy |
+| `lg/normal` | `18 / 24` | Subtitles and emphasized labels |
+| `xl/normal` | `20 / 24` | Large labels and section headers |
+| `2xl/normal` | `24 / 28` | Section headers |
+| `3xl/normal` | `28 / 32` | Large headers |
+| `4xl/normal` | `32 / 40` | Page headers |
+| `5xl/normal` | `36 / 44` | Hero or oversized headings |
+
+Medium-weight variants exist for emphasis across the same scale.
+
+## Marketing scale
+
+Marketing-facing headings use Space Grotesk to create stronger visual presence.
+
+| Token | Family | Usage |
+| --- | --- | --- |
+| `2xl/medium` | Space Grotesk | Marketing headers and onboarding |
+| `3xl/medium` | Space Grotesk | Larger campaign or onboarding headers |
+| `4xl/bold` | Space Grotesk | High-emphasis hero moments |
+
+Marketing styles should stay contained to surfaces that intentionally use the marketing voice.
+
+## Code scale
+
+Code styles use the mono family and should stay reserved for code, commands, tokens, and compact technical labels.
+
+| Token | Usage |
+| --- | --- |
+| Mono small | Inline code and compact snippets |
+| Mono medium | Commands and emphasized code references |
+| Larger code styles | Example blocks and technical walkthroughs |
+
+## Hierarchy guidance
+
+Recommended application hierarchy:
+
+- `text-4xl font-medium` for page titles
+- `text-lg text-muted-foreground` for subtitles
+- `text-base font-normal` for main body copy
+- `text-sm text-muted-foreground` for secondary information
+- `text-2xs font-medium uppercase tracking-wide` for fine print and labels
+
+Keep hierarchy shallow. If a screen needs too many text tiers to make sense, the layout likely needs simplification.
+
+## Pattern guidance
+
+Common typography patterns include:
+
+- Page headers with title plus subtitle
+- Card titles with muted supporting copy
+- List items with primary and secondary metadata
+- Inline code and command references inside body text
+
+## Implementation guidance
+
+Prefer the existing utility classes rather than creating custom text recipes:
+
+```tsx
+<header className="space-y-2">
+  <h1 className="text-4xl font-medium">Settings</h1>
+  <p className="text-lg text-muted-foreground">
+    Manage account preferences and defaults.
+  </p>
+</header>
+```
+
+<FoundationDemoSection
+  title="Live type scale"
+  description="Text, marketing, and code rows with sample lines."
+>
+  <TypographyFoundationDemos />
+</FoundationDemoSection>

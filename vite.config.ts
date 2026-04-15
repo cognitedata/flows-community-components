@@ -1,7 +1,9 @@
 import path from 'node:path';
 
+import mdx from '@mdx-js/rollup';
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
+import remarkGfm from 'remark-gfm';
 import type { Plugin } from 'vite';
 import { defineConfig } from 'vite';
 
@@ -53,6 +55,9 @@ function historyApiFallback(): Plugin {
 export default defineConfig({
   base: process.env.PAGES_BASE_PATH || '/',
   plugins: [
+    mdx({
+      remarkPlugins: [remarkGfm],
+    }),
     react({
       babel: {
         plugins: [['babel-plugin-react-compiler']],

@@ -1,0 +1,93 @@
+import { ColorsFoundationDemos } from '@/pages/primitives/colors/ColorsFoundationDemos';
+import { FoundationDemoSection } from '@/pages/primitives/foundations/FoundationDemoSection';
+
+Aura's color system is organized into a small set of predictable token families. Use Foundation color tokens for semantic meaning first, then decorative ramps only when the UI needs brand or data emphasis.
+
+## Palette groups
+
+### Base palettes
+
+Base palettes support surfaces, borders, text, and neutral UI structure.
+
+| Palette | Purpose | Notes |
+| --- | --- | --- |
+| Mountain | Neutral base ramp | Includes `white` and `black` endpoints for general UI structure |
+| Fjord | Cool neutral ramp | Useful where a colder neutral tone is preferable |
+
+### Decorative palettes
+
+Decorative palettes are for visual identity and emphasis, not for general semantic state.
+
+| Palette | Purpose |
+| --- | --- |
+| Nordic | Cool green decorative ramp |
+| Aurora | Lime green decorative ramp |
+| Dusk | Magenta decorative ramp |
+
+### Semantic palettes
+
+Semantic palettes encode meaning and should be preferred for status communication.
+
+| Palette | Purpose |
+| --- | --- |
+| Red | Error and destructive states |
+| Amber | Warning and caution states |
+| Green | Success and positive states |
+| Blue | Informational states |
+
+## Semantic tokens
+
+Semantic tokens are the primary interface for application styling. They abstract away raw palette values so components can stay consistent across themes.
+
+Common tokens include:
+
+- `background`
+- `foreground`
+- `primary`
+- `primary-foreground`
+- `muted`
+- `muted-foreground`
+- `destructive`
+- `destructive-foreground`
+- `border`
+- `input`
+- `ring`
+
+Use semantic tokens in components unless there is a strong reason to bind directly to a palette ramp.
+
+## Recommended usage
+
+- Use semantic tokens for component APIs and application surfaces.
+- Use base palettes for neutral structure such as surfaces, dividers, and text hierarchy.
+- Use decorative palettes sparingly for brand moments, data accents, or illustration work.
+- Use semantic ramps for error, warning, success, and info patterns.
+
+## Status and text patterns
+
+Typical status treatments should combine background, foreground, and border tokens from the same semantic family rather than mixing unrelated ramps.
+
+Text hierarchy should also stay token-driven:
+
+- Primary text: `text-foreground`
+- Secondary text: `text-muted-foreground`
+- Disabled text: reduced-emphasis muted token
+- Link text: `text-foreground-link`
+
+## Implementation guidance
+
+Prefer tokenized styling in application code:
+
+```tsx
+<div className="bg-background text-foreground border border-border">
+  Content
+</div>
+```
+
+When raw ramps are needed for documentation, visualization, or charts, keep that usage localized and avoid exposing those raw values as a public component contract.
+
+<FoundationDemoSection
+  title="Live palette ramps"
+  description="Ordered per globals.css. Click a swatch to copy its computed hex."
+>
+  <ColorsFoundationDemos />
+</FoundationDemoSection>
