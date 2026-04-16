@@ -9,6 +9,7 @@ import {
   DataGridSubtitle,
   DataGridTitle,
   useDataGridContext,
+  type DataGridHandle,
 } from './data-grid-full';
 import { DataGridMetadata } from './data-grid-full.metadata';
 
@@ -24,4 +25,5 @@ export {
   DataGridTitle,
   DataGridMetadata,
   useDataGridContext,
+  type DataGridHandle,
 };

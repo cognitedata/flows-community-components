@@ -7,7 +7,6 @@ import {
   type ColumnDef,
   type ColumnPinningState,
   type FilterFnOption,
-  type OnChangeFn,
   type PaginationState,
   type Row,
   type RowSelectionState,
@@ -25,17 +24,18 @@ import {
   type ComponentProps,
   type ComponentRef,
   type ReactNode,
+  type RefObject,
   createContext,
   forwardRef,
   isValidElement,
-  useCallback,
   useEffect,
   useContext,
+  useImperativeHandle,
   useMemo,
   useRef,
-  useState,
 } from 'react';
 
+import { useControllableState } from '../../../../lib/use-controllable-state';
 import { cn, focusState } from '../../../../lib/utils';
 import { Checkbox } from '../checkbox';
 import { InputGroup, InputGroupAddon, InputGroupInput } from '../input-group';
@@ -46,6 +46,7 @@ type DataGridContextValue = {
   columnCount: number;
 };
 
+// Context keeps shared layout data centralized so leaf components can stay mostly presentational.
 const DataGridContext = createContext<DataGridContextValue>({
   gridTemplateColumns: '',
   pinnedColumnIds: new Set(),
@@ -64,31 +65,43 @@ const HEADER_HEIGHT_MAP: Record<DataGridSize, number> = {
   compact: 32,
 };
 
+type DataGridHandle = {
+  scrollToRow: (index: number) => void;
+  resetSorting: () => void;
+  resetSelection: () => void;
+  resetSearch: () => void;
+};
+
 type DataGridProps<TData> = {
   data: TData[];
   columns: ColumnDef<TData>[];
-  pinnedColumns?: string[];
-  rowSelection?: RowSelectionState;
-  onRowSelectionChange?: OnChangeFn<RowSelectionState>;
-  sorting?: SortingState;
-  onSortingChange?: OnChangeFn<SortingState>;
-  pagination?: PaginationState;
-  onPaginationChange?: OnChangeFn<PaginationState>;
+  getRowId?: (originalRow: TData, index: number) => string;
   rowCount?: number;
+  globalFilterFn?: FilterFnOption<TData>;
   enableRowSelection?: boolean | ((row: Row<TData>) => boolean);
   enableSorting?: boolean;
   manualPagination?: boolean;
   manualSorting?: boolean;
+  rowSelection?: RowSelectionState;
+  defaultRowSelection?: RowSelectionState;
+  onRowSelectionChange?: (value: RowSelectionState) => void;
+  sorting?: SortingState;
+  defaultSorting?: SortingState;
+  onSortingChange?: (value: SortingState) => void;
+  pagination?: PaginationState;
+  defaultPagination?: PaginationState;
+  onPaginationChange?: (value: PaginationState) => void;
+  pinnedColumns?: string[];
+  gridRef?: RefObject<DataGridHandle | null>;
   size?: DataGridSize;
-  className?: string;
-  children?: ReactNode;
   header?: ReactNode;
-  onRowClick?: (row: Row<TData>) => void;
   footer?: ReactNode;
+  children?: ReactNode;
+  className?: string;
+  onRowClick?: (row: Row<TData>) => void;
   searchValue?: string;
+  defaultSearchValue?: string;
   onSearchValueChange?: (value: string) => void;
-  globalFilterFn?: FilterFnOption<TData>;
-  getRowId?: (originalRow: TData, index: number) => string;
   rowHeight?: number;
   headerHeight?: number;
   estimateSize?: number;
@@ -97,46 +110,83 @@ type DataGridProps<TData> = {
 function DataGrid<TData>({
   data,
   columns,
-  pinnedColumns = [],
-  rowSelection,
-  onRowSelectionChange,
-  sorting,
-  onSortingChange,
-  pagination,
-  onPaginationChange,
+  getRowId,
   rowCount,
+  globalFilterFn = 'auto',
   enableRowSelection = false,
   enableSorting = false,
   manualPagination = false,
   manualSorting = false,
+  rowSelection,
+  defaultRowSelection,
+  onRowSelectionChange,
+  sorting,
+  defaultSorting,
+  onSortingChange,
+  pagination,
+  defaultPagination,
+  onPaginationChange,
+  pinnedColumns = [],
+  gridRef,
   size = 'default',
-  className,
-  children,
   header,
-  onRowClick,
   footer,
+  children,
+  className,
+  onRowClick,
   searchValue,
+  defaultSearchValue,
   onSearchValueChange,
-  globalFilterFn = 'auto',
-  getRowId,
   rowHeight,
   headerHeight,
   estimateSize,
 }: DataGridProps<TData>) {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const [internalSearchValue, setInternalSearchValue] = useState('');
-  const resolvedSearchValue = searchValue ?? internalSearchValue;
-  const previousSearchValueRef = useRef(resolvedSearchValue);
 
-  const hasControlledRowSelection = rowSelection !== undefined;
-  const hasControlledSorting = sorting !== undefined;
-  const hasControlledPagination = pagination !== undefined;
+  // We standardize feature state through useControllableState for consistency.
+  // Alternative considered: keep mixed patterns (some TanStack-managed, some local state),
+  // but this became harder to reason about as features were added.
+  const [resolvedSearchValue, setResolvedSearchValue] = useControllableState({
+    prop: searchValue,
+    defaultProp: defaultSearchValue ?? '',
+    onChange: onSearchValueChange,
+  });
+
+  const [resolvedSorting, setResolvedSorting] =
+    useControllableState<SortingState>({
+      prop: sorting,
+      defaultProp: defaultSorting ?? [],
+      onChange: onSortingChange,
+    });
+
+  const [resolvedRowSelection, setResolvedRowSelection] =
+    useControllableState<RowSelectionState>({
+      prop: rowSelection,
+      defaultProp: defaultRowSelection ?? {},
+      onChange: onRowSelectionChange,
+    });
+
+  // Pagination is optional in this grid, so we only activate pagination state/model when opted in.
+  const hasPagination =
+    pagination !== undefined || defaultPagination !== undefined;
+
+  const [resolvedPagination, setResolvedPagination] =
+    useControllableState<PaginationState>({
+      prop: pagination,
+      defaultProp: defaultPagination ?? { pageIndex: 0, pageSize: 10 },
+      onChange: onPaginationChange,
+    });
+
   const isClientSorting = enableSorting && !manualSorting;
-  const isClientPagination = Boolean(pagination) && !manualPagination;
-  const shouldResetPageOnSearchChange =
-    hasControlledPagination &&
-    Boolean(onPaginationChange) &&
-    (pagination?.pageIndex ?? 0) !== 0;
+  const isClientPagination = hasPagination && !manualPagination;
+
+  // Cross-feature rule: changing search resets back to the first page.
+  // We isolate this side effect into a named hook to keep table setup declarative.
+  useSearchPaginationReset(
+    resolvedSearchValue,
+    hasPagination,
+    setResolvedPagination
+  );
 
   const columnPinning: ColumnPinningState = useMemo(
     () => ({ left: pinnedColumns, right: [] }),
@@ -153,6 +203,8 @@ function DataGrid<TData>({
     [columns]
   );
 
+  // Header/footer can be passed as props or as composition children.
+  // We currently support both for flexibility during migration.
   const { headerSlot, footerSlot } = useMemo(
     () => resolveDataGridSlots(children, header, footer),
     [children, footer, header]
@@ -163,82 +215,22 @@ function DataGrid<TData>({
     [headerSlot]
   );
 
-  const handleSearchValueChange = useCallback(
-    (nextValue: string) => {
-      if (searchValue === undefined) {
-        setInternalSearchValue(nextValue);
-      }
-      onSearchValueChange?.(nextValue);
-    },
-    [onSearchValueChange, searchValue]
-  );
-
-  useEffect(() => {
-    if (previousSearchValueRef.current === resolvedSearchValue) return;
-    previousSearchValueRef.current = resolvedSearchValue;
-    if (!shouldResetPageOnSearchChange || !pagination || !onPaginationChange) {
-      return;
-    }
-
-    onPaginationChange((current) =>
-      current.pageIndex === 0 ? current : { ...current, pageIndex: 0 }
-    );
-  }, [
-    onPaginationChange,
-    pagination,
-    resolvedSearchValue,
-    shouldResetPageOnSearchChange,
-  ]);
-
   const searchPlaceholder = normalizedHeader.searchPlaceholder;
 
-  const tableState: {
-    columnPinning: ColumnPinningState;
-    globalFilter: string;
-    rowSelection?: RowSelectionState;
-    sorting?: SortingState;
-    pagination?: PaginationState;
-  } = {
-    columnPinning,
-    globalFilter: resolvedSearchValue,
-    ...(hasControlledRowSelection ? { rowSelection } : {}),
-    ...(hasControlledSorting ? { sorting } : {}),
-    ...(hasControlledPagination ? { pagination } : {}),
-  };
-
-  const tableFeatureHandlers: {
-    onRowSelectionChange?: OnChangeFn<RowSelectionState>;
-    onSortingChange?: OnChangeFn<SortingState>;
-    onPaginationChange?: OnChangeFn<PaginationState>;
-  } = {};
-
-  if (onRowSelectionChange) {
-    tableFeatureHandlers.onRowSelectionChange = onRowSelectionChange;
-  }
-  if (onSortingChange) {
-    tableFeatureHandlers.onSortingChange = onSortingChange;
-  }
-  if (onPaginationChange) {
-    tableFeatureHandlers.onPaginationChange = onPaginationChange;
-  }
-
-  const tableFeatureModels: {
-    getSortedRowModel?: ReturnType<typeof getSortedRowModel>;
-    getPaginationRowModel?: ReturnType<typeof getPaginationRowModel>;
-  } = {};
-
-  if (isClientSorting) {
-    tableFeatureModels.getSortedRowModel = getSortedRowModel();
-  }
-  if (isClientPagination) {
-    tableFeatureModels.getPaginationRowModel = getPaginationRowModel();
-  }
-
+  // Centralized TanStack config. Keeping all state in one object makes ownership explicit.
   const table = useReactTable({
     data,
     columns,
-    state: tableState,
-    ...tableFeatureHandlers,
+    state: {
+      columnPinning,
+      globalFilter: resolvedSearchValue,
+      sorting: resolvedSorting,
+      rowSelection: resolvedRowSelection,
+      ...(hasPagination ? { pagination: resolvedPagination } : {}),
+    },
+    onSortingChange: setResolvedSorting,
+    onRowSelectionChange: setResolvedRowSelection,
+    ...(hasPagination ? { onPaginationChange: setResolvedPagination } : {}),
     autoResetPageIndex: false,
     autoResetExpanded: false,
     enableRowSelection,
@@ -248,7 +240,10 @@ function DataGrid<TData>({
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     globalFilterFn,
-    ...tableFeatureModels,
+    ...(isClientSorting ? { getSortedRowModel: getSortedRowModel() } : {}),
+    ...(isClientPagination
+      ? { getPaginationRowModel: getPaginationRowModel() }
+      : {}),
     getRowId,
     rowCount,
   });
@@ -260,6 +255,8 @@ function DataGrid<TData>({
   const resolvedRowHeight = estimateSize ?? rowHeight ?? ROW_HEIGHT_MAP[size];
   const resolvedHeaderHeight = headerHeight ?? HEADER_HEIGHT_MAP[size];
 
+  // We use row virtualization for large datasets; this keeps DOM size stable.
+  // Cogs relies on MUI DataGrid's internal virtualization, while here we own the behavior directly.
   const virtualizer = useVirtualizer({
     count: rows.length,
     getScrollElement: () => scrollContainerRef.current,
@@ -267,6 +264,17 @@ function DataGrid<TData>({
     overscan: 10,
   });
 
+  // Exposes a minimal imperative API for common workflows.
+  // Improvement opportunity: add read accessors and column operations if consumers request parity with Cogs apiRef.
+  useImperativeHandle(gridRef, () => ({
+    scrollToRow: (index: number) => virtualizer.scrollToIndex(index),
+    resetSorting: () => setResolvedSorting([]),
+    resetSelection: () => setResolvedRowSelection({}),
+    resetSearch: () => setResolvedSearchValue(''),
+  }));
+
+  // We resolve one CSS grid template string for both header and rows to keep column alignment exact.
+  // Another option would be per-column inline styles everywhere, but that is harder to maintain.
   const gridTemplateColumns = useMemo(() => {
     const hasFlexibleColumn = allColumns.some(
       (col) => col.columnDef.size === undefined
@@ -289,6 +297,8 @@ function DataGrid<TData>({
       .join(' ');
   }, [allColumns]);
 
+  // Precompute left offsets for pinned columns once per render cycle.
+  // This avoids repeating cumulative width calculations for every cell/header.
   const pinnedLeftByColumnId = useMemo(() => {
     const leftById = new Map<string, number>();
     let cumulativeLeft = 0;
@@ -334,7 +344,7 @@ function DataGrid<TData>({
                 {normalizedHeader.hasSearch && (
                   <DataGridSearch
                     value={resolvedSearchValue}
-                    onValueChange={handleSearchValueChange}
+                    onValueChange={setResolvedSearchValue}
                     placeholder={searchPlaceholder}
                   />
                 )}
@@ -352,6 +362,7 @@ function DataGrid<TData>({
           aria-colcount={allColumns.length}
         >
           <div className="min-w-fit w-full">
+            {/* Header rows stay sticky while the virtualized body scrolls underneath. */}
             {headerGroups.map((headerGroup) => (
               <div
                 key={headerGroup.id}
@@ -376,6 +387,8 @@ function DataGrid<TData>({
                         header.column.columnDef.header,
                         header.getContext()
                       );
+                  // If header output is plain text, render in a truncating span.
+                  // If it is rich JSX, preserve structure and let custom content control layout.
                   const headerTextValue = getTextValue(renderedHeader);
 
                   return (
@@ -449,6 +462,7 @@ function DataGrid<TData>({
                 position: 'relative',
               }}
             >
+              {/* Virtual rows: only render what is visible plus overscan. */}
               {virtualizer.getVirtualItems().map((virtualRow) => {
                 const row = rows[virtualRow.index];
                 const isSelected = row.getIsSelected();
@@ -500,6 +514,9 @@ function DataGrid<TData>({
                       const hasCustomCellRenderer = customCellColumnIds.has(
                         cell.column.id
                       );
+                      // We truncate plain text values for readability, but avoid truncating rich JSX
+                      // from custom renderers (avatars, badges, action menus, etc).
+                      // Future improvement: expose per-column truncation strategy in column config.
                       const renderedTextValue = getTextValue(renderedCell);
                       const rawTextValue = getTextValue(cell.getValue());
                       const textValue =
@@ -555,6 +572,7 @@ type DataGridHeaderProps = {
 };
 
 function DataGridHeader({ children }: DataGridHeaderProps) {
+  // Composition marker component (parsed by normalizeDataGridHeader).
   return <>{children}</>;
 }
 
@@ -563,6 +581,7 @@ type DataGridFooterProps = {
 };
 
 function DataGridFooter({ children }: DataGridFooterProps) {
+  // Composition marker component (parsed by resolveDataGridSlots).
   return <>{children}</>;
 }
 
@@ -700,6 +719,27 @@ const SLOT_COMPONENT_NAMES = {
   headerActions: 'DataGridHeaderActions',
 } as const;
 
+function useSearchPaginationReset(
+  searchValue: string,
+  hasPagination: boolean,
+  setPagination: (
+    next: PaginationState | ((prev: PaginationState) => PaginationState)
+  ) => void
+) {
+  // Tracks only search transitions so we do not reset on unrelated renders.
+  const previousSearchValueRef = useRef(searchValue);
+
+  useEffect(() => {
+    if (previousSearchValueRef.current === searchValue) return;
+    previousSearchValueRef.current = searchValue;
+    if (!hasPagination) return;
+
+    setPagination((current) =>
+      current.pageIndex === 0 ? current : { ...current, pageIndex: 0 }
+    );
+  }, [searchValue, hasPagination, setPagination]);
+}
+
 function getAriaSort(sortDirection: false | 'asc' | 'desc', canSort: boolean) {
   if (sortDirection === 'asc') return 'ascending' as const;
   if (sortDirection === 'desc') return 'descending' as const;
@@ -711,6 +751,8 @@ function isComponentMatch<TProps>(
   component: (props: TProps) => ReactNode,
   componentName: string
 ) {
+  // We match by reference first, then by name/displayName fallback.
+  // This reduces brittleness during Storybook HMR or wrapped component scenarios.
   if (!isValidElement(element)) return false;
   if (element.type === component) return true;
 
@@ -781,6 +823,7 @@ function getTextValue(value: unknown) {
 function collectCustomCellColumnIds<TData>(columns: ColumnDef<TData>[]) {
   const ids = new Set<string>();
 
+  // Walk nested/grouped column defs so custom cell detection also works for grouped columns.
   const visit = (defs: ColumnDef<TData>[]) => {
     for (const def of defs) {
       const groupColumns =
@@ -815,6 +858,7 @@ function collectCustomCellColumnIds<TData>(columns: ColumnDef<TData>[]) {
 }
 
 function normalizeDataGridHeader(header: ReactNode): NormalizedDataGridHeader {
+  // Turns free-form header composition into a predictable, typed shape used by main render.
   if (
     !isValidElement<{ children?: ReactNode }>(header) ||
     !isHeaderSlot(header)
@@ -870,6 +914,7 @@ function resolveDataGridSlots(
   headerProp: ReactNode,
   footerProp: ReactNode
 ) {
+  // Supports both prop-driven and child-driven slot APIs; props win when both are provided.
   let headerSlot = headerProp;
   let footerSlot = footerProp;
 
@@ -909,6 +954,7 @@ const DataGridCell = forwardRef<ComponentRef<'div'>, DataGridCellProps>(
     },
     ref
   ) {
+    // Keep cell wrapper generic and reusable; most behavior comes from resolved props.
     return (
       <div
         ref={ref}
@@ -943,6 +989,7 @@ function DataGridCheckboxHeader<TData>({
 }: {
   table: ReturnType<typeof useReactTable<TData>>;
 }) {
+  // Mirrors TanStack's all/some selection state into checkbox tri-state.
   const allSelected = table.getIsAllPageRowsSelected();
   const someSelected = table.getIsSomePageRowsSelected();
 
@@ -958,6 +1005,7 @@ function DataGridCheckboxHeader<TData>({
 }
 
 function DataGridCheckboxCell<TData>({ row }: { row: Row<TData> }) {
+  // Row-level selection primitive used by selection-enabled column definitions.
   return (
     <Checkbox
       checked={row.getIsSelected()}
@@ -984,4 +1032,5 @@ export {
   DataGridSubtitle,
   DataGridTitle,
   useDataGridContext,
+  type DataGridHandle,
 };

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { IconArrowsDiagonal, IconDots } from '@tabler/icons-react';
 import type { ColumnDef } from '@tanstack/react-table';
-import { type ComponentProps, useMemo, useState } from 'react';
+import { type ComponentProps, useMemo, useRef, useState } from 'react';
 import { expect, userEvent, within } from 'storybook/test';
 
 import { Avatar, AvatarFallback } from '../avatar';
@@ -33,6 +33,7 @@ import {
   DataGrid,
   DataGridCheckboxCell,
   DataGridCheckboxHeader,
+  type DataGridHandle,
   DataGridFooter,
   DataGridHeader,
   DataGridHeaderActions,
@@ -295,8 +296,8 @@ export const PinnedColumns: Story = {
         <DataGrid
           data={data}
           columns={manyColumns}
-          pinnedColumns={['col1']}
           getRowId={(row) => row.id}
+          pinnedColumns={['col1']}
         />
       </div>
     );
@@ -348,8 +349,8 @@ export const PinnedMultipleColumns: Story = {
         <DataGrid
           data={data}
           columns={columns}
-          pinnedColumns={['name', 'site']}
           getRowId={(row) => row.id}
+          pinnedColumns={['name', 'site']}
         />
       </div>
     );
@@ -407,11 +408,11 @@ export const PinnedSelectionAndDataColumn: Story = {
             },
             ...columns,
           ]}
-          pinnedColumns={['select', 'name']}
+          getRowId={(row) => row.id}
           enableRowSelection
           rowSelection={rowSelection}
           onRowSelectionChange={setRowSelection}
-          getRowId={(row) => row.id}
+          pinnedColumns={['select', 'name']}
         />
       </div>
     );
@@ -457,8 +458,8 @@ export const SizeVariants: Story = {
           <DataGrid
             data={data.slice(0, 3)}
             columns={columns}
-            size="default"
             getRowId={(row) => row.id}
+            size="default"
           />
         </div>
         <div>
@@ -466,8 +467,8 @@ export const SizeVariants: Story = {
           <DataGrid
             data={data.slice(0, 3)}
             columns={columns}
-            size="compact"
             getRowId={(row) => row.id}
+            size="compact"
           />
         </div>
       </div>
@@ -589,10 +590,10 @@ export const WithSorting: Story = {
       <DataGrid
         data={sortableData}
         columns={sortableColumns}
+        getRowId={(row) => row.id}
         enableSorting
         sorting={sorting}
         onSortingChange={setSorting}
-        getRowId={(row) => row.id}
       />
     );
   },
@@ -828,9 +829,9 @@ export const WithPagination: Story = {
       <DataGrid
         data={data}
         columns={columns}
+        getRowId={(row) => row.id}
         pagination={pagination}
         onPaginationChange={setPagination}
-        getRowId={(row) => row.id}
         footer={
           <Pagination className="w-full">
             <PaginationContent className="w-full justify-between">
@@ -969,6 +970,87 @@ export const LargeDataset: Story = {
   },
 };
 
+export const ImperativeApi: Story = {
+  parameters: { order: 9 },
+  render: function ImperativeApiStory() {
+    type RowData = {
+      id: string;
+      name: string;
+      category: string;
+      value: number;
+    };
+
+    const [searchValue, setSearchValue] = useState('');
+    const [sorting, setSorting] = useState<{ id: string; desc: boolean }[]>([]);
+    const gridRef = useRef<DataGridHandle | null>(null);
+
+    const data: RowData[] = Array.from({ length: 40 }, (_, i) => ({
+      id: String(i + 1),
+      name: `Asset ${i + 1}`,
+      category: i % 2 === 0 ? 'Pump' : 'Compressor',
+      value: i * 7,
+    }));
+
+    const columns: ColumnDef<RowData>[] = [
+      { accessorKey: 'name', header: 'Name', size: 180, enableSorting: true },
+      {
+        accessorKey: 'category',
+        header: 'Category',
+        size: 160,
+        enableSorting: true,
+      },
+      { accessorKey: 'value', header: 'Value', size: 120, enableSorting: true },
+    ];
+
+    return (
+      <div className="space-y-3">
+        <div className="flex flex-wrap gap-2">
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={() => gridRef.current?.resetSearch()}
+          >
+            Reset Search
+          </Button>
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={() => gridRef.current?.resetSorting()}
+          >
+            Reset Sorting
+          </Button>
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={() => gridRef.current?.scrollToRow(30)}
+          >
+            Scroll To Row 31
+          </Button>
+        </div>
+        <div className="h-80">
+          <DataGrid
+            data={data}
+            columns={columns}
+            getRowId={(row) => row.id}
+            enableSorting
+            sorting={sorting}
+            onSortingChange={setSorting}
+            gridRef={gridRef}
+            searchValue={searchValue}
+            onSearchValueChange={setSearchValue}
+            className="h-full"
+          >
+            <DataGridHeader>
+              <DataGridTitle>Imperative API Demo</DataGridTitle>
+              <DataGridSearch placeholder="Search assets" />
+            </DataGridHeader>
+          </DataGrid>
+        </div>
+      </div>
+    );
+  },
+};
+
 export const Accessibility: Story = {
   parameters: { order: 99 },
   render: function AccessibilityStory() {
@@ -1018,14 +1100,14 @@ export const Accessibility: Story = {
             enableSorting: true,
           },
         ]}
-        pinnedColumns={['select', 'col1']}
+        getRowId={(row) => row.id}
         enableRowSelection
         enableSorting
         rowSelection={rowSelection}
         onRowSelectionChange={setRowSelection}
         sorting={sorting}
         onSortingChange={setSorting}
-        getRowId={(row) => row.id}
+        pinnedColumns={['select', 'col1']}
       />
     );
   },
@@ -1185,10 +1267,10 @@ export const VisualRegression: Story = {
       <DataGrid
         data={data}
         columns={columns}
-        pinnedColumns={['select', 'name']}
+        getRowId={(row) => row.id}
         enableRowSelection
         rowSelection={rowSelection}
-        getRowId={(row) => row.id}
+        pinnedColumns={['select', 'name']}
       />
     );
   },
@@ -1792,8 +1874,8 @@ export const Playground: Story = {
             ),
           },
         ]}
-        pinnedColumns={['select', 'name']}
-        size="compact"
+        getRowId={(row) => row.id}
+        rowCount={totalResults}
         enableRowSelection
         enableSorting
         rowSelection={rowSelection}
@@ -1802,13 +1884,13 @@ export const Playground: Story = {
         onSortingChange={setSorting}
         pagination={pagination}
         onPaginationChange={setPagination}
-        rowCount={totalResults}
-        searchValue={searchValue}
-        onSearchValueChange={setSearchValue}
+        pinnedColumns={['select', 'name']}
+        size="compact"
         onRowClick={(row) => {
           setSelectedRowName(row.original.name);
         }}
-        getRowId={(row) => row.id}
+        searchValue={searchValue}
+        onSearchValueChange={setSearchValue}
       >
         <DataGridHeader>
           <DataGridHeaderActions>
