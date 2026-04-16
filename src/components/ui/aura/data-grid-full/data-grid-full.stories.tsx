@@ -338,7 +338,7 @@ export const PinnedMultipleColumns: Story = {
       { accessorKey: 'updated', header: 'Updated', size: 140 },
       ...Array.from({ length: 4 }, (_, i) => ({
         id: `extra-${i}`,
-        accessorKey: 'status' as const,
+        accessorKey: 'status',
         header: `Extra ${i + 1}`,
         size: 140,
       })),
@@ -389,7 +389,7 @@ export const PinnedSelectionAndDataColumn: Story = {
       { accessorKey: 'region', header: 'Region', size: 130 },
       ...Array.from({ length: 3 }, (_, i) => ({
         id: `extra-col-${i}`,
-        accessorKey: 'owner' as const,
+        accessorKey: 'owner',
         header: `Owner ${i + 1}`,
         size: 130,
       })),
@@ -1052,7 +1052,7 @@ export const ImperativeApi: Story = {
 };
 
 export const Accessibility: Story = {
-  parameters: { order: 99 },
+  parameters: { order: 100 },
   render: function AccessibilityStory() {
     const [rowSelection, setRowSelection] = useState({});
     const [sorting, setSorting] = useState<{ id: string; desc: boolean }[]>([]);
@@ -1655,7 +1655,7 @@ export const ActionsCellWithDropdownMenu: Story = {
 };
 
 export const Playground: Story = {
-  parameters: { order: 106 },
+  parameters: { order: 99 },
   render: function PlaygroundStory() {
     type AssetRow = {
       id: string;

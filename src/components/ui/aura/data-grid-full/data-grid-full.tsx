@@ -363,24 +363,31 @@ function DataGrid<TData>({
         >
           <div className="min-w-fit w-full">
             {/* Header rows stay sticky while the virtualized body scrolls underneath. */}
-            {headerGroups.map((headerGroup) => (
+            {headerGroups.map((headerGroup, headerRowIndex) => (
               <div
                 key={headerGroup.id}
                 data-slot="data-grid-header-row"
                 role="row"
-                aria-rowindex={1}
-                className="sticky top-0 z-20 grid border-y bg-background"
+                aria-rowindex={headerRowIndex + 1}
+                className={cn(
+                  'sticky z-20 grid bg-background',
+                  headerRowIndex === 0 ? 'border-y' : 'border-b'
+                )}
                 style={{
+                  top: headerRowIndex * resolvedHeaderHeight,
                   gridTemplateColumns,
                   minHeight: resolvedHeaderHeight,
                 }}
               >
                 {headerGroup.headers.map((header) => {
-                  const isPinned = pinnedColumnIds.has(header.column.id);
+                  const isLeafHeader = header.colSpan === 1;
+                  const isPinned =
+                    isLeafHeader && pinnedColumnIds.has(header.column.id);
                   const isLastPinned =
                     isPinned && lastPinnedColumnId === header.column.id;
                   const sortDirection = header.column.getIsSorted();
-                  const canSort = header.column.getCanSort();
+                  const canSort = isLeafHeader && header.column.getCanSort();
+                  const isGroupedHeader = header.colSpan > 1;
                   const renderedHeader = header.isPlaceholder
                     ? null
                     : flexRender(
@@ -397,9 +404,15 @@ function DataGrid<TData>({
                       data-slot="data-grid-column-header"
                       role="columnheader"
                       aria-colindex={header.index + 1}
+                      aria-colspan={
+                        header.colSpan > 1 ? header.colSpan : undefined
+                      }
                       aria-sort={getAriaSort(sortDirection, canSort)}
                       className={cn(
                         'flex items-center px-3 text-left text-sm font-medium text-muted-foreground',
+                        isGroupedHeader &&
+                          'justify-center text-base font-semibold text-foreground/70',
+                        header.isPlaceholder && 'pointer-events-none',
                         isPinned && 'sticky left-0 z-10 bg-background',
                         isLastPinned &&
                           'relative after:pointer-events-none after:absolute after:inset-y-0 after:left-full after:w-2 after:content-[""] after:bg-linear-to-r after:from-border after:to-transparent after:opacity-70',
@@ -410,16 +423,17 @@ function DataGrid<TData>({
                           )
                       )}
                       tabIndex={canSort ? 0 : undefined}
-                      style={
-                        isPinned
+                      style={{
+                        gridColumn: `span ${header.colSpan} / span ${header.colSpan}`,
+                        ...(isPinned
                           ? {
                               position: 'sticky',
                               left:
                                 pinnedLeftByColumnId.get(header.column.id) ?? 0,
                               zIndex: 10,
                             }
-                          : undefined
-                      }
+                          : {}),
+                      }}
                       onClick={
                         canSort
                           ? header.column.getToggleSortingHandler()
@@ -710,14 +724,21 @@ const EMPTY_HEADER: NormalizedDataGridHeader = {
   hasHeaderContent: false,
 };
 
-const SLOT_COMPONENT_NAMES = {
+const SLOT_COMPONENT_NAMES: {
+  header: string;
+  footer: string;
+  title: string;
+  subtitle: string;
+  search: string;
+  headerActions: string;
+} = {
   header: 'DataGridHeader',
   footer: 'DataGridFooter',
   title: 'DataGridTitle',
   subtitle: 'DataGridSubtitle',
   search: 'DataGridSearch',
   headerActions: 'DataGridHeaderActions',
-} as const;
+};
 
 function useSearchPaginationReset(
   searchValue: string,
@@ -740,10 +761,13 @@ function useSearchPaginationReset(
   }, [searchValue, hasPagination, setPagination]);
 }
 
-function getAriaSort(sortDirection: false | 'asc' | 'desc', canSort: boolean) {
-  if (sortDirection === 'asc') return 'ascending' as const;
-  if (sortDirection === 'desc') return 'descending' as const;
-  return canSort ? ('none' as const) : undefined;
+function getAriaSort(
+  sortDirection: false | 'asc' | 'desc',
+  canSort: boolean
+): 'ascending' | 'descending' | 'none' | undefined {
+  if (sortDirection === 'asc') return 'ascending';
+  if (sortDirection === 'desc') return 'descending';
+  return canSort ? 'none' : undefined;
 }
 
 function isComponentMatch<TProps>(
@@ -756,24 +780,22 @@ function isComponentMatch<TProps>(
   if (!isValidElement(element)) return false;
   if (element.type === component) return true;
 
-  if (typeof element.type === 'function') {
-    const typeWithDisplayName = element.type as {
-      name?: string;
-      displayName?: string;
-    };
-    return (
-      typeWithDisplayName.name === componentName ||
-      typeWithDisplayName.displayName === componentName
-    );
+  const elementType: unknown = element.type;
+
+  if (typeof elementType === 'function') {
+    const displayName =
+      'displayName' in elementType &&
+      typeof elementType.displayName === 'string'
+        ? elementType.displayName
+        : undefined;
+    return elementType.name === componentName || displayName === componentName;
   }
 
-  if (typeof element.type === 'object' && element.type !== null) {
-    const typeWithDisplayName = element.type as {
-      displayName?: string;
-    };
+  if (typeof elementType === 'object' && elementType !== null) {
     const displayName =
-      typeof typeWithDisplayName.displayName === 'string'
-        ? typeWithDisplayName.displayName
+      'displayName' in elementType &&
+      typeof elementType.displayName === 'string'
+        ? elementType.displayName
         : undefined;
     return displayName === componentName;
   }
@@ -826,13 +848,8 @@ function collectCustomCellColumnIds<TData>(columns: ColumnDef<TData>[]) {
   // Walk nested/grouped column defs so custom cell detection also works for grouped columns.
   const visit = (defs: ColumnDef<TData>[]) => {
     for (const def of defs) {
-      const groupColumns =
-        'columns' in def
-          ? (def.columns as ColumnDef<TData>[] | undefined)
-          : undefined;
-
-      if (groupColumns?.length) {
-        visit(groupColumns);
+      if (hasNestedColumns(def)) {
+        visit(def.columns);
         continue;
       }
 
@@ -873,7 +890,7 @@ function normalizeDataGridHeader(header: ReactNode): NormalizedDataGridHeader {
   let actions: ReactNode = null;
 
   Children.forEach(header.props.children, (child) => {
-    if (!isValidElement(child)) return;
+    if (!isValidElement<{ placeholder?: string }>(child)) return;
 
     if (isTitleSlot(child)) {
       title = title ?? child;
@@ -888,8 +905,10 @@ function normalizeDataGridHeader(header: ReactNode): NormalizedDataGridHeader {
     if (isSearchSlot(child)) {
       if (!hasSearch) {
         hasSearch = true;
-        const props = child.props as DataGridSearchProps;
-        if (props.placeholder) searchPlaceholder = props.placeholder;
+        const placeholder = child.props.placeholder;
+        if (typeof placeholder === 'string') {
+          searchPlaceholder = placeholder;
+        }
       }
       return;
     }
@@ -907,6 +926,12 @@ function normalizeDataGridHeader(header: ReactNode): NormalizedDataGridHeader {
     actions,
     hasHeaderContent: Boolean(title || subtitle || hasSearch || actions),
   };
+}
+
+function hasNestedColumns<TData>(
+  def: ColumnDef<TData>
+): def is ColumnDef<TData> & { columns: ColumnDef<TData>[] } {
+  return 'columns' in def && Array.isArray(def.columns);
 }
 
 function resolveDataGridSlots(
