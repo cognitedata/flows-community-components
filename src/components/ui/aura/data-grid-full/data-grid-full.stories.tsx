@@ -570,9 +570,14 @@ export const WithSorting: Story = {
       { accessorKey: 'name', header: 'Name', enableSorting: true },
       {
         accessorKey: 'assets',
-        header: 'Assets',
+        header: () => (
+          <>
+            <span>Assets</span>
+            <Badge variant="fjord">2</Badge>
+          </>
+        ),
         enableSorting: true,
-        size: 100,
+        size: 140,
       },
       {
         accessorKey: 'status',

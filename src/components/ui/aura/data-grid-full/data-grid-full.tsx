@@ -1,7 +1,6 @@
 import {
-  IconChevronDown,
+  IconArrowDown,
   IconChevronRight,
-  IconChevronUp,
   IconSearch,
 } from '@tabler/icons-react';
 import {
@@ -31,8 +30,8 @@ import {
   createContext,
   forwardRef,
   isValidElement,
-  useEffect,
   useContext,
+  useEffect,
   useImperativeHandle,
   useMemo,
   useRef,
@@ -424,9 +423,9 @@ function DataGrid<TData>({
                         header.column.columnDef.header,
                         header.getContext()
                       );
-                  // If header output is plain text, render in a truncating span.
-                  // If it is rich JSX, preserve structure and let custom content control layout.
-                  const headerTextValue = getTextValue(renderedHeader);
+                  const isPlainTextHeader =
+                    typeof renderedHeader === 'string' ||
+                    typeof renderedHeader === 'number';
 
                   return (
                     <div
@@ -480,19 +479,32 @@ function DataGrid<TData>({
                           : undefined
                       }
                     >
-                      {headerTextValue !== undefined ? (
-                        <span className="block min-w-0 flex-1 truncate">
-                          {headerTextValue}
-                        </span>
-                      ) : (
-                        renderedHeader
-                      )}
-                      {sortDirection === 'asc' && (
-                        <IconChevronUp className="ml-1 size-3.5 shrink-0" />
-                      )}
-                      {sortDirection === 'desc' && (
-                        <IconChevronDown className="ml-1 size-3.5 shrink-0" />
-                      )}
+                      <div className="flex min-w-0 flex-1 items-center gap-1">
+                        {isPlainTextHeader ? (
+                          <span className="block min-w-0 truncate">
+                            {renderedHeader}
+                          </span>
+                        ) : (
+                          renderedHeader
+                        )}
+                        {(sortDirection === 'asc' ||
+                          sortDirection === 'desc') && (
+                          <Button
+                            size="icon-sm"
+                            variant="ghost"
+                            className="pointer-events-none size-4 rounded-sm p-0"
+                            tabIndex={-1}
+                            aria-hidden="true"
+                          >
+                            <IconArrowDown
+                              className={cn(
+                                'size-3.5 shrink-0',
+                                sortDirection === 'asc' && 'rotate-180'
+                              )}
+                            />
+                          </Button>
+                        )}
+                      </div>
                     </div>
                   );
                 })}
@@ -631,19 +643,14 @@ function DataGrid<TData>({
                                   : 'Expand row'
                               }
                             >
-                              {row.getIsExpanded() ? (
-                                <IconChevronDown
-                                  width={5}
-                                  height={8}
-                                  aria-hidden="true"
-                                />
-                              ) : (
-                                <IconChevronRight
-                                  width={5}
-                                  height={8}
-                                  aria-hidden="true"
-                                />
-                              )}
+                              <IconChevronRight
+                                width={5}
+                                height={8}
+                                className={cn(
+                                  row.getIsExpanded() && 'rotate-90'
+                                )}
+                                aria-hidden="true"
+                              />
                             </Button>
                           )}
                           {showChevronSpacer && (
