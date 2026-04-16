@@ -10,6 +10,7 @@ import {
   DataGridTitle,
   useDataGridContext,
   type DataGridHandle,
+  type ExpandedState,
 } from './data-grid-full';
 import { DataGridMetadata } from './data-grid-full.metadata';
 
@@ -26,4 +27,5 @@ export {
   DataGridMetadata,
   useDataGridContext,
   type DataGridHandle,
+  type ExpandedState,
 };

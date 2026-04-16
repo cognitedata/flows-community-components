@@ -1051,6 +1051,178 @@ export const ImperativeApi: Story = {
   },
 };
 
+export const HierarchicalRows: Story = {
+  parameters: { order: 10 },
+  render: function HierarchicalRowsStory() {
+    type Asset = {
+      id: string;
+      name: string;
+      type: string;
+      status: string;
+      isLink?: boolean;
+      children?: Asset[];
+    };
+
+    const data: Asset[] = [
+      {
+        id: '1',
+        name: 'Pump Station Alpha',
+        type: 'Station',
+        status: 'Running',
+        isLink: true,
+        children: [
+          {
+            id: '1-1',
+            name: 'Pump A-1',
+            type: 'Pump',
+            status: 'Running',
+            isLink: true,
+          },
+          {
+            id: '1-2',
+            name: 'Pump A-2',
+            type: 'Pump',
+            status: 'Stopped',
+            children: [
+              {
+                id: '1-2-1',
+                name: 'Pump A-2 Seal Inspection',
+                type: 'Work order',
+                status: 'Maintenance',
+                isLink: true,
+              },
+              {
+                id: '1-2-2',
+                name: 'Pump A-2 Spare Rotor',
+                type: 'Component',
+                status: 'Open',
+              },
+            ],
+          },
+        ],
+      },
+      { id: '2', name: 'Valve V-100', type: 'Valve', status: 'Open' },
+      {
+        id: '3',
+        name: 'Compressor Bay',
+        type: 'Station',
+        status: 'Running',
+        isLink: true,
+        children: [
+          {
+            id: '3-1',
+            name: 'Compressor C-1',
+            type: 'Compressor',
+            status: 'Running',
+            isLink: true,
+          },
+          {
+            id: '3-2',
+            name: 'Compressor C-2',
+            type: 'Compressor',
+            status: 'Maintenance',
+          },
+          {
+            id: '3-3',
+            name: 'Compressor C-3',
+            type: 'Compressor',
+            status: 'Running',
+          },
+        ],
+      },
+      {
+        id: '4',
+        name: 'Heat Exchanger HX-01',
+        type: 'Exchanger',
+        status: 'Running',
+      },
+      {
+        id: '5',
+        name: 'Generator Block',
+        type: 'Station',
+        status: 'Running',
+        children: [
+          {
+            id: '5-1',
+            name: 'Generator G-1',
+            type: 'Generator',
+            status: 'Running',
+          },
+        ],
+      },
+      {
+        id: '6',
+        name: 'Separator S-200',
+        type: 'Separator',
+        status: 'Running',
+      },
+      { id: '7', name: 'Tank T-300', type: 'Tank', status: 'Running' },
+    ];
+
+    type StatusBadgeVariant = NonNullable<
+      ComponentProps<typeof Badge>['variant']
+    >;
+    const statusVariantMap: Record<string, StatusBadgeVariant> = {
+      Running: 'success',
+      Stopped: 'error',
+      Open: 'inProgress',
+      Maintenance: 'warning',
+    };
+
+    const columns: ColumnDef<Asset>[] = [
+      {
+        accessorKey: 'name',
+        header: 'Name',
+        size: 250,
+        cell: ({ row }) =>
+          row.original.isLink ? (
+            <a
+              href="#"
+              className="block min-w-0 flex-1 truncate text-foreground-link no-underline hover:underline underline-offset-4"
+              onClick={(event) => event.preventDefault()}
+            >
+              {row.original.name}
+            </a>
+          ) : (
+            <span className="block min-w-0 flex-1 truncate">
+              {row.original.name}
+            </span>
+          ),
+      },
+      { accessorKey: 'type', header: 'Type', size: 140 },
+      {
+        accessorKey: 'status',
+        header: 'Status',
+        size: 140,
+        cell: ({ row }) => (
+          <Badge variant={statusVariantMap[row.original.status]} dot>
+            {row.original.status}
+          </Badge>
+        ),
+      },
+    ];
+
+    return (
+      <div className="h-96">
+        <DataGrid
+          data={data}
+          columns={columns}
+          getRowId={(row) => row.id}
+          getSubRows={(row) => row.children}
+          className="h-full"
+        >
+          <DataGridHeader>
+            <DataGridTitle>Hierarchical Rows</DataGridTitle>
+            <DataGridSubtitle>
+              Click parent and child rows to expand nested levels
+            </DataGridSubtitle>
+          </DataGridHeader>
+        </DataGrid>
+      </div>
+    );
+  },
+};
+
 export const Accessibility: Story = {
   parameters: { order: 100 },
   render: function AccessibilityStory() {

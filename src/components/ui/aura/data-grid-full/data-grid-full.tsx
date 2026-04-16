@@ -1,11 +1,13 @@
 import {
   IconChevronDown,
+  IconChevronRight,
   IconChevronUp,
   IconSearch,
 } from '@tabler/icons-react';
 import {
   type ColumnDef,
   type ColumnPinningState,
+  type ExpandedState,
   type FilterFnOption,
   type PaginationState,
   type Row,
@@ -13,6 +15,7 @@ import {
   type SortingState,
   flexRender,
   getCoreRowModel,
+  getExpandedRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
@@ -37,6 +40,7 @@ import {
 
 import { useControllableState } from '../../../../lib/use-controllable-state';
 import { cn, focusState } from '../../../../lib/utils';
+import { Button } from '../button';
 import { Checkbox } from '../checkbox';
 import { InputGroup, InputGroupAddon, InputGroupInput } from '../input-group';
 
@@ -91,6 +95,12 @@ type DataGridProps<TData> = {
   pagination?: PaginationState;
   defaultPagination?: PaginationState;
   onPaginationChange?: (value: PaginationState) => void;
+  getSubRows?: (row: TData, index: number) => TData[] | undefined;
+  expanded?: ExpandedState;
+  defaultExpanded?: ExpandedState;
+  onExpandedChange?: (value: ExpandedState) => void;
+  getRowCanExpand?: (row: Row<TData>) => boolean;
+  maxDepth?: number;
   pinnedColumns?: string[];
   gridRef?: RefObject<DataGridHandle | null>;
   size?: DataGridSize;
@@ -126,6 +136,12 @@ function DataGrid<TData>({
   pagination,
   defaultPagination,
   onPaginationChange,
+  getSubRows,
+  expanded,
+  defaultExpanded,
+  onExpandedChange,
+  getRowCanExpand,
+  maxDepth = 5,
   pinnedColumns = [],
   gridRef,
   size = 'default',
@@ -175,6 +191,15 @@ function DataGrid<TData>({
       prop: pagination,
       defaultProp: defaultPagination ?? { pageIndex: 0, pageSize: 10 },
       onChange: onPaginationChange,
+    });
+
+  const hasExpanding = getSubRows !== undefined;
+
+  const [resolvedExpanded, setResolvedExpanded] =
+    useControllableState<ExpandedState>({
+      prop: expanded,
+      defaultProp: defaultExpanded ?? {},
+      onChange: onExpandedChange,
     });
 
   const isClientSorting = enableSorting && !manualSorting;
@@ -227,10 +252,12 @@ function DataGrid<TData>({
       sorting: resolvedSorting,
       rowSelection: resolvedRowSelection,
       ...(hasPagination ? { pagination: resolvedPagination } : {}),
+      ...(hasExpanding ? { expanded: resolvedExpanded } : {}),
     },
     onSortingChange: setResolvedSorting,
     onRowSelectionChange: setResolvedRowSelection,
     ...(hasPagination ? { onPaginationChange: setResolvedPagination } : {}),
+    ...(hasExpanding ? { onExpandedChange: setResolvedExpanded } : {}),
     autoResetPageIndex: false,
     autoResetExpanded: false,
     enableRowSelection,
@@ -244,8 +271,11 @@ function DataGrid<TData>({
     ...(isClientPagination
       ? { getPaginationRowModel: getPaginationRowModel() }
       : {}),
+    ...(hasExpanding ? { getExpandedRowModel: getExpandedRowModel() } : {}),
     getRowId,
     rowCount,
+    getSubRows,
+    getRowCanExpand,
   });
 
   const { rows } = table.getRowModel();
@@ -480,6 +510,15 @@ function DataGrid<TData>({
               {virtualizer.getVirtualItems().map((virtualRow) => {
                 const row = rows[virtualRow.index];
                 const isSelected = row.getIsSelected();
+                const canExpand = row.getCanExpand();
+                const isRowInteractive = onRowClick || canExpand;
+
+                const handleRowActivation = isRowInteractive
+                  ? () => {
+                      if (canExpand) row.toggleExpanded();
+                      if (onRowClick) onRowClick(row);
+                    }
+                  : undefined;
 
                 return (
                   <div
@@ -489,11 +528,12 @@ function DataGrid<TData>({
                     role="row"
                     aria-rowindex={virtualRow.index + 2}
                     aria-selected={isSelected || undefined}
+                    aria-expanded={canExpand ? row.getIsExpanded() : undefined}
                     className={cn(
                       'group absolute left-0 right-0 grid border-b bg-background transition-colors',
                       'hover:bg-active-muted-background',
                       isSelected && 'bg-active-muted-background',
-                      onRowClick &&
+                      isRowInteractive &&
                         cn(
                           'cursor-pointer focus-visible:bg-active-muted-background',
                           focusState
@@ -504,20 +544,20 @@ function DataGrid<TData>({
                       height: virtualRow.size,
                       transform: `translateY(${virtualRow.start}px)`,
                     }}
-                    tabIndex={onRowClick ? 0 : undefined}
-                    onClick={onRowClick ? () => onRowClick(row) : undefined}
+                    tabIndex={isRowInteractive ? 0 : undefined}
+                    onClick={handleRowActivation}
                     onKeyDown={
-                      onRowClick
+                      handleRowActivation
                         ? (event) => {
                             if (event.key !== 'Enter' && event.key !== ' ')
                               return;
                             event.preventDefault();
-                            onRowClick(row);
+                            handleRowActivation();
                           }
                         : undefined
                     }
                   >
-                    {row.getVisibleCells().map((cell) => {
+                    {row.getVisibleCells().map((cell, cellIndex) => {
                       const isPinned = pinnedColumnIds.has(cell.column.id);
                       const isLastPinned =
                         isPinned && lastPinnedColumnId === cell.column.id;
@@ -537,6 +577,37 @@ function DataGrid<TData>({
                         renderedTextValue ??
                         (!hasCustomCellRenderer ? rawTextValue : undefined);
 
+                      const isFirstCell = cellIndex === 0;
+                      const depth = Math.min(row.depth, maxDepth);
+                      const indentPx =
+                        isFirstCell && depth > 0 ? depth * 16 : 0;
+                      const showChevron = isFirstCell && canExpand;
+                      const showChevronSpacer =
+                        isFirstCell && hasExpanding && !canExpand && depth > 0;
+
+                      const pinnedStyle: React.CSSProperties | undefined =
+                        isPinned
+                          ? {
+                              position: 'sticky',
+                              left:
+                                pinnedLeftByColumnId.get(cell.column.id) ?? 0,
+                              zIndex: 10,
+                            }
+                          : undefined;
+
+                      const cellStyle: React.CSSProperties | undefined =
+                        indentPx > 0 || pinnedStyle
+                          ? {
+                              ...pinnedStyle,
+                              ...(indentPx > 0
+                                ? { paddingInlineStart: `${indentPx + 12}px` }
+                                : {}),
+                            }
+                          : undefined;
+
+                      const needsTreeIndicator =
+                        showChevron || showChevronSpacer;
+
                       return (
                         <DataGridCell
                           key={cell.id}
@@ -544,20 +615,50 @@ function DataGrid<TData>({
                           isLastPinned={isLastPinned}
                           colIndex={cell.column.getIndex() + 1}
                           textValue={textValue}
-                          truncate={textValue !== undefined}
-                          style={
-                            isPinned
-                              ? {
-                                  position: 'sticky',
-                                  left:
-                                    pinnedLeftByColumnId.get(cell.column.id) ??
-                                    0,
-                                  zIndex: 10,
-                                }
-                              : undefined
+                          truncate={
+                            needsTreeIndicator ? false : textValue !== undefined
                           }
+                          style={cellStyle}
                         >
-                          {renderedCell}
+                          {showChevron && (
+                            <Button
+                              size="icon-sm"
+                              variant="ghost"
+                              className="mr-2"
+                              aria-label={
+                                row.getIsExpanded()
+                                  ? 'Collapse row'
+                                  : 'Expand row'
+                              }
+                            >
+                              {row.getIsExpanded() ? (
+                                <IconChevronDown
+                                  width={5}
+                                  height={8}
+                                  aria-hidden="true"
+                                />
+                              ) : (
+                                <IconChevronRight
+                                  width={5}
+                                  height={8}
+                                  aria-hidden="true"
+                                />
+                              )}
+                            </Button>
+                          )}
+                          {showChevronSpacer && (
+                            <span
+                              className="mr-2 inline-block h-7 w-7 shrink-0"
+                              aria-hidden="true"
+                            />
+                          )}
+                          {needsTreeIndicator && textValue !== undefined ? (
+                            <span className="block min-w-0 flex-1 truncate">
+                              {textValue}
+                            </span>
+                          ) : (
+                            renderedCell
+                          )}
                         </DataGridCell>
                       );
                     })}
@@ -1058,4 +1159,5 @@ export {
   DataGridTitle,
   useDataGridContext,
   type DataGridHandle,
+  type ExpandedState,
 };

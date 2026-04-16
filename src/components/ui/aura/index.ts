@@ -255,6 +255,7 @@ export {
   DataGridCell,
   DataGridMetadata,
   type DataGridHandle,
+  type ExpandedState,
 } from './data-grid-full';
 
 export {
