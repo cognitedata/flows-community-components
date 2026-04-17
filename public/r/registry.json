@@ -794,6 +794,132 @@
       ]
     },
     {
+      "name": "data-grid-full",
+      "type": "registry:component",
+      "title": "DataGrid",
+      "description": "A data grid component with column pinning, row selection, sorting, virtualization, and pagination support, built with TanStack Table and CSS Grid.",
+      "dependencies": [
+        "@tabler/icons-react",
+        "@tanstack/react-table",
+        "@tanstack/react-virtual"
+      ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/button",
+        "@aura/checkbox",
+        "@aura/input-group",
+        "@aura/skeleton"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/data-grid-full/data-grid-full.tsx",
+          "target": "src/components/ui/aura/data-grid-full.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "input-group",
+      "type": "registry:component",
+      "title": "InputGroup",
+      "description": "A component for grouping inputs with addons and buttons.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/button",
+        "@aura/input",
+        "@aura/textarea"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/input-group/input-group.tsx",
+          "target": "src/components/ui/aura/input-group.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "input",
+      "type": "registry:component",
+      "title": "Input",
+      "description": "A styled text input component with focus and validation states.",
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/helper-text",
+        "@aura/input-group"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/input/input.tsx",
+          "target": "src/components/ui/aura/input.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "textarea",
+      "type": "registry:component",
+      "title": "Textarea",
+      "description": "A multi-line text input component.",
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/helper-text"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/textarea/textarea.tsx",
+          "target": "src/components/ui/aura/textarea.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "skeleton",
+      "type": "registry:component",
+      "title": "Skeleton",
+      "description": "A placeholder loading component.",
+      "registryDependencies": [
+        "@aura/css"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/skeleton/skeleton.tsx",
+          "target": "src/components/ui/aura/skeleton.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "date-picker",
       "type": "registry:component",
       "title": "DatePicker",
@@ -950,81 +1076,6 @@
         {
           "path": "src/components/ui/aura/inline-citation/inline-citation.tsx",
           "target": "src/components/ui/aura/inline-citation.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "src/globals.css",
-          "target": "src/styles.css",
-          "type": "registry:component"
-        }
-      ]
-    },
-    {
-      "name": "input",
-      "type": "registry:component",
-      "title": "Input",
-      "description": "A styled text input component with focus and validation states.",
-      "dependencies": [
-        "@tabler/icons-react"
-      ],
-      "registryDependencies": [
-        "@aura/css",
-        "@aura/helper-text",
-        "@aura/input-group"
-      ],
-      "files": [
-        {
-          "path": "src/components/ui/aura/input/input.tsx",
-          "target": "src/components/ui/aura/input.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "src/globals.css",
-          "target": "src/styles.css",
-          "type": "registry:component"
-        }
-      ]
-    },
-    {
-      "name": "input-group",
-      "type": "registry:component",
-      "title": "InputGroup",
-      "description": "A component for grouping inputs with addons and buttons.",
-      "dependencies": [
-        "class-variance-authority"
-      ],
-      "registryDependencies": [
-        "@aura/css",
-        "@aura/button",
-        "@aura/input",
-        "@aura/textarea"
-      ],
-      "files": [
-        {
-          "path": "src/components/ui/aura/input-group/input-group.tsx",
-          "target": "src/components/ui/aura/input-group.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "src/globals.css",
-          "target": "src/styles.css",
-          "type": "registry:component"
-        }
-      ]
-    },
-    {
-      "name": "textarea",
-      "type": "registry:component",
-      "title": "Textarea",
-      "description": "A multi-line text input component.",
-      "registryDependencies": [
-        "@aura/css",
-        "@aura/helper-text"
-      ],
-      "files": [
-        {
-          "path": "src/components/ui/aura/textarea/textarea.tsx",
-          "target": "src/components/ui/aura/textarea.tsx",
           "type": "registry:component"
         },
         {
@@ -1523,27 +1574,6 @@
         {
           "path": "src/components/ui/aura/sidebar/sidebar.tsx",
           "target": "src/components/ui/aura/sidebar.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "src/globals.css",
-          "target": "src/styles.css",
-          "type": "registry:component"
-        }
-      ]
-    },
-    {
-      "name": "skeleton",
-      "type": "registry:component",
-      "title": "Skeleton",
-      "description": "A placeholder loading component.",
-      "registryDependencies": [
-        "@aura/css"
-      ],
-      "files": [
-        {
-          "path": "src/components/ui/aura/skeleton/skeleton.tsx",
-          "target": "src/components/ui/aura/skeleton.tsx",
           "type": "registry:component"
         },
         {

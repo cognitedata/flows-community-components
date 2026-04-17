@@ -3,7 +3,14 @@ import {
   DataGridCell,
   DataGridCheckboxCell,
   DataGridCheckboxHeader,
+  DataGridHeader,
+  DataGridHeaderActions,
+  DataGridSearch,
+  DataGridSubtitle,
+  DataGridTitle,
   useDataGridContext,
+  type DataGridHandle,
+  type ExpandedState,
 } from './data-grid-full';
 import { DataGridMetadata } from './data-grid-full.metadata';
 
@@ -12,6 +19,13 @@ export {
   DataGridCell,
   DataGridCheckboxCell,
   DataGridCheckboxHeader,
+  DataGridHeader,
+  DataGridHeaderActions,
+  DataGridSearch,
+  DataGridSubtitle,
+  DataGridTitle,
   DataGridMetadata,
   useDataGridContext,
+  type DataGridHandle,
+  type ExpandedState,
 };

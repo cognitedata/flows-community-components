@@ -250,7 +250,13 @@ export type {
 } from './date-picker/date-picker';
 export { DatePickerMetadata } from './date-picker/date-picker.metadata';
 
-export { DataGrid, DataGridCell, DataGridMetadata } from './data-grid-full';
+export {
+  DataGrid,
+  DataGridCell,
+  DataGridMetadata,
+  type DataGridHandle,
+  type ExpandedState,
+} from './data-grid-full';
 
 export {
   Dialog,
