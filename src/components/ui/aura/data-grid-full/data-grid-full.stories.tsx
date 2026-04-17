@@ -1,7 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { IconArrowsDiagonal, IconDots } from '@tabler/icons-react';
 import type { ColumnDef } from '@tanstack/react-table';
-import { type ComponentProps, useMemo, useRef, useState } from 'react';
+import {
+  type ComponentProps,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { expect, userEvent, within } from 'storybook/test';
 
 import { Avatar, AvatarFallback } from '../avatar';
@@ -310,7 +316,7 @@ export const PinnedColumns: Story = {
 };
 
 export const PinnedMultipleColumns: Story = {
-  parameters: { order: 3.1 },
+  parameters: { order: 4 },
   render: () => {
     type RowData = {
       id: string;
@@ -362,7 +368,7 @@ export const PinnedMultipleColumns: Story = {
 };
 
 export const PinnedSelectionAndDataColumn: Story = {
-  parameters: { order: 3.2 },
+  parameters: { order: 5 },
   render: function PinnedSelectionAndDataColumnStory() {
     const [rowSelection, setRowSelection] = useState({});
 
@@ -425,7 +431,7 @@ export const PinnedSelectionAndDataColumn: Story = {
 };
 
 export const SizeVariants: Story = {
-  parameters: { order: 4 },
+  parameters: { order: 6 },
   render: () => {
     type RowData = {
       id: string;
@@ -482,7 +488,7 @@ export const SizeVariants: Story = {
 };
 
 export const WithSelection: Story = {
-  parameters: { order: 5 },
+  parameters: { order: 7 },
   render: function WithSelectionStory() {
     const [rowSelection, setRowSelection] = useState({});
     type RowData = {
@@ -537,7 +543,7 @@ export const WithSelection: Story = {
 };
 
 export const WithSorting: Story = {
-  parameters: { order: 6 },
+  parameters: { order: 8 },
   render: function WithSortingStory() {
     const [sorting, setSorting] = useState<{ id: string; desc: boolean }[]>([]);
 
@@ -613,7 +619,7 @@ export const WithSorting: Story = {
 };
 
 export const WithPagination: Story = {
-  parameters: { order: 7 },
+  parameters: { order: 9 },
   render: function WithPaginationStory() {
     type AssetRow = {
       id: string;
@@ -837,7 +843,8 @@ export const WithPagination: Story = {
         getRowId={(row) => row.id}
         pagination={pagination}
         onPaginationChange={setPagination}
-        footer={
+      >
+        <DataGridFooter>
           <Pagination className="w-full">
             <PaginationContent className="w-full justify-between">
               <div className="flex items-center gap-1">
@@ -928,8 +935,8 @@ export const WithPagination: Story = {
               </PaginationItem>
             </PaginationContent>
           </Pagination>
-        }
-      />
+        </DataGridFooter>
+      </DataGrid>
     );
   },
   play: async ({ canvasElement }) => {
@@ -940,7 +947,7 @@ export const WithPagination: Story = {
 };
 
 export const LargeDataset: Story = {
-  parameters: { order: 8 },
+  parameters: { order: 10 },
   render: () => {
     type LargeRow = { id: string; col1: string; col2: string; col3: string };
     const largeData: LargeRow[] = Array.from({ length: 1000 }, (_, i) => ({
@@ -976,7 +983,7 @@ export const LargeDataset: Story = {
 };
 
 export const ImperativeApi: Story = {
-  parameters: { order: 9 },
+  parameters: { order: 11 },
   render: function ImperativeApiStory() {
     type RowData = {
       id: string;
@@ -1057,7 +1064,7 @@ export const ImperativeApi: Story = {
 };
 
 export const HierarchicalRows: Story = {
-  parameters: { order: 10 },
+  parameters: { order: 12 },
   render: function HierarchicalRowsStory() {
     type Asset = {
       id: string;
@@ -1228,434 +1235,195 @@ export const HierarchicalRows: Story = {
   },
 };
 
-export const Accessibility: Story = {
-  parameters: { order: 100 },
-  render: function AccessibilityStory() {
-    const [rowSelection, setRowSelection] = useState({});
-    const [sorting, setSorting] = useState<{ id: string; desc: boolean }[]>([]);
+export const LoadingSkeleton: Story = {
+  parameters: { order: 13 },
+  render: () => {
     type RowData = {
       id: string;
       col1: string;
       col2: string;
       col3: string;
       col4: string;
-      col5: string;
     };
-    const data: RowData[] = Array.from({ length: 4 }, (_, i) => ({
-      id: String(i + 1),
-      col1: `Row ${i + 1} Col 1`,
-      col2: `Row ${i + 1} Col 2`,
-      col3: `Row ${i + 1} Col 3`,
-      col4: `Row ${i + 1} Col 4`,
-      col5: `Row ${i + 1} Col 5`,
-    }));
+    const columns: ColumnDef<RowData>[] = [
+      { accessorKey: 'col1', header: 'Name', size: 180 },
+      { accessorKey: 'col2', header: 'Type', size: 140 },
+      { accessorKey: 'col3', header: 'Status', size: 140 },
+      { accessorKey: 'col4', header: 'Updated', size: 160 },
+    ];
 
     return (
       <DataGrid
-        data={data}
-        columns={[
-          {
-            id: 'select',
-            size: 44,
-            header: ({ table }) => <DataGridCheckboxHeader table={table} />,
-            cell: ({ row }) => <DataGridCheckboxCell row={row} />,
-          },
-          {
-            accessorKey: 'col1',
-            header: 'Col 1',
-            size: 160,
-            enableSorting: true,
-          },
-          {
-            accessorKey: 'col2',
-            header: 'Col 2',
-            enableSorting: true,
-          },
-          {
-            accessorKey: 'col3',
-            header: 'Col 3',
-            enableSorting: true,
-          },
-        ]}
-        getRowId={(row) => row.id}
-        enableRowSelection
-        enableSorting
-        rowSelection={rowSelection}
-        onRowSelectionChange={setRowSelection}
-        sorting={sorting}
-        onSortingChange={setSorting}
-        pinnedColumns={['select', 'col1']}
-      />
+        data={[]}
+        columns={columns}
+        getRowId={() => ''}
+        loading
+        loadingRowCount={7}
+      >
+        <DataGridHeader>
+          <DataGridTitle>Loading Skeleton</DataGridTitle>
+          <DataGridSubtitle>
+            Skeleton rows are shown while data is loading
+          </DataGridSubtitle>
+        </DataGridHeader>
+      </DataGrid>
     );
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const grid = canvas.getByRole('grid');
-    await expect(grid).toHaveAttribute('aria-rowcount', '4');
-    await expect(grid).toHaveAttribute('aria-colcount', '4');
-
-    const headerRow = canvas.getAllByRole('row')[0];
-    await expect(headerRow).toHaveAttribute('aria-rowindex', '1');
-
-    const columnHeaders = canvas.getAllByRole('columnheader');
-    await expect(columnHeaders.length).toBe(4);
-    await expect(columnHeaders[1]).toHaveAttribute('aria-colindex', '2');
-    await expect(columnHeaders[1]).toHaveAttribute('aria-sort', 'none');
-
-    await userEvent.click(columnHeaders[1]);
-    await expect(columnHeaders[1]).toHaveAttribute('aria-sort', 'ascending');
-
-    await userEvent.click(columnHeaders[1]);
-    await expect(columnHeaders[1]).toHaveAttribute('aria-sort', 'descending');
-
-    const checkboxes = canvas.getAllByRole('checkbox');
-    const selectAllCheckbox = checkboxes[0];
-    await expect(selectAllCheckbox).toHaveAccessibleName('Select all rows');
-
-    const rowCheckbox = checkboxes[1];
-    await expect(rowCheckbox).toHaveAccessibleName('Select row');
-
-    await userEvent.click(rowCheckbox);
-    const dataRows = canvas.getAllByRole('row').slice(1);
-    await expect(dataRows[0]).toHaveAttribute('aria-selected', 'true');
   },
 };
 
-export const VisualRegression: Story = {
-  parameters: { order: 105 },
-  render: function VisualRegressionStory() {
-    type AssetRow = {
+export const LoadingSkeletonExample: Story = {
+  name: 'Loading Skeleton: Example',
+  parameters: { order: 14 },
+  render: function LoadingSkeletonExampleStory() {
+    type RowData = {
       id: string;
       name: string;
-      assets: number;
-      status: 'Running' | 'Failed' | 'Finished' | 'Needs attention';
-      tag: string;
-      lastEdited: string;
-      created: string;
-      owner: string;
+      type: string;
+      status: string;
+      updated: string;
     };
-    type StatusBadgeVariant = NonNullable<
-      ComponentProps<typeof Badge>['variant']
-    >;
-    const statusVariantMap: Record<AssetRow['status'], StatusBadgeVariant> = {
-      Running: 'inProgress',
-      Failed: 'error',
-      Finished: 'success',
-      'Needs attention': 'warning',
-    };
-    const formatNumber = (n: number) =>
-      n >= 1000 ? `${(n / 1000).toFixed(1)}k+` : String(n);
-    const [rowSelection] = useState({ '2': true, '4': true });
-    const data: AssetRow[] = [
-      {
-        id: '1',
-        name: 'Pump health UT-654/111',
-        assets: 215,
-        status: 'Running',
-        tag: 'Troubleshooting',
-        lastEdited: 'Dec 17, 2024',
-        created: 'Dec 12, 2024',
-        owner: 'PJ',
+
+    const allRows: RowData[] = Array.from({ length: 24 }, (_, i) => ({
+      id: String(i + 1),
+      name: `Asset ${i + 1}`,
+      type: i % 3 === 0 ? 'Pump' : i % 3 === 1 ? 'Compressor' : 'Valve',
+      status: i % 2 === 0 ? 'Running' : 'Stopped',
+      updated: `2026-04-${String((i % 28) + 1).padStart(2, '0')}`,
+    }));
+
+    const pageSize = 6;
+    const totalPages = Math.ceil(allRows.length / pageSize);
+    const [pagination, setPagination] = useState({
+      pageIndex: 0,
+      pageSize,
+    });
+    const [loading, setLoading] = useState(false);
+    const [pageData, setPageData] = useState<RowData[]>(
+      allRows.slice(0, pageSize)
+    );
+    const pendingRequestRef = useRef<number | null>(null);
+
+    useEffect(
+      () => () => {
+        if (pendingRequestRef.current) {
+          window.clearTimeout(pendingRequestRef.current);
+        }
       },
-      {
-        id: '2',
-        name: 'Compressor train A-14',
-        assets: 2500,
-        status: 'Failed',
-        tag: 'RCA',
-        lastEdited: 'Nov 29, 2024',
-        created: 'Nov 03, 2024',
-        owner: 'AL',
-      },
-      {
-        id: '3',
-        name: 'Wellhead pressure BK-220',
-        assets: 1490,
-        status: 'Finished',
-        tag: 'Monitoring',
-        lastEdited: 'Oct 14, 2024',
-        created: 'Oct 01, 2024',
-        owner: 'RM',
-      },
-      {
-        id: '4',
-        name: 'Flow meter SK-91',
-        assets: 402,
-        status: 'Needs attention',
-        tag: 'Inspection',
-        lastEdited: 'Sep 08, 2024',
-        created: 'Sep 22, 2024',
-        owner: 'KT',
-      },
+      []
+    );
+
+    const columns: ColumnDef<RowData>[] = [
+      { accessorKey: 'name', header: 'Name', size: 180 },
+      { accessorKey: 'type', header: 'Type', size: 130 },
+      { accessorKey: 'status', header: 'Status', size: 120 },
+      { accessorKey: 'updated', header: 'Updated', size: 160 },
     ];
 
-    const columns: ColumnDef<AssetRow>[] = [
-      {
-        id: 'select',
-        size: 44,
-        header: ({ table }) => <DataGridCheckboxHeader table={table} />,
-        cell: ({ row }) => <DataGridCheckboxCell row={row} />,
-      },
-      {
-        accessorKey: 'name',
-        header: 'Name',
-        size: 220,
-      },
-      {
-        accessorKey: 'assets',
-        header: 'Assets',
-        size: 80,
-        cell: ({ row }) => formatNumber(row.original.assets),
-      },
-      {
-        accessorKey: 'status',
-        header: 'Status',
-        size: 160,
-        cell: ({ row }) => {
-          const { status } = row.original;
-          return (
-            <Badge variant={statusVariantMap[status]} dot>
-              {status}
-            </Badge>
-          );
-        },
-      },
-      {
-        accessorKey: 'tag',
-        header: 'Tag',
-        size: 150,
-        cell: ({ row }) => <Badge variant="mountain">{row.original.tag}</Badge>,
-      },
-      { accessorKey: 'lastEdited', header: 'Last edited', size: 120 },
-      { accessorKey: 'created', header: 'Created', size: 120 },
-      {
-        accessorKey: 'owner',
-        header: 'Owner',
-        size: 70,
-        cell: ({ row }) => (
-          <Avatar variant="fjord" sizes="xxsm">
-            <AvatarFallback>{row.original.owner}</AvatarFallback>
-          </Avatar>
-        ),
-      },
-    ];
+    const requestPage = (nextPagination: {
+      pageIndex: number;
+      pageSize: number;
+    }) => {
+      if (pendingRequestRef.current) {
+        window.clearTimeout(pendingRequestRef.current);
+      }
+      setLoading(true);
+      pendingRequestRef.current = window.setTimeout(() => {
+        const start = nextPagination.pageIndex * nextPagination.pageSize;
+        const end = start + nextPagination.pageSize;
+        setPageData(allRows.slice(start, end));
+        setPagination(nextPagination);
+        setLoading(false);
+        pendingRequestRef.current = null;
+      }, 700);
+    };
+
+    const startRow = pagination.pageIndex * pageSize + 1;
+    const endRow = Math.min(
+      (pagination.pageIndex + 1) * pageSize,
+      allRows.length
+    );
 
     return (
       <DataGrid
-        data={data}
+        data={pageData}
         columns={columns}
         getRowId={(row) => row.id}
-        enableRowSelection
-        rowSelection={rowSelection}
-        pinnedColumns={['select', 'name']}
-      />
+        loading={loading}
+        loadingRowCount={pageSize}
+        pagination={pagination}
+        onPaginationChange={requestPage}
+        manualPagination
+        rowCount={allRows.length}
+      >
+        <DataGridHeader>
+          <DataGridTitle>Loading Skeleton Example</DataGridTitle>
+          <DataGridSubtitle>
+            Simulated loading while changing pages
+          </DataGridSubtitle>
+        </DataGridHeader>
+        <DataGridFooter>
+          <Pagination className="w-full">
+            <PaginationContent className="w-full justify-between">
+              <div className="flex items-center gap-1">
+                <PaginationItem>
+                  <PaginationPrevious
+                    href="#"
+                    isDisabled={loading || pagination.pageIndex === 0}
+                    onClick={(event) => {
+                      event.preventDefault();
+                      requestPage({
+                        pageIndex: Math.max(0, pagination.pageIndex - 1),
+                        pageSize: pagination.pageSize,
+                      });
+                    }}
+                  />
+                </PaginationItem>
+                <PaginationItem>
+                  <PaginationTeleport
+                    currentPage={pagination.pageIndex + 1}
+                    totalPages={totalPages}
+                    onPageChange={(page) =>
+                      requestPage({
+                        pageIndex: page - 1,
+                        pageSize: pagination.pageSize,
+                      })
+                    }
+                  />
+                </PaginationItem>
+                <PaginationItem>
+                  <PaginationNext
+                    href="#"
+                    isDisabled={
+                      loading || pagination.pageIndex >= totalPages - 1
+                    }
+                    onClick={(event) => {
+                      event.preventDefault();
+                      requestPage({
+                        pageIndex: Math.min(
+                          totalPages - 1,
+                          pagination.pageIndex + 1
+                        ),
+                        pageSize: pagination.pageSize,
+                      });
+                    }}
+                  />
+                </PaginationItem>
+              </div>
+              <PaginationItem>
+                <PaginationStatus>
+                  showing {startRow}-{endRow} of {allRows.length} results
+                </PaginationStatus>
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
+        </DataGridFooter>
+      </DataGrid>
     );
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const grid = canvas.getByRole('grid');
-    await expect(grid).toBeInTheDocument();
-    const selectedRows = canvas
-      .getAllByRole('row')
-      .filter((row) => row.getAttribute('aria-selected') === 'true');
-    await expect(selectedRows.length).toBe(2);
-  },
-};
-
-export const EdgeCaseEmptyData: Story = {
-  parameters: { order: 100 },
-  render: () => {
-    type RowData = {
-      id: string;
-      col1: string;
-      col2: string;
-      col3: string;
-      col4: string;
-      col5: string;
-    };
-    const columns: ColumnDef<RowData>[] = [
-      { accessorKey: 'col1', header: 'Col 1', size: 160 },
-      { accessorKey: 'col2', header: 'Col 2' },
-      { accessorKey: 'col3', header: 'Col 3' },
-      { accessorKey: 'col4', header: 'Col 4' },
-      { accessorKey: 'col5', header: 'Col 5' },
-    ];
-    return <DataGrid data={[]} columns={columns} getRowId={() => ''} />;
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const grid = canvas.getByRole('grid');
-    await expect(grid).toBeInTheDocument();
-    await expect(grid).toHaveAttribute('aria-rowcount', '0');
-    const columnHeaders = canvas.getAllByRole('columnheader');
-    await expect(columnHeaders.length).toBe(5);
-  },
-};
-
-export const EdgeCaseLongText: Story = {
-  parameters: { order: 101 },
-  render: () => {
-    type LongTextRow = { id: string; name: string; description: string };
-
-    const longTextData: LongTextRow[] = [
-      {
-        id: '1',
-        name: 'A'.repeat(200),
-        description: 'Short description',
-      },
-      {
-        id: '2',
-        name: 'Normal name',
-        description: 'B'.repeat(500),
-      },
-      {
-        id: '3',
-        name: 'Special chars: <script>alert("xss")</script> & "quotes" \'apostrophes\'',
-        description: 'Unicode: 日本語テスト émojis 🔧⚙️🏭 RTL: مرحبا',
-      },
-      {
-        id: '4',
-        name: '',
-        description: '',
-      },
-    ];
-
-    const longTextColumns: ColumnDef<LongTextRow>[] = [
-      { accessorKey: 'name', header: 'Name', size: 200 },
-      { accessorKey: 'description', header: 'Description', size: 300 },
-    ];
-
-    return (
-      <DataGrid
-        data={longTextData}
-        columns={longTextColumns}
-        getRowId={(row) => row.id}
-      />
-    );
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const cells = canvas.getAllByRole('gridcell');
-    await expect(cells.length).toBeGreaterThanOrEqual(8);
-  },
-};
-
-export const EdgeCaseSingleRow: Story = {
-  parameters: { order: 102 },
-  render: () => {
-    type RowData = {
-      id: string;
-      col1: string;
-      col2: string;
-      col3: string;
-      col4: string;
-      col5: string;
-    };
-    const data: RowData[] = [
-      {
-        id: '1',
-        col1: 'Row 1 Col 1',
-        col2: 'Row 1 Col 2',
-        col3: 'Row 1 Col 3',
-        col4: 'Row 1 Col 4',
-        col5: 'Row 1 Col 5',
-      },
-    ];
-    const columns: ColumnDef<RowData>[] = [
-      { accessorKey: 'col1', header: 'Col 1', size: 160 },
-      { accessorKey: 'col2', header: 'Col 2' },
-      { accessorKey: 'col3', header: 'Col 3' },
-      { accessorKey: 'col4', header: 'Col 4' },
-      { accessorKey: 'col5', header: 'Col 5' },
-    ];
-    return (
-      <DataGrid data={data} columns={columns} getRowId={(row) => row.id} />
-    );
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const grid = canvas.getByRole('grid');
-    await expect(grid).toHaveAttribute('aria-rowcount', '1');
-    const dataRows = canvas.getAllByRole('row').slice(1);
-    await expect(dataRows.length).toBe(1);
-  },
-};
-
-export const EdgeCaseSingleColumn: Story = {
-  parameters: { order: 103 },
-  render: () => {
-    type RowData = {
-      id: string;
-      col1: string;
-      col2: string;
-      col3: string;
-      col4: string;
-      col5: string;
-    };
-    const data: RowData[] = Array.from({ length: 6 }, (_, i) => ({
-      id: String(i + 1),
-      col1: `Row ${i + 1} Col 1`,
-      col2: `Row ${i + 1} Col 2`,
-      col3: `Row ${i + 1} Col 3`,
-      col4: `Row ${i + 1} Col 4`,
-      col5: `Row ${i + 1} Col 5`,
-    }));
-    return (
-      <DataGrid
-        data={data}
-        columns={[{ accessorKey: 'col1', header: 'Only Column' }]}
-        getRowId={(row) => row.id}
-      />
-    );
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const grid = canvas.getByRole('grid');
-    await expect(grid).toHaveAttribute('aria-colcount', '1');
-    const columnHeaders = canvas.getAllByRole('columnheader');
-    await expect(columnHeaders.length).toBe(1);
-  },
-};
-
-export const EdgeCaseManyColumns: Story = {
-  parameters: { order: 104 },
-  render: () => {
-    type WideRow = Record<string, string>;
-    const wideColumns: ColumnDef<WideRow>[] = Array.from(
-      { length: 20 },
-      (_, i) => ({
-        id: `col-${i}`,
-        accessorKey: `col${i}`,
-        header: `Column ${i + 1}`,
-        size: 120,
-      })
-    );
-
-    const wideData: WideRow[] = Array.from({ length: 5 }, (_, rowIdx) => {
-      const row: WideRow = { id: String(rowIdx + 1) };
-      for (let colIdx = 0; colIdx < 20; colIdx++) {
-        row[`col${colIdx}`] = `R${rowIdx + 1}C${colIdx + 1}`;
-      }
-      return row;
-    });
-
-    return (
-      <DataGrid
-        data={wideData}
-        columns={wideColumns}
-        getRowId={(row) => row.id}
-      />
-    );
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const grid = canvas.getByRole('grid');
-    await expect(grid).toHaveAttribute('aria-colcount', '20');
   },
 };
 
 export const HeaderCompositionControlledSearch: Story = {
-  parameters: { order: 96 },
+  parameters: { order: 15 },
   render: () => {
     type RowData = {
       id: string;
@@ -1746,7 +1514,7 @@ export const HeaderCompositionControlledSearch: Story = {
 };
 
 export const ActionsCellWithDropdownMenu: Story = {
-  parameters: { order: 97 },
+  parameters: { order: 16 },
   render: () => {
     type RowData = {
       id: string;
@@ -1832,7 +1600,7 @@ export const ActionsCellWithDropdownMenu: Story = {
 };
 
 export const Playground: Story = {
-  parameters: { order: 99 },
+  parameters: { order: 17 },
   render: function PlaygroundStory() {
     type AssetRow = {
       id: string;
@@ -2180,5 +1948,485 @@ export const Playground: Story = {
         </DataGridFooter>
       </DataGrid>
     );
+  },
+};
+
+export const Accessibility: Story = {
+  parameters: { order: 18 },
+  render: function AccessibilityStory() {
+    const [rowSelection, setRowSelection] = useState({});
+    const [sorting, setSorting] = useState<{ id: string; desc: boolean }[]>([]);
+    type RowData = {
+      id: string;
+      col1: string;
+      col2: string;
+      col3: string;
+      col4: string;
+      col5: string;
+    };
+    const data: RowData[] = Array.from({ length: 4 }, (_, i) => ({
+      id: String(i + 1),
+      col1: `Row ${i + 1} Col 1`,
+      col2: `Row ${i + 1} Col 2`,
+      col3: `Row ${i + 1} Col 3`,
+      col4: `Row ${i + 1} Col 4`,
+      col5: `Row ${i + 1} Col 5`,
+    }));
+
+    return (
+      <DataGrid
+        data={data}
+        columns={[
+          {
+            id: 'select',
+            size: 44,
+            header: ({ table }) => <DataGridCheckboxHeader table={table} />,
+            cell: ({ row }) => <DataGridCheckboxCell row={row} />,
+          },
+          {
+            accessorKey: 'col1',
+            header: 'Col 1',
+            size: 160,
+            enableSorting: true,
+          },
+          {
+            accessorKey: 'col2',
+            header: 'Col 2',
+            enableSorting: true,
+          },
+          {
+            accessorKey: 'col3',
+            header: 'Col 3',
+            enableSorting: true,
+          },
+        ]}
+        getRowId={(row) => row.id}
+        enableRowSelection
+        enableSorting
+        rowSelection={rowSelection}
+        onRowSelectionChange={setRowSelection}
+        sorting={sorting}
+        onSortingChange={setSorting}
+        pinnedColumns={['select', 'col1']}
+      />
+    );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const grid = canvas.getByRole('grid');
+    await expect(grid).toHaveAttribute('aria-rowcount', '4');
+    await expect(grid).toHaveAttribute('aria-colcount', '4');
+
+    const headerRow = canvas.getAllByRole('row')[0];
+    await expect(headerRow).toHaveAttribute('aria-rowindex', '1');
+
+    const columnHeaders = canvas.getAllByRole('columnheader');
+    await expect(columnHeaders.length).toBe(4);
+    await expect(columnHeaders[1]).toHaveAttribute('aria-colindex', '2');
+    await expect(columnHeaders[1]).toHaveAttribute('aria-sort', 'none');
+
+    await userEvent.click(columnHeaders[1]);
+    await expect(columnHeaders[1]).toHaveAttribute('aria-sort', 'ascending');
+
+    await userEvent.click(columnHeaders[1]);
+    await expect(columnHeaders[1]).toHaveAttribute('aria-sort', 'descending');
+
+    const checkboxes = canvas.getAllByRole('checkbox');
+    const selectAllCheckbox = checkboxes[0];
+    await expect(selectAllCheckbox).toHaveAccessibleName('Select all rows');
+
+    const rowCheckbox = checkboxes[1];
+    await expect(rowCheckbox).toHaveAccessibleName('Select row');
+
+    await userEvent.click(rowCheckbox);
+    const dataRows = canvas.getAllByRole('row').slice(1);
+    await expect(dataRows[0]).toHaveAttribute('aria-selected', 'true');
+  },
+};
+
+export const EdgeCaseEmptyData: Story = {
+  parameters: { order: 19 },
+  render: () => {
+    type RowData = {
+      id: string;
+      col1: string;
+      col2: string;
+      col3: string;
+      col4: string;
+      col5: string;
+    };
+    const columns: ColumnDef<RowData>[] = [
+      { accessorKey: 'col1', header: 'Col 1', size: 160 },
+      { accessorKey: 'col2', header: 'Col 2' },
+      { accessorKey: 'col3', header: 'Col 3' },
+      { accessorKey: 'col4', header: 'Col 4' },
+      { accessorKey: 'col5', header: 'Col 5' },
+    ];
+    return (
+      <DataGrid
+        data={[]}
+        columns={columns}
+        getRowId={() => ''}
+        emptyState={
+          <div className="flex max-w-md flex-col items-center gap-1 text-center">
+            <p className="text-sm font-medium text-foreground">
+              No data loaded
+            </p>
+            <p className="text-sm text-muted-foreground">
+              Connect a source or add rows to get started.
+            </p>
+          </div>
+        }
+      />
+    );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const grid = canvas.getByRole('grid');
+    await expect(grid).toBeInTheDocument();
+    await expect(grid).toHaveAttribute('aria-rowcount', '0');
+    const columnHeaders = canvas.getAllByRole('columnheader');
+    await expect(columnHeaders.length).toBe(5);
+  },
+};
+
+export const EdgeCaseNoResults: Story = {
+  parameters: { order: 20 },
+  render: () => {
+    type RowData = {
+      id: string;
+      col1: string;
+      col2: string;
+      col3: string;
+    };
+
+    const data: RowData[] = [
+      { id: '1', col1: 'Pump A-10', col2: 'Running', col3: 'North' },
+      { id: '2', col1: 'Compressor C-44', col2: 'Stopped', col3: 'East' },
+      { id: '3', col1: 'Valve V-09', col2: 'Running', col3: 'South' },
+    ];
+
+    const columns: ColumnDef<RowData>[] = [
+      { accessorKey: 'col1', header: 'Asset' },
+      { accessorKey: 'col2', header: 'Status' },
+      { accessorKey: 'col3', header: 'Region' },
+    ];
+
+    return (
+      <DataGrid
+        data={data}
+        columns={columns}
+        getRowId={(row) => row.id}
+        defaultSearchValue="zz-no-match"
+      >
+        <DataGridHeader>
+          <DataGridTitle>No Results Example</DataGridTitle>
+          <DataGridSearch placeholder="Search assets" />
+        </DataGridHeader>
+      </DataGrid>
+    );
+  },
+};
+
+export const EdgeCaseLongText: Story = {
+  parameters: { order: 21 },
+  render: () => {
+    type LongTextRow = { id: string; name: string; description: string };
+
+    const longTextData: LongTextRow[] = [
+      {
+        id: '1',
+        name: 'A'.repeat(200),
+        description: 'Short description',
+      },
+      {
+        id: '2',
+        name: 'Normal name',
+        description: 'B'.repeat(500),
+      },
+      {
+        id: '3',
+        name: 'Special chars: <script>alert("xss")</script> & "quotes" \'apostrophes\'',
+        description: 'Unicode: 日本語テスト émojis 🔧⚙️🏭 RTL: مرحبا',
+      },
+      {
+        id: '4',
+        name: '',
+        description: '',
+      },
+    ];
+
+    const longTextColumns: ColumnDef<LongTextRow>[] = [
+      { accessorKey: 'name', header: 'Name', size: 200 },
+      { accessorKey: 'description', header: 'Description', size: 300 },
+    ];
+
+    return (
+      <DataGrid
+        data={longTextData}
+        columns={longTextColumns}
+        getRowId={(row) => row.id}
+      />
+    );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const cells = canvas.getAllByRole('gridcell');
+    await expect(cells.length).toBeGreaterThanOrEqual(8);
+  },
+};
+
+export const EdgeCaseSingleRow: Story = {
+  parameters: { order: 22 },
+  render: () => {
+    type RowData = {
+      id: string;
+      col1: string;
+      col2: string;
+      col3: string;
+      col4: string;
+      col5: string;
+    };
+    const data: RowData[] = [
+      {
+        id: '1',
+        col1: 'Row 1 Col 1',
+        col2: 'Row 1 Col 2',
+        col3: 'Row 1 Col 3',
+        col4: 'Row 1 Col 4',
+        col5: 'Row 1 Col 5',
+      },
+    ];
+    const columns: ColumnDef<RowData>[] = [
+      { accessorKey: 'col1', header: 'Col 1', size: 160 },
+      { accessorKey: 'col2', header: 'Col 2' },
+      { accessorKey: 'col3', header: 'Col 3' },
+      { accessorKey: 'col4', header: 'Col 4' },
+      { accessorKey: 'col5', header: 'Col 5' },
+    ];
+    return (
+      <DataGrid data={data} columns={columns} getRowId={(row) => row.id} />
+    );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const grid = canvas.getByRole('grid');
+    await expect(grid).toHaveAttribute('aria-rowcount', '1');
+    const dataRows = canvas.getAllByRole('row').slice(1);
+    await expect(dataRows.length).toBe(1);
+  },
+};
+
+export const EdgeCaseSingleColumn: Story = {
+  parameters: { order: 23 },
+  render: () => {
+    type RowData = {
+      id: string;
+      col1: string;
+      col2: string;
+      col3: string;
+      col4: string;
+      col5: string;
+    };
+    const data: RowData[] = Array.from({ length: 6 }, (_, i) => ({
+      id: String(i + 1),
+      col1: `Row ${i + 1} Col 1`,
+      col2: `Row ${i + 1} Col 2`,
+      col3: `Row ${i + 1} Col 3`,
+      col4: `Row ${i + 1} Col 4`,
+      col5: `Row ${i + 1} Col 5`,
+    }));
+    return (
+      <DataGrid
+        data={data}
+        columns={[{ accessorKey: 'col1', header: 'Only Column' }]}
+        getRowId={(row) => row.id}
+      />
+    );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const grid = canvas.getByRole('grid');
+    await expect(grid).toHaveAttribute('aria-colcount', '1');
+    const columnHeaders = canvas.getAllByRole('columnheader');
+    await expect(columnHeaders.length).toBe(1);
+  },
+};
+
+export const EdgeCaseManyColumns: Story = {
+  parameters: { order: 24 },
+  render: () => {
+    type WideRow = Record<string, string>;
+    const wideColumns: ColumnDef<WideRow>[] = Array.from(
+      { length: 20 },
+      (_, i) => ({
+        id: `col-${i}`,
+        accessorKey: `col${i}`,
+        header: `Column ${i + 1}`,
+        size: 120,
+      })
+    );
+
+    const wideData: WideRow[] = Array.from({ length: 5 }, (_, rowIdx) => {
+      const row: WideRow = { id: String(rowIdx + 1) };
+      for (let colIdx = 0; colIdx < 20; colIdx++) {
+        row[`col${colIdx}`] = `R${rowIdx + 1}C${colIdx + 1}`;
+      }
+      return row;
+    });
+
+    return (
+      <DataGrid
+        data={wideData}
+        columns={wideColumns}
+        getRowId={(row) => row.id}
+      />
+    );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const grid = canvas.getByRole('grid');
+    await expect(grid).toHaveAttribute('aria-colcount', '20');
+  },
+};
+
+export const VisualRegression: Story = {
+  parameters: { order: 25 },
+  render: function VisualRegressionStory() {
+    type AssetRow = {
+      id: string;
+      name: string;
+      assets: number;
+      status: 'Running' | 'Failed' | 'Finished' | 'Needs attention';
+      tag: string;
+      lastEdited: string;
+      created: string;
+      owner: string;
+    };
+    type StatusBadgeVariant = NonNullable<
+      ComponentProps<typeof Badge>['variant']
+    >;
+    const statusVariantMap: Record<AssetRow['status'], StatusBadgeVariant> = {
+      Running: 'inProgress',
+      Failed: 'error',
+      Finished: 'success',
+      'Needs attention': 'warning',
+    };
+    const formatNumber = (n: number) =>
+      n >= 1000 ? `${(n / 1000).toFixed(1)}k+` : String(n);
+    const [rowSelection] = useState({ '2': true, '4': true });
+    const data: AssetRow[] = [
+      {
+        id: '1',
+        name: 'Pump health UT-654/111',
+        assets: 215,
+        status: 'Running',
+        tag: 'Troubleshooting',
+        lastEdited: 'Dec 17, 2024',
+        created: 'Dec 12, 2024',
+        owner: 'PJ',
+      },
+      {
+        id: '2',
+        name: 'Compressor train A-14',
+        assets: 2500,
+        status: 'Failed',
+        tag: 'RCA',
+        lastEdited: 'Nov 29, 2024',
+        created: 'Nov 03, 2024',
+        owner: 'AL',
+      },
+      {
+        id: '3',
+        name: 'Wellhead pressure BK-220',
+        assets: 1490,
+        status: 'Finished',
+        tag: 'Monitoring',
+        lastEdited: 'Oct 14, 2024',
+        created: 'Oct 01, 2024',
+        owner: 'RM',
+      },
+      {
+        id: '4',
+        name: 'Flow meter SK-91',
+        assets: 402,
+        status: 'Needs attention',
+        tag: 'Inspection',
+        lastEdited: 'Sep 08, 2024',
+        created: 'Sep 22, 2024',
+        owner: 'KT',
+      },
+    ];
+
+    const columns: ColumnDef<AssetRow>[] = [
+      {
+        id: 'select',
+        size: 44,
+        header: ({ table }) => <DataGridCheckboxHeader table={table} />,
+        cell: ({ row }) => <DataGridCheckboxCell row={row} />,
+      },
+      {
+        accessorKey: 'name',
+        header: 'Name',
+        size: 220,
+      },
+      {
+        accessorKey: 'assets',
+        header: 'Assets',
+        size: 80,
+        cell: ({ row }) => formatNumber(row.original.assets),
+      },
+      {
+        accessorKey: 'status',
+        header: 'Status',
+        size: 160,
+        cell: ({ row }) => {
+          const { status } = row.original;
+          return (
+            <Badge variant={statusVariantMap[status]} dot>
+              {status}
+            </Badge>
+          );
+        },
+      },
+      {
+        accessorKey: 'tag',
+        header: 'Tag',
+        size: 150,
+        cell: ({ row }) => <Badge variant="mountain">{row.original.tag}</Badge>,
+      },
+      { accessorKey: 'lastEdited', header: 'Last edited', size: 120 },
+      { accessorKey: 'created', header: 'Created', size: 120 },
+      {
+        accessorKey: 'owner',
+        header: 'Owner',
+        size: 70,
+        cell: ({ row }) => (
+          <Avatar variant="fjord" sizes="xxsm">
+            <AvatarFallback>{row.original.owner}</AvatarFallback>
+          </Avatar>
+        ),
+      },
+    ];
+
+    return (
+      <DataGrid
+        data={data}
+        columns={columns}
+        getRowId={(row) => row.id}
+        enableRowSelection
+        rowSelection={rowSelection}
+        pinnedColumns={['select', 'name']}
+      />
+    );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const grid = canvas.getByRole('grid');
+    await expect(grid).toBeInTheDocument();
+    const selectedRows = canvas
+      .getAllByRole('row')
+      .filter((row) => row.getAttribute('aria-selected') === 'true');
+    await expect(selectedRows.length).toBe(2);
   },
 };

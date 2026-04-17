@@ -42,6 +42,7 @@ import { cn, focusState } from '../../../../lib/utils';
 import { Button } from '../button';
 import { Checkbox } from '../checkbox';
 import { InputGroup, InputGroupAddon, InputGroupInput } from '../input-group';
+import { Skeleton } from '../skeleton';
 
 type DataGridContextValue = {
   gridTemplateColumns: string;
@@ -103,14 +104,16 @@ type DataGridProps<TData> = {
   pinnedColumns?: string[];
   gridRef?: RefObject<DataGridHandle | null>;
   size?: DataGridSize;
-  header?: ReactNode;
-  footer?: ReactNode;
   children?: ReactNode;
   className?: string;
   onRowClick?: (row: Row<TData>) => void;
   searchValue?: string;
   defaultSearchValue?: string;
   onSearchValueChange?: (value: string) => void;
+  loading?: boolean;
+  loadingRowCount?: number;
+  emptyState?: ReactNode;
+  noResultsState?: ReactNode;
   rowHeight?: number;
   headerHeight?: number;
   estimateSize?: number;
@@ -144,14 +147,16 @@ function DataGrid<TData>({
   pinnedColumns = [],
   gridRef,
   size = 'default',
-  header,
-  footer,
   children,
   className,
   onRowClick,
   searchValue,
   defaultSearchValue,
   onSearchValueChange,
+  loading = false,
+  loadingRowCount,
+  emptyState,
+  noResultsState,
   rowHeight,
   headerHeight,
   estimateSize,
@@ -227,11 +232,9 @@ function DataGrid<TData>({
     [columns]
   );
 
-  // Header/footer can be passed as props or as composition children.
-  // We currently support both for flexibility during migration.
   const { headerSlot, footerSlot } = useMemo(
-    () => resolveDataGridSlots(children, header, footer),
-    [children, footer, header]
+    () => resolveDataGridSlots(children),
+    [children]
   );
 
   const normalizedHeader = useMemo(
@@ -280,9 +283,13 @@ function DataGrid<TData>({
   const { rows } = table.getRowModel();
   const headerGroups = table.getHeaderGroups();
   const allColumns = table.getAllColumns();
+  const visibleColumns = table.getVisibleLeafColumns();
 
   const resolvedRowHeight = estimateSize ?? rowHeight ?? ROW_HEIGHT_MAP[size];
   const resolvedHeaderHeight = headerHeight ?? HEADER_HEIGHT_MAP[size];
+  const resolvedLoadingRowCount = loadingRowCount ?? 6;
+  const hasNoRows = !loading && data.length === 0;
+  const hasNoResults = !loading && data.length > 0 && rows.length === 0;
 
   // We use row virtualization for large datasets; this keeps DOM size stable.
   // Cogs relies on MUI DataGrid's internal virtualization, while here we own the behavior directly.
@@ -292,6 +299,9 @@ function DataGrid<TData>({
     estimateSize: () => resolvedRowHeight,
     overscan: 10,
   });
+  const bodyHeight = loading
+    ? resolvedLoadingRowCount * resolvedRowHeight
+    : virtualizer.getTotalSize();
 
   // Exposes a minimal imperative API for common workflows.
   // Improvement opportunity: add read accessors and column operations if consumers request parity with Cogs apiRef.
@@ -514,164 +524,246 @@ function DataGrid<TData>({
             <div
               data-slot="data-grid-body"
               style={{
-                height: virtualizer.getTotalSize(),
+                height: bodyHeight,
+                minHeight: resolvedRowHeight * 4,
                 position: 'relative',
               }}
             >
-              {/* Virtual rows: only render what is visible plus overscan. */}
-              {virtualizer.getVirtualItems().map((virtualRow) => {
-                const row = rows[virtualRow.index];
-                const isSelected = row.getIsSelected();
-                const canExpand = row.getCanExpand();
-                const isRowInteractive = onRowClick || canExpand;
-
-                const handleRowActivation = isRowInteractive
-                  ? () => {
-                      if (canExpand) row.toggleExpanded();
-                      if (onRowClick) onRowClick(row);
-                    }
-                  : undefined;
-
-                return (
-                  <div
-                    key={row.id}
-                    data-slot="data-grid-row"
-                    data-state={isSelected ? 'selected' : undefined}
-                    role="row"
-                    aria-rowindex={virtualRow.index + 2}
-                    aria-selected={isSelected || undefined}
-                    aria-expanded={canExpand ? row.getIsExpanded() : undefined}
-                    className={cn(
-                      'group absolute left-0 right-0 grid border-b bg-background transition-colors',
-                      'hover:bg-active-muted-background',
-                      isSelected && 'bg-active-muted-background',
-                      isRowInteractive &&
-                        cn(
-                          'cursor-pointer focus-visible:bg-active-muted-background',
-                          focusState
-                        )
-                    )}
-                    style={{
-                      gridTemplateColumns,
-                      height: virtualRow.size,
-                      transform: `translateY(${virtualRow.start}px)`,
-                    }}
-                    tabIndex={isRowInteractive ? 0 : undefined}
-                    onClick={handleRowActivation}
-                    onKeyDown={
-                      handleRowActivation
-                        ? (event) => {
-                            if (event.key !== 'Enter' && event.key !== ' ')
-                              return;
-                            event.preventDefault();
-                            handleRowActivation();
-                          }
-                        : undefined
-                    }
-                  >
-                    {row.getVisibleCells().map((cell, cellIndex) => {
-                      const isPinned = pinnedColumnIds.has(cell.column.id);
-                      const isLastPinned =
-                        isPinned && lastPinnedColumnId === cell.column.id;
-                      const renderedCell = flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      );
-                      const hasCustomCellRenderer = customCellColumnIds.has(
-                        cell.column.id
-                      );
-                      // We truncate plain text values for readability, but avoid truncating rich JSX
-                      // from custom renderers (avatars, badges, action menus, etc).
-                      // Future improvement: expose per-column truncation strategy in column config.
-                      const renderedTextValue = getTextValue(renderedCell);
-                      const rawTextValue = getTextValue(cell.getValue());
-                      const textValue =
-                        renderedTextValue ??
-                        (!hasCustomCellRenderer ? rawTextValue : undefined);
-
-                      const isFirstCell = cellIndex === 0;
-                      const depth = Math.min(row.depth, maxDepth);
-                      const indentPx =
-                        isFirstCell && depth > 0 ? depth * 16 : 0;
-                      const showChevron = isFirstCell && canExpand;
-                      const showChevronSpacer =
-                        isFirstCell && hasExpanding && !canExpand && depth > 0;
-
-                      const pinnedStyle: React.CSSProperties | undefined =
-                        isPinned
-                          ? {
-                              position: 'sticky',
-                              left:
-                                pinnedLeftByColumnId.get(cell.column.id) ?? 0,
-                              zIndex: 10,
+              {loading &&
+                Array.from({ length: resolvedLoadingRowCount }).map(
+                  (_, index) => (
+                    <div
+                      key={`skeleton-row-${index}`}
+                      data-slot="data-grid-row-loading"
+                      aria-hidden="true"
+                      className="absolute left-0 right-0 grid border-b bg-background"
+                      style={{
+                        gridTemplateColumns,
+                        height: resolvedRowHeight,
+                        transform: `translateY(${index * resolvedRowHeight}px)`,
+                      }}
+                    >
+                      {visibleColumns.map((column, colIndex) => {
+                        const isPinned = pinnedColumnIds.has(column.id);
+                        const isLastPinned =
+                          isPinned && lastPinnedColumnId === column.id;
+                        return (
+                          <DataGridCell
+                            key={`skeleton-cell-${index}-${column.id}`}
+                            isPinned={isPinned}
+                            isLastPinned={isLastPinned}
+                            colIndex={colIndex + 1}
+                            truncate={false}
+                            style={
+                              isPinned
+                                ? {
+                                    position: 'sticky',
+                                    left:
+                                      pinnedLeftByColumnId.get(column.id) ?? 0,
+                                    zIndex: 10,
+                                  }
+                                : undefined
                             }
-                          : undefined;
+                          >
+                            <Skeleton
+                              className={cn(
+                                'h-4',
+                                colIndex === 0 ? 'w-3/4' : 'w-2/3'
+                              )}
+                            />
+                          </DataGridCell>
+                        );
+                      })}
+                    </div>
+                  )
+                )}
 
-                      const cellStyle: React.CSSProperties | undefined =
-                        indentPx > 0 || pinnedStyle
-                          ? {
-                              ...pinnedStyle,
-                              ...(indentPx > 0
-                                ? { paddingInlineStart: `${indentPx + 12}px` }
-                                : {}),
+              {!loading && (hasNoRows || hasNoResults) && (
+                <div className="absolute inset-0 flex items-center justify-center p-6">
+                  {hasNoRows
+                    ? (emptyState ?? (
+                        <div className="flex max-w-md flex-col items-center gap-1 text-center">
+                          <p className="text-sm font-medium text-foreground">
+                            No rows yet
+                          </p>
+                          <p className="text-sm text-muted-foreground">
+                            Add data to populate this table.
+                          </p>
+                        </div>
+                      ))
+                    : (noResultsState ?? (
+                        <div className="flex max-w-md flex-col items-center gap-1 text-center">
+                          <p className="text-sm font-medium text-foreground">
+                            No results found
+                          </p>
+                          <p className="text-sm text-muted-foreground">
+                            Try a different search term or clear filters.
+                          </p>
+                        </div>
+                      ))}
+                </div>
+              )}
+
+              {!loading &&
+                !hasNoRows &&
+                !hasNoResults &&
+                virtualizer.getVirtualItems().map((virtualRow) => {
+                  const row = rows[virtualRow.index];
+                  const isSelected = row.getIsSelected();
+                  const canExpand = row.getCanExpand();
+                  const isRowInteractive = onRowClick || canExpand;
+
+                  const handleRowActivation = isRowInteractive
+                    ? () => {
+                        if (canExpand) row.toggleExpanded();
+                        if (onRowClick) onRowClick(row);
+                      }
+                    : undefined;
+
+                  return (
+                    <div
+                      key={row.id}
+                      data-slot="data-grid-row"
+                      data-state={isSelected ? 'selected' : undefined}
+                      role="row"
+                      aria-rowindex={virtualRow.index + 2}
+                      aria-selected={isSelected || undefined}
+                      aria-expanded={
+                        canExpand ? row.getIsExpanded() : undefined
+                      }
+                      className={cn(
+                        'group absolute left-0 right-0 grid border-b bg-background transition-colors',
+                        'hover:bg-active-muted-background',
+                        isSelected && 'bg-active-muted-background',
+                        isRowInteractive &&
+                          cn(
+                            'cursor-pointer focus-visible:bg-active-muted-background',
+                            focusState
+                          )
+                      )}
+                      style={{
+                        gridTemplateColumns,
+                        height: virtualRow.size,
+                        transform: `translateY(${virtualRow.start}px)`,
+                      }}
+                      tabIndex={isRowInteractive ? 0 : undefined}
+                      onClick={handleRowActivation}
+                      onKeyDown={
+                        handleRowActivation
+                          ? (event) => {
+                              if (event.key !== 'Enter' && event.key !== ' ')
+                                return;
+                              event.preventDefault();
+                              handleRowActivation();
                             }
-                          : undefined;
+                          : undefined
+                      }
+                    >
+                      {row.getVisibleCells().map((cell, cellIndex) => {
+                        const isPinned = pinnedColumnIds.has(cell.column.id);
+                        const isLastPinned =
+                          isPinned && lastPinnedColumnId === cell.column.id;
+                        const renderedCell = flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        );
+                        const hasCustomCellRenderer = customCellColumnIds.has(
+                          cell.column.id
+                        );
+                        const renderedTextValue = getTextValue(renderedCell);
+                        const rawTextValue = getTextValue(cell.getValue());
+                        const textValue =
+                          renderedTextValue ??
+                          (!hasCustomCellRenderer ? rawTextValue : undefined);
 
-                      const needsTreeIndicator =
-                        showChevron || showChevronSpacer;
+                        const isFirstCell = cellIndex === 0;
+                        const depth = Math.min(row.depth, maxDepth);
+                        const indentPx =
+                          isFirstCell && depth > 0 ? depth * 16 : 0;
+                        const showChevron = isFirstCell && canExpand;
+                        const showChevronSpacer =
+                          isFirstCell &&
+                          hasExpanding &&
+                          !canExpand &&
+                          depth > 0;
 
-                      return (
-                        <DataGridCell
-                          key={cell.id}
-                          isPinned={isPinned}
-                          isLastPinned={isLastPinned}
-                          colIndex={cell.column.getIndex() + 1}
-                          textValue={textValue}
-                          truncate={
-                            needsTreeIndicator ? false : textValue !== undefined
-                          }
-                          style={cellStyle}
-                        >
-                          {showChevron && (
-                            <Button
-                              size="icon-sm"
-                              variant="ghost"
-                              className="mr-2"
-                              aria-label={
-                                row.getIsExpanded()
-                                  ? 'Collapse row'
-                                  : 'Expand row'
+                        const pinnedStyle: React.CSSProperties | undefined =
+                          isPinned
+                            ? {
+                                position: 'sticky',
+                                left:
+                                  pinnedLeftByColumnId.get(cell.column.id) ?? 0,
+                                zIndex: 10,
                               }
-                            >
-                              <IconChevronRight
-                                width={5}
-                                height={8}
-                                className={cn(
-                                  row.getIsExpanded() && 'rotate-90'
-                                )}
+                            : undefined;
+
+                        const cellStyle: React.CSSProperties | undefined =
+                          indentPx > 0 || pinnedStyle
+                            ? {
+                                ...pinnedStyle,
+                                ...(indentPx > 0
+                                  ? { paddingInlineStart: `${indentPx + 12}px` }
+                                  : {}),
+                              }
+                            : undefined;
+
+                        const needsTreeIndicator =
+                          showChevron || showChevronSpacer;
+
+                        return (
+                          <DataGridCell
+                            key={cell.id}
+                            isPinned={isPinned}
+                            isLastPinned={isLastPinned}
+                            colIndex={cell.column.getIndex() + 1}
+                            textValue={textValue}
+                            truncate={
+                              needsTreeIndicator
+                                ? false
+                                : textValue !== undefined
+                            }
+                            style={cellStyle}
+                          >
+                            {showChevron && (
+                              <Button
+                                size="icon-sm"
+                                variant="ghost"
+                                className="mr-2"
+                                aria-label={
+                                  row.getIsExpanded()
+                                    ? 'Collapse row'
+                                    : 'Expand row'
+                                }
+                              >
+                                <IconChevronRight
+                                  width={5}
+                                  height={8}
+                                  className={cn(
+                                    row.getIsExpanded() && 'rotate-90'
+                                  )}
+                                  aria-hidden="true"
+                                />
+                              </Button>
+                            )}
+                            {showChevronSpacer && (
+                              <span
+                                className="mr-2 inline-block h-7 w-7 shrink-0"
                                 aria-hidden="true"
                               />
-                            </Button>
-                          )}
-                          {showChevronSpacer && (
-                            <span
-                              className="mr-2 inline-block h-7 w-7 shrink-0"
-                              aria-hidden="true"
-                            />
-                          )}
-                          {needsTreeIndicator && textValue !== undefined ? (
-                            <span className="block min-w-0 flex-1 truncate">
-                              {textValue}
-                            </span>
-                          ) : (
-                            renderedCell
-                          )}
-                        </DataGridCell>
-                      );
-                    })}
-                  </div>
-                );
-              })}
+                            )}
+                            {needsTreeIndicator && textValue !== undefined ? (
+                              <span className="block min-w-0 flex-1 truncate">
+                                {textValue}
+                              </span>
+                            ) : (
+                              renderedCell
+                            )}
+                          </DataGridCell>
+                        );
+                      })}
+                    </div>
+                  );
+                })}
             </div>
           </div>
         </div>
@@ -1042,14 +1134,9 @@ function hasNestedColumns<TData>(
   return 'columns' in def && Array.isArray(def.columns);
 }
 
-function resolveDataGridSlots(
-  children: ReactNode,
-  headerProp: ReactNode,
-  footerProp: ReactNode
-) {
-  // Supports both prop-driven and child-driven slot APIs; props win when both are provided.
-  let headerSlot = headerProp;
-  let footerSlot = footerProp;
+function resolveDataGridSlots(children: ReactNode) {
+  let headerSlot: ReactNode = null;
+  let footerSlot: ReactNode = null;
 
   Children.forEach(children, (child) => {
     if (!isValidElement<{ children?: ReactNode }>(child)) return;
