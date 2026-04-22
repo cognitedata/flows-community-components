@@ -761,7 +761,7 @@ const DataGridHeader = forwardRef<ComponentRef<'div'>, DataGridHeaderProps>(
         data-slot="data-grid-header"
         className={cn(
           'order-1 group/data-grid-header @container/data-grid-header grid min-h-14 items-start gap-x-3 px-3 py-2',
-          'grid-cols-[auto_minmax(0,1fr)_auto]',
+          'grid-cols-[minmax(0,1fr)_auto]',
           className
         )}
         {...props}
@@ -781,31 +781,15 @@ const DataGridHeaderStart = forwardRef<
     <div
       ref={ref}
       data-slot="data-grid-header-start"
-      className={cn('col-start-1 row-start-1 h-full self-stretch', className)}
-      {...props}
-    />
-  );
-});
-DataGridHeaderStart.displayName = 'DataGridHeaderStart';
-
-const DataGridHeaderCenter = forwardRef<
-  ComponentRef<'div'>,
-  ComponentProps<'div'>
->(({ className, ...props }, ref) => {
-  return (
-    <div
-      ref={ref}
-      data-slot="data-grid-header-center"
       className={cn(
-        'col-start-1 row-start-1 min-w-0 flex flex-col gap-1 self-center',
-        'group-has-data-[slot=data-grid-header-start]/data-grid-header:col-start-2',
+        'col-start-1 row-start-1 min-w-0 flex h-full flex-col gap-1 self-center',
         className
       )}
       {...props}
     />
   );
 });
-DataGridHeaderCenter.displayName = 'DataGridHeaderCenter';
+DataGridHeaderStart.displayName = 'DataGridHeaderStart';
 
 const DataGridHeaderEnd = forwardRef<
   ComponentRef<'div'>,
@@ -816,7 +800,7 @@ const DataGridHeaderEnd = forwardRef<
       ref={ref}
       data-slot="data-grid-header-end"
       className={cn(
-        'col-start-3 row-start-1 flex items-end justify-end gap-2 self-end justify-self-end',
+        'col-start-2 row-start-1 flex items-end justify-end gap-2 self-end justify-self-end',
         className
       )}
       {...props}
@@ -1158,7 +1142,6 @@ export {
   DataGridFooterEnd,
   DataGridFooterStart,
   DataGridHeader,
-  DataGridHeaderCenter,
   DataGridHeaderEnd,
   DataGridHeaderActions,
   DataGridHeaderStart,

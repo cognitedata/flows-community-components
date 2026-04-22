@@ -42,9 +42,9 @@ import {
   type DataGridHandle,
   DataGridFooter,
   DataGridHeader,
-  DataGridHeaderCenter,
   DataGridHeaderEnd,
   DataGridHeaderActions,
+  DataGridHeaderStart,
   DataGridSearch,
   DataGridSubtitle,
   DataGridTitle,
@@ -1055,9 +1055,9 @@ export const ImperativeApi: Story = {
             className="h-full"
           >
             <DataGridHeader>
-              <DataGridHeaderCenter>
+              <DataGridHeaderStart>
                 <DataGridTitle>Imperative API Demo</DataGridTitle>
-              </DataGridHeaderCenter>
+              </DataGridHeaderStart>
               <DataGridHeaderEnd>
                 <DataGridSearch placeholder="Search assets" />
               </DataGridHeaderEnd>
@@ -1230,12 +1230,12 @@ export const HierarchicalRows: Story = {
           className="h-full"
         >
           <DataGridHeader>
-            <DataGridHeaderCenter>
+            <DataGridHeaderStart>
               <DataGridTitle>Hierarchical Rows</DataGridTitle>
               <DataGridSubtitle>
                 Click parent and child rows to expand nested levels
               </DataGridSubtitle>
-            </DataGridHeaderCenter>
+            </DataGridHeaderStart>
           </DataGridHeader>
         </DataGrid>
       </div>
@@ -1269,12 +1269,12 @@ export const LoadingSkeleton: Story = {
         loadingRowCount={7}
       >
         <DataGridHeader>
-          <DataGridHeaderCenter>
+          <DataGridHeaderStart>
             <DataGridTitle>Loading Skeleton</DataGridTitle>
             <DataGridSubtitle>
               Skeleton rows are shown while data is loading
             </DataGridSubtitle>
-          </DataGridHeaderCenter>
+          </DataGridHeaderStart>
         </DataGridHeader>
       </DataGrid>
     );
@@ -1366,12 +1366,12 @@ export const LoadingSkeletonExample: Story = {
         rowCount={allRows.length}
       >
         <DataGridHeader>
-          <DataGridHeaderCenter>
+          <DataGridHeaderStart>
             <DataGridTitle>Loading Skeleton Example</DataGridTitle>
             <DataGridSubtitle>
               Simulated loading while changing pages
             </DataGridSubtitle>
-          </DataGridHeaderCenter>
+          </DataGridHeaderStart>
         </DataGridHeader>
         <DataGridFooter>
           <Pagination className="w-full">
@@ -1504,10 +1504,10 @@ export const HeaderCompositionControlledSearch: Story = {
         getRowId={(row) => row.id}
       >
         <DataGridHeader>
-          <DataGridHeaderCenter>
+          <DataGridHeaderStart>
             <DataGridTitle>Table</DataGridTitle>
             <DataGridSubtitle>May 17, 2018 - Dec 24, 2022</DataGridSubtitle>
-          </DataGridHeaderCenter>
+          </DataGridHeaderStart>
           <DataGridHeaderEnd>
             <DataGridSearch placeholder="Search" />
             <DataGridHeaderActions>
@@ -1854,10 +1854,10 @@ export const Playground: Story = {
         onSearchValueChange={setSearchValue}
       >
         <DataGridHeader>
-          <DataGridHeaderCenter>
+          <DataGridHeaderStart>
             <DataGridTitle>Table</DataGridTitle>
             <DataGridSubtitle>May 17, 2018 - Dec 24, 2022</DataGridSubtitle>
-          </DataGridHeaderCenter>
+          </DataGridHeaderStart>
           <DataGridHeaderEnd>
             <DataGridSearch placeholder="Search rows" />
             <DataGridHeaderActions>
@@ -2140,9 +2140,9 @@ export const EdgeCaseNoResults: Story = {
         defaultSearchValue="zz-no-match"
       >
         <DataGridHeader>
-          <DataGridHeaderCenter>
+          <DataGridHeaderStart>
             <DataGridTitle>No Results Example</DataGridTitle>
-          </DataGridHeaderCenter>
+          </DataGridHeaderStart>
           <DataGridHeaderEnd>
             <DataGridSearch placeholder="Search assets" />
           </DataGridHeaderEnd>
