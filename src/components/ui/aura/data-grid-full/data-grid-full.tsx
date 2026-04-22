@@ -925,21 +925,16 @@ DataGridSubtitle.displayName = 'DataGridSubtitle';
 type DataGridSearchProps = Omit<
   ComponentProps<typeof InputGroupInput>,
   'value' | 'onChange'
-> & {
-  value?: string;
-  onValueChange?: (value: string) => void;
-};
+>;
 
 const DataGridSearch = forwardRef<
   ComponentRef<typeof InputGroupInput>,
   DataGridSearchProps
 >(function DataGridSearch(
-  { className, value, onValueChange, placeholder = 'Search', ...props },
+  { className, placeholder = 'Search', ...props },
   ref
 ) {
   const { searchValue, setSearchValue } = useDataGridContext();
-  const resolvedValue = value ?? searchValue;
-  const handleValueChange = onValueChange ?? setSearchValue;
 
   return (
     <InputGroup
@@ -957,8 +952,8 @@ const DataGridSearch = forwardRef<
       </InputGroupAddon>
       <InputGroupInput
         ref={ref}
-        value={resolvedValue}
-        onChange={(event) => handleValueChange(event.target.value)}
+        value={searchValue}
+        onChange={(event) => setSearchValue(event.target.value)}
         placeholder={placeholder}
         className="h-7 text-sm text-muted-foreground placeholder:text-muted-foreground"
         {...props}
