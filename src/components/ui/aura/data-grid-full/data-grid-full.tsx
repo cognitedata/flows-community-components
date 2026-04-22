@@ -22,14 +22,12 @@ import {
 } from '@tanstack/react-table';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import {
-  Children,
   type ComponentProps,
   type ComponentRef,
   type ReactNode,
   type RefObject,
   createContext,
   forwardRef,
-  isValidElement,
   useContext,
   useEffect,
   useImperativeHandle,
@@ -48,6 +46,8 @@ type DataGridContextValue = {
   gridTemplateColumns: string;
   pinnedColumnIds: Set<string>;
   columnCount: number;
+  searchValue: string;
+  setSearchValue: (value: string) => void;
 };
 
 // Context keeps shared layout data centralized so leaf components can stay mostly presentational.
@@ -55,6 +55,8 @@ const DataGridContext = createContext<DataGridContextValue>({
   gridTemplateColumns: '',
   pinnedColumnIds: new Set(),
   columnCount: 0,
+  searchValue: '',
+  setSearchValue: () => {},
 });
 
 type DataGridSize = 'default' | 'compact';
@@ -232,18 +234,6 @@ function DataGrid<TData>({
     [columns]
   );
 
-  const { headerSlot, footerSlot } = useMemo(
-    () => resolveDataGridSlots(children),
-    [children]
-  );
-
-  const normalizedHeader = useMemo(
-    () => normalizeDataGridHeader(headerSlot),
-    [headerSlot]
-  );
-
-  const searchPlaceholder = normalizedHeader.searchPlaceholder;
-
   // Centralized TanStack config. Keeping all state in one object makes ownership explicit.
   const table = useReactTable({
     data,
@@ -356,8 +346,16 @@ function DataGrid<TData>({
       gridTemplateColumns,
       pinnedColumnIds,
       columnCount: allColumns.length,
+      searchValue: resolvedSearchValue,
+      setSearchValue: setResolvedSearchValue,
     }),
-    [gridTemplateColumns, pinnedColumnIds, allColumns.length]
+    [
+      gridTemplateColumns,
+      pinnedColumnIds,
+      allColumns.length,
+      resolvedSearchValue,
+      setResolvedSearchValue,
+    ]
   );
 
   return (
@@ -369,33 +367,11 @@ function DataGrid<TData>({
           className
         )}
       >
-        {normalizedHeader.hasHeaderContent && (
-          <div
-            data-slot="data-grid-header"
-            className="flex min-h-14 items-start gap-3 px-3 py-2"
-          >
-            <div className="flex flex-col min-w-0 flex-1 gap-1">
-              {normalizedHeader.title}
-              {normalizedHeader.subtitle}
-            </div>
-            {(normalizedHeader.hasSearch || normalizedHeader.actions) && (
-              <div className="ms-auto flex items-end gap-2 self-end">
-                {normalizedHeader.hasSearch && (
-                  <DataGridSearch
-                    value={resolvedSearchValue}
-                    onValueChange={setResolvedSearchValue}
-                    placeholder={searchPlaceholder}
-                  />
-                )}
-                {normalizedHeader.actions}
-              </div>
-            )}
-          </div>
-        )}
+        {children}
         <div
           ref={scrollContainerRef}
           data-slot="data-grid-scroll-container"
-          className="relative h-full min-h-0 w-full flex-1 overflow-auto"
+          className="relative order-2 h-full min-h-0 w-full flex-1 overflow-auto"
           role="grid"
           aria-rowcount={rowCount ?? data.length}
           aria-colcount={allColumns.length}
@@ -767,15 +743,6 @@ function DataGrid<TData>({
             </div>
           </div>
         </div>
-
-        {footerSlot && (
-          <div
-            data-slot="data-grid-footer"
-            className="flex items-center justify-between border-t px-3 py-2"
-          >
-            {footerSlot}
-          </div>
-        )}
       </div>
     </DataGridContext.Provider>
   );
@@ -783,21 +750,134 @@ function DataGrid<TData>({
 
 type DataGridHeaderProps = {
   children?: ReactNode;
+  className?: string;
 };
 
-function DataGridHeader({ children }: DataGridHeaderProps) {
-  // Composition marker component (parsed by normalizeDataGridHeader).
-  return <>{children}</>;
-}
+const DataGridHeader = forwardRef<ComponentRef<'div'>, DataGridHeaderProps>(
+  ({ className, children, ...props }, ref) => {
+    return (
+      <div
+        ref={ref}
+        data-slot="data-grid-header"
+        className={cn(
+          'order-1 group/data-grid-header @container/data-grid-header grid min-h-14 items-start gap-x-3 px-3 py-2',
+          'grid-cols-[auto_minmax(0,1fr)_auto]',
+          className
+        )}
+        {...props}
+      >
+        {children}
+      </div>
+    );
+  }
+);
+DataGridHeader.displayName = 'DataGridHeader';
+
+const DataGridHeaderStart = forwardRef<
+  ComponentRef<'div'>,
+  ComponentProps<'div'>
+>(({ className, ...props }, ref) => {
+  return (
+    <div
+      ref={ref}
+      data-slot="data-grid-header-start"
+      className={cn('col-start-1 row-start-1 h-full self-stretch', className)}
+      {...props}
+    />
+  );
+});
+DataGridHeaderStart.displayName = 'DataGridHeaderStart';
+
+const DataGridHeaderCenter = forwardRef<
+  ComponentRef<'div'>,
+  ComponentProps<'div'>
+>(({ className, ...props }, ref) => {
+  return (
+    <div
+      ref={ref}
+      data-slot="data-grid-header-center"
+      className={cn(
+        'col-start-1 row-start-1 min-w-0 flex flex-col gap-1 self-center',
+        'group-has-data-[slot=data-grid-header-start]/data-grid-header:col-start-2',
+        className
+      )}
+      {...props}
+    />
+  );
+});
+DataGridHeaderCenter.displayName = 'DataGridHeaderCenter';
+
+const DataGridHeaderEnd = forwardRef<
+  ComponentRef<'div'>,
+  ComponentProps<'div'>
+>(({ className, ...props }, ref) => {
+  return (
+    <div
+      ref={ref}
+      data-slot="data-grid-header-end"
+      className={cn(
+        'col-start-3 row-start-1 flex items-end justify-end gap-2 self-end justify-self-end',
+        className
+      )}
+      {...props}
+    />
+  );
+});
+DataGridHeaderEnd.displayName = 'DataGridHeaderEnd';
 
 type DataGridFooterProps = {
   children?: ReactNode;
+  className?: string;
 };
 
-function DataGridFooter({ children }: DataGridFooterProps) {
-  // Composition marker component (parsed by resolveDataGridSlots).
-  return <>{children}</>;
-}
+const DataGridFooter = forwardRef<ComponentRef<'div'>, DataGridFooterProps>(
+  ({ className, children, ...props }, ref) => {
+    return (
+      <div
+        ref={ref}
+        data-slot="data-grid-footer"
+        className={cn(
+          'order-3 mt-auto flex items-center justify-between border-t px-3 py-2',
+          className
+        )}
+        {...props}
+      >
+        {children}
+      </div>
+    );
+  }
+);
+DataGridFooter.displayName = 'DataGridFooter';
+
+const DataGridFooterStart = forwardRef<
+  ComponentRef<'div'>,
+  ComponentProps<'div'>
+>(({ className, ...props }, ref) => {
+  return (
+    <div
+      ref={ref}
+      data-slot="data-grid-footer-start"
+      className={cn('flex min-w-0 flex-1 items-center gap-2', className)}
+      {...props}
+    />
+  );
+});
+DataGridFooterStart.displayName = 'DataGridFooterStart';
+
+const DataGridFooterEnd = forwardRef<
+  ComponentRef<'div'>,
+  ComponentProps<'div'>
+>(({ className, ...props }, ref) => {
+  return (
+    <div
+      ref={ref}
+      data-slot="data-grid-footer-end"
+      className={cn('flex items-center justify-end gap-2', className)}
+      {...props}
+    />
+  );
+});
+DataGridFooterEnd.displayName = 'DataGridFooterEnd';
 
 type DataGridTitleProps = {
   children?: ReactNode;
@@ -857,11 +937,15 @@ const DataGridSearch = forwardRef<
   { className, value, onValueChange, placeholder = 'Search', ...props },
   ref
 ) {
+  const { searchValue, setSearchValue } = useDataGridContext();
+  const resolvedValue = value ?? searchValue;
+  const handleValueChange = onValueChange ?? setSearchValue;
+
   return (
     <InputGroup
       data-slot="data-grid-search"
       className={cn(
-        'h-7 w-60 min-w-40 max-w-full self-end rounded-md border-muted-background bg-muted-background shadow-none has-[[data-slot=input-group-control]:focus-visible]:bg-background',
+        'h-7 w-60 min-w-40 max-w-full rounded-md border-muted-background bg-muted-background shadow-none has-[[data-slot=input-group-control]:focus-visible]:bg-background',
         className
       )}
     >
@@ -873,8 +957,8 @@ const DataGridSearch = forwardRef<
       </InputGroupAddon>
       <InputGroupInput
         ref={ref}
-        value={value}
-        onChange={(event) => onValueChange?.(event.target.value)}
+        value={resolvedValue}
+        onChange={(event) => handleValueChange(event.target.value)}
         placeholder={placeholder}
         className="h-7 text-sm text-muted-foreground placeholder:text-muted-foreground"
         {...props}
@@ -898,47 +982,13 @@ const DataGridHeaderActions = forwardRef<
     <div
       ref={ref}
       data-slot="data-grid-header-actions"
-      className={cn('flex self-end items-end gap-2', className)}
+      className={cn('flex items-end gap-2', className)}
     >
       {children}
     </div>
   );
 });
 DataGridHeaderActions.displayName = 'DataGridHeaderActions';
-
-type NormalizedDataGridHeader = {
-  title: ReactNode;
-  subtitle: ReactNode;
-  hasSearch: boolean;
-  searchPlaceholder: string;
-  actions: ReactNode;
-  hasHeaderContent: boolean;
-};
-
-const EMPTY_HEADER: NormalizedDataGridHeader = {
-  title: null,
-  subtitle: null,
-  hasSearch: false,
-  searchPlaceholder: 'Search…',
-  actions: null,
-  hasHeaderContent: false,
-};
-
-const SLOT_COMPONENT_NAMES: {
-  header: string;
-  footer: string;
-  title: string;
-  subtitle: string;
-  search: string;
-  headerActions: string;
-} = {
-  header: 'DataGridHeader',
-  footer: 'DataGridFooter',
-  title: 'DataGridTitle',
-  subtitle: 'DataGridSubtitle',
-  search: 'DataGridSearch',
-  headerActions: 'DataGridHeaderActions',
-};
 
 function useSearchPaginationReset(
   searchValue: string,
@@ -968,71 +1018,6 @@ function getAriaSort(
   if (sortDirection === 'asc') return 'ascending';
   if (sortDirection === 'desc') return 'descending';
   return canSort ? 'none' : undefined;
-}
-
-function isComponentMatch<TProps>(
-  element: ReactNode,
-  component: (props: TProps) => ReactNode,
-  componentName: string
-) {
-  // We match by reference first, then by name/displayName fallback.
-  // This reduces brittleness during Storybook HMR or wrapped component scenarios.
-  if (!isValidElement(element)) return false;
-  if (element.type === component) return true;
-
-  const elementType: unknown = element.type;
-
-  if (typeof elementType === 'function') {
-    const displayName =
-      'displayName' in elementType &&
-      typeof elementType.displayName === 'string'
-        ? elementType.displayName
-        : undefined;
-    return elementType.name === componentName || displayName === componentName;
-  }
-
-  if (typeof elementType === 'object' && elementType !== null) {
-    const displayName =
-      'displayName' in elementType &&
-      typeof elementType.displayName === 'string'
-        ? elementType.displayName
-        : undefined;
-    return displayName === componentName;
-  }
-
-  return false;
-}
-
-function isHeaderSlot(node: ReactNode) {
-  return isComponentMatch(node, DataGridHeader, SLOT_COMPONENT_NAMES.header);
-}
-
-function isFooterSlot(node: ReactNode) {
-  return isComponentMatch(node, DataGridFooter, SLOT_COMPONENT_NAMES.footer);
-}
-
-function isTitleSlot(node: ReactNode) {
-  return isComponentMatch(node, DataGridTitle, SLOT_COMPONENT_NAMES.title);
-}
-
-function isSubtitleSlot(node: ReactNode) {
-  return isComponentMatch(
-    node,
-    DataGridSubtitle,
-    SLOT_COMPONENT_NAMES.subtitle
-  );
-}
-
-function isSearchSlot(node: ReactNode) {
-  return isComponentMatch(node, DataGridSearch, SLOT_COMPONENT_NAMES.search);
-}
-
-function isHeaderActionsSlot(node: ReactNode) {
-  return isComponentMatch(
-    node,
-    DataGridHeaderActions,
-    SLOT_COMPONENT_NAMES.headerActions
-  );
 }
 
 function getTextValue(value: unknown) {
@@ -1074,81 +1059,10 @@ function collectCustomCellColumnIds<TData>(columns: ColumnDef<TData>[]) {
   return ids;
 }
 
-function normalizeDataGridHeader(header: ReactNode): NormalizedDataGridHeader {
-  // Turns free-form header composition into a predictable, typed shape used by main render.
-  if (
-    !isValidElement<{ children?: ReactNode }>(header) ||
-    !isHeaderSlot(header)
-  ) {
-    return EMPTY_HEADER;
-  }
-
-  let title: ReactNode = null;
-  let subtitle: ReactNode = null;
-  let hasSearch = false;
-  let searchPlaceholder = 'Search…';
-  let actions: ReactNode = null;
-
-  Children.forEach(header.props.children, (child) => {
-    if (!isValidElement<{ placeholder?: string }>(child)) return;
-
-    if (isTitleSlot(child)) {
-      title = title ?? child;
-      return;
-    }
-
-    if (isSubtitleSlot(child)) {
-      subtitle = subtitle ?? child;
-      return;
-    }
-
-    if (isSearchSlot(child)) {
-      if (!hasSearch) {
-        hasSearch = true;
-        const placeholder = child.props.placeholder;
-        if (typeof placeholder === 'string') {
-          searchPlaceholder = placeholder;
-        }
-      }
-      return;
-    }
-
-    if (isHeaderActionsSlot(child)) {
-      actions = actions ?? child;
-    }
-  });
-
-  return {
-    title,
-    subtitle,
-    hasSearch,
-    searchPlaceholder,
-    actions,
-    hasHeaderContent: Boolean(title || subtitle || hasSearch || actions),
-  };
-}
-
 function hasNestedColumns<TData>(
   def: ColumnDef<TData>
 ): def is ColumnDef<TData> & { columns: ColumnDef<TData>[] } {
   return 'columns' in def && Array.isArray(def.columns);
-}
-
-function resolveDataGridSlots(children: ReactNode) {
-  let headerSlot: ReactNode = null;
-  let footerSlot: ReactNode = null;
-
-  Children.forEach(children, (child) => {
-    if (!isValidElement<{ children?: ReactNode }>(child)) return;
-
-    if (headerSlot == null && isHeaderSlot(child)) {
-      headerSlot = child;
-    } else if (footerSlot == null && isFooterSlot(child)) {
-      footerSlot = child.props.children ?? null;
-    }
-  });
-
-  return { headerSlot, footerSlot };
 }
 
 type DataGridCellProps = ComponentProps<'div'> & {
@@ -1246,8 +1160,13 @@ export {
   DataGridCheckboxCell,
   DataGridCheckboxHeader,
   DataGridFooter,
+  DataGridFooterEnd,
+  DataGridFooterStart,
   DataGridHeader,
+  DataGridHeaderCenter,
+  DataGridHeaderEnd,
   DataGridHeaderActions,
+  DataGridHeaderStart,
   DataGridSearch,
   DataGridSubtitle,
   DataGridTitle,
