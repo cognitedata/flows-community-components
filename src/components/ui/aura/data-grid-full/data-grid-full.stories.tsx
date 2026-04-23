@@ -42,7 +42,9 @@ import {
   type DataGridHandle,
   DataGridFooter,
   DataGridHeader,
+  DataGridHeaderEnd,
   DataGridHeaderActions,
+  DataGridHeaderStart,
   DataGridSearch,
   DataGridSubtitle,
   DataGridTitle,
@@ -1053,8 +1055,12 @@ export const ImperativeApi: Story = {
             className="h-full"
           >
             <DataGridHeader>
-              <DataGridTitle>Imperative API Demo</DataGridTitle>
-              <DataGridSearch placeholder="Search assets" />
+              <DataGridHeaderStart>
+                <DataGridTitle>Imperative API Demo</DataGridTitle>
+              </DataGridHeaderStart>
+              <DataGridHeaderEnd>
+                <DataGridSearch placeholder="Search assets" />
+              </DataGridHeaderEnd>
             </DataGridHeader>
           </DataGrid>
         </div>
@@ -1224,10 +1230,12 @@ export const HierarchicalRows: Story = {
           className="h-full"
         >
           <DataGridHeader>
-            <DataGridTitle>Hierarchical Rows</DataGridTitle>
-            <DataGridSubtitle>
-              Click parent and child rows to expand nested levels
-            </DataGridSubtitle>
+            <DataGridHeaderStart>
+              <DataGridTitle>Hierarchical Rows</DataGridTitle>
+              <DataGridSubtitle>
+                Click parent and child rows to expand nested levels
+              </DataGridSubtitle>
+            </DataGridHeaderStart>
           </DataGridHeader>
         </DataGrid>
       </div>
@@ -1261,10 +1269,12 @@ export const LoadingSkeleton: Story = {
         loadingRowCount={7}
       >
         <DataGridHeader>
-          <DataGridTitle>Loading Skeleton</DataGridTitle>
-          <DataGridSubtitle>
-            Skeleton rows are shown while data is loading
-          </DataGridSubtitle>
+          <DataGridHeaderStart>
+            <DataGridTitle>Loading Skeleton</DataGridTitle>
+            <DataGridSubtitle>
+              Skeleton rows are shown while data is loading
+            </DataGridSubtitle>
+          </DataGridHeaderStart>
         </DataGridHeader>
       </DataGrid>
     );
@@ -1356,10 +1366,12 @@ export const LoadingSkeletonExample: Story = {
         rowCount={allRows.length}
       >
         <DataGridHeader>
-          <DataGridTitle>Loading Skeleton Example</DataGridTitle>
-          <DataGridSubtitle>
-            Simulated loading while changing pages
-          </DataGridSubtitle>
+          <DataGridHeaderStart>
+            <DataGridTitle>Loading Skeleton Example</DataGridTitle>
+            <DataGridSubtitle>
+              Simulated loading while changing pages
+            </DataGridSubtitle>
+          </DataGridHeaderStart>
         </DataGridHeader>
         <DataGridFooter>
           <Pagination className="w-full">
@@ -1492,21 +1504,25 @@ export const HeaderCompositionControlledSearch: Story = {
         getRowId={(row) => row.id}
       >
         <DataGridHeader>
-          <DataGridTitle>Table</DataGridTitle>
-          <DataGridSubtitle>May 17, 2018 - Dec 24, 2022</DataGridSubtitle>
-          <DataGridSearch placeholder="Search" />
-          <DataGridHeaderActions>
-            <Button
-              variant="ghost"
-              size="icon-sm"
-              aria-label="Enter full screen"
-            >
-              <IconArrowsDiagonal className="size-4" />
-            </Button>
-            <Button variant="ghost" size="icon-sm" aria-label="More actions">
-              <IconDots className="size-4" />
-            </Button>
-          </DataGridHeaderActions>
+          <DataGridHeaderStart>
+            <DataGridTitle>Table</DataGridTitle>
+            <DataGridSubtitle>May 17, 2018 - Dec 24, 2022</DataGridSubtitle>
+          </DataGridHeaderStart>
+          <DataGridHeaderEnd>
+            <DataGridSearch placeholder="Search" />
+            <DataGridHeaderActions>
+              <Button
+                variant="ghost"
+                size="icon-sm"
+                aria-label="Enter full screen"
+              >
+                <IconArrowsDiagonal className="size-4" />
+              </Button>
+              <Button variant="ghost" size="icon-sm" aria-label="More actions">
+                <IconDots className="size-4" />
+              </Button>
+            </DataGridHeaderActions>
+          </DataGridHeaderEnd>
         </DataGridHeader>
       </DataGrid>
     );
@@ -1838,21 +1854,25 @@ export const Playground: Story = {
         onSearchValueChange={setSearchValue}
       >
         <DataGridHeader>
-          <DataGridHeaderActions>
-            <Button
-              variant="ghost"
-              size="icon-sm"
-              aria-label="Enter full screen"
-            >
-              <IconArrowsDiagonal className="size-4" />
-            </Button>
-            <Button variant="ghost" size="icon-sm" aria-label="More actions">
-              <IconDots className="size-4" />
-            </Button>
-          </DataGridHeaderActions>
-          <DataGridSubtitle>May 17, 2018 - Dec 24, 2022</DataGridSubtitle>
-          <DataGridSearch placeholder="Search rows" />
-          <DataGridTitle>Table</DataGridTitle>
+          <DataGridHeaderStart>
+            <DataGridTitle>Table</DataGridTitle>
+            <DataGridSubtitle>May 17, 2018 - Dec 24, 2022</DataGridSubtitle>
+          </DataGridHeaderStart>
+          <DataGridHeaderEnd>
+            <DataGridSearch placeholder="Search rows" />
+            <DataGridHeaderActions>
+              <Button
+                variant="ghost"
+                size="icon-sm"
+                aria-label="Enter full screen"
+              >
+                <IconArrowsDiagonal className="size-4" />
+              </Button>
+              <Button variant="ghost" size="icon-sm" aria-label="More actions">
+                <IconDots className="size-4" />
+              </Button>
+            </DataGridHeaderActions>
+          </DataGridHeaderEnd>
         </DataGridHeader>
         <DataGridFooter>
           <Pagination className="w-full">
@@ -2120,8 +2140,12 @@ export const EdgeCaseNoResults: Story = {
         defaultSearchValue="zz-no-match"
       >
         <DataGridHeader>
-          <DataGridTitle>No Results Example</DataGridTitle>
-          <DataGridSearch placeholder="Search assets" />
+          <DataGridHeaderStart>
+            <DataGridTitle>No Results Example</DataGridTitle>
+          </DataGridHeaderStart>
+          <DataGridHeaderEnd>
+            <DataGridSearch placeholder="Search assets" />
+          </DataGridHeaderEnd>
         </DataGridHeader>
       </DataGrid>
     );
