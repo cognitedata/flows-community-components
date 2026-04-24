@@ -35,7 +35,7 @@ Include stories that apply, skip others. Keep incrementing order numbers.
 4. **Composition** - `WithHeader`, `WithIcon`, etc. (only if optional features exist)
 5. **Sizing/Styling** - Size/style variants
 6. **Minimal** - Simplest usage (only if different from Basic)
-7. **Interactive** - Stateful examples with `useState`
+7. **Interactive** - Stateful examples with `useState` only when state transitions are core behavior
 8. **Accessibility** - ARIA, keyboard nav
 9. **Visual Regression** - Baseline for testing
 10. **Edge Cases** - Empty, long text, special chars, icon-only, mixed content
@@ -123,11 +123,13 @@ For stories under `src/components/ui/aura/**`, prefer relative imports for Aura 
 
 ## argTypes
 
-Organize into categories: Content, Variants/Styling, Behavior, Events, Advanced. Include control types and table metadata only.
+Organize into categories: Content, Variants/Styling, Behavior, Events, Advanced (or State where clearer). Include control types, table metadata, and concise `description` text for key state/behavior props used in docs.
+
+For date/time-driven components, include deterministic props (for example `now`, `date`) in `argTypes` and describe their role in stable examples/tests.
 
 ## Parameters & Comments
 
-**Do not add Storybook description metadata.** Avoid `parameters.docs.description` and avoid `description` fields in story/meta/argTypes docs metadata unless a specific tool requires it.
+**Do not add Storybook description metadata.** Avoid `parameters.docs.description` and story-level prose docs metadata. `argTypes.description` is allowed for important props.
 
 **Do not add story-level comments.** Avoid `/** ... */` blocks above stories and avoid inline explanatory comments in story files.
 
@@ -159,3 +161,5 @@ Before committing changes:
 11. No retry fallback logic in play functions
 12. No `any` or `as` casts in story/test code (except `Partial<T> as T` for test mocks)
 13. Prefer semantic DOM queries over test IDs
+14. Add an interactive `useState` story only when interactivity/state transitions are core to the component API
+15. Use `argTypes.description` for key public props (especially state/behavior inputs)
