@@ -2,6 +2,7 @@ import {
   type ComponentProps,
   type ComponentPropsWithoutRef,
   forwardRef,
+  type ReactNode,
 } from 'react';
 
 import { cn } from '../../../../lib/utils';
@@ -68,19 +69,6 @@ const ListDescriptionDescription = forwardRef<
 ));
 ListDescriptionDescription.displayName = 'ListDescriptionDescription';
 
-const DefaultListItemIcon = () => (
-  <svg
-    aria-hidden="true"
-    width="16"
-    height="16"
-    viewBox="0 0 16 16"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <circle cx="8" cy="8" r="3" fill="currentColor" />
-  </svg>
-);
-
 const ListItem = forwardRef<HTMLLIElement, ComponentProps<'li'>>(
   ({ className, ...props }, ref) => (
     <li
@@ -99,7 +87,11 @@ const ListItem = forwardRef<HTMLLIElement, ComponentProps<'li'>>(
 );
 ListItem.displayName = 'ListItem';
 
-const ListItemIcon = forwardRef<HTMLSpanElement, ComponentProps<'span'>>(
+type ListItemIconProps = Omit<ComponentProps<'span'>, 'children'> & {
+  children: ReactNode;
+};
+
+const ListItemIcon = forwardRef<HTMLSpanElement, ListItemIconProps>(
   ({ className, children, ...props }, ref) => {
     const decorative = !props['aria-label'] && !props['aria-labelledby'];
 
@@ -114,7 +106,7 @@ const ListItemIcon = forwardRef<HTMLSpanElement, ComponentProps<'span'>>(
         )}
         {...props}
       >
-        {children ?? <DefaultListItemIcon />}
+        {children}
       </span>
     );
   }
