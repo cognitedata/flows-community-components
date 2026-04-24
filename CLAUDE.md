@@ -175,6 +175,7 @@ For files under `src/components/ui/aura/**`, prefer relative imports (for exampl
 - Toolbar accessibility stories are more reliable when each toolbar has a distinct `aria-label` and keyboard navigation assertions are scoped with `within(toolbar)` for the intended orientation.
 - For composite link props that include display-only fields (for example `label`), strip non-anchor fields before spreading props onto `<a>` elements.
 - For full-page loading states, prefer a dedicated `PageLoader` primitive over reusing inline spinners, and expose `disableFixedCenter` for embedding in constrained containers.
+- For segmented controls, pass matching `size` and `tabContent` variants to both `SegmentedControlList` and `SegmentedControlButton` so dimensions align with Figma across label-only, icon-only, and icon+label states.
 
 # Storybook Stories
 
