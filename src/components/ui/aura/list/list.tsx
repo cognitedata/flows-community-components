@@ -1,6 +1,7 @@
 import {
   type ComponentProps,
   type ComponentPropsWithoutRef,
+  type ForwardedRef,
   forwardRef,
   type ReactNode,
 } from 'react';
@@ -11,10 +12,28 @@ type HeadingElement = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 type ListType = 'ul' | 'ol' | 'dl';
 type ListProps = ComponentPropsWithoutRef<'ul'> & { type?: ListType };
 
-const List = ({ className, type = 'ul', ...props }: ListProps) => {
+const setListRef = (
+  ref: ForwardedRef<HTMLUListElement | HTMLOListElement | HTMLDListElement>,
+  node: HTMLUListElement | HTMLOListElement | HTMLDListElement | null
+) => {
+  if (typeof ref === 'function') {
+    ref(node);
+    return;
+  }
+
+  if (ref) {
+    ref.current = node;
+  }
+};
+
+const List = forwardRef<
+  HTMLUListElement | HTMLOListElement | HTMLDListElement,
+  ListProps
+>(({ className, type = 'ul', ...props }, ref) => {
   if (type === 'ol') {
     return (
       <ol
+        ref={(node) => setListRef(ref, node)}
         data-slot="list-ordered"
         className={cn('flex flex-col gap-3', className)}
         {...props}
@@ -25,6 +44,7 @@ const List = ({ className, type = 'ul', ...props }: ListProps) => {
   if (type === 'dl') {
     return (
       <dl
+        ref={(node) => setListRef(ref, node)}
         data-slot="list-description"
         className={cn(
           'flex flex-col [&>dt]:mb-0.5 [&>dd]:mb-2.5 [&>dd:last-child]:mb-0',
@@ -37,12 +57,14 @@ const List = ({ className, type = 'ul', ...props }: ListProps) => {
 
   return (
     <ul
+      ref={(node) => setListRef(ref, node)}
       data-slot="list"
       className={cn('flex flex-col gap-3', className)}
       {...props}
     />
   );
-};
+});
+List.displayName = 'List';
 
 const ListDescriptionTerm = forwardRef<HTMLElement, ComponentProps<'dt'>>(
   ({ className, ...props }, ref) => (
@@ -101,7 +123,7 @@ const ListItemIcon = forwardRef<HTMLSpanElement, ListItemIconProps>(
         data-slot="list-item-icon"
         aria-hidden={decorative ? true : undefined}
         className={cn(
-          'inline-flex h-4 w-4 mt-0.25 items-center justify-center text-muted-foreground',
+          'inline-flex h-4 w-4 mt-px items-center justify-center text-muted-foreground',
           className
         )}
         {...props}

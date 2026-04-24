@@ -13,6 +13,7 @@ import {
   forwardRef,
   type ReactNode,
   useContext,
+  useRef,
 } from 'react';
 
 import { cn } from '../../../../lib/utils';
@@ -239,7 +240,8 @@ const EventItem = forwardRef<
     now?: DateValue;
   }
 >(({ className, variant, date, completed, now, ...props }, ref) => {
-  const nowDate = toValidDate(now) ?? new Date();
+  const defaultNowRef = useRef<Date>(new Date());
+  const nowDate = toValidDate(now) ?? defaultNowRef.current;
   const resolvedVariant = getComputedVariant({
     variant,
     date,
@@ -285,7 +287,7 @@ const EventItemIcon = forwardRef<
       data-slot="event-item-icon"
       aria-hidden={decorative ? true : undefined}
       className={cn(
-        'col-start-1 row-span-2 inline-flex h-4 w-4 mt-0.25 items-center justify-center text-muted-foreground',
+        'col-start-1 row-span-2 inline-flex h-4 w-4 mt-px items-center justify-center text-muted-foreground',
         eventItemIconVariants({ variant: resolvedVariant }),
         className
       )}

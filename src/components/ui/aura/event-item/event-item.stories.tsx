@@ -24,12 +24,40 @@ const meta: Meta<typeof EventItem> = {
     variant: {
       control: 'select',
       options: ['upcoming', 'now', 'completed', 'error'],
+      description:
+        'Visual state override. When omitted, state is derived from date/completed.',
+      table: {
+        category: 'State',
+      },
+    },
+    date: {
+      control: 'text',
+      description:
+        'Target event date used for date rendering and computed variant/status.',
+      table: {
+        category: 'State',
+      },
+    },
+    completed: {
+      control: 'boolean',
+      description:
+        'Marks the event as completed and takes priority over due/overdue logic.',
+      table: {
+        category: 'State',
+      },
+    },
+    now: {
+      control: 'text',
+      description:
+        'Reference timestamp for deterministic due/overdue calculations in examples and tests.',
       table: {
         category: 'State',
       },
     },
     children: {
       control: false,
+      description:
+        'Composed event item slots such as icon, title, date, and status.',
       table: {
         category: 'Content',
       },
