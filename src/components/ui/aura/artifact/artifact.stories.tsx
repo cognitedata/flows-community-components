@@ -34,13 +34,14 @@ import { ChartContainer, ChartTooltip, ChartTooltipContent } from '../chart';
 import { Count } from '../count';
 import { DropdownMenuItem } from '../dropdown-menu';
 import {
-  List,
-  ListItem,
-  ListItemDescription,
-  ListItemIcon,
-  ListItemStatus,
-  ListItemTitle,
-} from '../list';
+  EventItem,
+  EventItemDate,
+  EventItemDescription,
+  EventItemIcon,
+  EventItemStatus,
+  EventItemTitle,
+} from '../event-item';
+import { List, ListItem } from '../list';
 import { Progress } from '../progress';
 import { Separator } from '../separator';
 import { TreeView, TreeViewItem } from '../treeview';
@@ -262,21 +263,47 @@ export const ListTimeline: Story = {
     <Artifact className="w-sm">
       <CardContent>
         <List>
-          <ListItem variant="upcoming">
-            <ListItemTitle>Inspection</ListItemTitle>
-            <ListItemDescription>Dec 22, 2024 5:00 AM</ListItemDescription>
+          <ListItem>
+            <EventItem
+              date="2026-04-26T05:00:00.000Z"
+              now="2026-04-23T05:00:00.000Z"
+            >
+              <EventItemIcon />
+              <EventItemTitle>Inspection</EventItemTitle>
+              <EventItemDate />
+            </EventItem>
           </ListItem>
-          <ListItem variant="now">
-            <ListItemTitle>Event</ListItemTitle>
-            <ListItemDescription>Today 3:05 PM</ListItemDescription>
+          <ListItem>
+            <EventItem
+              date="2026-04-23T15:05:00.000Z"
+              now="2026-04-23T05:00:00.000Z"
+            >
+              <EventItemIcon />
+              <EventItemTitle>Event</EventItemTitle>
+              <EventItemDate format="calendar" />
+            </EventItem>
           </ListItem>
-          <ListItem variant="completed">
-            <ListItemTitle>Inspection</ListItemTitle>
-            <ListItemDescription>1 d ago</ListItemDescription>
+          <ListItem>
+            <EventItem
+              completed
+              date="2026-04-22T10:00:00.000Z"
+              now="2026-04-23T10:00:00.000Z"
+            >
+              <EventItemIcon />
+              <EventItemTitle>Inspection</EventItemTitle>
+              <EventItemDate format="relative" />
+            </EventItem>
           </ListItem>
-          <ListItem variant="completed">
-            <ListItemTitle>Inspection</ListItemTitle>
-            <ListItemDescription>Dec 17, 2024 9:00 AM</ListItemDescription>
+          <ListItem>
+            <EventItem
+              completed
+              date="2026-04-17T09:00:00.000Z"
+              now="2026-04-23T10:00:00.000Z"
+            >
+              <EventItemIcon />
+              <EventItemTitle>Inspection</EventItemTitle>
+              <EventItemDate />
+            </EventItem>
           </ListItem>
         </List>
       </CardContent>
@@ -298,24 +325,43 @@ export const ListMaintenanceTasks: Story = {
     <Artifact className="w-sm">
       <CardContent>
         <List>
-          <ListItem variant="error">
-            <ListItemTitle>Pump seal replacement</ListItemTitle>
-            <ListItemDescription>
-              P-401A requires new mechanical seal
-            </ListItemDescription>
-            <ListItemStatus>Overdue</ListItemStatus>
+          <ListItem>
+            <EventItem
+              date="2026-04-20T09:00:00.000Z"
+              now="2026-04-23T09:00:00.000Z"
+            >
+              <EventItemIcon />
+              <EventItemTitle>Pump seal replacement</EventItemTitle>
+              <EventItemDescription>
+                P-401A requires new mechanical seal
+              </EventItemDescription>
+              <EventItemStatus />
+            </EventItem>
           </ListItem>
-          <ListItem variant="now">
-            <ListItemTitle>Valve calibration</ListItemTitle>
-            <ListItemDescription>
-              Quarterly calibration check
-            </ListItemDescription>
-            <ListItemStatus>Due today</ListItemStatus>
+          <ListItem>
+            <EventItem
+              date="2026-04-23T17:00:00.000Z"
+              now="2026-04-23T09:00:00.000Z"
+            >
+              <EventItemIcon />
+              <EventItemTitle>Valve calibration</EventItemTitle>
+              <EventItemDescription>
+                Quarterly calibration check
+              </EventItemDescription>
+              <EventItemStatus />
+            </EventItem>
           </ListItem>
-          <ListItem variant="completed">
-            <ListItemTitle>Filter cleaning</ListItemTitle>
-            <ListItemDescription>Clean inlet filters</ListItemDescription>
-            <ListItemStatus>Completed</ListItemStatus>
+          <ListItem>
+            <EventItem
+              completed
+              date="2026-04-22T09:00:00.000Z"
+              now="2026-04-23T09:00:00.000Z"
+            >
+              <EventItemIcon />
+              <EventItemTitle>Filter cleaning</EventItemTitle>
+              <EventItemDescription>Clean inlet filters</EventItemDescription>
+              <EventItemStatus />
+            </EventItem>
           </ListItem>
         </List>
       </CardContent>
@@ -348,39 +394,46 @@ export const ListRecentChatSummary: Story = {
       <CardContent>
         <List>
           <ListItem>
-            <ListItemIcon>
-              <IconSettings2 className="size-3 text-muted-foreground" />
-            </ListItemIcon>
-            <ListItemTitle>Pump 3 cavitation detected</ListItemTitle>
-            <ListItemDescription>
-              Suction pressure oscillations and elevated noise on P-003 during
-              night shift; cavitation likely from low NPSH/blocked strainer.
-              Next step: inspect/clean suction strainer and raise tank level
-              20cm.
-            </ListItemDescription>
+            <EventItem>
+              <EventItemIcon aria-label="Chat summary icon">
+                <IconSettings2 className="size-3 text-muted-foreground" />
+              </EventItemIcon>
+              <EventItemTitle>Pump 3 cavitation detected</EventItemTitle>
+              <EventItemDescription>
+                Suction pressure oscillations and elevated noise on P-003 during
+                night shift; cavitation likely from low NPSH/blocked strainer.
+                Next step: inspect/clean suction strainer and raise tank level
+                20cm.
+              </EventItemDescription>
+            </EventItem>
           </ListItem>
           <ListItem>
-            <ListItemIcon>
-              <IconSettings2 className="size-3 text-muted-foreground" />
-            </ListItemIcon>
-            <ListItemTitle>Compressor C-5 surge events</ListItemTitle>
-            <ListItemDescription>
-              Three start-up surge spikes with sluggish anti-surge valve
-              response; control loop tuning/valve stiction suspected. Next step:
-              Stroke-test ASV, retune PID, and verify transmitter calibration.
-            </ListItemDescription>
+            <EventItem>
+              <EventItemIcon aria-label="Chat summary icon">
+                <IconSettings2 className="size-3 text-muted-foreground" />
+              </EventItemIcon>
+              <EventItemTitle>Compressor C-5 surge events</EventItemTitle>
+              <EventItemDescription>
+                Three start-up surge spikes with sluggish anti-surge valve
+                response; control loop tuning/valve stiction suspected. Next
+                step: Stroke-test ASV, retune PID, and verify transmitter
+                calibration.
+              </EventItemDescription>
+            </EventItem>
           </ListItem>
           <ListItem>
-            <ListItemIcon>
-              <IconSettings2 className="size-3 text-muted-foreground" />
-            </ListItemIcon>
-            <ListItemTitle>Boiler steam leak near header B</ListItemTitle>
-            <ListItemDescription>
-              Ultrasonic survey indicates continuous hiss with elevated
-              condensate returns; small steam leak wasting energy. Next step:
-              tag exact location, plan hot repair window, and quantify loss
-              after fix.
-            </ListItemDescription>
+            <EventItem>
+              <EventItemIcon aria-label="Chat summary icon">
+                <IconSettings2 className="size-3 text-muted-foreground" />
+              </EventItemIcon>
+              <EventItemTitle>Boiler steam leak near header B</EventItemTitle>
+              <EventItemDescription>
+                Ultrasonic survey indicates continuous hiss with elevated
+                condensate returns; small steam leak wasting energy. Next step:
+                tag exact location, plan hot repair window, and quantify loss
+                after fix.
+              </EventItemDescription>
+            </EventItem>
           </ListItem>
         </List>
       </CardContent>
