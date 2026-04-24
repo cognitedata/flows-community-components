@@ -92,6 +92,9 @@ For files under `src/components/ui/aura/**`, prefer relative imports (for exampl
 
 ## Learnings
 
+- Primitive components should not use child introspection (`Children`, `cloneElement`, `isValidElement`) to drive behavior or styling.
+- For slot-based primitives, keep optional regions explicit via props/subcomponents and place them with `data-slot` selectors instead of relying on child render order.
+- Avoid prop overload patterns in component APIs; prefer explicit, single-purpose props and composition slots.
 - Use `PaginationStatus` for inline pagination counters instead of ad hoc spans.
 - Pagination subcomponents inherit size from `PaginationContent`.
 - Use `PaginationSelectTrigger` to inherit pagination size for selects.
