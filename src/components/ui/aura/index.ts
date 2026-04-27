@@ -330,6 +330,16 @@ export { EffectsMetadata } from './effects/effects.metadata';
 export { EmptyState } from './empty-state/empty-state';
 export { EmptyStateMetadata } from './empty-state/empty-state.metadata';
 
+export {
+  EventItem,
+  EventItemDate,
+  EventItemDescription,
+  EventItemIcon,
+  EventItemStatus,
+  EventItemTitle,
+} from './event-item/event-item';
+export { EventItemMetadata } from './event-item/event-item.metadata';
+
 export { HelperText } from './helper-text/helper-text';
 export { HelperTextMetadata } from './helper-text/helper-text.metadata';
 
@@ -394,15 +404,11 @@ export { LayoutMetadata } from './layout/layout.metadata';
 
 export {
   List,
-  ListDescription,
-  ListDescriptionDetails,
+  ListDescriptionDescription,
   ListDescriptionTerm,
+  ListHeading,
   ListItem,
-  ListItemDescription,
   ListItemIcon,
-  ListItemStatus,
-  ListItemTitle,
-  ListOrdered,
 } from './list/list';
 export { ListMetadata } from './list/list.metadata';
 

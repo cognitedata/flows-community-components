@@ -1,13 +1,9 @@
 export {
   List,
-  ListDescription,
-  ListDescriptionDetails,
+  ListDescriptionDescription,
   ListDescriptionTerm,
+  ListHeading,
   ListItem,
-  ListItemDescription,
   ListItemIcon,
-  ListItemStatus,
-  ListItemTitle,
-  ListOrdered,
 } from './list';
 export { ListMetadata } from './list.metadata';

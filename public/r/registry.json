@@ -1018,6 +1018,31 @@
       ]
     },
     {
+      "name": "event-item",
+      "type": "registry:component",
+      "title": "EventItem",
+      "description": "Composable event content block with status variants, computed due-state labels, and date display formatting.",
+      "dependencies": [
+        "class-variance-authority",
+        "date-fns"
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/event-item/event-item.tsx",
+          "target": "src/components/ui/aura/event-item.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "hover-card",
       "type": "registry:component",
       "title": "HoverCard",
@@ -1152,10 +1177,7 @@
       "name": "list",
       "type": "registry:component",
       "title": "List",
-      "description": "Composable list primitives for unordered, ordered, and description lists with status-ready list items.",
-      "dependencies": [
-        "class-variance-authority"
-      ],
+      "description": "Composable list primitives for unordered, ordered, and description lists.",
       "registryDependencies": [
         "@aura/css"
       ],

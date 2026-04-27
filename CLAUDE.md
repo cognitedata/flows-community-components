@@ -95,6 +95,11 @@ For files under `src/components/ui/aura/**`, prefer relative imports (for exampl
 - Primitive components should not use child introspection (`Children`, `cloneElement`, `isValidElement`) to drive behavior or styling.
 - For slot-based primitives, keep optional regions explicit via props/subcomponents and place them with `data-slot` selectors instead of relying on child render order.
 - Avoid prop overload patterns in component APIs; prefer explicit, single-purpose props and composition slots.
+- Preserve existing ref contracts when refactoring primitives. If a component previously exposed refs, keep `forwardRef` support and use cast-free typing.
+- For date/time-derived UI, avoid unstable `new Date()` defaults that can diverge between server and client renders; prefer deterministic reference-time props and stable fallbacks.
+- In shared primitives, prefer broadly supported spacing utilities (for example `mt-px` or `mt-0.5`) over niche micro-step classes unless they are intentionally standardized.
+- Storybook `argTypes` for key state/behavior props should include concise categories and descriptions to improve generated docs clarity.
+- Add stateful stories only when state transitions are core component behavior; do not force `useState` examples for static/compositional primitives.
 - Use `PaginationStatus` for inline pagination counters instead of ad hoc spans.
 - Pagination subcomponents inherit size from `PaginationContent`.
 - Use `PaginationSelectTrigger` to inherit pagination size for selects.
@@ -114,7 +119,7 @@ For files under `src/components/ui/aura/**`, prefer relative imports (for exampl
 - When overriding focus states in InputGroup controls, must override BOTH `focus-visible:shadow-none` AND `aria-invalid:focus-visible:shadow-none` to prevent double focus rings in error states.
 - Don't export prop types from components. Use inline typing (`type MessageProps = ...`) instead of `export type`. Consumers can use `ComponentProps<typeof Component>` if they need access to types. Follow the pattern used by Badge, Card, Button, Dialog, and AlertDialog components.
 - Tooltip delay stories are more stable with deterministic waits and without interaction retries.
-- Storybook stories should omit description metadata and explanatory comments; keep examples self-explanatory through naming and structure.
+- Storybook stories should omit docs prose metadata (for example `parameters.docs.description`) and explanatory comments; keep examples self-explanatory through naming and structure.
 - Playground stories should define grouped `argTypes` (for example Display, Content, Accessibility, Events) with clear control metadata and descriptions for interactive docs.
 - Collapsible play tests are more stable when asserting `data-panel-open` and scoping queries to the panel.
 - Topbar wrapper sections should use `ComponentRef<"div">` with `ComponentProps<"div">` for consistent forwardRef typing.
@@ -190,7 +195,7 @@ For detailed story writing guidelines, use the `/story-builder` skill.
 - Use explicit render functions with hardcoded props
 - No inline code comments in play functions
 - No JSX comments in render functions (e.g., `{/* comment */}`) - if you need section labels, use semantic HTML headings instead
-- Omit Storybook description metadata and story-level explanatory comments; keep stories concise and self-explanatory
+- Omit Storybook docs prose metadata (for example `parameters.docs.description`) and story-level explanatory comments; keep stories concise and self-explanatory
 - Prioritize semantic queries (`getByRole`, `getByText`, etc.) over `getByTestId` in play functions
 - Avoid `getByTestId` in story interactions; reserve test ids for mocked unit-test scenarios only
 - Run `pnpm lint` and `pnpm tsc -b` after changes

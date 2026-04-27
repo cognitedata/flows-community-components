@@ -47,6 +47,10 @@ Keep business logic out of UI components. Move SDK queries/mutations/side effect
 
 Prefer derived values over `useState` + `useEffect` for computed state.
 
+For primitive components, do not use child introspection (`Children`, `cloneElement`, `isValidElement`) to infer slots or behavior. Keep optional regions explicit via props/subcomponents and place them with `data-slot` selectors instead of child-order assumptions.
+
+Avoid prop-overload APIs. Prefer explicit, single-purpose props and compositional slots.
+
 ## Styling Conventions
 
 **Always use cn() for className merging.** See any component file like `badge.tsx`.
@@ -54,6 +58,8 @@ Prefer derived values over `useState` + `useEffect` for computed state.
 **All components get data-slot.** See `button.tsx` for data-slot usage.
 
 **Use design tokens, not arbitrary values**. Utilities like `leading-4.5`, `text-sm`, and `gap-2` are fine when defined in our Tailwind config; avoid bracketed arbitrary values like `leading-[18px]`, `text-[14px]`, `gap-[8px]`.
+
+Prefer broadly supported spacing utilities in shared primitives (for example `mt-px`, `mt-0.5`) unless a custom micro-step utility is intentionally standardized.
 
 **Inline prop typing, no type exports.** Define prop types inline (e.g., `type BadgeProps = ...`) but do not export them. Consumers can use `ComponentProps<typeof Component>` if needed. See `badge.tsx`, `card.tsx`, `button.tsx` - none export prop types.
 
@@ -72,10 +78,16 @@ See these files for forwardRef patterns:
 - Native HTML elements: `badge.tsx`, `button.tsx`
 - Base UI Primitives: `dialog.tsx`, `alert-dialog.tsx`
 - Always set `displayName` for debugging and dev tools
+- Preserve ref contracts during refactors. If a component previously forwarded refs, keep `forwardRef` support unless there is a user-approved breaking change.
+- Do not use `as` casts for ref plumbing; use cast-free ref assignment patterns with typed callback/object refs.
 
 ## Semantic HTML & Polymorphic Components
 
 Title components support polymorphic heading elements for proper document hierarchy, SEO, and screen reader accessibility. See `card.tsx` for the `CardTitle` polymorphic pattern with `as` prop. Usage examples in `card.stories.tsx`.
+
+## Date/Time Determinism
+
+For components that compute date/time-based UI, avoid unstable runtime defaults that can differ between server and client renders. Prefer explicit reference-time props (for example `now`) for deterministic output and use stable fallback references when needed.
 
 ## Component Naming
 
