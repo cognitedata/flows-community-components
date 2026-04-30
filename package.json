@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b --clean && tsc -b && vite build && cp dist/index.html dist/404.html",
+    "build": "tsc -b --clean && tsc -b && vite build && node scripts/write-redirect.mjs",
     "start": "tsc -b && vite build && vite preview",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",

@@ -38,7 +38,7 @@ import {
   SegmentedControlList,
   SegmentedControlButton,
 } from '@/components/ui/aura/segmented-control';
-const duneDocsUrl = 'https://laughing-adventure-r6kwpyy.pages.github.io/';
+const duneDocsUrl = 'https://cog.link/aura';
 
 const componentsJson = `{
   "$schema": "https://ui.shadcn.com/schema.json",
