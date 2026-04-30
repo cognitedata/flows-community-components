@@ -26,13 +26,13 @@ Browse all components in the sidebar navigation or see individual component page
 
 Getting started instructions for Aura now live in the Dune creation docs:
 
-- https://laughing-adventure-r6kwpyy.pages.github.io/
+- https://cog.link/aura
 
 ## Usage
 
 Follow the Dune creation docs for setup, imports, and usage examples:
 
-- https://laughing-adventure-r6kwpyy.pages.github.io/
+- https://cog.link/aura
 
 ## Styling
 
