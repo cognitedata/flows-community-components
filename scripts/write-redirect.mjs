@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const distDir = resolve(__dirname, '..', 'dist');
-const redirectUrl = 'https://cognite-dune-docs.mintlify.app/cdf/dune/aura';
+const redirectUrl = 'https://cog.link/aura';
 
 const html = `<!DOCTYPE html>
 <html lang="en">
