@@ -8,7 +8,7 @@
 - [ ] `pnpm run registry:check` passes (`registry.json` + `public/r/` committed)
 - [ ] `pnpm lint` and `pnpm tsc -b` pass
 - [ ] Storybook interaction tests pass for changed community stories (`pnpm run test:storybook:ci`)
-- [ ] Assigned reviewer
+- [ ] Reviewer requested (or Code Owners will auto-assign)
 
 ## Summary
 

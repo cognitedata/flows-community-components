@@ -81,8 +81,9 @@ The repository boundary makes the guarantees explicit:
 
 A contribution follows this flow:
 
-1. **Pre-screen:** use the designated Aura intake channel to check whether the
-   need exists, duplicates intended Core behavior, or is already being built.
+1. **Pre-screen:** use the designated Aura intake channel (e.g., Slack or GitHub
+   Discussions) to check whether the need exists, duplicates intended Core
+   behavior, or is already being built.
 2. **Source or build:** adapt an existing Community or compatible shadcn/Base UI
    component where practical; otherwise use Aura primitives and tokens.
 3. **Check conformance:** run automated token, primitive, and styling checks.
@@ -112,7 +113,7 @@ Every submission must include:
 - Storybook stories for default and key variants, plus interaction and data
   states for complex components;
 - brief props/API documentation; and
-- an assigned reviewer.
+- a requested reviewer or automatic assignment based on Code Owners.
 
 The negative scope is required because it helps reviewers, humans, and agents
 avoid selecting a component outside its intended purpose.

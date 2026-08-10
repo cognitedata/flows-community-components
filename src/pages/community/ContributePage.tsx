@@ -7,7 +7,7 @@ const coreDocsUrl = 'https://docs.cognite.com/aura-design-system';
 const flowSteps = [
   {
     title: 'Pre-screen',
-    body: 'Check whether the need already exists in Aura Core, Community, or an in-progress contribution. Avoid duplicating intended Core behavior.',
+    body: 'Use Slack or GitHub Discussions to check whether the need already exists in Aura Core, Community, or an in-progress contribution. Avoid duplicating intended Core behavior.',
   },
   {
     title: 'Source or build',
@@ -40,7 +40,7 @@ const submissionItems = [
   'Includes index.ts, <name>.metadata.ts, and Storybook stories titled Community/...',
   'pnpm run registry:build regenerates registry.json and public/r/',
   'pnpm lint and pnpm tsc -b pass',
-  'Assigned reviewer',
+  'Reviewer requested (or Code Owners)',
 ];
 
 const searchOrder = [
