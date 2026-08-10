@@ -1,0 +1,1 @@
+The repo contains the community components for the Flows builder community built on top the offical Cognite design system - Aura.
