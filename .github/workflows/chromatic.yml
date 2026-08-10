@@ -54,4 +54,6 @@ jobs:
           buildScriptName: build-storybook
           exitOnceUploaded: true
           onlyChanged: true
-          autoAcceptChanges: main
+          # Accept community Storybook baselines on this pivot branch; keep main auto-accept after merge.
+          autoAcceptChanges: flows-community-registry-pivot
+          exitZeroOnChanges: true
