@@ -15,23 +15,16 @@
 - Timing: use fake timers for debounce/throttle tests; avoid mocking timer/debounce behavior directly.
 - Components: keep business logic out of UI components; extract to hooks and use context-based dependency injection when needed.
 - Derived state: prefer derived values (or `useMemo`) over `useState` + `useEffect` for computed state.
-- Styles: default to `styled-components`; in `libs/aura/**`, Tailwind utilities plus scoped portal/container imperative styles and required inline style helpers are allowed.
+- Styles: use Tailwind design tokens from Aura; avoid arbitrary bracket values unless a token does not exist.
 - Domains in tests: use reserved `.test` domains (for example `https://cognite.test`) to avoid accidental external traffic.
 - TS config: do not add `paths` to `tsconfig*.json`; use relative imports or tool-level aliasing (for example Vite).
 - PR hygiene: prefer smaller changes (ideal <200 lines, max 500) and keep tests fast (<2s each, <2min total).
 
 # Component Registry Rules
 
-When you create or update ANY community component, run: `pnpm run registry:build`
+When you create or update ANY community component, run: `pnpm run registry:check`
 
-This command:
-
-1. Scans `src/components/ui/community/` for all component files
-2. Auto-detects npm dependencies (including `@cognite/aura`) and registry dependencies from imports
-3. Generates `registry.json` in the root
-4. Runs `shadcn build` to generate individual component files in `public/r/*.json`
-
-The registry build process is fully automated - no manual configuration needed.
+This regenerates `registry.json` + `public/r/` and fails if those artifacts are not committed.
 
 The docs site and Storybook resolve `@cognite/aura/*` from the published NPM package (`^0.3.5`). Local `src/components/ui/aura/` has been removed; Core primitives are not maintained in this repo. Registry publication still scans only `src/components/ui/community/`.
 
@@ -60,19 +53,10 @@ ALWAYS import hooks directly: `import { useState, useEffect } from 'react'`
 This applies to ALL React imports.
 Import ordering should follow the repo lint autofix output.
 
-**Fusion Import Strategy:**
+**Import strategy for this repo:**
 
-Aura uses a dual-scope import system for migrating components to Fusion:
-
-- **`@cognite/aura/*`** - Beta components ready for Fusion (e.g., `@cognite/aura/button`)
-- **`@cognite/aura-lab/*`** - Alpha/experimental components (e.g., `@cognite/aura-lab/accordion`)
-- **`@cognite/aura/lib/*`** - Shared utilities (e.g., `@cognite/aura/lib/utils`)
-
-Components in `src/components/ui/community/` import `@cognite/aura/components` and `@cognite/aura/utils` from the published NPM package.
-
-## Special Files
-
-- `reasoning-original.tsx` is NOT redundant - it will be used in the future, do not remove it
+- Community components and docs chrome import Core from `@cognite/aura/components` and `@cognite/aura/utils`
+- Do not vendor or reimplement Core primitives locally
 
 ## Learnings
 
@@ -171,6 +155,11 @@ Components in `src/components/ui/community/` import `@cognite/aura/components` a
 - Core docs links use `https://docs.cognite.com/aura-design-system` (not cog.link/aura).
 - GitHub Pages serves the Community docs site plus `public/r/*.json`; do not restore the cog.link redirect in `package.json` build or `deploy.yml`.
 - Community docs Examples use portable stories via `StoriesRenderer` (`import.meta.glob` on `src/components/ui/community/*/*.stories.tsx` + `composeStories`); `ExamplePreview` pulls CodeBlock UI from `@cognite/aura/components`. Keep `storySourcePlugin` in `vite.config.ts` for source injection.
+- CI enforces `pnpm run registry:check` (rebuild + `git diff --exit-code` on `registry.json` and `public/r`), docs/Storybook production builds, and community-only Storybook interaction tests; shared setup lives in `.github/actions/setup-node-pnpm`.
+- Storybook and Chromatic only load `src/components/ui/community/**` stories; Core primitives come from `@cognite/aura` and are not maintained here.
+- PR preview comments use the Flows Community label; Pages URLs stay under `cognitedata.github.io/aura/` while the registry namespace remains `@aura`.
+- Keep docs-site `src/lib/utils.ts` minimal (`cn` only); community components should use `@cognite/aura/utils` for shared helpers like `getPortalContainer`.
+- This repo is community-only: do not restore local Aura Core trees, Core catalog pages, or Fusion-only design-conformance skills.
 
 # Storybook Stories
 
@@ -189,3 +178,4 @@ For detailed story writing guidelines, use the `/story-builder` skill.
 - Prioritize semantic queries (`getByRole`, `getByText`, etc.) over `getByTestId` in play functions
 - Avoid `getByTestId` in story interactions; reserve test ids for mocked unit-test scenarios only
 - Run `pnpm lint` and `pnpm tsc -b` after changes
+- Keep \`typescript\` on 5.9.x until typescript-eslint supports TypeScript 7; keep \`eslint\`/\`@eslint/js\` on 9.x while \`eslint-plugin-import\` lacks ESLint 10 support; keep \`@vitejs/plugin-react\` on 5.x while the Vite override is \`rolldown-vite@7\`; keep \`@tanstack/react-table\` on 8.x for \`@cognite/aura\` peer compatibility.

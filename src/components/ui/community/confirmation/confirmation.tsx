@@ -26,9 +26,7 @@ type ConfirmationState =
   | 'output-available';
 
 type ConfirmationResponseState =
-  | 'approval-responded'
-  | 'output-denied'
-  | 'output-available';
+  'approval-responded' | 'output-denied' | 'output-available';
 
 type ConfirmationContextValue = {
   approved?: boolean;

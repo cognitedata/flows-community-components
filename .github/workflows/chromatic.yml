@@ -24,34 +24,33 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Install Node.js
-        uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6
-        with:
-          node-version: 24
-
-      - name: Enable Corepack
-        run: corepack enable
-
-      - name: Get pnpm store directory
+      - name: Resolve Chromatic project token
+        id: chromatic_token
         shell: bash
+        env:
+          TOKEN_FLOWS: ${{ secrets.CHROMATIC_TOKEN_FLOWS_COMMUNITY }}
+          TOKEN_AURA: ${{ secrets.CHROMATIC_TOKEN_AURA }}
         run: |
-          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+          if [ -n "$TOKEN_FLOWS" ]; then
+            echo "token=$TOKEN_FLOWS" >> "$GITHUB_OUTPUT"
+            echo "has_token=true" >> "$GITHUB_OUTPUT"
+          elif [ -n "$TOKEN_AURA" ]; then
+            echo "token=$TOKEN_AURA" >> "$GITHUB_OUTPUT"
+            echo "has_token=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_token=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::No Chromatic project token configured; skipping Chromatic publish."
+          fi
 
-      - name: Setup pnpm cache
-        uses: actions/cache@8b402f58fbc84540c8b491a91e594a4576fec3d7 # v5
-        with:
-          path: ${{ env.STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
-
-      - name: Install dependencies
-        run: pnpm install
+      - name: Setup Node.js and pnpm
+        if: steps.chromatic_token.outputs.has_token == 'true'
+        uses: ./.github/actions/setup-node-pnpm
 
       - name: Publish to Chromatic
-        uses: chromaui/action@latest
+        if: steps.chromatic_token.outputs.has_token == 'true'
+        uses: chromaui/action@v18.0.1
         with:
-          projectToken: ${{ secrets.CHROMATIC_TOKEN_AURA }}
+          projectToken: ${{ steps.chromatic_token.outputs.token }}
           buildScriptName: build-storybook
           exitOnceUploaded: true
           onlyChanged: true

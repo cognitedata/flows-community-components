@@ -119,7 +119,7 @@ When using emoji in story render output, wrap each emoji with semantic labeling,
 
 ## Fusion Import Strategy
 
-For stories under `src/components/ui/aura/**`, prefer relative imports for Aura components and shared lib helpers (for example `../button` or `../../../../lib/utils`) instead of `@/*` aliases, to match portable registry/Fusion packaging expectations.
+For stories under `src/components/ui/community/**`, import Core primitives from `@cognite/aura/components` and keep Storybook titles under `Community/<Name>`.
 
 ## argTypes
 

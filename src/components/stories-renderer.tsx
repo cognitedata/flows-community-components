@@ -172,11 +172,9 @@ export function StoriesRenderer({ slug }: StoriesRendererProps) {
           // Sort by parameters.order if present, otherwise alphabetically
           .sort((a, b) => {
             const storyA = module[a.key] as
-              | { parameters?: { order?: number } }
-              | undefined;
+              { parameters?: { order?: number } } | undefined;
             const storyB = module[b.key] as
-              | { parameters?: { order?: number } }
-              | undefined;
+              { parameters?: { order?: number } } | undefined;
 
             const orderA = storyA?.parameters?.order ?? 999;
             const orderB = storyB?.parameters?.order ?? 999;

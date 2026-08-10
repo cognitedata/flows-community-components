@@ -70,10 +70,12 @@ Community items depend on `@cognite/aura` and copy source into your repository.
 ```bash
 pnpm install
 pnpm dev                 # docs site
-pnpm storybook           # Storybook
+pnpm storybook           # Storybook (community components)
 pnpm run registry:build  # regenerate registry.json + public/r
+pnpm run registry:check  # fail if registry artifacts are stale
 pnpm lint
 pnpm tsc -b
+pnpm run test:storybook:ci
 ```
 
 Community components live in `src/components/ui/community/`. Contribution model: [docs/decisions/2026-08-04-aura-community-contribution-model.md](docs/decisions/2026-08-04-aura-community-contribution-model.md).

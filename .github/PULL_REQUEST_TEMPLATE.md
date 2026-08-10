@@ -5,8 +5,9 @@
 - [ ] Uses Aura semantic tokens and `@cognite/aura` primitives where applicable
 - [ ] Lives under `src/components/ui/community/<name>/`
 - [ ] Includes `index.ts`, `<name>.metadata.ts`, and Storybook stories (`Community/...`)
-- [ ] `pnpm run registry:build` regenerates `registry.json` and `public/r/`
+- [ ] `pnpm run registry:check` passes (`registry.json` + `public/r/` committed)
 - [ ] `pnpm lint` and `pnpm tsc -b` pass
+- [ ] Storybook interaction tests pass for changed community stories (`pnpm run test:storybook:ci`)
 - [ ] Assigned reviewer
 
 ## Summary

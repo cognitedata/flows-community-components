@@ -28,29 +28,8 @@ jobs:
           echo "name=$SAFE_BRANCH" >> $GITHUB_OUTPUT
           echo "original=$BRANCH_NAME" >> $GITHUB_OUTPUT
 
-      - name: Install Node.js
-        uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6
-        with:
-          node-version: 24
-
-      - name: Enable Corepack
-        run: corepack enable
-
-      - name: Get pnpm store directory
-        shell: bash
-        run: |
-          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
-
-      - name: Setup pnpm cache
-        uses: actions/cache@8b402f58fbc84540c8b491a91e594a4576fec3d7 # v5
-        with:
-          path: ${{ env.STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
-
-      - name: Install dependencies
-        run: pnpm install
+      - name: Setup Node.js and pnpm
+        uses: ./.github/actions/setup-node-pnpm
 
       - name: Build registry
         run: pnpm run registry:build
@@ -62,7 +41,6 @@ jobs:
 
       - name: Add branch metadata
         run: |
-          # Add metadata file for the manifest
           cat > dist/_branch-meta.json << EOF
           {
             "name": "${{ steps.branch.outputs.name }}",
@@ -100,6 +78,7 @@ jobs:
             const previewUrl = 'https://cognitedata.github.io/aura/branches/' + branchName + '/';
             const commitSha = context.sha;
             const timestamp = new Date().toISOString();
+            const marker = '<!-- flows-community-preview -->';
 
             const { data: comments } = await github.rest.issues.listComments({
               owner: context.repo.owner,
@@ -109,13 +88,14 @@ jobs:
 
             const botComment = comments.find(comment =>
               comment.user.type === 'Bot' &&
-              comment.body.includes('Aura preview')
+              (comment.body.includes(marker) || comment.body.includes('Flows Community preview') || comment.body.includes('Aura preview'))
             );
 
             const body = [
-              '## 🚀 Aura preview',
+              marker,
+              '## Flows Community preview',
               '',
-              'The latest version is available for testing: [🔗 Preview](' + previewUrl + ')',
+              'The latest version is available for testing: [Preview](' + previewUrl + ')',
               '',
               '_Commit:_ ' + commitSha,
               '',
