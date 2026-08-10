@@ -7,7 +7,10 @@ import { mergeConfig } from 'vite';
 const isChromatic = Boolean(process.env.CHROMATIC);
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 const config: StorybookConfig = {
-  stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
+  stories: [
+    '../src/components/ui/community/**/*.mdx',
+    '../src/components/ui/community/**/*.stories.@(js|jsx|mjs|ts|tsx)',
+  ],
   addons: [
     '@storybook/addon-docs',
     '@storybook/addon-a11y',
@@ -35,7 +38,7 @@ const config: StorybookConfig = {
       base: basePath,
       resolve: {
         alias: {
-          'virtual:cogdocs': path.resolve(dirname, '../src/mocks/cogdocs.ts'),
+          '@': path.resolve(dirname, '../src'),
         },
       },
     });

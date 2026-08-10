@@ -9,8 +9,8 @@ Build accessible, consistent React components following Aura design system patte
 
 ## When to Use
 
-- Creating new React components in `src/components/ui/aura/`
-- Updating existing component files
+- Creating new React components in `src/components/ui/community/`
+- Updating existing community component files
 - User mentions "component", "create component", "build component", or "update component"
 
 ## File References
@@ -29,9 +29,9 @@ Do not add `data-testid` attributes in production component code. Keep tests sem
 
 **Inline prop typing, no export unless needed externally.** See component files like `button.tsx` for prop typing patterns.
 
-## Aura Import Paths
+## Community Import Paths
 
-In `src/components/ui/aura/**`, prefer relative imports (for example `../../../../lib/utils`) instead of `@/*` aliases so component outputs stay portable for registry/Fusion usage.
+Community components import Core from `@cognite/aura/components` and `@cognite/aura/utils`. Prefer those package imports over local `@/*` aliases for anything that ships through the registry.
 
 ## Fusion Type Safety Rules
 

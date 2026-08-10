@@ -15,39 +15,18 @@
 - Timing: use fake timers for debounce/throttle tests; avoid mocking timer/debounce behavior directly.
 - Components: keep business logic out of UI components; extract to hooks and use context-based dependency injection when needed.
 - Derived state: prefer derived values (or `useMemo`) over `useState` + `useEffect` for computed state.
-- Styles: default to `styled-components`; in `libs/aura/**`, Tailwind utilities plus scoped portal/container imperative styles and required inline style helpers are allowed.
+- Styles: use Tailwind design tokens from Aura; avoid arbitrary bracket values unless a token does not exist.
 - Domains in tests: use reserved `.test` domains (for example `https://cognite.test`) to avoid accidental external traffic.
 - TS config: do not add `paths` to `tsconfig*.json`; use relative imports or tool-level aliasing (for example Vite).
 - PR hygiene: prefer smaller changes (ideal <200 lines, max 500) and keep tests fast (<2s each, <2min total).
 
 # Component Registry Rules
 
-When you create or update ANY component, run: `pnpm run registry:build`
+When you create or update ANY community component, run: `pnpm run registry:check`
 
-This command:
+This regenerates `registry.json` + `public/r/` and fails if those artifacts are not committed.
 
-1. Scans `src/components/ui/aura/` for all component files
-2. Auto-detects npm dependencies and registry dependencies from imports
-3. Generates `registry.json` in the root
-4. Runs `shadcn build` to generate individual component files in `public/r/*.json`
-
-The registry build process is fully automated - no manual configuration needed.
-
-# Aura Barrel Export Rules
-
-When you add, remove, or rename any export in `src/components/ui/aura/<component>/index.ts` or the component source file, update `src/components/ui/aura/index.ts` in the same change to keep top-level exports in sync.
-
-Before finalizing, verify the new/changed symbol is exported from both the component barrel and the top-level Aura barrel.
-
-# Primitives Progress Metadata Rules
-
-When adding, removing, or renaming primitives/foundations, update `src/lib/primitives-catalog.ts` in the same change.
-
-When the user asks for primitive/foundation progress updates, update the catalog metadata and ensure badges on `/primitives` reflect the new status.
-
-If requested progress status is missing or ambiguous, ask a clarifying question before finalizing status metadata.
-
-If a primitive/foundation is tracked but not implemented, keep or add a `comingSoon` placeholder path via catalog metadata.
+The docs site and Storybook resolve `@cognite/aura/*` from the published NPM package (`^0.3.5`). Local `src/components/ui/aura/` has been removed; Core primitives are not maintained in this repo. Registry publication still scans only `src/components/ui/community/`.
 
 # Building Components
 
@@ -60,10 +39,10 @@ For detailed component building guidelines, use the `/component-builder` skill.
 - Use Base UI for complex interactions, native HTML for simple elements
 - Always use `ComponentRef` (not `React.ElementRef`), except for Base UI Trigger components (Dialog, Popover, etc.) which should be plain functions without `forwardRef` as they handle refs internally
 - No code comments in component files
-- Extract helpers to relative Aura lib paths (for example `../../../../lib/utils.ts`)
+- Extract helpers to `@cognite/aura/utils` or local `src/lib` helpers as appropriate
 - Use Tailwind design tokens, not arbitrary values. Utilities like `leading-4.5` are allowed when defined in our Tailwind config; avoid bracketed arbitrary values like `leading-[18px]`.
 - Exports should be in a single export block. Format inline if it fits, or one-per-line if long. Let ESLint handle lint autofixes; avoid tool-specific ignore comments unless needed.
-- Component `index.ts` files in aura re-export from the main component (use `.ts` when no JSX). Prefer `import { Component } from "./component"; export { Component };` over inline export.
+- Community component `index.ts` files re-export from the main component (use `.ts` when no JSX). Prefer `import { Component } from "./component"; export { Component };` over inline export.
 - Run `pnpm lint` and `pnpm tsc -b` after changes
 - Do not include `importPath` in `*.metadata.ts` files
 
@@ -74,21 +53,10 @@ ALWAYS import hooks directly: `import { useState, useEffect } from 'react'`
 This applies to ALL React imports.
 Import ordering should follow the repo lint autofix output.
 
-**Fusion Import Strategy:**
+**Import strategy for this repo:**
 
-Aura uses a dual-scope import system for migrating components to Fusion:
-
-- **`@cognite/aura/*`** - Beta components ready for Fusion (e.g., `@cognite/aura/button`)
-- **`@cognite/aura-lab/*`** - Alpha/experimental components (e.g., `@cognite/aura-lab/accordion`)
-- **`@cognite/aura/lib/*`** - Shared utilities (e.g., `@cognite/aura/lib/utils`)
-
-Components in `src/components/ui/core/` use `@cognite/aura/*`, components in `src/components/ui/lab/` use `@cognite/aura-lab/*`.
-
-For files under `src/components/ui/aura/**`, prefer relative imports (for example `../../../../lib/utils`) over `@/*` aliases to keep generated/portable outputs stable. The `@cognite/*` imports are configured for when components are consumed in Fusion.
-
-## Special Files
-
-- `reasoning-original.tsx` is NOT redundant - it will be used in the future, do not remove it
+- Community components and docs chrome import Core from `@cognite/aura/components` and `@cognite/aura/utils`
+- Do not vendor or reimplement Core primitives locally
 
 ## Learnings
 
@@ -130,7 +98,7 @@ For files under `src/components/ui/aura/**`, prefer relative imports (for exampl
 - Pagination play tests are most reliable when validating teleport and navigation via semantic textbox/link roles plus deterministic `waitFor` assertions after Enter/click interactions.
 - Component files should order imports as React, third-party, then local aliases, and use `ComponentRef<...>` in `forwardRef` signatures.
 - In story play functions, prefer semantic alert/button queries (`getByRole`/`findByRole`) over `querySelector('[data-slot=...]')` for more stable interaction tests.
-- In Aura story files, use relative component imports (for example `../button`) instead of `@/components/ui/aura/*` aliases.
+- In community story files, import Core primitives from `@cognite/aura/components`.
 - Avoid bracketed arbitrary Tailwind values in overlays/modals; follow the existing `dialog.tsx` positioning pattern (`top-1/2`, `-translate-y-1/2`, and `sm:-translate-x-1/2`) instead.
 - Avoid Tailwind bracket arbitrary grid templates (e.g. `grid-cols-[...]`); prefer a semantic layout (often flex) by extracting known slot children and rendering them in a predictable structure.
 - For emoji shown in JSX text/content, wrap each emoji in `<span role="img" aria-label="...">...</span>` for explicit accessible naming.
@@ -155,7 +123,7 @@ For files under `src/components/ui/aura/**`, prefer relative imports (for exampl
 - In stories, prefer typed data arrays (for example `ComponentProps<typeof X>`) over `as const` casts for literal variants.
 - For chart config typing in stories/pages, prefer `ComponentProps<typeof ChartContainer>["config"]` (or `ComponentProps<typeof Chart>["config"]`) instead of importing/exporting `ChartConfig` types.
 - When updating component metadata statuses from a list, update only existing `*.metadata.ts` files and skip missing components without creating placeholders.
-- Set per-component Figma links in `src/lib/primitives-catalog.ts`; catalog and component pages use those URLs to enable clickable Figma icons.
+- Community catalog grouping uses metadata `status` from community `*.metadata.ts` files.
 - Suggestion stories should query open select content semantically via `within(document.body).queryByRole("listbox")` and keep `parameters.order` set on every story export.
 - Suggestion stories should use design-token widths (for example `w-52`, `max-w-xl`) instead of arbitrary bracket widths for prompt cards and wrappers.
 - Suggestion stories should use the valid typography utility `leading-tighter`; avoid typos like `leading-tigher`.
@@ -181,6 +149,17 @@ For files under `src/components/ui/aura/**`, prefer relative imports (for exampl
 - For composite link props that include display-only fields (for example `label`), strip non-anchor fields before spreading props onto `<a>` elements.
 - For full-page loading states, prefer a dedicated `PageLoader` primitive over reusing inline spinners, and expose `disableFixedCenter` for embedding in constrained containers.
 - For segmented controls, pass matching `size` and `tabContent` variants to both `SegmentedControlList` and `SegmentedControlButton` so dimensions align with Figma across label-only, icon-only, and icon+label states.
+- Community components under `src/components/ui/community/<name>/` need `index.ts` (re-export component symbols), `<name>.metadata.ts` with `status: 'experimental'`, and Storybook titles under `Community/<Name>`; the community barrel re-exports components only.
+- Registry publication scans only `src/components/ui/community/`; community sources import `@cognite/aura/components` and `@cognite/aura/utils` from the published NPM package.
+- Docs site is branded Flows Community (powered by Aura). Chrome imports `@cognite/aura/components`; styling comes from `@cognite/aura/styles.source.css` via `src/globals.css` (with `@source` for community/docs files). Do not keep a local token/theme CSS fork. Keep the local `ThemeProvider`. Registry namespace remains `@aura`.
+- Core docs links use `https://docs.cognite.com/aura-design-system` (not cog.link/aura).
+- GitHub Pages serves the Community docs site plus `public/r/*.json`; do not restore the cog.link redirect in `package.json` build or `deploy.yml`.
+- Community docs Examples use portable stories via `StoriesRenderer` (`import.meta.glob` on `src/components/ui/community/*/*.stories.tsx` + `composeStories`); `ExamplePreview` pulls CodeBlock UI from `@cognite/aura/components`. Keep `storySourcePlugin` in `vite.config.ts` for source injection.
+- CI enforces `pnpm run registry:check` (rebuild + `git diff --exit-code` on `registry.json` and `public/r`), docs/Storybook production builds, and community-only Storybook interaction tests; shared setup lives in `.github/actions/setup-node-pnpm`.
+- Storybook and Chromatic only load `src/components/ui/community/**` stories; Core primitives come from `@cognite/aura` and are not maintained here.
+- PR preview comments use the Flows Community label; Pages URLs stay under `cognitedata.github.io/aura/` while the registry namespace remains `@aura`.
+- Keep docs-site `src/lib/utils.ts` minimal (`cn` only); community components should use `@cognite/aura/utils` for shared helpers like `getPortalContainer`.
+- This repo is community-only: do not restore local Aura Core trees, Core catalog pages, or Fusion-only design-conformance skills.
 
 # Storybook Stories
 
@@ -199,3 +178,4 @@ For detailed story writing guidelines, use the `/story-builder` skill.
 - Prioritize semantic queries (`getByRole`, `getByText`, etc.) over `getByTestId` in play functions
 - Avoid `getByTestId` in story interactions; reserve test ids for mocked unit-test scenarios only
 - Run `pnpm lint` and `pnpm tsc -b` after changes
+- Keep \`typescript\` on 5.9.x until typescript-eslint supports TypeScript 7; keep \`eslint\`/\`@eslint/js\` on 9.x while \`eslint-plugin-import\` lacks ESLint 10 support; keep \`@vitejs/plugin-react\` on 5.x while the Vite override is \`rolldown-vite@7\`; keep \`@tanstack/react-table\` on 8.x for \`@cognite/aura\` peer compatibility.

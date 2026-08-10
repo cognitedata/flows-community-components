@@ -57,8 +57,6 @@ export default tseslint.config(
       '**/coverage/**',
       '**/*.min.js',
       'pnpm-lock.yaml',
-      'docs/.vitepress/cache/**',
-      'docs/.vitepress/dist/**',
     ],
   },
   prettierRecommended,

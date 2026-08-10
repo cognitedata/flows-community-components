@@ -19,7 +19,7 @@ interface StoryEntry {
 // Using eager: true ensures modules are loaded at build time and included in production bundle
 // This follows Storybook's recommended pattern for portable stories
 const storiesModules = import.meta.glob(
-  '@/components/ui/aura/*/*.stories.tsx',
+  '@/components/ui/community/*/*.stories.tsx',
   { eager: true }
 );
 
@@ -172,11 +172,9 @@ export function StoriesRenderer({ slug }: StoriesRendererProps) {
           // Sort by parameters.order if present, otherwise alphabetically
           .sort((a, b) => {
             const storyA = module[a.key] as
-              | { parameters?: { order?: number } }
-              | undefined;
+              { parameters?: { order?: number } } | undefined;
             const storyB = module[b.key] as
-              | { parameters?: { order?: number } }
-              | undefined;
+              { parameters?: { order?: number } } | undefined;
 
             const orderA = storyA?.parameters?.order ?? 999;
             const orderB = storyB?.parameters?.order ?? 999;

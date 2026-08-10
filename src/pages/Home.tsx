@@ -1,128 +1,60 @@
 import {
-  IconAlertTriangle as AlertTriangle,
-  IconArrowRight as ArrowRight,
-  IconBook as BookOpen,
-  IconChevronDown as ChevronDown,
-  IconCode as Code2,
-  IconGrid3x3 as Grid3X3,
-  IconLayout as Layout,
-  IconPalette as Palette,
-  IconSettings as Settings,
-  IconSparkles as Sparkles,
-  IconTerminal as Terminal,
-  IconBolt as Zap,
-} from '@tabler/icons-react';
-import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
-
-import {
   Alert,
   AlertDescription,
   AlertTitle,
-} from '@/components/ui/aura/alert';
-import { Button } from '@/components/ui/aura/button';
-import {
+  Button,
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/aura/card';
-import {
   CodeBlock,
   CodeBlockCopyButton,
-} from '@/components/ui/aura/code-block';
+} from '@cognite/aura/components';
 import {
-  SegmentedControl,
-  SegmentedControlContent,
-  SegmentedControlList,
-  SegmentedControlButton,
-} from '@/components/ui/aura/segmented-control';
-const duneDocsUrl = 'https://cog.link/aura';
+  IconArrowRight as ArrowRight,
+  IconBook as BookOpen,
+  IconChevronDown as ChevronDown,
+  IconPackage as Package,
+  IconSparkles as Sparkles,
+  IconTerminal as Terminal,
+} from '@tabler/icons-react';
+import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
-const componentsJson = `{
-  "$schema": "https://ui.shadcn.com/schema.json",
-  "style": "new-york",
-  "rsc": false,
-  "tsx": true,
-  "tailwind": {
-    "config": "tailwind.config.js",
-    "css": "src/styles.css",
-    "baseColor": "zinc",
-    "cssVariables": true,
-    "prefix": ""
-  },
-  "iconLibrary": "lucide",
-  "aliases": {
-    "components": "@/components",
-    "utils": "@/lib/utils",
-    "ui": "@/components/ui",
-    "lib": "@/lib",
-    "hooks": "@/hooks"
-  },
-  "registries": {
-    "@aura": "https://cognitedata.github.io/aura/r/{name}.json"
-  }
-}`;
+import {
+  auraStylesCssExample,
+  componentsJsonExample,
+  installCommandExample,
+} from '@/lib/install-snippets';
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-    },
-  },
-};
+const coreDocsUrl = 'https://docs.cognite.com/aura-design-system';
+const storybookUrl = 'https://cognitedata.github.io/aura/storybook/';
 
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.5,
-    },
-  },
-};
-
-const features = [
+const searchOrder = [
   {
-    icon: Palette,
-    title: 'Design tokens',
-    description: 'Colors, typography, and spacing tokens with live previews',
-    href: '/tokens',
-  },
-  {
-    icon: Zap,
-    title: 'Motion guidelines',
-    description: 'Animation principles and interactive demonstrations',
-    href: '/motion',
-  },
-  {
-    icon: Grid3X3,
-    title: 'UI primitives',
-    description: 'Core components with live code examples',
-    href: '/primitives',
-  },
-  {
-    icon: Layout,
-    title: 'Layout patterns',
-    description: 'Responsive layouts with resizable previews',
-    href: '/layouts',
-  },
-  {
-    icon: Code2,
-    title: 'Component docs',
+    step: '1',
+    title: 'Aura Core',
     description:
-      'Comprehensive documentation with live examples and code snippets',
-    href: '/primitives',
+      'Use versioned primitives from the @cognite/aura NPM package for foundational UI.',
   },
   {
-    icon: BookOpen,
-    title: 'Getting started',
-    description: 'Guides for designers and developers',
-    href: '#quick-start',
+    step: '2',
+    title: 'Flows Community',
+    description:
+      'Install ejectable community components from this registry when Core does not cover the need.',
+  },
+  {
+    step: '3',
+    title: 'Compatible registries',
+    description:
+      'Prefer shadcn registries built on Base UI, then adapt them to Aura tokens and primitives.',
+  },
+  {
+    step: '4',
+    title: 'Build new',
+    description:
+      'Create a new community component with Aura primitives and tokens, then contribute it here.',
   },
 ];
 
@@ -134,7 +66,6 @@ export default function HomePage() {
 
   return (
     <div className="relative min-h-screen bg-background text-foreground selection:bg-primary/20">
-      {/* Splash Screen Section */}
       <div className="relative z-10 flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -142,54 +73,63 @@ export default function HomePage() {
           transition={{ duration: 0.8, ease: 'easeOut' }}
           className="max-w-4xl text-center space-y-12"
         >
-          {/* Hero Text */}
           <div className="space-y-6">
-            <h1 className="text-6xl sm:text-7xl md:text-8xl font-bold tracking-tight text-foreground">
-              Build with Aura
+            <p className="text-sm font-medium uppercase tracking-widest text-muted-foreground">
+              Flows Community
+            </p>
+            <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight text-foreground">
+              Shared components for industrial apps
             </h1>
             <p className="text-xl sm:text-2xl max-w-2xl mx-auto leading-relaxed text-muted-foreground">
-              Aura is Cognite&apos;s AI-native design system inspired by fractal
-              intelligence and adaptive by nature.
+              A shadcn registry for Cognite Flows, powered by Aura. Core
+              primitives stay on NPM as{' '}
+              <span className="text-foreground">@cognite/aura</span>.
             </p>
           </div>
 
-          {/* Alert Banner */}
           <div className="max-w-2xl mx-auto">
-            <Alert variant="error" className="text-left">
-              <AlertTriangle className="h-4 w-4" />
+            <Alert className="text-left">
+              <Package className="h-4 w-4" />
               <AlertTitle className="font-bold">
-                Aura is still in active development
+                Community is not Aura Core
               </AlertTitle>
               <AlertDescription>
-                This site reflects a prototype that&apos;s changing fast.
-                It&apos;s here for exploration and prototyping only, not
-                production use. For feedback, hang tight — we&apos;re already
-                working through major updates and will open structured feedback
-                rounds once the foundation is more stable.
+                Components here are community-vetted and used at your
+                discretion. They are powered by Aura tokens and primitives.
+                Official Aura docs remain at{' '}
+                <a
+                  href={coreDocsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline underline-offset-2"
+                >
+                  docs.cognite.com/aura-design-system
+                </a>
+                .
               </AlertDescription>
             </Alert>
           </div>
 
-          {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center pt-4">
             <Button
               size="lg"
               className="text-lg px-8 h-14 rounded-full"
-              onClick={scrollToQuickStart}
-            >
-              Get started
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
+              render={
+                <Link to="/community/installation">
+                  Install from registry
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+              }
+            />
             <Button
               variant="outline"
               size="lg"
               className="text-lg px-8 h-14 rounded-full backdrop-blur-sm bg-background/50"
-              render={<Link to="/primitives">Explore components</Link>}
+              render={<Link to="/community">Browse community</Link>}
             />
           </div>
         </motion.div>
 
-        {/* Scroll Indicator */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -210,270 +150,156 @@ export default function HomePage() {
         </motion.div>
       </div>
 
-      {/* Quick Start Section */}
       <div
         id="quick-start"
         className="relative z-10 bg-background/80 backdrop-blur-3xl py-20 sm:py-24"
       >
-        <div className="container mx-auto px-4 max-w-5xl">
-          <div className="space-y-12">
-            <div className="text-center space-y-4">
-              <h2 className="text-4xl sm:text-5xl font-bold tracking-tight">
-                Quick Start
-              </h2>
-              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                Get up and running with Aura in minutes. Choose your path to
-                start building.
-              </p>
-            </div>
+        <div className="container mx-auto px-4 max-w-5xl space-y-16">
+          <div className="text-center space-y-4">
+            <h2 className="text-4xl sm:text-5xl font-bold tracking-tight">
+              Quick start
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              Point your project at the Flows Community registry, then install
+              components with the shadcn CLI.
+            </p>
+          </div>
 
-            <div className="max-w-3xl mx-auto">
-              <SegmentedControl defaultValue="dune" className="w-full">
-                <div className="flex justify-center mb-8">
-                  <SegmentedControlList className="h-12 p-1 bg-muted/50 backdrop-blur-sm border border-border/50">
-                    <SegmentedControlButton
-                      value="dune"
-                      className="h-full px-6 text-base data-[active]:bg-background data-[active]:shadow-sm"
-                    >
-                      Create with Dune
-                    </SegmentedControlButton>
-                    <SegmentedControlButton
-                      value="custom"
-                      className="h-full px-6 text-base data-[active]:bg-background data-[active]:shadow-sm"
-                    >
-                      Custom installation
-                    </SegmentedControlButton>
-                  </SegmentedControlList>
+          <div className="grid gap-6 md:grid-cols-2">
+            <Card className="overflow-hidden border-border/50 bg-card/50 backdrop-blur-sm">
+              <CardHeader>
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/10 mb-4">
+                  <Sparkles className="h-6 w-6 text-primary" />
                 </div>
+                <CardTitle className="text-xl">
+                  Add the registry namespace
+                </CardTitle>
+                <CardDescription className="text-base">
+                  For Tailwind v4, leave{' '}
+                  <code className="text-foreground">tailwind.config</code> empty
+                  and point{' '}
+                  <code className="text-foreground">tailwind.css</code> at your
+                  app stylesheet.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <CodeBlock code={componentsJsonExample} language="json">
+                  <CodeBlockCopyButton />
+                </CodeBlock>
+              </CardContent>
+            </Card>
 
-                <SegmentedControlContent
-                  value="dune"
-                  className="space-y-8 mt-0"
-                >
-                  <Card className="overflow-hidden border-border/50 bg-card/50 backdrop-blur-sm">
-                    <CardHeader>
-                      <div className="flex flex-col md:flex-row md:items-start gap-6">
-                        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/10">
-                          <Terminal className="h-6 w-6 text-primary" />
-                        </div>
-                        <div className="flex-1 space-y-2">
-                          <CardTitle className="text-xl">
-                            Create with Dune
-                          </CardTitle>
-                          <CardDescription className="text-base">
-                            Follow the official Dune creation docs to set up
-                            Aura quickly and keep your project aligned with the
-                            latest guidance.
-                          </CardDescription>
-                        </div>
-                      </div>
-                    </CardHeader>
-                    <CardContent className="pl-0 md:pl-22">
-                      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
-                        <Button
-                          render={
-                            <a
-                              href={duneDocsUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              Open Dune creation docs
-                            </a>
-                          }
-                        />
-                        <span className="text-sm text-muted-foreground">
-                          All setup steps now live in the Dune creation docs.
-                        </span>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </SegmentedControlContent>
+            <Card className="overflow-hidden border-border/50 bg-card/50 backdrop-blur-sm">
+              <CardHeader>
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/10 mb-4">
+                  <Package className="h-6 w-6 text-primary" />
+                </div>
+                <CardTitle className="text-xl">Reference Aura styles</CardTitle>
+                <CardDescription className="text-base">
+                  Import Aura source styles in that stylesheet so Tailwind can
+                  generate tokens, then{' '}
+                  <code className="text-foreground">@source</code> installed
+                  community components.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <CodeBlock code={auraStylesCssExample} language="css">
+                  <CodeBlockCopyButton />
+                </CodeBlock>
+              </CardContent>
+            </Card>
 
-                <SegmentedControlContent
-                  value="custom"
-                  className="space-y-8 mt-0"
-                >
-                  <Card className="overflow-hidden border-border/50 bg-card/50 backdrop-blur-sm">
-                    <CardHeader>
-                      <div className="flex flex-col md:flex-row md:items-start gap-6">
-                        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/10">
-                          <Sparkles className="h-6 w-6 text-primary" />
-                        </div>
-                        <div className="flex-1 space-y-2">
-                          <CardTitle className="text-xl">
-                            Add the Cursor MCP server
-                          </CardTitle>
-                          <CardDescription className="text-base">
-                            Install the shadcn MCP server so Cursor can
-                            integrate with the Aura tooling.
-                          </CardDescription>
-                        </div>
-                      </div>
-                    </CardHeader>
-                    <CardContent className="pl-0 md:pl-22">
+            <Card className="overflow-hidden border-border/50 bg-card/50 backdrop-blur-sm md:col-span-2">
+              <CardHeader>
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/10 mb-4">
+                  <Terminal className="h-6 w-6 text-primary" />
+                </div>
+                <CardTitle className="text-xl">Install a component</CardTitle>
+                <CardDescription className="text-base">
+                  Community items copy source into your repo and declare{' '}
+                  <code className="text-foreground">@cognite/aura</code> as an
+                  npm dependency.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <CodeBlock code={installCommandExample} language="bash">
+                  <CodeBlockCopyButton />
+                </CodeBlock>
+                <div className="flex flex-wrap gap-3">
+                  <Button
+                    render={
+                      <Link to="/community/installation">Full guide</Link>
+                    }
+                  />
+                  <Button render={<Link to="/community">View catalog</Link>} />
+                  <Button
+                    variant="outline"
+                    render={
                       <a
-                        href="https://cursor.com/en-US/install-mcp?name=shadcn&config=eyJjb21tYW5kIjoibnB4IHNoYWRjbkBsYXRlc3QgbWNwIn0%3D"
+                        href={storybookUrl}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        <img
-                          src="https://cursor.com/deeplink/mcp-install-dark.svg"
-                          alt="Add shadcn MCP server to Cursor"
-                          height={32}
-                        />
+                        Open Storybook
                       </a>
-                    </CardContent>
-                  </Card>
+                    }
+                  />
+                </div>
+              </CardContent>
+            </Card>
+          </div>
 
-                  <Card className="overflow-hidden border-border/50 bg-card/50 backdrop-blur-sm">
-                    <CardHeader>
-                      <div className="flex flex-col md:flex-row md:items-start gap-6">
-                        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/10">
-                          <Settings className="h-6 w-6 text-primary" />
-                        </div>
-                        <div className="flex-1 space-y-2">
-                          <CardTitle className="text-xl">
-                            Add Aura to components.json
-                          </CardTitle>
-                          <CardDescription className="text-base">
-                            Copy this into a file named components.json at the
-                            root of your project.
-                          </CardDescription>
-                        </div>
-                      </div>
-                    </CardHeader>
-                    <CardContent className="pl-0 md:pl-22">
-                      <CodeBlock code={componentsJson} language="json">
-                        <CodeBlockCopyButton />
-                      </CodeBlock>
-                    </CardContent>
-                  </Card>
-                </SegmentedControlContent>
-              </SegmentedControl>
+          <div className="space-y-6">
+            <div className="text-center space-y-2">
+              <h3 className="text-2xl font-bold">Search order</h3>
+              <p className="text-muted-foreground">
+                Builders and agents should look for UI in this order.
+              </p>
+            </div>
+            <div className="grid gap-4 md:grid-cols-2">
+              {searchOrder.map((item) => (
+                <Card key={item.step} className="text-left">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-3 text-lg">
+                      <span className="inline-flex size-8 items-center justify-center rounded-full bg-primary/10 text-sm text-primary">
+                        {item.step}
+                      </span>
+                      {item.title}
+                    </CardTitle>
+                    <CardDescription>{item.description}</CardDescription>
+                  </CardHeader>
+                </Card>
+              ))}
             </div>
           </div>
-        </div>
-      </div>
-      <div className="relative z-10 border-t border-border/60 px-4 py-20 sm:py-24">
-        <div className="container mx-auto max-w-5xl">
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: '-100px' }}
-            className="space-y-12 text-center"
-          >
-            <motion.section
-              variants={itemVariants}
-              className="text-center space-y-6"
-            >
-              <div className="space-y-4">
-                <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-                  Design system
-                  <span className="block text-primary">guidelines</span>
-                </h2>
-                <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-                  A comprehensive design system documentation with interactive
-                  examples, live code previews, and guidelines for building
-                  consistent digital experiences.
-                </p>
-              </div>
-            </motion.section>
 
-            <motion.section variants={itemVariants} className="space-y-8">
-              <h3 className="text-2xl font-bold text-center">
-                Explore the system
-              </h3>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {features.map((feature) => (
-                  <motion.div
-                    key={feature.title}
-                    variants={itemVariants}
-                    whileHover={{ scale: 1.02 }}
-                    transition={{ type: 'spring', stiffness: 300 }}
+          <Card className="border-border/50 bg-card/50">
+            <CardHeader>
+              <div className="flex items-start gap-4">
+                <BookOpen className="mt-1 h-6 w-6 text-primary" />
+                <div className="space-y-2">
+                  <CardTitle>Aura docs</CardTitle>
+                  <CardDescription>
+                    Flows Community is powered by Aura. Getting started with
+                    Aura Core primitives lives in the official documentation.
+                  </CardDescription>
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <Button
+                render={
+                  <a
+                    href={coreDocsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
-                    <Card className="h-full hover:shadow-lg transition-shadow cursor-pointer">
-                      {feature.href.startsWith('#') ? (
-                        <a href={feature.href}>
-                          <CardHeader>
-                            <feature.icon className="h-8 w-8 text-primary mb-2" />
-                            <CardTitle>{feature.title}</CardTitle>
-                            <CardDescription>
-                              {feature.description}
-                            </CardDescription>
-                          </CardHeader>
-                        </a>
-                      ) : (
-                        <Link to={feature.href}>
-                          <CardHeader>
-                            <feature.icon className="h-8 w-8 text-primary mb-2" />
-                            <CardTitle>{feature.title}</CardTitle>
-                            <CardDescription>
-                              {feature.description}
-                            </CardDescription>
-                          </CardHeader>
-                        </Link>
-                      )}
-                    </Card>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.section>
-
-            <motion.section
-              variants={itemVariants}
-              className="text-center space-y-6"
-            >
-              <h3 className="text-2xl font-bold">Built for teams</h3>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Our design system bridges the gap between design and
-                development, providing a single source of truth for creating
-                cohesive user experiences.
-              </p>
-            </motion.section>
-
-            <motion.section variants={itemVariants} className="space-y-8">
-              <h3 className="text-2xl font-bold text-center">
-                Core principles
-              </h3>
-              <div className="grid md:grid-cols-3 gap-6">
-                <Card className="text-center">
-                  <CardHeader>
-                    <CardTitle>Intentional</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-muted-foreground">
-                      Every element has a purpose. Design choices are grounded
-                      in research and feedback, ensuring clarity in complexity.
-                    </p>
-                  </CardContent>
-                </Card>
-                <Card className="text-center">
-                  <CardHeader>
-                    <CardTitle>Adaptive</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-muted-foreground">
-                      The system flexes to different contexts and scales,
-                      embracing fractal perspectives that reveal insights at any
-                      level.
-                    </p>
-                  </CardContent>
-                </Card>
-                <Card className="text-center">
-                  <CardHeader>
-                    <CardTitle>Intuitive</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-muted-foreground">
-                      Interactions guide users naturally, letting motion,
-                      hierarchy, and structure feel effortless and transparent.
-                    </p>
-                  </CardContent>
-                </Card>
-              </div>
-            </motion.section>
-          </motion.div>
+                    Open Aura docs
+                  </a>
+                }
+              />
+            </CardContent>
+          </Card>
         </div>
       </div>
     </div>
