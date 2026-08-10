@@ -35,7 +35,7 @@ const config: StorybookConfig = {
       base: basePath,
       resolve: {
         alias: {
-          'virtual:cogdocs': path.resolve(dirname, '../src/mocks/cogdocs.ts'),
+          '@': path.resolve(dirname, '../src'),
         },
       },
     });

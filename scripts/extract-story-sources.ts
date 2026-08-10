@@ -23,7 +23,7 @@ import {
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const storiesDir = path.join(__dirname, '../src/components/ui/aura');
+const storiesDir = path.join(__dirname, '../src/components/ui/community');
 const outputPath = path.join(__dirname, '../public/story-source-map.json');
 
 interface StorySourceMap {

@@ -26,7 +26,7 @@ const preview: Preview = {
     layout: 'padded',
     options: {
       storySort: {
-        order: ['Foundations', 'Primitives', 'AI', '*'],
+        order: ['Community', '*'],
       },
     },
   },

@@ -1,11 +1,11 @@
 {
-  "name": "aura",
+  "name": "flows-community-components",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b --clean && tsc -b && vite build && node scripts/write-redirect.mjs",
+    "build": "tsc -b --clean && tsc -b && vite build",
     "start": "tsc -b && vite build && vite preview",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "@base-ui/react": "latest",
+    "@cognite/aura": "^0.3.5",
     "@tabler/icons-react": "^3.36.1",
     "@tailwindcss/vite": "^4.1.18",
     "@tanstack/react-table": "^8.21.3",

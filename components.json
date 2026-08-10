@@ -18,5 +18,7 @@
     "lib": "@/lib",
     "hooks": "@/hooks"
   },
-  "registries": {}
+  "registries": {
+    "@aura": "https://cognitedata.github.io/aura/r/{name}.json"
+  }
 }

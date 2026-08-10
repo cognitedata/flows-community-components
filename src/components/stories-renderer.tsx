@@ -19,7 +19,7 @@ interface StoryEntry {
 // Using eager: true ensures modules are loaded at build time and included in production bundle
 // This follows Storybook's recommended pattern for portable stories
 const storiesModules = import.meta.glob(
-  '@/components/ui/aura/*/*.stories.tsx',
+  '@/components/ui/community/*/*.stories.tsx',
   { eager: true }
 );
 

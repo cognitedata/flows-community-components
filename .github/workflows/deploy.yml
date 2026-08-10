@@ -1,18 +1,16 @@
-name: Deploy docs redirect to Pages
+name: Deploy Vite site to Pages
 
 on:
-  # Runs on pushes targeting the main branch
   push:
     branches:
       - main
-
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 permissions:
   contents: read
   pages: write
   id-token: write
+  actions: read
 
 concurrency:
   group: 'pages'
@@ -22,38 +20,122 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
+
+      - name: Install Node.js
+        uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6
+        with:
+          node-version: 24
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - name: Setup pnpm cache
+        uses: actions/cache@8b402f58fbc84540c8b491a91e594a4576fec3d7 # v5
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
       - name: Install dependencies
-        run: mkdir -p dist
+        run: pnpm install
+
+      - name: Build registry
+        run: pnpm run registry:build
 
       - name: Setup Pages
+        id: setup_pages
         uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
 
-      - name: Build redirect pages
-        run: |
-          cat <<'EOF' > dist/index.html
-          <!doctype html>
-          <html lang="en">
-          <head>
-            <meta charset="utf-8" />
-            <meta http-equiv="refresh" content="0;url=https://cog.link/aura" />
-            <meta name="viewport" content="width=device-width,initial-scale=1" />
-            <title>Aura docs moved</title>
-            <script>
-              window.location.replace('https://cog.link/aura');
-            </script>
-          </head>
-          <body>
-            <p>
-              Aura docs moved.
-              <a href="https://cog.link/aura">
-                Continue to the new docs site
-              </a>.
-            </p>
-          </body>
-          </html>
-          EOF
-          cp dist/index.html dist/404.html
-          touch dist/.nojekyll
+      - name: Build with Vite
+        run: pnpm run build
+        env:
+          PAGES_BASE_PATH: ${{ steps.setup_pages.outputs.base_path }}
+
+      - name: Build Storybook
+        run: pnpm run build-storybook
+        env:
+          STORYBOOK_BASE_PATH: ${{ steps.setup_pages.outputs.base_path }}/storybook
+
+      - name: Prepare branches directory
+        run: mkdir -p dist/branches
+
+      - name: Download branch preview artifacts
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8
+        with:
+          script: |
+            const fs = require('fs');
+            const { execSync } = require('child_process');
+
+            const { data: { artifacts } } = await github.rest.actions.listArtifactsForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              per_page: 100,
+            });
+
+            const branchArtifacts = artifacts.filter(a =>
+              a.name.startsWith('branch-preview-') && !a.expired
+            );
+
+            const seen = new Set();
+            const latestBranchArtifacts = branchArtifacts.filter(a => {
+              if (seen.has(a.name)) return false;
+              seen.add(a.name);
+              return true;
+            });
+
+            console.log(`Found ${latestBranchArtifacts.length} branch preview artifacts (${branchArtifacts.length} total, deduplicated)`);
+
+            const manifest = { branches: [] };
+
+            for (const artifact of latestBranchArtifacts) {
+              const branchName = artifact.name.replace('branch-preview-', '');
+              console.log(`Downloading ${artifact.name}...`);
+
+              try {
+                const { data } = await github.rest.actions.downloadArtifact({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  artifact_id: artifact.id,
+                  archive_format: 'zip',
+                });
+
+                const zipPath = `/tmp/${artifact.name}.zip`;
+                fs.writeFileSync(zipPath, Buffer.from(data));
+
+                const branchDir = `dist/branches/${branchName}`;
+                fs.mkdirSync(branchDir, { recursive: true });
+                execSync(`unzip -o ${zipPath} -d ${branchDir}`);
+
+                const metaPath = `${branchDir}/_branch-meta.json`;
+                let branchMeta = { name: branchName, updated: artifact.updated_at };
+
+                if (fs.existsSync(metaPath)) {
+                  try {
+                    const meta = JSON.parse(fs.readFileSync(metaPath, 'utf8'));
+                    branchMeta = { ...meta, updated: artifact.updated_at };
+                    fs.unlinkSync(metaPath);
+                  } catch (e) {
+                    console.log(`Could not read metadata for ${branchName}`);
+                  }
+                }
+
+                manifest.branches.push(branchMeta);
+                console.log(`Extracted ${artifact.name} to ${branchDir}`);
+              } catch (e) {
+                console.log(`Failed to download ${artifact.name}: ${e.message}`);
+              }
+            }
+
+            fs.writeFileSync('dist/branches/manifest.json', JSON.stringify(manifest, null, 2));
+            console.log(`Manifest: ${manifest.branches.length} branches`);
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4

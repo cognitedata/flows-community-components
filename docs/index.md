@@ -26,13 +26,13 @@ Browse all components in the sidebar navigation or see individual component page
 
 Getting started instructions for Aura now live in the Dune creation docs:
 
-- https://cog.link/aura
+- https://docs.cognite.com/aura-design-system
 
 ## Usage
 
 Follow the Dune creation docs for setup, imports, and usage examples:
 
-- https://cog.link/aura
+- https://docs.cognite.com/aura-design-system
 
 ## Styling
 

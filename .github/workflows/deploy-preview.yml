@@ -52,6 +52,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      - name: Build registry
+        run: pnpm run registry:build
+
       - name: Build with Vite
         run: pnpm run build
         env:

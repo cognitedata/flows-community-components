@@ -1,7 +1,8 @@
+import { Toaster } from '@cognite/aura/components';
+
 import { Navigation } from '@/components/navigation';
 import { ThemeProvider } from '@/components/theme-provider';
 import { TopbarVisibility } from '@/components/TopbarVisibility';
-import { Toaster } from '@/components/ui/aura/sonner-toast';
 
 interface RootLayoutProps {
   children: React.ReactNode;

@@ -5,7 +5,6 @@ import react from '@vitejs/plugin-react';
 import type { Plugin } from 'vite';
 import { defineConfig } from 'vite';
 
-import { cogDocsScraperPlugin } from './vite-plugin-cogdocs-scraper';
 import { storySourcePlugin } from './vite-plugin-story-source';
 
 // Plugin to handle history API fallback for SPA routing with custom base paths
@@ -60,15 +59,11 @@ export default defineConfig({
     }),
     tailwindcss(),
     storySourcePlugin(),
-    cogDocsScraperPlugin(),
     historyApiFallback(),
   ],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
-      '@cognite/aura': path.resolve(__dirname, './src/components/ui/core'),
-      '@cognite/aura-lab': path.resolve(__dirname, './src/components/ui/lab'),
-      '@cognite/aura/lib': path.resolve(__dirname, './src/lib'),
     },
   },
 });
