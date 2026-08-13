@@ -1,6 +1,8 @@
-# Flows Community
+# Aura + Flows Community
 
-Flows Community is the **shadcn component registry** for shared industrial UI in Cognite Flows. It is powered by Aura — Core primitives stay on NPM as `@cognite/aura`.
+This repo hosts the **Aura design system site** and the **Flows Community shadcn registry** for shared industrial UI in Cognite Flows. Core primitives stay on NPM as `@cognite/aura`; community items ship as ejectable source under `@aura`.
+
+Community component docs preview examples **natively** (portable Storybook stories) — not via iframe.
 
 | Layer | Distribution | Support |
 | --- | --- | --- |
