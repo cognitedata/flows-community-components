@@ -1,5 +1,5 @@
-import { Link, Navigate, useParams } from 'react-router-dom';
 import { IconExternalLink } from '@tabler/icons-react';
+import { Link, Navigate, useParams } from 'react-router-dom';
 
 import { communityStorybookManagerUrl } from '@/components/community/storybook-embed';
 import { PageTitle } from '@/components/page-title';
@@ -29,7 +29,10 @@ export function CommunityComponentDetailPage() {
       <PageTitle title={`${component.name} — Aura`} />
       <header className="mb-10 sm:mb-12">
         <p className="mb-3 text-sm text-muted-fg">
-          <Link to="/community" className="hover:text-foreground hover:underline">
+          <Link
+            to="/community"
+            className="hover:text-foreground hover:underline"
+          >
             Community
           </Link>
           <span className="mx-1.5 text-medium-fg">/</span>
@@ -48,7 +51,9 @@ export function CommunityComponentDetailPage() {
                 {getStatusLabel(catalog.status)}
               </span>
             </div>
-            <p className="mt-3 max-w-[60ch] text-muted-fg">{component.description}</p>
+            <p className="mt-3 max-w-[60ch] text-muted-fg">
+              {component.description}
+            </p>
             {catalog.notes?.map((note) => (
               <p key={note} className="mt-2 max-w-[60ch] text-sm text-muted-fg">
                 {note}
@@ -97,8 +102,8 @@ export function CommunityComponentDetailPage() {
           ))}
         </Tabs>
         <p className="text-sm text-muted-fg">
-          Requires the <code className="text-foreground">@aura</code> registry in your{' '}
-          <code className="text-foreground">components.json</code>. See{' '}
+          Requires the <code className="text-foreground">@aura</code> registry
+          in your <code className="text-foreground">components.json</code>. See{' '}
           <Link
             to="/community/installation"
             className="font-medium text-link-fg hover:text-link-fg-hover hover:underline"

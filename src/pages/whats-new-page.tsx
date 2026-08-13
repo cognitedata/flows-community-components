@@ -1,7 +1,8 @@
-import { Link } from "react-router-dom";
-import { FoundationTopicCard } from "@/components/foundations/foundation-topic-card";
-import { PageTitle } from "@/components/page-title";
-import { WHATS_NEW_POSTS } from "@/lib/whats-new-data";
+import { Link } from 'react-router-dom';
+
+import { FoundationTopicCard } from '@/components/foundations/foundation-topic-card';
+import { PageTitle } from '@/components/page-title';
+import { WHATS_NEW_POSTS } from '@/lib/whats-new-data';
 
 export function WhatsNewPage() {
   const [latest, ...previous] = WHATS_NEW_POSTS;
@@ -17,8 +18,9 @@ export function WhatsNewPage() {
               What&apos;s new
             </h1>
             <p className="mt-3 max-w-[60ch] text-muted-fg">
-              Monthly updates on where Aura is headed — new components, patterns, and ideas.
-              Looking for a detailed technical log of every release instead?{" "}
+              Monthly updates on where Aura is headed — new components,
+              patterns, and ideas. Looking for a detailed technical log of every
+              release instead?{' '}
               <Link
                 to="/documentation/changelog"
                 className="text-link-fg hover:text-link-fg-hover hover:underline"
@@ -42,7 +44,9 @@ export function WhatsNewPage() {
             <h2 className="font-heading text-2xl font-semibold tracking-tight sm:text-3xl">
               {latest.title}
             </h2>
-            <p className="max-w-[60ch] text-sm text-muted-fg">{latest.excerpt}</p>
+            <p className="max-w-[60ch] text-sm text-muted-fg">
+              {latest.excerpt}
+            </p>
           </Link>
 
           <h2 className="mb-6 font-heading text-sm font-medium tracking-wide text-muted-fg uppercase">

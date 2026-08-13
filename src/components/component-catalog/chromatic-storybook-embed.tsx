@@ -1,10 +1,10 @@
-import { chromaticStorybookEmbedUrl } from "@/lib/chromatic-storybook";
-import { useStorybookTheme } from "@/lib/storybook-theme";
-import { cn } from "@/lib/utils";
+import { chromaticStorybookEmbedUrl } from '@/lib/chromatic-storybook';
+import { useStorybookTheme } from '@/lib/storybook-theme';
+import { cn } from '@/lib/utils';
 
 export function ChromaticStorybookEmbed({
   storyId,
-  title = "Component preview",
+  title = 'Component preview',
 }: {
   storyId: string;
   title?: string;
@@ -15,8 +15,8 @@ export function ChromaticStorybookEmbed({
   return (
     <div
       className={cn(
-        "overflow-hidden rounded-2xl border border-border",
-        theme === "dark" ? "bg-[#191b1d]" : "bg-white"
+        'overflow-hidden rounded-2xl border border-border',
+        theme === 'dark' ? 'bg-[#191b1d]' : 'bg-white'
       )}
     >
       <iframe
@@ -24,8 +24,8 @@ export function ChromaticStorybookEmbed({
         src={src}
         title={title}
         className={cn(
-          "h-[420px] w-full border-0 sm:h-[480px]",
-          theme === "dark" ? "bg-[#191b1d]" : "bg-white"
+          'h-[420px] w-full border-0 sm:h-[480px]',
+          theme === 'dark' ? 'bg-[#191b1d]' : 'bg-white'
         )}
         loading="lazy"
         referrerPolicy="no-referrer-when-downgrade"

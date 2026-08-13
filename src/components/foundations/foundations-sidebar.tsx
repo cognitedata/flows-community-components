@@ -1,16 +1,17 @@
-import { Link, useLocation } from "react-router-dom";
-import { cn, slugify } from "@/lib/utils";
+import { Link, useLocation } from 'react-router-dom';
+
+import { cn, slugify } from '@/lib/utils';
 
 const TOPICS_ITEMS = [
-  "Design heuristics",
-  "Layout and grids",
-  "Color tokens",
-  "Size and spacing tokens",
-  "Typography",
-  "Effects",
-  "Motion",
-  "Assets and icons",
-  "Accessibility",
+  'Design heuristics',
+  'Layout and grids',
+  'Color tokens',
+  'Size and spacing tokens',
+  'Typography',
+  'Effects',
+  'Motion',
+  'Assets and icons',
+  'Accessibility',
 ];
 
 export function FoundationsSidebar() {
@@ -30,10 +31,10 @@ export function FoundationsSidebar() {
             <Link
               to="/foundations"
               className={cn(
-                "block rounded-lg px-2 py-1.5 text-sm transition-colors",
-                pathname === "/foundations"
-                  ? "bg-medium-bg font-medium text-foreground"
-                  : "text-muted-fg hover:bg-medium-bg hover:text-foreground"
+                'block rounded-lg px-2 py-1.5 text-sm transition-colors',
+                pathname === '/foundations'
+                  ? 'bg-medium-bg font-medium text-foreground'
+                  : 'text-muted-fg hover:bg-medium-bg hover:text-foreground'
               )}
             >
               Overview
@@ -47,10 +48,10 @@ export function FoundationsSidebar() {
                 <Link
                   to={href}
                   className={cn(
-                    "block rounded-lg px-2 py-1.5 text-sm transition-colors",
+                    'block rounded-lg px-2 py-1.5 text-sm transition-colors',
                     active
-                      ? "bg-medium-bg font-medium text-foreground"
-                      : "text-muted-fg hover:bg-medium-bg hover:text-foreground"
+                      ? 'bg-medium-bg font-medium text-foreground'
+                      : 'text-muted-fg hover:bg-medium-bg hover:text-foreground'
                   )}
                 >
                   {label}

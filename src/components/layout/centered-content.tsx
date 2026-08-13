@@ -1,4 +1,4 @@
-import type * as React from "react";
+import type * as React from 'react';
 
 /**
  * Caps long-form prose/detail content to a readable width and centers it within

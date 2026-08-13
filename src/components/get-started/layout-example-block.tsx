@@ -1,5 +1,6 @@
-import { IconLayoutDashboard } from "@tabler/icons-react";
-import type { LayoutExample } from "@/lib/custom-theming-data";
+import { IconLayoutDashboard } from '@tabler/icons-react';
+
+import type { LayoutExample } from '@/lib/custom-theming-data';
 
 export function LayoutExampleBlock({ example }: { example: LayoutExample }) {
   return (

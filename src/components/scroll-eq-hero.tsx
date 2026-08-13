@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import * as React from "react";
+import * as React from 'react';
 
 const BAR_COUNT = 13;
 const CENTER = (BAR_COUNT - 1) / 2;
@@ -22,16 +22,16 @@ const BARS = Array.from({ length: BAR_COUNT }, (_, i) => {
   const p3 = lerp(14, 44, distNorm); // #161A21 stop position
 
   const background = `linear-gradient(to bottom, ${[
-    "#CCD7F6 0%",
+    '#CCD7F6 0%',
     `#5F83E2 ${p1}%`,
     `#3C5085 ${p2}%`,
     `#161A21 ${p3}%`,
-    "#17191A 50%",
+    '#17191A 50%',
     `#161A21 ${100 - p3}%`,
     `#3C5085 ${100 - p2}%`,
     `#5F83E2 ${100 - p1}%`,
-    "#CCD7F6 100%",
-  ].join(", ")})`;
+    '#CCD7F6 100%',
+  ].join(', ')})`;
 
   const weight = 1 - Math.pow(distNorm, 1.6) * 0.92;
   const collapseEnd = lerp(0.42, 0.16, distNorm);
@@ -66,7 +66,7 @@ export function ScrollEqHero() {
       const scrolled = clamp(-rect.top, 0, total);
       const progress = total > 0 ? scrolled / total : 0;
 
-      progressEl.textContent = "scroll " + Math.round(progress * 100) + "%";
+      progressEl.textContent = 'scroll ' + Math.round(progress * 100) + '%';
 
       const fadeOutPhase = clamp((progress - 0.75) / 0.25, 0, 1);
 
@@ -76,8 +76,9 @@ export function ScrollEqHero() {
         const localPhase = clamp(progress / collapseEnd, 0, 1);
         const effectiveWeight = 1 + localPhase * (weight - 1);
         const envelope = 1 - localPhase;
-        const scale = 1 + envelope * effectiveWeight * (maxScaleRef.current - 1);
-        bar.style.height = scale * BASE_HEIGHT + "px";
+        const scale =
+          1 + envelope * effectiveWeight * (maxScaleRef.current - 1);
+        bar.style.height = scale * BASE_HEIGHT + 'px';
         bar.style.opacity = String(1 - fadeOutPhase);
       });
 
@@ -98,11 +99,11 @@ export function ScrollEqHero() {
       render();
     }
 
-    document.addEventListener("scroll", render, { passive: true });
-    window.addEventListener("resize", handleResize);
+    document.addEventListener('scroll', render, { passive: true });
+    window.addEventListener('resize', handleResize);
     return () => {
-      document.removeEventListener("scroll", render);
-      window.removeEventListener("resize", handleResize);
+      document.removeEventListener('scroll', render);
+      window.removeEventListener('resize', handleResize);
     };
   }, []);
 
@@ -155,16 +156,28 @@ export function ScrollEqHero() {
       </div>
 
       <div className="mx-auto max-w-[640px] px-6 pt-[60px] pb-[120px] text-sm leading-[1.6] text-white/60">
-        Scroll to drive the animation. This is a plain scroll listener reading{" "}
-        <code className="rounded bg-white/8 px-1.5 py-0.5 text-[13px]">scrollTop / scrollHeight</code> on the
-        track, no scroll-jacking, no animation library. Every bar uses the same five colors, but the stop
-        positions shift by distance from center: edge bars let the light{" "}
-        <code className="rounded bg-white/8 px-1.5 py-0.5 text-[13px]">#CCD7F6</code> tone spread further down
-        before it hits the dark tones, center bars compress it to a thin sliver so they read as mostly{" "}
-        <code className="rounded bg-white/8 px-1.5 py-0.5 text-[13px]">#161A21</code> /{" "}
-        <code className="rounded bg-white/8 px-1.5 py-0.5 text-[13px]">#17191A</code>. Each bar also has its
-        own collapse end point: outer bars finish flattening by roughly 16% scroll, the center bar not until
-        roughly 42%. Past that point the headlines crossfade, then everything fades out.
+        Scroll to drive the animation. This is a plain scroll listener reading{' '}
+        <code className="rounded bg-white/8 px-1.5 py-0.5 text-[13px]">
+          scrollTop / scrollHeight
+        </code>{' '}
+        on the track, no scroll-jacking, no animation library. Every bar uses
+        the same five colors, but the stop positions shift by distance from
+        center: edge bars let the light{' '}
+        <code className="rounded bg-white/8 px-1.5 py-0.5 text-[13px]">
+          #CCD7F6
+        </code>{' '}
+        tone spread further down before it hits the dark tones, center bars
+        compress it to a thin sliver so they read as mostly{' '}
+        <code className="rounded bg-white/8 px-1.5 py-0.5 text-[13px]">
+          #161A21
+        </code>{' '}
+        /{' '}
+        <code className="rounded bg-white/8 px-1.5 py-0.5 text-[13px]">
+          #17191A
+        </code>
+        . Each bar also has its own collapse end point: outer bars finish
+        flattening by roughly 16% scroll, the center bar not until roughly 42%.
+        Past that point the headlines crossfade, then everything fades out.
       </div>
     </>
   );

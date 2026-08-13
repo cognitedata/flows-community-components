@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
 import { IconExternalLink } from '@tabler/icons-react';
+import { Link } from 'react-router-dom';
 
 import { communityStorybookManagerUrl } from '@/components/community/storybook-embed';
 import { PageTitle } from '@/components/page-title';
@@ -16,8 +16,8 @@ export function CommunityPage() {
           Community
         </h1>
         <p className="mt-3 max-w-[60ch] text-muted-fg">
-          Components built and maintained by the community, ready to explore or contribute
-          to.
+          Components built and maintained by the community, ready to explore or
+          contribute to.
         </p>
       </header>
 
@@ -46,7 +46,9 @@ export function CommunityPage() {
                       {component.name}
                     </Link>
                   </h3>
-                  <p className="text-xs text-muted-fg">{component.description}</p>
+                  <p className="text-xs text-muted-fg">
+                    {component.description}
+                  </p>
                 </div>
 
                 <div className="pt-1">

@@ -1,7 +1,8 @@
-import { IconPhoto } from "@tabler/icons-react";
-import { FoundationTopicCard } from "@/components/foundations/foundation-topic-card";
-import { PageTitle } from "@/components/page-title";
-import { DOCUMENTATION_TOPICS } from "@/lib/documentation-topics-data";
+import { IconPhoto } from '@tabler/icons-react';
+
+import { FoundationTopicCard } from '@/components/foundations/foundation-topic-card';
+import { PageTitle } from '@/components/page-title';
+import { DOCUMENTATION_TOPICS } from '@/lib/documentation-topics-data';
 
 export function DocumentationPage() {
   return (
@@ -12,7 +13,8 @@ export function DocumentationPage() {
           Documentation
         </h1>
         <p className="mt-3 max-w-[60ch] text-muted-fg">
-          Guides and reference material for installing, theming, and building with Aura.
+          Guides and reference material for installing, theming, and building
+          with Aura.
         </p>
       </header>
 
@@ -20,7 +22,9 @@ export function DocumentationPage() {
         <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-medium-bg text-muted-fg">
           <IconPhoto size={24} stroke={1.5} />
         </div>
-        <p className="text-sm text-muted-fg">Documentation overview imagery coming soon</p>
+        <p className="text-sm text-muted-fg">
+          Documentation overview imagery coming soon
+        </p>
       </div>
 
       <div className="@container grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -30,9 +34,9 @@ export function DocumentationPage() {
             topic={topic}
             className={
               topic.colSpan === 2
-                ? "lg:col-span-2"
+                ? 'lg:col-span-2'
                 : topic.colSpan === 3
-                  ? "lg:col-span-3"
+                  ? 'lg:col-span-3'
                   : undefined
             }
           />

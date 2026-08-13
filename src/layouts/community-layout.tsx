@@ -1,7 +1,8 @@
-import * as React from "react";
-import { Outlet } from "react-router-dom";
-import { CommunitySidebar } from "@/components/community/community-sidebar";
-import { TableOfContents } from "@/components/layout/table-of-contents";
+import * as React from 'react';
+import { Outlet } from 'react-router-dom';
+
+import { CommunitySidebar } from '@/components/community/community-sidebar';
+import { TableOfContents } from '@/components/layout/table-of-contents';
 
 export function CommunityLayout() {
   const contentRef = React.useRef<HTMLDivElement>(null);

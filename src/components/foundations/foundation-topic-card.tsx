@@ -1,6 +1,7 @@
-import { Link } from "react-router-dom";
-import { cn } from "@/lib/utils";
-import type { FoundationTopic } from "@/lib/foundations-topics-data";
+import { Link } from 'react-router-dom';
+
+import type { FoundationTopic } from '@/lib/foundations-topics-data';
+import { cn } from '@/lib/utils';
 
 export function FoundationTopicCard({
   topic,
@@ -24,13 +25,13 @@ export function FoundationTopicCard({
           // regardless of how many columns it spans, so multi-column cards'
           // images line up exactly with single-column ones instead of only
           // approximating it via a scaled aspect-ratio.
-          "flex aspect-[4/3] items-center justify-center bg-medium-bg text-muted-fg transition-colors duration-200 group-hover:bg-fjord-100 group-hover:text-fjord-500 group-hover:shadow-[0_0_20px_2px_rgba(95,131,226,0.2)]",
-          "lg:aspect-auto lg:h-[calc((100cqw-32px)*0.25)]"
+          'flex aspect-[4/3] items-center justify-center bg-medium-bg text-muted-fg transition-colors duration-200 group-hover:bg-fjord-100 group-hover:text-fjord-500 group-hover:shadow-[0_0_20px_2px_rgba(95,131,226,0.2)]',
+          'lg:aspect-auto lg:h-[calc((100cqw-32px)*0.25)]'
         )}
       >
         <Icon size={40} stroke={1.5} />
       </div>
-      <div className={cn("flex flex-col gap-1.5 p-5", isWide && "mt-auto")}>
+      <div className={cn('flex flex-col gap-1.5 p-5', isWide && 'mt-auto')}>
         <h3 className="font-heading text-lg font-semibold">{topic.name}</h3>
         <p className="text-sm text-muted-fg">{topic.description}</p>
       </div>
@@ -38,7 +39,7 @@ export function FoundationTopicCard({
   );
 
   const wrapperClassName = cn(
-    "group flex h-full flex-col overflow-hidden rounded-2xl bg-muted-bg",
+    'group flex h-full flex-col overflow-hidden rounded-2xl bg-muted-bg',
     className
   );
 

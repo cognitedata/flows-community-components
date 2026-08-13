@@ -1,10 +1,11 @@
-import { Link, Navigate, useParams } from "react-router-dom";
-import { CenteredContent } from "@/components/layout/centered-content";
-import { PageTitle } from "@/components/page-title";
-import { getDocumentationNavItemBySlug } from "@/lib/documentation-nav-data";
+import { Link, Navigate, useParams } from 'react-router-dom';
+
+import { CenteredContent } from '@/components/layout/centered-content';
+import { PageTitle } from '@/components/page-title';
+import { getDocumentationNavItemBySlug } from '@/lib/documentation-nav-data';
 
 export function DocumentationTopicDetailPage() {
-  const { slug = "" } = useParams<{ slug: string }>();
+  const { slug = '' } = useParams<{ slug: string }>();
   const item = getDocumentationNavItemBySlug(slug);
 
   if (!item) {
@@ -16,7 +17,10 @@ export function DocumentationTopicDetailPage() {
       <PageTitle title={`${item.label} — Aura`} />
       <header className="mb-10 sm:mb-12">
         <p className="mb-3 text-sm text-muted-fg">
-          <Link to="/documentation" className="hover:text-foreground hover:underline">
+          <Link
+            to="/documentation"
+            className="hover:text-foreground hover:underline"
+          >
             Documentation
           </Link>
           <span className="mx-1.5 text-medium-fg">/</span>
@@ -27,8 +31,8 @@ export function DocumentationTopicDetailPage() {
         </h1>
       </header>
       <p className="max-w-[65ch] text-sm leading-relaxed text-muted-fg">
-        Content for this page is on the way. In the meantime, browse the other Documentation
-        pages using the list on the left.
+        Content for this page is on the way. In the meantime, browse the other
+        Documentation pages using the list on the left.
       </p>
     </CenteredContent>
   );

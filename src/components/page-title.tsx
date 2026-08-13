@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect } from 'react';
 
 export function PageTitle({ title }: { title: string }) {
   useEffect(() => {

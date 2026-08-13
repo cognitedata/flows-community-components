@@ -1,13 +1,17 @@
-"use client";
+'use client';
 
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import type { ThemeToken } from "@/lib/theme-tokens-data";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
+import type { ThemeToken } from '@/lib/theme-tokens-data';
 
 function toColorInputValue(value: string) {
   const hex = value.trim();
   if (/^#[0-9a-fA-F]{6}$/.test(hex)) return hex;
   if (/^#[0-9a-fA-F]{8}$/.test(hex)) return hex.slice(0, 7);
-  return "#000000";
+  return '#000000';
 }
 
 export function ColorTokenRow({

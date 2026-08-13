@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { cn } from "@/lib/utils";
+import { cn } from '@/lib/utils';
 
 export interface SegmentedControlOption<T extends string> {
   value: T;
@@ -21,7 +21,10 @@ export function SegmentedControl<T extends string>({
   return (
     <div
       role="tablist"
-      className={cn("flex items-center gap-0.5 rounded-lg bg-medium-bg p-0.5", className)}
+      className={cn(
+        'flex items-center gap-0.5 rounded-lg bg-medium-bg p-0.5',
+        className
+      )}
     >
       {options.map((option) => (
         <button
@@ -31,10 +34,10 @@ export function SegmentedControl<T extends string>({
           aria-selected={value === option.value}
           onClick={() => onChange(option.value)}
           className={cn(
-            "flex-1 rounded-md px-2.5 py-1.5 text-xs font-medium transition-colors",
+            'flex-1 rounded-md px-2.5 py-1.5 text-xs font-medium transition-colors',
             value === option.value
-              ? "bg-base-bg text-foreground shadow-sm"
-              : "text-muted-fg hover:text-foreground"
+              ? 'bg-base-bg text-foreground shadow-sm'
+              : 'text-muted-fg hover:text-foreground'
           )}
         >
           {option.label}

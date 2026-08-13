@@ -1,7 +1,8 @@
-import { IconPhoto } from "@tabler/icons-react";
-import { FoundationTopicCard } from "@/components/foundations/foundation-topic-card";
-import { PageTitle } from "@/components/page-title";
-import { FOUNDATION_TOPICS } from "@/lib/foundations-topics-data";
+import { IconPhoto } from '@tabler/icons-react';
+
+import { FoundationTopicCard } from '@/components/foundations/foundation-topic-card';
+import { PageTitle } from '@/components/page-title';
+import { FOUNDATION_TOPICS } from '@/lib/foundations-topics-data';
 
 export function FoundationsPage() {
   return (
@@ -12,7 +13,8 @@ export function FoundationsPage() {
           Foundations
         </h1>
         <p className="mt-3 max-w-[60ch] text-muted-fg">
-          The principles, tokens, and building blocks that every Aura component is built on.
+          The principles, tokens, and building blocks that every Aura component
+          is built on.
         </p>
       </header>
 
@@ -20,7 +22,9 @@ export function FoundationsPage() {
         <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-medium-bg text-muted-fg">
           <IconPhoto size={24} stroke={1.5} />
         </div>
-        <p className="text-sm text-muted-fg">Foundations overview imagery coming soon</p>
+        <p className="text-sm text-muted-fg">
+          Foundations overview imagery coming soon
+        </p>
       </div>
 
       <div className="@container grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -28,7 +32,7 @@ export function FoundationsPage() {
           <FoundationTopicCard
             key={topic.name}
             topic={topic}
-            className={topic.colSpan === 2 ? "lg:col-span-2" : undefined}
+            className={topic.colSpan === 2 ? 'lg:col-span-2' : undefined}
           />
         ))}
       </div>

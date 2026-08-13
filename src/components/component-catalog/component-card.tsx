@@ -1,10 +1,15 @@
-import { Link } from "react-router-dom";
-import { Card, CardContent } from "@/components/ui/card";
-import { StorybookLink } from "@/components/component-catalog/storybook-link";
-import { slugify } from "@/lib/utils";
-import type { ComponentCatalogEntry } from "@/lib/component-catalog-data";
+import { Link } from 'react-router-dom';
 
-export function ComponentCard({ component }: { component: ComponentCatalogEntry }) {
+import { StorybookLink } from '@/components/component-catalog/storybook-link';
+import { Card, CardContent } from '@/components/ui/card';
+import type { ComponentCatalogEntry } from '@/lib/component-catalog-data';
+import { slugify } from '@/lib/utils';
+
+export function ComponentCard({
+  component,
+}: {
+  component: ComponentCatalogEntry;
+}) {
   const Icon = component.icon;
   const slug = slugify(component.name);
   const href = `/components/${slug}`;

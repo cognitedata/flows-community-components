@@ -1,7 +1,8 @@
-import * as React from "react";
-import { Outlet } from "react-router-dom";
-import { PatternsSidebar } from "@/components/patterns/patterns-sidebar";
-import { TableOfContents } from "@/components/layout/table-of-contents";
+import * as React from 'react';
+import { Outlet } from 'react-router-dom';
+
+import { TableOfContents } from '@/components/layout/table-of-contents';
+import { PatternsSidebar } from '@/components/patterns/patterns-sidebar';
 
 export function PatternsLayout() {
   const contentRef = React.useRef<HTMLDivElement>(null);

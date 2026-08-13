@@ -1,11 +1,15 @@
-import { Link, useLocation } from "react-router-dom";
-import { cn } from "@/lib/utils";
-import { ALL_PATTERNS } from "@/lib/patterns-data";
+import { Link, useLocation } from 'react-router-dom';
+
+import { ALL_PATTERNS } from '@/lib/patterns-data';
+import { cn } from '@/lib/utils';
 
 const OVERVIEW_ITEMS = [
-  { label: "Introduction", href: "/patterns/introduction" },
-  { label: "Patterns", href: "/patterns" },
-  { label: "Extending functionality", href: "/patterns/extending-functionality" },
+  { label: 'Introduction', href: '/patterns/introduction' },
+  { label: 'Patterns', href: '/patterns' },
+  {
+    label: 'Extending functionality',
+    href: '/patterns/extending-functionality',
+  },
 ];
 
 export function PatternsSidebar() {
@@ -28,10 +32,10 @@ export function PatternsSidebar() {
                 <Link
                   to={item.href}
                   className={cn(
-                    "block rounded-lg px-2 py-1.5 text-sm transition-colors",
+                    'block rounded-lg px-2 py-1.5 text-sm transition-colors',
                     active
-                      ? "bg-medium-bg font-medium text-foreground"
-                      : "text-muted-fg hover:bg-medium-bg hover:text-foreground"
+                      ? 'bg-medium-bg font-medium text-foreground'
+                      : 'text-muted-fg hover:bg-medium-bg hover:text-foreground'
                   )}
                 >
                   {item.label}
@@ -55,10 +59,10 @@ export function PatternsSidebar() {
                 <Link
                   to={href}
                   className={cn(
-                    "block rounded-lg px-2 py-1.5 text-sm transition-colors",
+                    'block rounded-lg px-2 py-1.5 text-sm transition-colors',
                     active
-                      ? "bg-medium-bg font-medium text-foreground"
-                      : "text-muted-fg hover:bg-medium-bg hover:text-foreground"
+                      ? 'bg-medium-bg font-medium text-foreground'
+                      : 'text-muted-fg hover:bg-medium-bg hover:text-foreground'
                   )}
                 >
                   {pattern.name}

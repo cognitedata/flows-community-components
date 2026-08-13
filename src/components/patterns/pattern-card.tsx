@@ -1,7 +1,8 @@
-import { Link } from "react-router-dom";
-import { Card, CardContent } from "@/components/ui/card";
-import { slugify } from "@/lib/utils";
-import type { PatternEntry } from "@/lib/patterns-data";
+import { Link } from 'react-router-dom';
+
+import { Card, CardContent } from '@/components/ui/card';
+import type { PatternEntry } from '@/lib/patterns-data';
+import { slugify } from '@/lib/utils';
 
 export function PatternCard({ pattern }: { pattern: PatternEntry }) {
   const Icon = pattern.icon;

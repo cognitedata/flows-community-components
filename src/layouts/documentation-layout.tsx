@@ -1,7 +1,8 @@
-import * as React from "react";
-import { Outlet } from "react-router-dom";
-import { DocumentationSidebar } from "@/components/documentation/documentation-sidebar";
-import { TableOfContents } from "@/components/layout/table-of-contents";
+import * as React from 'react';
+import { Outlet } from 'react-router-dom';
+
+import { DocumentationSidebar } from '@/components/documentation/documentation-sidebar';
+import { TableOfContents } from '@/components/layout/table-of-contents';
 
 export function DocumentationLayout() {
   const contentRef = React.useRef<HTMLDivElement>(null);

@@ -1,6 +1,7 @@
-import { Link, useLocation } from "react-router-dom";
-import { cn } from "@/lib/utils";
-import { DOCUMENTATION_NAV } from "@/lib/documentation-nav-data";
+import { Link, useLocation } from 'react-router-dom';
+
+import { DOCUMENTATION_NAV } from '@/lib/documentation-nav-data';
+import { cn } from '@/lib/utils';
 
 export function DocumentationSidebar() {
   const { pathname } = useLocation();
@@ -17,17 +18,19 @@ export function DocumentationSidebar() {
           </h2>
           <ul className="flex flex-col gap-0.5">
             {section.items.map((item) => {
-              const href = item.slug ? `/documentation/${item.slug}` : "/documentation";
+              const href = item.slug
+                ? `/documentation/${item.slug}`
+                : '/documentation';
               const active = pathname === href;
               return (
                 <li key={item.label}>
                   <Link
                     to={href}
                     className={cn(
-                      "block rounded-lg px-2 py-1.5 text-sm transition-colors",
+                      'block rounded-lg px-2 py-1.5 text-sm transition-colors',
                       active
-                        ? "bg-medium-bg font-medium text-foreground"
-                        : "text-muted-fg hover:bg-medium-bg hover:text-foreground"
+                        ? 'bg-medium-bg font-medium text-foreground'
+                        : 'text-muted-fg hover:bg-medium-bg hover:text-foreground'
                     )}
                   >
                     {item.label}

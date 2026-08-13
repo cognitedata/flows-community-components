@@ -1,12 +1,13 @@
-import { Link, useLocation } from "react-router-dom";
-import { cn } from "@/lib/utils";
-import { ALL_COMMUNITY_COMPONENTS } from "@/lib/community-data";
+import { Link, useLocation } from 'react-router-dom';
+
+import { ALL_COMMUNITY_COMPONENTS } from '@/lib/community-data';
+import { cn } from '@/lib/utils';
 
 const OVERVIEW_ITEMS = [
-  { label: "Installation", href: "/community/installation" },
-  { label: "Components", href: "/community" },
-  { label: "Contribution", href: "/community/contribution" },
-  { label: "Skills", href: "/community/skills" },
+  { label: 'Installation', href: '/community/installation' },
+  { label: 'Components', href: '/community' },
+  { label: 'Contribution', href: '/community/contribution' },
+  { label: 'Skills', href: '/community/skills' },
 ];
 
 export function CommunitySidebar() {
@@ -29,10 +30,10 @@ export function CommunitySidebar() {
                 <Link
                   to={item.href}
                   className={cn(
-                    "block rounded-lg px-2 py-1.5 text-sm transition-colors",
+                    'block rounded-lg px-2 py-1.5 text-sm transition-colors',
                     active
-                      ? "bg-medium-bg font-medium text-foreground"
-                      : "text-muted-fg hover:bg-medium-bg hover:text-foreground"
+                      ? 'bg-medium-bg font-medium text-foreground'
+                      : 'text-muted-fg hover:bg-medium-bg hover:text-foreground'
                   )}
                 >
                   {item.label}
@@ -55,10 +56,10 @@ export function CommunitySidebar() {
                 <Link
                   to={`/community/${component.slug}`}
                   className={cn(
-                    "block rounded-lg px-2 py-1.5 text-sm transition-colors",
+                    'block rounded-lg px-2 py-1.5 text-sm transition-colors',
                     active
-                      ? "bg-medium-bg font-medium text-foreground"
-                      : "text-muted-fg hover:bg-medium-bg hover:text-foreground"
+                      ? 'bg-medium-bg font-medium text-foreground'
+                      : 'text-muted-fg hover:bg-medium-bg hover:text-foreground'
                   )}
                 >
                   {component.name}

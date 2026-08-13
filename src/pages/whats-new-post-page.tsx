@@ -1,9 +1,10 @@
-import { Link, Navigate, useParams } from "react-router-dom";
-import { PageTitle } from "@/components/page-title";
-import { getWhatsNewPostBySlug } from "@/lib/whats-new-data";
+import { Link, Navigate, useParams } from 'react-router-dom';
+
+import { PageTitle } from '@/components/page-title';
+import { getWhatsNewPostBySlug } from '@/lib/whats-new-data';
 
 export function WhatsNewPostPage() {
-  const { slug = "" } = useParams<{ slug: string }>();
+  const { slug = '' } = useParams<{ slug: string }>();
   const post = getWhatsNewPostBySlug(slug);
 
   if (!post) {
@@ -18,7 +19,10 @@ export function WhatsNewPostPage() {
       <main className="min-h-screen bg-background text-foreground">
         <div className="mx-auto max-w-[720px] px-4 pt-24 pb-24 sm:pt-28">
           <p className="mb-3 text-sm text-muted-fg">
-            <Link to="/whats-new" className="hover:text-foreground hover:underline">
+            <Link
+              to="/whats-new"
+              className="hover:text-foreground hover:underline"
+            >
               What&apos;s new
             </Link>
             <span className="mx-1.5 text-medium-fg">/</span>
@@ -37,11 +41,14 @@ export function WhatsNewPostPage() {
             <p className="mt-3 max-w-[60ch] text-muted-fg">{post.excerpt}</p>
           </header>
           <p className="max-w-[65ch] text-sm leading-relaxed text-muted-fg">
-            The full write-up for this update is on the way. In the meantime, browse other
-            months on the{" "}
-            <Link to="/whats-new" className="text-link-fg hover:text-link-fg-hover hover:underline">
+            The full write-up for this update is on the way. In the meantime,
+            browse other months on the{' '}
+            <Link
+              to="/whats-new"
+              className="text-link-fg hover:text-link-fg-hover hover:underline"
+            >
               What&apos;s new
-            </Link>{" "}
+            </Link>{' '}
             page.
           </p>
         </div>

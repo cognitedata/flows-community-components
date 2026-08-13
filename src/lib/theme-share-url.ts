@@ -81,19 +81,25 @@ function parseHashParams(hash: string): URLSearchParams {
 }
 
 /** Reads and decodes `#theme=…` from a location hash. */
-export function readThemeFromHash(hash: string): SharedThemeOverrides | undefined {
+export function readThemeFromHash(
+  hash: string
+): SharedThemeOverrides | undefined {
   const encoded = parseHashParams(hash).get(THEME_HASH_PARAM);
   return encoded ? decodeTheme(encoded) : undefined;
 }
 
 /** Reads `#appearance=light|dark` from a location hash. */
-export function readAppearanceFromHash(hash: string): ThemeAppearance | undefined {
+export function readAppearanceFromHash(
+  hash: string
+): ThemeAppearance | undefined {
   const value = parseHashParams(hash).get(APPEARANCE_HASH_PARAM);
   return value === 'light' || value === 'dark' ? value : undefined;
 }
 
 /** Legacy query-string reader (Fusion theme-editor currently uses `?theme=`). */
-export function readThemeFromSearch(search: string): SharedThemeOverrides | undefined {
+export function readThemeFromSearch(
+  search: string
+): SharedThemeOverrides | undefined {
   const encoded = new URLSearchParams(search).get(THEME_HASH_PARAM);
   return encoded ? decodeTheme(encoded) : undefined;
 }
@@ -161,7 +167,8 @@ export function isAuraThemeMessage(data: unknown): data is AuraThemeMessage {
   if (typeof data !== 'object' || data === null) return false;
   const candidate = data as Record<string, unknown>;
   if (candidate.type !== AURA_THEME_MESSAGE_TYPE) return false;
-  if (typeof candidate.theme !== 'object' || candidate.theme === null) return false;
+  if (typeof candidate.theme !== 'object' || candidate.theme === null)
+    return false;
   const theme = candidate.theme as Record<string, unknown>;
   return (
     isStringRecord(theme.base) &&

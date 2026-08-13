@@ -1,6 +1,6 @@
-import { ComponentCard } from "@/components/component-catalog/component-card";
-import { PageTitle } from "@/components/page-title";
-import { COMPONENT_CATALOG_SECTIONS } from "@/lib/component-catalog-data";
+import { ComponentCard } from '@/components/component-catalog/component-card';
+import { PageTitle } from '@/components/page-title';
+import { COMPONENT_CATALOG_SECTIONS } from '@/lib/component-catalog-data';
 
 export function ComponentsPage() {
   return (
@@ -11,8 +11,8 @@ export function ComponentsPage() {
           Components
         </h1>
         <p className="mt-3 max-w-[60ch] text-muted-fg">
-          Every component in the Aura system, organized by category. Open a component for a
-          live Storybook preview, or browse the catalog below.
+          Every component in the Aura system, organized by category. Open a
+          component for a live Storybook preview, or browse the catalog below.
         </p>
       </header>
 

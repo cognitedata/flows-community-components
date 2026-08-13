@@ -61,9 +61,10 @@ export function ContributionPage() {
           Contribution
         </h1>
         <p className="mt-3 max-w-[60ch] text-muted-fg">
-          Flows Community is a shadcn registry for shared industrial components, powered by
-          Aura. Community components are ejectable registry source — not official Aura Core
-          primitives — and are used at the consumer&apos;s discretion.
+          Flows Community is a shadcn registry for shared industrial components,
+          powered by Aura. Community components are ejectable registry source —
+          not official Aura Core primitives — and are used at the
+          consumer&apos;s discretion.
         </p>
       </header>
 
@@ -73,7 +74,8 @@ export function ContributionPage() {
             Search order
           </h2>
           <p className="text-sm leading-relaxed text-muted-fg">
-            Before contributing, builders and agents should look for UI in this order:
+            Before contributing, builders and agents should look for UI in this
+            order:
           </p>
           <ol className="list-decimal space-y-2 pl-5 text-sm text-muted-fg">
             {searchOrder.map((item) => (
@@ -114,8 +116,12 @@ export function ContributionPage() {
                   {index + 1}
                 </span>
                 <div>
-                  <h3 className="font-heading text-base font-medium">{step.title}</h3>
-                  <p className="mt-1 text-sm leading-relaxed text-muted-fg">{step.body}</p>
+                  <h3 className="font-heading text-base font-medium">
+                    {step.title}
+                  </h3>
+                  <p className="mt-1 text-sm leading-relaxed text-muted-fg">
+                    {step.body}
+                  </p>
                 </div>
               </li>
             ))}

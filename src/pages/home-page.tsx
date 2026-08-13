@@ -1,5 +1,5 @@
-import { ScrollEqHero } from "@/components/scroll-eq-hero";
-import { PageTitle } from "@/components/page-title";
+import { PageTitle } from '@/components/page-title';
+import { ScrollEqHero } from '@/components/scroll-eq-hero';
 
 export function HomePage() {
   return (
@@ -7,7 +7,10 @@ export function HomePage() {
       <PageTitle title="Scroll EQ hero prototype" />
       <main
         className="bg-[#050810] text-white"
-        style={{ fontFamily: "-apple-system, Inter, 'Helvetica Neue', Arial, sans-serif" }}
+        style={{
+          fontFamily:
+            "-apple-system, Inter, 'Helvetica Neue', Arial, sans-serif",
+        }}
       >
         <ScrollEqHero />
       </main>

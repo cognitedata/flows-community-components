@@ -1,6 +1,6 @@
-import { PatternCard } from "@/components/patterns/pattern-card";
-import { PageTitle } from "@/components/page-title";
-import { PATTERNS } from "@/lib/patterns-data";
+import { PageTitle } from '@/components/page-title';
+import { PatternCard } from '@/components/patterns/pattern-card';
+import { PATTERNS } from '@/lib/patterns-data';
 
 export function PatternsPage() {
   return (

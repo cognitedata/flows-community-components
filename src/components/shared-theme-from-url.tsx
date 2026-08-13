@@ -1,7 +1,8 @@
-"use client";
+'use client';
 
-import * as React from "react";
-import { useTheme } from "next-themes";
+import { useTheme } from 'next-themes';
+import * as React from 'react';
+
 import {
   buildSharedThemeCss,
   emptySharedTheme,
@@ -11,10 +12,10 @@ import {
   readThemeFromSearch,
   type SharedThemeOverrides,
   type ThemeAppearance,
-} from "@/lib/theme-share-url";
+} from '@/lib/theme-share-url';
 
 function readInitialTheme(): SharedThemeOverrides {
-  if (typeof window === "undefined") return emptySharedTheme();
+  if (typeof window === 'undefined') return emptySharedTheme();
   return (
     readThemeFromHash(window.location.hash) ??
     readThemeFromSearch(window.location.search) ??
@@ -23,7 +24,7 @@ function readInitialTheme(): SharedThemeOverrides {
 }
 
 function readInitialAppearance(): ThemeAppearance | undefined {
-  if (typeof window === "undefined") return undefined;
+  if (typeof window === 'undefined') return undefined;
   return readAppearanceFromHash(window.location.hash);
 }
 
@@ -38,7 +39,8 @@ export function SharedThemeFromUrlProvider({
   children: React.ReactNode;
 }) {
   const { setTheme } = useTheme();
-  const [shared, setShared] = React.useState<SharedThemeOverrides>(readInitialTheme);
+  const [shared, setShared] =
+    React.useState<SharedThemeOverrides>(readInitialTheme);
 
   const applyAppearance = React.useCallback(
     (appearance: ThemeAppearance | undefined) => {
@@ -59,8 +61,8 @@ export function SharedThemeFromUrlProvider({
     applyAppearance(readInitialAppearance());
 
     const onHashChange = () => applyFromHash();
-    window.addEventListener("hashchange", onHashChange);
-    return () => window.removeEventListener("hashchange", onHashChange);
+    window.addEventListener('hashchange', onHashChange);
+    return () => window.removeEventListener('hashchange', onHashChange);
   }, [applyAppearance, applyFromHash]);
 
   React.useEffect(() => {
@@ -69,8 +71,8 @@ export function SharedThemeFromUrlProvider({
       setShared(event.data.theme);
       applyAppearance(event.data.appearance);
     };
-    window.addEventListener("message", onMessage);
-    return () => window.removeEventListener("message", onMessage);
+    window.addEventListener('message', onMessage);
+    return () => window.removeEventListener('message', onMessage);
   }, [applyAppearance]);
 
   const css = React.useMemo(() => buildSharedThemeCss(shared), [shared]);

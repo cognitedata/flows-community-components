@@ -1,6 +1,7 @@
-import { IconCheck, IconX } from "@tabler/icons-react";
-import type * as React from "react";
-import { cn, slugify } from "@/lib/utils";
+import { IconCheck, IconX } from '@tabler/icons-react';
+import type * as React from 'react';
+
+import { cn, slugify } from '@/lib/utils';
 
 export function ContentSection({
   title,
@@ -12,7 +13,7 @@ export function ContentSection({
   className?: string;
 }) {
   return (
-    <section className={cn("mb-12 sm:mb-14", className)}>
+    <section className={cn('mb-12 sm:mb-14', className)}>
       <h2
         id={slugify(title)}
         className="font-heading text-xl font-semibold tracking-tight sm:text-2xl"
@@ -99,10 +100,17 @@ export function TokenTable({
           {rows.map((row, rowIndex) => (
             <tr
               key={rowIndex}
-              className={rowIndex !== rows.length - 1 ? "border-b border-border" : undefined}
+              className={
+                rowIndex !== rows.length - 1
+                  ? 'border-b border-border'
+                  : undefined
+              }
             >
               {row.map((cell, cellIndex) => (
-                <td key={cellIndex} className="px-4 py-2.5 align-top text-muted-fg">
+                <td
+                  key={cellIndex}
+                  className="px-4 py-2.5 align-top text-muted-fg"
+                >
                   {cell}
                 </td>
               ))}
@@ -122,8 +130,11 @@ export function SwatchGrid({
   return (
     <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
       {swatches.map((swatch) => (
-        <div key={swatch.label} className="overflow-hidden rounded-xl border border-border">
-          <div className={cn("h-14", swatch.className)} />
+        <div
+          key={swatch.label}
+          className="overflow-hidden rounded-xl border border-border"
+        >
+          <div className={cn('h-14', swatch.className)} />
           <p className="px-3 py-2 text-xs text-muted-fg">{swatch.label}</p>
         </div>
       ))}

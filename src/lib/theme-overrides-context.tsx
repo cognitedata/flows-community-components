@@ -1,9 +1,10 @@
-"use client";
+'use client';
 
-import * as React from "react";
-import { THEME_TOKEN_GROUPS } from "@/lib/theme-tokens-data";
+import * as React from 'react';
 
-export type ThemeMode = "light" | "dark";
+import { THEME_TOKEN_GROUPS } from '@/lib/theme-tokens-data';
+
+export type ThemeMode = 'light' | 'dark';
 type Overrides = Record<ThemeMode, Record<string, string>>;
 
 interface ThemeOverridesContextValue {
@@ -12,7 +13,8 @@ interface ThemeOverridesContextValue {
   reset: () => void;
 }
 
-const ThemeOverridesContext = React.createContext<ThemeOverridesContextValue | null>(null);
+const ThemeOverridesContext =
+  React.createContext<ThemeOverridesContextValue | null>(null);
 
 const ALL_TOKENS = THEME_TOKEN_GROUPS.flatMap((group) => group.tokens);
 
@@ -28,11 +30,13 @@ const EMPTY_OVERRIDES: Overrides = { light: {}, dark: {} };
 // specificity.
 function buildOverrideCss(overrides: Overrides) {
   const lightRules = ALL_TOKENS.map(
-    (token) => `  --${token.cssVar}: ${overrides.light[token.cssVar] ?? token.light};`
-  ).join("\n");
+    (token) =>
+      `  --${token.cssVar}: ${overrides.light[token.cssVar] ?? token.light};`
+  ).join('\n');
   const darkRules = ALL_TOKENS.map(
-    (token) => `  --${token.cssVar}: ${overrides.dark[token.cssVar] ?? token.dark};`
-  ).join("\n");
+    (token) =>
+      `  --${token.cssVar}: ${overrides.dark[token.cssVar] ?? token.dark};`
+  ).join('\n');
 
   return `:root {\n${lightRules}\n}\n.dark {\n${darkRules}\n}`;
 }
@@ -43,19 +47,29 @@ function buildOverrideCss(overrides: Overrides) {
  * the Custom theming page keep applying while navigating elsewhere. State
  * is in-memory only — it resets on a full page refresh or via `reset()`.
  */
-export function ThemeOverridesProvider({ children }: { children: React.ReactNode }) {
+export function ThemeOverridesProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const [overrides, setOverrides] = React.useState<Overrides>(EMPTY_OVERRIDES);
 
-  const setToken = React.useCallback((mode: ThemeMode, cssVar: string, value: string) => {
-    setOverrides((prev) => ({
-      ...prev,
-      [mode]: { ...prev[mode], [cssVar]: value },
-    }));
-  }, []);
+  const setToken = React.useCallback(
+    (mode: ThemeMode, cssVar: string, value: string) => {
+      setOverrides((prev) => ({
+        ...prev,
+        [mode]: { ...prev[mode], [cssVar]: value },
+      }));
+    },
+    []
+  );
 
   const reset = React.useCallback(() => setOverrides(EMPTY_OVERRIDES), []);
 
-  const value = React.useMemo(() => ({ overrides, setToken, reset }), [overrides, setToken, reset]);
+  const value = React.useMemo(
+    () => ({ overrides, setToken, reset }),
+    [overrides, setToken, reset]
+  );
 
   return (
     <ThemeOverridesContext.Provider value={value}>
@@ -68,7 +82,9 @@ export function ThemeOverridesProvider({ children }: { children: React.ReactNode
 export function useThemeOverrides() {
   const ctx = React.useContext(ThemeOverridesContext);
   if (!ctx) {
-    throw new Error("useThemeOverrides must be used within a ThemeOverridesProvider");
+    throw new Error(
+      'useThemeOverrides must be used within a ThemeOverridesProvider'
+    );
   }
   return ctx;
 }

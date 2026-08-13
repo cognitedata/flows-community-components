@@ -1,10 +1,11 @@
-import { Link, useLocation } from "react-router-dom";
-import { cn } from "@/lib/utils";
-import { ALL_COMPONENTS } from "@/lib/component-catalog-data";
+import { Link, useLocation } from 'react-router-dom';
+
+import { ALL_COMPONENTS } from '@/lib/component-catalog-data';
+import { cn } from '@/lib/utils';
 
 const OVERVIEW_ITEMS = [
-  { label: "Introduction", href: "/components/introduction" },
-  { label: "Components", href: "/components" },
+  { label: 'Introduction', href: '/components/introduction' },
+  { label: 'Components', href: '/components' },
 ];
 
 export function ComponentsSidebar() {
@@ -27,10 +28,10 @@ export function ComponentsSidebar() {
                 <Link
                   to={item.href}
                   className={cn(
-                    "block rounded-lg px-2 py-1.5 text-sm transition-colors",
+                    'block rounded-lg px-2 py-1.5 text-sm transition-colors',
                     active
-                      ? "bg-medium-bg font-medium text-foreground"
-                      : "text-muted-fg hover:bg-medium-bg hover:text-foreground"
+                      ? 'bg-medium-bg font-medium text-foreground'
+                      : 'text-muted-fg hover:bg-medium-bg hover:text-foreground'
                   )}
                 >
                   {item.label}
@@ -54,10 +55,10 @@ export function ComponentsSidebar() {
                 <Link
                   to={href}
                   className={cn(
-                    "block rounded-lg px-2 py-1.5 text-sm transition-colors",
+                    'block rounded-lg px-2 py-1.5 text-sm transition-colors',
                     active
-                      ? "bg-medium-bg font-medium text-foreground"
-                      : "text-muted-fg hover:bg-medium-bg hover:text-foreground"
+                      ? 'bg-medium-bg font-medium text-foreground'
+                      : 'text-muted-fg hover:bg-medium-bg hover:text-foreground'
                   )}
                 >
                   {component.name}

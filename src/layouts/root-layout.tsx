@@ -1,8 +1,9 @@
-import { Outlet } from "react-router-dom";
-import { MainNav } from "@/components/main-nav";
-import { SharedThemeFromUrlProvider } from "@/components/shared-theme-from-url";
-import { ThemeProvider } from "@/components/theme-provider";
-import { ThemeOverridesProvider } from "@/lib/theme-overrides-context";
+import { Outlet } from 'react-router-dom';
+
+import { MainNav } from '@/components/main-nav';
+import { SharedThemeFromUrlProvider } from '@/components/shared-theme-from-url';
+import { ThemeProvider } from '@/components/theme-provider';
+import { ThemeOverridesProvider } from '@/lib/theme-overrides-context';
 
 export function RootLayout() {
   return (

@@ -1,13 +1,14 @@
-import { Link, Navigate, useParams } from "react-router-dom";
-import { IconExternalLink } from "@tabler/icons-react";
-import { ChromaticStorybookEmbed } from "@/components/component-catalog/chromatic-storybook-embed";
-import { PageTitle } from "@/components/page-title";
-import { getComponentBySlug } from "@/lib/component-catalog-data";
-import { chromaticStorybookManagerUrl } from "@/lib/chromatic-storybook";
-import { useStorybookTheme } from "@/lib/storybook-theme";
+import { IconExternalLink } from '@tabler/icons-react';
+import { Link, Navigate, useParams } from 'react-router-dom';
+
+import { ChromaticStorybookEmbed } from '@/components/component-catalog/chromatic-storybook-embed';
+import { PageTitle } from '@/components/page-title';
+import { chromaticStorybookManagerUrl } from '@/lib/chromatic-storybook';
+import { getComponentBySlug } from '@/lib/component-catalog-data';
+import { useStorybookTheme } from '@/lib/storybook-theme';
 
 export function ComponentDetailPage() {
-  const { slug = "" } = useParams<{ slug: string }>();
+  const { slug = '' } = useParams<{ slug: string }>();
   const theme = useStorybookTheme();
   const component = getComponentBySlug(slug);
 
@@ -22,7 +23,10 @@ export function ComponentDetailPage() {
       <PageTitle title={`${component.name} — Aura`} />
       <header className="mb-10 sm:mb-12">
         <p className="mb-3 text-sm text-muted-fg">
-          <Link to="/components" className="hover:text-foreground hover:underline">
+          <Link
+            to="/components"
+            className="hover:text-foreground hover:underline"
+          >
             Components
           </Link>
           <span className="mx-1.5 text-medium-fg">/</span>
@@ -36,10 +40,15 @@ export function ComponentDetailPage() {
             <h1 className="font-heading text-4xl font-semibold tracking-tight sm:text-5xl">
               {component.name}
             </h1>
-            <p className="mt-3 max-w-[60ch] text-muted-fg">{component.description}</p>
+            <p className="mt-3 max-w-[60ch] text-muted-fg">
+              {component.description}
+            </p>
             {component.storybookId && (
               <a
-                href={chromaticStorybookManagerUrl(component.storybookId, theme)}
+                href={chromaticStorybookManagerUrl(
+                  component.storybookId,
+                  theme
+                )}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-link-fg transition-colors hover:text-link-fg-hover"
