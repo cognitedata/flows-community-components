@@ -43,7 +43,7 @@ function toCatalogItem(id: string, meta: ComponentMeta): CommunityCatalogItem {
     install: `pnpm dlx shadcn@latest add @aura/${id}`,
     status: meta.status ?? 'experimental',
     notes: meta.notes,
-    storybookPath: `https://cognitedata.github.io/aura/storybook/?path=/docs/community-${id}--docs`,
+    storybookPath: `storybook/?path=/docs/community-${id}--docs`,
     llmUsage: meta.llmUsage,
   };
 }
