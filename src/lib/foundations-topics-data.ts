@@ -63,6 +63,8 @@ export const FOUNDATION_TOPICS: FoundationTopic[] = [
     description:
       'Type scale, font pairing, and hierarchy guidance for headings and body text.',
     icon: IconTypography,
+    image: '/foundations/typography-default.png',
+    hoverVideo: '/foundations/typography-hover.mp4',
   },
   {
     name: 'Motion',
