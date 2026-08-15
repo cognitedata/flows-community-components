@@ -174,7 +174,7 @@ export function ModeTokenTable({
   return (
     <div>
       <SegmentedControl
-        className="mb-3 w-fit"
+        className="mt-6 mb-4 w-full"
         options={modes.map((mode) => ({
           value: mode.label,
           label: mode.label,

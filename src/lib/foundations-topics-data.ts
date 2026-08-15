@@ -23,6 +23,10 @@ export interface FoundationTopic {
   colSpan?: 2 | 3;
   /** If set, the whole card links here instead of being static. */
   href?: string;
+  /** Static image shown in the card by default, in place of the icon. */
+  image?: string;
+  /** Video shown in place of `image` on hover, autoplaying and looping. */
+  hoverVideo?: string;
 }
 
 export const FOUNDATION_TOPICS: FoundationTopic[] = [
@@ -50,6 +54,8 @@ export const FOUNDATION_TOPICS: FoundationTopic[] = [
     description:
       'The palette, semantic tokens, and light/dark theming rules behind every surface.',
     icon: IconPalette,
+    image: '/foundations/color-default.png',
+    hoverVideo: '/foundations/color-hover.mp4',
   },
   {
     name: 'Size and spacing tokens',
