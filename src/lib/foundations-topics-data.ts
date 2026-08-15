@@ -34,6 +34,7 @@ export const FOUNDATION_TOPICS: FoundationTopic[] = [
     description:
       'The core principles and rules of thumb that guide every design decision.',
     icon: IconBulb,
+    colSpan: 2,
   },
   {
     name: 'Color tokens',
