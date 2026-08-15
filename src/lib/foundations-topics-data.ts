@@ -4,7 +4,6 @@ import {
   IconFileText,
   IconIcons,
   IconLayoutGrid,
-  IconMarkdown,
   IconPalette,
   IconRulerMeasure,
   IconSparkles,
@@ -31,23 +30,10 @@ export interface FoundationTopic {
 
 export const FOUNDATION_TOPICS: FoundationTopic[] = [
   {
-    name: 'DesignMD',
-    description:
-      'The single source of truth documenting every design decision in this system.',
-    icon: IconMarkdown,
-    colSpan: 2,
-  },
-  {
     name: 'Design heuristics',
     description:
       'The core principles and rules of thumb that guide every design decision.',
     icon: IconBulb,
-  },
-  {
-    name: 'Layout and grids',
-    description:
-      'Spacing scale, breakpoints, and the grid system pages are built on.',
-    icon: IconLayoutGrid,
   },
   {
     name: 'Color tokens',
@@ -56,6 +42,14 @@ export const FOUNDATION_TOPICS: FoundationTopic[] = [
     icon: IconPalette,
     image: '/foundations/color-default.png',
     hoverVideo: '/foundations/color-hover.mp4',
+  },
+  {
+    name: 'Layout and grids',
+    description:
+      'Spacing scale, breakpoints, and the grid system pages are built on.',
+    icon: IconLayoutGrid,
+    image: '/foundations/layouts-default.png',
+    hoverVideo: '/foundations/layouts-hover.mp4',
   },
   {
     name: 'Size and spacing tokens',
@@ -70,17 +64,17 @@ export const FOUNDATION_TOPICS: FoundationTopic[] = [
     icon: IconTypography,
   },
   {
-    name: 'Effects',
-    description:
-      'Shadows, blur, and elevation used to layer surfaces consistently.',
-    icon: IconSparkles,
-  },
-  {
     name: 'Motion',
     description:
       'Duration, easing, and guidance for when — and when not — to animate.',
     icon: IconWaveSine,
     colSpan: 2,
+  },
+  {
+    name: 'Effects',
+    description:
+      'Shadows, blur, and elevation used to layer surfaces consistently.',
+    icon: IconSparkles,
   },
   {
     name: 'Assets and icons',
@@ -89,16 +83,16 @@ export const FOUNDATION_TOPICS: FoundationTopic[] = [
     icon: IconIcons,
   },
   {
-    name: 'Content',
-    description:
-      'Voice, tone, and writing guidelines for UI copy across the system.',
-    icon: IconFileText,
-  },
-  {
     name: 'Accessibility',
     description:
       'Contrast, focus states, and keyboard support baked into every component.',
     icon: IconAccessible,
+  },
+  {
+    name: 'Content',
+    description:
+      'Voice, tone, and writing guidelines for UI copy across the system.',
+    icon: IconFileText,
   },
 ];
 

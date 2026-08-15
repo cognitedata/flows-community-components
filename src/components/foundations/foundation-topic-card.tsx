@@ -46,7 +46,7 @@ export function FoundationTopicCard({
           // regardless of how many columns it spans, so multi-column cards'
           // images line up exactly with single-column ones instead of only
           // approximating it via a scaled aspect-ratio.
-          'relative flex aspect-[4/3] items-center justify-center overflow-hidden bg-medium-bg text-muted-fg transition-colors duration-200 group-hover:bg-fjord-100 group-hover:text-fjord-500 group-hover:shadow-[0_0_20px_2px_rgba(95,131,226,0.2)]',
+          'relative flex aspect-[4/3] items-center justify-center overflow-hidden bg-medium-bg text-muted-fg',
           'lg:aspect-auto lg:h-[calc((100cqw-32px)*0.25)]'
         )}
       >
