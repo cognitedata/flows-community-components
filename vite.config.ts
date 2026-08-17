@@ -51,6 +51,10 @@ function historyApiFallback(): Plugin {
 // https://vite.dev/config/
 export default defineConfig({
   base: process.env.PAGES_BASE_PATH || '/',
+  server: {
+    port: 5173,
+    strictPort: true,
+  },
   plugins: [
     react({
       babel: {

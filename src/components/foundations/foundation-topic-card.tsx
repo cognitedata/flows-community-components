@@ -12,7 +12,6 @@ export function FoundationTopicCard({
   className?: string;
 }) {
   const Icon = topic.icon;
-  const isWide = (topic.colSpan ?? 1) >= 2;
   const videoRef = React.useRef<HTMLVideoElement>(null);
   const [isHovering, setIsHovering] = React.useState(false);
   const [isVideoReady, setIsVideoReady] = React.useState(false);
@@ -46,8 +45,7 @@ export function FoundationTopicCard({
           // regardless of how many columns it spans, so multi-column cards'
           // images line up exactly with single-column ones instead of only
           // approximating it via a scaled aspect-ratio.
-          'relative flex aspect-[4/3] items-center justify-center overflow-hidden bg-medium-bg text-muted-fg',
-          'lg:aspect-auto lg:h-[calc((100cqw-32px)*0.25)]'
+          'relative flex aspect-[3/2] items-center justify-center overflow-hidden bg-medium-bg text-muted-fg'
         )}
       >
         {topic.image ? (
@@ -80,7 +78,7 @@ export function FoundationTopicCard({
           <Icon size={40} stroke={1.5} />
         )}
       </div>
-      <div className={cn('flex flex-col gap-1.5 p-5', isWide && 'mt-auto')}>
+      <div className="flex flex-col gap-1.5 p-5">
         <h3 className="font-heading text-lg font-semibold">{topic.name}</h3>
         <p className="text-sm text-muted-fg">{topic.description}</p>
       </div>

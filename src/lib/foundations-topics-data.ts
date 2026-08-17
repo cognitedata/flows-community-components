@@ -34,7 +34,6 @@ export const FOUNDATION_TOPICS: FoundationTopic[] = [
     description:
       'The core principles and rules of thumb that guide every design decision.',
     icon: IconBulb,
-    colSpan: 2,
     image: '/foundations/design-heuristics-default.png',
     hoverVideo: '/foundations/design-heuristics-hover.mp4',
   },
@@ -75,7 +74,6 @@ export const FOUNDATION_TOPICS: FoundationTopic[] = [
     description:
       'Duration, easing, and guidance for when — and when not — to animate.',
     icon: IconWaveSine,
-    colSpan: 2,
     image: '/foundations/motion-default.png',
     hoverVideo: '/foundations/motion-hover.mp4',
   },
