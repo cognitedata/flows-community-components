@@ -538,37 +538,3 @@
     scroll-margin-top: 7rem;
   }
 }
-
-/* Hero aurora blobs — slow, calm drift */
-@keyframes aurora-blob-a {
-  0% {
-    transform: translate(0, 0) scale(1);
-  }
-  100% {
-    transform: translate(10%, -6%) scale(1.08);
-  }
-}
-
-@keyframes aurora-blob-b {
-  0% {
-    transform: translate(0, 0) rotate(0deg) scale(1);
-  }
-  100% {
-    transform: translate(-8%, 5%) rotate(12deg) scale(1.06);
-  }
-}
-
-@keyframes aurora-blob-c {
-  0% {
-    transform: translate(0, 0) rotate(0deg) scale(1);
-  }
-  100% {
-    transform: translate(7%, 4%) rotate(-10deg) scale(0.94);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .aurora-blob {
-    animation: none !important;
-  }
-}
