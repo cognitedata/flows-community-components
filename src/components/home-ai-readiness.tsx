@@ -21,11 +21,13 @@ export const AI_READINESS_CARDS = [
 
 type HomeAiReadinessProps = {
   sectionRef: Ref<HTMLElement>;
+  titleRef: Ref<HTMLHeadingElement>;
   trackRef: Ref<HTMLDivElement>;
 };
 
 export function HomeAiReadiness({
   sectionRef,
+  titleRef,
   trackRef,
 }: HomeAiReadinessProps) {
   return (
@@ -35,21 +37,25 @@ export function HomeAiReadiness({
       className="absolute inset-0 z-[6] flex flex-col justify-center overflow-hidden"
       style={{ opacity: 0 }}
     >
-      <h2 className="px-4 text-center font-heading text-[clamp(32px,5.5vw,72px)] leading-[1.05] font-semibold tracking-[-0.04em]">
+      <h2
+        ref={titleRef}
+        className="relative z-10 px-4 text-center font-heading text-[clamp(32px,5.5vw,72px)] leading-[1.05] font-semibold tracking-[-0.04em] will-change-transform"
+      >
         AI readiness
       </h2>
       <div className="mt-12 w-full overflow-hidden">
         <div
           ref={trackRef}
-          className="flex w-max gap-5 px-4 will-change-transform"
+          className="mx-auto grid w-full max-w-[1600px] grid-cols-4 gap-4 px-4 will-change-transform md:gap-5"
+          style={{ transform: 'translate3d(100vw, 0, 0)' }}
         >
           {AI_READINESS_CARDS.map((card) => (
             <article
               key={card.title}
-              className="w-[min(320px,78vw)] shrink-0 rounded-2xl bg-[#0e131c] p-4"
+              className="min-w-0 rounded-2xl bg-[#0e131c] p-4 md:p-5"
             >
               <div className="aspect-[4/3] rounded-xl bg-white/5" />
-              <h3 className="mt-4 font-heading text-xl font-medium tracking-tight">
+              <h3 className="mt-4 font-heading text-lg font-medium tracking-tight md:text-xl">
                 {card.title}
               </h3>
               <p className="mt-2 text-[15px] leading-[1.5] text-medium-fg-fixed-dark">

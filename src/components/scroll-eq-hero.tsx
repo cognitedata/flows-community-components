@@ -38,6 +38,10 @@ const HERO_END = 0.3;
 const INDUSTRY_START = 0.42;
 const CUSTOM_START = 0.54;
 const AI_START = 0.64;
+const AI_TITLE_HOLD = 0.12;
+const AI_TITLE_MOVE_DURATION = 0.38;
+const AI_CARDS_START = 0.42;
+const AI_CARDS_DURATION = 0.38;
 const USE_CASES_START = 0.84;
 const SCENE_FADE_OUT = 0.06;
 const BENEFIT_ITEM_START = 0.08;
@@ -192,6 +196,7 @@ export function ScrollEqHero() {
   const customSplitStarted = React.useRef(false);
   const [customPlayTitle, setCustomPlayTitle] = React.useState(false);
   const aiRef = React.useRef<HTMLElement>(null);
+  const aiTitleRef = React.useRef<HTMLHeadingElement>(null);
   const aiTrackRef = React.useRef<HTMLDivElement>(null);
   const useCasesRef = React.useRef<HTMLElement>(null);
   const progressRef = React.useRef<HTMLDivElement>(null);
@@ -222,6 +227,7 @@ export function ScrollEqHero() {
       const industry = industryRef.current;
       const custom = customRef.current;
       const ai = aiRef.current;
+      const aiTitle = aiTitleRef.current;
       const aiTrack = aiTrackRef.current;
       const useCases = useCasesRef.current;
       const progressEl = progressRef.current;
@@ -238,6 +244,7 @@ export function ScrollEqHero() {
         !industry ||
         !custom ||
         !ai ||
+        !aiTitle ||
         !aiTrack ||
         !useCases ||
         !progressEl ||
@@ -260,7 +267,9 @@ export function ScrollEqHero() {
         CUSTOM_START
       );
       const customVisible = sceneVisible(progress, CUSTOM_START, AI_START);
-      const aiVisible = sceneVisible(progress, AI_START, USE_CASES_START);
+      const aiVisible =
+        fade(progress, AI_START, SCENE_FADE_OUT) *
+        (1 - fade(progress, USE_CASES_START, SCENE_FADE_OUT));
       const useCasesVisible = fade(
         progress,
         USE_CASES_START,
@@ -368,7 +377,16 @@ export function ScrollEqHero() {
       }
 
       applyOverlay(ai, aiVisible, 20);
-      aiTrack.style.transform = `translate3d(${lerp(6, -48, aiLocal)}vw, 0, 0)`;
+      const aiTrackWrap = aiTrack.parentElement;
+      const titleShift = aiTrackWrap
+        ? (parseFloat(getComputedStyle(aiTrackWrap).marginTop) +
+            aiTrackWrap.offsetHeight) /
+          2
+        : 0;
+      const titleMove = fade(aiLocal, AI_TITLE_HOLD, AI_TITLE_MOVE_DURATION);
+      aiTitle.style.transform = `translateY(${(1 - titleMove) * titleShift}px)`;
+      const cardsIn = fade(aiLocal, AI_CARDS_START, AI_CARDS_DURATION);
+      aiTrack.style.transform = `translate3d(${lerp(100, 0, cardsIn)}vw, 0, 0)`;
 
       applyOverlay(useCases, useCasesVisible, 20);
     }
@@ -542,7 +560,11 @@ export function ScrollEqHero() {
             sectionRef={customRef}
             title="fully customizable"
           />
-          <HomeAiReadiness sectionRef={aiRef} trackRef={aiTrackRef} />
+          <HomeAiReadiness
+            sectionRef={aiRef}
+            titleRef={aiTitleRef}
+            trackRef={aiTrackRef}
+          />
           <HomeUseCases sectionRef={useCasesRef} />
         </div>
       </div>
