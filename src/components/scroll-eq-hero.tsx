@@ -6,8 +6,10 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 
 import { Aurora } from '@/components/aurora';
+import { HomeAiReadiness } from '@/components/home-ai-readiness';
 import { HOME_BENEFITS, HomeBenefits } from '@/components/home-benefits';
-import { HomeIndustry } from '@/components/home-industry';
+import { HomeMediaScene } from '@/components/home-media-scene';
+import { HomeUseCases } from '@/components/home-use-cases';
 import { SplitText } from '@/components/split-text';
 
 const BAR_COUNT = 13;
@@ -32,8 +34,12 @@ const TEXT_OUT_START = 0.85;
 const TEXT_OUT_DURATION = 0.05;
 const AURORA_OUT_START = 0.42;
 const AURORA_OUT_DURATION = 0.08;
-const HERO_END = 0.6;
-const INDUSTRY_START = 0.8;
+const HERO_END = 0.3;
+const INDUSTRY_START = 0.42;
+const CUSTOM_START = 0.54;
+const AI_START = 0.64;
+const USE_CASES_START = 0.84;
+const SCENE_FADE_OUT = 0.06;
 const BENEFIT_ITEM_START = 0.08;
 const BENEFIT_STAGGER = 0.16;
 const BENEFIT_ITEM_DURATION = 0.5;
@@ -52,6 +58,24 @@ function easeOutCubic(t: number) {
 
 function fade(progress: number, start: number, duration: number) {
   return easeOutCubic(clamp((progress - start) / duration, 0, 1));
+}
+
+function sceneVisible(
+  progress: number,
+  start: number,
+  nextStart: number,
+  fadeOut = SCENE_FADE_OUT
+) {
+  return (
+    fade(progress, start, Math.max(nextStart - start, 0.001)) *
+    (1 - fade(progress, nextStart, fadeOut))
+  );
+}
+
+function applyOverlay(el: HTMLElement, visible: number, shift = 24) {
+  el.style.opacity = String(visible);
+  el.style.transform = `translateY(${(1 - visible) * shift}px)`;
+  el.style.pointerEvents = visible < 0.05 ? 'none' : 'auto';
 }
 
 const BARS = Array.from({ length: BAR_COUNT }, (_, i) => {
@@ -164,6 +188,12 @@ export function ScrollEqHero() {
   const industryRef = React.useRef<HTMLElement>(null);
   const industrySplitStarted = React.useRef(false);
   const [industryPlayTitle, setIndustryPlayTitle] = React.useState(false);
+  const customRef = React.useRef<HTMLElement>(null);
+  const customSplitStarted = React.useRef(false);
+  const [customPlayTitle, setCustomPlayTitle] = React.useState(false);
+  const aiRef = React.useRef<HTMLElement>(null);
+  const aiTrackRef = React.useRef<HTMLDivElement>(null);
+  const useCasesRef = React.useRef<HTMLElement>(null);
   const progressRef = React.useRef<HTMLDivElement>(null);
   const maxHeightRef = React.useRef(800);
 
@@ -190,6 +220,10 @@ export function ScrollEqHero() {
       const benefits = benefitsRef.current;
       const benefitsSubtitle = benefitsSubtitleRef.current;
       const industry = industryRef.current;
+      const custom = customRef.current;
+      const ai = aiRef.current;
+      const aiTrack = aiTrackRef.current;
+      const useCases = useCasesRef.current;
       const progressEl = progressRef.current;
       const auroraLayer = auroraLayerRef.current;
       const auroraFlip = auroraFlipRef.current;
@@ -202,6 +236,10 @@ export function ScrollEqHero() {
         !benefits ||
         !benefitsSubtitle ||
         !industry ||
+        !custom ||
+        !ai ||
+        !aiTrack ||
+        !useCases ||
         !progressEl ||
         !auroraLayer ||
         !auroraFlip
@@ -213,14 +251,26 @@ export function ScrollEqHero() {
       const scrolled = clamp(-rect.top, 0, total);
       const progress = total > 0 ? scrolled / total : 0;
       const heroProgress = clamp(progress / HERO_END, 0, 1);
-      const benefitsIn = fade(
-        progress,
-        HERO_END,
-        INDUSTRY_START - HERO_END
-      );
-      const benefitsOut = fade(progress, INDUSTRY_START, 0.08);
+      const benefitsIn = fade(progress, HERO_END, INDUSTRY_START - HERO_END);
+      const benefitsOut = fade(progress, INDUSTRY_START, SCENE_FADE_OUT);
       const benefitsVisible = benefitsIn * (1 - benefitsOut);
-      const industryIn = fade(progress, INDUSTRY_START, 1 - INDUSTRY_START);
+      const industryVisible = sceneVisible(
+        progress,
+        INDUSTRY_START,
+        CUSTOM_START
+      );
+      const customVisible = sceneVisible(progress, CUSTOM_START, AI_START);
+      const aiVisible = sceneVisible(progress, AI_START, USE_CASES_START);
+      const useCasesVisible = fade(
+        progress,
+        USE_CASES_START,
+        1 - USE_CASES_START
+      );
+      const aiLocal = clamp(
+        (progress - AI_START) / (USE_CASES_START - AI_START),
+        0,
+        1
+      );
 
       progressEl.textContent = 'scroll ' + Math.round(heroProgress * 100) + '%';
 
@@ -305,13 +355,22 @@ export function ScrollEqHero() {
         }
       });
 
-      industry.style.opacity = String(industryIn);
-      industry.style.transform = `translateY(${(1 - industryIn) * 24}px)`;
-      industry.style.pointerEvents = industryIn < 0.05 ? 'none' : 'auto';
-      if (industryIn > 0.2 && !industrySplitStarted.current) {
+      applyOverlay(industry, industryVisible);
+      if (industryVisible > 0.2 && !industrySplitStarted.current) {
         industrySplitStarted.current = true;
         setIndustryPlayTitle(true);
       }
+
+      applyOverlay(custom, customVisible);
+      if (customVisible > 0.2 && !customSplitStarted.current) {
+        customSplitStarted.current = true;
+        setCustomPlayTitle(true);
+      }
+
+      applyOverlay(ai, aiVisible, 20);
+      aiTrack.style.transform = `translate3d(${lerp(6, -48, aiLocal)}vw, 0, 0)`;
+
+      applyOverlay(useCases, useCasesVisible, 20);
     }
 
     updateMaxHeight();
@@ -353,7 +412,7 @@ export function ScrollEqHero() {
 
   return (
     <>
-      <div ref={trackRef} className="relative h-[600vh]">
+      <div ref={trackRef} className="relative h-[1100vh]">
         <div
           className="sticky top-0 h-screen overflow-hidden"
           style={{ background: HERO_BG }}
@@ -468,10 +527,23 @@ export function ScrollEqHero() {
             subtitleRef={benefitsSubtitleRef}
             valueRefs={benefitValueRefs}
           />
-          <HomeIndustry
+          <HomeMediaScene
+            label="Built for industry"
+            placement="top-end"
             playTitle={industryPlayTitle}
             sectionRef={industryRef}
+            title="built for industry"
           />
+          <HomeMediaScene
+            className="z-[5]"
+            label="Fully customizable"
+            placement="bottom-start"
+            playTitle={customPlayTitle}
+            sectionRef={customRef}
+            title="fully customizable"
+          />
+          <HomeAiReadiness sectionRef={aiRef} trackRef={aiTrackRef} />
+          <HomeUseCases sectionRef={useCasesRef} />
         </div>
       </div>
 
