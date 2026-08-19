@@ -1,14 +1,26 @@
 'use client';
 
+import { Button } from '@cognite/aura/components';
+import { IconArrowRight } from '@tabler/icons-react';
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 
 import { Aurora } from '@/components/aurora';
+import { SplitText } from '@/components/split-text';
 
 const BAR_COUNT = 13;
-const CENTER = (BAR_COUNT - 1) / 2;
 const BASE_HEIGHT = 2;
 const HERO_BG = '#050810';
 const AURORA_STOPS = ['#8FA8EB', '#B6DDD4', '#b764f3'] as const;
+const COLLAPSE_DURATION = 0.16;
+const WAVE_SPAN = 0.3;
+const INTRO_DELAY_MS = 700;
+const INTRO_DURATION_MS = 900;
+const INTRO_SHIFT_PX = 16;
+const CLOSING_COPY_START = 0.8;
+const CLOSING_COPY_FADE = 0.1;
+const H2_BODY =
+  'Traditional design systems ship a fragmented collection of styles, components and documentation making it difficult to keep the system in sync and easy for drift to take over. Aura is built from the ground up with codified instructions to ensure consistency and correct usage in a format both agents and humans can harness. It makes correct implementation the path of least resistance for agents and humans.';
 
 function lerp(a: number, b: number, t: number) {
   return a + (b - a) * t;
@@ -19,10 +31,10 @@ function clamp(v: number, min: number, max: number) {
 }
 
 const BARS = Array.from({ length: BAR_COUNT }, (_, i) => {
-  const distNorm = Math.abs(i - CENTER) / CENTER;
-  const weight = 1 - Math.pow(distNorm, 1.6) * 0.92;
-  const collapseEnd = lerp(0.42, 0.16, distNorm);
-  return { weight, collapseEnd };
+  const t = i / (BAR_COUNT - 1);
+  const collapseStart = lerp(0, WAVE_SPAN, t);
+  const collapseEnd = collapseStart + COLLAPSE_DURATION;
+  return { collapseStart, collapseEnd };
 });
 
 const NOISE_DARK_ALPHA =
@@ -117,14 +129,22 @@ export function ScrollEqHero() {
   const h1Ref = React.useRef<HTMLDivElement>(null);
   const h2Ref = React.useRef<HTMLDivElement>(null);
   const subtextRef = React.useRef<HTMLDivElement>(null);
+  const closingCopyRef = React.useRef<HTMLDivElement>(null);
   const progressRef = React.useRef<HTMLDivElement>(null);
   const maxHeightRef = React.useRef(800);
 
   React.useEffect(() => {
     let frame = 0;
+    let introStartedAt: number | null = null;
 
     function updateMaxHeight() {
       maxHeightRef.current = window.innerHeight;
+    }
+
+    function introProgress(now: number) {
+      if (introStartedAt == null) return 0;
+      const t = clamp((now - introStartedAt) / INTRO_DURATION_MS, 0, 1);
+      return 1 - (1 - t) ** 3;
     }
 
     function render() {
@@ -132,9 +152,18 @@ export function ScrollEqHero() {
       const h1 = h1Ref.current;
       const h2 = h2Ref.current;
       const subtext = subtextRef.current;
+      const closingCopy = closingCopyRef.current;
       const progressEl = progressRef.current;
       const auroraLayer = auroraLayerRef.current;
-      if (!track || !h1 || !h2 || !subtext || !progressEl || !auroraLayer)
+      if (
+        !track ||
+        !h1 ||
+        !h2 ||
+        !subtext ||
+        !closingCopy ||
+        !progressEl ||
+        !auroraLayer
+      )
         return;
 
       const rect = track.getBoundingClientRect();
@@ -144,17 +173,19 @@ export function ScrollEqHero() {
 
       progressEl.textContent = 'scroll ' + Math.round(progress * 100) + '%';
 
-      const fadeOutPhase = clamp((progress - 0.75) / 0.25, 0, 1);
+      const fadeOutPhase = clamp((progress - 0.7) / 0.1, 0, 1);
 
       clipRectRefs.current.forEach((clipRect, i) => {
         if (!clipRect) return;
-        const { weight, collapseEnd } = BARS[i];
-        const localPhase = clamp(progress / collapseEnd, 0, 1);
-        const effectiveWeight = 1 + localPhase * (weight - 1);
-        const envelope = 1 - localPhase;
+        const { collapseStart, collapseEnd } = BARS[i];
+        const localPhase = clamp(
+          (progress - collapseStart) / (collapseEnd - collapseStart),
+          0,
+          1
+        );
         const height = Math.max(
           BASE_HEIGHT / maxHeightRef.current,
-          envelope * effectiveWeight
+          1 - localPhase
         );
         clipRect.setAttribute('height', String(height));
       });
@@ -163,14 +194,42 @@ export function ScrollEqHero() {
 
       const swapPhase = clamp((progress - 0.55) / 0.2, 0, 1);
       const h1Opacity = (1 - swapPhase) * (1 - fadeOutPhase);
-      const h2Opacity = swapPhase * (1 - fadeOutPhase);
+      const h2Opacity = swapPhase;
+      const intro = introProgress(performance.now());
+      const closingPhase = clamp(
+        (progress - CLOSING_COPY_START) / CLOSING_COPY_FADE,
+        0,
+        1
+      );
+      const closing = 1 - (1 - closingPhase) ** 3;
 
       h1.style.opacity = String(h1Opacity);
       h2.style.opacity = String(h2Opacity);
-      subtext.style.opacity = String(h1Opacity);
+      subtext.style.opacity = String(h1Opacity * intro);
+      subtext.style.transform = `translateY(${(1 - intro) * INTRO_SHIFT_PX}px)`;
+      subtext.style.pointerEvents =
+        h1Opacity * intro < 0.05 ? 'none' : 'auto';
+      closingCopy.style.opacity = String(closing);
+      closingCopy.style.transform = `translateY(${(1 - closing) * INTRO_SHIFT_PX}px)`;
     }
 
     updateMaxHeight();
+
+    const reduceMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
+    if (reduceMotion) {
+      introStartedAt = performance.now() - INTRO_DURATION_MS;
+    }
+
+    const introDelay = window.setTimeout(
+      () => {
+        if (introStartedAt == null) {
+          introStartedAt = performance.now();
+        }
+      },
+      reduceMotion ? 0 : INTRO_DELAY_MS
+    );
 
     function tick() {
       render();
@@ -186,6 +245,7 @@ export function ScrollEqHero() {
     window.addEventListener('resize', handleResize);
     return () => {
       cancelAnimationFrame(frame);
+      window.clearTimeout(introDelay);
       window.removeEventListener('resize', handleResize);
     };
   }, []);
@@ -194,7 +254,7 @@ export function ScrollEqHero() {
     <>
       <div ref={trackRef} className="relative h-[400vh]">
         <div
-          className="sticky top-0 flex h-screen items-center justify-center overflow-hidden"
+          className="sticky top-0 h-screen overflow-hidden"
           style={{ background: HERO_BG }}
         >
           <AuroraNoiseFilter />
@@ -232,25 +292,58 @@ export function ScrollEqHero() {
             />
             <AuroraNoiseOverlay />
           </div>
-          <div className="relative z-[2] w-full px-6 text-center">
+          <div className="absolute inset-0 z-[2]">
+            <div className="relative mx-auto h-full w-full max-w-[1600px]">
             <div
               ref={h1Ref}
-              className="absolute inset-0 flex items-center justify-center whitespace-nowrap text-[clamp(28px,5vw,56px)] leading-[1.15] font-semibold tracking-[-0.02em]"
+              className="pointer-events-none absolute inset-0 flex items-center justify-start px-4"
             >
-              Aura
+              <SplitText
+                className="font-heading max-w-[min(92vw,16ch)] text-[clamp(36px,5.5vw,72px)] font-semibold tracking-[-0.04em] leading-[1.05]"
+                delay={40}
+                duration={1.25}
+                ease="power3.out"
+                splitType="chars"
+                tag="h1"
+                text="Aura design system"
+                textAlign="left"
+                whiteSpace="normal"
+              />
             </div>
             <div
               ref={h2Ref}
-              className="absolute inset-0 flex items-center justify-center whitespace-nowrap text-[clamp(28px,5vw,56px)] leading-[1.15] font-medium tracking-[-0.02em] opacity-0"
+              className="pointer-events-none absolute top-1/2 left-4 right-4 -translate-y-1/2 text-left opacity-0"
             >
-              Built for humans and agents
+              <p className="whitespace-nowrap text-[clamp(28px,5vw,56px)] leading-[1.15] font-medium tracking-[-0.02em]">
+                Built for humans and agents
+              </p>
+              <p
+                ref={closingCopyRef}
+                className="absolute top-full left-0 mt-8 max-w-[640px] text-[18px] leading-[1.5] text-medium-fg-fixed-dark"
+                style={{ opacity: 0 }}
+              >
+                {H2_BODY}
+              </p>
             </div>
             <div
               ref={subtextRef}
-              className="absolute top-[calc(50%+90px)] right-0 left-0 mx-auto max-w-[480px] text-center text-[15px] text-white/55"
+              className="absolute top-[calc(50%+min(11vw,140px))] left-4 right-auto flex max-w-[720px] flex-col items-start gap-8 text-left"
+              style={{ opacity: 0 }}
             >
-              Cognite&apos;s AI-native design system for the future of
-              industrial experiences.
+              <p className="text-[26px] leading-[1.3] text-medium-fg-fixed-dark">
+                Cognite&apos;s AI-native design system for the future of
+                industrial experiences.
+              </p>
+              <Button
+                nativeButton={false}
+                render={<Link to="/documentation" />}
+                size="lg"
+                variant="defaultOnDark"
+              >
+                Get Started
+                <IconArrowRight />
+              </Button>
+            </div>
             </div>
           </div>
         </div>
@@ -261,17 +354,6 @@ export function ScrollEqHero() {
         className="fixed bottom-6 left-6 z-[5] text-xs text-white/40 [font-variant-numeric:tabular-nums]"
       >
         scroll 0%
-      </div>
-
-      <div className="mx-auto max-w-[640px] px-6 pt-[60px] pb-[120px] text-sm leading-[1.6] text-white/60">
-        Scroll to drive the animation. This is a plain scroll listener reading{' '}
-        <code className="rounded bg-white/8 px-1.5 py-0.5 text-[13px]">
-          scrollTop / scrollHeight
-        </code>{' '}
-        on the track, no scroll-jacking. A WebGL aurora sits behind a single row
-        of clipped bars. Outer bars finish flattening by roughly 16% scroll, the
-        center bar not until roughly 42%. Past that point the headlines
-        crossfade, then everything fades out.
       </div>
     </>
   );

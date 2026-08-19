@@ -31,11 +31,8 @@ export function MainNav() {
       }}
     >
       <div className="mx-auto flex max-w-[1600px] items-center justify-between gap-4 px-4 py-3">
-        <Link to="/" className="flex shrink-0 items-center gap-2">
-          <img src={auraLogo} alt="Aura" className="h-5 w-auto" />
-          <span className="text-[15px] font-semibold tracking-tight text-white">
-            Aura
-          </span>
+        <Link to="/" aria-label="Aura design system home" className="flex shrink-0 items-center">
+          <img src={auraLogo} alt="" className="h-5 w-auto" />
         </Link>
 
         <ul className="hidden items-center gap-1 lg:flex">
