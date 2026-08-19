@@ -45,7 +45,6 @@
     "@babel/parser": "^8.0.4",
     "@babel/traverse": "^8.0.4",
     "@babel/types": "^8.0.4",
-    "@chromatic-com/storybook": "^5.3.0",
     "@eslint/js": "^9.39.2",
     "@storybook/addon-a11y": "^10.5.7",
     "@storybook/addon-docs": "^10.5.7",
