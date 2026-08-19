@@ -47,6 +47,94 @@ const BARS = Array.from({ length: BAR_COUNT }, (_, i) => {
   };
 });
 
+const NOISE_DARK_ALPHA =
+  '1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0';
+const NOISE_LIGHT_ALPHA =
+  '0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1';
+
+function AuroraNoiseFilter() {
+  return (
+    <svg
+      aria-hidden="true"
+      className="absolute h-0 w-0 overflow-hidden"
+    >
+      <defs>
+        <filter
+          id="aurora-noise"
+          x="0"
+          y="0"
+          width="100%"
+          height="100%"
+          colorInterpolationFilters="sRGB"
+        >
+          <feTurbulence
+            type="fractalNoise"
+            baseFrequency="5 5"
+            numOctaves="3"
+            stitchTiles="stitch"
+            seed="2970"
+            result="noise"
+          />
+          <feColorMatrix
+            in="noise"
+            type="luminanceToAlpha"
+            result="alphaNoise"
+          />
+          <feComponentTransfer in="alphaNoise" result="coloredNoise1">
+            <feFuncA type="discrete" tableValues={NOISE_DARK_ALPHA} />
+          </feComponentTransfer>
+          <feComposite
+            in="coloredNoise1"
+            in2="SourceGraphic"
+            operator="in"
+            result="noise1Clipped"
+          />
+          <feComponentTransfer in="alphaNoise" result="coloredNoise2">
+            <feFuncA type="discrete" tableValues={NOISE_LIGHT_ALPHA} />
+          </feComponentTransfer>
+          <feComposite
+            in="coloredNoise2"
+            in2="SourceGraphic"
+            operator="in"
+            result="noise2Clipped"
+          />
+          <feFlood floodColor="rgba(0, 0, 0, 0.25)" result="color1Flood" />
+          <feComposite
+            in="color1Flood"
+            in2="noise1Clipped"
+            operator="in"
+            result="color1"
+          />
+          <feFlood floodColor="rgba(255, 255, 255, 0.25)" result="color2Flood" />
+          <feComposite
+            in="color2Flood"
+            in2="noise2Clipped"
+            operator="in"
+            result="color2"
+          />
+          <feMerge>
+            <feMergeNode in="color1" />
+            <feMergeNode in="color2" />
+          </feMerge>
+        </filter>
+      </defs>
+    </svg>
+  );
+}
+
+function AuroraNoiseOverlay() {
+  return (
+    <svg
+      aria-hidden="true"
+      className="pointer-events-none absolute inset-0 h-full w-full mix-blend-overlay"
+      preserveAspectRatio="none"
+      viewBox="0 0 177 937"
+    >
+      <rect width="177" height="937" fill="white" filter="url(#aurora-noise)" />
+    </svg>
+  );
+}
+
 function AuroraBlob({
   color,
   variant,
@@ -168,6 +256,7 @@ export function ScrollEqHero() {
     <>
       <div ref={trackRef} className="relative h-[400vh]">
         <div className="sticky top-0 flex h-screen items-center justify-center overflow-hidden">
+          <AuroraNoiseFilter />
           <div className="pointer-events-none absolute inset-0 flex items-start justify-stretch">
             {BARS.map((bar, i) => (
               <div
@@ -199,6 +288,7 @@ export function ScrollEqHero() {
                   delaySec={bar.delaySec + 4}
                   reverse={bar.reverse}
                 />
+                <AuroraNoiseOverlay />
               </div>
             ))}
           </div>
