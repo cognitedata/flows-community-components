@@ -22,6 +22,8 @@ export interface SplitTextProps {
   textAlign?: CSSProperties['textAlign'];
   whiteSpace?: CSSProperties['whiteSpace'];
   tag?: SplitTextTag;
+  immediate?: boolean;
+  enabled?: boolean;
   onLetterAnimationComplete?: () => void;
 }
 
@@ -43,6 +45,8 @@ export function SplitText({
   textAlign = 'center',
   whiteSpace = 'nowrap',
   tag = 'p',
+  immediate = false,
+  enabled = true,
   onLetterAnimationComplete,
 }: SplitTextProps) {
   const ref = useRef<HTMLElement>(null);
@@ -67,7 +71,7 @@ export function SplitText({
   useGSAP(
     () => {
       const el = ref.current as SplitHost | null;
-      if (!el || !text || !fontsLoaded) return;
+      if (!el || !text || !fontsLoaded || !enabled) return;
       if (animationCompletedRef.current) return;
 
       if (el._rbsplitInstance) {
@@ -134,13 +138,17 @@ export function SplitText({
               duration,
               ease,
               stagger: delay / 1000,
-              scrollTrigger: {
-                trigger: el,
-                start,
-                once: true,
-                fastScrollEnd: true,
-                anticipatePin: 0.4,
-              },
+              ...(immediate
+                ? {}
+                : {
+                    scrollTrigger: {
+                      trigger: el,
+                      start,
+                      once: true,
+                      fastScrollEnd: true,
+                      anticipatePin: 0.4,
+                    },
+                  }),
               onComplete: () => {
                 animationCompletedRef.current = true;
                 onCompleteRef.current?.();
@@ -178,6 +186,8 @@ export function SplitText({
         threshold,
         rootMargin,
         fontsLoaded,
+        enabled,
+        immediate,
       ],
       scope: ref,
     }

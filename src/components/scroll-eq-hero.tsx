@@ -6,6 +6,8 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 
 import { Aurora } from '@/components/aurora';
+import { HOME_BENEFITS, HomeBenefits } from '@/components/home-benefits';
+import { HomeIndustry } from '@/components/home-industry';
 import { SplitText } from '@/components/split-text';
 
 const BAR_COUNT = 13;
@@ -14,13 +16,27 @@ const HERO_BG = '#050810';
 const AURORA_STOPS = ['#8FA8EB', '#B6DDD4', '#b764f3'] as const;
 const COLLAPSE_DURATION = 0.16;
 const WAVE_SPAN = 0.3;
+const GROW_START = 0.85;
+const GROW_SPAN = 0.08;
+const GROW_DURATION = 0.07;
 const INTRO_DELAY_MS = 700;
 const INTRO_DURATION_MS = 900;
 const INTRO_SHIFT_PX = 16;
-const CLOSING_COPY_START = 0.8;
-const CLOSING_COPY_FADE = 0.1;
-const H2_BODY =
-  'Traditional design systems ship a fragmented collection of styles, components and documentation making it difficult to keep the system in sync and easy for drift to take over. Aura is built from the ground up with codified instructions to ensure consistency and correct usage in a format both agents and humans can harness. It makes correct implementation the path of least resistance for agents and humans.';
+const H1_OUT_START = 0.45;
+const H1_OUT_DURATION = 0.05;
+const H2_IN_START = 0.5;
+const H2_IN_DURATION = 0.05;
+const COPY_IN_START = 0.55;
+const COPY_IN_DURATION = 0.05;
+const TEXT_OUT_START = 0.85;
+const TEXT_OUT_DURATION = 0.05;
+const AURORA_OUT_START = 0.42;
+const AURORA_OUT_DURATION = 0.08;
+const HERO_END = 0.6;
+const INDUSTRY_START = 0.8;
+const BENEFIT_ITEM_START = 0.08;
+const BENEFIT_STAGGER = 0.16;
+const BENEFIT_ITEM_DURATION = 0.5;
 
 function lerp(a: number, b: number, t: number) {
   return a + (b - a) * t;
@@ -30,11 +46,21 @@ function clamp(v: number, min: number, max: number) {
   return Math.max(min, Math.min(max, v));
 }
 
+function easeOutCubic(t: number) {
+  return 1 - (1 - t) ** 3;
+}
+
+function fade(progress: number, start: number, duration: number) {
+  return easeOutCubic(clamp((progress - start) / duration, 0, 1));
+}
+
 const BARS = Array.from({ length: BAR_COUNT }, (_, i) => {
   const t = i / (BAR_COUNT - 1);
   const collapseStart = lerp(0, WAVE_SPAN, t);
   const collapseEnd = collapseStart + COLLAPSE_DURATION;
-  return { collapseStart, collapseEnd };
+  const growStart = lerp(GROW_START, GROW_START + GROW_SPAN, t);
+  const growEnd = growStart + GROW_DURATION;
+  return { collapseStart, collapseEnd, growStart, growEnd };
 });
 
 const NOISE_DARK_ALPHA =
@@ -126,10 +152,18 @@ export function ScrollEqHero() {
   const trackRef = React.useRef<HTMLDivElement>(null);
   const clipRectRefs = React.useRef<(SVGRectElement | null)[]>([]);
   const auroraLayerRef = React.useRef<HTMLDivElement>(null);
+  const auroraFlipRef = React.useRef<HTMLDivElement>(null);
   const h1Ref = React.useRef<HTMLDivElement>(null);
   const h2Ref = React.useRef<HTMLDivElement>(null);
   const subtextRef = React.useRef<HTMLDivElement>(null);
   const closingCopyRef = React.useRef<HTMLDivElement>(null);
+  const benefitsRef = React.useRef<HTMLElement>(null);
+  const benefitsSubtitleRef = React.useRef<HTMLHeadingElement>(null);
+  const benefitColumnRefs = React.useRef<(HTMLElement | null)[]>([]);
+  const benefitValueRefs = React.useRef<(HTMLSpanElement | null)[]>([]);
+  const industryRef = React.useRef<HTMLElement>(null);
+  const industrySplitStarted = React.useRef(false);
+  const [industryPlayTitle, setIndustryPlayTitle] = React.useState(false);
   const progressRef = React.useRef<HTMLDivElement>(null);
   const maxHeightRef = React.useRef(800);
 
@@ -153,16 +187,24 @@ export function ScrollEqHero() {
       const h2 = h2Ref.current;
       const subtext = subtextRef.current;
       const closingCopy = closingCopyRef.current;
+      const benefits = benefitsRef.current;
+      const benefitsSubtitle = benefitsSubtitleRef.current;
+      const industry = industryRef.current;
       const progressEl = progressRef.current;
       const auroraLayer = auroraLayerRef.current;
+      const auroraFlip = auroraFlipRef.current;
       if (
         !track ||
         !h1 ||
         !h2 ||
         !subtext ||
         !closingCopy ||
+        !benefits ||
+        !benefitsSubtitle ||
+        !industry ||
         !progressEl ||
-        !auroraLayer
+        !auroraLayer ||
+        !auroraFlip
       )
         return;
 
@@ -170,38 +212,56 @@ export function ScrollEqHero() {
       const total = track.offsetHeight - window.innerHeight;
       const scrolled = clamp(-rect.top, 0, total);
       const progress = total > 0 ? scrolled / total : 0;
+      const heroProgress = clamp(progress / HERO_END, 0, 1);
+      const benefitsIn = fade(
+        progress,
+        HERO_END,
+        INDUSTRY_START - HERO_END
+      );
+      const benefitsOut = fade(progress, INDUSTRY_START, 0.08);
+      const benefitsVisible = benefitsIn * (1 - benefitsOut);
+      const industryIn = fade(progress, INDUSTRY_START, 1 - INDUSTRY_START);
 
-      progressEl.textContent = 'scroll ' + Math.round(progress * 100) + '%';
-
-      const fadeOutPhase = clamp((progress - 0.7) / 0.1, 0, 1);
+      progressEl.textContent = 'scroll ' + Math.round(heroProgress * 100) + '%';
 
       clipRectRefs.current.forEach((clipRect, i) => {
         if (!clipRect) return;
-        const { collapseStart, collapseEnd } = BARS[i];
-        const localPhase = clamp(
-          (progress - collapseStart) / (collapseEnd - collapseStart),
-          0,
-          1
-        );
-        const height = Math.max(
-          BASE_HEIGHT / maxHeightRef.current,
-          1 - localPhase
-        );
+        const { collapseStart, collapseEnd, growStart, growEnd } = BARS[i];
+        const minHeight = BASE_HEIGHT / maxHeightRef.current;
+
+        if (heroProgress < GROW_START) {
+          const localPhase = clamp(
+            (heroProgress - collapseStart) / (collapseEnd - collapseStart),
+            0,
+            1
+          );
+          const height = Math.max(minHeight, 1 - localPhase);
+          clipRect.setAttribute('y', '0');
+          clipRect.setAttribute('height', String(height));
+          return;
+        }
+
+        const growPhase = fade(heroProgress, growStart, growEnd - growStart);
+        const height = growPhase <= 0 ? 0 : Math.max(minHeight, growPhase);
+        clipRect.setAttribute('y', String(1 - height));
         clipRect.setAttribute('height', String(height));
       });
 
-      auroraLayer.style.opacity = String(1 - fadeOutPhase);
-
-      const swapPhase = clamp((progress - 0.55) / 0.2, 0, 1);
-      const h1Opacity = (1 - swapPhase) * (1 - fadeOutPhase);
-      const h2Opacity = swapPhase;
-      const intro = introProgress(performance.now());
-      const closingPhase = clamp(
-        (progress - CLOSING_COPY_START) / CLOSING_COPY_FADE,
-        0,
-        1
+      const auroraOut = fade(heroProgress, AURORA_OUT_START, AURORA_OUT_DURATION);
+      const auroraIn = fade(heroProgress, GROW_START, 1 - GROW_START);
+      auroraLayer.style.opacity = String(
+        heroProgress < GROW_START ? 1 - auroraOut : auroraIn
       );
-      const closing = 1 - (1 - closingPhase) ** 3;
+      auroraFlip.style.transform =
+        heroProgress >= GROW_START ? 'rotate(180deg)' : 'none';
+
+      const intro = introProgress(performance.now());
+      const h1Out = fade(heroProgress, H1_OUT_START, H1_OUT_DURATION);
+      const h2In = fade(heroProgress, H2_IN_START, H2_IN_DURATION);
+      const copyIn = fade(heroProgress, COPY_IN_START, COPY_IN_DURATION);
+      const textOut = fade(heroProgress, TEXT_OUT_START, TEXT_OUT_DURATION);
+      const h1Opacity = (1 - h1Out) * (1 - textOut);
+      const h2Opacity = h2In * (1 - textOut);
 
       h1.style.opacity = String(h1Opacity);
       h2.style.opacity = String(h2Opacity);
@@ -209,8 +269,49 @@ export function ScrollEqHero() {
       subtext.style.transform = `translateY(${(1 - intro) * INTRO_SHIFT_PX}px)`;
       subtext.style.pointerEvents =
         h1Opacity * intro < 0.05 ? 'none' : 'auto';
-      closingCopy.style.opacity = String(closing);
-      closingCopy.style.transform = `translateY(${(1 - closing) * INTRO_SHIFT_PX}px)`;
+      closingCopy.style.opacity = String(copyIn);
+      closingCopy.style.transform = `translateY(${(1 - copyIn) * INTRO_SHIFT_PX}px)`;
+
+      benefits.style.pointerEvents = benefitsVisible < 0.05 ? 'none' : 'auto';
+
+      const subtitleIn = fade(benefitsIn, 0, 0.4) * (1 - benefitsOut);
+      benefitsSubtitle.style.opacity = String(subtitleIn);
+      benefitsSubtitle.style.transform = `translateY(${(1 - subtitleIn) * 16}px)`;
+
+      HOME_BENEFITS.forEach((item, i) => {
+        const local =
+          fade(
+            benefitsIn,
+            BENEFIT_ITEM_START + i * BENEFIT_STAGGER,
+            BENEFIT_ITEM_DURATION
+          ) * (1 - benefitsOut);
+        const column = benefitColumnRefs.current[i];
+        if (column) {
+          column.style.opacity = String(local);
+          column.style.transform = `translateY(${(1 - local) * 18}px)`;
+        }
+        const valueEl = benefitValueRefs.current[i];
+        if (valueEl) {
+          valueEl.textContent = String(
+            Math.round(
+              item.value *
+                fade(
+                  benefitsIn,
+                  BENEFIT_ITEM_START + i * BENEFIT_STAGGER,
+                  BENEFIT_ITEM_DURATION
+                )
+            )
+          );
+        }
+      });
+
+      industry.style.opacity = String(industryIn);
+      industry.style.transform = `translateY(${(1 - industryIn) * 24}px)`;
+      industry.style.pointerEvents = industryIn < 0.05 ? 'none' : 'auto';
+      if (industryIn > 0.2 && !industrySplitStarted.current) {
+        industrySplitStarted.current = true;
+        setIndustryPlayTitle(true);
+      }
     }
 
     updateMaxHeight();
@@ -252,7 +353,7 @@ export function ScrollEqHero() {
 
   return (
     <>
-      <div ref={trackRef} className="relative h-[400vh]">
+      <div ref={trackRef} className="relative h-[600vh]">
         <div
           className="sticky top-0 h-screen overflow-hidden"
           style={{ background: HERO_BG }}
@@ -283,69 +384,94 @@ export function ScrollEqHero() {
               WebkitClipPath: 'url(#hero-bar-clip)',
             }}
           >
-            <Aurora
-              amplitude={1}
-              blend={0.75}
-              className="absolute inset-0 h-full w-full"
-              colorStops={AURORA_STOPS}
-              speed={0.5}
-            />
-            <AuroraNoiseOverlay />
+            <div ref={auroraFlipRef} className="absolute inset-0 origin-center">
+              <Aurora
+                amplitude={1}
+                blend={0.75}
+                className="absolute inset-0 h-full w-full"
+                colorStops={AURORA_STOPS}
+                speed={0.5}
+              />
+              <AuroraNoiseOverlay />
+            </div>
           </div>
           <div className="absolute inset-0 z-[2]">
             <div className="relative mx-auto h-full w-full max-w-[1600px]">
-            <div
-              ref={h1Ref}
-              className="pointer-events-none absolute inset-0 flex items-center justify-start px-4"
-            >
-              <SplitText
-                className="font-heading max-w-[min(92vw,16ch)] text-[clamp(36px,5.5vw,72px)] font-semibold tracking-[-0.04em] leading-[1.05]"
-                delay={40}
-                duration={1.25}
-                ease="power3.out"
-                splitType="chars"
-                tag="h1"
-                text="Aura design system"
-                textAlign="left"
-                whiteSpace="normal"
-              />
-            </div>
-            <div
-              ref={h2Ref}
-              className="pointer-events-none absolute top-1/2 left-4 right-4 -translate-y-1/2 text-left opacity-0"
-            >
-              <p className="whitespace-nowrap text-[clamp(28px,5vw,56px)] leading-[1.15] font-medium tracking-[-0.02em]">
-                Built for humans and agents
-              </p>
-              <p
-                ref={closingCopyRef}
-                className="absolute top-full left-0 mt-8 max-w-[640px] text-[18px] leading-[1.5] text-medium-fg-fixed-dark"
-                style={{ opacity: 0 }}
+              <div className="absolute top-1/2 left-4 right-4 flex -translate-y-1/2 flex-col items-start gap-5">
+                <div ref={h1Ref} className="pointer-events-none">
+                  <SplitText
+                    className="font-heading max-w-[min(92vw,16ch)] text-[clamp(36px,5.5vw,72px)] font-semibold tracking-[-0.04em] leading-[1.05]"
+                    delay={40}
+                    duration={1.25}
+                    ease="power3.out"
+                    splitType="chars"
+                    tag="h1"
+                    text="Aura design system"
+                    textAlign="left"
+                    whiteSpace="normal"
+                  />
+                </div>
+                <div
+                  ref={subtextRef}
+                  className="flex max-w-[720px] flex-col items-start gap-6 text-left"
+                  style={{ opacity: 0 }}
+                >
+                  <p className="text-[26px] leading-[1.3] text-medium-fg-fixed-dark">
+                    Cognite&apos;s AI-native design system for the future of
+                    industrial experiences.
+                  </p>
+                  <Button
+                    nativeButton={false}
+                    render={<Link to="/documentation" />}
+                    size="lg"
+                    variant="defaultOnDark"
+                  >
+                    Get Started
+                    <IconArrowRight />
+                  </Button>
+                </div>
+              </div>
+              <div
+                ref={h2Ref}
+                className="pointer-events-none absolute top-1/2 left-4 right-4 -translate-y-1/2 text-left opacity-0"
               >
-                {H2_BODY}
-              </p>
-            </div>
-            <div
-              ref={subtextRef}
-              className="absolute top-[calc(50%+min(11vw,140px))] left-4 right-auto flex max-w-[720px] flex-col items-start gap-8 text-left"
-              style={{ opacity: 0 }}
-            >
-              <p className="text-[26px] leading-[1.3] text-medium-fg-fixed-dark">
-                Cognite&apos;s AI-native design system for the future of
-                industrial experiences.
-              </p>
-              <Button
-                nativeButton={false}
-                render={<Link to="/documentation" />}
-                size="lg"
-                variant="defaultOnDark"
-              >
-                Get Started
-                <IconArrowRight />
-              </Button>
-            </div>
+                <p className="whitespace-nowrap text-[clamp(28px,5vw,56px)] leading-[1.15] font-medium tracking-[-0.02em]">
+                  Built for humans and agents
+                </p>
+                <div
+                  ref={closingCopyRef}
+                  className="absolute top-full left-0 mt-8 max-w-[640px] space-y-4 text-[18px] leading-[1.5] text-medium-fg-fixed-dark"
+                  style={{ opacity: 0 }}
+                >
+                  <p>
+                    Traditional design systems ship disconnected styles,
+                    components, and documentation—making consistency hard to
+                    maintain and drift inevitable.
+                  </p>
+                  <p>
+                    <strong className="font-semibold">
+                      Aura is built differently.
+                    </strong>{' '}
+                    It codifies design
+                    decisions and usage guidance into a system that both humans
+                    and AI agents can understand and act on. The result:
+                    consistent, correct implementation becomes the path of least
+                    resistance.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
+          <HomeBenefits
+            columnRefs={benefitColumnRefs}
+            sectionRef={benefitsRef}
+            subtitleRef={benefitsSubtitleRef}
+            valueRefs={benefitValueRefs}
+          />
+          <HomeIndustry
+            playTitle={industryPlayTitle}
+            sectionRef={industryRef}
+          />
         </div>
       </div>
 
