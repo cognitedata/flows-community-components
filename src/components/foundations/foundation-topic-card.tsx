@@ -19,7 +19,7 @@ export function FoundationTopicCard({
 
   const handleMouseEnter = () => {
     setIsHovering(true);
-    videoRef.current?.play();
+    void videoRef.current?.play();
   };
 
   const handleMouseLeave = () => {
@@ -31,23 +31,22 @@ export function FoundationTopicCard({
     }
   };
 
+  const handleTimeUpdate = () => {
+    const video = videoRef.current;
+    if (!video || !Number.isFinite(video.duration) || video.duration <= 0) {
+      return;
+    }
+    // Restart before the last frames so the decoder never paints the rest-pose
+    // hold (or a blank frame) at the native loop seam.
+    if (video.currentTime >= video.duration - 0.08) {
+      video.currentTime = 0.04;
+      void video.play();
+    }
+  };
+
   const content = (
     <>
-      <div
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        className={cn(
-          // Below `lg` every card is a single grid column, so a plain 4:3
-          // ratio is correct. At `lg` the grid is a 3-column, gap-4 (16px)
-          // layout — the height below is solved algebraically from the
-          // container's own width (via container query units) for what a
-          // single column's 4:3 height would be, then applied to every card
-          // regardless of how many columns it spans, so multi-column cards'
-          // images line up exactly with single-column ones instead of only
-          // approximating it via a scaled aspect-ratio.
-          'relative flex aspect-[3/2] items-center justify-center overflow-hidden bg-medium-bg text-muted-fg'
-        )}
-      >
+      <div className="relative flex aspect-[3/2] items-center justify-center overflow-hidden bg-medium-bg text-muted-fg">
         {topic.image ? (
           <>
             <img
@@ -62,11 +61,17 @@ export function FoundationTopicCard({
               <video
                 ref={videoRef}
                 src={topic.hoverVideo}
-                loop
                 muted
                 playsInline
                 preload="auto"
                 onCanPlay={() => setIsVideoReady(true)}
+                onTimeUpdate={handleTimeUpdate}
+                onEnded={() => {
+                  const video = videoRef.current;
+                  if (!video) return;
+                  video.currentTime = 0.04;
+                  void video.play();
+                }}
                 className={cn(
                   'absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-200',
                   showHoverVideo && 'opacity-100'
@@ -87,16 +92,28 @@ export function FoundationTopicCard({
 
   const wrapperClassName = cn(
     'group flex h-full flex-col overflow-hidden rounded-2xl bg-muted-bg',
+    topic.href && 'cursor-pointer transition-colors hover:bg-medium-bg',
     className
   );
 
+  const hoverProps = topic.hoverVideo
+    ? {
+        onMouseEnter: handleMouseEnter,
+        onMouseLeave: handleMouseLeave,
+      }
+    : undefined;
+
   if (topic.href) {
     return (
-      <Link to={topic.href} className={wrapperClassName}>
+      <Link to={topic.href} className={wrapperClassName} {...hoverProps}>
         {content}
       </Link>
     );
   }
 
-  return <div className={wrapperClassName}>{content}</div>;
+  return (
+    <div className={wrapperClassName} {...hoverProps}>
+      {content}
+    </div>
+  );
 }

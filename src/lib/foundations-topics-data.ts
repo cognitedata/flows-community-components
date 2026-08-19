@@ -109,7 +109,13 @@ export const FOUNDATION_TOPICS: FoundationTopic[] = [
     image: '/foundations/content-default.png',
     hoverVideo: '/foundations/content-hover.mp4',
   },
-];
+].map((topic) => ({
+  ...topic,
+  href: `/foundations/${slugify(topic.name)}`,
+  hoverVideo: topic.hoverVideo
+    ? `${topic.hoverVideo}?v=2`
+    : undefined,
+}));
 
 export function getFoundationTopicBySlug(slug: string) {
   return (
