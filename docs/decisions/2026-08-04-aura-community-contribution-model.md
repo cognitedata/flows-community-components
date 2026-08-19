@@ -7,6 +7,7 @@
 - **Driver:** Aura team
 - **Tracking:** [AUR-646](https://cognitedata.atlassian.net/browse/AUR-646)
 - **Tags:** aura, community, components, registry, distribution
+- **Later:** contributor file list, PR shape, and Storybook-as-catalog are in [2026-08-17 contribution boundary](./2026-08-17-community-contribution-boundary.md).
 
 ## Context
 
@@ -100,6 +101,8 @@ Community review is not full design QA, Core conformance review, or a roadmap
 prioritization discussion.
 
 ### Require a standard submission contract
+
+**Superseded** by [2026-08-17 contribution boundary](./2026-08-17-community-contribution-boundary.md): facts live on CSF `meta` (`parameters.community`), not a sidecar metadata file or a duplicated PR body. The required content is unchanged in spirit:
 
 Every submission must include:
 
@@ -210,18 +213,17 @@ The following points were discussed but not decided:
    qualitative factors, and whether a ranked set triggers review.
 10. **Conformance tooling:** the balance between skills, CI/lint rules,
     recommended capable LLMs, dependency/hash audits, and an Aura Doctor CLI.
-11. **Contributor experience:** contribution guide, local setup, first-timer
-    support, templates, and communication channels.
+11. **Contributor experience:** **Decided** in [2026-08-17](./2026-08-17-community-contribution-boundary.md). Remaining: communication channels and first-timer support tone.
 12. **CDF-aware components:** their architecture and risk model. This was
     explicitly deferred, with Q4 identified as a possible planning horizon.
-13. **Documentation automation:** when submission metadata and Storybook should
-    generate catalog pages automatically.
+13. **Documentation automation:** **Decided** in [2026-08-17](./2026-08-17-community-contribution-boundary.md): catalog pages are generated from CSF `meta`.
 
 ## Implementation outline
 
 1. Re-enable the full site at the Community URL and identify it as Community.
 2. Configure registry publication and installation tooling.
-3. Add the contribution guide, pull request template, and metadata schema.
+3. Add the contribution guide, pull request template, and Storybook catalog wiring
+   ([2026-08-17](./2026-08-17-community-contribution-boundary.md)).
 4. Implement minimum token and primitive conformance checks.
 5. Establish review assignment and communication channels.
 6. Inventory and copy Labs components while documenting their temporary Fusion
