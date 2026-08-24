@@ -1,0 +1,60 @@
+{
+  "projectName": "web-app",
+  "version": 1,
+  "analyze": {
+    "completedAt": "2026-03-13T00:00:00.000Z",
+    "muiComponentsByFile": {
+      "apps/web-app/src/components/settings-dialog.tsx": [
+        "Button",
+        "Dialog",
+        "TextField"
+      ],
+      "apps/web-app/src/components/user-menu.tsx": [
+        "Button",
+        "Menu",
+        "Tooltip"
+      ]
+    },
+    "componentUsageCounts": {
+      "Button": 4,
+      "Dialog": 1,
+      "Menu": 1,
+      "TextField": 2,
+      "Tooltip": 1
+    }
+  },
+  "plan": {
+    "filesToTouch": [
+      "apps/web-app/src/components/settings-dialog.tsx",
+      "apps/web-app/src/components/user-menu.tsx"
+    ],
+    "usagesByFile": {
+      "apps/web-app/src/components/settings-dialog.tsx": [
+        {
+          "component": "Button",
+          "startLine": 42,
+          "endLine": 48
+        }
+      ],
+      "apps/web-app/src/components/user-menu.tsx": [
+        {
+          "component": "Tooltip",
+          "startLine": 18,
+          "endLine": 24
+        }
+      ]
+    }
+  },
+  "migrate": {
+    "completedFiles": [
+      "apps/web-app/src/components/settings-dialog.tsx"
+    ],
+    "pendingFiles": [
+      "apps/web-app/src/components/user-menu.tsx"
+    ]
+  },
+  "codeVersionFingerprint": {
+    "packageJsonHash": "example-package-json-hash",
+    "projectJsonHash": "example-project-json-hash"
+  }
+}
