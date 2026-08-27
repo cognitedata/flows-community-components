@@ -216,13 +216,9 @@ export function Aurora({
       gl.getExtension('WEBGL_lose_context')?.loseContext();
     };
     // The WebGL context is created once; live values are read from propsRef.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [amplitude]);
 
   return (
-    <div
-      ref={containerRef}
-      className={className ?? 'relative h-full w-full'}
-    />
+    <div ref={containerRef} className={className ?? 'relative h-full w-full'} />
   );
 }

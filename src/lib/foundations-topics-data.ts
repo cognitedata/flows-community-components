@@ -112,9 +112,7 @@ export const FOUNDATION_TOPICS: FoundationTopic[] = [
 ].map((topic) => ({
   ...topic,
   href: `/foundations/${slugify(topic.name)}`,
-  hoverVideo: topic.hoverVideo
-    ? `${topic.hoverVideo}?v=2`
-    : undefined,
+  hoverVideo: topic.hoverVideo ? `${topic.hoverVideo}?v=2` : undefined,
 }));
 
 export function getFoundationTopicBySlug(slug: string) {

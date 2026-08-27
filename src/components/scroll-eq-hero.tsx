@@ -139,14 +139,22 @@ function AuroraNoiseFilter() {
             operator="in"
             result="noise2Clipped"
           />
-          <feFlood floodColor={HERO_BG} floodOpacity="0.18" result="color1Flood" />
+          <feFlood
+            floodColor={HERO_BG}
+            floodOpacity="0.18"
+            result="color1Flood"
+          />
           <feComposite
             in="color1Flood"
             in2="noise1Clipped"
             operator="in"
             result="color1"
           />
-          <feFlood floodColor="#000000" floodOpacity="0.12" result="color2Flood" />
+          <feFlood
+            floodColor="#000000"
+            floodOpacity="0.12"
+            result="color2Flood"
+          />
           <feComposite
             in="color2Flood"
             in2="noise2Clipped"
@@ -306,7 +314,11 @@ export function ScrollEqHero() {
         clipRect.setAttribute('height', String(height));
       });
 
-      const auroraOut = fade(heroProgress, AURORA_OUT_START, AURORA_OUT_DURATION);
+      const auroraOut = fade(
+        heroProgress,
+        AURORA_OUT_START,
+        AURORA_OUT_DURATION
+      );
       const auroraIn = fade(heroProgress, GROW_START, 1 - GROW_START);
       auroraLayer.style.opacity = String(
         heroProgress < GROW_START ? 1 - auroraOut : auroraIn
@@ -326,8 +338,7 @@ export function ScrollEqHero() {
       h2.style.opacity = String(h2Opacity);
       subtext.style.opacity = String(h1Opacity * intro);
       subtext.style.transform = `translateY(${(1 - intro) * INTRO_SHIFT_PX}px)`;
-      subtext.style.pointerEvents =
-        h1Opacity * intro < 0.05 ? 'none' : 'auto';
+      subtext.style.pointerEvents = h1Opacity * intro < 0.05 ? 'none' : 'auto';
       closingCopy.style.opacity = String(copyIn);
       closingCopy.style.transform = `translateY(${(1 - copyIn) * INTRO_SHIFT_PX}px)`;
 
@@ -343,7 +354,8 @@ export function ScrollEqHero() {
             benefitsIn,
             BENEFIT_ITEM_START + i * BENEFIT_STAGGER,
             BENEFIT_ITEM_DURATION
-          ) * (1 - benefitsOut);
+          ) *
+          (1 - benefitsOut);
         const column = benefitColumnRefs.current[i];
         if (column) {
           column.style.opacity = String(local);
@@ -529,11 +541,10 @@ export function ScrollEqHero() {
                     <strong className="font-semibold">
                       Aura is built differently.
                     </strong>{' '}
-                    It codifies design
-                    decisions and usage guidance into a system that both humans
-                    and AI agents can understand and act on. The result:
-                    consistent, correct implementation becomes the path of least
-                    resistance.
+                    It codifies design decisions and usage guidance into a
+                    system that both humans and AI agents can understand and act
+                    on. The result: consistent, correct implementation becomes
+                    the path of least resistance.
                   </p>
                 </div>
               </div>

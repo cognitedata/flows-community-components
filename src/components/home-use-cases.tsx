@@ -102,7 +102,9 @@ export function HomeUseCases({ sectionRef }: HomeUseCasesProps) {
             {HOME_USE_CASES.map((item) => (
               <CarouselItem key={item.title}>
                 <div className="aspect-[4/3] rounded-2xl bg-[#0e131c]">
-                  <span className="sr-only">{item.title} image placeholder</span>
+                  <span className="sr-only">
+                    {item.title} image placeholder
+                  </span>
                 </div>
               </CarouselItem>
             ))}
