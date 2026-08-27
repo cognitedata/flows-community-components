@@ -1,11 +1,11 @@
 /**
- * Shareable theme encoding for the Aura docs site.
+ * Shareable theme encoding, matching Fusion Aura Storybook
+ * (`libs/aura/src/lib/theme-share-url.ts`).
  *
- * Compatible with Fusion's aura-theme-editor (`libs/aura/src/theme-editor/lib/share-url.ts`):
- * URL-safe base64 JSON of `{ base, light, dark }` string maps.
- *
- * Preferred transport is the URL hash (`#theme=…`) so parent apps can update an
- * iframe theme without touching the query string / triggering a full navigation.
+ * URL-safe base64 JSON of `{ base, light, dark }` string maps. Transport is
+ * the URL hash (`#theme=…` + `#appearance=…`) so a parent can restyle an
+ * iframe via `hashchange` without rewriting the query string (which would
+ * remount the preview).
  */
 
 export const THEME_HASH_PARAM = 'theme';
@@ -13,7 +13,6 @@ export const APPEARANCE_HASH_PARAM = 'appearance';
 
 export type ThemeAppearance = 'light' | 'dark';
 
-/** Fusion-compatible theme override payload. */
 export interface SharedThemeOverrides {
   base: Record<string, string>;
   light: Record<string, string>;
@@ -41,34 +40,76 @@ const fromUrlSafe = (value: string): string => {
   return remainder === 0 ? padded : padded + '='.repeat(4 - remainder);
 };
 
+const isRecord = (value: unknown): value is Record<string, unknown> =>
+  typeof value === 'object' && value !== null && !Array.isArray(value);
+
 const isStringRecord = (value: unknown): value is Record<string, string> =>
-  typeof value === 'object' &&
-  value !== null &&
-  !Array.isArray(value) &&
+  isRecord(value) &&
   Object.values(value).every((entry) => typeof entry === 'string');
+
+/** CSS custom-property name without the leading `--`. */
+const CSS_TOKEN_NAME_PATTERN = /^[a-zA-Z][a-zA-Z0-9-]{0,127}$/;
+
+const isSafeCssTokenName = (name: string): boolean =>
+  CSS_TOKEN_NAME_PATTERN.test(name);
+
+const BREAKOUT_CHARS = new Set([';', '{', '}', '<', '>', '\\']);
+
+const hasUnsafeCssChars = (value: string): boolean => {
+  for (const char of value) {
+    const code = char.charCodeAt(0);
+    if (code <= 0x1f || code === 0x7f || BREAKOUT_CHARS.has(char)) {
+      return true;
+    }
+  }
+  return false;
+};
+
+/** Rejects values that can break out of a CSS declaration or `<style>` block. */
+const isSafeCssTokenValue = (value: string): boolean => {
+  if (value.length === 0 || value.length > 512) return false;
+  if (hasUnsafeCssChars(value)) return false;
+  return !/@|url\s*\(|expression\s*\(/i.test(value);
+};
+
+const isSafeTokenRecord = (value: unknown): value is Record<string, string> =>
+  isStringRecord(value) &&
+  Object.entries(value).every(
+    ([name, tokenValue]) =>
+      isSafeCssTokenName(name) && isSafeCssTokenValue(tokenValue)
+  );
+
+const sanitizeDeclarations = (
+  declarations: Record<string, string>
+): Record<string, string> =>
+  Object.fromEntries(
+    Object.entries(declarations).filter(
+      ([name, tokenValue]) =>
+        isSafeCssTokenName(name) && isSafeCssTokenValue(tokenValue)
+    )
+  );
 
 /** Encodes theme overrides into a URL-safe base64 string. */
 export function encodeTheme(overrides: SharedThemeOverrides): string {
   return toUrlSafe(toBase64(JSON.stringify(overrides)));
 }
 
-/** Decodes a theme string, returning undefined when malformed. */
+/** Decodes a theme string, returning undefined when malformed or unsafe. */
 export function decodeTheme(encoded: string): SharedThemeOverrides | undefined {
   try {
     const parsed: unknown = JSON.parse(fromBase64(fromUrlSafe(encoded)));
-    if (typeof parsed !== 'object' || parsed === null) return undefined;
-    const candidate = parsed as Record<string, unknown>;
+    if (!isRecord(parsed)) return undefined;
     if (
-      !isStringRecord(candidate.base) ||
-      !isStringRecord(candidate.light) ||
-      !isStringRecord(candidate.dark)
+      !isSafeTokenRecord(parsed.base) ||
+      !isSafeTokenRecord(parsed.light) ||
+      !isSafeTokenRecord(parsed.dark)
     ) {
       return undefined;
     }
     return {
-      base: candidate.base,
-      light: candidate.light,
-      dark: candidate.dark,
+      base: parsed.base,
+      light: parsed.light,
+      dark: parsed.dark,
     };
   } catch {
     return undefined;
@@ -96,7 +137,7 @@ export function readAppearanceFromHash(
   return value === 'light' || value === 'dark' ? value : undefined;
 }
 
-/** Legacy query-string reader (Fusion theme-editor currently uses `?theme=`). */
+/** Legacy query-string reader. */
 export function readThemeFromSearch(
   search: string
 ): SharedThemeOverrides | undefined {
@@ -107,6 +148,7 @@ export function readThemeFromSearch(
 /**
  * Builds a URL with the theme (and optional appearance) in the hash.
  * Existing hash params unrelated to theme/appearance are preserved.
+ * Query string is left untouched so Storybook does not remount.
  */
 export function buildThemeHashUrl(
   baseUrl: string,
@@ -135,16 +177,14 @@ export function buildSharedThemeCss(overrides: SharedThemeOverrides): string {
     selector: string,
     declarations: Record<string, string>
   ): string | undefined => {
-    const names = Object.keys(declarations).sort();
+    const safe = sanitizeDeclarations(declarations);
+    const names = Object.keys(safe).sort();
     if (names.length === 0) return undefined;
-    const body = names
-      .map((name) => `  --${name}: ${declarations[name]};`)
-      .join(nl);
+    const body = names.map((name) => `  --${name}: ${safe[name]};`).join(nl);
     return `${selector} {${nl}${body}${nl}}`;
   };
 
   const blocks: string[] = [];
-  // Base + light on :root (inherits into .dark); dark-only overrides on .dark.
   const lightBlock = renderBlock(':root', {
     ...overrides.base,
     ...overrides.light,
@@ -171,8 +211,8 @@ export function isAuraThemeMessage(data: unknown): data is AuraThemeMessage {
     return false;
   const theme = candidate.theme as Record<string, unknown>;
   return (
-    isStringRecord(theme.base) &&
-    isStringRecord(theme.light) &&
-    isStringRecord(theme.dark)
+    isSafeTokenRecord(theme.base) &&
+    isSafeTokenRecord(theme.light) &&
+    isSafeTokenRecord(theme.dark)
   );
 }

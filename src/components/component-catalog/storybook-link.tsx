@@ -1,11 +1,11 @@
 import { IconExternalLink } from '@tabler/icons-react';
 
 import { chromaticStorybookManagerUrl } from '@/lib/chromatic-storybook';
-import { useStorybookTheme } from '@/lib/storybook-theme';
+import { useThemeOverrides } from '@/lib/theme-overrides-context';
 
 export function StorybookLink({ storyId }: { storyId: string }) {
-  const theme = useStorybookTheme();
-  const href = chromaticStorybookManagerUrl(storyId, theme);
+  const { appearance, sharedTheme } = useThemeOverrides();
+  const href = chromaticStorybookManagerUrl(storyId, appearance, sharedTheme);
 
   return (
     <a

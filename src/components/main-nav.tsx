@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 import auraLogo from '@/assets/aura-logo.svg';
-import { ThemeToggle } from '@/components/theme-toggle';
+import { ThemeSwitcher } from '@/components/theme-switcher';
 import { cn } from '@/lib/utils';
 
 const NAV_ITEMS = [
@@ -52,7 +52,7 @@ export function MainNav() {
         </ul>
 
         <div className="flex shrink-0 items-center gap-1">
-          <ThemeToggle />
+          <ThemeSwitcher />
 
           <button
             type="button"

@@ -7,7 +7,7 @@ import { AccordionContent } from '@/components/component-catalog/doc-content/acc
 import { PageTitle } from '@/components/page-title';
 import { chromaticStorybookManagerUrl } from '@/lib/chromatic-storybook';
 import { getComponentBySlug } from '@/lib/component-catalog-data';
-import { useStorybookTheme } from '@/lib/storybook-theme';
+import { useThemeOverrides } from '@/lib/theme-overrides-context';
 
 const COMPONENT_DOC_CONTENT: Record<string, React.ComponentType> = {
   accordion: AccordionContent,
@@ -15,7 +15,7 @@ const COMPONENT_DOC_CONTENT: Record<string, React.ComponentType> = {
 
 export function ComponentDetailPage() {
   const { slug = '' } = useParams<{ slug: string }>();
-  const theme = useStorybookTheme();
+  const { appearance, sharedTheme } = useThemeOverrides();
   const component = getComponentBySlug(slug);
 
   if (!component) {
@@ -54,7 +54,8 @@ export function ComponentDetailPage() {
               <a
                 href={chromaticStorybookManagerUrl(
                   component.storybookId,
-                  theme
+                  appearance,
+                  sharedTheme
                 )}
                 target="_blank"
                 rel="noopener noreferrer"
