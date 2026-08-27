@@ -1,6 +1,7 @@
 import { IconCheck, IconX } from '@tabler/icons-react';
-import type * as React from 'react';
+import * as React from 'react';
 
+import { SegmentedControl } from '@/components/ui/segmented-control';
 import { cn, slugify } from '@/lib/utils';
 
 export function ContentSection({
@@ -118,6 +119,72 @@ export function TokenTable({
           ))}
         </tbody>
       </table>
+    </div>
+  );
+}
+
+export function CategoryHeading({ children }: { children: React.ReactNode }) {
+  return (
+    <h3 className="mt-6 mb-2 font-heading text-base font-semibold tracking-tight text-foreground">
+      {children}
+    </h3>
+  );
+}
+
+export function ColorSwatch({ color }: { color: string }) {
+  return (
+    <span
+      className="inline-block h-4 w-4 shrink-0 rounded-full border border-border"
+      style={{ backgroundColor: color }}
+    />
+  );
+}
+
+export function Callout({
+  variant = 'warning',
+  children,
+}: {
+  variant?: 'warning' | 'info' | 'critical' | 'success';
+  children: React.ReactNode;
+}) {
+  const styles = {
+    warning: 'border-warning-fg bg-warning-bg text-warning-fg-strong',
+    info: 'border-info-fg bg-info-bg text-info-fg-strong',
+    critical: 'border-critical-fg bg-critical-bg text-critical-fg-strong',
+    success: 'border-success-fg bg-success-bg text-success-fg-strong',
+  } as const;
+
+  return (
+    <div className={cn('rounded-md border p-4 text-sm', styles[variant])}>
+      {children}
+    </div>
+  );
+}
+
+export function ModeTokenTable({
+  columns,
+  modes,
+}: {
+  columns: string[];
+  modes: { label: string; rows: React.ReactNode[][] }[];
+}) {
+  const [active, setActive] = React.useState(modes[0]?.label ?? '');
+  const activeMode = modes.find((mode) => mode.label === active) ?? modes[0];
+
+  return (
+    <div>
+      <SegmentedControl
+        className="mt-6 mb-4 w-full"
+        options={modes.map((mode) => ({
+          value: mode.label,
+          label: mode.label,
+        }))}
+        value={active}
+        onChange={setActive}
+      />
+      {activeMode ? (
+        <TokenTable columns={columns} rows={activeMode.rows} />
+      ) : null}
     </div>
   );
 }

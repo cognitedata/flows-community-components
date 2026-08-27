@@ -1,11 +1,13 @@
 import * as React from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 
 import { DocumentationSidebar } from '@/components/documentation/documentation-sidebar';
 import { TableOfContents } from '@/components/layout/table-of-contents';
 
 export function DocumentationLayout() {
   const contentRef = React.useRef<HTMLDivElement>(null);
+  const { pathname } = useLocation();
+  const isLandingPage = pathname === '/documentation';
 
   return (
     <main className="min-h-screen bg-background text-foreground">
@@ -14,7 +16,7 @@ export function DocumentationLayout() {
         <div ref={contentRef} className="min-w-0 flex-1">
           <Outlet />
         </div>
-        <TableOfContents containerRef={contentRef} />
+        {!isLandingPage && <TableOfContents containerRef={contentRef} />}
       </div>
     </main>
   );

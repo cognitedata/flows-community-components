@@ -18,7 +18,6 @@ import { FoundationTopicDetailPage } from '@/pages/foundation-topic-detail-page'
 import { FoundationsPage } from '@/pages/foundations-page';
 import { HomePage } from '@/pages/home-page';
 import { InstallationPage } from '@/pages/installation-page';
-import { IntroductionPage } from '@/pages/introduction-page';
 import { PatternDetailPage } from '@/pages/pattern-detail-page';
 import { PatternsExtendingFunctionalityPage } from '@/pages/patterns-extending-functionality-page';
 import { PatternsIntroductionPage } from '@/pages/patterns-introduction-page';
@@ -60,7 +59,6 @@ export const router = createBrowserRouter(
           element: <ComponentsLayout />,
           children: [
             { index: true, element: <ComponentsPage /> },
-            { path: 'introduction', element: <IntroductionPage /> },
             { path: ':slug', element: <ComponentDetailPage /> },
           ],
         },

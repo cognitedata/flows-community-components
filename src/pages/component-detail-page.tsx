@@ -1,11 +1,17 @@
 import { IconExternalLink } from '@tabler/icons-react';
+import type * as React from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 
 import { ChromaticStorybookEmbed } from '@/components/component-catalog/chromatic-storybook-embed';
+import { AccordionContent } from '@/components/component-catalog/doc-content/accordion-content';
 import { PageTitle } from '@/components/page-title';
 import { chromaticStorybookManagerUrl } from '@/lib/chromatic-storybook';
 import { getComponentBySlug } from '@/lib/component-catalog-data';
 import { useThemeOverrides } from '@/lib/theme-overrides-context';
+
+const COMPONENT_DOC_CONTENT: Record<string, React.ComponentType> = {
+  accordion: AccordionContent,
+};
 
 export function ComponentDetailPage() {
   const { slug = '' } = useParams<{ slug: string }>();
@@ -17,6 +23,7 @@ export function ComponentDetailPage() {
   }
 
   const Icon = component.icon;
+  const DocContent = COMPONENT_DOC_CONTENT[slug];
 
   return (
     <>
@@ -63,17 +70,22 @@ export function ComponentDetailPage() {
       </header>
 
       {component.storybookId ? (
-        <section aria-label={`${component.name} Storybook preview`}>
+        <section
+          aria-label={`${component.name} Storybook preview`}
+          className="mb-16 sm:mb-20"
+        >
           <ChromaticStorybookEmbed
             storyId={component.storybookId}
             title={`${component.name} preview`}
           />
         </section>
       ) : (
-        <p className="max-w-[65ch] text-sm leading-relaxed text-muted-fg">
+        <p className="mb-16 max-w-[65ch] text-sm leading-relaxed text-muted-fg sm:mb-20">
           A live Storybook preview is not available for this component yet.
         </p>
       )}
+
+      {DocContent && <DocContent />}
     </>
   );
 }

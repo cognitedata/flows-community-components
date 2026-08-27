@@ -6,7 +6,7 @@ import { DOCUMENTATION_TOPICS } from '@/lib/documentation-topics-data';
 
 export function DocumentationPage() {
   return (
-    <>
+    <div className="max-w-[1200px]">
       <PageTitle title="Documentation — Aura" />
       <header className="mb-10 sm:mb-12">
         <h1 className="font-heading text-4xl font-semibold tracking-tight sm:text-5xl">
@@ -42,6 +42,6 @@ export function DocumentationPage() {
           />
         ))}
       </div>
-    </>
+    </div>
   );
 }

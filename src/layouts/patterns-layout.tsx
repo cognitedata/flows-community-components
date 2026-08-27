@@ -1,11 +1,13 @@
 import * as React from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 
 import { TableOfContents } from '@/components/layout/table-of-contents';
 import { PatternsSidebar } from '@/components/patterns/patterns-sidebar';
 
 export function PatternsLayout() {
   const contentRef = React.useRef<HTMLDivElement>(null);
+  const { pathname } = useLocation();
+  const isLandingPage = pathname === '/patterns';
 
   return (
     <main className="min-h-screen bg-background text-foreground">
@@ -14,7 +16,7 @@ export function PatternsLayout() {
         <div ref={contentRef} className="min-w-0 flex-1">
           <Outlet />
         </div>
-        <TableOfContents containerRef={contentRef} />
+        {!isLandingPage && <TableOfContents containerRef={contentRef} />}
       </div>
     </main>
   );

@@ -5,6 +5,7 @@ import { AccessibilityContent } from '@/components/foundations/topic-content/acc
 import { ColorTokensContent } from '@/components/foundations/topic-content/color-tokens-content';
 import { DesignHeuristicsContent } from '@/components/foundations/topic-content/design-heuristics-content';
 import { EffectsContent } from '@/components/foundations/topic-content/effects-content';
+import { MotionContent } from '@/components/foundations/topic-content/motion-content';
 import { SizeAndSpacingTokensContent } from '@/components/foundations/topic-content/size-and-spacing-tokens-content';
 import { TypographyContent } from '@/components/foundations/topic-content/typography-content';
 import { CenteredContent } from '@/components/layout/centered-content';
@@ -17,6 +18,7 @@ const TOPIC_CONTENT: Record<string, React.ComponentType> = {
   'size-and-spacing-tokens': SizeAndSpacingTokensContent,
   typography: TypographyContent,
   effects: EffectsContent,
+  motion: MotionContent,
   accessibility: AccessibilityContent,
 };
 

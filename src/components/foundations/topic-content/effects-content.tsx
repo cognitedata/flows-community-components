@@ -1,76 +1,107 @@
 import {
+  ContentList,
   ContentSection,
-  DoDontGrid,
   TokenTable,
 } from '@/components/foundations/content-primitives';
 
 export function EffectsContent() {
   return (
     <>
-      <ContentSection title="Elevation">
+      <ContentSection title="Elevations">
         <p>
-          Shadows create hierarchy and guide focus by separating floating or
-          overlaying elements from the surfaces behind them. Apply them only to
-          things that are functionally elevated — never as decoration on a flat
-          surface.
+          Elevation, or shadow, adds depth and hierarchy to the interface by
+          using shadow to separate elements from the background. It helps guide
+          user focus and indicate layers of interaction. Elevation should be
+          applied intentionally and consistently to avoid visual clutter.
         </p>
+
+        <h3 className="text-sm font-semibold text-foreground">Guidelines</h3>
+        <ContentList
+          items={[
+            'Use elevation tokens, not hardcoded box-shadow values.',
+            'Elevation should reflect actual layering — tooltips and popovers sit higher than cards, which sit higher than the base surface. Don’t apply high elevation to flat, inline elements.',
+            'Don’t use shadows decoratively. If an element isn’t functionally elevated (e.g. floating, overlaying content), it shouldn’t have a shadow.',
+            'Avoid stacking shadows — if multiple elevated elements overlap, only the topmost should cast a shadow.',
+            'In dark mode, elevation is often conveyed through surface lightness rather than shadow intensity. Let the tokens handle this automatically.',
+            'Avoid shadows on cards, especially in dense dashboard layouts — they add visual noise and make the page feel cluttered.',
+          ]}
+        />
+
+        <h3 className="text-sm font-semibold text-foreground">Tokens</h3>
         <TokenTable
           columns={['Token', 'Use']}
           rows={[
             [
               <code key="1">effect-shadow-sm</code>,
-              'Tooltips, floating labels',
+              'Tooltips, small floating labels',
             ],
             [
               <code key="2">effect-shadow-default</code>,
-              'Menus, dropdowns, popovers, floating panels',
+              'Menus, Dropdowns, Popovers, or floating panels and toolbars',
             ],
             [
               <code key="3">effect-shadow-lg</code>,
-              'Drawers, sheets, side panels',
+              'Drawers, Sheets, Side panels',
             ],
-            [<code key="4">effect-shadow-xl</code>, 'Dialogs, alert dialogs'],
+            [<code key="4">effect-shadow-xl</code>, 'Dialogs, Alert dialogs'],
           ]}
         />
-        <p>
-          In dark mode, elevation is conveyed through surface lightness rather
-          than shadow intensity — shadows barely read against a dark background,
-          so lean on the surface tokens instead.
-        </p>
       </ContentSection>
 
       <ContentSection title="Focus states">
         <p>
-          Focus rings make interactive elements usable with a keyboard or
-          assistive technology. They are never optional — not even for aesthetic
-          reasons.
+          Focus states, or rings, make interactive elements visible to keyboard
+          and assistive technology users. They are not optional.
         </p>
+
+        <h3 className="text-sm font-semibold text-foreground">Guidelines</h3>
+        <ContentList
+          items={[
+            'Never remove or suppress focus styles — not even for aesthetic reasons.',
+            'Don’t rely on color alone to show focus (always use a 2px stroke weight); the focus ring must be visible regardless of the element’s color or background.',
+            'Focus styles are provided by Aura via primitives and tokens. Don’t override them unless you are replacing them with something that meets WCAG 2.1 AA contrast requirements.',
+            'Custom interactive elements (anything not using an Aura component) must implement focus styles manually.',
+            'Test focus order — it should follow a logical reading sequence and not jump unexpectedly around the page.',
+          ]}
+        />
+
+        <h3 className="text-sm font-semibold text-foreground">Tokens</h3>
+
+        <h4 className="text-sm font-semibold text-foreground">
+          Default focus ring
+        </h4>
         <TokenTable
-          columns={['Token', 'Use']}
+          columns={['Token', 'Value', 'Description']}
           rows={[
             [
-              <code key="1">ring</code>,
-              'Default focus ring, paired with ring-muted',
+              <code key="1">ring + border-width/1</code>,
+              '1px solid, #7081C7',
+              'Color and stroke weight applied to inside stroke weight of the focus ring',
             ],
             [
-              <code key="2">ring-destructive</code>,
-              'Focus ring for a field in a validation error state, paired with ring-destructive-muted',
+              <code key="2">ring-muted + border-width/1</code>,
+              '1px solid, #D0D6ED',
+              'Color and stroke weight applied to outside stroke weight of the focus ring',
             ],
           ]}
         />
-      </ContentSection>
 
-      <ContentSection title="Dos and don'ts">
-        <DoDontGrid
-          dos={[
-            'Use elevation tokens instead of hand-written box-shadow values.',
-            "Use a 2px stroke weight for focus rings so they're visible at a glance.",
-            'Test focus order across the whole page, not just one component.',
-          ]}
-          donts={[
-            'Stack multiple shadows on overlapping elements.',
-            'Remove or suppress focus styles, even temporarily.',
-            'Rely on color alone to communicate focus.',
+        <h4 className="text-sm font-semibold text-foreground">
+          Validation focus ring
+        </h4>
+        <TokenTable
+          columns={['Token', 'Value', 'Description']}
+          rows={[
+            [
+              <code key="1">ring-destructive + border-width/1</code>,
+              '1px solid, #CB0B2C',
+              'Color and stroke weight applied to inside stroke weight of the focus ring',
+            ],
+            [
+              <code key="2">ring-destructive-muted + border-width/1</code>,
+              '1px solid, #FDDEE4',
+              'Color and stroke weight applied to outside stroke weight of the focus ring',
+            ],
           ]}
         />
       </ContentSection>
