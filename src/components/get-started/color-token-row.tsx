@@ -30,13 +30,16 @@ export function ColorTokenRow({
           render={
             <label
               htmlFor={`token-${token.cssVar}`}
-              className="w-fit truncate text-xs text-muted-fg"
+              className="w-fit max-w-full font-mono text-[11px] leading-snug text-muted-fg"
             />
           }
         >
           {token.label}
         </TooltipTrigger>
-        <TooltipContent>{token.description}</TooltipContent>
+        <TooltipContent>
+          <p className="font-mono text-[11px]">--{token.cssVar}</p>
+          <p>{token.description}</p>
+        </TooltipContent>
       </Tooltip>
       <div className="flex items-center gap-1.5">
         <input
@@ -52,7 +55,7 @@ export function ColorTokenRow({
           value={value}
           onChange={(e) => onChange(e.target.value)}
           spellCheck={false}
-          className="w-[76px] rounded-md border border-border bg-medium-bg px-1.5 py-1 text-xs text-foreground outline-none focus:border-border-emphasized"
+          className="min-w-0 flex-1 rounded-md border border-border bg-medium-bg px-1.5 py-1 font-mono text-[11px] text-foreground outline-none focus:border-border-emphasized"
         />
       </div>
     </div>

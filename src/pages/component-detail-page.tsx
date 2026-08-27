@@ -5,11 +5,11 @@ import { ChromaticStorybookEmbed } from '@/components/component-catalog/chromati
 import { PageTitle } from '@/components/page-title';
 import { chromaticStorybookManagerUrl } from '@/lib/chromatic-storybook';
 import { getComponentBySlug } from '@/lib/component-catalog-data';
-import { useStorybookTheme } from '@/lib/storybook-theme';
+import { useThemeOverrides } from '@/lib/theme-overrides-context';
 
 export function ComponentDetailPage() {
   const { slug = '' } = useParams<{ slug: string }>();
-  const theme = useStorybookTheme();
+  const { appearance, sharedTheme } = useThemeOverrides();
   const component = getComponentBySlug(slug);
 
   if (!component) {
@@ -47,7 +47,8 @@ export function ComponentDetailPage() {
               <a
                 href={chromaticStorybookManagerUrl(
                   component.storybookId,
-                  theme
+                  appearance,
+                  sharedTheme
                 )}
                 target="_blank"
                 rel="noopener noreferrer"
