@@ -1,14 +1,18 @@
 'use client';
 
+import { useTheme } from 'next-themes';
 import * as React from 'react';
 
-import { THEME_TOKEN_GROUPS } from '@/lib/theme-tokens-data';
+import type { SharedThemeOverrides } from '@/lib/theme-share-url';
 
 export type ThemeMode = 'light' | 'dark';
 type Overrides = Record<ThemeMode, Record<string, string>>;
 
 interface ThemeOverridesContextValue {
+  appearance: ThemeMode;
+  setAppearance: (mode: ThemeMode) => void;
   overrides: Overrides;
+  sharedTheme: SharedThemeOverrides;
   setToken: (mode: ThemeMode, cssVar: string, value: string) => void;
   reset: () => void;
 }
@@ -16,64 +20,115 @@ interface ThemeOverridesContextValue {
 const ThemeOverridesContext =
   React.createContext<ThemeOverridesContextValue | null>(null);
 
-const ALL_TOKENS = THEME_TOKEN_GROUPS.flatMap((group) => group.tokens);
-
 const EMPTY_OVERRIDES: Overrides = { light: {}, dark: {} };
 
-// `:root` always matches <html>, dark class or not — it isn't scoped to
-// "light mode only". So both blocks below must always declare every
-// token's *current* value (override or default), not just the ones that
-// were touched. Otherwise an edited light value can leak into dark mode:
-// with only the light override present, `:root` (carrying the edit) ends
-// up later in the cascade than the original `.dark` default rule, and
-// wins for `<html class="dark">` too since both selectors share the same
-// specificity.
-function buildOverrideCss(overrides: Overrides) {
-  const lightRules = ALL_TOKENS.map(
-    (token) =>
-      `  --${token.cssVar}: ${overrides.light[token.cssVar] ?? token.light};`
-  ).join('\n');
-  const darkRules = ALL_TOKENS.map(
-    (token) =>
-      `  --${token.cssVar}: ${overrides.dark[token.cssVar] ?? token.dark};`
-  ).join('\n');
-
-  return `:root {\n${lightRules}\n}\n.dark {\n${darkRules}\n}`;
+function appearanceFromDocument(): ThemeMode {
+  if (typeof document === 'undefined') return 'dark';
+  if (document.documentElement.classList.contains('light')) return 'light';
+  if (document.documentElement.classList.contains('dark')) return 'dark';
+  return 'dark';
 }
 
-/**
- * Holds re-theme overrides at the app root (not per-page), and always
- * renders the override <style> tag regardless of route, so edits made on
- * the Custom theming page keep applying while navigating elsewhere. State
- * is in-memory only — it resets on a full page refresh or via `reset()`.
- */
+function toSharedTheme(overrides: Overrides): SharedThemeOverrides {
+  return {
+    base: {},
+    light: { ...overrides.light },
+    dark: { ...overrides.dark },
+  };
+}
+
+function clearInlineTokenProperties(root: HTMLElement) {
+  const names: string[] = [];
+  for (let index = 0; index < root.style.length; index += 1) {
+    const name = root.style.item(index);
+    if (name.startsWith('--')) names.push(name);
+  }
+  for (const name of names) {
+    root.style.removeProperty(name);
+  }
+}
+
+function applyDocumentTheme(appearance: ThemeMode, overrides: Overrides) {
+  const root = document.documentElement;
+  clearInlineTokenProperties(root);
+  root.classList.toggle('dark', appearance === 'dark');
+  root.classList.add('h-full');
+  document.body.classList.toggle('dark', appearance === 'dark');
+  root.style.colorScheme = appearance;
+
+  for (const [cssVar, value] of Object.entries(overrides[appearance])) {
+    root.style.setProperty(`--${cssVar}`, value);
+  }
+}
+
 export function ThemeOverridesProvider({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const { resolvedTheme, setTheme } = useTheme();
+  const [appearance, setAppearanceState] = React.useState<ThemeMode>(
+    appearanceFromDocument
+  );
   const [overrides, setOverrides] = React.useState<Overrides>(EMPTY_OVERRIDES);
+
+  React.useLayoutEffect(() => {
+    if (resolvedTheme === 'light' || resolvedTheme === 'dark') {
+      setAppearanceState(resolvedTheme);
+    }
+  }, [resolvedTheme]);
+
+  React.useLayoutEffect(() => {
+    applyDocumentTheme(appearance, overrides);
+  }, [appearance, overrides]);
+
+  const setAppearance = React.useCallback(
+    (mode: ThemeMode) => {
+      setAppearanceState(mode);
+      setTheme(mode);
+      applyDocumentTheme(mode, overrides);
+    },
+    [overrides, setTheme]
+  );
 
   const setToken = React.useCallback(
     (mode: ThemeMode, cssVar: string, value: string) => {
-      setOverrides((prev) => ({
-        ...prev,
-        [mode]: { ...prev[mode], [cssVar]: value },
-      }));
+      setOverrides((prev) => {
+        const next: Overrides = {
+          ...prev,
+          [mode]: { ...prev[mode], [cssVar]: value },
+        };
+        applyDocumentTheme(appearance, next);
+        return next;
+      });
     },
-    []
+    [appearance]
   );
 
-  const reset = React.useCallback(() => setOverrides(EMPTY_OVERRIDES), []);
+  const reset = React.useCallback(() => {
+    setOverrides(EMPTY_OVERRIDES);
+    applyDocumentTheme(appearance, EMPTY_OVERRIDES);
+  }, [appearance]);
+
+  const sharedTheme = React.useMemo(
+    () => toSharedTheme(overrides),
+    [overrides]
+  );
 
   const value = React.useMemo(
-    () => ({ overrides, setToken, reset }),
-    [overrides, setToken, reset]
+    () => ({
+      appearance,
+      setAppearance,
+      overrides,
+      sharedTheme,
+      setToken,
+      reset,
+    }),
+    [appearance, setAppearance, overrides, sharedTheme, setToken, reset]
   );
 
   return (
     <ThemeOverridesContext.Provider value={value}>
-      <style>{buildOverrideCss(overrides)}</style>
       {children}
     </ThemeOverridesContext.Provider>
   );
