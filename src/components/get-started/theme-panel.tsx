@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, type ReactNode } from 'react';
+import { type ReactNode } from 'react';
 
 import { ColorTokenRow } from '@/components/get-started/color-token-row';
 import {
@@ -11,9 +11,9 @@ import {
 } from '@/components/ui/accordion';
 import { SegmentedControl } from '@/components/ui/segmented-control';
 import { TooltipProvider } from '@/components/ui/tooltip';
-import { readAuraTokenHex } from '@/lib/aura-css-var';
 import { useThemeOverrides } from '@/lib/theme-overrides-context';
 import {
+  AURA_TOKEN_HEX,
   THEME_TOKEN_GROUPS,
   themeGroupTokenCount,
 } from '@/lib/theme-tokens-data';
@@ -21,17 +21,7 @@ import {
 export function ThemePanel({ headerAction }: { headerAction?: ReactNode }) {
   const { appearance, setAppearance, overrides, setToken, reset } =
     useThemeOverrides();
-  const auraValues = useMemo(() => {
-    const values: Record<string, string> = {};
-    for (const group of THEME_TOKEN_GROUPS) {
-      for (const section of group.sections) {
-        for (const token of section.tokens) {
-          values[token.cssVar] = readAuraTokenHex(token.cssVar);
-        }
-      }
-    }
-    return values;
-  }, [appearance]);
+  const auraValues = AURA_TOKEN_HEX[appearance];
 
   return (
     <div className="flex h-full min-h-0 flex-1 flex-col">

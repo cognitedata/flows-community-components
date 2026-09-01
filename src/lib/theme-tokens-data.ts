@@ -1,5 +1,7 @@
 import auraColorsCss from '@cognite/aura/colors.css?raw';
 
+import { resolveAuraTokenHexByAppearance } from '@/lib/aura-css-var';
+
 export interface ThemeToken {
   cssVar: string;
   label: string;
@@ -371,6 +373,11 @@ function buildThemeTokenGroups(css: string): ThemeTokenGroup[] {
 
 export const THEME_TOKEN_GROUPS: ThemeTokenGroup[] =
   buildThemeTokenGroups(auraColorsCss);
+
+export const AURA_TOKEN_HEX = resolveAuraTokenHexByAppearance(
+  auraColorsCss,
+  parseAuraSemanticTokenNames(auraColorsCss)
+);
 
 export function themeGroupTokenCount(group: ThemeTokenGroup): number {
   return group.sections.reduce(
