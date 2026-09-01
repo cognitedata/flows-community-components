@@ -1,0 +1,38 @@
+name: Aura Eval Daily
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: aura-eval-daily
+  cancel-in-progress: false
+
+jobs:
+  eval:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
+
+      - name: Setup Node.js and pnpm
+        uses: ./.github/actions/setup-node-pnpm
+
+      # KCIH-1221: generate a Flows app on a scratch branch via Cursor Cloud
+      - name: Generate app
+        run: |
+          echo "TODO(KCIH-1221) - generate a Flows app on a scratch branch via Cursor Cloud"
+
+      # KCIH-1222: run the Aura-usage skill against the generated branch
+      - name: Run Aura usage skill
+        run: |
+          echo "TODO(KCIH-1222) - run the Aura-usage skill against the generated branch"
+
+      # KCIH-1223: upload the resulting stats to CDF as a file + time series
+      - name: Upload stats to CDF
+        run: |
+          echo "TODO(KCIH-1223) - upload stats to CDF as a file and time series"
