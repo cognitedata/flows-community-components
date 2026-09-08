@@ -4,6 +4,7 @@ import { Link, Navigate, useParams } from 'react-router-dom';
 
 import { ChromaticStorybookEmbed } from '@/components/component-catalog/chromatic-storybook-embed';
 import { AccordionContent } from '@/components/component-catalog/doc-content/accordion-content';
+import { PrimitiveStatusBadge } from '@/components/component-catalog/primitive-status-badge';
 import { PageTitle } from '@/components/page-title';
 import { chromaticStorybookManagerUrl } from '@/lib/chromatic-storybook';
 import { getComponentBySlug } from '@/lib/component-catalog-data';
@@ -27,14 +28,14 @@ export function ComponentDetailPage() {
 
   return (
     <>
-      <PageTitle title={`${component.name} — Aura`} />
+      <PageTitle title={`${component.name} — Primitives — Aura`} />
       <header className="mb-10 sm:mb-12">
         <p className="mb-3 text-sm text-muted-fg">
           <Link
             to="/components"
             className="hover:text-foreground hover:underline"
           >
-            Components
+            Primitives
           </Link>
           <span className="mx-1.5 text-medium-fg">/</span>
           <span>{component.name}</span>
@@ -44,12 +45,17 @@ export function ComponentDetailPage() {
             <Icon size={22} stroke={1.5} />
           </span>
           <div className="min-w-0">
-            <h1 className="font-heading text-4xl font-semibold tracking-tight sm:text-5xl">
-              {component.name}
-            </h1>
-            <p className="mt-3 max-w-[60ch] text-muted-fg">
-              {component.description}
-            </p>
+            <div className="flex flex-wrap items-center gap-3">
+              <h1 className="font-heading text-4xl font-semibold tracking-tight sm:text-5xl">
+                {component.name}
+              </h1>
+              <PrimitiveStatusBadge status={component.status} />
+            </div>
+            {slug !== 'accordion' && (
+              <p className="mt-3 max-w-[60ch] text-muted-fg">
+                {component.description}
+              </p>
+            )}
             {component.storybookId && (
               <a
                 href={chromaticStorybookManagerUrl(
@@ -81,7 +87,7 @@ export function ComponentDetailPage() {
         </section>
       ) : (
         <p className="mb-16 max-w-[65ch] text-sm leading-relaxed text-muted-fg sm:mb-20">
-          A live Storybook preview is not available for this component yet.
+          A live Storybook preview is not available for this primitive yet.
         </p>
       )}
 

@@ -52,6 +52,7 @@ function historyApiFallback(): Plugin {
 export default defineConfig({
   base: process.env.PAGES_BASE_PATH || '/',
   server: {
+    host: true,
     port: 5173,
     strictPort: true,
   },

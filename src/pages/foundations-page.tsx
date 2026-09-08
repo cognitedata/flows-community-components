@@ -1,6 +1,6 @@
 import { FoundationTopicCard } from '@/components/foundations/foundation-topic-card';
 import { PageTitle } from '@/components/page-title';
-import { FOUNDATION_TOPICS } from '@/lib/foundations-topics-data';
+import { VISIBLE_FOUNDATION_TOPICS } from '@/lib/foundations-topics-data';
 
 export function FoundationsPage() {
   return (
@@ -17,7 +17,7 @@ export function FoundationsPage() {
       </header>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {FOUNDATION_TOPICS.map((topic) => (
+        {VISIBLE_FOUNDATION_TOPICS.map((topic) => (
           <FoundationTopicCard key={topic.name} topic={topic} />
         ))}
       </div>

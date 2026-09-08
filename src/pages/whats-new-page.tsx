@@ -12,7 +12,7 @@ export function WhatsNewPage() {
     <>
       <PageTitle title="What's new — Aura" />
       <main className="min-h-screen bg-background text-foreground">
-        <div className="mx-auto max-w-[1200px] px-4 pt-24 pb-24 sm:pt-28">
+        <div className="mx-auto max-w-[1200px] px-4 pt-chrome-pad pb-24 sm:pt-chrome-pad-sm">
           <header className="mb-10 sm:mb-12">
             <h1 className="font-heading text-4xl font-semibold tracking-tight sm:text-5xl">
               What&apos;s new

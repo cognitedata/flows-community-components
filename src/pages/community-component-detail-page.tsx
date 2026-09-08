@@ -33,7 +33,7 @@ export function CommunityComponentDetailPage() {
             to="/community"
             className="hover:text-foreground hover:underline"
           >
-            Community
+            Overview
           </Link>
           <span className="mx-1.5 text-medium-fg">/</span>
           <span>{component.name}</span>

@@ -26,6 +26,8 @@ export interface FoundationTopic {
   image?: string;
   /** Video shown in place of `image` on hover, autoplaying and looping. */
   hoverVideo?: string;
+  /** When true, the topic is omitted from navigation and overview. */
+  hidden?: boolean;
 }
 
 export const FOUNDATION_TOPICS: FoundationTopic[] = [
@@ -52,6 +54,7 @@ export const FOUNDATION_TOPICS: FoundationTopic[] = [
     icon: IconLayoutGrid,
     image: '/foundations/layouts-grids-default.png',
     hoverVideo: '/foundations/layouts-grids-hover.mp4',
+    hidden: true,
   },
   {
     name: 'Size and spacing tokens',
@@ -115,8 +118,13 @@ export const FOUNDATION_TOPICS: FoundationTopic[] = [
   hoverVideo: topic.hoverVideo ? `${topic.hoverVideo}?v=2` : undefined,
 }));
 
+export const VISIBLE_FOUNDATION_TOPICS = FOUNDATION_TOPICS.filter(
+  (topic) => !topic.hidden
+);
+
 export function getFoundationTopicBySlug(slug: string) {
-  return (
-    FOUNDATION_TOPICS.find((topic) => slugify(topic.name) === slug) ?? null
-  );
+  const topic =
+    FOUNDATION_TOPICS.find((topic) => slugify(topic.name) === slug) ?? null;
+  if (!topic || topic.hidden) return null;
+  return topic;
 }

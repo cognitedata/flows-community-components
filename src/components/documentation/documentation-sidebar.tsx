@@ -9,7 +9,7 @@ export function DocumentationSidebar() {
   return (
     <nav
       aria-label="Documentation navigation"
-      className="sticky top-24 hidden h-[calc(100vh-7rem)] w-56 shrink-0 flex-col gap-8 overflow-y-auto pb-8 md:flex"
+      className="sticky top-chrome-pad hidden h-[calc(100vh-var(--spacing-chrome-pad)-1rem)] w-56 shrink-0 flex-col gap-8 overflow-y-auto pb-8 md:flex"
     >
       {DOCUMENTATION_NAV.map((section) => (
         <div key={section.title}>

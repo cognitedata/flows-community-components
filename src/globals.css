@@ -84,11 +84,20 @@
   --color-sidebar-accent-foreground: var(--foreground);
   --color-sidebar-border: var(--border);
   --color-sidebar-ring: var(--ring);
+
+  --spacing-chrome: var(--site-chrome-height);
+  --spacing-chrome-pad: calc(var(--site-chrome-height) + 2.5rem);
+  --spacing-chrome-pad-sm: calc(var(--site-chrome-height) + 3.5rem);
 }
 
 :root {
   --font-inter: 'Inter';
   --font-space-grotesk: 'Space Grotesk';
+  --site-banner-height: 2.75rem;
+  --site-nav-height: 3.5rem;
+  --site-chrome-height: calc(
+    var(--site-banner-height) + var(--site-nav-height) + 1px
+  );
 }
 
 @layer base {
@@ -105,6 +114,6 @@
     @apply font-heading font-semibold tracking-tight;
   }
   h1, h2 {
-    scroll-margin-top: 7rem;
+    scroll-margin-top: var(--spacing-chrome-pad);
   }
 }

@@ -6,7 +6,6 @@ import { cn, slugify } from '@/lib/utils';
 interface TocHeading {
   id: string;
   text: string;
-  level: 1 | 2;
 }
 
 export function TableOfContents({
@@ -18,12 +17,12 @@ export function TableOfContents({
   const [headings, setHeadings] = React.useState<TocHeading[]>([]);
   const [activeId, setActiveId] = React.useState<string>('');
 
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     const root = containerRef.current;
     if (!root) return;
 
     const els = Array.from(
-      root.querySelectorAll<HTMLHeadingElement>('h1, h2')
+      root.querySelectorAll<HTMLHeadingElement>('h2')
     ).filter((el) => !el.closest('aside, nav'));
     const usedIds = new Set<string>();
     for (const el of els) {
@@ -42,12 +41,11 @@ export function TableOfContents({
       els.map((el) => ({
         id: el.id,
         text: el.textContent ?? '',
-        level: el.tagName === 'H1' ? 1 : 2,
       }))
     );
 
     const updateActive = () => {
-      const scanLine = 112; // matches the sticky nav offset headings scroll under
+      const scanLine = 144;
       let current = els[0]?.id ?? '';
       for (const el of els) {
         if (el.getBoundingClientRect().top <= scanLine) {
@@ -68,24 +66,23 @@ export function TableOfContents({
     };
   }, [containerRef, pathname]);
 
-  if (headings.length < 2) return null;
+  if (headings.length < 1) return null;
 
   return (
     <nav
       aria-label="On this page"
-      className="sticky top-24 hidden h-fit w-56 shrink-0 flex-col gap-2 xl:flex"
+      className="sticky top-chrome-pad hidden h-fit w-56 shrink-0 flex-col gap-2 lg:flex"
     >
-      <h2 className="mb-2 px-2 text-xs font-medium tracking-wide text-medium-fg uppercase">
+      <p className="mb-2 px-2 text-xs font-medium tracking-wide text-medium-fg uppercase">
         On this page
-      </h2>
+      </p>
       <ul className="flex flex-col gap-0.5 border-l border-border">
         {headings.map((heading) => (
           <li key={heading.id}>
             <a
               href={`#${heading.id}`}
               className={cn(
-                '-ml-px block border-l-2 py-1 text-sm transition-colors',
-                heading.level === 2 ? 'pl-5' : 'pl-3 font-medium',
+                '-ml-px block border-l-2 py-1 pl-3 text-sm font-medium transition-colors',
                 activeId === heading.id
                   ? 'border-foreground text-foreground'
                   : 'border-transparent text-muted-fg hover:text-foreground'

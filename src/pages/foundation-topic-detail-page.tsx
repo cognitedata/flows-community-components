@@ -2,6 +2,7 @@ import type * as React from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 
 import { AccessibilityContent } from '@/components/foundations/topic-content/accessibility-content';
+import { AssetsAndIconsContent } from '@/components/foundations/topic-content/assets-and-icons-content';
 import { ColorTokensContent } from '@/components/foundations/topic-content/color-tokens-content';
 import { DesignHeuristicsContent } from '@/components/foundations/topic-content/design-heuristics-content';
 import { EffectsContent } from '@/components/foundations/topic-content/effects-content';
@@ -19,6 +20,7 @@ const TOPIC_CONTENT: Record<string, React.ComponentType> = {
   typography: TypographyContent,
   effects: EffectsContent,
   motion: MotionContent,
+  'assets-and-icons': AssetsAndIconsContent,
   accessibility: AccessibilityContent,
 };
 

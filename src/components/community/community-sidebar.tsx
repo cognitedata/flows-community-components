@@ -5,7 +5,6 @@ import { cn } from '@/lib/utils';
 
 const OVERVIEW_ITEMS = [
   { label: 'Installation', href: '/community/installation' },
-  { label: 'Components', href: '/community' },
   { label: 'Contribution', href: '/community/contribution' },
   { label: 'Skills', href: '/community/skills' },
 ];
@@ -16,7 +15,7 @@ export function CommunitySidebar() {
   return (
     <nav
       aria-label="Community navigation"
-      className="sticky top-24 hidden h-[calc(100vh-7rem)] w-56 shrink-0 flex-col gap-8 overflow-y-auto pb-8 md:flex"
+      className="sticky top-chrome-pad hidden h-[calc(100vh-var(--spacing-chrome-pad)-1rem)] w-56 shrink-0 flex-col gap-8 overflow-y-auto pb-8 md:flex"
     >
       <div>
         <h2 className="mb-2 px-2 text-xs font-medium tracking-wide text-medium-fg uppercase">
@@ -49,6 +48,19 @@ export function CommunitySidebar() {
           Components
         </h2>
         <ul className="flex flex-col gap-0.5">
+          <li>
+            <Link
+              to="/community"
+              className={cn(
+                'block rounded-lg px-2 py-1.5 text-sm transition-colors',
+                pathname === '/community'
+                  ? 'bg-medium-bg font-medium text-foreground'
+                  : 'text-muted-fg hover:bg-medium-bg hover:text-foreground'
+              )}
+            >
+              Overview
+            </Link>
+          </li>
           {ALL_COMMUNITY_COMPONENTS.map((component) => {
             const active = pathname === `/community/${component.slug}`;
             return (

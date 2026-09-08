@@ -59,7 +59,7 @@ function ThemeSidebar() {
       aria-hidden={!open}
       inert={!open}
       className={cn(
-        'fixed top-[calc(3.5rem+1px)] right-0 bottom-0 z-40 flex max-w-full flex-col border-l border-border bg-background p-4 shadow-xl transition-transform duration-300 ease-in-out',
+        'fixed top-chrome right-0 bottom-0 z-40 flex max-w-full flex-col border-l border-border bg-background p-4 shadow-xl transition-transform duration-300 ease-in-out',
         THEME_PANEL_WIDTH,
         open ? 'translate-x-0' : 'pointer-events-none translate-x-full'
       )}
