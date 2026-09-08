@@ -18,10 +18,10 @@ export function ComponentsSidebar() {
         <ul className="flex flex-col gap-0.5">
           <li>
             <Link
-              to="/components"
+              to="/primitives"
               className={cn(
                 'block rounded-lg px-2 py-1.5 text-sm transition-colors',
-                pathname === '/components'
+                pathname === '/primitives'
                   ? 'bg-medium-bg font-medium text-foreground'
                   : 'text-muted-fg hover:bg-medium-bg hover:text-foreground'
               )}
@@ -30,7 +30,7 @@ export function ComponentsSidebar() {
             </Link>
           </li>
           {ALL_COMPONENTS.map((component) => {
-            const href = `/components/${component.slug}`;
+            const href = `/primitives/${component.slug}`;
             const active = pathname === href;
             return (
               <li key={component.slug}>

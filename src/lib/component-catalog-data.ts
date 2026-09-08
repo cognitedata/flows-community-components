@@ -272,25 +272,18 @@ export const COMPONENT_CATALOG_SECTIONS: ComponentCatalogSection[] = [
         storybookId: 'primitives-combobox--basic',
       },
       {
-        name: 'Date Picker',
-        description:
-          'Lets people select a single date from a calendar or text input.',
-        icon: IconCalendar,
-        status: 'v1.0.0',
-        storybookId: 'primitives-datepicker--default',
-      },
-      {
-        name: 'Time Picker',
-        description: 'A visual time selector for hour and minute input.',
-        icon: IconClock,
-        status: 'v1.0.0',
-        storybookId: 'primitives-timepicker--default',
-      },
-      {
         name: 'Date and time picker',
         description:
           'Combines date and time selection into a single, unified control.',
         icon: IconCalendarTime,
+        status: 'v1.0.0',
+        storybookId: 'primitives-datepicker--default',
+      },
+      {
+        name: 'Date Picker',
+        description:
+          'Lets people select a single date from a calendar or text input.',
+        icon: IconCalendar,
         status: 'v1.0.0',
         storybookId: 'primitives-datepicker--default',
       },
@@ -301,13 +294,6 @@ export const COMPONENT_CATALOG_SECTIONS: ComponentCatalogSection[] = [
         icon: IconCalendarStats,
         status: 'v1.0.0',
         storybookId: 'primitives-daterangepicker--default',
-      },
-      {
-        name: 'Time Range Picker',
-        description:
-          'Lets people select a start and end time as a single range.',
-        icon: IconClockHour4,
-        status: 'coming-soon',
       },
       {
         name: 'Date Time Range Picker',
@@ -378,6 +364,20 @@ export const COMPONENT_CATALOG_SECTIONS: ComponentCatalogSection[] = [
         icon: IconTextWrap,
         status: 'v1.0.0',
         storybookId: 'primitives-textarea--default',
+      },
+      {
+        name: 'Time Picker',
+        description: 'A visual time selector for hour and minute input.',
+        icon: IconClock,
+        status: 'v1.0.0',
+        storybookId: 'primitives-timepicker--default',
+      },
+      {
+        name: 'Time Range Picker',
+        description:
+          'Lets people select a start and end time as a single range.',
+        icon: IconClockHour4,
+        status: 'coming-soon',
       },
     ],
   },

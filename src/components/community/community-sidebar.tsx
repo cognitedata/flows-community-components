@@ -1,7 +1,8 @@
 import { Link, useLocation } from 'react-router-dom';
 
 import { ALL_COMMUNITY_COMPONENTS } from '@/lib/community-data';
-import { cn } from '@/lib/utils';
+import { COMMUNITY_TEMPLATES } from '@/lib/community-templates-data';
+import { cn, slugify } from '@/lib/utils';
 
 const OVERVIEW_ITEMS = [
   { label: 'Installation', href: '/community/installation' },
@@ -75,6 +76,46 @@ export function CommunitySidebar() {
                   )}
                 >
                   {component.name}
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+
+      <div>
+        <h2 className="mb-2 px-2 text-xs font-medium tracking-wide text-medium-fg uppercase">
+          Templates
+        </h2>
+        <ul className="flex flex-col gap-0.5">
+          <li>
+            <Link
+              to="/community/templates"
+              className={cn(
+                'block rounded-lg px-2 py-1.5 text-sm transition-colors',
+                pathname === '/community/templates'
+                  ? 'bg-medium-bg font-medium text-foreground'
+                  : 'text-muted-fg hover:bg-medium-bg hover:text-foreground'
+              )}
+            >
+              Overview
+            </Link>
+          </li>
+          {COMMUNITY_TEMPLATES.map((template) => {
+            const href = `/community/templates/${slugify(template.name)}`;
+            const active = pathname === href;
+            return (
+              <li key={template.name}>
+                <Link
+                  to={href}
+                  className={cn(
+                    'block rounded-lg px-2 py-1.5 text-sm transition-colors',
+                    active
+                      ? 'bg-medium-bg font-medium text-foreground'
+                      : 'text-muted-fg hover:bg-medium-bg hover:text-foreground'
+                  )}
+                >
+                  {template.name}
                 </Link>
               </li>
             );

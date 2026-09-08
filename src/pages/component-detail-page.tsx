@@ -20,7 +20,7 @@ export function ComponentDetailPage() {
   const component = getComponentBySlug(slug);
 
   if (!component) {
-    return <Navigate to="/components" replace />;
+    return <Navigate to="/primitives" replace />;
   }
 
   const Icon = component.icon;
@@ -32,7 +32,7 @@ export function ComponentDetailPage() {
       <header className="mb-10 sm:mb-12">
         <p className="mb-3 text-sm text-muted-fg">
           <Link
-            to="/components"
+            to="/primitives"
             className="hover:text-foreground hover:underline"
           >
             Primitives

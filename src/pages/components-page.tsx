@@ -31,7 +31,7 @@ export function ComponentsPage() {
                   name={component.name}
                   description={component.description}
                   icon={component.icon}
-                  href={`/components/${slugify(component.name)}`}
+                  href={`/primitives/${slugify(component.name)}`}
                   cta="View primitive"
                 />
               ))}

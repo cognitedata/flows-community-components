@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { Navigate, createBrowserRouter, useParams } from 'react-router-dom';
 
 import { CommunityLayout } from '@/layouts/community-layout';
 import { ComponentsLayout } from '@/layouts/components-layout';
@@ -7,7 +7,9 @@ import { FoundationsLayout } from '@/layouts/foundations-layout';
 import { PatternsLayout } from '@/layouts/patterns-layout';
 import { RootLayout } from '@/layouts/root-layout';
 import { CommunityComponentDetailPage } from '@/pages/community-component-detail-page';
+import { CommunityDashboardPage } from '@/pages/community-dashboard-page';
 import { CommunityPage } from '@/pages/community-page';
+import { CommunityTemplatesPage } from '@/pages/community-templates-page';
 import { ComponentDetailPage } from '@/pages/component-detail-page';
 import { ComponentsPage } from '@/pages/components-page';
 import { ContributionPage } from '@/pages/contribution-page';
@@ -25,6 +27,13 @@ import { PatternsPage } from '@/pages/patterns-page';
 import { SkillsPage } from '@/pages/skills-page';
 import { WhatsNewPage } from '@/pages/whats-new-page';
 import { WhatsNewPostPage } from '@/pages/whats-new-post-page';
+
+function LegacyComponentsRedirect() {
+  const { slug } = useParams<{ slug: string }>();
+  return (
+    <Navigate to={slug ? `/primitives/${slug}` : '/primitives'} replace />
+  );
+}
 
 const basePath = import.meta.env.BASE_URL || '/';
 
@@ -55,11 +64,18 @@ export const router = createBrowserRouter(
           ],
         },
         {
-          path: 'components',
+          path: 'primitives',
           element: <ComponentsLayout />,
           children: [
             { index: true, element: <ComponentsPage /> },
             { path: ':slug', element: <ComponentDetailPage /> },
+          ],
+        },
+        {
+          path: 'components',
+          children: [
+            { index: true, element: <Navigate to="/primitives" replace /> },
+            { path: ':slug', element: <LegacyComponentsRedirect /> },
           ],
         },
         {
@@ -84,6 +100,11 @@ export const router = createBrowserRouter(
             { path: 'contribution', element: <ContributionPage /> },
             { path: 'contribute', element: <ContributionPage /> },
             { path: 'skills', element: <SkillsPage /> },
+            { path: 'templates', element: <CommunityTemplatesPage /> },
+            {
+              path: 'templates/dashboard',
+              element: <CommunityDashboardPage />,
+            },
             { path: ':slug', element: <CommunityComponentDetailPage /> },
           ],
         },

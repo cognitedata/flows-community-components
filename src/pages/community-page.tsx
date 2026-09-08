@@ -12,8 +12,11 @@ export function CommunityPage() {
           Overview
         </h1>
         <p className="mt-3 max-w-[60ch] text-muted-fg">
-          Components built and maintained by the community, ready to explore or
-          contribute to.
+          Community components are built on Aura primitives and contributed by
+          the community. They tend to be experimental, or variations of core
+          components with extra functionality that has not yet been upstreamed
+          into the design system — so teams can move a little faster without
+          dropping Cognite quality standards.
         </p>
       </header>
 

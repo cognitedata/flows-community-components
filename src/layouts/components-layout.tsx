@@ -7,7 +7,7 @@ import { TableOfContents } from '@/components/layout/table-of-contents';
 export function ComponentsLayout() {
   const contentRef = React.useRef<HTMLDivElement>(null);
   const { pathname } = useLocation();
-  const isLandingPage = pathname === '/components';
+  const isLandingPage = pathname === '/primitives';
 
   return (
     <main className="min-h-screen bg-background text-foreground">

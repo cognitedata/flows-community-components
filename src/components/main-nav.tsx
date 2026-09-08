@@ -9,7 +9,7 @@ import { cn } from '@/lib/utils';
 const NAV_ITEMS: { label: string; href: string; hidden?: boolean }[] = [
   { label: "What's new", href: '/whats-new' },
   { label: 'Foundations', href: '/foundations' },
-  { label: 'Primitives', href: '/components' },
+  { label: 'Primitives', href: '/primitives' },
   { label: 'Patterns', href: '/patterns', hidden: true },
   { label: 'Documentation', href: '/documentation' },
   { label: 'Community', href: '/community' },
