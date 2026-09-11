@@ -1,11 +1,12 @@
 import { Link, useLocation } from 'react-router-dom';
 
 import { ALL_COMMUNITY_COMPONENTS } from '@/lib/community-data';
-import { cn } from '@/lib/utils';
+import { COMMUNITY_TEMPLATES } from '@/lib/community-templates-data';
+import { cn, slugify } from '@/lib/utils';
 
-const OVERVIEW_ITEMS = [
+const GETTING_STARTED_ITEMS = [
+  { label: 'Overview', href: '/community' },
   { label: 'Installation', href: '/community/installation' },
-  { label: 'Components', href: '/community' },
   { label: 'Contribution', href: '/community/contribution' },
   { label: 'Skills', href: '/community/skills' },
 ];
@@ -16,14 +17,14 @@ export function CommunitySidebar() {
   return (
     <nav
       aria-label="Community navigation"
-      className="sticky top-24 hidden h-[calc(100vh-7rem)] w-56 shrink-0 flex-col gap-8 overflow-y-auto pb-8 md:flex"
+      className="sticky top-chrome-pad hidden h-[calc(100vh-var(--spacing-chrome-pad)-1rem)] w-56 shrink-0 flex-col gap-8 overflow-y-auto pb-8 md:flex"
     >
       <div>
-        <h2 className="mb-2 px-2 text-xs font-medium tracking-wide text-medium-fg uppercase">
-          Overview
+        <h2 className="mb-2 px-2 text-xs font-medium tracking-wide text-foreground uppercase">
+          Getting started
         </h2>
         <ul className="flex flex-col gap-0.5">
-          {OVERVIEW_ITEMS.map((item) => {
+          {GETTING_STARTED_ITEMS.map((item) => {
             const active = pathname === item.href;
             return (
               <li key={item.href}>
@@ -45,10 +46,23 @@ export function CommunitySidebar() {
       </div>
 
       <div>
-        <h2 className="mb-2 px-2 text-xs font-medium tracking-wide text-medium-fg uppercase">
+        <h2 className="mb-2 px-2 text-xs font-medium tracking-wide text-foreground uppercase">
           Components
         </h2>
         <ul className="flex flex-col gap-0.5">
+          <li>
+            <Link
+              to="/community/components"
+              className={cn(
+                'block rounded-lg px-2 py-1.5 text-sm transition-colors',
+                pathname === '/community/components'
+                  ? 'bg-medium-bg font-medium text-foreground'
+                  : 'text-muted-fg hover:bg-medium-bg hover:text-foreground'
+              )}
+            >
+              Overview
+            </Link>
+          </li>
           {ALL_COMMUNITY_COMPONENTS.map((component) => {
             const active = pathname === `/community/${component.slug}`;
             return (
@@ -63,6 +77,46 @@ export function CommunitySidebar() {
                   )}
                 >
                   {component.name}
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+
+      <div>
+        <h2 className="mb-2 px-2 text-xs font-medium tracking-wide text-foreground uppercase">
+          Templates
+        </h2>
+        <ul className="flex flex-col gap-0.5">
+          <li>
+            <Link
+              to="/community/templates"
+              className={cn(
+                'block rounded-lg px-2 py-1.5 text-sm transition-colors',
+                pathname === '/community/templates'
+                  ? 'bg-medium-bg font-medium text-foreground'
+                  : 'text-muted-fg hover:bg-medium-bg hover:text-foreground'
+              )}
+            >
+              Overview
+            </Link>
+          </li>
+          {COMMUNITY_TEMPLATES.map((template) => {
+            const href = `/community/templates/${slugify(template.name)}`;
+            const active = pathname === href;
+            return (
+              <li key={template.name}>
+                <Link
+                  to={href}
+                  className={cn(
+                    'block rounded-lg px-2 py-1.5 text-sm transition-colors',
+                    active
+                      ? 'bg-medium-bg font-medium text-foreground'
+                      : 'text-muted-fg hover:bg-medium-bg hover:text-foreground'
+                  )}
+                >
+                  {template.name}
                 </Link>
               </li>
             );

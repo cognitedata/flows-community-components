@@ -96,10 +96,10 @@ export function ContributionPage() {
             </a>
             . Catalog:{' '}
             <Link
-              to="/community"
+              to="/community/components"
               className="font-medium text-link-fg hover:text-link-fg-hover hover:underline"
             >
-              Components
+              Overview
             </Link>
             .
           </p>

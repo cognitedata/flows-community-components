@@ -91,7 +91,7 @@ export function AccordionContent() {
         />
       </ContentSection>
 
-      <ContentSection title="Related components">
+      <ContentSection title="Related primitives">
         <ContentList
           items={[
             'Card — use instead when everything must be visible at once.',

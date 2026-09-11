@@ -6,12 +6,13 @@ import auraLogo from '@/assets/aura-logo.svg';
 import { ThemeSwitcher } from '@/components/theme-switcher';
 import { cn } from '@/lib/utils';
 
-const NAV_ITEMS = [
+const NAV_ITEMS: { label: string; href: string; hidden?: boolean }[] = [
+  { label: 'Home', href: '/' },
   { label: "What's new", href: '/whats-new' },
-  { label: 'Foundations', href: '/foundations' },
-  { label: 'Components', href: '/components' },
-  { label: 'Patterns', href: '/patterns' },
-  { label: 'Documentation', href: '/documentation' },
+  { label: 'Docs', href: '/aura/documentation/about-aura' },
+  { label: 'Components', href: '/aura' },
+  { label: 'Charts', href: '/charts' },
+  { label: 'Patterns', href: '/patterns', hidden: true },
   { label: 'Community', href: '/community' },
 ];
 
@@ -20,12 +21,23 @@ export function MainNav() {
   const { pathname } = useLocation();
 
   function isActive(href: string) {
+    if (href === '/') return pathname === '/';
+    if (href === '/aura/documentation/about-aura') {
+      return pathname.startsWith('/aura/documentation');
+    }
+    if (href === '/aura') {
+      return (
+        pathname === '/aura' ||
+        (pathname.startsWith('/aura/') &&
+          !pathname.startsWith('/aura/documentation'))
+      );
+    }
     return pathname === href || pathname.startsWith(`${href}/`);
   }
 
   return (
     <header
-      className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-[#050810]"
+      className="border-b border-white/10 bg-[#050810]"
       style={{
         fontFamily: 'var(--font-space-grotesk), var(--font-inter), sans-serif',
       }}
@@ -40,7 +52,7 @@ export function MainNav() {
         </Link>
 
         <ul className="hidden items-center gap-1 lg:flex">
-          {NAV_ITEMS.map((item) => (
+          {NAV_ITEMS.filter((item) => !item.hidden).map((item) => (
             <li key={item.href}>
               <Link
                 to={item.href}
@@ -72,7 +84,7 @@ export function MainNav() {
 
       {open && (
         <ul className="flex flex-col gap-0.5 border-t border-white/10 px-4 pt-2 pb-2.5 lg:hidden">
-          {NAV_ITEMS.map((item) => (
+          {NAV_ITEMS.filter((item) => !item.hidden).map((item) => (
             <li key={item.href}>
               <Link
                 to={item.href}

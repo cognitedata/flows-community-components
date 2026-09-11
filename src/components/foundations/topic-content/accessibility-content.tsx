@@ -72,18 +72,6 @@ export function AccessibilityContent() {
         <ContentList
           items={[
             "Always provide visible focus states for interactive elements using Aura's focus styling.",
-            <>
-              See the{' '}
-              <a
-                href="https://docs.cognite.com/aura-design-system/foundations/interaction-states#focus-states"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-link-fg hover:text-link-fg-hover hover:underline"
-              >
-                Interaction states
-              </a>{' '}
-              page for visual references.
-            </>,
           ]}
         />
       </ContentSection>

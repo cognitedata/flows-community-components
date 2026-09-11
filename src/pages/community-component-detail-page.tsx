@@ -18,7 +18,7 @@ export function CommunityComponentDetailPage() {
   const component = getCommunityComponentBySlug(slug);
 
   if (!component || !catalog) {
-    return <Navigate to="/community" replace />;
+    return <Navigate to="/community/components" replace />;
   }
 
   const Icon = component.icon;
@@ -30,10 +30,10 @@ export function CommunityComponentDetailPage() {
       <header className="mb-10 sm:mb-12">
         <p className="mb-3 text-sm text-muted-fg">
           <Link
-            to="/community"
+            to="/community/components"
             className="hover:text-foreground hover:underline"
           >
-            Community
+            Overview
           </Link>
           <span className="mx-1.5 text-medium-fg">/</span>
           <span>{component.name}</span>

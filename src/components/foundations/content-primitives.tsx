@@ -29,7 +29,7 @@ export function ContentSection({
 }
 
 export function SubHeading({ children }: { children: React.ReactNode }) {
-  return <p className="text-sm font-semibold text-foreground">{children}</p>;
+  return <h3 className="text-sm font-semibold text-foreground">{children}</h3>;
 }
 
 export function ContentList({ items }: { items: React.ReactNode[] }) {

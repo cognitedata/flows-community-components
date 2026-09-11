@@ -17,7 +17,7 @@ export function WhatsNewPostPage() {
     <>
       <PageTitle title={`${post.title} — Aura`} />
       <main className="min-h-screen bg-background text-foreground">
-        <div className="mx-auto max-w-[720px] px-4 pt-24 pb-24 sm:pt-28">
+        <div className="mx-auto max-w-[720px] px-4 pt-chrome-pad pb-24 sm:pt-chrome-pad-sm">
           <p className="mb-3 text-sm text-muted-fg">
             <Link
               to="/whats-new"

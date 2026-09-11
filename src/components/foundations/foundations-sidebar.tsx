@@ -4,14 +4,14 @@ import { cn, slugify } from '@/lib/utils';
 
 const TOPICS_ITEMS = [
   'Design heuristics',
-  'Layout and grids',
   'Color tokens',
-  'Size and spacing tokens',
+  'Size & spacing tokens',
   'Typography',
   'Effects',
   'Motion',
   'Assets and icons',
   'Accessibility',
+  'Content',
 ];
 
 export function FoundationsSidebar() {
@@ -20,10 +20,10 @@ export function FoundationsSidebar() {
   return (
     <nav
       aria-label="Foundations navigation"
-      className="sticky top-24 hidden h-[calc(100vh-7rem)] w-56 shrink-0 flex-col gap-8 overflow-y-auto pb-8 md:flex"
+      className="sticky top-chrome-pad hidden h-[calc(100vh-var(--spacing-chrome-pad)-1rem)] w-56 shrink-0 flex-col gap-8 overflow-y-auto pb-8 md:flex"
     >
       <div>
-        <h2 className="mb-2 px-2 text-xs font-medium tracking-wide text-medium-fg uppercase">
+        <h2 className="mb-2 px-2 text-xs font-medium tracking-wide text-foreground uppercase">
           Topics
         </h2>
         <ul className="flex flex-col gap-0.5">
@@ -60,12 +60,6 @@ export function FoundationsSidebar() {
             );
           })}
         </ul>
-      </div>
-
-      <div>
-        <h2 className="mb-2 px-2 text-xs font-medium tracking-wide text-medium-fg uppercase">
-          Content
-        </h2>
       </div>
     </nav>
   );
