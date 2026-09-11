@@ -39,26 +39,83 @@ function escapeRegExp(value: string): string {
   return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
+/** Bodies of every CSS rule whose prelude equals `selector`. */
+export function extractCssRuleBodies(css: string, selector: string): string[] {
+  const pattern = new RegExp(`${escapeRegExp(selector)}\\s*\\{`, 'g');
+  const bodies: string[] = [];
+
+  for (const match of css.matchAll(pattern)) {
+    const open = match.index + match[0].length - 1;
+    let depth = 0;
+    for (let index = open; index < css.length; index += 1) {
+      const char = css[index];
+      if (char === '{') depth += 1;
+      else if (char === '}') {
+        depth -= 1;
+        if (depth === 0) {
+          bodies.push(css.slice(open + 1, index));
+          break;
+        }
+      }
+    }
+  }
+
+  return bodies;
+}
+
 /** Body of the first CSS rule whose prelude equals `selector`. */
 export function extractCssRuleBody(
   css: string,
   selector: string
 ): string | undefined {
-  const pattern = new RegExp(`${escapeRegExp(selector)}\\s*\\{`);
-  const match = pattern.exec(css);
-  if (!match || match.index === undefined) return undefined;
+  return extractCssRuleBodies(css, selector)[0];
+}
 
-  const open = match.index + match[0].length - 1;
-  let depth = 0;
-  for (let index = open; index < css.length; index += 1) {
-    const char = css[index];
-    if (char === '{') depth += 1;
-    else if (char === '}') {
-      depth -= 1;
-      if (depth === 0) return css.slice(open + 1, index);
+/** Merges custom properties from every matching rule, later rules winning. */
+export function mergeCssCustomProperties(
+  css: string,
+  selector: string
+): Record<string, string> {
+  return Object.assign(
+    {},
+    ...extractCssRuleBodies(css, selector).map(parseCssCustomProperties)
+  );
+}
+
+const ALIAS_DECLARATION =
+  /--([a-z0-9-]+)\s*:\s*var\(\s*--([a-z0-9-]+)(?:\s*,[^)]*)?\s*\)/gi;
+
+/**
+ * Maps a canonical token to the deprecated names that alias it
+ * (`--destructive-background: var(--critical-background)` → critical → [destructive]).
+ */
+export function aliasConsumersByCanonical(
+  css: string
+): Record<string, string[]> {
+  const consumers: Record<string, string[]> = {};
+  for (const match of css.matchAll(ALIAS_DECLARATION)) {
+    const alias = match[1];
+    const canonical = match[2];
+    if (!alias || !canonical || alias === canonical) continue;
+    const list = consumers[canonical] ?? [];
+    if (!list.includes(alias)) list.push(alias);
+    consumers[canonical] = list;
+  }
+  return consumers;
+}
+
+/** Copies each override onto deprecated aliases that compiled CSS still reads. */
+export function expandAliasedTokenOverrides(
+  tokens: Record<string, string>,
+  consumers: Record<string, string[]>
+): Record<string, string> {
+  const expanded = { ...tokens };
+  for (const [name, value] of Object.entries(tokens)) {
+    for (const alias of consumers[name] ?? []) {
+      if (!(alias in expanded)) expanded[alias] = value;
     }
   }
-  return undefined;
+  return expanded;
 }
 
 export function parseCssCustomProperties(
@@ -117,8 +174,8 @@ export function resolveAuraTokenHexByAppearance(
   css: string,
   tokenNames: string[]
 ): AuraTokenHexByAppearance {
-  const root = parseCssCustomProperties(extractCssRuleBody(css, ':root') ?? '');
-  const dark = parseCssCustomProperties(extractCssRuleBody(css, '.dark') ?? '');
+  const root = mergeCssCustomProperties(css, ':root');
+  const dark = mergeCssCustomProperties(css, '.dark');
   const lightMaps = [root];
   const darkMaps = [dark, root];
 

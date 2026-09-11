@@ -2,6 +2,7 @@ import { IconExternalLink } from '@tabler/icons-react';
 import type * as React from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 
+import { ButtonPreview } from '@/components/component-catalog/button-preview';
 import { ChromaticStorybookEmbed } from '@/components/component-catalog/chromatic-storybook-embed';
 import { AccordionContent } from '@/components/component-catalog/doc-content/accordion-content';
 import { PageTitle } from '@/components/page-title';
@@ -24,6 +25,7 @@ export function ComponentDetailPage() {
 
   const Icon = component.icon;
   const DocContent = COMPONENT_DOC_CONTENT[slug];
+  const nativePreview = slug === 'button';
 
   return (
     <>
@@ -69,7 +71,9 @@ export function ComponentDetailPage() {
         </div>
       </header>
 
-      {component.storybookId ? (
+      {nativePreview ? (
+        <ButtonPreview />
+      ) : component.storybookId ? (
         <section
           aria-label={`${component.name} Storybook preview`}
           className="mb-16 sm:mb-20"
