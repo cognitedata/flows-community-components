@@ -7,11 +7,12 @@ import { ThemeSwitcher } from '@/components/theme-switcher';
 import { cn } from '@/lib/utils';
 
 const NAV_ITEMS: { label: string; href: string; hidden?: boolean }[] = [
+  { label: 'Home', href: '/' },
   { label: "What's new", href: '/whats-new' },
-  { label: 'Foundations', href: '/foundations' },
-  { label: 'Primitives', href: '/primitives' },
+  { label: 'Docs', href: '/aura/documentation/about-aura' },
+  { label: 'Components', href: '/aura' },
+  { label: 'Charts', href: '/charts' },
   { label: 'Patterns', href: '/patterns', hidden: true },
-  { label: 'Documentation', href: '/documentation' },
   { label: 'Community', href: '/community' },
 ];
 
@@ -20,6 +21,17 @@ export function MainNav() {
   const { pathname } = useLocation();
 
   function isActive(href: string) {
+    if (href === '/') return pathname === '/';
+    if (href === '/aura/documentation/about-aura') {
+      return pathname.startsWith('/aura/documentation');
+    }
+    if (href === '/aura') {
+      return (
+        pathname === '/aura' ||
+        (pathname.startsWith('/aura/') &&
+          !pathname.startsWith('/aura/documentation'))
+      );
+    }
     return pathname === href || pathname.startsWith(`${href}/`);
   }
 

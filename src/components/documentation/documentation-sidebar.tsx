@@ -13,7 +13,7 @@ export function DocumentationSidebar() {
     >
       {DOCUMENTATION_NAV.map((section) => (
         <div key={section.title}>
-          <h2 className="mb-2 px-2 text-xs font-medium tracking-wide text-medium-fg uppercase">
+          <h2 className="mb-2 px-2 text-xs font-medium tracking-wide text-foreground uppercase">
             {section.title}
           </h2>
           <ul className="flex flex-col gap-0.5">

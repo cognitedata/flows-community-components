@@ -6,7 +6,6 @@ import {
   IconLayoutGrid,
   IconPalette,
   IconRulerMeasure,
-  IconSparkles,
   IconTypography,
   IconWaveSine,
   type Icon as TablerIcon,
@@ -57,7 +56,7 @@ export const FOUNDATION_TOPICS: FoundationTopic[] = [
     hidden: true,
   },
   {
-    name: 'Size and spacing tokens',
+    name: 'Size & spacing tokens',
     description:
       'Spacing, sizing, radius, and stroke tokens for hierarchy and rhythm in layouts.',
     icon: IconRulerMeasure,
@@ -73,23 +72,15 @@ export const FOUNDATION_TOPICS: FoundationTopic[] = [
     hoverVideo: '/foundations/typography-hover.mp4',
   },
   {
-    name: 'Motion',
+    name: 'Motion & effects',
     description:
-      'Duration, easing, and guidance for when — and when not — to animate.',
+      'Duration, easing, elevation, and focus styling — and when to use each.',
     icon: IconWaveSine,
     image: '/foundations/motion-default.png',
     hoverVideo: '/foundations/motion-hover.mp4',
   },
   {
-    name: 'Effects',
-    description:
-      'Shadows, blur, and elevation used to layer surfaces consistently.',
-    icon: IconSparkles,
-    image: '/foundations/effects-default.png',
-    hoverVideo: '/foundations/effects-hover.mp4',
-  },
-  {
-    name: 'Assets and icons',
+    name: 'Assets & icons',
     description:
       'The icon set, logo lockups, and imagery guidelines for on-brand visuals.',
     icon: IconIcons,
@@ -114,7 +105,7 @@ export const FOUNDATION_TOPICS: FoundationTopic[] = [
   },
 ].map((topic) => ({
   ...topic,
-  href: `/foundations/${slugify(topic.name)}`,
+  href: `/aura/foundations/${slugify(topic.name)}`,
   hoverVideo: topic.hoverVideo ? `${topic.hoverVideo}?v=2` : undefined,
 }));
 
@@ -122,9 +113,22 @@ export const VISIBLE_FOUNDATION_TOPICS = FOUNDATION_TOPICS.filter(
   (topic) => !topic.hidden
 );
 
+export const FOUNDATION_SLUG_ALIASES: Record<string, string> = {
+  motion: 'motion-effects',
+  effects: 'motion-effects',
+  'assets-and-icons': 'assets-icons',
+  'size-and-spacing-tokens': 'size-spacing-tokens',
+};
+
+export function resolveFoundationSlug(slug: string) {
+  return FOUNDATION_SLUG_ALIASES[slug] ?? slug;
+}
+
 export function getFoundationTopicBySlug(slug: string) {
+  const resolved = resolveFoundationSlug(slug);
   const topic =
-    FOUNDATION_TOPICS.find((topic) => slugify(topic.name) === slug) ?? null;
+    FOUNDATION_TOPICS.find((topic) => slugify(topic.name) === resolved) ??
+    null;
   if (!topic || topic.hidden) return null;
   return topic;
 }

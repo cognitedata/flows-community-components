@@ -1,12 +1,12 @@
 import { Navigate, createBrowserRouter, useParams } from 'react-router-dom';
 
+import { AuraLayout } from '@/layouts/aura-layout';
 import { CommunityLayout } from '@/layouts/community-layout';
-import { ComponentsLayout } from '@/layouts/components-layout';
-import { DocumentationLayout } from '@/layouts/documentation-layout';
-import { FoundationsLayout } from '@/layouts/foundations-layout';
 import { PatternsLayout } from '@/layouts/patterns-layout';
 import { RootLayout } from '@/layouts/root-layout';
+import { ChartsPage } from '@/pages/charts-page';
 import { CommunityComponentDetailPage } from '@/pages/community-component-detail-page';
+import { CommunityComponentsPage } from '@/pages/community-components-page';
 import { CommunityDashboardPage } from '@/pages/community-dashboard-page';
 import { CommunityPage } from '@/pages/community-page';
 import { CommunityTemplatesPage } from '@/pages/community-templates-page';
@@ -14,10 +14,8 @@ import { ComponentDetailPage } from '@/pages/component-detail-page';
 import { ComponentsPage } from '@/pages/components-page';
 import { ContributionPage } from '@/pages/contribution-page';
 import { CustomThemingPage } from '@/pages/custom-theming-page';
-import { DocumentationPage } from '@/pages/documentation-page';
 import { DocumentationTopicDetailPage } from '@/pages/documentation-topic-detail-page';
 import { FoundationTopicDetailPage } from '@/pages/foundation-topic-detail-page';
-import { FoundationsPage } from '@/pages/foundations-page';
 import { HomePage } from '@/pages/home-page';
 import { InstallationPage } from '@/pages/installation-page';
 import { PatternDetailPage } from '@/pages/pattern-detail-page';
@@ -28,11 +26,9 @@ import { SkillsPage } from '@/pages/skills-page';
 import { WhatsNewPage } from '@/pages/whats-new-page';
 import { WhatsNewPostPage } from '@/pages/whats-new-post-page';
 
-function LegacyComponentsRedirect() {
+function RedirectWithSlug({ to }: { to: string }) {
   const { slug } = useParams<{ slug: string }>();
-  return (
-    <Navigate to={slug ? `/primitives/${slug}` : '/primitives'} replace />
-  );
+  return <Navigate to={slug ? `${to}/${slug}` : to} replace />;
 }
 
 const basePath = import.meta.env.BASE_URL || '/';
@@ -46,36 +42,98 @@ export const router = createBrowserRouter(
         { index: true, element: <HomePage /> },
         { path: 'whats-new', element: <WhatsNewPage /> },
         { path: 'whats-new/:slug', element: <WhatsNewPostPage /> },
+        { path: 'charts', element: <ChartsPage /> },
         {
-          path: 'foundations',
-          element: <FoundationsLayout />,
+          path: 'aura',
+          element: <AuraLayout />,
           children: [
-            { index: true, element: <FoundationsPage /> },
-            { path: ':slug', element: <FoundationTopicDetailPage /> },
+            { index: true, element: <Navigate to="/aura/components" replace /> },
+            {
+              path: 'foundations/:slug',
+              element: <FoundationTopicDetailPage />,
+            },
+            { path: 'components', element: <ComponentsPage /> },
+            { path: 'components/:slug', element: <ComponentDetailPage /> },
+            {
+              path: 'primitives',
+              element: <Navigate to="/aura/components" replace />,
+            },
+            {
+              path: 'primitives/:slug',
+              element: <RedirectWithSlug to="/aura/components" />,
+            },
+            {
+              path: 'documentation',
+              element: (
+                <Navigate to="/aura/documentation/about-aura" replace />
+              ),
+            },
+            {
+              path: 'documentation/skills',
+              element: <Navigate to="/aura/documentation/designmd" replace />,
+            },
+            {
+              path: 'documentation/custom-theming',
+              element: <CustomThemingPage />,
+            },
+            {
+              path: 'documentation/:slug',
+              element: <DocumentationTopicDetailPage />,
+            },
           ],
         },
         {
-          path: 'documentation',
-          element: <DocumentationLayout />,
+          path: 'foundations',
           children: [
-            { index: true, element: <DocumentationPage /> },
-            { path: 'custom-theming', element: <CustomThemingPage /> },
-            { path: ':slug', element: <DocumentationTopicDetailPage /> },
+            {
+              index: true,
+              element: (
+                <Navigate to="/aura/foundations/design-heuristics" replace />
+              ),
+            },
+            {
+              path: ':slug',
+              element: <RedirectWithSlug to="/aura/foundations" />,
+            },
           ],
         },
         {
           path: 'primitives',
-          element: <ComponentsLayout />,
           children: [
-            { index: true, element: <ComponentsPage /> },
-            { path: ':slug', element: <ComponentDetailPage /> },
+            {
+              index: true,
+              element: <Navigate to="/aura/components" replace />,
+            },
+            {
+              path: ':slug',
+              element: <RedirectWithSlug to="/aura/components" />,
+            },
           ],
         },
         {
           path: 'components',
           children: [
-            { index: true, element: <Navigate to="/primitives" replace /> },
-            { path: ':slug', element: <LegacyComponentsRedirect /> },
+            {
+              index: true,
+              element: <Navigate to="/aura/components" replace />,
+            },
+            {
+              path: ':slug',
+              element: <RedirectWithSlug to="/aura/components" />,
+            },
+          ],
+        },
+        {
+          path: 'documentation',
+          children: [
+            {
+              index: true,
+              element: <Navigate to="/aura/documentation" replace />,
+            },
+            {
+              path: ':slug',
+              element: <RedirectWithSlug to="/aura/documentation" />,
+            },
           ],
         },
         {
@@ -100,6 +158,7 @@ export const router = createBrowserRouter(
             { path: 'contribution', element: <ContributionPage /> },
             { path: 'contribute', element: <ContributionPage /> },
             { path: 'skills', element: <SkillsPage /> },
+            { path: 'components', element: <CommunityComponentsPage /> },
             { path: 'templates', element: <CommunityTemplatesPage /> },
             {
               path: 'templates/dashboard',

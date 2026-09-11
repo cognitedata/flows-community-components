@@ -9,6 +9,7 @@ export function CommunityLayout() {
   const { pathname } = useLocation();
   const hideToc =
     pathname === '/community' ||
+    pathname === '/community/components' ||
     pathname === '/community/templates' ||
     pathname === '/community/templates/dashboard';
 

@@ -22,7 +22,7 @@ export function WhatsNewPage() {
               patterns, and ideas. Looking for a detailed technical log of every
               release instead?{' '}
               <Link
-                to="/documentation/changelog"
+                to="/aura/documentation/changelog"
                 className="text-link-fg hover:text-link-fg-hover hover:underline"
               >
                 See the changelog

@@ -64,6 +64,7 @@
   --color-link-fg-hover: var(--link-foreground);
 
   --color-fjord-100: var(--fjord-100);
+  --color-fjord-300: var(--fjord-300);
   --color-fjord-500: var(--fjord-500);
 
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;

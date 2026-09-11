@@ -21,7 +21,7 @@ export function PatternsSidebar() {
       className="sticky top-chrome-pad hidden h-[calc(100vh-var(--spacing-chrome-pad)-1rem)] w-56 shrink-0 flex-col gap-8 overflow-y-auto pb-8 md:flex"
     >
       <div>
-        <h2 className="mb-2 px-2 text-xs font-medium tracking-wide text-medium-fg uppercase">
+        <h2 className="mb-2 px-2 text-xs font-medium tracking-wide text-foreground uppercase">
           Overview
         </h2>
         <ul className="flex flex-col gap-0.5">
@@ -47,7 +47,7 @@ export function PatternsSidebar() {
       </div>
 
       <div>
-        <h2 className="mb-2 px-2 text-xs font-medium tracking-wide text-medium-fg uppercase">
+        <h2 className="mb-2 px-2 text-xs font-medium tracking-wide text-foreground uppercase">
           Patterns
         </h2>
         <ul className="flex flex-col gap-0.5">

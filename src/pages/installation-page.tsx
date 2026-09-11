@@ -79,7 +79,7 @@ export function InstallationPage() {
           <p className="text-sm leading-relaxed text-muted-fg">
             Browse the{' '}
             <Link
-              to="/community"
+              to="/community/components"
               className="font-medium text-link-fg hover:text-link-fg-hover hover:underline"
             >
               component catalog

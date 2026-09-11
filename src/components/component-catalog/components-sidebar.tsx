@@ -8,20 +8,20 @@ export function ComponentsSidebar() {
 
   return (
     <nav
-      aria-label="Primitives navigation"
+      aria-label="Components navigation"
       className="sticky top-chrome-pad hidden h-[calc(100vh-var(--spacing-chrome-pad)-1rem)] w-56 shrink-0 flex-col gap-8 overflow-y-auto pb-8 md:flex"
     >
       <div>
-        <h2 className="mb-2 px-2 text-xs font-medium tracking-wide text-medium-fg uppercase">
-          PRIMITIVES
+        <h2 className="mb-2 px-2 text-xs font-medium tracking-wide text-foreground uppercase">
+          Components
         </h2>
         <ul className="flex flex-col gap-0.5">
           <li>
             <Link
-              to="/primitives"
+              to="/aura/components"
               className={cn(
                 'block rounded-lg px-2 py-1.5 text-sm transition-colors',
-                pathname === '/primitives'
+                pathname === '/aura/components'
                   ? 'bg-medium-bg font-medium text-foreground'
                   : 'text-muted-fg hover:bg-medium-bg hover:text-foreground'
               )}
@@ -30,7 +30,7 @@ export function ComponentsSidebar() {
             </Link>
           </li>
           {ALL_COMPONENTS.map((component) => {
-            const href = `/primitives/${component.slug}`;
+            const href = `/aura/components/${component.slug}`;
             const active = pathname === href;
             return (
               <li key={component.slug}>

@@ -72,6 +72,8 @@ export interface ComponentCatalogEntry {
   status: PrimitiveStatus;
   /** Storybook story id, e.g. "primitives-button--basic" — omitted if no story exists yet */
   storybookId?: string;
+  /** Hide from the catalog and sidebar when the component is not in Aura Storybook. */
+  hidden?: boolean;
 }
 
 export interface ComponentCatalogSection {
@@ -115,6 +117,7 @@ export const COMPONENT_CATALOG_SECTIONS: ComponentCatalogSection[] = [
           'A set of toggles where one or more options can be selected at once.',
         icon: IconBoxMultiple,
         status: 'coming-soon',
+        hidden: true,
       },
       {
         name: 'Toolbar',
@@ -151,7 +154,9 @@ export const COMPONENT_CATALOG_SECTIONS: ComponentCatalogSection[] = [
         description:
           'Flexible data visualizations for patterns, trends, and comparisons.',
         icon: IconChartBar,
-        status: 'coming-soon',
+        status: 'v1.0.0',
+        storybookId: 'primitives-chart--stacked-area-chart',
+        hidden: true,
       },
       {
         name: 'Code Block',
@@ -159,6 +164,7 @@ export const COMPONENT_CATALOG_SECTIONS: ComponentCatalogSection[] = [
           'Displays formatted, syntax-highlighted source code in a document.',
         icon: IconCode,
         status: 'coming-soon',
+        hidden: true,
       },
       {
         name: 'Data Grid',
@@ -173,6 +179,7 @@ export const COMPONENT_CATALOG_SECTIONS: ComponentCatalogSection[] = [
         description: 'Presents a vertical collection of related items or rows.',
         icon: IconList,
         status: 'coming-soon',
+        hidden: true,
       },
       {
         name: 'Progress',
@@ -188,6 +195,7 @@ export const COMPONENT_CATALOG_SECTIONS: ComponentCatalogSection[] = [
           'Displays hierarchical data as an expandable, nested list.',
         icon: IconBinaryTree2,
         status: 'coming-soon',
+        hidden: true,
       },
     ],
   },
@@ -209,6 +217,7 @@ export const COMPONENT_CATALOG_SECTIONS: ComponentCatalogSection[] = [
           'Interrupts the user to confirm a decision before proceeding.',
         icon: IconAlertOctagon,
         status: 'coming-soon',
+        hidden: true,
       },
       {
         name: 'Banner',
@@ -278,6 +287,7 @@ export const COMPONENT_CATALOG_SECTIONS: ComponentCatalogSection[] = [
         icon: IconCalendarTime,
         status: 'v1.0.0',
         storybookId: 'primitives-datepicker--default',
+        hidden: true,
       },
       {
         name: 'Date Picker',
@@ -308,6 +318,7 @@ export const COMPONENT_CATALOG_SECTIONS: ComponentCatalogSection[] = [
         description: 'Lets people select or drag and drop files to upload.',
         icon: IconUpload,
         status: 'coming-soon',
+        hidden: true,
       },
       {
         name: 'Input',
@@ -377,7 +388,8 @@ export const COMPONENT_CATALOG_SECTIONS: ComponentCatalogSection[] = [
         description:
           'Lets people select a start and end time as a single range.',
         icon: IconClockHour4,
-        status: 'coming-soon',
+        status: 'v1.0.0',
+        storybookId: 'primitives-timerangepicker--default',
       },
     ],
   },
@@ -399,6 +411,7 @@ export const COMPONENT_CATALOG_SECTIONS: ComponentCatalogSection[] = [
           'Constrains content to a consistent width-to-height ratio.',
         icon: IconAspectRatio,
         status: 'coming-soon',
+        hidden: true,
       },
       {
         name: 'Card',
@@ -429,6 +442,7 @@ export const COMPONENT_CATALOG_SECTIONS: ComponentCatalogSection[] = [
           'A persistent horizontal menu for grouping related commands.',
         icon: IconMenu,
         status: 'coming-soon',
+        hidden: true,
       },
       {
         name: 'Scroll',
@@ -481,6 +495,7 @@ export const COMPONENT_CATALOG_SECTIONS: ComponentCatalogSection[] = [
           'Primary side navigation for moving between sections, modules, or apps.',
         icon: IconLayoutSidebar,
         status: 'coming-soon',
+        hidden: true,
       },
       {
         name: 'Tabs',
@@ -510,6 +525,7 @@ export const COMPONENT_CATALOG_SECTIONS: ComponentCatalogSection[] = [
           "Shows relevant actions at the pointer's position on right-click.",
         icon: IconPointer,
         status: 'coming-soon',
+        hidden: true,
       },
       {
         name: 'Drawer',
@@ -517,6 +533,7 @@ export const COMPONENT_CATALOG_SECTIONS: ComponentCatalogSection[] = [
           'A panel that slides in from the edge of the screen for secondary tasks.',
         icon: IconLayoutSidebarRight,
         status: 'coming-soon',
+        hidden: true,
       },
       {
         name: 'Dialog',
@@ -540,6 +557,7 @@ export const COMPONENT_CATALOG_SECTIONS: ComponentCatalogSection[] = [
           'A rich, searchable panel for choosing one or more items from a list.',
         icon: IconListCheck,
         status: 'coming-soon',
+        hidden: true,
       },
       {
         name: 'Tooltip',
@@ -596,9 +614,10 @@ export interface ComponentCatalogListItem {
   storybookId?: string;
 }
 
-/** Every primitive across all sections, flattened and sorted alphabetically by name. */
+/** Visible catalog components, flattened and sorted alphabetically by name. */
 export const ALL_COMPONENTS: ComponentCatalogListItem[] =
   COMPONENT_CATALOG_SECTIONS.flatMap((section) => section.components)
+    .filter((component) => !component.hidden)
     .map((component) => ({
       name: component.name,
       slug: slugify(component.name),

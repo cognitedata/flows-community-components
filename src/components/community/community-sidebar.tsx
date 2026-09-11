@@ -4,7 +4,8 @@ import { ALL_COMMUNITY_COMPONENTS } from '@/lib/community-data';
 import { COMMUNITY_TEMPLATES } from '@/lib/community-templates-data';
 import { cn, slugify } from '@/lib/utils';
 
-const OVERVIEW_ITEMS = [
+const GETTING_STARTED_ITEMS = [
+  { label: 'Overview', href: '/community' },
   { label: 'Installation', href: '/community/installation' },
   { label: 'Contribution', href: '/community/contribution' },
   { label: 'Skills', href: '/community/skills' },
@@ -19,11 +20,11 @@ export function CommunitySidebar() {
       className="sticky top-chrome-pad hidden h-[calc(100vh-var(--spacing-chrome-pad)-1rem)] w-56 shrink-0 flex-col gap-8 overflow-y-auto pb-8 md:flex"
     >
       <div>
-        <h2 className="mb-2 px-2 text-xs font-medium tracking-wide text-medium-fg uppercase">
-          Overview
+        <h2 className="mb-2 px-2 text-xs font-medium tracking-wide text-foreground uppercase">
+          Getting started
         </h2>
         <ul className="flex flex-col gap-0.5">
-          {OVERVIEW_ITEMS.map((item) => {
+          {GETTING_STARTED_ITEMS.map((item) => {
             const active = pathname === item.href;
             return (
               <li key={item.href}>
@@ -45,16 +46,16 @@ export function CommunitySidebar() {
       </div>
 
       <div>
-        <h2 className="mb-2 px-2 text-xs font-medium tracking-wide text-medium-fg uppercase">
+        <h2 className="mb-2 px-2 text-xs font-medium tracking-wide text-foreground uppercase">
           Components
         </h2>
         <ul className="flex flex-col gap-0.5">
           <li>
             <Link
-              to="/community"
+              to="/community/components"
               className={cn(
                 'block rounded-lg px-2 py-1.5 text-sm transition-colors',
-                pathname === '/community'
+                pathname === '/community/components'
                   ? 'bg-medium-bg font-medium text-foreground'
                   : 'text-muted-fg hover:bg-medium-bg hover:text-foreground'
               )}
@@ -84,7 +85,7 @@ export function CommunitySidebar() {
       </div>
 
       <div>
-        <h2 className="mb-2 px-2 text-xs font-medium tracking-wide text-medium-fg uppercase">
+        <h2 className="mb-2 px-2 text-xs font-medium tracking-wide text-foreground uppercase">
           Templates
         </h2>
         <ul className="flex flex-col gap-0.5">

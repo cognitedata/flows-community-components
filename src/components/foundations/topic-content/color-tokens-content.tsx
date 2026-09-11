@@ -1822,7 +1822,7 @@ export function ColorTokensContent() {
           themes, every token resolves to a different ramp step. To extend or
           customize color tokens in a consuming app, see{' '}
           <Link
-            to="/documentation/custom-theming"
+            to="/aura/documentation/custom-theming"
             className="text-link-fg hover:text-link-fg-hover hover:underline"
           >
             Custom theming
