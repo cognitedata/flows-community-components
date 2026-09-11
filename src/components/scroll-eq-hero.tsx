@@ -171,7 +171,10 @@ export function ScrollEqHero() {
   }, []);
 
   return (
-    <div className="relative h-screen overflow-hidden" style={{ background: HERO_BG }}>
+    <div
+      className="relative h-screen overflow-hidden"
+      style={{ background: HERO_BG }}
+    >
       <AuroraNoiseFilter />
       <svg aria-hidden="true" className="absolute h-0 w-0 overflow-hidden">
         <clipPath id="hero-bar-clip" clipPathUnits="objectBoundingBox">

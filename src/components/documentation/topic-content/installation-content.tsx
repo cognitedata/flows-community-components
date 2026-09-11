@@ -57,23 +57,17 @@ export function InstallationContent() {
   return (
     <>
       <InstallStep step={1} title="First time installation">
-        <p>
-          Add Aura to your project with the following command:
-        </p>
+        <p>Add Aura to your project with the following command:</p>
         <CommandBlock code="npm add @cognite/aura" />
       </InstallStep>
 
       <InstallStep step={2} title="Add skills">
-        <p>
-          Add the Aura skills to your project with the following command:
-        </p>
+        <p>Add the Aura skills to your project with the following command:</p>
         <CommandBlock code="npx @cognite/cli apps skills pull --skill design" />
       </InstallStep>
 
       <InstallStep step={3} title="Update Aura">
-        <p>
-          Update Aura to the latest version with the following command:
-        </p>
+        <p>Update Aura to the latest version with the following command:</p>
         <CommandBlock code="npm update @cognite/aura" />
       </InstallStep>
     </>

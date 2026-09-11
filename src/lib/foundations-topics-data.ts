@@ -127,8 +127,7 @@ export function resolveFoundationSlug(slug: string) {
 export function getFoundationTopicBySlug(slug: string) {
   const resolved = resolveFoundationSlug(slug);
   const topic =
-    FOUNDATION_TOPICS.find((topic) => slugify(topic.name) === resolved) ??
-    null;
+    FOUNDATION_TOPICS.find((topic) => slugify(topic.name) === resolved) ?? null;
   if (!topic || topic.hidden) return null;
   return topic;
 }

@@ -47,7 +47,10 @@ export const router = createBrowserRouter(
           path: 'aura',
           element: <AuraLayout />,
           children: [
-            { index: true, element: <Navigate to="/aura/components" replace /> },
+            {
+              index: true,
+              element: <Navigate to="/aura/components" replace />,
+            },
             {
               path: 'foundations/:slug',
               element: <FoundationTopicDetailPage />,
@@ -64,9 +67,7 @@ export const router = createBrowserRouter(
             },
             {
               path: 'documentation',
-              element: (
-                <Navigate to="/aura/documentation/about-aura" replace />
-              ),
+              element: <Navigate to="/aura/documentation/about-aura" replace />,
             },
             {
               path: 'documentation/skills',

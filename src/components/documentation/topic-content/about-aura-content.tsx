@@ -7,13 +7,7 @@ import {
   TokenTable,
 } from '@/components/foundations/content-primitives';
 
-function DocLink({
-  to,
-  children,
-}: {
-  to: string;
-  children: ReactNode;
-}) {
+function DocLink({ to, children }: { to: string; children: ReactNode }) {
   return (
     <Link
       to={to}
@@ -57,9 +51,9 @@ export function AboutAuraContent() {
         <p>
           Structured prompt modules for Cursor, Claude, and other AI tools that
           activate automatically when a relevant pattern is detected.{' '}
-          <DocLink to="/aura/documentation/designmd">Skills</DocLink> enforce the right
-          component, the right token, and the right pattern before any code is
-          written.
+          <DocLink to="/aura/documentation/designmd">Skills</DocLink> enforce
+          the right component, the right token, and the right pattern before any
+          code is written.
         </p>
 
         <SubHeading>DESIGN.md</SubHeading>
@@ -86,7 +80,8 @@ export function AboutAuraContent() {
           A Model Context Protocol server that exposes Aura’s documentation to
           AI tools at query time. Agents can retrieve up-to-date guidance
           without hallucinating from stale training data. See the{' '}
-          <DocLink to="/aura/documentation/mcp-server">MCP server</DocLink> page.
+          <DocLink to="/aura/documentation/mcp-server">MCP server</DocLink>{' '}
+          page.
         </p>
       </ContentSection>
 
@@ -103,7 +98,11 @@ export function AboutAuraContent() {
 
       <ContentSection title="How Aura differs from a traditional design system">
         <TokenTable
-          columns={['Category', 'Traditional design system', 'Aura (AI-native)']}
+          columns={[
+            'Category',
+            'Traditional design system',
+            'Aura (AI-native)',
+          ]}
           rows={[
             [
               <Label key="ships">What it ships</Label>,
@@ -138,17 +137,15 @@ export function AboutAuraContent() {
           ]}
         />
         <p>
-          The underlying visual language — tokens, components, patterns — is
-          the same. The difference is in how that language is packaged and
-          enforced. Aura treats agent-readable guidance as a core output of the
-          design system, not an afterthought.
+          The underlying visual language — tokens, components, patterns — is the
+          same. The difference is in how that language is packaged and enforced.
+          Aura treats agent-readable guidance as a core output of the design
+          system, not an afterthought.
         </p>
       </ContentSection>
 
       <ContentSection title="What Aura defines">
-        <p>
-          Aura provides three layers that work together:
-        </p>
+        <p>Aura provides three layers that work together:</p>
         <TokenTable
           columns={['Layer', 'What it covers', 'Where it lives']}
           rows={[
@@ -176,11 +173,10 @@ export function AboutAuraContent() {
         </p>
         <p>
           Aura ships in two tiers. Core components are production-ready,
-          risk-reviewed, and available in the{' '}
-          <code>@cognite/aura</code> package. Labs components are available for
-          use but are still being stabilized and may change before graduating to
-          Core. Patterns are in progress. See In development for the current
-          roadmap.
+          risk-reviewed, and available in the <code>@cognite/aura</code>{' '}
+          package. Labs components are available for use but are still being
+          stabilized and may change before graduating to Core. Patterns are in
+          progress. See In development for the current roadmap.
         </p>
       </ContentSection>
 
@@ -214,12 +210,12 @@ export function AboutAuraContent() {
         <p>
           Agents implement UI on behalf of engineers and designers. They consume
           Aura through its structured tooling layer: skills activate
-          automatically for common patterns, DESIGN.md and{' '}
-          <code>llmUsage</code> metadata provide scoped guidance, and the MCP
-          server gives access to up-to-date documentation at query time. Agents
-          should only add new components or modify behavior of existing ones as
-          a last resort when no suitable options exist. Agents should never use
-          raw hex values — always defer to the token and component system.
+          automatically for common patterns, DESIGN.md and <code>llmUsage</code>{' '}
+          metadata provide scoped guidance, and the MCP server gives access to
+          up-to-date documentation at query time. Agents should only add new
+          components or modify behavior of existing ones as a last resort when
+          no suitable options exist. Agents should never use raw hex values —
+          always defer to the token and component system.
         </p>
       </ContentSection>
     </>
