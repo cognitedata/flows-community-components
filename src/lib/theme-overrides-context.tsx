@@ -3,7 +3,15 @@
 import { useTheme } from 'next-themes';
 import * as React from 'react';
 
+import auraDeprecatedCss from '@cognite/aura/colors-deprecated.css?raw';
+
+import {
+  aliasConsumersByCanonical,
+  expandAliasedTokenOverrides,
+} from '@/lib/aura-css-var';
 import type { SharedThemeOverrides } from '@/lib/theme-share-url';
+
+const TOKEN_ALIAS_CONSUMERS = aliasConsumersByCanonical(auraDeprecatedCss);
 
 export type ThemeMode = 'light' | 'dark';
 type Overrides = Record<ThemeMode, Record<string, string>>;
@@ -32,33 +40,46 @@ function appearanceFromDocument(): ThemeMode {
 function toSharedTheme(overrides: Overrides): SharedThemeOverrides {
   return {
     base: {},
-    light: { ...overrides.light },
-    dark: { ...overrides.dark },
+    light: expandAliasedTokenOverrides(overrides.light, TOKEN_ALIAS_CONSUMERS),
+    dark: expandAliasedTokenOverrides(overrides.dark, TOKEN_ALIAS_CONSUMERS),
   };
 }
 
-function clearInlineTokenProperties(root: HTMLElement) {
+function clearInlineTokenProperties(element: HTMLElement) {
   const names: string[] = [];
-  for (let index = 0; index < root.style.length; index += 1) {
-    const name = root.style.item(index);
+  for (let index = 0; index < element.style.length; index += 1) {
+    const name = element.style.item(index);
     if (name.startsWith('--')) names.push(name);
   }
   for (const name of names) {
-    root.style.removeProperty(name);
+    element.style.removeProperty(name);
+  }
+}
+
+function applyInlineTokens(
+  element: HTMLElement,
+  tokens: Record<string, string>
+) {
+  const expanded = expandAliasedTokenOverrides(tokens, TOKEN_ALIAS_CONSUMERS);
+  clearInlineTokenProperties(element);
+  for (const [cssVar, value] of Object.entries(expanded)) {
+    element.style.setProperty(`--${cssVar}`, value);
   }
 }
 
 function applyDocumentTheme(appearance: ThemeMode, overrides: Overrides) {
   const root = document.documentElement;
-  clearInlineTokenProperties(root);
+  const body = document.body;
   root.classList.toggle('dark', appearance === 'dark');
   root.classList.add('h-full');
-  document.body.classList.toggle('dark', appearance === 'dark');
   root.style.colorScheme = appearance;
+  applyInlineTokens(root, overrides[appearance]);
 
-  for (const [cssVar, value] of Object.entries(overrides[appearance])) {
-    root.style.setProperty(`--${cssVar}`, value);
-  }
+  if (!body) return;
+  // Keep `.dark` off body. Aura's `.dark { --token }` rules on body would
+  // shadow `:root` inline overrides, so previews would ignore the theme panel.
+  body.classList.remove('dark');
+  applyInlineTokens(body, overrides[appearance]);
 }
 
 export function ThemeOverridesProvider({

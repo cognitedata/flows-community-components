@@ -52,7 +52,7 @@ export function ThemePanel({ headerAction }: { headerAction?: ReactNode }) {
       />
       <p className="mb-3 px-1 text-xs text-muted-fg">
         Light and dark, plus every Aura semantic color token. Changes apply
-        across the site and Core Storybook previews.
+        across the site and live component previews.
       </p>
 
       <div className="min-h-0 flex-1 overflow-y-auto pr-1">
