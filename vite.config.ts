@@ -1,4 +1,5 @@
 import { execFile, execFileSync } from 'node:child_process';
+import { copyFileSync, existsSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { promisify } from 'node:util';
 
@@ -155,6 +156,25 @@ function historyApiFallback(): Plugin {
   };
 }
 
+// GitHub Pages has no history-API fallback: unknown paths serve 404.html.
+// Copying the SPA shell there lets React Router resolve direct links and refreshes.
+function githubPagesSpaFallback(): Plugin {
+  return {
+    name: 'github-pages-spa-fallback',
+    apply: 'build',
+    writeBundle(options) {
+      const outDir = options.dir;
+      if (!outDir) return;
+
+      const indexHtml = path.join(outDir, 'index.html');
+      if (!existsSync(indexHtml)) return;
+
+      copyFileSync(indexHtml, path.join(outDir, '404.html'));
+      writeFileSync(path.join(outDir, '.nojekyll'), '');
+    },
+  };
+}
+
 // https://vite.dev/config/
 export default defineConfig(async () => {
   const githubStatsJson = await resolveGitHubStatsJson();
@@ -179,6 +199,7 @@ export default defineConfig(async () => {
       storySourcePlugin(),
       githubStarsDevPlugin(),
       historyApiFallback(),
+      githubPagesSpaFallback(),
     ],
     resolve: {
       alias: {

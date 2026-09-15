@@ -50,6 +50,9 @@ jobs:
         env:
           PAGES_BASE_PATH: /aura
 
+      - name: Verify GitHub Pages SPA fallback
+        run: test -f dist/404.html && test -f dist/.nojekyll
+
       - name: Build Storybook
         run: pnpm run build-storybook
         env:
