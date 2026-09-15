@@ -28,7 +28,7 @@ export function DocumentationPage() {
       </div>
 
       <div className="@container grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {DOCUMENTATION_TOPICS.map((topic) => (
+        {DOCUMENTATION_TOPICS.filter((topic) => !topic.hidden).map((topic) => (
           <FoundationTopicCard
             key={topic.name}
             topic={topic}

@@ -3,12 +3,13 @@ import * as React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 import auraLogo from '@/assets/aura-logo.svg';
+import { GitHubStats } from '@/components/github-stats';
 import { ThemeSwitcher } from '@/components/theme-switcher';
 import { cn } from '@/lib/utils';
 
 const NAV_ITEMS: { label: string; href: string; hidden?: boolean }[] = [
   { label: 'Home', href: '/' },
-  { label: "What's new", href: '/whats-new' },
+  { label: "What's new", href: '/whats-new', hidden: true },
   { label: 'Docs', href: '/aura/documentation/about-aura' },
   { label: 'Components', href: '/aura' },
   { label: 'Charts', href: '/charts' },
@@ -69,6 +70,7 @@ export function MainNav() {
 
         <div className="flex shrink-0 items-center gap-1">
           <ThemeSwitcher />
+          <GitHubStats />
 
           <button
             type="button"

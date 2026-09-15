@@ -7,8 +7,6 @@ import { cn, slugify } from '@/lib/utils';
 const GETTING_STARTED_ITEMS = [
   { label: 'Overview', href: '/community' },
   { label: 'Installation', href: '/community/installation' },
-  { label: 'Contribution', href: '/community/contribution' },
-  { label: 'Skills', href: '/community/skills' },
 ];
 
 export function CommunitySidebar() {

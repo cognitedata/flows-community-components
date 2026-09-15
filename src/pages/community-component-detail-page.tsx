@@ -1,7 +1,5 @@
-import { IconExternalLink } from '@tabler/icons-react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 
-import { communityStorybookManagerUrl } from '@/components/community/storybook-embed';
 import { PageTitle } from '@/components/page-title';
 import { StoriesRenderer } from '@/components/stories-renderer';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -59,15 +57,6 @@ export function CommunityComponentDetailPage() {
                 {note}
               </p>
             ))}
-            <a
-              href={communityStorybookManagerUrl(slug)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-link-fg transition-colors hover:text-link-fg-hover"
-            >
-              Open in Storybook
-              <IconExternalLink size={14} />
-            </a>
           </div>
         </div>
       </header>

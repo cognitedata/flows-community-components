@@ -19,18 +19,31 @@ export function CommunityTemplatesPage() {
         </p>
       </header>
 
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-        {COMMUNITY_TEMPLATES.map((template) => (
-          <ComponentCard
-            key={template.name}
-            name={template.name}
-            description={template.description}
-            icon={template.icon}
-            href={`/community/templates/${slugify(template.name)}`}
-            cta="View template"
-          />
-        ))}
-      </div>
+      {COMMUNITY_TEMPLATES.length === 0 ? (
+        <div className="max-w-[60ch] space-y-2">
+          <h2 className="font-heading text-2xl font-semibold tracking-tight">
+            Coming soon
+          </h2>
+          <p className="text-sm leading-relaxed text-muted-fg">
+            No community templates have been published yet. When they are,
+            they&apos;ll show up here as installable starting points for common
+            app layouts and workflows.
+          </p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+          {COMMUNITY_TEMPLATES.map((template) => (
+            <ComponentCard
+              key={template.name}
+              name={template.name}
+              description={template.description}
+              icon={template.icon}
+              href={`/community/templates/${slugify(template.name)}`}
+              cta="View template"
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }

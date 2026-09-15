@@ -3,7 +3,10 @@
 import { useTheme } from 'next-themes';
 import * as React from 'react';
 
-import type { SharedThemeOverrides } from '@/lib/theme-share-url';
+import {
+  resetSharedThemeSession,
+  type SharedThemeOverrides,
+} from '@/lib/theme-share-url';
 
 export type ThemeMode = 'light' | 'dark';
 type Overrides = Record<ThemeMode, Record<string, string>>;
@@ -108,6 +111,7 @@ export function ThemeOverridesProvider({
   const reset = React.useCallback(() => {
     setOverrides(EMPTY_OVERRIDES);
     applyDocumentTheme(appearance, EMPTY_OVERRIDES);
+    resetSharedThemeSession();
   }, [appearance]);
 
   const sharedTheme = React.useMemo(

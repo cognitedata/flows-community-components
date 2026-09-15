@@ -112,23 +112,6 @@
       ]
     },
     {
-      "name": "empty-state",
-      "type": "registry:component",
-      "title": "EmptyState",
-      "description": "Empty state layout with optional action. Prefer @cognite/aura Core EmptyState when it covers your needs.",
-      "dependencies": [
-        "@cognite/aura",
-        "@tabler/icons-react"
-      ],
-      "files": [
-        {
-          "path": "src/components/ui/community/empty-state/empty-state.tsx",
-          "target": "src/components/ui/community/empty-state.tsx",
-          "type": "registry:component"
-        }
-      ]
-    },
-    {
       "name": "menubar",
       "type": "registry:component",
       "title": "Menubar",
@@ -160,40 +143,6 @@
         {
           "path": "src/components/ui/community/sheet/sheet.tsx",
           "target": "src/components/ui/community/sheet.tsx",
-          "type": "registry:component"
-        }
-      ]
-    },
-    {
-      "name": "toolbar",
-      "type": "registry:component",
-      "title": "Toolbar",
-      "description": "Compact toolbar with button groups and separators.",
-      "dependencies": [
-        "@base-ui/react",
-        "@cognite/aura",
-        "class-variance-authority"
-      ],
-      "files": [
-        {
-          "path": "src/components/ui/community/toolbar/toolbar.tsx",
-          "target": "src/components/ui/community/toolbar.tsx",
-          "type": "registry:component"
-        }
-      ]
-    },
-    {
-      "name": "topbar",
-      "type": "registry:component",
-      "title": "Topbar",
-      "description": "Application topbar with breadcrumb and action slots. Prefer @cognite/aura Core Topbar when it covers your needs.",
-      "dependencies": [
-        "@cognite/aura"
-      ],
-      "files": [
-        {
-          "path": "src/components/ui/community/topbar/topbar.tsx",
-          "target": "src/components/ui/community/topbar.tsx",
           "type": "registry:component"
         }
       ]

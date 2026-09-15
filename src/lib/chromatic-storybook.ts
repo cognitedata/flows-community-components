@@ -111,17 +111,37 @@ export function syncChromaticIframeTheme(
   }
 }
 
+function chromaticManagerUrl(
+  path: string,
+  appearance: ThemeAppearance,
+  overrides: SharedThemeOverrides
+) {
+  const url = `${CHROMATIC_STORYBOOK_BASE}?path=${path}`;
+  return buildThemeHashUrl(
+    withStorybookThemeGlobals(url, appearance),
+    overrides,
+    appearance
+  );
+}
+
 /** Full Chromatic manager docs URL, e.g. `?path=/docs/primitives-accordion--docs`. */
 export function chromaticStorybookManagerUrl(
   storyId: string,
   appearance: ThemeAppearance = 'dark',
   overrides: SharedThemeOverrides = emptySharedTheme()
 ) {
-  const docsId = storyIdToDocsId(storyId);
-  const url = `${CHROMATIC_STORYBOOK_BASE}?path=/docs/${docsId}`;
-  return buildThemeHashUrl(
-    withStorybookThemeGlobals(url, appearance),
-    overrides,
-    appearance
+  return chromaticManagerUrl(
+    `/docs/${storyIdToDocsId(storyId)}`,
+    appearance,
+    overrides
   );
+}
+
+/** Full Chromatic manager story URL, e.g. `?path=/story/primitives-chart--stacked-area-chart`. */
+export function chromaticStorybookStoryUrl(
+  storyId: string,
+  appearance: ThemeAppearance = 'dark',
+  overrides: SharedThemeOverrides = emptySharedTheme()
+) {
+  return chromaticManagerUrl(`/story/${storyId}`, appearance, overrides);
 }

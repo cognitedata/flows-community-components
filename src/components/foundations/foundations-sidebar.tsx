@@ -11,7 +11,6 @@ const TOPICS_ITEMS = [
   'Motion',
   'Assets and icons',
   'Accessibility',
-  'Content',
 ];
 
 export function FoundationsSidebar() {

@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 import { ALL_COMPONENTS } from '@/lib/component-catalog-data';
-import { ALL_DOCUMENTATION_NAV_ITEMS } from '@/lib/documentation-nav-data';
+import { VISIBLE_DOCUMENTATION_NAV_ITEMS } from '@/lib/documentation-nav-data';
 import { VISIBLE_FOUNDATION_TOPICS } from '@/lib/foundations-topics-data';
 import { cn, slugify } from '@/lib/utils';
 
@@ -55,7 +55,7 @@ export function AuraSidebar() {
       className="sticky top-chrome-pad hidden h-[calc(100vh-var(--spacing-chrome-pad)-1rem)] w-56 shrink-0 flex-col gap-8 overflow-y-auto pb-8 md:flex"
     >
       <SidebarSection title="Getting started">
-        {ALL_DOCUMENTATION_NAV_ITEMS.map((item) => (
+        {VISIBLE_DOCUMENTATION_NAV_ITEMS.map((item) => (
           <li key={item.slug}>
             <SidebarLink href={`/aura/documentation/${item.slug}`}>
               {item.label}

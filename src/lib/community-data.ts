@@ -2,11 +2,9 @@ import {
   IconAlertOctagon,
   IconCarouselHorizontal,
   IconLayoutBottombar,
-  IconLayoutNavbar,
   IconLayoutSidebarRight,
   IconMenu,
   IconMenu2,
-  IconMoodEmpty,
   IconShieldCheck,
   type Icon as TablerIcon,
 } from '@tabler/icons-react';
@@ -49,12 +47,6 @@ export const COMMUNITY_COMPONENTS: CommunityComponentEntry[] = [
     icon: IconLayoutSidebarRight,
   },
   {
-    name: 'Empty State',
-    description:
-      'Fills the space where content would normally appear with helpful guidance.',
-    icon: IconMoodEmpty,
-  },
-  {
     name: 'Menubar',
     description: 'A persistent horizontal menu for grouping related commands.',
     icon: IconMenu,
@@ -64,18 +56,6 @@ export const COMMUNITY_COMPONENTS: CommunityComponentEntry[] = [
     description:
       'A surface that slides up from the bottom to show supplementary content.',
     icon: IconLayoutBottombar,
-  },
-  {
-    name: 'Toolbar',
-    description:
-      'Groups related buttons and controls into a single, compact row.',
-    icon: IconLayoutNavbar,
-  },
-  {
-    name: 'Topbar',
-    description:
-      'A persistent bar anchored to the top of the screen for global navigation.',
-    icon: IconLayoutNavbar,
   },
 ];
 

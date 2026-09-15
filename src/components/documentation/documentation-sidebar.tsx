@@ -17,7 +17,9 @@ export function DocumentationSidebar() {
             {section.title}
           </h2>
           <ul className="flex flex-col gap-0.5">
-            {section.items.map((item) => {
+            {section.items
+              .filter((item) => !item.hidden)
+              .map((item) => {
               const href = item.slug
                 ? `/documentation/${item.slug}`
                 : '/documentation';

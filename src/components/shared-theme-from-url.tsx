@@ -6,10 +6,12 @@ import * as React from 'react';
 import {
   buildSharedThemeCss,
   emptySharedTheme,
+  hasThemeInHash,
   isAuraThemeMessage,
   readAppearanceFromHash,
   readThemeFromHash,
   readThemeFromSearch,
+  subscribeSharedThemeReset,
   type SharedThemeOverrides,
   type ThemeAppearance,
 } from '@/lib/theme-share-url';
@@ -50,9 +52,11 @@ export function SharedThemeFromUrlProvider({
   );
 
   const applyFromHash = React.useCallback(() => {
-    const fromHash = readThemeFromHash(window.location.hash);
-    if (fromHash) {
-      setShared(fromHash);
+    if (!hasThemeInHash(window.location.hash)) {
+      setShared(emptySharedTheme());
+    } else {
+      const fromHash = readThemeFromHash(window.location.hash);
+      if (fromHash) setShared(fromHash);
     }
     applyAppearance(readAppearanceFromHash(window.location.hash));
   }, [applyAppearance]);
@@ -64,6 +68,10 @@ export function SharedThemeFromUrlProvider({
     window.addEventListener('hashchange', onHashChange);
     return () => window.removeEventListener('hashchange', onHashChange);
   }, [applyAppearance, applyFromHash]);
+
+  React.useEffect(() => {
+    return subscribeSharedThemeReset(() => setShared(emptySharedTheme()));
+  }, []);
 
   React.useEffect(() => {
     const onMessage = (event: MessageEvent) => {

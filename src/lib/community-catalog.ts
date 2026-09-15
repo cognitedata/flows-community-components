@@ -3,11 +3,8 @@ import { CarouselMetadata } from '../components/ui/community/carousel/carousel.m
 import { ConfirmationMetadata } from '../components/ui/community/confirmation/confirmation.metadata';
 import { ContextMenuMetadata } from '../components/ui/community/context-menu/context-menu.metadata';
 import { DrawerMetadata } from '../components/ui/community/drawer/drawer.metadata';
-import { EmptyStateMetadata } from '../components/ui/community/empty-state/empty-state.metadata';
 import { MenubarMetadata } from '../components/ui/community/menubar/menubar.metadata';
 import { SheetMetadata } from '../components/ui/community/sheet/sheet.metadata';
-import { ToolbarMetadata } from '../components/ui/community/toolbar/toolbar.metadata';
-import { TopbarMetadata } from '../components/ui/community/topbar/topbar.metadata';
 
 import type { ComponentMeta } from './types';
 
@@ -18,7 +15,6 @@ export type CommunityCatalogItem = {
   install: string;
   status: NonNullable<ComponentMeta['status']>;
   notes?: string[];
-  storybookPath: string;
   llmUsage?: string;
 };
 
@@ -28,11 +24,8 @@ const communityMetaById: Record<string, ComponentMeta> = {
   confirmation: ConfirmationMetadata,
   'context-menu': ContextMenuMetadata,
   drawer: DrawerMetadata,
-  'empty-state': EmptyStateMetadata,
   menubar: MenubarMetadata,
   sheet: SheetMetadata,
-  toolbar: ToolbarMetadata,
-  topbar: TopbarMetadata,
 };
 
 function toCatalogItem(id: string, meta: ComponentMeta): CommunityCatalogItem {
@@ -43,7 +36,6 @@ function toCatalogItem(id: string, meta: ComponentMeta): CommunityCatalogItem {
     install: `pnpm dlx shadcn@latest add @aura/${id}`,
     status: meta.status ?? 'experimental',
     notes: meta.notes,
-    storybookPath: `storybook/?path=/docs/community-${id}--docs`,
     llmUsage: meta.llmUsage,
   };
 }

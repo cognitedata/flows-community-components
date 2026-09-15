@@ -7,13 +7,10 @@ import { RootLayout } from '@/layouts/root-layout';
 import { ChartsPage } from '@/pages/charts-page';
 import { CommunityComponentDetailPage } from '@/pages/community-component-detail-page';
 import { CommunityComponentsPage } from '@/pages/community-components-page';
-import { CommunityDashboardPage } from '@/pages/community-dashboard-page';
 import { CommunityPage } from '@/pages/community-page';
 import { CommunityTemplatesPage } from '@/pages/community-templates-page';
 import { ComponentDetailPage } from '@/pages/component-detail-page';
 import { ComponentsPage } from '@/pages/components-page';
-import { ContributionPage } from '@/pages/contribution-page';
-import { CustomThemingPage } from '@/pages/custom-theming-page';
 import { DocumentationTopicDetailPage } from '@/pages/documentation-topic-detail-page';
 import { FoundationTopicDetailPage } from '@/pages/foundation-topic-detail-page';
 import { HomePage } from '@/pages/home-page';
@@ -22,7 +19,6 @@ import { PatternDetailPage } from '@/pages/pattern-detail-page';
 import { PatternsExtendingFunctionalityPage } from '@/pages/patterns-extending-functionality-page';
 import { PatternsIntroductionPage } from '@/pages/patterns-introduction-page';
 import { PatternsPage } from '@/pages/patterns-page';
-import { SkillsPage } from '@/pages/skills-page';
 import { WhatsNewPage } from '@/pages/whats-new-page';
 import { WhatsNewPostPage } from '@/pages/whats-new-post-page';
 
@@ -74,8 +70,16 @@ export const router = createBrowserRouter(
               element: <Navigate to="/aura/documentation/designmd" replace />,
             },
             {
-              path: 'documentation/custom-theming',
-              element: <CustomThemingPage />,
+              path: 'documentation/contribution',
+              element: (
+                <Navigate to="/aura/documentation/about-aura" replace />
+              ),
+            },
+            {
+              path: 'documentation/architecture',
+              element: (
+                <Navigate to="/aura/documentation/about-aura" replace />
+              ),
             },
             {
               path: 'documentation/:slug',
@@ -156,14 +160,23 @@ export const router = createBrowserRouter(
           children: [
             { index: true, element: <CommunityPage /> },
             { path: 'installation', element: <InstallationPage /> },
-            { path: 'contribution', element: <ContributionPage /> },
-            { path: 'contribute', element: <ContributionPage /> },
-            { path: 'skills', element: <SkillsPage /> },
+            {
+              path: 'contribution',
+              element: <Navigate to="/community" replace />,
+            },
+            {
+              path: 'contribute',
+              element: <Navigate to="/community" replace />,
+            },
+            {
+              path: 'skills',
+              element: <Navigate to="/community" replace />,
+            },
             { path: 'components', element: <CommunityComponentsPage /> },
             { path: 'templates', element: <CommunityTemplatesPage /> },
             {
               path: 'templates/dashboard',
-              element: <CommunityDashboardPage />,
+              element: <Navigate to="/community/templates" replace />,
             },
             { path: ':slug', element: <CommunityComponentDetailPage /> },
           ],
