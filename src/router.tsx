@@ -71,15 +71,11 @@ export const router = createBrowserRouter(
             },
             {
               path: 'documentation/contribution',
-              element: (
-                <Navigate to="/aura/documentation/about-aura" replace />
-              ),
+              element: <Navigate to="/aura/documentation/about-aura" replace />,
             },
             {
               path: 'documentation/architecture',
-              element: (
-                <Navigate to="/aura/documentation/about-aura" replace />
-              ),
+              element: <Navigate to="/aura/documentation/about-aura" replace />,
             },
             {
               path: 'documentation/:slug',

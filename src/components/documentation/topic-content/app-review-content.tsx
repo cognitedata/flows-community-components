@@ -122,10 +122,7 @@ const QUESTIONS = [
         '2 Below average',
         'Many labels are unclear or generic. Heavy technical terms without explanation.',
       ],
-      [
-        '1 Poor',
-        'Labels are missing, confusing, or jargon-laden.',
-      ],
+      ['1 Poor', 'Labels are missing, confusing, or jargon-laden.'],
     ],
   },
   {
@@ -178,10 +175,7 @@ const QUESTIONS = [
         '2 Below average',
         'Many interactive elements do not look clickable. Few hover effects.',
       ],
-      [
-        '1 Poor',
-        'Cannot tell what is clickable. No visual feedback.',
-      ],
+      ['1 Poor', 'Cannot tell what is clickable. No visual feedback.'],
     ],
   },
   {
@@ -202,14 +196,8 @@ const QUESTIONS = [
         '3 Average',
         'Some warnings for major actions. Limited undo or cancel. Some risk of data loss.',
       ],
-      [
-        '2 Below average',
-        'Few warnings. No undo. Easy to lose work.',
-      ],
-      [
-        '1 Poor',
-        'No warnings. No undo. Frequent accidental data loss.',
-      ],
+      ['2 Below average', 'Few warnings. No undo. Easy to lose work.'],
+      ['1 Poor', 'No warnings. No undo. Frequent accidental data loss.'],
     ],
   },
   {
@@ -234,10 +222,7 @@ const QUESTIONS = [
         '2 Below average',
         'Poor mobile or tablet experience. Layouts break. Many touch targets too small.',
       ],
-      [
-        '1 Poor',
-        'Desktop only. Broken on mobile and tablet.',
-      ],
+      ['1 Poor', 'Desktop only. Broken on mobile and tablet.'],
     ],
   },
   {
@@ -250,10 +235,7 @@ const QUESTIONS = [
         '5 Excellent',
         'All empty states show helpful messages and clear next steps. First-time users know exactly what to do.',
       ],
-      [
-        '4 Good',
-        'Most empty states are helpful. Minor gaps in guidance.',
-      ],
+      ['4 Good', 'Most empty states are helpful. Minor gaps in guidance.'],
       [
         '3 Average',
         'Some empty states explained. First-time users can figure it out with effort.',
@@ -262,10 +244,7 @@ const QUESTIONS = [
         '2 Below average',
         'Many blank pages with no guidance. Unclear how to get started.',
       ],
-      [
-        '1 Poor',
-        'Blank pages everywhere. No indication of what to do.',
-      ],
+      ['1 Poor', 'Blank pages everywhere. No indication of what to do.'],
     ],
   },
   {
@@ -290,10 +269,7 @@ const QUESTIONS = [
         '2 Below average',
         'Slow loading. Tasks require many steps. No shortcuts or bulk actions.',
       ],
-      [
-        '1 Poor',
-        'Very slow or unresponsive. Tasks are tedious.',
-      ],
+      ['1 Poor', 'Very slow or unresponsive. Tasks are tedious.'],
     ],
   },
   {
@@ -346,9 +322,7 @@ export function AppReviewContent() {
             official quality guidelines
           </ExtLink>
           . Coding agents can run the same rubric with the{' '}
-          <ExtLink href={DESIGN_REVIEW_SKILL_URL}>
-            flows-design-review
-          </ExtLink>{' '}
+          <ExtLink href={DESIGN_REVIEW_SKILL_URL}>flows-design-review</ExtLink>{' '}
           skill.
         </p>
         <Callout variant="info">
@@ -369,8 +343,7 @@ export function AppReviewContent() {
         />
         <p>
           For Flows certification, design review comes after code review and
-          before submit. Target overall average:{' '}
-          <Label>3.8 or higher</Label>.
+          before submit. Target overall average: <Label>3.8 or higher</Label>.
         </p>
       </ContentSection>
 
@@ -412,9 +385,8 @@ export function AppReviewContent() {
           <DocLink to="/aura/foundations/size-spacing-tokens">
             size and spacing
           </DocLink>
-          , and the{' '}
-          <DocLink to="/aura/components">component catalog</DocLink> against
-          what the app actually ships.
+          , and the <DocLink to="/aura/components">component catalog</DocLink>{' '}
+          against what the app actually ships.
         </p>
         <DoDontGrid
           dos={[

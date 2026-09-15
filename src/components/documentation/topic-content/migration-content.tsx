@@ -37,8 +37,8 @@ export function MigrationContent() {
         </p>
         <Callout variant="info">
           We are working on a Cogs to Aura migration guide for Fusion. Check
-          back here soon for step-by-step instructions. Until then, reach out
-          in Slack if you are starting a migration and need help.
+          back here soon for step-by-step instructions. Until then, reach out in
+          Slack if you are starting a migration and need help.
         </Callout>
       </div>
 

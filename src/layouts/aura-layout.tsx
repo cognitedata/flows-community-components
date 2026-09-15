@@ -11,8 +11,7 @@ export function AuraLayout() {
   const hideToc =
     pathname === '/aura/components' || pathname === '/aura/primitives';
   const isComponentsSection =
-    pathname === '/aura/components' ||
-    pathname.startsWith('/aura/components/');
+    pathname === '/aura/components' || pathname.startsWith('/aura/components/');
 
   return (
     <main className="min-h-screen bg-background text-foreground">
