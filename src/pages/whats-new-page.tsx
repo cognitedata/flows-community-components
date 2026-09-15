@@ -19,15 +19,7 @@ export function WhatsNewPage() {
             </h1>
             <p className="mt-3 max-w-[60ch] text-muted-fg">
               Monthly updates on where Aura is headed — new components,
-              patterns, and ideas. Looking for a detailed technical log of every
-              release instead?{' '}
-              <Link
-                to="/aura/documentation/changelog"
-                className="text-link-fg hover:text-link-fg-hover hover:underline"
-              >
-                See the changelog
-              </Link>
-              .
+              patterns, and ideas.
             </p>
           </header>
 

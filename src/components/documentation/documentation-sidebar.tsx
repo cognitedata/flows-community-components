@@ -17,27 +17,29 @@ export function DocumentationSidebar() {
             {section.title}
           </h2>
           <ul className="flex flex-col gap-0.5">
-            {section.items.map((item) => {
-              const href = item.slug
-                ? `/documentation/${item.slug}`
-                : '/documentation';
-              const active = pathname === href;
-              return (
-                <li key={item.label}>
-                  <Link
-                    to={href}
-                    className={cn(
-                      'block rounded-lg px-2 py-1.5 text-sm transition-colors',
-                      active
-                        ? 'bg-medium-bg font-medium text-foreground'
-                        : 'text-muted-fg hover:bg-medium-bg hover:text-foreground'
-                    )}
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              );
-            })}
+            {section.items
+              .filter((item) => !item.hidden)
+              .map((item) => {
+                const href = item.slug
+                  ? `/documentation/${item.slug}`
+                  : '/documentation';
+                const active = pathname === href;
+                return (
+                  <li key={item.label}>
+                    <Link
+                      to={href}
+                      className={cn(
+                        'block rounded-lg px-2 py-1.5 text-sm transition-colors',
+                        active
+                          ? 'bg-medium-bg font-medium text-foreground'
+                          : 'text-muted-fg hover:bg-medium-bg hover:text-foreground'
+                      )}
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                );
+              })}
           </ul>
         </div>
       ))}

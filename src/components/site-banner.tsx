@@ -6,9 +6,14 @@ const SITE_BANNER_MESSAGE =
 
 export function SiteBanner() {
   return (
-    <Banner variant="info" role="status" aria-label="Site notice">
+    <Banner
+      variant="info"
+      role="status"
+      aria-label="Site notice"
+      className="text-info-foreground-on-info"
+    >
       <BannerIcon icon={IconInfoCircle} />
-      <BannerTitle className="truncate text-sm sm:text-base">
+      <BannerTitle className="truncate text-sm text-info-foreground-on-info sm:text-base">
         {SITE_BANNER_MESSAGE}
       </BannerTitle>
     </Banner>

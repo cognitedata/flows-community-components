@@ -102,6 +102,7 @@ export const FOUNDATION_TOPICS: FoundationTopic[] = [
     icon: IconFileText,
     image: '/foundations/content-default.png',
     hoverVideo: '/foundations/content-hover.mp4',
+    hidden: true,
   },
 ].map((topic) => ({
   ...topic,

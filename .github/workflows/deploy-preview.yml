@@ -38,6 +38,7 @@ jobs:
         run: pnpm run build
         env:
           PAGES_BASE_PATH: /aura/branches/${{ steps.branch.outputs.name }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Add branch metadata
         run: |

@@ -50,10 +50,9 @@ export function AboutAuraContent() {
         <SubHeading>Skills</SubHeading>
         <p>
           Structured prompt modules for Cursor, Claude, and other AI tools that
-          activate automatically when a relevant pattern is detected.{' '}
-          <DocLink to="/aura/documentation/designmd">Skills</DocLink> enforce
-          the right component, the right token, and the right pattern before any
-          code is written.
+          activate automatically when a relevant pattern is detected. Skills
+          enforce the right component, the right token, and the right pattern
+          before any code is written.
         </p>
 
         <SubHeading>DESIGN.md</SubHeading>
@@ -61,10 +60,7 @@ export function AboutAuraContent() {
           A machine-readable source of truth for foundations and primitives.
           Agents can read this file to understand the system’s constraints and
           intent, just as engineers would read documentation. See the{' '}
-          <DocLink to="/aura/documentation/designmd">
-            Design.md & skills
-          </DocLink>{' '}
-          page.
+          <DocLink to="/aura/documentation/designmd">DESIGN.md</DocLink> page.
         </p>
 
         <SubHeading>LLM metadata</SubHeading>
@@ -79,9 +75,7 @@ export function AboutAuraContent() {
         <p>
           A Model Context Protocol server that exposes Aura’s documentation to
           AI tools at query time. Agents can retrieve up-to-date guidance
-          without hallucinating from stale training data. See the{' '}
-          <DocLink to="/aura/documentation/mcp-server">MCP server</DocLink>{' '}
-          page.
+          without hallucinating from stale training data.
         </p>
       </ContentSection>
 

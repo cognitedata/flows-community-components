@@ -121,6 +121,62 @@ function parseHashParams(hash: string): URLSearchParams {
   return new URLSearchParams(raw);
 }
 
+export function hasThemeInHash(hash: string): boolean {
+  return parseHashParams(hash).has(THEME_HASH_PARAM);
+}
+
+export function hasThemeInSearch(search: string): boolean {
+  return new URLSearchParams(search).has(THEME_HASH_PARAM);
+}
+
+/** Removes `#theme=` while preserving other hash params. */
+export function stripThemeFromHash(hash: string): string {
+  const params = parseHashParams(hash);
+  params.delete(THEME_HASH_PARAM);
+  const next = params.toString();
+  return next ? `#${next}` : '';
+}
+
+/** Removes `?theme=` while preserving other query params. */
+export function stripThemeFromSearch(search: string): string {
+  const params = new URLSearchParams(
+    search.startsWith('?') ? search.slice(1) : search
+  );
+  params.delete(THEME_HASH_PARAM);
+  const next = params.toString();
+  return next ? `?${next}` : '';
+}
+
+/**
+ * Drops a Fusion/share theme from the current URL without adding history.
+ * `replaceState` does not fire `hashchange`, so in-memory listeners must
+ * also be notified via `resetSharedThemeSession`.
+ */
+export function clearThemeFromLocation(): void {
+  if (typeof window === 'undefined') return;
+  const hash = stripThemeFromHash(window.location.hash);
+  const search = stripThemeFromSearch(window.location.search);
+  const next = `${window.location.pathname}${search}${hash}`;
+  const current = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+  if (next === current) return;
+  window.history.replaceState(window.history.state, '', next);
+}
+
+const sharedThemeResetListeners = new Set<() => void>();
+
+export function subscribeSharedThemeReset(listener: () => void): () => void {
+  sharedThemeResetListeners.add(listener);
+  return () => {
+    sharedThemeResetListeners.delete(listener);
+  };
+}
+
+/** Clears `#theme=` / `?theme=` and notifies shared-theme listeners. */
+export function resetSharedThemeSession(): void {
+  clearThemeFromLocation();
+  for (const listener of sharedThemeResetListeners) listener();
+}
+
 /** Reads and decodes `#theme=…` from a location hash. */
 export function readThemeFromHash(
   hash: string
