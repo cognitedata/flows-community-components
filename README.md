@@ -11,7 +11,7 @@ Community component docs preview examples **natively** (portable Storybook stori
 
 Official Aura docs: [docs.cognite.com/aura-design-system](https://docs.cognite.com/aura-design-system)
 
-Community site + registry: [cognitedata.github.io/aura](https://cognitedata.github.io/aura/)
+Community site + registry: [cognitedata.github.io/aura](https://cognitedata.github.io/flows-community-components)
 
 ## Install a community component
 
