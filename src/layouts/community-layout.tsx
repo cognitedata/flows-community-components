@@ -8,7 +8,9 @@ export function CommunityLayout() {
   const contentRef = React.useRef<HTMLDivElement>(null);
   const { pathname } = useLocation();
   const hideToc =
-    pathname === '/community/components' || pathname === '/community/templates';
+    pathname === '/community/components' ||
+    pathname === '/community/templates' ||
+    pathname.startsWith('/community/templates/');
 
   return (
     <main className="min-h-screen bg-background text-foreground">

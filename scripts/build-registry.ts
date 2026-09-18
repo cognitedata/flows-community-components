@@ -278,6 +278,7 @@ function autoDetectComponentFiles(componentName: string): RegistryFile[] {
 function extractJSDocMetadata(filePath: string): {
   title?: string;
   description?: string;
+  status?: string;
 } {
   const metadataPath = filePath.replace(/\.tsx?$/, '.metadata.ts');
   const fullMetadataPath = path.join(__dirname, '..', metadataPath);
@@ -287,16 +288,24 @@ function extractJSDocMetadata(filePath: string): {
       const content = fs.readFileSync(fullMetadataPath, 'utf8');
       const nameMatch = content.match(/name:\s*["']([^"']+)["']/);
       const descriptionMatch = content.match(/description:\s*["']([^"']+)["']/);
+      const statusMatch = content.match(/status:\s*["']([^"']+)["']/);
 
-      const metadata: { title?: string; description?: string } = {};
+      const metadata: {
+        title?: string;
+        description?: string;
+        status?: string;
+      } = {};
       if (nameMatch) {
         metadata.title = nameMatch[1];
       }
       if (descriptionMatch) {
         metadata.description = descriptionMatch[1];
       }
+      if (statusMatch) {
+        metadata.status = statusMatch[1];
+      }
 
-      if (metadata.title || metadata.description) {
+      if (metadata.title || metadata.description || metadata.status) {
         return metadata;
       }
     } catch {
@@ -327,7 +336,10 @@ function buildRegistry(components: string[]): Registry {
 
     return {
       name: componentName,
-      type: 'registry:component',
+      type:
+        jsdocMetadata.status === 'pattern'
+          ? 'registry:block'
+          : 'registry:component',
       title: jsdocMetadata.title || toTitleCase(componentName),
       description: jsdocMetadata.description || '',
       dependencies:

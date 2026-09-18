@@ -2,6 +2,7 @@ import { AlertDialogMetadata } from '../components/ui/community/alert-dialog/ale
 import { CarouselMetadata } from '../components/ui/community/carousel/carousel.metadata';
 import { ConfirmationMetadata } from '../components/ui/community/confirmation/confirmation.metadata';
 import { ContextMenuMetadata } from '../components/ui/community/context-menu/context-menu.metadata';
+import { DashboardTemplateMetadata } from '../components/ui/community/dashboard-template/dashboard-template.metadata';
 import { DrawerMetadata } from '../components/ui/community/drawer/drawer.metadata';
 import { MenubarMetadata } from '../components/ui/community/menubar/menubar.metadata';
 import { SheetMetadata } from '../components/ui/community/sheet/sheet.metadata';
@@ -23,6 +24,7 @@ const communityMetaById: Record<string, ComponentMeta> = {
   carousel: CarouselMetadata,
   confirmation: ConfirmationMetadata,
   'context-menu': ContextMenuMetadata,
+  'dashboard-template': DashboardTemplateMetadata,
   drawer: DrawerMetadata,
   menubar: MenubarMetadata,
   sheet: SheetMetadata,
@@ -42,6 +44,7 @@ function toCatalogItem(id: string, meta: ComponentMeta): CommunityCatalogItem {
 
 export function getCommunityCatalog(): CommunityCatalogItem[] {
   return Object.entries(communityMetaById)
+    .filter(([, meta]) => meta.status !== 'pattern')
     .map(([id, meta]) => toCatalogItem(id, meta))
     .sort((a, b) => a.name.localeCompare(b.name));
 }
