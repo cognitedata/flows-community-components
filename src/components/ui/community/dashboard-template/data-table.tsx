@@ -111,7 +111,6 @@ function DocumentTable({ data }: { data: DocumentRow[] }): ReactNode {
                     onCheckedChange={(checked) =>
                       toggleAllPageRows(checked === true)
                     }
-                    aria-label="Select all"
                   />
                   <CheckboxItemLabel className="sr-only">
                     Select all
@@ -141,7 +140,6 @@ function DocumentTable({ data }: { data: DocumentRow[] }): ReactNode {
                         onCheckedChange={(checked) =>
                           toggleRow(row.id, checked === true)
                         }
-                        aria-label={`Select ${row.header}`}
                       />
                       <CheckboxItemLabel className="sr-only">
                         Select {row.header}

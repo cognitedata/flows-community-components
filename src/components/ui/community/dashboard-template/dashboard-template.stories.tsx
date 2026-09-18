@@ -28,11 +28,13 @@ export const Basic: Story = {
       canvas.getByRole('table', { name: 'Document outline' })
     ).toBeVisible();
 
-    expect(canvas.getByText('Cover page')).toBeVisible();
-    expect(canvas.getByRole('link', { name: 'Go to next page' })).toBeVisible();
-    await userEvent.click(
-      canvas.getByRole('link', { name: 'Go to next page' })
-    );
+    expect(
+      canvas.getByRole('checkbox', { name: 'Select Cover page' })
+    ).toBeVisible();
+    expect(canvas.getByText('Executive summary')).toBeVisible();
+    const nextPage = canvas.getByRole('button', { name: 'Go to next page' });
+    expect(nextPage).toBeVisible();
+    await userEvent.click(nextPage);
     expect(canvas.getByText('Adaptive Communication Protocols')).toBeVisible();
   },
 };
