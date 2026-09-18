@@ -8,6 +8,7 @@ import { ChartsPage } from '@/pages/charts-page';
 import { CommunityComponentDetailPage } from '@/pages/community-component-detail-page';
 import { CommunityComponentsPage } from '@/pages/community-components-page';
 import { CommunityPage } from '@/pages/community-page';
+import { CommunityTemplateDetailPage } from '@/pages/community-template-detail-page';
 import { CommunityTemplatesPage } from '@/pages/community-templates-page';
 import { ComponentDetailPage } from '@/pages/component-detail-page';
 import { ComponentsPage } from '@/pages/components-page';
@@ -171,8 +172,8 @@ export const router = createBrowserRouter(
             { path: 'components', element: <CommunityComponentsPage /> },
             { path: 'templates', element: <CommunityTemplatesPage /> },
             {
-              path: 'templates/dashboard',
-              element: <Navigate to="/community/templates" replace />,
+              path: 'templates/:slug',
+              element: <CommunityTemplateDetailPage />,
             },
             { path: ':slug', element: <CommunityComponentDetailPage /> },
           ],

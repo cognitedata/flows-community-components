@@ -95,6 +95,49 @@
       ]
     },
     {
+      "name": "dashboard-template",
+      "type": "registry:block",
+      "title": "Dashboard",
+      "description": "A dashboard with metric cards, charts and a data table.",
+      "dependencies": [
+        "@cognite/aura",
+        "@tabler/icons-react",
+        "recharts"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/community/dashboard-template/dashboard-template.tsx",
+          "target": "src/components/ui/community/dashboard-template.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/ui/community/dashboard-template/chart-area-interactive.tsx",
+          "target": "src/components/ui/community/chart-area-interactive.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/ui/community/dashboard-template/dashboard-template.data.ts",
+          "target": "src/components/ui/community/dashboard-template.data.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "src/components/ui/community/dashboard-template/data-table.tsx",
+          "target": "src/components/ui/community/data-table.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/ui/community/dashboard-template/section-cards.tsx",
+          "target": "src/components/ui/community/section-cards.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/ui/community/dashboard-template/site-header.tsx",
+          "target": "src/components/ui/community/site-header.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "drawer",
       "type": "registry:component",
       "title": "Drawer",

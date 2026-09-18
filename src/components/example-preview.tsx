@@ -28,7 +28,7 @@ export function ExamplePreview({
         {description && (
           <p className="text-sm text-muted-foreground mb-4">{description}</p>
         )}
-        <div className="flex items-center justify-center py-4">
+        <div className="flex w-full min-w-0 items-center justify-center py-4">
           <Component />
         </div>
       </div>
