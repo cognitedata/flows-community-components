@@ -2,17 +2,34 @@ import { useGSAP } from '@gsap/react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SplitText as GSAPSplitText } from 'gsap/SplitText';
-import {
-  useEffect,
-  useRef,
-  useState,
-  type CSSProperties,
-  type ElementType,
-} from 'react';
+import { useEffect, useRef, useState, type ElementType } from 'react';
+
+import { cn } from '@/lib/utils';
 
 gsap.registerPlugin(ScrollTrigger, GSAPSplitText, useGSAP);
 
 type SplitTextTag = 'h1' | 'h2' | 'h3' | 'p' | 'div' | 'span';
+type SplitTextAlign = 'left' | 'center' | 'right' | 'justify' | 'start' | 'end';
+type SplitTextWhiteSpace =
+  'normal' | 'nowrap' | 'pre' | 'pre-line' | 'pre-wrap' | 'break-spaces';
+
+const TEXT_ALIGN_CLASS: Record<SplitTextAlign, string> = {
+  left: 'text-left',
+  center: 'text-center',
+  right: 'text-right',
+  justify: 'text-justify',
+  start: 'text-start',
+  end: 'text-end',
+};
+
+const WHITE_SPACE_CLASS: Record<SplitTextWhiteSpace, string> = {
+  normal: 'whitespace-normal',
+  nowrap: 'whitespace-nowrap',
+  pre: 'whitespace-pre',
+  'pre-line': 'whitespace-pre-line',
+  'pre-wrap': 'whitespace-pre-wrap',
+  'break-spaces': 'whitespace-break-spaces',
+};
 
 export interface SplitTextProps {
   text: string;
@@ -25,8 +42,8 @@ export interface SplitTextProps {
   to?: gsap.TweenVars;
   threshold?: number;
   rootMargin?: string;
-  textAlign?: CSSProperties['textAlign'];
-  whiteSpace?: CSSProperties['whiteSpace'];
+  textAlign?: SplitTextAlign;
+  whiteSpace?: SplitTextWhiteSpace;
   tag?: SplitTextTag;
   immediate?: boolean;
   enabled?: boolean;
@@ -200,17 +217,17 @@ export function SplitText({
   );
 
   const Tag = (tag || 'p') as ElementType;
-  const style: CSSProperties = {
-    textAlign,
-    overflow: 'hidden',
-    display: 'inline-block',
-    whiteSpace,
-    wordWrap: 'break-word',
-    willChange: 'transform, opacity',
-  };
 
   return (
-    <Tag ref={ref} className={`split-parent ${className}`} style={style}>
+    <Tag
+      ref={ref}
+      className={cn(
+        'inline-block overflow-hidden wrap-break-word will-change-transform',
+        TEXT_ALIGN_CLASS[textAlign],
+        WHITE_SPACE_CLASS[whiteSpace],
+        className
+      )}
+    >
       {text}
     </Tag>
   );

@@ -17,7 +17,7 @@ export function ComponentCard({
   cta: string;
 }) {
   return (
-    <Card size="sm" className="h-full gap-2 bg-muted-bg ring-0">
+    <Card size="sm" variant="muted" className="h-full">
       <CardContent className="flex h-full flex-col gap-2">
         <div className="flex flex-1 flex-col gap-2">
           <span className="flex size-9 items-center justify-center rounded-md bg-medium-bg text-muted-fg">

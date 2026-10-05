@@ -51,8 +51,8 @@ export function DoDontGrid({
 }) {
   return (
     <div className="flex flex-col gap-4">
-      <div className="w-full overflow-hidden rounded-xl border border-success-fg">
-        <p className="flex items-center gap-1.5 bg-success-bg px-4 py-2 text-xs font-medium tracking-wide text-success-fg-strong uppercase">
+      <div className="w-full overflow-hidden rounded-xl border border-success-foreground">
+        <p className="flex items-center gap-1.5 bg-success-muted-background px-4 py-2 text-xs font-medium tracking-wide text-success-foreground uppercase">
           <IconCheck size={14} stroke={2} /> Do
         </p>
         <ul className="list-disc space-y-1.5 p-4 pl-8 text-sm leading-relaxed text-muted-fg">
@@ -61,8 +61,8 @@ export function DoDontGrid({
           ))}
         </ul>
       </div>
-      <div className="w-full overflow-hidden rounded-xl border border-critical-fg">
-        <p className="flex items-center gap-1.5 bg-critical-bg px-4 py-2 text-xs font-medium tracking-wide text-critical-fg-strong uppercase">
+      <div className="w-full overflow-hidden rounded-xl border border-destructive-foreground">
+        <p className="flex items-center gap-1.5 bg-destructive-muted-background px-4 py-2 text-xs font-medium tracking-wide text-destructive-foreground uppercase">
           <IconX size={14} stroke={2} /> Don&apos;t
         </p>
         <ul className="list-disc space-y-1.5 p-4 pl-8 text-sm leading-relaxed text-muted-fg">
@@ -134,8 +134,8 @@ export function CategoryHeading({ children }: { children: React.ReactNode }) {
 export function ColorSwatch({ color }: { color: string }) {
   return (
     <span
-      className="inline-block h-4 w-4 shrink-0 rounded-full border border-border"
-      style={{ backgroundColor: color }}
+      className="inline-block h-4 w-4 shrink-0 rounded-full border border-border bg-(--swatch-color)"
+      style={{ '--swatch-color': color } as React.CSSProperties}
     />
   );
 }
@@ -148,10 +148,10 @@ export function Callout({
   children: React.ReactNode;
 }) {
   const styles = {
-    warning: 'border-warning-fg bg-warning-bg text-warning-fg-strong',
-    info: 'border-info-fg bg-info-bg text-info-fg-strong',
-    critical: 'border-critical-fg bg-critical-bg text-critical-fg-strong',
-    success: 'border-success-fg bg-success-bg text-success-fg-strong',
+    warning: 'border-warning-foreground bg-warning-muted-background',
+    info: 'border-info-foreground bg-info-muted-background',
+    critical: 'border-destructive-foreground bg-destructive-muted-background',
+    success: 'border-success-foreground bg-success-muted-background',
   } as const;
 
   return (

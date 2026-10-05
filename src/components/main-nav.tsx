@@ -37,12 +37,7 @@ export function MainNav() {
   }
 
   return (
-    <header
-      className="border-b border-white/10 bg-[#050810]"
-      style={{
-        fontFamily: 'var(--font-space-grotesk), var(--font-inter), sans-serif',
-      }}
-    >
+    <header className="border-b border-white/10 bg-marketing-canvas font-heading">
       <div className="mx-auto flex max-w-[1600px] items-center justify-between gap-4 px-4 py-3">
         <Link
           to="/"

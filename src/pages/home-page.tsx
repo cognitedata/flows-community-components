@@ -5,13 +5,7 @@ export function HomePage() {
   return (
     <>
       <PageTitle title="Aura" />
-      <main
-        className="bg-[#050810] text-white"
-        style={{
-          fontFamily:
-            "-apple-system, Inter, 'Helvetica Neue', Arial, sans-serif",
-        }}
-      >
+      <main className="bg-marketing-canvas font-system text-white">
         <ScrollEqHero />
       </main>
     </>

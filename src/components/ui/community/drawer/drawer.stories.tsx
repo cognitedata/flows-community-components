@@ -435,7 +435,9 @@ export const AsyncAction: Story = {
           </DrawerContent>
         </Drawer>
         {saved && (
-          <p className="text-sm text-green-600">Changes saved successfully.</p>
+          <p className="text-sm text-success-foreground">
+            Changes saved successfully.
+          </p>
         )}
       </div>
     );

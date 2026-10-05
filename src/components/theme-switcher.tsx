@@ -107,7 +107,7 @@ export function ThemeSidebarInset({ children }: { children: React.ReactNode }) {
   return (
     <div
       className={cn(
-        'min-h-full bg-background text-foreground transition-[padding-right] duration-300 ease-in-out',
+        'min-h-full bg-background text-foreground transition-inset duration-300 ease-in-out',
         open && THEME_PANEL_PAD
       )}
     >

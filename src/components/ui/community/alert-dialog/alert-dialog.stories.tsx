@@ -198,7 +198,7 @@ export const Warning: Story = {
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle className="flex items-center gap-2">
-            <IconAlertTriangle className="size-5 text-yellow-500" />
+            <IconAlertTriangle className="size-5 text-warning-foreground" />
             Warning
           </AlertDialogTitle>
           <AlertDialogDescription>

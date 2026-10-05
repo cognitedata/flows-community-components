@@ -10,7 +10,7 @@ export function PatternCard({ pattern }: { pattern: PatternEntry }) {
   const href = `/patterns/${slug}`;
 
   return (
-    <Card size="sm" className="h-full gap-3 bg-muted-bg ring-0">
+    <Card size="sm" variant="muted" className="h-full">
       <CardContent className="flex h-full flex-col gap-3">
         <Link
           to={href}

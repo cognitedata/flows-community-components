@@ -85,10 +85,17 @@ export function SharedThemeFromUrlProvider({
 
   const css = React.useMemo(() => buildSharedThemeCss(shared), [shared]);
 
-  return (
-    <>
-      {css ? <style data-aura-shared-theme>{css}</style> : null}
-      {children}
-    </>
-  );
+  React.useLayoutEffect(() => {
+    if (!css) return;
+    const sheet = new CSSStyleSheet();
+    sheet.replaceSync(css);
+    document.adoptedStyleSheets = [...document.adoptedStyleSheets, sheet];
+    return () => {
+      document.adoptedStyleSheets = document.adoptedStyleSheets.filter(
+        (adopted) => adopted !== sheet
+      );
+    };
+  }, [css]);
+
+  return <>{children}</>;
 }

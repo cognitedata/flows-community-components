@@ -1,4 +1,5 @@
 import js from '@eslint/js';
+import { plugin as shadcn } from '@shadcn/lint';
 import importPlugin from 'eslint-plugin-import';
 import noOnlyTestsPlugin from 'eslint-plugin-no-only-tests';
 import prettierRecommended from 'eslint-plugin-prettier/recommended';
@@ -113,6 +114,40 @@ export default tseslint.config(
       '@typescript-eslint/no-non-null-assertion': 'off',
       '@typescript-eslint/no-unused-vars': ['error', noUnusedVarsOptions],
       'no-unused-vars': 'off',
+    },
+  },
+  {
+    files: ['**/*.{jsx,tsx}'],
+    plugins: { shadcn },
+    settings: {
+      shadcn: {
+        componentImports: ['^@cognite/aura(/|$)'],
+      },
+    },
+    rules: {
+      'shadcn/no-restyle': [
+        'error',
+        {
+          allow: ['layout'],
+          contracts: [
+            { pattern: '^CardContent$', allow: ['layout', 'gap-*'] },
+            { pattern: '^CodeBlock$', allow: ['layout', 'rounded-none'] },
+          ],
+        },
+      ],
+      'shadcn/no-raw-colors': 'error',
+      'shadcn/no-arbitrary-values': ['error', { allow: ['layout'] }],
+      'shadcn/no-inline-styles': 'error',
+      'shadcn/require-static-classes': 'error',
+      'shadcn/no-unknown-classes': 'error',
+    },
+  },
+  {
+    files: ['src/components/ui/**'],
+    rules: {
+      'shadcn/no-restyle': 'off',
+      'shadcn/no-arbitrary-values': 'off',
+      'shadcn/require-static-classes': 'off',
     },
   }
 );
