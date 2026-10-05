@@ -64,6 +64,9 @@ export {
   DrawerTrigger,
 } from './drawer';
 
+export { Map, useMap } from './map';
+export type { MapRef, MapViewport } from './map';
+
 export {
   Menubar,
   MenubarCheckboxItem,
