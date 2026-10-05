@@ -10,7 +10,8 @@ export function CommunityLayout() {
   const hideToc =
     pathname === '/community/components' ||
     pathname === '/community/templates' ||
-    pathname.startsWith('/community/templates/');
+    (pathname.startsWith('/community/templates/') &&
+      !pathname.endsWith('/skill'));
 
   return (
     <main className="min-h-screen bg-background text-foreground">

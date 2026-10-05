@@ -9,6 +9,8 @@ import { CommunityComponentDetailPage } from '@/pages/community-component-detail
 import { CommunityComponentsPage } from '@/pages/community-components-page';
 import { CommunityPage } from '@/pages/community-page';
 import { CommunityTemplateDetailPage } from '@/pages/community-template-detail-page';
+import { CommunityTemplateExamplesPage } from '@/pages/community-template-examples-page';
+import { CommunityTemplateSkillPage } from '@/pages/community-template-skill-page';
 import { CommunityTemplatesPage } from '@/pages/community-templates-page';
 import { ComponentDetailPage } from '@/pages/component-detail-page';
 import { ComponentsPage } from '@/pages/components-page';
@@ -174,6 +176,14 @@ export const router = createBrowserRouter(
             {
               path: 'templates/:slug',
               element: <CommunityTemplateDetailPage />,
+            },
+            {
+              path: 'templates/:slug/examples',
+              element: <CommunityTemplateExamplesPage />,
+            },
+            {
+              path: 'templates/:slug/skill',
+              element: <CommunityTemplateSkillPage />,
             },
             { path: ':slug', element: <CommunityComponentDetailPage /> },
           ],

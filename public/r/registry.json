@@ -189,6 +189,78 @@
           "type": "registry:component"
         }
       ]
+    },
+    {
+      "name": "time-series-chart",
+      "type": "registry:block",
+      "title": "Time Series Chart",
+      "description": "A D3 time series chart with zoom, brushing, min/max bands and annotations, styled with Aura chart tokens.",
+      "dependencies": [
+        "@cognite/aura",
+        "@tabler/icons-react",
+        "d3-array",
+        "d3-axis",
+        "d3-brush",
+        "d3-format",
+        "d3-scale",
+        "d3-selection",
+        "d3-shape",
+        "d3-time-format",
+        "d3-transition",
+        "d3-zoom"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/community/time-series-chart/time-series-chart.tsx",
+          "target": "src/components/ui/community/time-series-chart.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/ui/community/time-series-chart/time-series-chart.aggregate.ts",
+          "target": "src/components/ui/community/time-series-chart.aggregate.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "src/components/ui/community/time-series-chart/time-series-chart.context.tsx",
+          "target": "src/components/ui/community/time-series-chart.context.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/ui/community/time-series-chart/time-series-chart.data.ts",
+          "target": "src/components/ui/community/time-series-chart.data.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "src/components/ui/community/time-series-chart/time-series-chart.hooks.ts",
+          "target": "src/components/ui/community/time-series-chart.hooks.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "src/components/ui/community/time-series-chart/time-series-chart.tokens.ts",
+          "target": "src/components/ui/community/time-series-chart.tokens.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "src/components/ui/community/time-series-chart/time-series-controls.tsx",
+          "target": "src/components/ui/community/time-series-controls.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/ui/community/time-series-chart/time-series-overview.tsx",
+          "target": "src/components/ui/community/time-series-overview.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/ui/community/time-series-chart/time-series-plot.tsx",
+          "target": "src/components/ui/community/time-series-plot.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/ui/community/time-series-chart/SKILL.md",
+          "target": ".claude/skills/aura-d3-charts/SKILL.md",
+          "type": "registry:file"
+        }
+      ]
     }
   ]
 }

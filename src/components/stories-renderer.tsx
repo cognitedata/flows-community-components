@@ -6,6 +6,10 @@ import { ExamplePreview } from './example-preview';
 
 interface StoriesRendererProps {
   slug: string;
+  /** Only render these story export names. */
+  include?: string[];
+  /** Skip these story export names. */
+  exclude?: string[];
 }
 
 interface StoryEntry {
@@ -53,7 +57,11 @@ function storyKeyToTitle(key: string): string {
  * This is the consolidated renderer that replaces both AIExamplesRenderer
  * and ComponentExamplesRenderer after the migration from .examples.tsx to .stories.tsx.
  */
-export function StoriesRenderer({ slug }: StoriesRendererProps) {
+export function StoriesRenderer({
+  slug,
+  include,
+  exclude,
+}: StoriesRendererProps) {
   const [stories, setStories] = useState<StoryEntry[] | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -238,14 +246,19 @@ export function StoriesRenderer({ slug }: StoriesRendererProps) {
 
   return (
     <div className="space-y-6">
-      {stories.map(({ key, title, Component, sourceCode }) => (
-        <ExamplePreview
-          key={key}
-          title={title}
-          component={() => <Component />}
-          sourceCode={sourceCode}
-        />
-      ))}
+      {stories
+        .filter(
+          ({ key }) =>
+            (!include || include.includes(key)) && !exclude?.includes(key)
+        )
+        .map(({ key, title, Component, sourceCode }) => (
+          <ExamplePreview
+            key={key}
+            title={title}
+            component={() => <Component />}
+            sourceCode={sourceCode}
+          />
+        ))}
     </div>
   );
 }
