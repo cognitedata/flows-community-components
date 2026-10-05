@@ -1,20 +1,14 @@
-import { Banner, BannerIcon, BannerTitle } from '@cognite/aura/components';
-import { IconInfoCircle } from '@tabler/icons-react';
+import { NoticeBanner } from '@/components/ui/notice-banner';
 
 const COMPONENTS_DOCS_BANNER_MESSAGE = 'Docs coming soon';
 
 export function ComponentsDocsBanner() {
   return (
-    <Banner
-      variant="info"
-      role="status"
+    <NoticeBanner
       aria-label="Component documentation notice"
-      className="mb-8 text-foreground [&_[data-slot=banner-icon]]:text-foreground [&_[data-slot=banner-title]]:text-foreground"
-    >
-      <BannerIcon icon={IconInfoCircle} />
-      <BannerTitle className="truncate text-sm text-foreground sm:text-base">
-        {COMPONENTS_DOCS_BANNER_MESSAGE}
-      </BannerTitle>
-    </Banner>
+      className="mb-8"
+      message={COMPONENTS_DOCS_BANNER_MESSAGE}
+      tone="foreground"
+    />
   );
 }

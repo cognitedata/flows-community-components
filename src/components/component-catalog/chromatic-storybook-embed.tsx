@@ -115,10 +115,6 @@ export function ChromaticStorybookEmbed({
           'absolute inset-0 z-10 flex items-center justify-center bg-background text-foreground transition-opacity duration-300',
           loaded ? 'pointer-events-none opacity-0' : 'opacity-100'
         )}
-        style={{
-          backgroundColor: 'var(--background)',
-          color: 'var(--foreground)',
-        }}
       >
         <Loader variant="page" header="Loading preview" />
       </div>

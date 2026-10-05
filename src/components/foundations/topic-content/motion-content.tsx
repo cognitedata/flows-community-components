@@ -308,7 +308,7 @@ export function MotionContent() {
 
       <ContentSection title="Applied examples">
         <div
-          className="rounded-md border border-amber-500/30 bg-amber-500/10 p-4"
+          className="rounded-md border border-warning-foreground/30 bg-warning-muted-background p-4"
           role="note"
         >
           <p>

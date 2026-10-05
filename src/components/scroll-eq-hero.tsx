@@ -1,12 +1,6 @@
 'use client';
 
-import {
-  Alert,
-  AlertActions,
-  AlertDescription,
-  AlertTitle,
-  Button,
-} from '@cognite/aura/components';
+import { Button } from '@cognite/aura/components';
 import { IconArrowRight, IconStarFilled } from '@tabler/icons-react';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
@@ -15,7 +9,6 @@ import { Aurora } from '@/components/aurora';
 import { SplitText } from '@/components/split-text';
 
 const BAR_COUNT = 13;
-const HERO_BG = '#050810';
 const AURORA_STOPS = ['#8FA8EB', '#B6DDD4', '#b764f3'] as const;
 const INTRO_DELAY_MS = 700;
 const INTRO_DURATION_MS = 900;
@@ -74,7 +67,8 @@ function AuroraNoiseFilter() {
             result="noise2Clipped"
           />
           <feFlood
-            floodColor={HERO_BG}
+            className="text-marketing-canvas"
+            floodColor="currentColor"
             floodOpacity="0.18"
             result="color1Flood"
           />
@@ -85,7 +79,8 @@ function AuroraNoiseFilter() {
             result="color1"
           />
           <feFlood
-            floodColor="#000000"
+            className="text-black"
+            floodColor="currentColor"
             floodOpacity="0.12"
             result="color2Flood"
           />
@@ -113,7 +108,12 @@ function AuroraNoiseOverlay() {
       preserveAspectRatio="none"
       viewBox="0 0 177 937"
     >
-      <rect width="177" height="937" fill="white" filter="url(#aurora-noise)" />
+      <rect
+        width="177"
+        height="937"
+        fill="currentColor"
+        filter="url(#aurora-noise)"
+      />
     </svg>
   );
 }
@@ -171,10 +171,7 @@ export function ScrollEqHero() {
   }, []);
 
   return (
-    <div
-      className="relative h-screen overflow-hidden"
-      style={{ background: HERO_BG }}
-    >
+    <div className="relative h-screen overflow-hidden bg-marketing-canvas">
       <AuroraNoiseFilter />
       <svg aria-hidden="true" className="absolute h-0 w-0 overflow-hidden">
         <clipPath id="hero-bar-clip" clipPathUnits="objectBoundingBox">
@@ -185,18 +182,12 @@ export function ScrollEqHero() {
               y={0}
               width={1 / BAR_COUNT}
               height={1}
-              fill="white"
+              fill="currentColor"
             />
           ))}
         </clipPath>
       </svg>
-      <div
-        className="pointer-events-none absolute inset-0"
-        style={{
-          clipPath: 'url(#hero-bar-clip)',
-          WebkitClipPath: 'url(#hero-bar-clip)',
-        }}
-      >
+      <div className="pointer-events-none absolute inset-0 clip-hero-bars">
         <div className="absolute inset-0 origin-center">
           <Aurora
             amplitude={1}
@@ -210,39 +201,33 @@ export function ScrollEqHero() {
       </div>
       <div className="absolute inset-0 z-[2] flex items-center justify-center px-4 pt-chrome">
         <div className="flex w-full max-w-[800px] flex-col items-center gap-5 text-center">
-          <Alert
-            variant="info"
-            alertStyle="card"
-            icon={
-              <IconStarFilled
-                aria-hidden="true"
-                className="size-5 text-fjord-300"
-              />
-            }
-            role="status"
-            className="mb-16 w-full max-w-[640px] rounded-lg bg-card-background p-6 text-left text-fjord-300 [&>[data-slot=alert-icon]]:text-fjord-300"
+          <section
+            aria-labelledby="hero-community-title"
+            className="mb-16 grid w-full max-w-[640px] grid-cols-[auto_1fr] items-start gap-x-2 gap-y-1 rounded-lg bg-card-background p-6 text-left text-fjord-300"
           >
-            <AlertTitle className="text-base leading-5 font-medium tracking-tighter text-fjord-300">
+            <IconStarFilled aria-hidden="true" className="mt-0.5 size-5" />
+            <h2
+              id="hero-community-title"
+              className="font-sans text-base leading-5 font-medium tracking-tighter"
+            >
               Introducing Community: the library for industrial components
-            </AlertTitle>
-            <AlertDescription className="text-sm leading-[18px] font-normal tracking-tight text-fjord-300">
+            </h2>
+            <p className="col-start-2 mt-2 text-sm leading-4.5 tracking-tight">
               Learn how to contribute and consume industrial-grade components
               and app templates from the community.
-            </AlertDescription>
-            <AlertActions>
-              <div className="mt-8">
-                <Button
-                  nativeButton={false}
-                  render={<Link to="/community" />}
-                  variant="default"
-                >
-                  Go to community
-                </Button>
-              </div>
-            </AlertActions>
-          </Alert>
+            </p>
+            <div className="col-start-2 mt-10">
+              <Button
+                nativeButton={false}
+                render={<Link to="/community" />}
+                variant="default"
+              >
+                Go to community
+              </Button>
+            </div>
+          </section>
           <SplitText
-            className="font-heading mt-4 max-w-[min(92vw,16ch)] text-[clamp(36px,5.5vw,72px)] font-semibold tracking-[-0.04em] leading-[1.05]"
+            className="mt-4 max-w-[min(92vw,16ch)] font-heading text-display font-semibold tracking-display"
             delay={40}
             duration={1.25}
             ease="power3.out"
@@ -254,10 +239,9 @@ export function ScrollEqHero() {
           />
           <div
             ref={subtextRef}
-            className="flex max-w-[720px] flex-col items-center gap-6"
-            style={{ opacity: 0 }}
+            className="flex max-w-[720px] flex-col items-center gap-6 opacity-0"
           >
-            <p className="text-[26px] leading-[1.3] text-medium-fg-fixed-dark">
+            <p className="text-lead text-muted-foreground-fixed-light">
               Cognite&apos;s AI-native design system for the future of
               industrial experiences.
             </p>
