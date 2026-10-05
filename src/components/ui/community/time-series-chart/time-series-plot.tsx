@@ -389,6 +389,44 @@ export function TimeSeriesBand({
   );
 }
 
+/**
+ * Area under the average line with a vertical gradient, in the style of
+ * shadcn area charts. Stops use Aura chart tokens: step 4 at the line, fading
+ * to step 6 and then transparent at the lane baseline.
+ */
+export function TimeSeriesArea({
+  className,
+}: {
+  className?: string;
+}): ReactNode {
+  const { series, result, y, tokens, clipId } = useTimeSeriesLane();
+  const { x, layout } = useTimeSeriesChart();
+  const gradientId = `${useId().replace(/:/g, '')}-area-${series.id}`;
+  const path = area<TimeSeriesBucket>()
+    .x((bucket) => x(bucket.t))
+    .y0(layout.laneHeight)
+    .y1((bucket) => y(bucket.average))
+    .curve(curveMonotoneX)(result.buckets);
+
+  return (
+    <g data-slot="time-series-area">
+      <defs>
+        <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="5%" stopColor={tokens.gradient.from} />
+          <stop offset="60%" stopColor={tokens.gradient.to} />
+          <stop offset="100%" stopColor={tokens.gradient.to} stopOpacity={0} />
+        </linearGradient>
+      </defs>
+      <path
+        d={path ?? undefined}
+        fill={`url(#${gradientId})`}
+        clipPath={`url(#${clipId})`}
+        className={className}
+      />
+    </g>
+  );
+}
+
 function useAveragePath(): string | undefined {
   const { result, y } = useTimeSeriesLane();
   const { x } = useTimeSeriesChart();

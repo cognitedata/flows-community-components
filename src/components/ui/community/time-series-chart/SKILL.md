@@ -65,27 +65,28 @@ The steps are **alpha colors**. In light mode, step 1 is the ramp's alpha-450 an
 
 ### Map each chart element to a token
 
-| Element                         | Token classes                                                                |
-| ------------------------------- | ---------------------------------------------------------------------------- |
-| Series line                     | `stroke-chart-{ramp}-color-1`                                                |
-| Series marker or dot            | `fill-chart-{ramp}-color-1`, plus `stroke-card` as a halo                    |
-| Min/max band or area fill       | `fill-chart-{ramp}-color-5`                                                  |
-| Legend or tooltip swatch        | `bg-chart-{ramp}-color-1`                                                    |
-| Gridlines                       | `stroke-chart-gridlines`                                                     |
-| Event span                      | `fill-chart-neutral-color-6`                                                 |
-| Point event line                | `stroke-chart-neutral-color-1`                                               |
-| Brush selection                 | `fill-chart-neutral-color-5 stroke-chart-neutral-color-1`                    |
-| Limit or threshold line         | `stroke-chart-warning-color-1`                                               |
-| Values past a limit             | `stroke-chart-destructive-color-1`                                           |
-| Limit label                     | `fill-warning-foreground` (semantic text)                                    |
-| Axis ticks and secondary labels | `text-muted-foreground` on the group (d3 uses `currentColor`)                |
-| Lane titles and value labels    | `fill-foreground`                                                            |
-| Label halo over data            | `stroke-card` with `paintOrder="stroke"` and `strokeWidth={3}`               |
-| Crosshair                       | `stroke-muted-foreground`                                                    |
-| Overview track                  | `fill-muted-background`                                                      |
-| Tooltip                         | `rounded-lg border bg-popover p-2 text-xs text-popover-foreground shadow-md` |
-| Focus ring on the plot          | `outline-none focus-visible:ring-2 focus-visible:ring-ring`                  |
-| Hidden or disabled series       | `bg-disabled-foreground`                                                     |
+| Element                         | Token classes                                                                                        |
+| ------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| Series line                     | `stroke-chart-{ramp}-color-1`                                                                        |
+| Series marker or dot            | `fill-chart-{ramp}-color-1`, plus `stroke-card` as a halo                                            |
+| Min/max band or area fill       | `fill-chart-{ramp}-color-5`                                                                          |
+| Gradient area under a line      | `<linearGradient>` stops `var(--chart-{ramp}-color-4)` → `var(--chart-{ramp}-color-6)` → transparent |
+| Legend or tooltip swatch        | `bg-chart-{ramp}-color-1`                                                                            |
+| Gridlines                       | `stroke-chart-gridlines`                                                                             |
+| Event span                      | `fill-chart-neutral-color-6`                                                                         |
+| Point event line                | `stroke-chart-neutral-color-1`                                                                       |
+| Brush selection                 | `fill-chart-neutral-color-5 stroke-chart-neutral-color-1`                                            |
+| Limit or threshold line         | `stroke-chart-warning-color-1`                                                                       |
+| Values past a limit             | `stroke-chart-destructive-color-1`                                                                   |
+| Limit label                     | `fill-warning-foreground` (semantic text)                                                            |
+| Axis ticks and secondary labels | `text-muted-foreground` on the group (d3 uses `currentColor`)                                        |
+| Lane titles and value labels    | `fill-foreground`                                                                                    |
+| Label halo over data            | `stroke-card` with `paintOrder="stroke"` and `strokeWidth={3}`                                       |
+| Crosshair                       | `stroke-muted-foreground`                                                                            |
+| Overview track                  | `fill-muted-background`                                                                              |
+| Tooltip                         | `rounded-lg border bg-popover p-2 text-xs text-popover-foreground shadow-md`                         |
+| Focus ring on the plot          | `outline-none focus-visible:ring-2 focus-visible:ring-ring`                                          |
+| Hidden or disabled series       | `bg-disabled-foreground`                                                                             |
 
 ### Type, spacing and shape
 
@@ -160,6 +161,16 @@ How you apply tokens depends on who renders the element:
   ```
 
 - **An SVG attribute needs a color,** such as a gradient `stop` or a marker: use the CSS variable, for example `stopColor="var(--chart-fjord-color-1)"`. It still switches with the theme.
+- **Gradient fills (shadcn-style area charts):** define a vertical `<linearGradient>` with stops from your token map, such as `gradient: { from: 'var(--chart-fjord-color-4)', to: 'var(--chart-fjord-color-6)' }`. Fill the area with `fill="url(#id)"`. Fade to transparent with `stopOpacity={0}` on the last stop only. Don't lower the opacity of the token stops; pick a lighter step instead. Give each gradient a unique id, for example from `useId()` plus the series id.
+
+  ```tsx
+  <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
+    <stop offset="5%" stopColor={tokens.gradient.from} />
+    <stop offset="60%" stopColor={tokens.gradient.to} />
+    <stop offset="100%" stopColor={tokens.gradient.to} stopOpacity={0} />
+  </linearGradient>
+  ```
+
 - **Canvas or color interpolation needs a resolved value:** read it with `getComputedStyle(element).getPropertyValue('--chart-fjord-color-1')`. Read it again whenever the theme changes, by watching `class` and `style` on `<html>`. Runtime theming such as `#theme=` URLs and `aura-set-theme` messages swaps variables at any time, so never cache the value as a constant.
 
 Never use these:

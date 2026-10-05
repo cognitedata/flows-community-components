@@ -9,6 +9,7 @@
  *         <TimeSeriesLaneLabel />
  *         <TimeSeriesGrid />
  *         <TimeSeriesYAxis />
+ *         <TimeSeriesArea />
  *         <TimeSeriesBand />
  *         <TimeSeriesLine />
  *         <TimeSeriesThreshold />
@@ -43,6 +44,7 @@ export {
   formatTooltipTime,
   formatValue,
   formatWithUnit,
+  TimeSeriesArea,
   TimeSeriesBand,
   TimeSeriesCrosshair,
   TimeSeriesEvents,

@@ -6,7 +6,7 @@ import { scaleLinear, scaleTime } from 'd3-scale';
 import { select } from 'd3-selection';
 import { area, curveMonotoneX } from 'd3-shape';
 import type { ReactNode } from 'react';
-import { useEffect, useLayoutEffect, useMemo, useRef } from 'react';
+import { useEffect, useId, useLayoutEffect, useMemo, useRef } from 'react';
 
 import {
   aggregateSeries,
@@ -55,6 +55,7 @@ export function TimeSeriesOverview({
   );
   const onBrush = (next: [number, number]) => zoomTo(next, { animate: false });
 
+  const gradientId = `${useId().replace(/:/g, '')}-overview`;
   const brushRef = useRef<SVGGElement>(null);
   const axisRef = useRef<SVGGElement>(null);
   const behaviorRef = useRef<BrushBehavior<unknown> | null>(null);
@@ -180,7 +181,19 @@ export function TimeSeriesOverview({
           rx={4}
           className="fill-muted-background"
         />
-        <path d={path} className={seriesTokens[source.color].band} />
+        <defs>
+          <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
+            <stop
+              offset="5%"
+              stopColor={seriesTokens[source.color].gradient.from}
+            />
+            <stop
+              offset="100%"
+              stopColor={seriesTokens[source.color].gradient.to}
+            />
+          </linearGradient>
+        </defs>
+        <path d={path} fill={`url(#${gradientId})`} />
         <g
           ref={axisRef}
           transform={`translate(0,${innerHeight})`}

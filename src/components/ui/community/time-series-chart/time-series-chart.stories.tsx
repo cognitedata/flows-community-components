@@ -12,6 +12,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, fireEvent, userEvent, waitFor, within } from 'storybook/test';
 
 import {
+  TimeSeriesArea,
   TimeSeriesBand,
   TimeSeriesChart,
   TimeSeriesCrosshair,
@@ -88,6 +89,7 @@ export const Basic: Story = {
               <TimeSeriesLaneLabel />
               <TimeSeriesGrid />
               <TimeSeriesYAxis />
+              <TimeSeriesArea />
               <TimeSeriesBand />
               <TimeSeriesLine />
               <TimeSeriesThreshold />
@@ -178,7 +180,7 @@ export const Basic: Story = {
 };
 
 export const WithLegend: Story = {
-  parameters: { order: 3 },
+  parameters: { order: 4 },
   render: () => (
     <TimeSeriesChart
       series={sampleSeries}
@@ -191,6 +193,7 @@ export const WithLegend: Story = {
           <TimeSeriesLaneLabel />
           <TimeSeriesGrid />
           <TimeSeriesYAxis />
+          <TimeSeriesArea />
           <TimeSeriesLine />
         </TimeSeriesLanes>
         <TimeSeriesXAxis />
@@ -225,7 +228,7 @@ export const WithLegend: Story = {
 };
 
 export const KeyboardNavigation: Story = {
-  parameters: { order: 5 },
+  parameters: { order: 6 },
   render: () => (
     <TimeSeriesChart
       series={sampleSeries}
@@ -241,6 +244,7 @@ export const KeyboardNavigation: Story = {
           <TimeSeriesLaneLabel />
           <TimeSeriesGrid />
           <TimeSeriesYAxis />
+          <TimeSeriesArea />
           <TimeSeriesBand />
           <TimeSeriesLine />
           <TimeSeriesHoverMarker />
@@ -300,7 +304,7 @@ export const KeyboardNavigation: Story = {
 };
 
 export const ZoomAndBrush: Story = {
-  parameters: { order: 4 },
+  parameters: { order: 5 },
   render: () => (
     <TimeSeriesChart
       series={sampleSeries.slice(1, 2)}
@@ -319,6 +323,7 @@ export const ZoomAndBrush: Story = {
           <TimeSeriesLaneLabel />
           <TimeSeriesGrid />
           <TimeSeriesYAxis />
+          <TimeSeriesArea />
           <TimeSeriesBand />
           <TimeSeriesLine />
         </TimeSeriesLanes>
@@ -371,8 +376,66 @@ export const ZoomAndBrush: Story = {
   },
 };
 
-export const Minimal: Story = {
+export const AreaGradient: Story = {
   parameters: { order: 2 },
+  render: () => (
+    <TimeSeriesChart series={sampleSeries.slice(1)} laneHeight={140}>
+      <Card>
+        <CardHeader className="flex flex-col items-stretch gap-3 sm:flex-row sm:items-start sm:justify-between">
+          <CardHeaderStart className="h-auto min-w-0">
+            <div className="flex min-w-0 flex-col gap-1">
+              <CardTitle>Area chart - gradient</CardTitle>
+              <CardDescription>
+                Flow and bearing temperature for the selected range.
+              </CardDescription>
+            </div>
+          </CardHeaderStart>
+          <CardHeaderEnd className="flex items-center gap-2">
+            <TimeSeriesRangePresets />
+          </CardHeaderEnd>
+        </CardHeader>
+        <CardContent>
+          <TimeSeriesPlot aria-label="Flow and bearing temperature">
+            <TimeSeriesLanes>
+              <TimeSeriesLaneLabel />
+              <TimeSeriesGrid />
+              <TimeSeriesYAxis />
+              <TimeSeriesArea />
+              <TimeSeriesLine />
+              <TimeSeriesHoverMarker />
+            </TimeSeriesLanes>
+            <TimeSeriesXAxis />
+            <TimeSeriesCrosshair />
+            <TimeSeriesTooltip />
+          </TimeSeriesPlot>
+        </CardContent>
+      </Card>
+    </TimeSeriesChart>
+  ),
+  play: async ({ canvasElement }) => {
+    const areas = await waitFor(() => {
+      const elements = canvasElement.querySelectorAll(
+        '[data-slot="time-series-area"]'
+      );
+      expect(elements).toHaveLength(2);
+      return elements;
+    });
+    for (const area of areas) {
+      const path = area.querySelector('path')!;
+      const gradientId = path.getAttribute('fill')!.match(/url\(#(.+)\)/)![1]!;
+      const stops = canvasElement.querySelectorAll(`[id="${gradientId}"] stop`);
+      expect(stops).toHaveLength(3);
+      // Stops resolve to Aura chart tokens, not raw colors.
+      expect(stops[0]!.getAttribute('stop-color')).toMatch(
+        /^var\(--chart-(nordic|aurora)-color-4\)$/
+      );
+      expect(path.getAttribute('d')).toBeTruthy();
+    }
+  },
+};
+
+export const Minimal: Story = {
+  parameters: { order: 3 },
   render: () => (
     <TimeSeriesChart
       series={sampleSeries.slice(2)}
@@ -384,6 +447,7 @@ export const Minimal: Story = {
           <TimeSeriesLaneLabel />
           <TimeSeriesGrid />
           <TimeSeriesYAxis />
+          <TimeSeriesArea />
           <TimeSeriesLine />
           <TimeSeriesHoverMarker />
         </TimeSeriesLanes>
@@ -416,7 +480,7 @@ export const Minimal: Story = {
 };
 
 export const ThresholdsAndEvents: Story = {
-  parameters: { order: 6 },
+  parameters: { order: 7 },
   render: () => (
     <TimeSeriesChart
       series={sampleSeries.slice(0, 1)}
@@ -430,6 +494,7 @@ export const ThresholdsAndEvents: Story = {
           <TimeSeriesLaneLabel />
           <TimeSeriesGrid />
           <TimeSeriesYAxis />
+          <TimeSeriesArea />
           <TimeSeriesLine />
           <TimeSeriesThreshold />
           <TimeSeriesLatestValue />

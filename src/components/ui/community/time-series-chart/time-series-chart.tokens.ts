@@ -8,37 +8,67 @@ import type { SeriesColor } from './time-series-chart.data';
  */
 export const seriesTokens: Record<
   SeriesColor,
-  { line: string; band: string; marker: string; swatch: string }
+  {
+    line: string;
+    band: string;
+    marker: string;
+    swatch: string;
+    /**
+     * Gradient stops for area fills, as CSS variables so SVG `stop-color`
+     * still follows the theme. Strong at the line, fading to the lightest step.
+     */
+    gradient: { from: string; to: string };
+  }
 > = {
   fjord: {
     line: 'stroke-chart-fjord-color-1',
     band: 'fill-chart-fjord-color-5',
     marker: 'fill-chart-fjord-color-1',
     swatch: 'bg-chart-fjord-color-1',
+    gradient: {
+      from: 'var(--chart-fjord-color-4)',
+      to: 'var(--chart-fjord-color-6)',
+    },
   },
   nordic: {
     line: 'stroke-chart-nordic-color-1',
     band: 'fill-chart-nordic-color-5',
     marker: 'fill-chart-nordic-color-1',
     swatch: 'bg-chart-nordic-color-1',
+    gradient: {
+      from: 'var(--chart-nordic-color-4)',
+      to: 'var(--chart-nordic-color-6)',
+    },
   },
   aurora: {
     line: 'stroke-chart-aurora-color-1',
     band: 'fill-chart-aurora-color-5',
     marker: 'fill-chart-aurora-color-1',
     swatch: 'bg-chart-aurora-color-1',
+    gradient: {
+      from: 'var(--chart-aurora-color-4)',
+      to: 'var(--chart-aurora-color-6)',
+    },
   },
   dusk: {
     line: 'stroke-chart-dusk-color-1',
     band: 'fill-chart-dusk-color-5',
     marker: 'fill-chart-dusk-color-1',
     swatch: 'bg-chart-dusk-color-1',
+    gradient: {
+      from: 'var(--chart-dusk-color-4)',
+      to: 'var(--chart-dusk-color-6)',
+    },
   },
   orange: {
     line: 'stroke-chart-orange-color-1',
     band: 'fill-chart-orange-color-5',
     marker: 'fill-chart-orange-color-1',
     swatch: 'bg-chart-orange-color-1',
+    gradient: {
+      from: 'var(--chart-orange-color-4)',
+      to: 'var(--chart-orange-color-6)',
+    },
   },
 };
 
