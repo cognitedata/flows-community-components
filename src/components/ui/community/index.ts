@@ -65,7 +65,13 @@ export {
 } from './drawer';
 
 export { Map, useMap } from './map';
-export type { MapRef, MapViewport } from './map';
+export type {
+  MapPalette,
+  MapPaletteColor,
+  MapPaletteName,
+  MapRef,
+  MapViewport,
+} from './map';
 
 export {
   Menubar,

@@ -158,7 +158,7 @@
       "name": "map",
       "type": "registry:component",
       "title": "Map",
-      "description": "Interactive MapLibre GL map with theme-aware basemaps.",
+      "description": "Interactive MapLibre GL map styled with Aura colour tokens.",
       "dependencies": [
         "@cognite/aura",
         "maplibre-gl"

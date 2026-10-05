@@ -35,10 +35,37 @@ type MapViewport = {
   pitch: number;
 };
 
+type MapPaletteName =
+  'aurora' | 'dusk' | 'fjord' | 'mountain' | 'nordic' | 'orange' | 'sky';
+
+type MapPaletteColor = {
+  highlight: string;
+  fill: string;
+};
+
+type MapPalette = Record<MapPaletteName, MapPaletteColor>;
+
+type MapBaseColors = {
+  background: string;
+  land: string;
+  water: string;
+  building: string;
+  road: string;
+  roadCasing: string;
+  label: string;
+  labelStrong: string;
+};
+
+type MapColors = {
+  base: MapBaseColors;
+  palette: MapPalette;
+};
+
 type MapContextValue = {
   map: MapLibreGL.Map | null;
   isLoaded: boolean;
   resolvedTheme: Theme;
+  palette: MapPalette;
 };
 
 type MapProps = {
@@ -57,8 +84,8 @@ type MapProps = {
 } & Omit<MapLibreGL.MapOptions, 'container' | 'style'>;
 
 const defaultStyles: Record<Theme, MapStyleOption> = {
-  dark: 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json',
-  light: 'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json',
+  dark: 'https://tiles.openfreemap.org/styles/dark',
+  light: 'https://tiles.openfreemap.org/styles/positron',
 };
 
 const blankMapStyle: MapLibreGL.StyleSpecification = {
@@ -102,7 +129,7 @@ function subscribeToTheme(onChange: () => void): () => void {
   const observer = new MutationObserver(onChange);
   observer.observe(document.documentElement, {
     attributes: true,
-    attributeFilter: ['class', 'data-theme'],
+    attributeFilter: ['class', 'data-theme', 'style'],
   });
   const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
   mediaQuery.addEventListener('change', onChange);
@@ -110,6 +137,174 @@ function subscribeToTheme(onChange: () => void): () => void {
     observer.disconnect();
     mediaQuery.removeEventListener('change', onChange);
   };
+}
+
+function getTokenSnapshot(): string {
+  const root = document.documentElement;
+  return `${root.className}|${root.dataset.theme ?? ''}|${root.style.cssText}`;
+}
+
+function getServerTokenSnapshot(): string {
+  return '';
+}
+
+const paletteNames: MapPaletteName[] = [
+  'aurora',
+  'dusk',
+  'fjord',
+  'mountain',
+  'nordic',
+  'orange',
+  'sky',
+];
+
+const fallbackBaseColors: MapBaseColors = {
+  background: '#ffffff',
+  land: '#fafafa',
+  water: '#e4e4e7',
+  building: '#f4f4f5',
+  road: '#d4d4d8',
+  roadCasing: '#e4e4e7',
+  label: '#71717a',
+  labelStrong: '#09090b',
+};
+
+const fallbackPalette: MapPalette = {
+  aurora: { highlight: '#047857', fill: '#d1fae5' },
+  dusk: { highlight: '#6d28d9', fill: '#ede9fe' },
+  fjord: { highlight: '#1d4ed8', fill: '#dbeafe' },
+  mountain: { highlight: '#3f3f46', fill: '#f4f4f5' },
+  nordic: { highlight: '#0f766e', fill: '#ccfbf1' },
+  orange: { highlight: '#c2410c', fill: '#ffedd5' },
+  sky: { highlight: '#0369a1', fill: '#e0f2fe' },
+};
+
+type Rgba = [number, number, number, number];
+
+function toRgbaString([r, g, b, a]: Rgba): string {
+  return `rgba(${r}, ${g}, ${b}, ${Math.round((a / 255) * 1000) / 1000})`;
+}
+
+function getRelativeLuminance([r, g, b]: Rgba): number {
+  const [lr, lg, lb] = [r, g, b].map((channel) => {
+    const value = channel / 255;
+    return value <= 0.03928
+      ? value / 12.92
+      : Math.pow((value + 0.055) / 1.055, 2.4);
+  });
+  return 0.2126 * (lr ?? 0) + 0.7152 * (lg ?? 0) + 0.0722 * (lb ?? 0);
+}
+
+function createTokenReader(
+  element: HTMLElement
+): ((token: string) => Rgba | null) | null {
+  const canvas = document.createElement('canvas');
+  canvas.width = 1;
+  canvas.height = 1;
+  const context = canvas.getContext('2d', { willReadFrequently: true });
+  if (!context) return null;
+  const computed = getComputedStyle(element);
+
+  return (token) => {
+    const value = computed.getPropertyValue(`--${token}`).trim();
+    if (!value) return null;
+    context.clearRect(0, 0, 1, 1);
+    context.fillStyle = value;
+    context.fillRect(0, 0, 1, 1);
+    const [r = 0, g = 0, b = 0, a = 0] = context.getImageData(0, 0, 1, 1).data;
+    return [r, g, b, a];
+  };
+}
+
+function resolveMapColors(element: HTMLElement): MapColors {
+  const readToken = createTokenReader(element);
+  if (!readToken) {
+    return { base: fallbackBaseColors, palette: fallbackPalette };
+  }
+
+  const readColor = (token: string, fallback: string) => {
+    const rgba = readToken(token);
+    return rgba ? toRgbaString(rgba) : fallback;
+  };
+
+  const background = readToken('background');
+  const backgroundLuminance = background ? getRelativeLuminance(background) : 1;
+
+  const palette = { ...fallbackPalette };
+  for (const name of paletteNames) {
+    const foreground = readToken(`decorative-foreground-${name}`);
+    const surface = readToken(`decorative-background-${name}`);
+    if (!foreground || !surface) continue;
+    const foregroundContrast = Math.abs(
+      getRelativeLuminance(foreground) - backgroundLuminance
+    );
+    const surfaceContrast = Math.abs(
+      getRelativeLuminance(surface) - backgroundLuminance
+    );
+    palette[name] =
+      foregroundContrast >= surfaceContrast
+        ? { highlight: toRgbaString(foreground), fill: toRgbaString(surface) }
+        : { highlight: toRgbaString(surface), fill: toRgbaString(foreground) };
+  }
+
+  return {
+    base: {
+      background: background
+        ? toRgbaString(background)
+        : fallbackBaseColors.background,
+      land: readColor('card-background', fallbackBaseColors.land),
+      water: readColor('accent-background-strong', fallbackBaseColors.water),
+      building: readColor('muted-background', fallbackBaseColors.building),
+      road: readColor('border-emphasized', fallbackBaseColors.road),
+      roadCasing: readColor('border', fallbackBaseColors.roadCasing),
+      label: readColor('muted-foreground', fallbackBaseColors.label),
+      labelStrong: readColor('foreground', fallbackBaseColors.labelStrong),
+    },
+    palette,
+  };
+}
+
+const majorLabelPattern = /city|capital|country|state|continent/;
+
+const casingPattern = /casing|_case/;
+
+type PaintPropertyName = Parameters<MapLibreGL.Map['setPaintProperty']>[1];
+
+function getBasemapPaint(
+  layer: MapLibreGL.LayerSpecification,
+  base: MapBaseColors
+): [PaintPropertyName, string][] {
+  const { id } = layer;
+  switch (layer.type) {
+    case 'background':
+      return [['background-color', base.background]];
+    case 'fill':
+      if (id.startsWith('water')) return [['fill-color', base.water]];
+      if (id.startsWith('building')) return [['fill-color', base.building]];
+      return [['fill-color', base.land]];
+    case 'line':
+      if (id.startsWith('water')) return [['line-color', base.water]];
+      if (casingPattern.test(id)) return [['line-color', base.roadCasing]];
+      return [['line-color', base.road]];
+    case 'symbol':
+      return [
+        [
+          'text-color',
+          majorLabelPattern.test(id) ? base.labelStrong : base.label,
+        ],
+        ['text-halo-color', base.background],
+      ];
+    default:
+      return [];
+  }
+}
+
+function applyBasemapColors(map: MapLibreGL.Map, base: MapBaseColors): void {
+  for (const layer of map.getStyle().layers) {
+    for (const [property, value] of getBasemapPaint(layer, base)) {
+      map.setPaintProperty(layer.id, property, value);
+    }
+  }
 }
 
 function useResolvedTheme(themeProp?: Theme): Theme {
@@ -200,9 +395,28 @@ const Map = forwardRef<MapRef | null, MapProps>(
       style: activeStyle,
     }));
 
+    const tokenSnapshot = useSyncExternalStore(
+      subscribeToTheme,
+      getTokenSnapshot,
+      getServerTokenSnapshot
+    );
+    const [colors, setColors] = useState<MapColors | null>(null);
+    const usesDefaultStyle = !styles && !blank;
+
     const emitViewportChange = useEffectEvent((map: MapLibreGL.Map) => {
       onViewportChange?.(getViewport(map));
     });
+
+    const recolorBasemap = useEffectEvent((map: MapLibreGL.Map) => {
+      if (!usesDefaultStyle || !colors) return;
+      applyBasemapColors(map, colors.base);
+    });
+
+    useEffect(() => {
+      const container = containerRef.current;
+      if (!container) return;
+      setColors(resolveMapColors(container));
+    }, [tokenSnapshot, resolvedTheme]);
 
     useImperativeHandle<MapRef | null, MapRef | null>(ref, () => mapInstance, [
       mapInstance,
@@ -220,7 +434,10 @@ const Map = forwardRef<MapRef | null, MapProps>(
       });
 
       const handleLoad = () => setIsLoaded(true);
-      const handleStyleLoad = () => setIsStyleLoaded(true);
+      const handleStyleLoad = () => {
+        recolorBasemap(map);
+        setIsStyleLoaded(true);
+      };
       const handleMove = () => {
         if (internalUpdateRef.current) return;
         emitViewportChange(map);
@@ -283,13 +500,21 @@ const Map = forwardRef<MapRef | null, MapProps>(
       mapInstance.setProjection(projection);
     }, [mapInstance, isStyleLoaded, projection]);
 
+    useEffect(() => {
+      if (!mapInstance || !isStyleLoaded) return;
+      recolorBasemap(mapInstance);
+    }, [mapInstance, isStyleLoaded, colors, usesDefaultStyle]);
+
+    const palette = colors?.palette ?? fallbackPalette;
+
     const contextValue = useMemo(
       () => ({
         map: mapInstance,
         isLoaded: isLoaded && isStyleLoaded,
         resolvedTheme,
+        palette,
       }),
-      [mapInstance, isLoaded, isStyleLoaded, resolvedTheme]
+      [mapInstance, isLoaded, isStyleLoaded, resolvedTheme, palette]
     );
 
     return (
@@ -309,4 +534,12 @@ const Map = forwardRef<MapRef | null, MapProps>(
 
 Map.displayName = 'Map';
 
-export { type MapRef, type MapViewport, Map, useMap };
+export {
+  type MapPalette,
+  type MapPaletteColor,
+  type MapPaletteName,
+  type MapRef,
+  type MapViewport,
+  Map,
+  useMap,
+};

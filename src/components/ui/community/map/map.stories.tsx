@@ -7,7 +7,13 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { GeoJSONSourceSpecification } from 'maplibre-gl';
 import { useEffect, useRef, useState } from 'react';
 
-import { Map, type MapRef, type MapViewport, useMap } from './map';
+import {
+  Map,
+  type MapPaletteName,
+  type MapRef,
+  type MapViewport,
+  useMap,
+} from './map';
 
 const meta: Meta<typeof Map> = {
   title: 'Community/Map',
@@ -122,8 +128,8 @@ function createGraticule(step: number): GeoJSONSourceSpecification['data'] {
 const GRATICULE = createGraticule(30);
 
 function GraticuleLayer() {
-  const { map, isLoaded, resolvedTheme } = useMap();
-  const lineColor = resolvedTheme === 'dark' ? '#a1a1aa' : '#52525b';
+  const { map, isLoaded, palette } = useMap();
+  const lineColor = palette.mountain.highlight;
 
   useEffect(() => {
     if (!map || !isLoaded) return;
@@ -151,6 +157,128 @@ export const BlankBasemap: Story = {
   render: () => (
     <Map blank center={[10, 25]} zoom={1}>
       <GraticuleLayer />
+    </Map>
+  ),
+};
+
+const PALETTE_SITES: { name: MapPaletteName; center: [number, number] }[] = [
+  { name: 'aurora', center: [-0.19, 51.53] },
+  { name: 'dusk', center: [-0.08, 51.545] },
+  { name: 'fjord', center: [0.02, 51.525] },
+  { name: 'mountain', center: [-0.13, 51.505] },
+  { name: 'nordic', center: [-0.21, 51.48] },
+  { name: 'orange', center: [-0.06, 51.47] },
+  { name: 'sky', center: [0.04, 51.49] },
+];
+
+function createSquare(
+  [lng, lat]: [number, number],
+  size: number
+): [number, number][][] {
+  return [
+    [
+      [lng - size, lat - size / 1.6],
+      [lng + size, lat - size / 1.6],
+      [lng + size, lat + size / 1.6],
+      [lng - size, lat + size / 1.6],
+      [lng - size, lat - size / 1.6],
+    ],
+  ];
+}
+
+function PaletteLayer() {
+  const { map, isLoaded, palette } = useMap();
+
+  useEffect(() => {
+    if (!map || !isLoaded) return;
+
+    map.addSource('palette-areas', {
+      type: 'geojson',
+      data: {
+        type: 'FeatureCollection',
+        features: PALETTE_SITES.map(({ name, center }) => ({
+          type: 'Feature',
+          properties: {
+            fill: palette[name].fill,
+            highlight: palette[name].highlight,
+          },
+          geometry: {
+            type: 'Polygon',
+            coordinates: createSquare(center, 0.022),
+          },
+        })),
+      },
+    });
+    map.addSource('palette-points', {
+      type: 'geojson',
+      data: {
+        type: 'FeatureCollection',
+        features: PALETTE_SITES.map(({ name, center }) => ({
+          type: 'Feature',
+          properties: { highlight: palette[name].highlight },
+          geometry: { type: 'Point', coordinates: center },
+        })),
+      },
+    });
+    map.addLayer({
+      id: 'palette-areas-fill',
+      type: 'fill',
+      source: 'palette-areas',
+      paint: { 'fill-color': ['get', 'fill'], 'fill-opacity': 0.7 },
+    });
+    map.addLayer({
+      id: 'palette-areas-line',
+      type: 'line',
+      source: 'palette-areas',
+      paint: { 'line-color': ['get', 'highlight'], 'line-width': 2 },
+    });
+    map.addLayer({
+      id: 'palette-points',
+      type: 'circle',
+      source: 'palette-points',
+      paint: {
+        'circle-color': ['get', 'highlight'],
+        'circle-radius': 6,
+        'circle-stroke-color': palette.mountain.fill,
+        'circle-stroke-width': 2,
+      },
+    });
+
+    return () => {
+      if (!map.style) return;
+      for (const layer of [
+        'palette-points',
+        'palette-areas-line',
+        'palette-areas-fill',
+      ]) {
+        if (map.getLayer(layer)) map.removeLayer(layer);
+      }
+      for (const source of ['palette-points', 'palette-areas']) {
+        if (map.getSource(source)) map.removeSource(source);
+      }
+    };
+  }, [map, isLoaded, palette]);
+
+  return (
+    <div className="absolute top-2 left-2 z-10 flex flex-wrap gap-x-3 gap-y-1 rounded-md border bg-background/80 px-2 py-1.5 text-xs backdrop-blur">
+      {PALETTE_SITES.map(({ name }) => (
+        <span key={name} className="flex items-center gap-1.5 capitalize">
+          <span
+            className="size-2.5 rounded-full"
+            style={{ backgroundColor: palette[name].highlight }}
+          />
+          {name}
+        </span>
+      ))}
+    </div>
+  );
+}
+
+export const DecorativePalette: Story = {
+  parameters: { order: 4 },
+  render: () => (
+    <Map center={[-0.09, 51.51]} zoom={10.5}>
+      <PaletteLayer />
     </Map>
   ),
 };
@@ -197,7 +325,7 @@ function CustomStyleExample() {
         >
           <SegmentedControlList size="small">
             <SegmentedControlButton value="default">
-              Carto
+              Aura
             </SegmentedControlButton>
             <SegmentedControlButton value="openstreetmap">
               OpenStreetMap
@@ -213,7 +341,7 @@ function CustomStyleExample() {
 }
 
 export const CustomStyles: Story = {
-  parameters: { order: 4 },
+  parameters: { order: 5 },
   render: () => <CustomStyleExample />,
 };
 
