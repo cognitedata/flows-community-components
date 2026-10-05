@@ -690,10 +690,19 @@ const mapPinVariants = cva(
   }
 );
 
-const mapMarkerDotVariants = cva('rounded-full', {
-  variants: { color: solidColors },
-  defaultVariants: { color: 'fjord' },
-});
+type MapStatus = 'success' | 'warning' | 'critical' | 'info' | 'neutral';
+
+const statusColors: Record<MapStatus, string> = {
+  success: 'bg-success-foreground',
+  warning: 'bg-warning-foreground',
+  critical: 'bg-destructive-foreground',
+  info: 'bg-info-foreground',
+  neutral: 'bg-neutral-foreground',
+};
+
+function getDotColor(color?: MapPaletteName, status?: MapStatus): string {
+  return status ? statusColors[status] : solidColors[color ?? 'fjord'];
+}
 
 const mapMarkerDotSizeVariants = cva('relative flex', {
   variants: {
@@ -778,18 +787,22 @@ function MapMarkerLabel({
 }
 
 type MapMarkerDotProps = Omit<ComponentProps<'span'>, 'color'> &
-  VariantProps<typeof mapMarkerDotVariants> &
   VariantProps<typeof mapMarkerDotSizeVariants> & {
+    color?: MapPaletteName;
+    status?: MapStatus;
     pulse?: boolean;
   };
 
 function MapMarkerDot({
   color,
+  status,
   size,
   pulse = false,
   className,
   ...props
 }: MapMarkerDotProps): ReactNode {
+  const dotColor = getDotColor(color, status);
+
   return (
     <span
       data-slot="map-marker-dot"
@@ -799,15 +812,15 @@ function MapMarkerDot({
       {pulse && (
         <span
           className={cn(
-            'absolute inset-0 animate-ping opacity-60 motion-reduce:hidden',
-            mapMarkerDotVariants({ color })
+            'absolute inset-0 animate-ping rounded-full opacity-60 motion-reduce:hidden',
+            dotColor
           )}
         />
       )}
       <span
         className={cn(
-          'relative size-full border-2 border-background shadow-sm',
-          mapMarkerDotVariants({ color })
+          'relative size-full rounded-full border-2 border-background shadow-sm',
+          dotColor
         )}
       />
     </span>
@@ -857,10 +870,12 @@ function MapLegend({
 
 type MapLegendItemProps = Omit<ComponentProps<'li'>, 'color'> & {
   color?: MapPaletteName;
+  status?: MapStatus;
 };
 
 function MapLegendItem({
   color,
+  status,
   className,
   children,
   ...props
@@ -871,7 +886,7 @@ function MapLegendItem({
       className={cn('flex items-center gap-1.5', className)}
       {...props}
     >
-      <MapMarkerDot color={color} size="small" aria-hidden />
+      <MapMarkerDot color={color} status={status} size="small" aria-hidden />
       {children}
     </li>
   );
@@ -923,6 +938,7 @@ export {
   type MapPaletteColor,
   type MapPaletteName,
   type MapRef,
+  type MapStatus,
   type MapViewport,
   Map,
   MapLegend,

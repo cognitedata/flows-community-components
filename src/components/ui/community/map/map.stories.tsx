@@ -30,6 +30,7 @@ import {
   MapPin,
   MapViewportInfo,
   type MapPaletteName,
+  type MapStatus,
   type MapViewport,
 } from './map';
 
@@ -164,10 +165,16 @@ const ASSETS: Asset[] = [
   },
 ];
 
-const STATUS_COLORS: Record<AssetStatus, MapPaletteName> = {
-  Running: 'aurora',
-  Maintenance: 'orange',
-  Offline: 'mountain',
+const STATUS_TONES: Record<AssetStatus, MapStatus> = {
+  Running: 'success',
+  Maintenance: 'warning',
+  Offline: 'critical',
+};
+
+const STATUS_BADGES: Record<AssetStatus, 'success' | 'warning' | 'error'> = {
+  Running: 'success',
+  Maintenance: 'warning',
+  Offline: 'error',
 };
 
 const ASSETS_CENTER: [number, number] = [4.5, 56.6];
@@ -229,16 +236,16 @@ export const StatusMarkers: Story = {
           <MapMarkerDot
             role="img"
             aria-label={`${name}: ${status}`}
-            color={STATUS_COLORS[status]}
+            status={STATUS_TONES[status]}
             pulse={status !== 'Offline'}
             size="large"
           />
         </MapMarker>
       ))}
       <MapLegend>
-        {Object.entries(STATUS_COLORS).map(([status, color]) => (
-          <MapLegendItem key={status} color={color}>
-            {status}
+        {Object.entries(STATUS_TONES).map(([label, status]) => (
+          <MapLegendItem key={label} status={status}>
+            {label}
           </MapLegendItem>
         ))}
       </MapLegend>
@@ -284,7 +291,7 @@ export const InteractiveMarkers: Story = {
                 <CardDescription>{selected.kind}</CardDescription>
               </CardHeaderCenter>
               <CardHeaderEnd>
-                <Badge variant={STATUS_COLORS[selected.status]} dot>
+                <Badge variant={STATUS_BADGES[selected.status]} dot>
                   {selected.status}
                 </Badge>
               </CardHeaderEnd>

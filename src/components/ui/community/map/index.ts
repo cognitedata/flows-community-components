@@ -35,5 +35,6 @@ export type {
   MapPaletteColor,
   MapPaletteName,
   MapRef,
+  MapStatus,
   MapViewport,
 } from './map';
