@@ -50,7 +50,7 @@ export const COMMUNITY_COMPONENTS: CommunityComponentEntry[] = [
   {
     name: 'Map',
     description:
-      'An interactive MapLibre GL map styled with Aura base and decorative colours.',
+      'An interactive map that matches your Aura theme, with coloured pins, labels, and overlays.',
     icon: IconMap,
   },
   {

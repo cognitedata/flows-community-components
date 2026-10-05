@@ -158,9 +158,11 @@
       "name": "map",
       "type": "registry:component",
       "title": "Map",
-      "description": "Interactive MapLibre GL map styled with Aura colour tokens.",
+      "description": "An interactive map that matches your Aura theme, with coloured pins, labels, and overlays.",
       "dependencies": [
+        "@base-ui/react",
         "@cognite/aura",
+        "class-variance-authority",
         "maplibre-gl"
       ],
       "files": [

@@ -64,8 +64,22 @@ export {
   DrawerTrigger,
 } from './drawer';
 
-export { Map, useMap } from './map';
+export {
+  Map,
+  MapLegend,
+  MapLegendItem,
+  MapMarker,
+  MapMarkerDot,
+  MapMarkerLabel,
+  MapOverlay,
+  MapPin,
+  MapViewportInfo,
+  naturalEarth10m,
+  naturalEarth50m,
+  useMap,
+} from './map';
 export type {
+  MapGeography,
   MapPalette,
   MapPaletteColor,
   MapPaletteName,

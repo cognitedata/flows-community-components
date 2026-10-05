@@ -1,20 +1,25 @@
-import { Loader } from '@cognite/aura/components';
+import { mergeProps } from '@base-ui/react/merge-props';
+import { useRender } from '@base-ui/react/use-render';
+import { Badge, Loader } from '@cognite/aura/components';
 import { cn } from '@cognite/aura/utils';
+import { cva, type VariantProps } from 'class-variance-authority';
 import * as MapLibreGL from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import {
+  type ComponentProps,
   type ReactNode,
   createContext,
   forwardRef,
   useContext,
   useEffect,
-  useEffectEvent,
   useImperativeHandle,
+  useLayoutEffect,
   useMemo,
   useRef,
   useState,
   useSyncExternalStore,
 } from 'react';
+import { createPortal } from 'react-dom';
 
 if (typeof window !== 'undefined' && !MapLibreGL.getWorkerUrl()) {
   MapLibreGL.setWorkerUrl(
@@ -49,11 +54,16 @@ type MapBaseColors = {
   background: string;
   land: string;
   water: string;
-  building: string;
-  road: string;
-  roadCasing: string;
-  label: string;
-  labelStrong: string;
+  coastline: string;
+  border: string;
+};
+
+type MapGeoJSON = MapLibreGL.GeoJSONSourceSpecification['data'];
+
+type MapGeography = {
+  land: MapGeoJSON;
+  lakes?: MapGeoJSON;
+  borders?: MapGeoJSON;
 };
 
 type MapColors = {
@@ -76,17 +86,28 @@ type MapProps = {
     light?: MapStyleOption;
     dark?: MapStyleOption;
   };
+  geography?: MapGeography;
   blank?: boolean;
   projection?: MapLibreGL.ProjectionSpecification;
   viewport?: Partial<MapViewport>;
   onViewportChange?: (viewport: MapViewport) => void;
   loading?: boolean;
-} & Omit<MapLibreGL.MapOptions, 'container' | 'style'>;
+} & Omit<MapLibreGL.MapOptions, 'container' | 'style' | 'attributionControl'>;
 
-const defaultStyles: Record<Theme, MapStyleOption> = {
-  dark: 'https://tiles.openfreemap.org/styles/dark',
-  light: 'https://tiles.openfreemap.org/styles/positron',
-};
+const naturalEarthUrl =
+  'https://cdn.jsdelivr.net/gh/nvkelso/natural-earth-vector@v5.1.2/geojson';
+
+function createNaturalEarthGeography(scale: '10m' | '50m'): MapGeography {
+  return {
+    land: `${naturalEarthUrl}/ne_${scale}_land.geojson`,
+    lakes: `${naturalEarthUrl}/ne_${scale}_lakes.geojson`,
+    borders: `${naturalEarthUrl}/ne_${scale}_admin_0_boundary_lines_land.geojson`,
+  };
+}
+
+const naturalEarth50m = createNaturalEarthGeography('50m');
+
+const naturalEarth10m = createNaturalEarthGeography('10m');
 
 const blankMapStyle: MapLibreGL.StyleSpecification = {
   version: 8,
@@ -162,11 +183,8 @@ const fallbackBaseColors: MapBaseColors = {
   background: '#ffffff',
   land: '#fafafa',
   water: '#e4e4e7',
-  building: '#f4f4f5',
-  road: '#d4d4d8',
-  roadCasing: '#e4e4e7',
-  label: '#71717a',
-  labelStrong: '#09090b',
+  coastline: '#d4d4d8',
+  border: '#a1a1aa',
 };
 
 const fallbackPalette: MapPalette = {
@@ -254,57 +272,91 @@ function resolveMapColors(element: HTMLElement): MapColors {
         : fallbackBaseColors.background,
       land: readColor('card-background', fallbackBaseColors.land),
       water: readColor('accent-background-strong', fallbackBaseColors.water),
-      building: readColor('muted-background', fallbackBaseColors.building),
-      road: readColor('border-emphasized', fallbackBaseColors.road),
-      roadCasing: readColor('border', fallbackBaseColors.roadCasing),
-      label: readColor('muted-foreground', fallbackBaseColors.label),
-      labelStrong: readColor('foreground', fallbackBaseColors.labelStrong),
+      coastline: readColor('border', fallbackBaseColors.coastline),
+      border: readColor('border-emphasized', fallbackBaseColors.border),
     },
     palette,
   };
 }
 
-const majorLabelPattern = /city|capital|country|state|continent/;
+function createGeographyStyle(
+  geography: MapGeography,
+  base: MapBaseColors = fallbackBaseColors
+): MapLibreGL.StyleSpecification {
+  const { land, lakes, borders } = geography;
+  const layers: MapLibreGL.LayerSpecification[] = [
+    {
+      id: 'water',
+      type: 'background',
+      paint: { 'background-color': base.water },
+    },
+    {
+      id: 'land',
+      type: 'fill',
+      source: 'land',
+      paint: { 'fill-color': base.land },
+    },
+    {
+      id: 'coastline',
+      type: 'line',
+      source: 'land',
+      paint: { 'line-color': base.coastline, 'line-width': 0.75 },
+    },
+  ];
+  const sources: MapLibreGL.StyleSpecification['sources'] = {
+    land: { type: 'geojson', data: land },
+  };
 
-const casingPattern = /casing|_case/;
+  if (lakes) {
+    sources.lakes = { type: 'geojson', data: lakes };
+    layers.push({
+      id: 'lakes',
+      type: 'fill',
+      source: 'lakes',
+      paint: { 'fill-color': base.water },
+    });
+  }
+
+  if (borders) {
+    sources.borders = { type: 'geojson', data: borders };
+    layers.push({
+      id: 'borders',
+      type: 'line',
+      source: 'borders',
+      paint: { 'line-color': base.border, 'line-width': 0.75 },
+    });
+  }
+
+  return { version: 8, sources, layers };
+}
 
 type PaintPropertyName = Parameters<MapLibreGL.Map['setPaintProperty']>[1];
 
-function getBasemapPaint(
-  layer: MapLibreGL.LayerSpecification,
-  base: MapBaseColors
-): [PaintPropertyName, string][] {
-  const { id } = layer;
-  switch (layer.type) {
-    case 'background':
-      return [['background-color', base.background]];
-    case 'fill':
-      if (id.startsWith('water')) return [['fill-color', base.water]];
-      if (id.startsWith('building')) return [['fill-color', base.building]];
-      return [['fill-color', base.land]];
-    case 'line':
-      if (id.startsWith('water')) return [['line-color', base.water]];
-      if (casingPattern.test(id)) return [['line-color', base.roadCasing]];
-      return [['line-color', base.road]];
-    case 'symbol':
-      return [
-        [
-          'text-color',
-          majorLabelPattern.test(id) ? base.labelStrong : base.label,
-        ],
-        ['text-halo-color', base.background],
-      ];
-    default:
-      return [];
+const basemapPaint: [string, PaintPropertyName, keyof MapBaseColors][] = [
+  ['water', 'background-color', 'water'],
+  ['land', 'fill-color', 'land'],
+  ['coastline', 'line-color', 'coastline'],
+  ['lakes', 'fill-color', 'water'],
+  ['borders', 'line-color', 'border'],
+];
+
+function applyBasemapColors(map: MapLibreGL.Map, base: MapBaseColors): void {
+  for (const [layerId, property, color] of basemapPaint) {
+    if (map.getLayer(layerId)) {
+      map.setPaintProperty(layerId, property, base[color]);
+    }
   }
 }
 
-function applyBasemapColors(map: MapLibreGL.Map, base: MapBaseColors): void {
-  for (const layer of map.getStyle().layers) {
-    for (const [property, value] of getBasemapPaint(layer, base)) {
-      map.setPaintProperty(layer.id, property, value);
-    }
-  }
+function recolorBasemap(
+  map: MapLibreGL.Map,
+  {
+    usesDefaultStyle,
+    colors,
+  }: { usesDefaultStyle: boolean; colors: MapColors | null }
+): void {
+  if (!usesDefaultStyle || !colors) return;
+  applyBasemapColors(map, colors.base);
 }
 
 function useResolvedTheme(themeProp?: Theme): Theme {
@@ -319,15 +371,22 @@ function useResolvedTheme(themeProp?: Theme): Theme {
 function resolveMapStyle(
   theme: Theme,
   styles: MapProps['styles'],
-  blank: boolean
+  blank: boolean,
+  geography: MapGeography
 ): MapStyleOption {
-  if (styles) return styles[theme] ?? defaultStyles[theme];
   if (blank) return blankMapStyle;
-  return defaultStyles[theme];
+  return styles?.[theme] ?? createGeographyStyle(geography);
 }
 
 function getStyleKey(style: MapStyleOption): string {
   return typeof style === 'string' ? style : JSON.stringify(style);
+}
+
+function collapseAttribution(container: HTMLElement): void {
+  const attribution = container.querySelector('.maplibregl-ctrl-attrib');
+  if (!attribution?.classList.contains('maplibregl-compact')) return;
+  attribution.classList.remove('maplibregl-compact-show');
+  attribution.removeAttribute('open');
 }
 
 function getViewport(map: MapLibreGL.Map): MapViewport {
@@ -368,6 +427,7 @@ const Map = forwardRef<MapRef | null, MapProps>(
       className,
       theme: themeProp,
       styles,
+      geography = naturalEarth50m,
       blank = false,
       projection,
       viewport,
@@ -383,8 +443,15 @@ const Map = forwardRef<MapRef | null, MapProps>(
     const [isStyleLoaded, setIsStyleLoaded] = useState(false);
     const internalUpdateRef = useRef(false);
     const resolvedTheme = useResolvedTheme(themeProp);
-    const activeStyle = resolveMapStyle(resolvedTheme, styles, blank);
-    const activeStyleKey = getStyleKey(activeStyle);
+    const customStyle = styles?.[resolvedTheme];
+    const activeStyle = useMemo(
+      () => resolveMapStyle(resolvedTheme, styles, blank, geography),
+      [resolvedTheme, styles, blank, geography]
+    );
+    const activeStyleKey = useMemo(
+      () => getStyleKey(activeStyle),
+      [activeStyle]
+    );
     const appliedStyleKeyRef = useRef(activeStyleKey);
     const isControlled =
       viewport !== undefined && onViewportChange !== undefined;
@@ -401,21 +468,21 @@ const Map = forwardRef<MapRef | null, MapProps>(
       getServerTokenSnapshot
     );
     const [colors, setColors] = useState<MapColors | null>(null);
-    const usesDefaultStyle = !styles && !blank;
+    const usesDefaultStyle = !blank && !customStyle;
+    const hasCustomStyle = !blank && customStyle !== undefined;
 
-    const emitViewportChange = useEffectEvent((map: MapLibreGL.Map) => {
-      onViewportChange?.(getViewport(map));
-    });
+    const latestRef = useRef({ onViewportChange, usesDefaultStyle, colors });
 
-    const recolorBasemap = useEffectEvent((map: MapLibreGL.Map) => {
-      if (!usesDefaultStyle || !colors) return;
-      applyBasemapColors(map, colors.base);
+    useLayoutEffect(() => {
+      latestRef.current = { onViewportChange, usesDefaultStyle, colors };
     });
 
     useEffect(() => {
       const container = containerRef.current;
       if (!container) return;
-      setColors(resolveMapColors(container));
+      const resolved = resolveMapColors(container);
+      latestRef.current = { ...latestRef.current, colors: resolved };
+      setColors(resolved);
     }, [tokenSnapshot, resolvedTheme]);
 
     useImperativeHandle<MapRef | null, MapRef | null>(ref, () => mapInstance, [
@@ -428,19 +495,22 @@ const Map = forwardRef<MapRef | null, MapProps>(
 
       const map = new MapLibreGL.Map({
         renderWorldCopies: false,
-        attributionControl: { compact: true },
         ...initialOptions,
+        attributionControl: false,
         container,
       });
 
-      const handleLoad = () => setIsLoaded(true);
+      const handleLoad = () => {
+        collapseAttribution(container);
+        setIsLoaded(true);
+      };
       const handleStyleLoad = () => {
-        recolorBasemap(map);
+        recolorBasemap(map, latestRef.current);
         setIsStyleLoaded(true);
       };
       const handleMove = () => {
         if (internalUpdateRef.current) return;
-        emitViewportChange(map);
+        latestRef.current.onViewportChange?.(getViewport(map));
       };
 
       map.on('load', handleLoad);
@@ -496,13 +566,23 @@ const Map = forwardRef<MapRef | null, MapProps>(
     }, [mapInstance, activeStyle, activeStyleKey]);
 
     useEffect(() => {
+      if (!mapInstance || !hasCustomStyle) return;
+      const control = new MapLibreGL.AttributionControl({ compact: true });
+      mapInstance.addControl(control);
+      collapseAttribution(mapInstance.getContainer());
+      return () => {
+        mapInstance.removeControl(control);
+      };
+    }, [mapInstance, hasCustomStyle]);
+
+    useEffect(() => {
       if (!mapInstance || !isStyleLoaded || !projection) return;
       mapInstance.setProjection(projection);
     }, [mapInstance, isStyleLoaded, projection]);
 
     useEffect(() => {
       if (!mapInstance || !isStyleLoaded) return;
-      recolorBasemap(mapInstance);
+      recolorBasemap(mapInstance, { usesDefaultStyle, colors });
     }, [mapInstance, isStyleLoaded, colors, usesDefaultStyle]);
 
     const palette = colors?.palette ?? fallbackPalette;
@@ -534,12 +614,326 @@ const Map = forwardRef<MapRef | null, MapProps>(
 
 Map.displayName = 'Map';
 
+type MapMarkerProps = {
+  longitude: number;
+  latitude: number;
+  anchor?: MapLibreGL.PositionAnchor;
+} & ComponentProps<'div'>;
+
+function MapMarker({
+  longitude,
+  latitude,
+  anchor = 'center',
+  className,
+  ...props
+}: MapMarkerProps): ReactNode {
+  const { map } = useMap();
+  const [marker] = useState(
+    () =>
+      new MapLibreGL.Marker({
+        element: document.createElement('div'),
+        anchor,
+      })
+  );
+
+  useEffect(() => {
+    marker.setLngLat([longitude, latitude]);
+  }, [marker, longitude, latitude]);
+
+  useEffect(() => {
+    if (!map) return;
+    marker.addTo(map);
+    return () => {
+      marker.remove();
+    };
+  }, [marker, map]);
+
+  return createPortal(
+    <div
+      data-slot="map-marker"
+      className={cn('relative', className)}
+      {...props}
+    />,
+    marker.getElement()
+  );
+}
+
+const surfaceColors: Record<MapPaletteName, string> = {
+  aurora: 'bg-decorative-background-aurora text-decorative-foreground-aurora',
+  dusk: 'bg-decorative-background-dusk text-decorative-foreground-dusk',
+  fjord: 'bg-decorative-background-fjord text-decorative-foreground-fjord',
+  mountain:
+    'bg-decorative-background-mountain text-decorative-foreground-mountain',
+  nordic: 'bg-decorative-background-nordic text-decorative-foreground-nordic',
+  orange: 'bg-decorative-background-orange text-decorative-foreground-orange',
+  sky: 'bg-decorative-background-sky text-decorative-foreground-sky',
+};
+
+const solidColors: Record<MapPaletteName, string> = {
+  aurora:
+    'bg-decorative-foreground-aurora dark:bg-decorative-background-aurora',
+  dusk: 'bg-decorative-foreground-dusk dark:bg-decorative-background-dusk',
+  fjord: 'bg-decorative-foreground-fjord dark:bg-decorative-background-fjord',
+  mountain: 'bg-decorative-foreground-mountain',
+  nordic:
+    'bg-decorative-foreground-nordic dark:bg-decorative-background-nordic',
+  orange:
+    'bg-decorative-foreground-orange dark:bg-decorative-background-orange',
+  sky: 'bg-decorative-foreground-sky dark:bg-decorative-background-sky',
+};
+
+const mapPinVariants = cva(
+  'flex size-9 rotate-45 items-center justify-center rounded-full rounded-br-none border-2 border-background shadow-md transition-transform group-data-selected/map-pin:scale-125 group-focus-visible/map-pin:outline-2 group-focus-visible/map-pin:outline-offset-2 group-focus-visible/map-pin:outline-border-active [&>svg]:size-4 [&>svg]:-rotate-45',
+  {
+    variants: { color: surfaceColors },
+    defaultVariants: { color: 'fjord' },
+  }
+);
+
+const mapMarkerDotVariants = cva('rounded-full', {
+  variants: { color: solidColors },
+  defaultVariants: { color: 'fjord' },
+});
+
+const mapMarkerDotSizeVariants = cva('relative flex', {
+  variants: {
+    size: {
+      small: 'size-2.5',
+      medium: 'size-3',
+      large: 'size-3.5',
+    },
+  },
+  defaultVariants: { size: 'medium' },
+});
+
+const mapOverlayVariants = cva('absolute z-10', {
+  variants: {
+    position: {
+      'top-left': 'top-2 left-2',
+      'top-right': 'top-2 right-2',
+      'bottom-left': 'bottom-2 left-2',
+      'bottom-right': 'right-2 bottom-2',
+    },
+  },
+  defaultVariants: { position: 'top-left' },
+});
+
+const mapPanelClassName =
+  'flex flex-wrap gap-x-3 gap-y-1 rounded-md border bg-background/80 px-2 py-1.5 text-xs shadow-sm backdrop-blur';
+
+type MapPinProps = Omit<useRender.ComponentProps<'div'>, 'color'> &
+  VariantProps<typeof mapPinVariants> & {
+    selected?: boolean;
+  };
+
+function MapPin({
+  className,
+  color,
+  selected = false,
+  render,
+  children,
+  ...props
+}: MapPinProps): ReactNode {
+  return useRender({
+    defaultTagName: 'div',
+    props: mergeProps<'div'>(
+      {
+        className: cn('group/map-pin block pb-2 outline-none', className),
+        children: (
+          <span data-slot="map-pin-body" className={mapPinVariants({ color })}>
+            {children}
+          </span>
+        ),
+      },
+      props
+    ),
+    render,
+    state: {
+      slot: 'map-pin',
+      selected,
+    },
+    stateAttributesMapping: {
+      selected: (value) => (value ? { 'data-selected': 'true' } : null),
+    },
+  });
+}
+
+type MapMarkerLabelProps = Omit<ComponentProps<typeof Badge>, 'variant'> & {
+  color?: MapPaletteName;
+};
+
+function MapMarkerLabel({
+  color = 'fjord',
+  className,
+  ...props
+}: MapMarkerLabelProps): ReactNode {
+  return (
+    <Badge
+      data-slot="map-marker-label"
+      variant={color}
+      className={cn('shadow-sm', className)}
+      {...props}
+    />
+  );
+}
+
+type MapMarkerDotProps = Omit<ComponentProps<'span'>, 'color'> &
+  VariantProps<typeof mapMarkerDotVariants> &
+  VariantProps<typeof mapMarkerDotSizeVariants> & {
+    pulse?: boolean;
+  };
+
+function MapMarkerDot({
+  color,
+  size,
+  pulse = false,
+  className,
+  ...props
+}: MapMarkerDotProps): ReactNode {
+  return (
+    <span
+      data-slot="map-marker-dot"
+      className={cn(mapMarkerDotSizeVariants({ size }), className)}
+      {...props}
+    >
+      {pulse && (
+        <span
+          className={cn(
+            'absolute inset-0 animate-ping opacity-60 motion-reduce:hidden',
+            mapMarkerDotVariants({ color })
+          )}
+        />
+      )}
+      <span
+        className={cn(
+          'relative size-full border-2 border-background shadow-sm',
+          mapMarkerDotVariants({ color })
+        )}
+      />
+    </span>
+  );
+}
+
+type MapOverlayProps = useRender.ComponentProps<'div'> &
+  VariantProps<typeof mapOverlayVariants>;
+
+function MapOverlay({
+  className,
+  position,
+  render,
+  ...props
+}: MapOverlayProps): ReactNode {
+  return useRender({
+    defaultTagName: 'div',
+    props: mergeProps<'div'>(
+      { className: cn(mapOverlayVariants({ position }), className) },
+      props
+    ),
+    render,
+    state: { slot: 'map-overlay' },
+  });
+}
+
+type MapLegendProps = ComponentProps<'ul'> &
+  VariantProps<typeof mapOverlayVariants>;
+
+function MapLegend({
+  className,
+  position,
+  ...props
+}: MapLegendProps): ReactNode {
+  return (
+    <ul
+      data-slot="map-legend"
+      className={cn(
+        mapOverlayVariants({ position }),
+        mapPanelClassName,
+        className
+      )}
+      {...props}
+    />
+  );
+}
+
+type MapLegendItemProps = Omit<ComponentProps<'li'>, 'color'> & {
+  color?: MapPaletteName;
+};
+
+function MapLegendItem({
+  color,
+  className,
+  children,
+  ...props
+}: MapLegendItemProps): ReactNode {
+  return (
+    <li
+      data-slot="map-legend-item"
+      className={cn('flex items-center gap-1.5', className)}
+      {...props}
+    >
+      <MapMarkerDot color={color} size="small" aria-hidden />
+      {children}
+    </li>
+  );
+}
+
+type MapViewportInfoProps = ComponentProps<'dl'> &
+  VariantProps<typeof mapOverlayVariants> & {
+    viewport: MapViewport;
+  };
+
+function MapViewportInfo({
+  viewport,
+  className,
+  position,
+  ...props
+}: MapViewportInfoProps): ReactNode {
+  const entries = [
+    { label: 'lng', value: viewport.center[0].toFixed(3) },
+    { label: 'lat', value: viewport.center[1].toFixed(3) },
+    { label: 'zoom', value: viewport.zoom.toFixed(1) },
+    { label: 'bearing', value: `${viewport.bearing.toFixed(1)}°` },
+    { label: 'pitch', value: `${viewport.pitch.toFixed(1)}°` },
+  ];
+
+  return (
+    <dl
+      data-slot="map-viewport-info"
+      className={cn(
+        mapOverlayVariants({ position }),
+        mapPanelClassName,
+        'font-mono',
+        className
+      )}
+      {...props}
+    >
+      {entries.map(({ label, value }) => (
+        <div key={label} className="flex gap-1">
+          <dt className="text-muted-foreground">{label}:</dt>
+          <dd>{value}</dd>
+        </div>
+      ))}
+    </dl>
+  );
+}
+
 export {
+  type MapGeography,
   type MapPalette,
   type MapPaletteColor,
   type MapPaletteName,
   type MapRef,
   type MapViewport,
   Map,
+  MapLegend,
+  MapLegendItem,
+  MapMarker,
+  MapMarkerDot,
+  MapMarkerLabel,
+  MapOverlay,
+  MapPin,
+  MapViewportInfo,
+  naturalEarth10m,
+  naturalEarth50m,
   useMap,
 };
