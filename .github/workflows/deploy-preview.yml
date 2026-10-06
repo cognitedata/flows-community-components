@@ -6,6 +6,7 @@ on:
 
 permissions:
   contents: read
+  pages: read
   pull-requests: write
   actions: write
 
@@ -34,10 +35,14 @@ jobs:
       - name: Build registry
         run: pnpm run registry:build
 
+      - name: Get Pages URL
+        id: pages
+        uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
+
       - name: Build with Vite
         run: pnpm run build
         env:
-          PAGES_BASE_PATH: /aura/branches/${{ steps.branch.outputs.name }}
+          PAGES_BASE_PATH: ${{ steps.pages.outputs.base_path }}/branches/${{ steps.branch.outputs.name }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Add branch metadata
@@ -76,8 +81,8 @@ jobs:
         with:
           script: |
             const branchName = '${{ steps.branch.outputs.name }}';
-            const previewUrl = 'https://cognitedata.github.io/aura/branches/' + branchName + '/';
-            const commitSha = context.sha;
+            const previewUrl = '${{ steps.pages.outputs.base_url }}/branches/' + branchName + '/';
+            const commitSha = context.payload.pull_request.head.sha;
             const timestamp = new Date().toISOString();
             const marker = '<!-- flows-community-preview -->';
 
