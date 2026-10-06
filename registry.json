@@ -1,7 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
   "name": "@aura",
-  "homepage": "https://cognitedata.github.io/aura/",
+  "homepage": "https://cognitedata.github.io/flows-community-components/",
   "items": [
     {
       "name": "theme",

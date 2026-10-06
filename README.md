@@ -11,11 +11,21 @@ Community component docs preview examples **natively** (portable Storybook stori
 
 Official Aura docs: [docs.cognite.com/aura-design-system](https://docs.cognite.com/aura-design-system)
 
-Community site + registry: [cognitedata.github.io/aura](https://cognitedata.github.io/flows-community-components)
+Community site + registry: [cognitedata.github.io/flows-community-components](https://cognitedata.github.io/flows-community-components)
 
 ## Install a community component
 
-1. Add the registry to `components.json` (Tailwind v4: empty `config`, `css` = your stylesheet):
+Full guide, including troubleshooting: [Installation](https://cognitedata.github.io/flows-community-components/community/installation).
+
+1. Install Aura: `npm install @cognite/aura`.
+
+2. Register the `@aura` namespace. Without it, `shadcn add @aura/...` fails with `Unknown registry "@aura"`. If you already have a `components.json`, let the CLI add it:
+
+```bash
+npx shadcn@latest registry add "@aura=https://cognitedata.github.io/flows-community-components/r/{name}.json"
+```
+
+Otherwise create `components.json` (Tailwind v4: empty `config`, `css` = your stylesheet). We recommend this over `shadcn init`, which writes shadcn's default theme variables that Aura already provides:
 
 ```json
 {
@@ -39,23 +49,29 @@ Community site + registry: [cognitedata.github.io/aura](https://cognitedata.gith
     "hooks": "@/hooks"
   },
   "registries": {
-    "@aura": "https://cognitedata.github.io/aura/r/{name}.json"
+    "@aura": "https://cognitedata.github.io/flows-community-components/r/{name}.json"
   }
 }
 ```
 
-2. In that stylesheet, import Aura source styles and `@source` installed community components:
+3. In that stylesheet, import Aura source styles and `@source` installed community components:
 
 ```css
-@import '@cognite/aura/styles.source.css';
+@import "@cognite/aura/styles.source.css";
 
 @source './components/ui/community/**/*.{ts,tsx}';
 ```
 
-3. Install an item:
+4. Install an item:
 
 ```bash
-pnpm dlx shadcn@latest add @aura/drawer
+npx shadcn@latest add @aura/drawer
+```
+
+Or skip the namespace and install by URL:
+
+```bash
+npx shadcn@latest add https://cognitedata.github.io/flows-community-components/r/drawer.json
 ```
 
 Community items depend on `@cognite/aura` and copy source into your repository.

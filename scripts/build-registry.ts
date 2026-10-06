@@ -42,7 +42,8 @@ const communityDir = path.join(__dirname, '../src/components/ui/community');
 const registryOutput = path.join(__dirname, '../registry.json');
 
 const registryName = '@aura';
-const registryHomepage = 'https://cognitedata.github.io/aura/';
+const registryHomepage =
+  'https://cognitedata.github.io/flows-community-components/';
 const registryDependencyNamespace = '@aura';
 
 const miscRegistryItems: RegistryItem[] = [
