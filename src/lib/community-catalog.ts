@@ -7,6 +7,7 @@ import { DrawerMetadata } from '../components/ui/community/drawer/drawer.metadat
 import { MenubarMetadata } from '../components/ui/community/menubar/menubar.metadata';
 import { SheetMetadata } from '../components/ui/community/sheet/sheet.metadata';
 
+import { getInstallCommands } from './install-snippets';
 import type { ComponentMeta } from './types';
 
 export type CommunityCatalogItem = {
@@ -35,7 +36,7 @@ function toCatalogItem(id: string, meta: ComponentMeta): CommunityCatalogItem {
     id,
     name: meta.name,
     description: meta.description,
-    install: `pnpm dlx shadcn@latest add @aura/${id}`,
+    install: getInstallCommands(id).npm,
     status: meta.status ?? 'experimental',
     notes: meta.notes,
     llmUsage: meta.llmUsage,
@@ -57,18 +58,4 @@ export function getCommunityComponent(
     return undefined;
   }
   return toCatalogItem(id, meta);
-}
-
-export function getCommunityInstallCommands(id: string): {
-  pnpm: string;
-  npm: string;
-  yarn: string;
-  bun: string;
-} {
-  return {
-    pnpm: `pnpm dlx shadcn@latest add @aura/${id}`,
-    npm: `npx shadcn@latest add @aura/${id}`,
-    yarn: `yarn dlx shadcn@latest add @aura/${id}`,
-    bun: `bunx --bun shadcn@latest add @aura/${id}`,
-  };
 }
