@@ -6,6 +6,7 @@ import { DashboardTemplateMetadata } from '../components/ui/community/dashboard-
 import { DrawerMetadata } from '../components/ui/community/drawer/drawer.metadata';
 import { MenubarMetadata } from '../components/ui/community/menubar/menubar.metadata';
 import { SheetMetadata } from '../components/ui/community/sheet/sheet.metadata';
+import { TimeSeriesChartMetadata } from '../components/ui/community/time-series-chart/time-series-chart.metadata';
 
 import { getInstallCommands } from './install-snippets';
 import type { ComponentMeta } from './types';
@@ -29,6 +30,7 @@ const communityMetaById: Record<string, ComponentMeta> = {
   drawer: DrawerMetadata,
   menubar: MenubarMetadata,
   sheet: SheetMetadata,
+  'time-series-chart': TimeSeriesChartMetadata,
 };
 
 function toCatalogItem(id: string, meta: ComponentMeta): CommunityCatalogItem {

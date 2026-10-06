@@ -77,6 +77,15 @@
   --color-fjord-300: var(--fjord-300);
   --color-fjord-500: var(--fjord-500);
 
+  /* Aura chart tokens used by community D3 charts. @cognite/aura already
+     defines these; re-declaring them lets @shadcn/lint recognise them. */
+  --color-chart-gridlines: var(--chart-gridlines);
+  --color-chart-neutral-color-1: var(--chart-neutral-color-1);
+  --color-chart-neutral-color-5: var(--chart-neutral-color-5);
+  --color-chart-neutral-color-6: var(--chart-neutral-color-6);
+  --color-chart-destructive-color-1: var(--chart-destructive-color-1);
+  --color-chart-warning-color-1: var(--chart-warning-color-1);
+
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-heading: var(--font-space-grotesk), var(--font-inter), sans-serif;
   --font-mono: var(--font-source-code-pro), ui-monospace, monospace;

@@ -151,6 +151,17 @@ function extractDependenciesFromFile(filePath: string): string[] {
       match = importRegex.exec(content);
     }
 
+    // Side-effect imports, e.g. `import 'd3-transition';`.
+    const sideEffectRegex = /^import\s+["']([^"']+)["']/gm;
+    let sideEffect: RegExpExecArray | null = sideEffectRegex.exec(content);
+    while (sideEffect !== null) {
+      const packageName = normalizeNpmPackageName(sideEffect[1] as string);
+      if (packageName) {
+        dependencies.add(packageName);
+      }
+      sideEffect = sideEffectRegex.exec(content);
+    }
+
     return Array.from(dependencies).sort();
   } catch (error) {
     console.warn(
@@ -273,6 +284,21 @@ function autoDetectComponentFiles(componentName: string): RegistryFile[] {
     });
   }
 
+  // An optional agent skill ships alongside the component and installs where
+  // Claude Code discovers project skills.
+  const skillPath = path.join(componentDir, 'SKILL.md');
+  if (fs.existsSync(skillPath)) {
+    const skillName =
+      fs
+        .readFileSync(skillPath, 'utf8')
+        .match(/^---[\s\S]*?^name:\s*([\w-]+)/m)?.[1] ?? componentName;
+    files.push({
+      path: `src/components/ui/community/${componentName}/SKILL.md`,
+      target: `.claude/skills/${skillName}/SKILL.md`,
+      type: 'registry:file',
+    });
+  }
+
   return files;
 }
 
@@ -324,7 +350,7 @@ function buildRegistry(components: string[]): Registry {
     const jsdocMetadata = extractJSDocMetadata(componentPath);
     const dependencies = new Set<string>();
 
-    for (const file of files) {
+    for (const file of files.filter((entry) => /\.tsx?$/.test(entry.path))) {
       for (const dep of extractDependenciesFromFile(file.path)) {
         dependencies.add(dep);
       }

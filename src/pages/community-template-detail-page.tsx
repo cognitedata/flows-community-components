@@ -1,6 +1,7 @@
 import { Link, Navigate, useParams } from 'react-router-dom';
 
 import { CommunityInstallSection } from '@/components/community/community-install-section';
+import { MarkdownDoc } from '@/components/documentation/markdown-doc';
 import { PageTitle } from '@/components/page-title';
 import { StoriesRenderer } from '@/components/stories-renderer';
 import { getCommunityComponent } from '@/lib/community-catalog';
@@ -68,19 +69,35 @@ export function CommunityTemplateDetailPage() {
         >
           Usage
         </h2>
-        <p className="max-w-[65ch] text-sm leading-relaxed text-muted-fg">
-          This is a complete overview screen, not a single primitive. After you
-          add it from the registry, import{' '}
-          <code className="text-foreground">DashboardTemplate</code> and render
-          it on a route.
-        </p>
-        <p className="max-w-[65ch] text-sm leading-relaxed text-muted-fg">
-          The header, metric cards, visitors chart, and documents table each
-          live in their own file. Drop the template into your app shell — it
-          does not include a sidebar — then replace the sample metrics, chart
-          series, and table rows with your product data.
-        </p>
+        <MarkdownDoc markdown={template.usage} />
       </section>
+
+      {template.skill && (
+        <section className="mb-12 space-y-4" aria-labelledby="skill-heading">
+          <h2
+            id="skill-heading"
+            className="font-heading text-2xl font-semibold tracking-tight"
+          >
+            Agent skill
+          </h2>
+          <p className="max-w-[65ch] text-sm leading-relaxed text-muted-fg">
+            Installing this item also adds the{' '}
+            <code className="text-foreground">{template.skill.name}</code> skill
+            to{' '}
+            <code className="text-foreground">
+              {template.skill.installPath}
+            </code>
+            , so coding agents follow the same approach when they build or edit
+            charts in your app.
+          </p>
+          <Link
+            to={`/community/templates/${slug}/skill`}
+            className="inline-flex text-sm font-medium text-link-fg hover:text-link-fg-hover hover:underline"
+          >
+            Read SKILL.md
+          </Link>
+        </section>
+      )}
 
       <section aria-labelledby="examples-heading" className="space-y-4">
         <h2
@@ -89,7 +106,22 @@ export function CommunityTemplateDetailPage() {
         >
           Example
         </h2>
-        <StoriesRenderer slug={template.registryId} />
+        {template.featuredStory ? (
+          <>
+            <StoriesRenderer
+              slug={template.registryId}
+              include={[template.featuredStory]}
+            />
+            <Link
+              to={`/community/templates/${slug}/examples`}
+              className="inline-flex text-sm font-medium text-link-fg hover:text-link-fg-hover hover:underline"
+            >
+              More examples
+            </Link>
+          </>
+        ) : (
+          <StoriesRenderer slug={template.registryId} />
+        )}
       </section>
     </>
   );

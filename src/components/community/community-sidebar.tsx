@@ -102,6 +102,7 @@ export function CommunitySidebar() {
           </li>
           {COMMUNITY_TEMPLATES.map((template) => {
             const href = `/community/templates/${slugify(template.name)}`;
+            const skillHref = `${href}/skill`;
             const active = pathname === href;
             return (
               <li key={template.name}>
@@ -116,6 +117,30 @@ export function CommunitySidebar() {
                 >
                   {template.name}
                 </Link>
+                {[
+                  template.featuredStory && {
+                    label: 'Examples',
+                    href: `${href}/examples`,
+                  },
+                  template.skill && { label: 'SKILL.md', href: skillHref },
+                ]
+                  .filter(
+                    (link): link is { label: string; href: string } => !!link
+                  )
+                  .map((link) => (
+                    <Link
+                      key={link.href}
+                      to={link.href}
+                      className={cn(
+                        'ml-3 block rounded-lg border-l border-border px-2 py-1.5 text-sm transition-colors',
+                        pathname === link.href
+                          ? 'bg-medium-bg font-medium text-foreground'
+                          : 'text-muted-fg hover:bg-medium-bg hover:text-foreground'
+                      )}
+                    >
+                      {link.label}
+                    </Link>
+                  ))}
               </li>
             );
           })}
