@@ -183,7 +183,9 @@ export default defineConfig(async () => {
     define: {
       'import.meta.env.VITE_GITHUB_STATS': JSON.stringify(githubStatsJson),
     },
-    base: process.env.PAGES_BASE_PATH || '/',
+    // configure-pages emits base_path without a trailing slash; %BASE_URL% in
+    // index.html needs one.
+    base: `${(process.env.PAGES_BASE_PATH || '').replace(/\/$/, '')}/`,
     server: {
       host: true,
       port: 5173,
