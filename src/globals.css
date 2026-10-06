@@ -46,22 +46,6 @@
   --color-info-background: var(--info-background);
   --color-info-foreground: var(--info-foreground);
   --color-info-foreground-on-info: var(--info-foreground-on-info);
-  --color-neutral-foreground: var(--neutral-foreground);
-  --color-border-active: var(--border-active);
-  --color-decorative-background-aurora: var(--decorative-background-aurora);
-  --color-decorative-foreground-aurora: var(--decorative-foreground-aurora);
-  --color-decorative-background-dusk: var(--decorative-background-dusk);
-  --color-decorative-foreground-dusk: var(--decorative-foreground-dusk);
-  --color-decorative-background-fjord: var(--decorative-background-fjord);
-  --color-decorative-foreground-fjord: var(--decorative-foreground-fjord);
-  --color-decorative-background-mountain: var(--decorative-background-mountain);
-  --color-decorative-foreground-mountain: var(--decorative-foreground-mountain);
-  --color-decorative-background-nordic: var(--decorative-background-nordic);
-  --color-decorative-foreground-nordic: var(--decorative-foreground-nordic);
-  --color-decorative-background-orange: var(--decorative-background-orange);
-  --color-decorative-foreground-orange: var(--decorative-foreground-orange);
-  --color-decorative-background-sky: var(--decorative-background-sky);
-  --color-decorative-foreground-sky: var(--decorative-foreground-sky);
   --color-success-muted-background: var(--success-muted-background);
   --color-warning-muted-background: var(--warning-muted-background);
   --color-destructive-muted-background: var(--destructive-muted-background);
@@ -88,6 +72,29 @@
   --color-popover-bg: var(--popover-background);
   --color-link-fg: var(--link-foreground);
   --color-link-fg-hover: var(--link-foreground);
+
+  /* Canonical Aura (Reflect) tokens. */
+  --color-base-background: var(--base-background);
+  --color-base-foreground: var(--base-foreground);
+  --color-success-foreground-strong: var(--success-foreground-strong);
+  --color-warning-foreground-strong: var(--warning-foreground-strong);
+  --color-critical-foreground-strong: var(--critical-foreground-strong);
+  --color-info-foreground-strong: var(--info-foreground-strong);
+  --color-neutral-foreground-strong: var(--neutral-foreground-strong);
+  --color-decorative-1-background: var(--decorative-1-background);
+  --color-decorative-1-foreground: var(--decorative-1-foreground);
+  --color-decorative-2-background: var(--decorative-2-background);
+  --color-decorative-2-foreground: var(--decorative-2-foreground);
+  --color-decorative-3-background: var(--decorative-3-background);
+  --color-decorative-3-foreground: var(--decorative-3-foreground);
+  --color-decorative-4-background: var(--decorative-4-background);
+  --color-decorative-4-foreground: var(--decorative-4-foreground);
+  --color-decorative-5-background: var(--decorative-5-background);
+  --color-decorative-5-foreground: var(--decorative-5-foreground);
+  --color-decorative-6-background: var(--decorative-6-background);
+  --color-decorative-6-foreground: var(--decorative-6-foreground);
+  --color-decorative-7-background: var(--decorative-7-background);
+  --color-decorative-7-foreground: var(--decorative-7-foreground);
 
   --color-fjord-100: var(--fjord-100);
   --color-fjord-300: var(--fjord-300);

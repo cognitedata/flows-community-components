@@ -179,6 +179,17 @@ const paletteNames: MapPaletteName[] = [
   'sky',
 ];
 
+// Aura decorative slot for each named palette colour.
+const paletteSlots: Record<MapPaletteName, number> = {
+  mountain: 1,
+  fjord: 2,
+  nordic: 3,
+  aurora: 4,
+  dusk: 5,
+  orange: 6,
+  sky: 7,
+};
+
 const fallbackBaseColors: MapBaseColors = {
   background: '#ffffff',
   land: '#fafafa',
@@ -245,13 +256,14 @@ function resolveMapColors(element: HTMLElement): MapColors {
     return rgba ? toRgbaString(rgba) : fallback;
   };
 
-  const background = readToken('background');
+  const background = readToken('base-background');
   const backgroundLuminance = background ? getRelativeLuminance(background) : 1;
 
   const palette = { ...fallbackPalette };
   for (const name of paletteNames) {
-    const foreground = readToken(`decorative-foreground-${name}`);
-    const surface = readToken(`decorative-background-${name}`);
+    const slot = paletteSlots[name];
+    const foreground = readToken(`decorative-${slot}-foreground`);
+    const surface = readToken(`decorative-${slot}-background`);
     if (!foreground || !surface) continue;
     const foregroundContrast = Math.abs(
       getRelativeLuminance(foreground) - backgroundLuminance
@@ -271,9 +283,9 @@ function resolveMapColors(element: HTMLElement): MapColors {
         ? toRgbaString(background)
         : fallbackBaseColors.background,
       land: readColor('card-background', fallbackBaseColors.land),
-      water: readColor('accent-background-strong', fallbackBaseColors.water),
-      coastline: readColor('border', fallbackBaseColors.coastline),
-      border: readColor('border-emphasized', fallbackBaseColors.border),
+      water: readColor('default', fallbackBaseColors.water),
+      coastline: readColor('default', fallbackBaseColors.coastline),
+      border: readColor('emphasized', fallbackBaseColors.border),
     },
     palette,
   };
@@ -413,7 +425,7 @@ function MapLoader(): ReactNode {
   return (
     <div
       data-slot="map-loader"
-      className="absolute inset-0 z-10 flex items-center justify-center bg-background/50 backdrop-blur-xs"
+      className="absolute inset-0 z-10 flex items-center justify-center bg-base-background/50 backdrop-blur-xs"
     >
       <Loader />
     </div>
@@ -659,31 +671,27 @@ function MapMarker({
 }
 
 const surfaceColors: Record<MapPaletteName, string> = {
-  aurora: 'bg-decorative-background-aurora text-decorative-foreground-aurora',
-  dusk: 'bg-decorative-background-dusk text-decorative-foreground-dusk',
-  fjord: 'bg-decorative-background-fjord text-decorative-foreground-fjord',
-  mountain:
-    'bg-decorative-background-mountain text-decorative-foreground-mountain',
-  nordic: 'bg-decorative-background-nordic text-decorative-foreground-nordic',
-  orange: 'bg-decorative-background-orange text-decorative-foreground-orange',
-  sky: 'bg-decorative-background-sky text-decorative-foreground-sky',
+  aurora: 'bg-decorative-4-background text-decorative-4-foreground',
+  dusk: 'bg-decorative-5-background text-decorative-5-foreground',
+  fjord: 'bg-decorative-2-background text-decorative-2-foreground',
+  mountain: 'bg-decorative-1-background text-decorative-1-foreground',
+  nordic: 'bg-decorative-3-background text-decorative-3-foreground',
+  orange: 'bg-decorative-6-background text-decorative-6-foreground',
+  sky: 'bg-decorative-7-background text-decorative-7-foreground',
 };
 
 const solidColors: Record<MapPaletteName, string> = {
-  aurora:
-    'bg-decorative-foreground-aurora dark:bg-decorative-background-aurora',
-  dusk: 'bg-decorative-foreground-dusk dark:bg-decorative-background-dusk',
-  fjord: 'bg-decorative-foreground-fjord dark:bg-decorative-background-fjord',
-  mountain: 'bg-decorative-foreground-mountain',
-  nordic:
-    'bg-decorative-foreground-nordic dark:bg-decorative-background-nordic',
-  orange:
-    'bg-decorative-foreground-orange dark:bg-decorative-background-orange',
-  sky: 'bg-decorative-foreground-sky dark:bg-decorative-background-sky',
+  aurora: 'bg-decorative-4-foreground dark:bg-decorative-4-background',
+  dusk: 'bg-decorative-5-foreground dark:bg-decorative-5-background',
+  fjord: 'bg-decorative-2-foreground dark:bg-decorative-2-background',
+  mountain: 'bg-decorative-1-foreground',
+  nordic: 'bg-decorative-3-foreground dark:bg-decorative-3-background',
+  orange: 'bg-decorative-6-foreground dark:bg-decorative-6-background',
+  sky: 'bg-decorative-7-foreground dark:bg-decorative-7-background',
 };
 
 const mapPinVariants = cva(
-  'flex size-9 rotate-45 items-center justify-center rounded-full rounded-br-none border-2 border-background shadow-md transition-transform group-data-selected/map-pin:scale-125 group-focus-visible/map-pin:outline-2 group-focus-visible/map-pin:outline-offset-2 group-focus-visible/map-pin:outline-border-active [&>svg]:size-4 [&>svg]:-rotate-45',
+  'flex size-9 rotate-45 items-center justify-center rounded-full rounded-br-none border-2 border-base-background shadow-md transition-transform group-data-selected/map-pin:scale-125 group-focus-visible/map-pin:outline-2 group-focus-visible/map-pin:outline-offset-2 group-focus-visible/map-pin:outline-base-foreground [&>svg]:size-4 [&>svg]:-rotate-45',
   {
     variants: { color: surfaceColors },
     defaultVariants: { color: 'fjord' },
@@ -693,11 +701,11 @@ const mapPinVariants = cva(
 type MapStatus = 'success' | 'warning' | 'critical' | 'info' | 'neutral';
 
 const statusColors: Record<MapStatus, string> = {
-  success: 'bg-success-foreground',
-  warning: 'bg-warning-foreground',
-  critical: 'bg-destructive-foreground',
-  info: 'bg-info-foreground',
-  neutral: 'bg-neutral-foreground',
+  success: 'bg-success-foreground-strong',
+  warning: 'bg-warning-foreground-strong',
+  critical: 'bg-critical-foreground-strong',
+  info: 'bg-info-foreground-strong',
+  neutral: 'bg-neutral-foreground-strong',
 };
 
 function getDotColor(color?: MapPaletteName, status?: MapStatus): string {
@@ -728,7 +736,7 @@ const mapOverlayVariants = cva('absolute z-10', {
 });
 
 const mapPanelClassName =
-  'flex flex-wrap gap-x-3 gap-y-1 rounded-md border bg-background/80 px-2 py-1.5 text-xs shadow-sm backdrop-blur';
+  'flex flex-wrap gap-x-3 gap-y-1 rounded-md border bg-base-background/80 px-2 py-1.5 text-xs shadow-sm backdrop-blur';
 
 type MapPinProps = Omit<useRender.ComponentProps<'div'>, 'color'> &
   VariantProps<typeof mapPinVariants> & {
@@ -819,7 +827,7 @@ function MapMarkerDot({
       )}
       <span
         className={cn(
-          'relative size-full rounded-full border-2 border-background shadow-sm',
+          'relative size-full rounded-full border-2 border-base-background shadow-sm',
           dotColor
         )}
       />
