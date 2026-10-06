@@ -1,5 +1,6 @@
 import { execFile, execFileSync } from 'node:child_process';
 import { copyFileSync, existsSync, writeFileSync } from 'node:fs';
+import { createRequire } from 'node:module';
 import path from 'node:path';
 import { promisify } from 'node:util';
 
@@ -17,6 +18,15 @@ import {
 import { storySourcePlugin } from './vite-plugin-story-source';
 
 const execFileAsync = promisify(execFile);
+
+// @cognite/aura ships CHANGELOG.md but does not list it in `exports`, so
+// resolve it next to the exported DESIGN.md and alias the bare specifier.
+const auraChangelogPath = path.join(
+  path.dirname(
+    createRequire(import.meta.url).resolve('@cognite/aura/DESIGN.md')
+  ),
+  'CHANGELOG.md'
+);
 
 function readTokenFromGitCredential(): string | undefined {
   try {
@@ -204,9 +214,14 @@ export default defineConfig(async () => {
       githubPagesSpaFallback(),
     ],
     resolve: {
-      alias: {
-        '@': path.resolve(__dirname, './src'),
-      },
+      alias: [
+        // Regex keeps query suffixes such as `?raw` on the replaced path.
+        {
+          find: /^@cognite\/aura\/CHANGELOG\.md/,
+          replacement: auraChangelogPath,
+        },
+        { find: '@', replacement: path.resolve(__dirname, './src') },
+      ],
     },
   };
 });

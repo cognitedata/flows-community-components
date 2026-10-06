@@ -1,11 +1,14 @@
 import { IconExternalLink } from '@tabler/icons-react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 
+import { AuraPackageDocs } from '@/components/component-catalog/aura-package-docs';
 import { ChromaticStorybookEmbed } from '@/components/component-catalog/chromatic-storybook-embed';
 import { PageTitle } from '@/components/page-title';
+import { getAuraPackageDocs } from '@/lib/aura-package-docs';
 import { chromaticStorybookManagerUrl } from '@/lib/chromatic-storybook';
 import { getComponentBySlug } from '@/lib/component-catalog-data';
 import { useThemeOverrides } from '@/lib/theme-overrides-context';
+import { slugify } from '@/lib/utils';
 
 export function ComponentDetailPage() {
   const { slug = '' } = useParams<{ slug: string }>();
@@ -17,6 +20,7 @@ export function ComponentDetailPage() {
   }
 
   const Icon = component.icon;
+  const packageDocs = getAuraPackageDocs(slugify(component.name));
 
   return (
     <>
@@ -66,7 +70,9 @@ export function ComponentDetailPage() {
         </div>
       </header>
 
-      {component.storybookId ? (
+      {packageDocs ? (
+        <AuraPackageDocs name={component.name} source={packageDocs} />
+      ) : component.storybookId ? (
         <section
           aria-label={`${component.name} Storybook preview`}
           className="mb-16 sm:mb-20"

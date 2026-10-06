@@ -16,7 +16,7 @@ export const DOCUMENTATION_NAV: DocumentationNavSection[] = [
     title: 'Getting started',
     items: [
       { label: 'Introduction', slug: 'about-aura' },
-      { label: 'Changelog', slug: 'changelog', hidden: true },
+      { label: 'Changelog', slug: 'changelog' },
       { label: 'Installation', slug: 'installation' },
       { label: 'Custom theming', slug: 'custom-theming' },
       { label: 'DESIGN.md', slug: 'designmd' },

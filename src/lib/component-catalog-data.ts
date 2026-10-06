@@ -633,3 +633,18 @@ export function getComponentBySlug(slug: string) {
     ) ?? null
   );
 }
+
+/**
+ * Finds the visible catalog component for a Storybook id such as
+ * `primitives-tooltip--docs` (any story of the same component matches).
+ */
+export function getComponentByStorybookId(storyId: string) {
+  const componentId = storyId.replace(/--[\w-]+$/, '');
+  return (
+    COMPONENT_CATALOG_SECTIONS.flatMap((section) => section.components).find(
+      (component) =>
+        !component.hidden &&
+        component.storybookId?.replace(/--[\w-]+$/, '') === componentId
+    ) ?? null
+  );
+}

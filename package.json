@@ -22,7 +22,7 @@
   "packageManager": "pnpm@10.6.2",
   "dependencies": {
     "@base-ui/react": "^1.7.0",
-    "@cognite/aura": "^1.46104.0",
+    "@cognite/aura": "^1.46105.0",
     "@fontsource/inter": "^5.2.8",
     "@fontsource/space-grotesk": "^5.2.10",
     "@gsap/react": "^2.1.2",

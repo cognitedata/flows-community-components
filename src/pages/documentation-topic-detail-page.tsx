@@ -10,6 +10,10 @@ import {
   AppReviewContent,
 } from '@/components/documentation/topic-content/app-review-content';
 import {
+  CHANGELOG_INTRO,
+  ChangelogContent,
+} from '@/components/documentation/topic-content/changelog-content';
+import {
   CUSTOM_THEMING_INTRO,
   CustomThemingContent,
 } from '@/components/documentation/topic-content/custom-theming-content';
@@ -34,6 +38,7 @@ const TOPIC_CONTENT: Record<
   { Content: React.ComponentType; intro?: React.ReactNode }
 > = {
   'about-aura': { Content: AboutAuraContent, intro: ABOUT_AURA_INTRO },
+  changelog: { Content: ChangelogContent, intro: CHANGELOG_INTRO },
   installation: { Content: InstallationContent, intro: <InstallationIntro /> },
   'custom-theming': {
     Content: CustomThemingContent,

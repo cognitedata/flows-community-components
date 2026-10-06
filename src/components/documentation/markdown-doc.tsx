@@ -2,6 +2,7 @@ import { CodeBlock, CodeBlockCopyButton } from '@cognite/aura/components';
 import * as React from 'react';
 import type { Components } from 'react-markdown';
 import Markdown from 'react-markdown';
+import { Link } from 'react-router-dom';
 import remarkGfm from 'remark-gfm';
 
 import { cn, slugify } from '@/lib/utils';
@@ -68,6 +69,40 @@ function PlainCodeBlock({ code }: { code: string }) {
   );
 }
 
+const LINK_CLASS_NAME = 'text-link-fg hover:text-link-fg-hover hover:underline';
+
+function MarkdownLink({
+  href,
+  resolveHref,
+  children,
+}: {
+  href: string | undefined;
+  resolveHref?: (href: string) => string;
+  children: React.ReactNode;
+}) {
+  if (!href) return <span>{children}</span>;
+  const resolved = resolveHref?.(href) ?? resolveMarkdownHref(href);
+  if (resolved.startsWith('/')) {
+    return (
+      <Link to={resolved} className={LINK_CLASS_NAME}>
+        {children}
+      </Link>
+    );
+  }
+  const external = isExternalHref(resolved);
+  return (
+    <a
+      href={resolved}
+      className={LINK_CLASS_NAME}
+      {...(external
+        ? { target: '_blank', rel: 'noopener noreferrer' }
+        : undefined)}
+    >
+      {children}
+    </a>
+  );
+}
+
 const markdownComponents: Components = {
   h2({ children }) {
     const id = slugify(flattenText(children));
@@ -106,20 +141,7 @@ const markdownComponents: Components = {
     return <strong className="font-medium text-foreground">{children}</strong>;
   },
   a({ href, children }) {
-    if (!href) return <span>{children}</span>;
-    const resolved = resolveMarkdownHref(href);
-    const external = isExternalHref(resolved);
-    return (
-      <a
-        href={resolved}
-        className="text-link-fg hover:text-link-fg-hover hover:underline"
-        {...(external
-          ? { target: '_blank', rel: 'noopener noreferrer' }
-          : undefined)}
-      >
-        {children}
-      </a>
-    );
+    return <MarkdownLink href={href}>{children}</MarkdownLink>;
   },
   ul({ className, children }) {
     const isTaskList = className?.includes('contains-task-list');
@@ -217,10 +239,24 @@ const markdownComponents: Components = {
 export function MarkdownDoc({
   markdown,
   className,
+  resolveHref,
 }: {
   markdown: string;
   className?: string;
+  /** Rewrites hrefs; a result starting with `/` renders as a router link. */
+  resolveHref?: (href: string) => string;
 }) {
+  const components: Components = resolveHref
+    ? {
+        ...markdownComponents,
+        a: ({ href, children }) => (
+          <MarkdownLink href={href} resolveHref={resolveHref}>
+            {children}
+          </MarkdownLink>
+        ),
+      }
+    : markdownComponents;
+
   return (
     <div
       className={cn(
@@ -228,7 +264,7 @@ export function MarkdownDoc({
         className
       )}
     >
-      <Markdown remarkPlugins={[remarkGfm]} components={markdownComponents}>
+      <Markdown remarkPlugins={[remarkGfm]} components={components}>
         {markdown}
       </Markdown>
     </div>
