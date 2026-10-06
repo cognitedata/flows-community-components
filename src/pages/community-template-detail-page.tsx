@@ -1,13 +1,10 @@
 import { Link, Navigate, useParams } from 'react-router-dom';
 
+import { CommunityInstallSection } from '@/components/community/community-install-section';
 import { MarkdownDoc } from '@/components/documentation/markdown-doc';
 import { PageTitle } from '@/components/page-title';
 import { StoriesRenderer } from '@/components/stories-renderer';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import {
-  getCommunityComponent,
-  getCommunityInstallCommands,
-} from '@/lib/community-catalog';
+import { getCommunityComponent } from '@/lib/community-catalog';
 import { getCommunityTemplateBySlug } from '@/lib/community-templates-data';
 import { getStatusLabel } from '@/lib/component-status';
 
@@ -23,7 +20,6 @@ export function CommunityTemplateDetailPage() {
   }
 
   const Icon = template.icon;
-  const installCommands = getCommunityInstallCommands(template.registryId);
 
   return (
     <>
@@ -64,47 +60,7 @@ export function CommunityTemplateDetailPage() {
         </div>
       </header>
 
-      <section className="mb-12 space-y-4" aria-labelledby="install-heading">
-        <h2
-          id="install-heading"
-          className="font-heading text-2xl font-semibold tracking-tight"
-        >
-          Installation
-        </h2>
-        <Tabs defaultValue="pnpm">
-          <TabsList>
-            <TabsTrigger value="pnpm">pnpm</TabsTrigger>
-            <TabsTrigger value="npm">npm</TabsTrigger>
-            <TabsTrigger value="yarn">yarn</TabsTrigger>
-            <TabsTrigger value="bun">bun</TabsTrigger>
-          </TabsList>
-          {(
-            [
-              ['pnpm', installCommands.pnpm],
-              ['npm', installCommands.npm],
-              ['yarn', installCommands.yarn],
-              ['bun', installCommands.bun],
-            ] as const
-          ).map(([manager, command]) => (
-            <TabsContent key={manager} value={manager} className="mt-4">
-              <pre className="overflow-x-auto rounded-xl border border-border bg-muted-bg p-4 text-sm">
-                <code>{command}</code>
-              </pre>
-            </TabsContent>
-          ))}
-        </Tabs>
-        <p className="text-sm text-muted-fg">
-          Requires the <code className="text-foreground">@aura</code> registry
-          in your <code className="text-foreground">components.json</code>. See{' '}
-          <Link
-            to="/community/installation"
-            className="font-medium text-link-fg hover:text-link-fg-hover hover:underline"
-          >
-            installation
-          </Link>
-          .
-        </p>
-      </section>
+      <CommunityInstallSection name={template.registryId} />
 
       <section className="mb-12 space-y-4" aria-labelledby="usage-heading">
         <h2

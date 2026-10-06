@@ -30,7 +30,7 @@ const flowSteps = [
   },
   {
     title: 'Publish',
-    body: 'Once approved, registry:build publishes the item so consumers can install it with pnpm dlx shadcn@latest add @aura/<name>.',
+    body: 'Once approved, registry:build publishes the item so consumers can install it with npx shadcn@latest add @aura/<name>.',
   },
 ];
 
