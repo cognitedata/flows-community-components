@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 
 import { CommunityInstallSection } from '@/components/community/community-install-section';
@@ -6,6 +7,31 @@ import { StoriesRenderer } from '@/components/stories-renderer';
 import { getCommunityComponent } from '@/lib/community-catalog';
 import { getCommunityComponentBySlug } from '@/lib/community-data';
 import { getStatusLabel } from '@/lib/component-status';
+
+const noteLinkPattern = /\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g;
+
+function renderNote(note: string): ReactNode[] {
+  const parts: ReactNode[] = [];
+  let lastIndex = 0;
+  for (const match of note.matchAll(noteLinkPattern)) {
+    const [full, label, href] = match;
+    parts.push(note.slice(lastIndex, match.index));
+    parts.push(
+      <a
+        key={match.index}
+        href={href}
+        target="_blank"
+        rel="noreferrer"
+        className="font-medium text-link-fg hover:text-link-fg-hover hover:underline"
+      >
+        {label}
+      </a>
+    );
+    lastIndex = match.index + full.length;
+  }
+  parts.push(note.slice(lastIndex));
+  return parts;
+}
 
 export function CommunityComponentDetailPage() {
   const { slug = '' } = useParams<{ slug: string }>();
@@ -50,7 +76,7 @@ export function CommunityComponentDetailPage() {
             </p>
             {catalog.notes?.map((note) => (
               <p key={note} className="mt-2 max-w-[60ch] text-sm text-muted-fg">
-                {note}
+                {renderNote(note)}
               </p>
             ))}
           </div>

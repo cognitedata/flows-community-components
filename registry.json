@@ -155,6 +155,25 @@
       ]
     },
     {
+      "name": "map",
+      "type": "registry:component",
+      "title": "Map",
+      "description": "An interactive map that matches your Aura theme, with coloured pins, labels, and overlays.",
+      "dependencies": [
+        "@base-ui/react",
+        "@cognite/aura",
+        "class-variance-authority",
+        "maplibre-gl"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/community/map/map.tsx",
+          "target": "src/components/ui/community/map.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "menubar",
       "type": "registry:component",
       "title": "Menubar",

@@ -3,6 +3,7 @@ import {
   IconCarouselHorizontal,
   IconLayoutBottombar,
   IconLayoutSidebarRight,
+  IconMap,
   IconMenu,
   IconMenu2,
   IconShieldCheck,
@@ -45,6 +46,12 @@ export const COMMUNITY_COMPONENTS: CommunityComponentEntry[] = [
     description:
       'A panel that slides in from the edge of the screen for secondary content.',
     icon: IconLayoutSidebarRight,
+  },
+  {
+    name: 'Map',
+    description:
+      'An interactive map that matches your Aura theme, with coloured pins, labels, and overlays.',
+    icon: IconMap,
   },
   {
     name: 'Menubar',

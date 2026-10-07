@@ -65,6 +65,30 @@ export {
 } from './drawer';
 
 export {
+  Map,
+  MapLegend,
+  MapLegendItem,
+  MapMarker,
+  MapMarkerDot,
+  MapMarkerLabel,
+  MapOverlay,
+  MapPin,
+  MapViewportInfo,
+  naturalEarth10m,
+  naturalEarth50m,
+  useMap,
+} from './map';
+export type {
+  MapGeography,
+  MapPalette,
+  MapPaletteColor,
+  MapPaletteName,
+  MapRef,
+  MapStatus,
+  MapViewport,
+} from './map';
+
+export {
   Menubar,
   MenubarCheckboxItem,
   MenubarContent,

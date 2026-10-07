@@ -73,6 +73,29 @@
   --color-link-fg: var(--link-foreground);
   --color-link-fg-hover: var(--link-foreground);
 
+  /* Canonical Aura (Reflect) tokens. */
+  --color-base-background: var(--base-background);
+  --color-base-foreground: var(--base-foreground);
+  --color-success-foreground-strong: var(--success-foreground-strong);
+  --color-warning-foreground-strong: var(--warning-foreground-strong);
+  --color-critical-foreground-strong: var(--critical-foreground-strong);
+  --color-info-foreground-strong: var(--info-foreground-strong);
+  --color-neutral-foreground-strong: var(--neutral-foreground-strong);
+  --color-decorative-1-background: var(--decorative-1-background);
+  --color-decorative-1-foreground: var(--decorative-1-foreground);
+  --color-decorative-2-background: var(--decorative-2-background);
+  --color-decorative-2-foreground: var(--decorative-2-foreground);
+  --color-decorative-3-background: var(--decorative-3-background);
+  --color-decorative-3-foreground: var(--decorative-3-foreground);
+  --color-decorative-4-background: var(--decorative-4-background);
+  --color-decorative-4-foreground: var(--decorative-4-foreground);
+  --color-decorative-5-background: var(--decorative-5-background);
+  --color-decorative-5-foreground: var(--decorative-5-foreground);
+  --color-decorative-6-background: var(--decorative-6-background);
+  --color-decorative-6-foreground: var(--decorative-6-foreground);
+  --color-decorative-7-background: var(--decorative-7-background);
+  --color-decorative-7-foreground: var(--decorative-7-foreground);
+
   --color-fjord-100: var(--fjord-100);
   --color-fjord-300: var(--fjord-300);
   --color-fjord-500: var(--fjord-500);
