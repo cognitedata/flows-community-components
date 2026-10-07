@@ -27,7 +27,7 @@ export const DOCUMENTATION_TOPICS: FoundationTopic[] = [
     name: 'Changelog',
     description: 'A running history of every release, improvement, and fix.',
     icon: IconHistory,
-    hidden: true,
+    href: '/aura/documentation/changelog',
   },
   {
     name: 'DESIGN.md',
