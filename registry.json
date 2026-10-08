@@ -192,6 +192,76 @@
       ]
     },
     {
+      "name": "record-list-template",
+      "type": "registry:block",
+      "title": "Record list",
+      "description": "List layouts that pair a page header or tabs with a full-width data grid, a side panel, or a preview.",
+      "dependencies": [
+        "@cognite/aura",
+        "@tabler/icons-react",
+        "@tanstack/react-table",
+        "@tanstack/react-virtual",
+        "recharts"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/community/record-list-template/record-list-template.tsx",
+          "target": "src/components/ui/community/record-list-template.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/ui/community/record-list-template/record-list-cards.tsx",
+          "target": "src/components/ui/community/record-list-cards.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/ui/community/record-list-template/record-list-left-panel.tsx",
+          "target": "src/components/ui/community/record-list-left-panel.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/ui/community/record-list-template/record-list-pagination.tsx",
+          "target": "src/components/ui/community/record-list-pagination.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/ui/community/record-list-template/record-list-preview.tsx",
+          "target": "src/components/ui/community/record-list-preview.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/ui/community/record-list-template/record-list-table.tsx",
+          "target": "src/components/ui/community/record-list-table.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/ui/community/record-list-template/record-list-template.data.ts",
+          "target": "src/components/ui/community/record-list-template.data.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "src/components/ui/community/record-list-template/record-list-toolbar.tsx",
+          "target": "src/components/ui/community/record-list-toolbar.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/ui/community/record-list-template/record-list-trend.tsx",
+          "target": "src/components/ui/community/record-list-trend.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/ui/community/record-list-template/SKILL.md",
+          "target": "~/.claude/skills/aura-record-list/SKILL.md",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/ui/community/record-list-template/record-list-template.md",
+          "target": "src/components/ui/community/record-list-template/record-list-template.md",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
       "name": "sheet",
       "type": "registry:component",
       "title": "Sheet",
@@ -276,7 +346,7 @@
         },
         {
           "path": "src/components/ui/community/time-series-chart/SKILL.md",
-          "target": ".claude/skills/aura-d3-charts/SKILL.md",
+          "target": "~/.claude/skills/aura-d3-charts/SKILL.md",
           "type": "registry:file"
         }
       ]

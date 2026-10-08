@@ -1,11 +1,59 @@
 import {
   IconChartLine,
   IconLayoutDashboard,
+  IconTable,
   type Icon as TablerIcon,
 } from '@tabler/icons-react';
 
+import { recordListLayoutNames } from '@/components/ui/community/record-list-template/record-list-template.data';
+import recordListDocs from '@/components/ui/community/record-list-template/record-list-template.md?raw';
+import recordListSkill from '@/components/ui/community/record-list-template/SKILL.md?raw';
 import timeSeriesSkill from '@/components/ui/community/time-series-chart/SKILL.md?raw';
 import { slugify } from '@/lib/utils';
+
+function splitLayoutDocs(
+  markdown: string,
+  layoutNames: readonly string[]
+): { usage: string; sections: Record<string, string> } {
+  const names = new Set(layoutNames);
+  const matches: { title: string; start: number; bodyStart: number }[] = [];
+  let firstLayoutIndex = markdown.length;
+
+  for (const match of markdown.matchAll(/^## (.+)\s*$/gm)) {
+    const title = match[1]?.trim();
+    if (!title || !names.has(title)) {
+      continue;
+    }
+    const start = match.index ?? 0;
+    if (start < firstLayoutIndex) {
+      firstLayoutIndex = start;
+    }
+    matches.push({
+      title,
+      start,
+      bodyStart: start + match[0].length,
+    });
+  }
+
+  const sections: Record<string, string> = {};
+  for (let index = 0; index < matches.length; index += 1) {
+    const current = matches[index];
+    if (!current) {
+      continue;
+    }
+    const next = matches[index + 1];
+    sections[current.title] = markdown
+      .slice(current.bodyStart, next?.start ?? markdown.length)
+      .trim();
+  }
+
+  return {
+    usage: markdown.slice(0, firstLayoutIndex).trim(),
+    sections,
+  };
+}
+
+const recordListGuide = splitLayoutDocs(recordListDocs, recordListLayoutNames);
 
 export interface CommunityTemplateSkill {
   /** Skill name from the SKILL.md front matter. */
@@ -23,6 +71,11 @@ export interface CommunityTemplateEntry {
   registryId: string;
   /** Markdown shown under Usage on the template page. */
   usage: string;
+  /**
+   * When-to-use blurbs keyed by story title. Loaded from the template
+   * markdown so the page does not hardcode the guide.
+   */
+  variantDescriptions?: Record<string, string>;
   /** Optional agent skill, shown as a SKILL.md sub-page. */
   skill?: CommunityTemplateSkill;
   /**
@@ -81,6 +134,20 @@ D3 computes scales, shapes, and the zoom and brush gestures; React renders the S
       name: 'aura-d3-charts',
       markdown: timeSeriesSkill,
       installPath: '.claude/skills/aura-d3-charts/SKILL.md',
+    },
+  },
+  {
+    name: 'Record list',
+    description:
+      'List layouts that pair a page header or tabs with a full-width data grid, a side panel, or a preview.',
+    icon: IconTable,
+    registryId: 'record-list-template',
+    usage: recordListGuide.usage,
+    variantDescriptions: recordListGuide.sections,
+    skill: {
+      name: 'aura-record-list',
+      markdown: recordListSkill,
+      installPath: '.claude/skills/aura-record-list/SKILL.md',
     },
   },
 ];

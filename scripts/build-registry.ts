@@ -144,7 +144,12 @@ function extractDependenciesFromFile(filePath: string): string[] {
 
     let match: RegExpExecArray | null = importRegex.exec(content);
     while (match !== null) {
-      const packageName = normalizeNpmPackageName(match[1] as string);
+      const importPath = match[1] as string;
+      if (importPath === '@cognite/aura/data-grid') {
+        dependencies.add('@tanstack/react-table');
+        dependencies.add('@tanstack/react-virtual');
+      }
+      const packageName = normalizeNpmPackageName(importPath);
       if (packageName) {
         dependencies.add(packageName);
       }
@@ -294,7 +299,19 @@ function autoDetectComponentFiles(componentName: string): RegistryFile[] {
         .match(/^---[\s\S]*?^name:\s*([\w-]+)/m)?.[1] ?? componentName;
     files.push({
       path: `src/components/ui/community/${componentName}/SKILL.md`,
-      target: `.claude/skills/${skillName}/SKILL.md`,
+      target: `~/.claude/skills/${skillName}/SKILL.md`,
+      type: 'registry:file',
+    });
+  }
+
+  const guideFiles = fs
+    .readdirSync(componentDir)
+    .filter((name) => name.endsWith('.md') && name !== 'SKILL.md');
+
+  for (const guide of guideFiles) {
+    files.push({
+      path: `src/components/ui/community/${componentName}/${guide}`,
+      target: `src/components/ui/community/${componentName}/${guide}`,
       type: 'registry:file',
     });
   }

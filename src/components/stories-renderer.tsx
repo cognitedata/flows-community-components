@@ -10,6 +10,8 @@ interface StoriesRendererProps {
   include?: string[];
   /** Skip these story export names. */
   exclude?: string[];
+  /** Blurbs keyed by the story title, usually loaded from a markdown file. */
+  descriptions?: Record<string, string>;
 }
 
 interface StoryEntry {
@@ -61,6 +63,7 @@ export function StoriesRenderer({
   slug,
   include,
   exclude,
+  descriptions,
 }: StoriesRendererProps) {
   const [stories, setStories] = useState<StoryEntry[] | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -157,6 +160,7 @@ export function StoriesRenderer({
             const originalStory = module[key] as
               | {
                   parameters?: {
+                    name?: string;
                     docs?: {
                       source?: {
                         code?: string;
@@ -169,10 +173,14 @@ export function StoriesRenderer({
 
             // Extract source code from story parameters (injected at build time)
             const sourceCode = originalStory?.parameters?.docs?.source?.code;
+            const storyName = originalStory?.parameters?.name;
 
             return {
               key,
-              title: storyKeyToTitle(key),
+              title:
+                typeof storyName === 'string' && storyName.length > 0
+                  ? storyName
+                  : storyKeyToTitle(key),
               Component,
               sourceCode,
             };
@@ -255,6 +263,7 @@ export function StoriesRenderer({
           <ExamplePreview
             key={key}
             title={title}
+            description={descriptions?.[title]}
             component={() => <Component />}
             sourceCode={sourceCode}
           />

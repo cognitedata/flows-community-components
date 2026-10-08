@@ -87,8 +87,7 @@ export function CommunityTemplateDetailPage() {
             <code className="text-foreground">
               {template.skill.installPath}
             </code>
-            , so coding agents follow the same approach when they build or edit
-            charts in your app.
+            , so coding agents follow it when they add this to your app.
           </p>
           <Link
             to={`/community/templates/${slug}/skill`}
@@ -104,13 +103,14 @@ export function CommunityTemplateDetailPage() {
           id="examples-heading"
           className="font-heading text-2xl font-semibold tracking-tight"
         >
-          Example
+          {template.variantDescriptions ? 'Examples' : 'Example'}
         </h2>
         {template.featuredStory ? (
           <>
             <StoriesRenderer
               slug={template.registryId}
               include={[template.featuredStory]}
+              descriptions={template.variantDescriptions}
             />
             <Link
               to={`/community/templates/${slug}/examples`}
@@ -120,7 +120,10 @@ export function CommunityTemplateDetailPage() {
             </Link>
           </>
         ) : (
-          <StoriesRenderer slug={template.registryId} />
+          <StoriesRenderer
+            slug={template.registryId}
+            descriptions={template.variantDescriptions}
+          />
         )}
       </section>
     </>
