@@ -55,6 +55,24 @@ If the user has not already named a layout, stop and ask them to pick one item f
 
    Render `<RecordListRightPanelTabs />`.
 
+## Match the request
+
+Use this to recommend a layout. If the request does not clearly match, ask. Do not guess.
+
+- Review, filter, or act on a list, and nothing else: full width data grid + header.
+- Move between groups or a hierarchy, then work within one: left panel + data grid + header.
+- Triage rows and peek at the selected one without leaving the list: data grid + right panel + header.
+- The same list has several peer views: use the tabs version of that body. Tabs replace the page title.
+
+## Do not
+
+- Do not use the left panel when the task is editing the selection. Heavy editing belongs on a detail page or in a dialog.
+- Keep the right panel a summary. The preview is not an editing surface.
+- Do not use tabs for two or fewer views, or for steps in a process.
+- Do not put the same filter in both the left panel and the toolbar. The panel picks the group. The toolbar narrows within it.
+- Do not stack a left panel and a right preview on the same page.
+- If the page is mostly one chart, with a table only supporting it, this template is the wrong choice.
+
 Each command installs that layout and the shared record list files. Import the component from `@/components/ui/community/<registry-name>`. Leave the app topbar to the shell. Replace the sample rows. Do not pass a `layout` prop.
 
-Read `record-list-template.md` for when to use each layout. Pick one body and one header. Do not stack a left panel and a right preview on the same page.
+Read `record-list-template.md` for the short when-to-use note on each layout.
