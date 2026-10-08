@@ -12,6 +12,11 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import {
+  recordListLayouts,
+  recordListRegistryId,
+} from '../src/components/ui/community/record-list-template/record-list-template.data';
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -253,6 +258,40 @@ function extractRegistryDependenciesFromFile(filePath: string): string[] {
   }
 }
 
+function isRecordListLayoutEntry(
+  componentName: string,
+  fileName: string
+): boolean {
+  return (
+    componentName === 'record-list-template' &&
+    recordListLayouts.some(
+      (layout) => fileName === `${recordListRegistryId(layout.id)}.tsx`
+    )
+  );
+}
+
+function recordListLayoutItems(): RegistryItem[] {
+  return recordListLayouts.map((layout) => {
+    const name = recordListRegistryId(layout.id);
+    return {
+      name,
+      type: 'registry:block',
+      title: layout.name,
+      description: `${layout.name} record list layout.`,
+      registryDependencies: [
+        `${registryDependencyNamespace}/record-list-template`,
+      ],
+      files: [
+        {
+          path: `src/components/ui/community/record-list-template/${name}.tsx`,
+          target: `src/components/ui/community/${name}.tsx`,
+          type: 'registry:component',
+        },
+      ],
+    };
+  });
+}
+
 function autoDetectComponentFiles(componentName: string): RegistryFile[] {
   const files: RegistryFile[] = [
     {
@@ -278,7 +317,8 @@ function autoDetectComponentFiles(componentName: string): RegistryFile[] {
         !name.includes('.stories.') &&
         !name.includes('.metadata.') &&
         !name.includes('.spec.') &&
-        !name.includes('.test.')
+        !name.includes('.test.') &&
+        !isRecordListLayoutEntry(componentName, name)
     );
 
   for (const extra of extraFiles) {
@@ -402,7 +442,11 @@ function buildRegistry(components: string[]): Registry {
     $schema: 'https://ui.shadcn.com/schema/registry.json',
     name: registryName,
     homepage: registryHomepage,
-    items: [...miscRegistryItems, ...itemsWithoutMiscNameClashes],
+    items: [
+      ...miscRegistryItems,
+      ...itemsWithoutMiscNameClashes,
+      ...recordListLayoutItems(),
+    ],
   };
 }
 

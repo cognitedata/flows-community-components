@@ -1,10 +1,34 @@
 export const recordListLayouts = [
-  { id: 'full-width-header', name: 'Full width data grid + header' },
-  { id: 'full-width-tabs', name: 'Full width data grid + tabs' },
-  { id: 'left-panel-header', name: 'Left panel + data grid + header' },
-  { id: 'left-panel-tabs', name: 'Left panel + data grid + tabs' },
-  { id: 'right-panel-header', name: 'Data grid + right panel + header' },
-  { id: 'right-panel-tabs', name: 'Data grid + right panel + tabs' },
+  {
+    id: 'full-width-header',
+    name: 'Full width data grid + header',
+    component: 'RecordListFullWidthHeader',
+  },
+  {
+    id: 'full-width-tabs',
+    name: 'Full width data grid + tabs',
+    component: 'RecordListFullWidthTabs',
+  },
+  {
+    id: 'left-panel-header',
+    name: 'Left panel + data grid + header',
+    component: 'RecordListLeftPanelHeader',
+  },
+  {
+    id: 'left-panel-tabs',
+    name: 'Left panel + data grid + tabs',
+    component: 'RecordListLeftPanelTabs',
+  },
+  {
+    id: 'right-panel-header',
+    name: 'Data grid + right panel + header',
+    component: 'RecordListRightPanelHeader',
+  },
+  {
+    id: 'right-panel-tabs',
+    name: 'Data grid + right panel + tabs',
+    component: 'RecordListRightPanelTabs',
+  },
 ] as const;
 
 export type RecordListLayout = (typeof recordListLayouts)[number]['id'];
@@ -14,6 +38,10 @@ export type RecordListView = 'table' | 'cards';
 export const recordListLayoutNames = recordListLayouts.map(
   (layout) => layout.name
 );
+
+export function recordListRegistryId(id: RecordListLayout): string {
+  return `record-list-${id}`;
+}
 
 export const recordListPageTitle = 'Plant assets';
 

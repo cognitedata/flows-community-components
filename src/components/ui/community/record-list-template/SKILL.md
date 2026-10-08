@@ -1,33 +1,60 @@
 ---
 name: aura-record-list
-description: Add one record list page to a Flows app. After installing @aura/record-list-template, ask the user to pick a single layout from the list and render only that layout. Use when the user wants a list of records, a table page, filters, a side panel, or a row preview. The toolbar can switch that layout between table and card view.
+description: Add one record list page to a Flows app. Ask which layout the user wants, then run that layout's install command and render the component it adds. Use when the user wants a list of records, a table page, filters, a side panel, or a row preview. The toolbar can switch that layout between table and card view.
 ---
 
 # Choose one record list layout
 
-Install the template once:
+If the user has not already named a layout, stop and ask them to pick one item from this list. Do not guess. Do not scaffold more than one page. Then run only that layout's install command.
 
-```bash
-pnpm dlx shadcn@latest add @aura/record-list-template
-```
+1. **Full width data grid + header.** One table, one purpose the title can name. Start here when the request is vague.
 
-That copies one component, `RecordListTemplate`, plus this skill. Do not run the command again for another layout. A second page in the same app passes a different `layout` value to the same component.
+   ```bash
+   pnpm dlx shadcn@latest add @aura/record-list-full-width-header
+   ```
 
-## Ask which layout
+   Render `<RecordListFullWidthHeader />`.
 
-If the user has not already named a layout, stop and ask them to pick one item from this list. Do not guess. Do not scaffold more than one page.
+2. **Full width data grid + tabs.** Several peer views of the same list, such as active and archived.
 
-1. **Full width data grid + header** (`full-width-header`). One table, one purpose the title can name. Start here when the request is vague.
-2. **Full width data grid + tabs** (`full-width-tabs`). Several peer views of the same list, such as active and archived.
-3. **Left panel + data grid + header** (`left-panel-header`). Records belong to groups or a hierarchy. The panel picks the group. The toolbar narrows within it.
-4. **Left panel + data grid + tabs** (`left-panel-tabs`). Grouped records that also split into peer views. Tabs replace the page title.
-5. **Data grid + right panel + header** (`right-panel-header`). Scan rows and peek at the selected one without leaving the list.
-6. **Data grid + right panel + tabs** (`right-panel-tabs`). That same triage, inside peer views. Do not combine this with a left panel.
+   ```bash
+   pnpm dlx shadcn@latest add @aura/record-list-full-width-tabs
+   ```
 
-Then render only the chosen layout inside the app shell. Leave the app topbar to the shell. Replace the sample rows.
+   Render `<RecordListFullWidthTabs />`.
 
-```tsx
-<RecordListTemplate layout="full-width-header" />
-```
+3. **Left panel + data grid + header.** Records belong to groups or a hierarchy. The panel picks the group. The toolbar narrows within it.
 
-Read `record-list-template.md` for the full guide. Pick one body and one header. Do not stack a left panel and a right preview on the same page.
+   ```bash
+   pnpm dlx shadcn@latest add @aura/record-list-left-panel-header
+   ```
+
+   Render `<RecordListLeftPanelHeader />`.
+
+4. **Left panel + data grid + tabs.** Grouped records that also split into peer views. Tabs replace the page title.
+
+   ```bash
+   pnpm dlx shadcn@latest add @aura/record-list-left-panel-tabs
+   ```
+
+   Render `<RecordListLeftPanelTabs />`.
+
+5. **Data grid + right panel + header.** Scan rows and peek at the selected one without leaving the list.
+
+   ```bash
+   pnpm dlx shadcn@latest add @aura/record-list-right-panel-header
+   ```
+
+   Render `<RecordListRightPanelHeader />`.
+
+6. **Data grid + right panel + tabs.** That same triage, inside peer views. Do not combine this with a left panel.
+
+   ```bash
+   pnpm dlx shadcn@latest add @aura/record-list-right-panel-tabs
+   ```
+
+   Render `<RecordListRightPanelTabs />`.
+
+Each command installs that layout and the shared record list files. Import the component from `@/components/ui/community/<registry-name>`. Leave the app topbar to the shell. Replace the sample rows. Do not pass a `layout` prop.
+
+Read `record-list-template.md` for when to use each layout. Pick one body and one header. Do not stack a left panel and a right preview on the same page.

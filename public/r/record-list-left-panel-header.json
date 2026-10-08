@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "record-list-left-panel-header",
+  "title": "Left panel + data grid + header",
+  "description": "Left panel + data grid + header record list layout.",
+  "registryDependencies": [
+    "@aura/record-list-template"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/community/record-list-template/record-list-left-panel-header.tsx",
+      "content": "import { RecordListTemplate } from './record-list-template';\n\nfunction RecordListLeftPanelHeader() {\n  return <RecordListTemplate layout=\"left-panel-header\" />;\n}\n\nRecordListLeftPanelHeader.displayName = 'RecordListLeftPanelHeader';\n\nexport { RecordListLeftPanelHeader };\n",
+      "type": "registry:component",
+      "target": "src/components/ui/community/record-list-left-panel-header.tsx"
+    }
+  ],
+  "type": "registry:block"
+}

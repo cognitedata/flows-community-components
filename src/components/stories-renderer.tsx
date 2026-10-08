@@ -12,6 +12,8 @@ interface StoriesRendererProps {
   exclude?: string[];
   /** Blurbs keyed by the story title, usually loaded from a markdown file. */
   descriptions?: Record<string, string>;
+  /** Registry item ids keyed by the story title. */
+  installs?: Record<string, string>;
 }
 
 interface StoryEntry {
@@ -64,6 +66,7 @@ export function StoriesRenderer({
   include,
   exclude,
   descriptions,
+  installs,
 }: StoriesRendererProps) {
   const [stories, setStories] = useState<StoryEntry[] | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -253,7 +256,7 @@ export function StoriesRenderer({
   }
 
   return (
-    <div className="space-y-6">
+    <div className={installs ? 'space-y-16' : 'space-y-6'}>
       {stories
         .filter(
           ({ key }) =>
@@ -264,6 +267,7 @@ export function StoriesRenderer({
             key={key}
             title={title}
             description={descriptions?.[title]}
+            install={installs?.[title]}
             component={() => <Component />}
             sourceCode={sourceCode}
           />

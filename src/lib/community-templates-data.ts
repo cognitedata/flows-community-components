@@ -5,7 +5,11 @@ import {
   type Icon as TablerIcon,
 } from '@tabler/icons-react';
 
-import { recordListLayoutNames } from '@/components/ui/community/record-list-template/record-list-template.data';
+import {
+  recordListLayoutNames,
+  recordListLayouts,
+  recordListRegistryId,
+} from '@/components/ui/community/record-list-template/record-list-template.data';
 import recordListDocs from '@/components/ui/community/record-list-template/record-list-template.md?raw';
 import recordListSkill from '@/components/ui/community/record-list-template/SKILL.md?raw';
 import timeSeriesSkill from '@/components/ui/community/time-series-chart/SKILL.md?raw';
@@ -76,6 +80,11 @@ export interface CommunityTemplateEntry {
    * markdown so the page does not hardcode the guide.
    */
   variantDescriptions?: Record<string, string>;
+  /**
+   * Registry item id for each example, keyed by story title. When set, each
+   * example shows its own install command.
+   */
+  variantInstalls?: Record<string, string>;
   /** Optional agent skill, shown as a SKILL.md sub-page. */
   skill?: CommunityTemplateSkill;
   /**
@@ -144,6 +153,12 @@ D3 computes scales, shapes, and the zoom and brush gestures; React renders the S
     registryId: 'record-list-template',
     usage: recordListGuide.usage,
     variantDescriptions: recordListGuide.sections,
+    variantInstalls: Object.fromEntries(
+      recordListLayouts.map((layout) => [
+        layout.name,
+        recordListRegistryId(layout.id),
+      ])
+    ),
     skill: {
       name: 'aura-record-list',
       markdown: recordListSkill,

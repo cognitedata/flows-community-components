@@ -1,6 +1,9 @@
 import { Link, Navigate, useParams } from 'react-router-dom';
 
-import { CommunityInstallSection } from '@/components/community/community-install-section';
+import {
+  AuraRegistryNote,
+  CommunityInstallSection,
+} from '@/components/community/community-install-section';
 import { MarkdownDoc } from '@/components/documentation/markdown-doc';
 import { PageTitle } from '@/components/page-title';
 import { StoriesRenderer } from '@/components/stories-renderer';
@@ -60,17 +63,25 @@ export function CommunityTemplateDetailPage() {
         </div>
       </header>
 
-      <CommunityInstallSection name={template.registryId} />
+      {template.variantInstalls ? (
+        <div className="mb-12">
+          <AuraRegistryNote />
+        </div>
+      ) : (
+        <CommunityInstallSection name={template.registryId} />
+      )}
 
-      <section className="mb-12 space-y-4" aria-labelledby="usage-heading">
-        <h2
-          id="usage-heading"
-          className="font-heading text-2xl font-semibold tracking-tight"
-        >
-          Usage
-        </h2>
-        <MarkdownDoc markdown={template.usage} />
-      </section>
+      {!template.variantInstalls && (
+        <section className="mb-12 space-y-4" aria-labelledby="usage-heading">
+          <h2
+            id="usage-heading"
+            className="font-heading text-2xl font-semibold tracking-tight"
+          >
+            Usage
+          </h2>
+          <MarkdownDoc markdown={template.usage} />
+        </section>
+      )}
 
       {template.skill && (
         <section className="mb-12 space-y-4" aria-labelledby="skill-heading">
@@ -98,19 +109,27 @@ export function CommunityTemplateDetailPage() {
         </section>
       )}
 
-      <section aria-labelledby="examples-heading" className="space-y-4">
-        <h2
-          id="examples-heading"
-          className="font-heading text-2xl font-semibold tracking-tight"
-        >
-          {template.variantDescriptions ? 'Examples' : 'Example'}
-        </h2>
+      <section
+        aria-labelledby={
+          template.variantInstalls ? undefined : 'examples-heading'
+        }
+        className="space-y-4"
+      >
+        {!template.variantInstalls && (
+          <h2
+            id="examples-heading"
+            className="font-heading text-2xl font-semibold tracking-tight"
+          >
+            {template.variantDescriptions ? 'Examples' : 'Example'}
+          </h2>
+        )}
         {template.featuredStory ? (
           <>
             <StoriesRenderer
               slug={template.registryId}
               include={[template.featuredStory]}
               descriptions={template.variantDescriptions}
+              installs={template.variantInstalls}
             />
             <Link
               to={`/community/templates/${slug}/examples`}
@@ -123,6 +142,7 @@ export function CommunityTemplateDetailPage() {
           <StoriesRenderer
             slug={template.registryId}
             descriptions={template.variantDescriptions}
+            installs={template.variantInstalls}
           />
         )}
       </section>
