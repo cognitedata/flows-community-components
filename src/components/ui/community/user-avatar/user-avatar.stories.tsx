@@ -44,6 +44,14 @@ export const MissingUser: Story = {
   },
 };
 
+export const NoSdkProvider: Story = {
+  args: { userIdentifier: 'no-provider-id' },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText('no-provider-id')).toBeInTheDocument();
+  },
+};
+
 export const LookupFailure: Story = {
   args: {
     userIdentifier: 'forbidden-user-id',
