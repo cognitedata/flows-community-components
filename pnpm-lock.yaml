@@ -20,6 +20,9 @@ importers:
       '@cognite/sdk':
         specifier: ^10.14.0
         version: 10.15.0
+      '@cognite/sdk-provider':
+        specifier: ^2.0.6
+        version: 2.0.6(@cognite/sdk@10.15.0)(react@19.2.8)
       '@fontsource/inter':
         specifier: ^5.2.8
         version: 5.3.0
@@ -534,6 +537,12 @@ packages:
 
   '@cognite/sdk-core@5.2.6':
     resolution: {integrity: sha512-vWSXW8t3n4S0IC65ynclA3CY5+15Un+2S9nJi7ZvLzXlZISPHO2hExMo+5s2TLg4XP/aybhlE2sG+zfq87tlRg==}
+
+  '@cognite/sdk-provider@2.0.6':
+    resolution: {integrity: sha512-virwJdy9NuthuS6UQ75hzIbeAtTp8mbxPFJsVehIm6DBXd0AwTggbG0TQVkPqO9OayImjEVk5HCv+9fXrjXM2Q==}
+    peerDependencies:
+      '@cognite/sdk': '>=7'
+      react: '>=16'
 
   '@cognite/sdk@10.15.0':
     resolution: {integrity: sha512-T2p1dj6HcJJcpq+TIG7ghufBJ5GCAWGkblD7vqxfYZmnq+6RPbirNolxbejlmeqpZ1UUrPBbG4UtY0y2fB50cw==}
@@ -5974,6 +5983,11 @@ snapshots:
       lodash: 4.18.1
     transitivePeerDependencies:
       - encoding
+
+  '@cognite/sdk-provider@2.0.6(@cognite/sdk@10.15.0)(react@19.2.8)':
+    dependencies:
+      '@cognite/sdk': 10.15.0
+      react: 19.2.8
 
   '@cognite/sdk@10.15.0':
     dependencies:
