@@ -120,6 +120,7 @@ export {
 
 export {
   UserAvatar,
+  UserAvatarSdkProvider,
   createUserProfileLookup,
   useUserProfile,
 } from './user-avatar';

@@ -1,7 +1,29 @@
 import { Avatar, AvatarFallback } from '@cognite/aura/components';
 import type { CogniteClient } from '@cognite/sdk';
-import { useSDK } from '@cognite/sdk-provider';
 import { useQuery } from '@tanstack/react-query';
+import { createContext, useContext, type ReactNode } from 'react';
+
+const SdkContext = createContext<CogniteClient | null>(null);
+
+export function UserAvatarSdkProvider({
+  sdk,
+  children,
+}: {
+  sdk: CogniteClient;
+  children: ReactNode;
+}) {
+  return <SdkContext.Provider value={sdk}>{children}</SdkContext.Provider>;
+}
+
+function useSDK(): CogniteClient {
+  const sdk = useContext(SdkContext);
+  if (!sdk) {
+    throw new Error(
+      'UserAvatar needs a lookup prop or a UserAvatarSdkProvider ancestor'
+    );
+  }
+  return sdk;
+}
 
 export type UserProfileLookup = (
   userIdentifier: string

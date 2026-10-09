@@ -359,7 +359,6 @@
       "dependencies": [
         "@cognite/aura",
         "@cognite/sdk",
-        "@cognite/sdk-provider",
         "@tanstack/react-query"
       ],
       "files": [

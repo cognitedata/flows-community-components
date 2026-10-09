@@ -6,7 +6,7 @@ export const UserAvatarMetadata: ComponentMeta = {
   description:
     'Avatar and display name for a CDF user, resolved from an IAM identifier with a raw-id fallback.',
   llmUsage:
-    'Use `<UserAvatar userIdentifier={id} />` inside a React Query provider and `@cognite/sdk-provider`. Shows initials and display name when the profile resolves, otherwise the raw identifier.',
+    'Use `<UserAvatar userIdentifier={id} />` inside a React Query provider and a `UserAvatarSdkProvider` (or pass a `lookup`). Shows initials and display name when the profile resolves, otherwise the raw identifier.',
   notes: [
     'Does not replace the Core Avatar.',
     'Does not list profiles; resolves one identifier.',

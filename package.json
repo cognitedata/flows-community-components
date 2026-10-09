@@ -24,7 +24,6 @@
     "@base-ui/react": "^1.7.0",
     "@cognite/aura": "^1.46105.0",
     "@cognite/sdk": "^10.14.0",
-    "@cognite/sdk-provider": "^2.0.6",
     "@fontsource/inter": "^5.2.8",
     "@fontsource/space-grotesk": "^5.2.10",
     "@gsap/react": "^2.1.2",
