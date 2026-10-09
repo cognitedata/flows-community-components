@@ -15,9 +15,10 @@ export function UserAvatarSdkProvider({
   return <SdkContext.Provider value={sdk}>{children}</SdkContext.Provider>;
 }
 
-export type UserProfileLookup = (
-  userIdentifier: string
-) => Promise<{ displayName?: string | null } | null>;
+export type UserProfileLookup = (userIdentifier: string) => Promise<{
+  displayName?: string | null;
+  identityType?: string | null;
+} | null>;
 
 type MissingItem = { userIdentifier?: string };
 
@@ -77,16 +78,21 @@ function getInitials(name: string): string {
 type UserAvatarProps = {
   userIdentifier: string;
   lookup?: UserProfileLookup;
+  servicePrincipalLabel?: string;
   className?: string;
 };
 
 function ResolvedUserAvatar({
   userIdentifier,
   lookup,
+  servicePrincipalLabel = 'Service principal',
   className,
 }: UserAvatarProps & { lookup: UserProfileLookup }) {
   const { data } = useUserProfile(userIdentifier, lookup);
-  const displayName = data?.displayName?.trim();
+  const displayName =
+    data?.identityType === 'SERVICE_PRINCIPAL'
+      ? servicePrincipalLabel
+      : data?.displayName?.trim();
 
   if (!displayName) {
     return <span className={className}>{userIdentifier}</span>;

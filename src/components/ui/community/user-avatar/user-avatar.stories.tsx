@@ -33,6 +33,25 @@ export const NamedUser: Story = {
   },
 };
 
+export const ServicePrincipal: Story = {
+  args: {
+    userIdentifier: 'sp-123',
+    lookup: async () => ({
+      displayName: 'my-service-account',
+      identityType: 'SERVICE_PRINCIPAL',
+    }),
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(
+      await canvas.findByText('Service principal')
+    ).toBeInTheDocument();
+    await expect(
+      canvas.queryByText('my-service-account')
+    ).not.toBeInTheDocument();
+  },
+};
+
 export const MissingUser: Story = {
   args: {
     userIdentifier: 'unknown-user-id',
