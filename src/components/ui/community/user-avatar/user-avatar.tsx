@@ -1,4 +1,5 @@
 import { Avatar, AvatarFallback } from '@cognite/aura/components';
+import { cn } from '@cognite/aura/utils';
 import type { CogniteClient } from '@cognite/sdk';
 import { useQuery } from '@tanstack/react-query';
 import { createContext, useContext, useMemo, type ReactNode } from 'react';
@@ -28,8 +29,7 @@ function getMissing(error: unknown): MissingItem[] {
 }
 
 export function createUserProfileLookup(sdk: CogniteClient): UserProfileLookup {
-  return async (rawIdentifier) => {
-    const userIdentifier = rawIdentifier.replace(/^user_identifier:/, '');
+  return async (userIdentifier) => {
     let pending = [userIdentifier];
     while (pending.length > 0) {
       try {
@@ -100,7 +100,7 @@ function ResolvedUserAvatar({
   }
 
   return (
-    <span className={`inline-flex items-center gap-2 ${className ?? ''}`}>
+    <span className={cn('inline-flex items-center gap-2', className)}>
       <Avatar sizes="xsm">
         <AvatarFallback>{getInitials(displayName)}</AvatarFallback>
       </Avatar>
