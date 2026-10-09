@@ -6,6 +6,7 @@ import { DashboardTemplateMetadata } from '../components/ui/community/dashboard-
 import { DrawerMetadata } from '../components/ui/community/drawer/drawer.metadata';
 import { MapMetadata } from '../components/ui/community/map/map.metadata';
 import { MenubarMetadata } from '../components/ui/community/menubar/menubar.metadata';
+import { RecordListTemplateMetadata } from '../components/ui/community/record-list-template/record-list-template.metadata';
 import { SheetMetadata } from '../components/ui/community/sheet/sheet.metadata';
 import { TimeSeriesChartMetadata } from '../components/ui/community/time-series-chart/time-series-chart.metadata';
 
@@ -28,6 +29,7 @@ const communityMetaById: Record<string, ComponentMeta> = {
   confirmation: ConfirmationMetadata,
   'context-menu': ContextMenuMetadata,
   'dashboard-template': DashboardTemplateMetadata,
+  'record-list-template': RecordListTemplateMetadata,
   drawer: DrawerMetadata,
   map: MapMetadata,
   menubar: MenubarMetadata,

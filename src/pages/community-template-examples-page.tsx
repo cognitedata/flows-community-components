@@ -44,6 +44,7 @@ export function CommunityTemplateExamplesPage() {
       <StoriesRenderer
         slug={template.registryId}
         exclude={[template.featuredStory]}
+        descriptions={template.variantDescriptions}
       />
     </>
   );

@@ -13,17 +13,13 @@ import {
 const linkClassName =
   'font-medium text-link-fg hover:text-link-fg-hover hover:underline';
 
-/** Install commands for one `@aura` registry item, plus the not-configured fallback. */
-export function CommunityInstallSection({ name }: { name: string }) {
+/**
+ * How to register `@aura` before running an install command.
+ * `urlName` adds the direct registry-URL fallback for that one item.
+ */
+export function AuraRegistryNote({ urlName }: { urlName?: string }) {
   return (
-    <section className="mb-12 space-y-4" aria-labelledby="install-heading">
-      <h2
-        id="install-heading"
-        className="font-heading text-2xl font-semibold tracking-tight"
-      >
-        Installation
-      </h2>
-      <PackageManagerCommandTabs commands={getInstallCommands(name)} />
+    <div className="space-y-4">
       <p className="text-sm text-muted-fg">
         Requires the <code className="text-foreground">@aura</code> registry in
         your <code className="text-foreground">components.json</code> and Aura
@@ -41,14 +37,24 @@ export function CommunityInstallSection({ name }: { name: string }) {
           <p>
             The shadcn CLI only resolves <code>@aura/…</code> once the namespace
             is registered. Add it to your existing <code>components.json</code>,
-            then re-run the command above:
+            then{' '}
+            {urlName
+              ? 're-run the command above'
+              : 'run the layout install command'}
+            :
           </p>
           <PackageManagerCommand commands={registryAddCommands} />
-          <p>
-            Or install straight from the registry URL, which skips the
-            namespace:
-          </p>
-          <PackageManagerCommand commands={getInstallFromUrlCommands(name)} />
+          {urlName && (
+            <>
+              <p>
+                Or install straight from the registry URL, which skips the
+                namespace:
+              </p>
+              <PackageManagerCommand
+                commands={getInstallFromUrlCommands(urlName)}
+              />
+            </>
+          )}
           <p>
             More fixes in{' '}
             <Link
@@ -61,6 +67,22 @@ export function CommunityInstallSection({ name }: { name: string }) {
           </p>
         </div>
       </details>
+    </div>
+  );
+}
+
+/** Install commands for one `@aura` registry item, plus the not-configured fallback. */
+export function CommunityInstallSection({ name }: { name: string }) {
+  return (
+    <section className="mb-12 space-y-4" aria-labelledby="install-heading">
+      <h2
+        id="install-heading"
+        className="font-heading text-2xl font-semibold tracking-tight"
+      >
+        Installation
+      </h2>
+      <PackageManagerCommandTabs commands={getInstallCommands(name)} />
+      <AuraRegistryNote urlName={name} />
     </section>
   );
 }

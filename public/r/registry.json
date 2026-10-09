@@ -192,6 +192,76 @@
       ]
     },
     {
+      "name": "record-list-template",
+      "type": "registry:block",
+      "title": "Record list",
+      "description": "List layouts that pair a page header or tabs with a full-width data grid, a side panel, or a preview.",
+      "dependencies": [
+        "@cognite/aura",
+        "@tabler/icons-react",
+        "@tanstack/react-table",
+        "@tanstack/react-virtual",
+        "recharts"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/community/record-list-template/record-list-template.tsx",
+          "target": "src/components/ui/community/record-list-template.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/ui/community/record-list-template/record-list-cards.tsx",
+          "target": "src/components/ui/community/record-list-cards.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/ui/community/record-list-template/record-list-left-panel.tsx",
+          "target": "src/components/ui/community/record-list-left-panel.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/ui/community/record-list-template/record-list-pagination.tsx",
+          "target": "src/components/ui/community/record-list-pagination.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/ui/community/record-list-template/record-list-preview.tsx",
+          "target": "src/components/ui/community/record-list-preview.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/ui/community/record-list-template/record-list-table.tsx",
+          "target": "src/components/ui/community/record-list-table.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/ui/community/record-list-template/record-list-template.data.ts",
+          "target": "src/components/ui/community/record-list-template.data.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "src/components/ui/community/record-list-template/record-list-toolbar.tsx",
+          "target": "src/components/ui/community/record-list-toolbar.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/ui/community/record-list-template/record-list-trend.tsx",
+          "target": "src/components/ui/community/record-list-trend.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/ui/community/record-list-template/SKILL.md",
+          "target": "~/.claude/skills/aura-record-list/SKILL.md",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/ui/community/record-list-template/record-list-template.md",
+          "target": "src/components/ui/community/record-list-template/record-list-template.md",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
       "name": "sheet",
       "type": "registry:component",
       "title": "Sheet",
@@ -276,8 +346,104 @@
         },
         {
           "path": "src/components/ui/community/time-series-chart/SKILL.md",
-          "target": ".claude/skills/aura-d3-charts/SKILL.md",
+          "target": "~/.claude/skills/aura-d3-charts/SKILL.md",
           "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "record-list-full-width-header",
+      "type": "registry:block",
+      "title": "Full width data grid + header",
+      "description": "Full width data grid + header record list layout.",
+      "registryDependencies": [
+        "@aura/record-list-template"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/community/record-list-template/record-list-full-width-header.tsx",
+          "target": "src/components/ui/community/record-list-full-width-header.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "record-list-full-width-tabs",
+      "type": "registry:block",
+      "title": "Full width data grid + tabs",
+      "description": "Full width data grid + tabs record list layout.",
+      "registryDependencies": [
+        "@aura/record-list-template"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/community/record-list-template/record-list-full-width-tabs.tsx",
+          "target": "src/components/ui/community/record-list-full-width-tabs.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "record-list-left-panel-header",
+      "type": "registry:block",
+      "title": "Left panel + data grid + header",
+      "description": "Left panel + data grid + header record list layout.",
+      "registryDependencies": [
+        "@aura/record-list-template"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/community/record-list-template/record-list-left-panel-header.tsx",
+          "target": "src/components/ui/community/record-list-left-panel-header.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "record-list-left-panel-tabs",
+      "type": "registry:block",
+      "title": "Left panel + data grid + tabs",
+      "description": "Left panel + data grid + tabs record list layout.",
+      "registryDependencies": [
+        "@aura/record-list-template"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/community/record-list-template/record-list-left-panel-tabs.tsx",
+          "target": "src/components/ui/community/record-list-left-panel-tabs.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "record-list-right-panel-header",
+      "type": "registry:block",
+      "title": "Data grid + right panel + header",
+      "description": "Data grid + right panel + header record list layout.",
+      "registryDependencies": [
+        "@aura/record-list-template"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/community/record-list-template/record-list-right-panel-header.tsx",
+          "target": "src/components/ui/community/record-list-right-panel-header.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "record-list-right-panel-tabs",
+      "type": "registry:block",
+      "title": "Data grid + right panel + tabs",
+      "description": "Data grid + right panel + tabs record list layout.",
+      "registryDependencies": [
+        "@aura/record-list-template"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/community/record-list-template/record-list-right-panel-tabs.tsx",
+          "target": "src/components/ui/community/record-list-right-panel-tabs.tsx",
+          "type": "registry:component"
         }
       ]
     }

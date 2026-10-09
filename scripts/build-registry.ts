@@ -12,6 +12,11 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import {
+  recordListLayouts,
+  recordListRegistryId,
+} from '../src/components/ui/community/record-list-template/record-list-template.data';
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -144,7 +149,12 @@ function extractDependenciesFromFile(filePath: string): string[] {
 
     let match: RegExpExecArray | null = importRegex.exec(content);
     while (match !== null) {
-      const packageName = normalizeNpmPackageName(match[1] as string);
+      const importPath = match[1] as string;
+      if (importPath === '@cognite/aura/data-grid') {
+        dependencies.add('@tanstack/react-table');
+        dependencies.add('@tanstack/react-virtual');
+      }
+      const packageName = normalizeNpmPackageName(importPath);
       if (packageName) {
         dependencies.add(packageName);
       }
@@ -248,6 +258,40 @@ function extractRegistryDependenciesFromFile(filePath: string): string[] {
   }
 }
 
+function isRecordListLayoutEntry(
+  componentName: string,
+  fileName: string
+): boolean {
+  return (
+    componentName === 'record-list-template' &&
+    recordListLayouts.some(
+      (layout) => fileName === `${recordListRegistryId(layout.id)}.tsx`
+    )
+  );
+}
+
+function recordListLayoutItems(): RegistryItem[] {
+  return recordListLayouts.map((layout) => {
+    const name = recordListRegistryId(layout.id);
+    return {
+      name,
+      type: 'registry:block',
+      title: layout.name,
+      description: `${layout.name} record list layout.`,
+      registryDependencies: [
+        `${registryDependencyNamespace}/record-list-template`,
+      ],
+      files: [
+        {
+          path: `src/components/ui/community/record-list-template/${name}.tsx`,
+          target: `src/components/ui/community/${name}.tsx`,
+          type: 'registry:component',
+        },
+      ],
+    };
+  });
+}
+
 function autoDetectComponentFiles(componentName: string): RegistryFile[] {
   const files: RegistryFile[] = [
     {
@@ -273,7 +317,8 @@ function autoDetectComponentFiles(componentName: string): RegistryFile[] {
         !name.includes('.stories.') &&
         !name.includes('.metadata.') &&
         !name.includes('.spec.') &&
-        !name.includes('.test.')
+        !name.includes('.test.') &&
+        !isRecordListLayoutEntry(componentName, name)
     );
 
   for (const extra of extraFiles) {
@@ -294,7 +339,19 @@ function autoDetectComponentFiles(componentName: string): RegistryFile[] {
         .match(/^---[\s\S]*?^name:\s*([\w-]+)/m)?.[1] ?? componentName;
     files.push({
       path: `src/components/ui/community/${componentName}/SKILL.md`,
-      target: `.claude/skills/${skillName}/SKILL.md`,
+      target: `~/.claude/skills/${skillName}/SKILL.md`,
+      type: 'registry:file',
+    });
+  }
+
+  const guideFiles = fs
+    .readdirSync(componentDir)
+    .filter((name) => name.endsWith('.md') && name !== 'SKILL.md');
+
+  for (const guide of guideFiles) {
+    files.push({
+      path: `src/components/ui/community/${componentName}/${guide}`,
+      target: `src/components/ui/community/${componentName}/${guide}`,
       type: 'registry:file',
     });
   }
@@ -385,7 +442,11 @@ function buildRegistry(components: string[]): Registry {
     $schema: 'https://ui.shadcn.com/schema/registry.json',
     name: registryName,
     homepage: registryHomepage,
-    items: [...miscRegistryItems, ...itemsWithoutMiscNameClashes],
+    items: [
+      ...miscRegistryItems,
+      ...itemsWithoutMiscNameClashes,
+      ...recordListLayoutItems(),
+    ],
   };
 }
 

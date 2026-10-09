@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "record-list-full-width-tabs",
+  "title": "Full width data grid + tabs",
+  "description": "Full width data grid + tabs record list layout.",
+  "registryDependencies": [
+    "@aura/record-list-template"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/community/record-list-template/record-list-full-width-tabs.tsx",
+      "content": "import { RecordListTemplate } from './record-list-template';\n\nfunction RecordListFullWidthTabs() {\n  return <RecordListTemplate layout=\"full-width-tabs\" />;\n}\n\nRecordListFullWidthTabs.displayName = 'RecordListFullWidthTabs';\n\nexport { RecordListFullWidthTabs };\n",
+      "type": "registry:component",
+      "target": "src/components/ui/community/record-list-full-width-tabs.tsx"
+    }
+  ],
+  "type": "registry:block"
+}

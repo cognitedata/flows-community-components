@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "record-list-right-panel-tabs",
+  "title": "Data grid + right panel + tabs",
+  "description": "Data grid + right panel + tabs record list layout.",
+  "registryDependencies": [
+    "@aura/record-list-template"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/community/record-list-template/record-list-right-panel-tabs.tsx",
+      "content": "import { RecordListTemplate } from './record-list-template';\n\nfunction RecordListRightPanelTabs() {\n  return <RecordListTemplate layout=\"right-panel-tabs\" />;\n}\n\nRecordListRightPanelTabs.displayName = 'RecordListRightPanelTabs';\n\nexport { RecordListRightPanelTabs };\n",
+      "type": "registry:component",
+      "target": "src/components/ui/community/record-list-right-panel-tabs.tsx"
+    }
+  ],
+  "type": "registry:block"
+}

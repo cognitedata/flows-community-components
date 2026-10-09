@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "record-list-full-width-header",
+  "title": "Full width data grid + header",
+  "description": "Full width data grid + header record list layout.",
+  "registryDependencies": [
+    "@aura/record-list-template"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/community/record-list-template/record-list-full-width-header.tsx",
+      "content": "import { RecordListTemplate } from './record-list-template';\n\nfunction RecordListFullWidthHeader() {\n  return <RecordListTemplate layout=\"full-width-header\" />;\n}\n\nRecordListFullWidthHeader.displayName = 'RecordListFullWidthHeader';\n\nexport { RecordListFullWidthHeader };\n",
+      "type": "registry:component",
+      "target": "src/components/ui/community/record-list-full-width-header.tsx"
+    }
+  ],
+  "type": "registry:block"
+}

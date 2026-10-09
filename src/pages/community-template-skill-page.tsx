@@ -9,14 +9,20 @@ const FRONT_MATTER_PATTERN = /^---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)$/;
 
 function splitSkillMarkdown(source: string): {
   frontMatter: string | null;
+  title: string | null;
   body: string;
 } {
   const match = FRONT_MATTER_PATTERN.exec(source);
   if (!match?.[1] || match[2] === undefined) {
-    return { frontMatter: null, body: source };
+    return { frontMatter: null, title: null, body: source };
   }
+  const heading = /^\s*# (.+)\n/.exec(match[2]);
   // The page renders its own title, so drop the leading H1.
-  return { frontMatter: match[1], body: match[2].replace(/^\s*# .*\n/, '') };
+  return {
+    frontMatter: match[1],
+    title: heading?.[1]?.trim() ?? null,
+    body: match[2].replace(/^\s*# .+\n/, ''),
+  };
 }
 
 export function CommunityTemplateSkillPage() {
@@ -28,7 +34,7 @@ export function CommunityTemplateSkillPage() {
   }
 
   const { skill } = template;
-  const { frontMatter, body } = splitSkillMarkdown(skill.markdown);
+  const { frontMatter, title, body } = splitSkillMarkdown(skill.markdown);
 
   return (
     <article className="max-w-[860px]">
@@ -52,13 +58,12 @@ export function CommunityTemplateSkillPage() {
           <span>SKILL.md</span>
         </p>
         <h1 className="font-heading text-4xl font-semibold tracking-tight sm:text-5xl">
-          Building D3 charts with Aura
+          {title ?? template.name}
         </h1>
         <p className="mt-3 max-w-[60ch] text-muted-fg">
           An agent skill that ships with the {template.name} registry item. It
           installs to{' '}
-          <code className="text-foreground">{skill.installPath}</code>, and you
-          can also copy it into any project that builds D3 charts on Aura.
+          <code className="text-foreground">{skill.installPath}</code>.
         </p>
       </header>
 
