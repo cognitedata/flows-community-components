@@ -4,6 +4,9 @@ import type { CogniteClient } from '@cognite/sdk';
 import { useQuery } from '@tanstack/react-query';
 import { createContext, useContext, useMemo, type ReactNode } from 'react';
 
+const SERVICE_PRINCIPAL = 'SERVICE_PRINCIPAL';
+const PROFILE_STALE_TIME_MS = 5 * 60 * 1000;
+
 const SdkContext = createContext<CogniteClient | null>(null);
 
 export function UserAvatarSdkProvider({
@@ -16,16 +19,29 @@ export function UserAvatarSdkProvider({
   return <SdkContext.Provider value={sdk}>{children}</SdkContext.Provider>;
 }
 
-export type UserProfileLookup = (userIdentifier: string) => Promise<{
+export type UserProfile = {
   displayName?: string | null;
   identityType?: string | null;
-} | null>;
+};
 
-type MissingItem = { userIdentifier?: string };
+export type UserProfileLookup = (
+  userIdentifier: string
+) => Promise<UserProfile | null>;
 
-function getMissing(error: unknown): MissingItem[] {
-  const missing = (error as { missing?: unknown } | null)?.missing;
-  return Array.isArray(missing) ? (missing as MissingItem[]) : [];
+function getMissingIds(error: unknown): Set<string> {
+  const missing =
+    typeof error === 'object' && error !== null && 'missing' in error
+      ? error.missing
+      : undefined;
+  const ids = new Set<string>();
+  if (Array.isArray(missing)) {
+    for (const item of missing) {
+      if (typeof item?.userIdentifier === 'string') {
+        ids.add(item.userIdentifier);
+      }
+    }
+  }
+  return ids;
 }
 
 export function createUserProfileLookup(sdk: CogniteClient): UserProfileLookup {
@@ -40,11 +56,9 @@ export function createUserProfileLookup(sdk: CogniteClient): UserProfileLookup {
           profiles.find((p) => p.userIdentifier === userIdentifier) ?? null
         );
       } catch (error) {
-        const missingIds = new Set(
-          getMissing(error).map((item) => item.userIdentifier)
-        );
+        const missingIds = getMissingIds(error);
         const remaining = pending.filter((id) => !missingIds.has(id));
-        if (missingIds.size === 0 || remaining.length === pending.length) {
+        if (remaining.length === pending.length) {
           throw error;
         }
         pending = remaining;
@@ -56,14 +70,14 @@ export function createUserProfileLookup(sdk: CogniteClient): UserProfileLookup {
 
 export function useUserProfile(
   userIdentifier: string,
-  lookup: UserProfileLookup
+  lookup: UserProfileLookup | undefined
 ) {
   return useQuery({
     queryKey: ['user-avatar', 'profile', userIdentifier],
-    queryFn: () => lookup(userIdentifier),
-    enabled: userIdentifier.length > 0,
+    queryFn: () => lookup?.(userIdentifier) ?? null,
+    enabled: lookup !== undefined && userIdentifier.length > 0,
     retry: false,
-    staleTime: 5 * 60 * 1000,
+    staleTime: PROFILE_STALE_TIME_MS,
   });
 }
 
@@ -72,7 +86,7 @@ function getInitials(name: string): string {
     .trim()
     .split(/\s+/)
     .slice(0, 2)
-    .map((part) => part.charAt(0).toUpperCase())
+    .map((word) => word.charAt(0).toUpperCase())
     .join('');
 }
 
@@ -88,41 +102,40 @@ function ResolvedUserAvatar({
   lookup,
   servicePrincipalLabel = 'Service principal',
   className,
-}: UserAvatarProps & { lookup: UserProfileLookup }) {
-  const { data } = useUserProfile(userIdentifier, lookup);
-  const displayName =
-    data?.identityType === 'SERVICE_PRINCIPAL'
+}: UserAvatarProps) {
+  const { data: profile } = useUserProfile(userIdentifier, lookup);
+  const label =
+    profile?.identityType === SERVICE_PRINCIPAL
       ? servicePrincipalLabel
-      : data?.displayName?.trim();
+      : profile?.displayName?.trim();
 
-  if (!displayName) {
+  if (!label) {
     return <span className={className}>{userIdentifier}</span>;
   }
 
   return (
     <span className={cn('inline-flex items-center gap-2', className)}>
       <Avatar sizes="xsm">
-        <AvatarFallback>{getInitials(displayName)}</AvatarFallback>
+        <AvatarFallback>{getInitials(label)}</AvatarFallback>
       </Avatar>
-      <span>{displayName}</span>
+      <span>{label}</span>
     </span>
   );
 }
 
-const noProfile: UserProfileLookup = async () => null;
-
 function SdkUserAvatar(props: UserAvatarProps) {
   const sdk = useContext(SdkContext);
   const lookup = useMemo(
-    () => (sdk ? createUserProfileLookup(sdk) : noProfile),
+    () => (sdk ? createUserProfileLookup(sdk) : undefined),
     [sdk]
   );
   return <ResolvedUserAvatar {...props} lookup={lookup} />;
 }
 
 export function UserAvatar(props: UserAvatarProps) {
-  if (props.lookup) {
-    return <ResolvedUserAvatar {...props} lookup={props.lookup} />;
-  }
-  return <SdkUserAvatar {...props} />;
+  return props.lookup ? (
+    <ResolvedUserAvatar {...props} />
+  ) : (
+    <SdkUserAvatar {...props} />
+  );
 }

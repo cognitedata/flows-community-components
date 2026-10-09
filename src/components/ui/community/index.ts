@@ -124,4 +124,4 @@ export {
   createUserProfileLookup,
   useUserProfile,
 } from './user-avatar';
-export type { UserProfileLookup } from './user-avatar';
+export type { UserProfile, UserProfileLookup } from './user-avatar';
