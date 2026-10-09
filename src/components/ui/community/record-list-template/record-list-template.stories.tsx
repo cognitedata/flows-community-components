@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within } from 'storybook/test';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
 
 import { RecordListTemplate } from './record-list-template';
 import {
@@ -49,7 +49,9 @@ export const FullWidthGridHeader: Story = {
     expect(
       canvas.getByRole('checkbox', { name: 'Select row 1' })
     ).toBeChecked();
-    expect(canvas.getByRole('toolbar')).toBeVisible();
+    await waitFor(() => expect(canvas.getByRole('toolbar')).toBeVisible(), {
+      timeout: 1000,
+    });
     expect(within(canvas.getByRole('toolbar')).getByText('5')).toBeVisible();
 
     await userEvent.click(canvas.getByRole('button', { name: 'Clear' }));
