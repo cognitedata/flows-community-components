@@ -28,7 +28,8 @@ function getMissing(error: unknown): MissingItem[] {
 }
 
 export function createUserProfileLookup(sdk: CogniteClient): UserProfileLookup {
-  return async (userIdentifier) => {
+  return async (rawIdentifier) => {
+    const userIdentifier = rawIdentifier.replace(/^user_identifier:/, '');
     let pending = [userIdentifier];
     while (pending.length > 0) {
       try {
