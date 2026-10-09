@@ -117,3 +117,10 @@ export {
   SheetTitle,
   SheetTrigger,
 } from './sheet';
+
+export {
+  UserAvatar,
+  createUserProfileLookup,
+  useUserProfile,
+} from './user-avatar';
+export type { UserProfileLookup } from './user-avatar';

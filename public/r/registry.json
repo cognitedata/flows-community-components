@@ -352,6 +352,25 @@
       ]
     },
     {
+      "name": "user-avatar",
+      "type": "registry:component",
+      "title": "User Avatar",
+      "description": "Avatar and display name for a CDF user, resolved from an IAM identifier with a raw-id fallback.",
+      "dependencies": [
+        "@cognite/aura",
+        "@cognite/sdk",
+        "@cognite/sdk-provider",
+        "@tanstack/react-query"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/community/user-avatar/user-avatar.tsx",
+          "target": "src/components/ui/community/user-avatar.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "record-list-full-width-header",
       "type": "registry:block",
       "title": "Full width data grid + header",
