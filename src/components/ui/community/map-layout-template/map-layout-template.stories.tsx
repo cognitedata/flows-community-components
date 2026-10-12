@@ -27,8 +27,9 @@ export const LeftPanelMapRightPanel: Story = {
 
     expect(canvas.getByLabelText('Layers')).toBeVisible();
     expect(canvas.getByLabelText('Search layers')).toBeVisible();
-    expect(canvas.getByLabelText('Preview')).toBeVisible();
-    expect(canvas.getByText(mapSiteRows[0].name)).toBeVisible();
+    const preview = canvas.getByLabelText('Preview');
+    expect(preview).toBeVisible();
+    expect(within(preview).getByText(mapSiteRows[0].name)).toBeVisible();
 
     const pumpCheckbox = canvas.getByRole('checkbox', {
       name: 'Select Pumps',
@@ -76,8 +77,9 @@ export const HorizontalSplitFullWidth: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    expect(canvas.getByRole('table', { name: 'Sites' })).toBeVisible();
+    const table = canvas.getByRole('table', { name: 'Sites' });
+    expect(table).toBeVisible();
     expect(canvas.queryByLabelText('Preview')).not.toBeInTheDocument();
-    expect(canvas.getByText(mapSiteRows[0].name)).toBeVisible();
+    expect(within(table).getByText(mapSiteRows[0].name)).toBeVisible();
   },
 };
