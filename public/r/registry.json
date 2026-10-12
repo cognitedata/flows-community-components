@@ -174,6 +174,58 @@
       ]
     },
     {
+      "name": "map-layout-template",
+      "type": "registry:component",
+      "title": "Map layout",
+      "description": "Four map page layouts for industrial apps: left panel + map + right panel, map + right panel, horizontal split with data grid and right panel, and horizontal split with full-width data grid.",
+      "dependencies": [
+        "@cognite/aura",
+        "@tabler/icons-react"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/community/map-layout-template/map-layout-template.tsx",
+          "target": "src/components/ui/community/map-layout-template.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/ui/community/map-layout-template/map-layout-left-panel.tsx",
+          "target": "src/components/ui/community/map-layout-left-panel.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/ui/community/map-layout-template/map-layout-map-area.tsx",
+          "target": "src/components/ui/community/map-layout-map-area.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/ui/community/map-layout-template/map-layout-preview.tsx",
+          "target": "src/components/ui/community/map-layout-preview.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/ui/community/map-layout-template/map-layout-table.tsx",
+          "target": "src/components/ui/community/map-layout-table.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/ui/community/map-layout-template/map-layout-template.data.ts",
+          "target": "src/components/ui/community/map-layout-template.data.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "src/components/ui/community/map-layout-template/SKILL.md",
+          "target": "~/.claude/skills/aura-map-layout/SKILL.md",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/ui/community/map-layout-template/map-layout-template.md",
+          "target": "src/components/ui/community/map-layout-template/map-layout-template.md",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
       "name": "menubar",
       "type": "registry:component",
       "title": "Menubar",
@@ -348,6 +400,70 @@
           "path": "src/components/ui/community/time-series-chart/SKILL.md",
           "target": "~/.claude/skills/aura-d3-charts/SKILL.md",
           "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "map-layout-left-right-panels",
+      "type": "registry:block",
+      "title": "Left panel + map + right panel",
+      "description": "Left panel + map + right panel map layout.",
+      "registryDependencies": [
+        "@aura/map-layout-template"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/community/map-layout-template/map-layout-left-right-panels.tsx",
+          "target": "src/components/ui/community/map-layout-left-right-panels.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "map-layout-right-panel",
+      "type": "registry:block",
+      "title": "Map + right panel",
+      "description": "Map + right panel map layout.",
+      "registryDependencies": [
+        "@aura/map-layout-template"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/community/map-layout-template/map-layout-right-panel.tsx",
+          "target": "src/components/ui/community/map-layout-right-panel.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "map-layout-grid-right-panel",
+      "type": "registry:block",
+      "title": "Horizontal split: map + data grid + right panel",
+      "description": "Horizontal split: map + data grid + right panel map layout.",
+      "registryDependencies": [
+        "@aura/map-layout-template"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/community/map-layout-template/map-layout-grid-right-panel.tsx",
+          "target": "src/components/ui/community/map-layout-grid-right-panel.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "map-layout-grid-full-width",
+      "type": "registry:block",
+      "title": "Horizontal split: map + data grid",
+      "description": "Horizontal split: map + data grid map layout.",
+      "registryDependencies": [
+        "@aura/map-layout-template"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/community/map-layout-template/map-layout-grid-full-width.tsx",
+          "target": "src/components/ui/community/map-layout-grid-full-width.tsx",
+          "type": "registry:component"
         }
       ]
     },

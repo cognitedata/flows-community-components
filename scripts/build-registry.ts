@@ -13,6 +13,10 @@ import * as path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import {
+  mapLayouts,
+  mapLayoutRegistryId,
+} from '../src/components/ui/community/map-layout-template/map-layout-template.data';
+import {
   recordListLayouts,
   recordListRegistryId,
 } from '../src/components/ui/community/record-list-template/record-list-template.data';
@@ -258,6 +262,13 @@ function extractRegistryDependenciesFromFile(filePath: string): string[] {
   }
 }
 
+function isMapLayoutEntry(componentName: string, fileName: string): boolean {
+  return (
+    componentName === 'map-layout-template' &&
+    mapLayouts.some((layout) => fileName === `map-layout-${layout.id}.tsx`)
+  );
+}
+
 function isRecordListLayoutEntry(
   componentName: string,
   fileName: string
@@ -268,6 +279,28 @@ function isRecordListLayoutEntry(
       (layout) => fileName === `${recordListRegistryId(layout.id)}.tsx`
     )
   );
+}
+
+function mapLayoutItems(): RegistryItem[] {
+  return mapLayouts.map((layout) => {
+    const name = mapLayoutRegistryId(layout.id);
+    return {
+      name,
+      type: 'registry:block',
+      title: layout.name,
+      description: `${layout.name} map layout.`,
+      registryDependencies: [
+        `${registryDependencyNamespace}/map-layout-template`,
+      ],
+      files: [
+        {
+          path: `src/components/ui/community/map-layout-template/${name}.tsx`,
+          target: `src/components/ui/community/${name}.tsx`,
+          type: 'registry:component',
+        },
+      ],
+    };
+  });
 }
 
 function recordListLayoutItems(): RegistryItem[] {
@@ -318,7 +351,8 @@ function autoDetectComponentFiles(componentName: string): RegistryFile[] {
         !name.includes('.metadata.') &&
         !name.includes('.spec.') &&
         !name.includes('.test.') &&
-        !isRecordListLayoutEntry(componentName, name)
+        !isRecordListLayoutEntry(componentName, name) &&
+        !isMapLayoutEntry(componentName, name)
     );
 
   for (const extra of extraFiles) {
@@ -445,6 +479,7 @@ function buildRegistry(components: string[]): Registry {
     items: [
       ...miscRegistryItems,
       ...itemsWithoutMiscNameClashes,
+      ...mapLayoutItems(),
       ...recordListLayoutItems(),
     ],
   };

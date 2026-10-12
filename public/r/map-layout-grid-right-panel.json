@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "map-layout-grid-right-panel",
+  "title": "Horizontal split: map + data grid + right panel",
+  "description": "Horizontal split: map + data grid + right panel map layout.",
+  "registryDependencies": [
+    "@aura/map-layout-template"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/community/map-layout-template/map-layout-grid-right-panel.tsx",
+      "content": "import type { ReactNode } from 'react';\n\nimport { MapLayoutTemplate } from './map-layout-template';\n\nfunction MapGridRightPanel(): ReactNode {\n  return <MapLayoutTemplate layout=\"grid-right-panel\" />;\n}\n\nMapGridRightPanel.displayName = 'MapGridRightPanel';\n\nexport { MapGridRightPanel };\n",
+      "type": "registry:component",
+      "target": "src/components/ui/community/map-layout-grid-right-panel.tsx"
+    }
+  ],
+  "type": "registry:block"
+}
