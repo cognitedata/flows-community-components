@@ -7,6 +7,7 @@ import { MapLayoutMapArea } from './map-layout-map-area';
 import { MapLayoutPreview } from './map-layout-preview';
 import { MapLayoutTable } from './map-layout-table';
 import {
+  mapLayerSelection,
   mapPageDescription,
   mapPageTitle,
   mapPrimaryAction,
@@ -15,6 +16,8 @@ import {
   type MapLayerListView,
   type MapLayout,
 } from './map-layout-template.data';
+
+type MapSelection = { kind: 'site' | 'layer'; id: string };
 
 function hasLeftPanel(layout: MapLayout): boolean {
   return layout === 'left-right-panels';
@@ -25,10 +28,6 @@ function hasRightPanel(layout: MapLayout): boolean {
 }
 
 function hasDataGrid(layout: MapLayout): boolean {
-  return layout === 'grid-right-panel' || layout === 'grid-full-width';
-}
-
-function hasPageHeader(layout: MapLayout): boolean {
   return layout === 'grid-right-panel' || layout === 'grid-full-width';
 }
 
@@ -70,13 +69,50 @@ function MapLayoutTemplate({
   const [selectedIds, setSelectedIds] = useState<ReadonlySet<string>>(
     () => new Set()
   );
-  const [selectedSiteId, setSelectedSiteId] = useState<string | null>(() =>
-    hasRightPanel(layout) ? (mapSiteRows[0]?.id ?? null) : null
-  );
+  const [selection, setSelection] = useState<MapSelection | null>(null);
 
-  const selectedSite = mapSiteRows.find((s) => s.id === selectedSiteId);
+  const selectedSite =
+    selection?.kind === 'site'
+      ? mapSiteRows.find((site) => site.id === selection.id)
+      : undefined;
+  const selectedLayer =
+    selection?.kind === 'layer' ? mapLayerSelection(selection.id) : null;
+
+  function selectSite(id: string): void {
+    setSelection((current) =>
+      current?.kind === 'site' && current.id === id
+        ? null
+        : { kind: 'site', id }
+    );
+  }
+
+  function selectLayer(id: string): void {
+    if (!mapLayerSelection(id)) {
+      return;
+    }
+    setSelection({ kind: 'layer', id });
+  }
+
+  function deselectLayer(id: string): void {
+    setSelection((current) =>
+      current?.kind === 'layer' && current.id === id ? null : current
+    );
+  }
+
+  function clearSiteSelection(id?: string): void {
+    setSelection((current) => {
+      if (current?.kind !== 'site') {
+        return current;
+      }
+      if (id !== undefined && current.id !== id) {
+        return current;
+      }
+      return null;
+    });
+  }
 
   function toggleRow(id: string): void {
+    const wasChecked = selectedIds.has(id);
     setSelectedIds((prev) => {
       const next = new Set(prev);
       if (next.has(id)) {
@@ -86,15 +122,21 @@ function MapLayoutTemplate({
       }
       return next;
     });
+    if (wasChecked) {
+      clearSiteSelection(id);
+    } else {
+      setSelection({ kind: 'site', id });
+    }
   }
 
   function toggleAll(): void {
-    setSelectedIds((prev) => {
-      if (mapSiteRows.every((row) => prev.has(row.id))) {
-        return new Set();
-      }
-      return new Set(mapSiteRows.map((row) => row.id));
-    });
+    const allSelected = mapSiteRows.every((row) => selectedIds.has(row.id));
+    setSelectedIds(() =>
+      allSelected ? new Set() : new Set(mapSiteRows.map((row) => row.id))
+    );
+    if (allSelected) {
+      clearSiteSelection();
+    }
   }
 
   return (
@@ -102,15 +144,22 @@ function MapLayoutTemplate({
       data-slot="map-layout-template"
       className="flex h-[52rem] w-full min-w-0 flex-col overflow-hidden rounded-xl border bg-background"
     >
-      {hasPageHeader(layout) && <PageHeader />}
+      <PageHeader />
 
       <div className="flex min-h-0 flex-1">
-        {hasLeftPanel(layout) && <MapLayoutLeftPanel list={layers} />}
+        {hasLeftPanel(layout) && (
+          <MapLayoutLeftPanel
+            list={layers}
+            selectedId={selection?.kind === 'layer' ? selection.id : null}
+            onSelect={selectLayer}
+            onDeselect={deselectLayer}
+          />
+        )}
 
         <div className="flex min-w-0 flex-1 flex-col">
           <MapLayoutMapArea
-            selectedSiteId={selectedSiteId}
-            onSelectSite={setSelectedSiteId}
+            selectedSiteId={selectedSite?.id ?? null}
+            onSelectSite={selectSite}
             className={hasDataGrid(layout) ? 'min-h-[45%]' : undefined}
           />
 
@@ -119,14 +168,17 @@ function MapLayoutTemplate({
               selectedIds={selectedIds}
               onToggleRow={toggleRow}
               onToggleAll={toggleAll}
-              selectedRowId={selectedSiteId}
-              onSelectRow={setSelectedSiteId}
+              selectedRowId={selectedSite?.id ?? null}
+              onSelectRow={selectSite}
             />
           )}
         </div>
 
-        {hasRightPanel(layout) && selectedSite && (
-          <MapLayoutPreview site={selectedSite} />
+        {hasRightPanel(layout) && (selectedSite || selectedLayer) && (
+          <MapLayoutPreview
+            site={selectedSite}
+            layer={selectedLayer ?? undefined}
+          />
         )}
       </div>
     </div>

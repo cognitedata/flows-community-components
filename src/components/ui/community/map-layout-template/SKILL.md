@@ -28,7 +28,7 @@ If two layouts both seem to fit, prefer the one with fewer regions. Every extra 
 - **Left panel** — controls what the map shows: search, filter, hierarchy, visibility toggles. It should not hold record detail.
 - **Right panel** — detail for one selected item: header (avatar, title, type), description area, and a footer with secondary + primary action. It answers "what is this thing?" and offers a way to the full page.
 - **Data grid** — many items at once. Supports selection, sorting, and row actions.
-- **Page header** — names the page and holds page-level actions. Layouts 3 and 4 have one (optional) because the grid makes the page feel more like a workspace. Layouts 1 and 2 do not, because the map and its panels carry the context.
+- **Page header** — names the page and holds page-level actions. Every map layout includes one.
 
 ## Why the data grid sits under the map
 

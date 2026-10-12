@@ -187,6 +187,29 @@ const indexedMapLayers = indexMapLayers(mapLayerGroups);
 
 export const mapLayerNodes = indexedMapLayers.items;
 
+export function mapLayerSelection(id: string): {
+  name: string;
+  description: string;
+} | null {
+  const node = mapLayerNodes[id];
+  if (!node || id === mapLayerRootId) {
+    return null;
+  }
+  const parent = Object.values(mapLayerNodes).find((entry) =>
+    entry.children.includes(id)
+  );
+  const childNames = node.children
+    .map((childId) => mapLayerNodes[childId]?.name)
+    .filter((name): name is string => name !== undefined);
+  return {
+    name: node.name,
+    description:
+      childNames.length > 0
+        ? childNames.join(', ')
+        : (parent?.name ?? 'Map layer'),
+  };
+}
+
 export const mapLayerDefaultExpanded = indexedMapLayers.expanded;
 
 export const mapLayerDefaultChecked = indexedMapLayers.checked;

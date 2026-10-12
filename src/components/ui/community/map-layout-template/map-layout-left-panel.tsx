@@ -10,7 +10,7 @@ import {
   Tree,
 } from '@cognite/aura/components';
 import { IconFilter } from '@tabler/icons-react';
-import { type ReactNode, useState } from 'react';
+import { type ReactNode, useRef, useState } from 'react';
 
 import {
   mapLayerDefaultChecked,
@@ -21,7 +21,17 @@ import {
   type MapLayerNode,
 } from './map-layout-template.data';
 
-function LayerTree(): ReactNode {
+function LayerTree({
+  selectedId,
+  onSelect,
+  onDeselect,
+}: {
+  selectedId: string | null;
+  onSelect: (id: string) => void;
+  onDeselect: (id: string) => void;
+}): ReactNode {
+  const checkedIds = useRef(new Set(mapLayerDefaultChecked));
+
   return (
     <Tree<MapLayerNode>
       rootItemId={mapLayerRootId}
@@ -31,8 +41,35 @@ function LayerTree(): ReactNode {
       defaultExpandedItems={mapLayerDefaultExpanded}
       checkboxes
       defaultCheckedItems={mapLayerDefaultChecked}
+      onCheckedItemsChange={(checked) => {
+        const next = new Set(checked);
+        const added = checked.filter((id) => !checkedIds.current.has(id));
+        const removed = [...checkedIds.current].filter((id) => !next.has(id));
+        checkedIds.current = next;
+        const selectedId = added[added.length - 1];
+        if (selectedId) {
+          onSelect(selectedId);
+          return;
+        }
+        removed.forEach(onDeselect);
+      }}
     >
-      {(item) => <ItemTitle>{item.getItemName()}</ItemTitle>}
+      {(item) => (
+        <ItemTitle
+          className="flex-1 cursor-pointer"
+          onClick={(event) => {
+            event.stopPropagation();
+            const id = item.getId();
+            if (id === selectedId) {
+              onDeselect(id);
+            } else {
+              onSelect(id);
+            }
+          }}
+        >
+          {item.getItemName()}
+        </ItemTitle>
+      )}
     </Tree>
   );
 }
@@ -41,12 +78,18 @@ function LayerItems({
   ids,
   depth,
   checkedIds,
-  onToggle,
+  selectedId,
+  onSelect,
+  onDeselect,
+  onCheckedChange,
 }: {
   ids: readonly string[];
   depth: number;
   checkedIds: ReadonlySet<string>;
-  onToggle: (id: string) => void;
+  selectedId: string | null;
+  onSelect: (id: string) => void;
+  onDeselect: (id: string) => void;
+  onCheckedChange: (id: string, checked: boolean) => void;
 }): ReactNode {
   return ids.map((id) => {
     const node = mapLayerNodes[id];
@@ -60,7 +103,10 @@ function LayerItems({
         node={node}
         depth={depth}
         checkedIds={checkedIds}
-        onToggle={onToggle}
+        selectedId={selectedId}
+        onSelect={onSelect}
+        onDeselect={onDeselect}
+        onCheckedChange={onCheckedChange}
       />
     );
   });
@@ -71,17 +117,27 @@ function LayerItemRows({
   node,
   depth,
   checkedIds,
-  onToggle,
+  selectedId,
+  onSelect,
+  onDeselect,
+  onCheckedChange,
 }: {
   id: string;
   node: MapLayerNode;
   depth: number;
   checkedIds: ReadonlySet<string>;
-  onToggle: (id: string) => void;
+  selectedId: string | null;
+  onSelect: (id: string) => void;
+  onDeselect: (id: string) => void;
+  onCheckedChange: (id: string, checked: boolean) => void;
 }): ReactNode {
+  const selected = selectedId === id;
   return (
     <>
-      <Item>
+      <Item
+        selected={selected}
+        onClick={() => (selected ? onDeselect(id) : onSelect(id))}
+      >
         {Array.from({ length: depth }, (_, index) => (
           <span
             key={`${id}-indent-${index}`}
@@ -92,7 +148,8 @@ function LayerItemRows({
         <ItemCheckbox
           aria-label={`Select ${node.name}`}
           checked={checkedIds.has(id)}
-          onCheckedChange={() => onToggle(id)}
+          onClick={(event) => event.stopPropagation()}
+          onCheckedChange={(checked) => onCheckedChange(id, checked === true)}
         />
         <ItemTitle>{node.name}</ItemTitle>
       </Item>
@@ -101,29 +158,45 @@ function LayerItemRows({
           ids={node.children}
           depth={depth + 1}
           checkedIds={checkedIds}
-          onToggle={onToggle}
+          selectedId={selectedId}
+          onSelect={onSelect}
+          onDeselect={onDeselect}
+          onCheckedChange={onCheckedChange}
         />
       )}
     </>
   );
 }
 
-function LayerItemList(): ReactNode {
+function LayerItemList({
+  selectedId,
+  onSelect,
+  onDeselect,
+}: {
+  selectedId: string | null;
+  onSelect: (id: string) => void;
+  onDeselect: (id: string) => void;
+}): ReactNode {
   const [checkedIds, setCheckedIds] = useState<ReadonlySet<string>>(
     () => new Set(mapLayerDefaultChecked)
   );
   const groups = mapLayerNodes[mapLayerRootId]?.children ?? [];
 
-  function toggle(id: string): void {
+  function changeChecked(id: string, checked: boolean): void {
     setCheckedIds((current) => {
       const next = new Set(current);
-      if (next.has(id)) {
-        next.delete(id);
-      } else {
+      if (checked) {
         next.add(id);
+      } else {
+        next.delete(id);
       }
       return next;
     });
+    if (checked) {
+      onSelect(id);
+    } else {
+      onDeselect(id);
+    }
   }
 
   return (
@@ -143,7 +216,10 @@ function LayerItemList(): ReactNode {
                 ids={group.children}
                 depth={0}
                 checkedIds={checkedIds}
-                onToggle={toggle}
+                selectedId={selectedId}
+                onSelect={onSelect}
+                onDeselect={onDeselect}
+                onCheckedChange={changeChecked}
               />
             </ItemGroup>
           </section>
@@ -155,8 +231,14 @@ function LayerItemList(): ReactNode {
 
 function MapLayoutLeftPanel({
   list = 'tree',
+  selectedId = null,
+  onSelect,
+  onDeselect,
 }: {
   list?: MapLayerListView;
+  selectedId?: string | null;
+  onSelect: (id: string) => void;
+  onDeselect: (id: string) => void;
 }): ReactNode {
   return (
     <aside
@@ -175,7 +257,19 @@ function MapLayoutLeftPanel({
         </Button>
       </div>
       <div className="flex flex-1 flex-col overflow-y-auto px-1 pb-3">
-        {list === 'item' ? <LayerItemList /> : <LayerTree />}
+        {list === 'item' ? (
+          <LayerItemList
+            selectedId={selectedId}
+            onSelect={onSelect}
+            onDeselect={onDeselect}
+          />
+        ) : (
+          <LayerTree
+            selectedId={selectedId}
+            onSelect={onSelect}
+            onDeselect={onDeselect}
+          />
+        )}
       </div>
     </aside>
   );

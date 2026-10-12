@@ -87,11 +87,21 @@ function SiteMarker({
       longitude={site.longitude}
       latitude={site.latitude}
       anchor="bottom"
+      role="button"
+      tabIndex={0}
+      aria-pressed={selected}
+      aria-label={site.name}
       className="flex cursor-pointer flex-col items-center gap-1"
       onClick={onSelect}
+      onKeyDown={(event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          onSelect();
+        }
+      }}
     >
       {selected ? (
-        <MapMarkerLabel color={color} dot>
+        <MapMarkerLabel color={color} dot aria-hidden>
           {site.name}
         </MapMarkerLabel>
       ) : (
@@ -100,8 +110,7 @@ function SiteMarker({
           status={statusTones[site.status]}
           pulse={site.status === 'Online'}
           size="large"
-          role="img"
-          aria-label={`${site.name}: ${site.status}`}
+          aria-hidden
         />
       )}
     </MapMarker>

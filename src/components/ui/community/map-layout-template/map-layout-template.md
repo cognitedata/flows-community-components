@@ -2,11 +2,11 @@ Map layouts pair a geographic or spatial view with panels and grids. Choose the 
 
 ## Left panel + map + right panel
 
-The user controls what appears on the map — layers, models, visibility toggles — and inspects one selected item. The left panel holds a search and a checkbox tree; the right panel shows a preview with actions.
+The user controls what appears on the map — layers, models, visibility toggles — and inspects one selected item. A page header names the view. The left panel holds a search and a checkbox tree; the right panel shows a preview with actions.
 
 ## Map + right panel
 
-The map is the main product. The user finds and inspects one item at a time with no layer controls. This layout gives the map the most space.
+The map is the main product. A page header names the view, and the user finds and inspects one item at a time with no layer controls. This layout gives the map the most space.
 
 ## Horizontal split: map + data grid + right panel
 

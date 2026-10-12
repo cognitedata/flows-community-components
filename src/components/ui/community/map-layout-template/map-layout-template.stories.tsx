@@ -25,11 +25,18 @@ export const LeftPanelMapRightPanel: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    expect(canvas.getByLabelText('Layers')).toBeVisible();
+    const layers = canvas.getByLabelText('Layers');
+    expect(layers).toBeVisible();
     expect(canvas.getByLabelText('Search layers')).toBeVisible();
-    const preview = canvas.getByLabelText('Preview');
-    expect(preview).toBeVisible();
-    expect(within(preview).getByText(mapSiteRows[0].name)).toBeVisible();
+    expect(canvas.queryByLabelText('Preview')).not.toBeInTheDocument();
+
+    await userEvent.click(within(layers).getByText('Pumps'));
+    expect(
+      within(canvas.getByLabelText('Preview')).getByText('Pumps')
+    ).toBeVisible();
+
+    await userEvent.click(within(layers).getByText('Pumps'));
+    expect(canvas.queryByLabelText('Preview')).not.toBeInTheDocument();
 
     const pumpCheckbox = canvas.getByRole('checkbox', {
       name: 'Select Pumps',
@@ -47,8 +54,16 @@ export const MapWithRightPanel: Story = {
     const canvas = within(canvasElement);
 
     expect(canvas.queryByLabelText('Layers')).not.toBeInTheDocument();
-    expect(canvas.getByLabelText('Preview')).toBeVisible();
-    expect(canvas.getByText('View details')).toBeVisible();
+    expect(canvas.queryByLabelText('Preview')).not.toBeInTheDocument();
+
+    const marker = canvas.getByRole('button', { name: mapSiteRows[0].name });
+    await userEvent.click(marker);
+    expect(
+      within(canvas.getByLabelText('Preview')).getByText('View details')
+    ).toBeVisible();
+
+    await userEvent.click(marker);
+    expect(canvas.queryByLabelText('Preview')).not.toBeInTheDocument();
   },
 };
 
@@ -58,8 +73,17 @@ export const HorizontalSplitGridPanel: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    expect(canvas.getByRole('table', { name: 'Sites' })).toBeVisible();
-    expect(canvas.getByLabelText('Preview')).toBeVisible();
+    const table = canvas.getByRole('table', { name: 'Sites' });
+    expect(table).toBeVisible();
+    expect(canvas.queryByLabelText('Preview')).not.toBeInTheDocument();
+
+    await userEvent.click(within(table).getByText(mapSiteRows[0].name));
+    expect(
+      within(canvas.getByLabelText('Preview')).getByText(mapSiteRows[0].name)
+    ).toBeVisible();
+
+    await userEvent.click(within(table).getByText(mapSiteRows[0].name));
+    expect(canvas.queryByLabelText('Preview')).not.toBeInTheDocument();
 
     const selectAll = canvas.getByRole('checkbox', {
       name: 'Select all rows',

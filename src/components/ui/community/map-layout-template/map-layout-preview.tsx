@@ -15,11 +15,19 @@ import {
   type MapSiteRow,
 } from './map-layout-template.data';
 
-function MapLayoutPreview({ site }: { site: MapSiteRow }): ReactNode {
-  const initials = site.name
+function MapLayoutPreview({
+  site,
+  layer,
+}: {
+  site?: MapSiteRow;
+  layer?: { name: string; description: string };
+}): ReactNode {
+  const title = site?.name ?? layer?.name ?? '';
+  const description = site?.type ?? layer?.description ?? '';
+  const initials = title
     .split(/[\s-]+/)
     .slice(0, 2)
-    .map((w) => w[0])
+    .map((word) => word[0])
     .join('')
     .toUpperCase();
 
@@ -35,20 +43,34 @@ function MapLayoutPreview({ site }: { site: MapSiteRow }): ReactNode {
         </Avatar>
         <div className="flex min-w-0 flex-col">
           <CardTitle className="truncate font-sans text-base font-medium leading-5 tracking-normal">
-            {site.name}
+            {title}
           </CardTitle>
-          <CardDescription className="truncate">{site.type}</CardDescription>
+          <CardDescription className="truncate">{description}</CardDescription>
         </div>
       </div>
       <div className="flex min-h-0 flex-1 flex-col px-3">
         <CardContent className="flex flex-col gap-3">
-          <Badge variant={mapAssetStatuses[site.status]}>{site.status}</Badge>
-          <span className="text-sm text-foreground">{site.description}</span>
-          <div className="flex flex-col gap-1 text-sm text-muted-foreground">
-            <span>Area: {site.area}</span>
-            <span>Owner: {site.owner}</span>
-            <span>Last inspection: {formatMapDate(site.lastInspection)}</span>
-          </div>
+          {site ? (
+            <>
+              <Badge variant={mapAssetStatuses[site.status]}>
+                {site.status}
+              </Badge>
+              <span className="text-sm text-foreground">
+                {site.description}
+              </span>
+              <div className="flex flex-col gap-1 text-sm text-muted-foreground">
+                <span>Area: {site.area}</span>
+                <span>Owner: {site.owner}</span>
+                <span>
+                  Last inspection: {formatMapDate(site.lastInspection)}
+                </span>
+              </div>
+            </>
+          ) : (
+            <span className="text-sm text-foreground">
+              {layer?.description}
+            </span>
+          )}
         </CardContent>
       </div>
       <div className="flex gap-2 border-t px-3 py-3">
