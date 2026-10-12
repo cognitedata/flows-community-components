@@ -1,10 +1,18 @@
 import {
   IconChartLine,
   IconLayoutDashboard,
+  IconMap,
   IconTable,
   type Icon as TablerIcon,
 } from '@tabler/icons-react';
 
+import {
+  mapLayoutNames,
+  mapLayouts,
+  mapLayoutRegistryId,
+} from '@/components/ui/community/map-layout-template/map-layout-template.data';
+import mapLayoutDocs from '@/components/ui/community/map-layout-template/map-layout-template.md?raw';
+import mapLayoutSkill from '@/components/ui/community/map-layout-template/SKILL.md?raw';
 import {
   recordListLayoutNames,
   recordListLayouts,
@@ -57,6 +65,8 @@ function splitLayoutDocs(
   };
 }
 
+const mapLayoutGuide = splitLayoutDocs(mapLayoutDocs, mapLayoutNames);
+
 const recordListGuide = splitLayoutDocs(recordListDocs, recordListLayoutNames);
 
 export interface CommunityTemplateSkill {
@@ -104,6 +114,23 @@ export const COMMUNITY_TEMPLATES: CommunityTemplateEntry[] = [
     usage: `This is a complete overview screen, not a single primitive. After you add it from the registry, import \`DashboardTemplate\` and render it on a route.
 
 The header, metric cards, visitors chart, and documents table each live in their own file. Drop the template into your app shell — it does not include a sidebar — then replace the sample metrics, chart series, and table rows with your product data.`,
+  },
+  {
+    name: 'Map layout',
+    description:
+      'Four map page layouts: left panel + map + right panel, map + right panel, and two horizontal split variants with a data grid.',
+    icon: IconMap,
+    registryId: 'map-layout-template',
+    usage: mapLayoutGuide.usage,
+    variantDescriptions: mapLayoutGuide.sections,
+    variantInstalls: Object.fromEntries(
+      mapLayouts.map((layout) => [layout.name, mapLayoutRegistryId(layout.id)])
+    ),
+    skill: {
+      name: 'aura-map-layout',
+      markdown: mapLayoutSkill,
+      installPath: '.claude/skills/aura-map-layout/SKILL.md',
+    },
   },
   {
     name: 'Time Series Chart',
