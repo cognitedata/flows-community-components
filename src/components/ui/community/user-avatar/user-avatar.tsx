@@ -28,20 +28,15 @@ export type UserProfileLookup = (
   userIdentifier: string
 ) => Promise<UserProfile | null>;
 
-function getMissingIds(error: unknown): Set<string> {
-  const missing =
-    typeof error === 'object' && error !== null && 'missing' in error
-      ? error.missing
-      : undefined;
-  const ids = new Set<string>();
-  if (Array.isArray(missing)) {
-    for (const item of missing) {
-      if (typeof item?.userIdentifier === 'string') {
-        ids.add(item.userIdentifier);
-      }
-    }
+function isReportedMissing(error: unknown, userIdentifier: string): boolean {
+  if (typeof error !== 'object' || error === null || !('missing' in error)) {
+    return false;
   }
-  return ids;
+  const { missing } = error;
+  return (
+    Array.isArray(missing) &&
+    missing.some((item) => item?.userIdentifier === userIdentifier)
+  );
 }
 
 export function createUserProfileLookup(sdk: CogniteClient): UserProfileLookup {
@@ -50,7 +45,7 @@ export function createUserProfileLookup(sdk: CogniteClient): UserProfileLookup {
       const profiles = await sdk.profiles.retrieve([{ userIdentifier }]);
       return profiles.find((p) => p.userIdentifier === userIdentifier) ?? null;
     } catch (error) {
-      if (getMissingIds(error).has(userIdentifier)) {
+      if (isReportedMissing(error, userIdentifier)) {
         return null;
       }
       throw error;
@@ -87,7 +82,7 @@ type UserAvatarProps = {
   className?: string;
 };
 
-function ResolvedUserAvatar({
+function UserAvatarView({
   userIdentifier,
   lookup,
   servicePrincipalLabel = 'Service principal',
@@ -119,12 +114,12 @@ function SdkUserAvatar(props: UserAvatarProps) {
     () => (sdk ? createUserProfileLookup(sdk) : undefined),
     [sdk]
   );
-  return <ResolvedUserAvatar {...props} lookup={lookup} />;
+  return <UserAvatarView {...props} lookup={lookup} />;
 }
 
 export function UserAvatar(props: UserAvatarProps) {
   return props.lookup ? (
-    <ResolvedUserAvatar {...props} />
+    <UserAvatarView {...props} />
   ) : (
     <SdkUserAvatar {...props} />
   );

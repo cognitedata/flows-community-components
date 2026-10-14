@@ -4,6 +4,8 @@ import { expect, within } from 'storybook/test';
 
 import { UserAvatar } from './user-avatar';
 
+const queryClient = new QueryClient();
+
 const meta: Meta<typeof UserAvatar> = {
   title: 'Community/User Avatar',
   component: UserAvatar,
@@ -11,7 +13,7 @@ const meta: Meta<typeof UserAvatar> = {
   parameters: { layout: 'centered' },
   decorators: [
     (Story) => (
-      <QueryClientProvider client={new QueryClient()}>
+      <QueryClientProvider client={queryClient}>
         <Story />
       </QueryClientProvider>
     ),
