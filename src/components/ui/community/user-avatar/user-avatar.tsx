@@ -82,13 +82,18 @@ type UserAvatarProps = {
   className?: string;
 };
 
-function UserAvatarView({
+export function UserAvatar({
   userIdentifier,
   lookup,
   servicePrincipalLabel = 'Service principal',
   className,
 }: UserAvatarProps) {
-  const { data: profile } = useUserProfile(userIdentifier, lookup);
+  const sdk = useContext(SdkContext);
+  const sdkLookup = useMemo(
+    () => (sdk ? createUserProfileLookup(sdk) : undefined),
+    [sdk]
+  );
+  const { data: profile } = useUserProfile(userIdentifier, lookup ?? sdkLookup);
   const label =
     profile?.identityType === SERVICE_PRINCIPAL
       ? servicePrincipalLabel
@@ -105,22 +110,5 @@ function UserAvatarView({
       </Avatar>
       <span>{label}</span>
     </span>
-  );
-}
-
-function SdkUserAvatar(props: UserAvatarProps) {
-  const sdk = useContext(SdkContext);
-  const lookup = useMemo(
-    () => (sdk ? createUserProfileLookup(sdk) : undefined),
-    [sdk]
-  );
-  return <UserAvatarView {...props} lookup={lookup} />;
-}
-
-export function UserAvatar(props: UserAvatarProps) {
-  return props.lookup ? (
-    <UserAvatarView {...props} />
-  ) : (
-    <SdkUserAvatar {...props} />
   );
 }
