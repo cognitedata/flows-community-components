@@ -35,6 +35,19 @@ export const NamedUser: Story = {
   },
 };
 
+export const LargerSize: Story = {
+  args: {
+    userIdentifier: 'user-123',
+    size: 'default',
+    lookup: async () => ({ displayName: 'Ada Lovelace' }),
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(await canvas.findByText('Ada Lovelace')).toBeInTheDocument();
+    await expect(canvas.getByText('AL')).toBeInTheDocument();
+  },
+};
+
 export const ServicePrincipal: Story = {
   args: {
     userIdentifier: 'sp-123',

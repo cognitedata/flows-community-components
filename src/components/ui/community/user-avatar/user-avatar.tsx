@@ -2,7 +2,13 @@ import { Avatar, AvatarFallback } from '@cognite/aura/components';
 import { cn } from '@cognite/aura/utils';
 import type { CogniteClient } from '@cognite/sdk';
 import { useQuery } from '@tanstack/react-query';
-import { createContext, useContext, useMemo, type ReactNode } from 'react';
+import {
+  createContext,
+  useContext,
+  useMemo,
+  type ComponentProps,
+  type ReactNode,
+} from 'react';
 
 const SERVICE_PRINCIPAL = 'SERVICE_PRINCIPAL';
 const PROFILE_STALE_TIME_MS = 5 * 60 * 1000;
@@ -77,6 +83,7 @@ function getInitials(name: string): string {
 
 type UserAvatarProps = {
   userIdentifier: string;
+  size?: ComponentProps<typeof Avatar>['sizes'];
   lookup?: UserProfileLookup;
   servicePrincipalLabel?: string;
   className?: string;
@@ -84,6 +91,7 @@ type UserAvatarProps = {
 
 export function UserAvatar({
   userIdentifier,
+  size = 'xsm',
   lookup,
   servicePrincipalLabel = 'Service principal',
   className,
@@ -105,7 +113,7 @@ export function UserAvatar({
 
   return (
     <span className={cn('inline-flex items-center gap-2', className)}>
-      <Avatar sizes="xsm">
+      <Avatar sizes={size}>
         <AvatarFallback>{getInitials(label)}</AvatarFallback>
       </Avatar>
       <span>{label}</span>
