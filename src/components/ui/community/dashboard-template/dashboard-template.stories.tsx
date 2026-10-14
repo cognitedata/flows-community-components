@@ -1,7 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, userEvent, within } from 'storybook/test';
 
-import { DashboardLayout } from './dashboard-layout';
+import { DashboardGridHeader } from './dashboard-grid-header';
+import { DashboardGridTabs } from './dashboard-grid-tabs';
+import { DashboardHeader } from './dashboard-header';
 import {
   dashboardLayouts,
   dashboardPageTitle,
@@ -9,6 +11,11 @@ import {
   dashboardTabs,
   dashboardWorkOrders,
 } from './dashboard-layouts.data';
+import { DashboardPanelHeader } from './dashboard-panel-header';
+import { DashboardPanelTabs } from './dashboard-panel-tabs';
+import { DashboardPreviewHeader } from './dashboard-preview-header';
+import { DashboardPreviewTabs } from './dashboard-preview-tabs';
+import { DashboardTabs } from './dashboard-tabs';
 import { DashboardTemplate } from './dashboard-template';
 
 const meta: Meta<typeof DashboardTemplate> = {
@@ -61,8 +68,9 @@ const [
 const firstOrder = dashboardWorkOrders[0];
 
 export const DashboardWithHeader: Story = {
+  name: header.name,
   parameters: { order: 1, name: header.name },
-  render: () => <DashboardLayout layout={header.id} />,
+  render: () => <DashboardHeader />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     expect(
@@ -76,8 +84,9 @@ export const DashboardWithHeader: Story = {
 };
 
 export const DashboardWithTabs: Story = {
+  name: tabs.name,
   parameters: { order: 2, name: tabs.name },
-  render: () => <DashboardLayout layout={tabs.id} />,
+  render: () => <DashboardTabs />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     expect(canvas.getByRole('tab', { name: dashboardTabs[1] })).toBeVisible();
@@ -88,8 +97,9 @@ export const DashboardWithTabs: Story = {
 };
 
 export const DashboardWithPanelHeader: Story = {
+  name: panelHeader.name,
   parameters: { order: 3, name: panelHeader.name },
-  render: () => <DashboardLayout layout={panelHeader.id} />,
+  render: () => <DashboardPanelHeader />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const panel = within(
@@ -101,8 +111,9 @@ export const DashboardWithPanelHeader: Story = {
 };
 
 export const DashboardWithPanelTabs: Story = {
+  name: panelTabs.name,
   parameters: { order: 4, name: panelTabs.name },
-  render: () => <DashboardLayout layout={panelTabs.id} />,
+  render: () => <DashboardPanelTabs />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     expect(canvas.getByRole('tab', { name: dashboardTabs[0] })).toBeVisible();
@@ -113,8 +124,9 @@ export const DashboardWithPanelTabs: Story = {
 };
 
 export const DashboardWithGridHeader: Story = {
+  name: gridHeader.name,
   parameters: { order: 5, name: gridHeader.name },
-  render: () => <DashboardLayout layout={gridHeader.id} />,
+  render: () => <DashboardGridHeader />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     expect(canvas.getByRole('table', { name: 'Work orders' })).toBeVisible();
@@ -125,8 +137,9 @@ export const DashboardWithGridHeader: Story = {
 };
 
 export const DashboardWithGridTabs: Story = {
+  name: gridTabs.name,
   parameters: { order: 6, name: gridTabs.name },
-  render: () => <DashboardLayout layout={gridTabs.id} />,
+  render: () => <DashboardGridTabs />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     expect(canvas.getByRole('tab', { name: dashboardTabs[2] })).toBeVisible();
@@ -135,8 +148,9 @@ export const DashboardWithGridTabs: Story = {
 };
 
 export const DashboardWithPreviewHeader: Story = {
+  name: previewHeader.name,
   parameters: { order: 7, name: previewHeader.name },
-  render: () => <DashboardLayout layout={previewHeader.id} />,
+  render: () => <DashboardPreviewHeader />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     expect(canvas.queryByRole('complementary', { name: 'Preview' })).toBeNull();
@@ -154,8 +168,9 @@ export const DashboardWithPreviewHeader: Story = {
 };
 
 export const DashboardWithPreviewTabs: Story = {
+  name: previewTabs.name,
   parameters: { order: 8, name: previewTabs.name },
-  render: () => <DashboardLayout layout={previewTabs.id} />,
+  render: () => <DashboardPreviewTabs />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     expect(canvas.queryByRole('checkbox', { name: /Select / })).toBeNull();
