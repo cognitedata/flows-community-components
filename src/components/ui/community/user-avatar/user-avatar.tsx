@@ -46,25 +46,15 @@ function getMissingIds(error: unknown): Set<string> {
 
 export function createUserProfileLookup(sdk: CogniteClient): UserProfileLookup {
   return async (userIdentifier) => {
-    let pending = [userIdentifier];
-    while (pending.length > 0) {
-      try {
-        const profiles = await sdk.profiles.retrieve(
-          pending.map((id) => ({ userIdentifier: id }))
-        );
-        return (
-          profiles.find((p) => p.userIdentifier === userIdentifier) ?? null
-        );
-      } catch (error) {
-        const missingIds = getMissingIds(error);
-        const remaining = pending.filter((id) => !missingIds.has(id));
-        if (remaining.length === pending.length) {
-          throw error;
-        }
-        pending = remaining;
+    try {
+      const profiles = await sdk.profiles.retrieve([{ userIdentifier }]);
+      return profiles.find((p) => p.userIdentifier === userIdentifier) ?? null;
+    } catch (error) {
+      if (getMissingIds(error).has(userIdentifier)) {
+        return null;
       }
+      throw error;
     }
-    return null;
   };
 }
 
@@ -86,7 +76,7 @@ function getInitials(name: string): string {
     .trim()
     .split(/\s+/)
     .slice(0, 2)
-    .map((word) => word.charAt(0).toUpperCase())
+    .map((word) => Array.from(word)[0]?.toUpperCase() ?? '')
     .join('');
 }
 
