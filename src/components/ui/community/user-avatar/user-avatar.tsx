@@ -59,12 +59,16 @@ export function createUserProfileLookup(sdk: CogniteClient): UserProfileLookup {
   };
 }
 
+export function userProfileQueryKey(userIdentifier: string) {
+  return ['user-avatar', 'profile', userIdentifier] as const;
+}
+
 export function useUserProfile(
   userIdentifier: string,
   lookup: UserProfileLookup | undefined
 ) {
   return useQuery({
-    queryKey: ['user-avatar', 'profile', userIdentifier],
+    queryKey: userProfileQueryKey(userIdentifier),
     queryFn: () => lookup?.(userIdentifier) ?? null,
     enabled: lookup !== undefined && userIdentifier.length > 0,
     retry: false,

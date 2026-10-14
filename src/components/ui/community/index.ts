@@ -123,5 +123,6 @@ export {
   UserAvatarSdkProvider,
   createUserProfileLookup,
   useUserProfile,
+  userProfileQueryKey,
 } from './user-avatar';
 export type { UserProfile, UserProfileLookup } from './user-avatar';
