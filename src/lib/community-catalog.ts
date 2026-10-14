@@ -5,6 +5,7 @@ import { ContextMenuMetadata } from '../components/ui/community/context-menu/con
 import { DashboardTemplateMetadata } from '../components/ui/community/dashboard-template/dashboard-template.metadata';
 import { DrawerMetadata } from '../components/ui/community/drawer/drawer.metadata';
 import { MapMetadata } from '../components/ui/community/map/map.metadata';
+import { MapLayoutTemplateMetadata } from '../components/ui/community/map-layout-template/map-layout-template.metadata';
 import { MenubarMetadata } from '../components/ui/community/menubar/menubar.metadata';
 import { RecordListTemplateMetadata } from '../components/ui/community/record-list-template/record-list-template.metadata';
 import { SheetMetadata } from '../components/ui/community/sheet/sheet.metadata';
@@ -30,6 +31,7 @@ const communityMetaById: Record<string, ComponentMeta> = {
   confirmation: ConfirmationMetadata,
   'context-menu': ContextMenuMetadata,
   'dashboard-template': DashboardTemplateMetadata,
+  'map-layout-template': MapLayoutTemplateMetadata,
   'record-list-template': RecordListTemplateMetadata,
   drawer: DrawerMetadata,
   map: MapMetadata,

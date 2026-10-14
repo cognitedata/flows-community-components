@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "map-layout-left-right-panels",
+  "title": "Left panel + map + right panel",
+  "description": "Left panel + map + right panel map layout.",
+  "registryDependencies": [
+    "@aura/map-layout-template"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/community/map-layout-template/map-layout-left-right-panels.tsx",
+      "content": "import type { ReactNode } from 'react';\n\nimport { MapLayoutTemplate } from './map-layout-template';\n\nfunction MapLeftRightPanels(): ReactNode {\n  return <MapLayoutTemplate layout=\"left-right-panels\" />;\n}\n\nMapLeftRightPanels.displayName = 'MapLeftRightPanels';\n\nexport { MapLeftRightPanels };\n",
+      "type": "registry:component",
+      "target": "src/components/ui/community/map-layout-left-right-panels.tsx"
+    }
+  ],
+  "type": "registry:block"
+}
