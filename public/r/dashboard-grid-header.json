@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "dashboard-grid-header",
+  "title": "Dashboard + data grid + header",
+  "description": "Dashboard + data grid + header dashboard layout.",
+  "registryDependencies": [
+    "@aura/dashboard-template"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/community/dashboard-template/dashboard-grid-header.tsx",
+      "content": "import { DashboardLayout } from './dashboard-layout';\n\nfunction DashboardGridHeader() {\n  return <DashboardLayout layout=\"grid-header\" />;\n}\n\nDashboardGridHeader.displayName = 'DashboardGridHeader';\n\nexport { DashboardGridHeader };\n",
+      "type": "registry:component",
+      "target": "src/components/ui/community/dashboard-grid-header.tsx"
+    }
+  ],
+  "type": "registry:block"
+}

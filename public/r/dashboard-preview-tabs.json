@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "dashboard-preview-tabs",
+  "title": "Dashboard + data grid + right panel + tabs",
+  "description": "Dashboard + data grid + right panel + tabs dashboard layout.",
+  "registryDependencies": [
+    "@aura/dashboard-template"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/community/dashboard-template/dashboard-preview-tabs.tsx",
+      "content": "import { DashboardLayout } from './dashboard-layout';\n\nfunction DashboardPreviewTabs() {\n  return <DashboardLayout layout=\"preview-tabs\" />;\n}\n\nDashboardPreviewTabs.displayName = 'DashboardPreviewTabs';\n\nexport { DashboardPreviewTabs };\n",
+      "type": "registry:component",
+      "target": "src/components/ui/community/dashboard-preview-tabs.tsx"
+    }
+  ],
+  "type": "registry:block"
+}

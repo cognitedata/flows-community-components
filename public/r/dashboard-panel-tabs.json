@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "dashboard-panel-tabs",
+  "title": "Left panel + dashboard + tabs",
+  "description": "Left panel + dashboard + tabs dashboard layout.",
+  "registryDependencies": [
+    "@aura/dashboard-template"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/community/dashboard-template/dashboard-panel-tabs.tsx",
+      "content": "import { DashboardLayout } from './dashboard-layout';\n\nfunction DashboardPanelTabs() {\n  return <DashboardLayout layout=\"panel-tabs\" />;\n}\n\nDashboardPanelTabs.displayName = 'DashboardPanelTabs';\n\nexport { DashboardPanelTabs };\n",
+      "type": "registry:component",
+      "target": "src/components/ui/community/dashboard-panel-tabs.tsx"
+    }
+  ],
+  "type": "registry:block"
+}
