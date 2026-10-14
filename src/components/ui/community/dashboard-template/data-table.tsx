@@ -11,6 +11,7 @@ import {
   DropdownMenuTrigger,
   EmptyState,
   EmptyStateDescription,
+  EmptyStateIcon,
   EmptyStateTitle,
   Input,
   Label,
@@ -31,6 +32,7 @@ import {
   TabsTrigger,
   toast,
 } from '@cognite/aura/components';
+import { cn } from '@cognite/aura/utils';
 import {
   IconCircleCheck,
   IconDotsVertical,
@@ -40,6 +42,29 @@ import {
 import { type FormEvent, type ReactNode, useMemo, useState } from 'react';
 
 import { type DocumentRow } from './dashboard-template.data';
+
+const sectionTypeBadge = {
+  'Cover page': 'decorative-1',
+  'Table of contents': 'decorative-2',
+  Narrative: 'decorative-3',
+  'Technical content': 'decorative-4',
+  'Plain language': 'decorative-5',
+} as const;
+
+function sectionBadgeVariant(
+  type: string
+): (typeof sectionTypeBadge)[keyof typeof sectionTypeBadge] {
+  switch (type) {
+    case 'Cover page':
+    case 'Table of contents':
+    case 'Narrative':
+    case 'Technical content':
+    case 'Plain language':
+      return sectionTypeBadge[type];
+    default:
+      return 'decorative-1';
+  }
+}
 
 const PAGE_SIZE = 10;
 const REVIEWERS = ['Eddie Lake', 'Jamik Tashpulatov', 'Emily Whalen'];
@@ -132,7 +157,13 @@ function DocumentTable({ data }: { data: DocumentRow[] }): ReactNode {
             {pageRows.map((row) => {
               const isAssigned = row.reviewer !== 'Assign reviewer';
               return (
-                <tr key={row.id} className="border-b last:border-b-0">
+                <tr
+                  key={row.id}
+                  className={cn(
+                    'border-b last:border-b-0',
+                    selectedIds.has(row.id) && 'bg-accent-background'
+                  )}
+                >
                   <td className="px-3 py-2">
                     <CheckboxItem>
                       <CheckboxItemControl
@@ -148,14 +179,13 @@ function DocumentTable({ data }: { data: DocumentRow[] }): ReactNode {
                   </td>
                   <td className="px-3 py-2 font-medium">{row.header}</td>
                   <td className="px-3 py-2">
-                    <Badge variant="gray" outline>
+                    <Badge variant={sectionBadgeVariant(row.type)}>
                       {row.type}
                     </Badge>
                   </td>
                   <td className="px-3 py-2">
                     <Badge
                       variant={row.status === 'Done' ? 'success' : 'inProgress'}
-                      outline
                     >
                       {row.status === 'Done' ? (
                         <IconCircleCheck size={14} stroke={1.5} />
@@ -294,6 +324,24 @@ function DocumentTable({ data }: { data: DocumentRow[] }): ReactNode {
   );
 }
 
+function GridEmptyState({
+  title,
+  description,
+}: {
+  title: string;
+  description: string;
+}): ReactNode {
+  return (
+    <div className="flex min-h-64 items-center justify-center rounded-xl border px-6 py-16">
+      <EmptyState type="no-results">
+        <EmptyStateIcon />
+        <EmptyStateTitle>{title}</EmptyStateTitle>
+        <EmptyStateDescription>{description}</EmptyStateDescription>
+      </EmptyState>
+    </div>
+  );
+}
+
 export function DataTable({ data }: { data: DocumentRow[] }): ReactNode {
   return (
     <Tabs defaultValue="outline" className="flex w-full flex-col gap-4">
@@ -308,7 +356,7 @@ export function DataTable({ data }: { data: DocumentRow[] }): ReactNode {
           </TabsTrigger>
           <TabsTrigger value="focus-documents">Focus Documents</TabsTrigger>
         </TabsList>
-        <Button size="sm">
+        <Button>
           <IconPlus size={16} stroke={1.5} />
           Add Section
         </Button>
@@ -317,30 +365,22 @@ export function DataTable({ data }: { data: DocumentRow[] }): ReactNode {
         <DocumentTable data={data} />
       </TabsPanel>
       <TabsPanel value="past-performance">
-        <EmptyState type="no-results">
-          <EmptyStateTitle>Past performance</EmptyStateTitle>
-          <EmptyStateDescription>
-            This tab is a placeholder. Use it for historical metrics once data
-            is connected.
-          </EmptyStateDescription>
-        </EmptyState>
+        <GridEmptyState
+          title="No past performance yet"
+          description="Completed sections will show delivery history, scores, and reviewer notes here."
+        />
       </TabsPanel>
       <TabsPanel value="key-personnel">
-        <EmptyState type="no-results">
-          <EmptyStateTitle>Key personnel</EmptyStateTitle>
-          <EmptyStateDescription>
-            This tab is a placeholder. Use it for people assigned to the
-            document.
-          </EmptyStateDescription>
-        </EmptyState>
+        <GridEmptyState
+          title="No key personnel yet"
+          description="People assigned to this document will show here with their role and section."
+        />
       </TabsPanel>
       <TabsPanel value="focus-documents">
-        <EmptyState type="no-results">
-          <EmptyStateTitle>Focus documents</EmptyStateTitle>
-          <EmptyStateDescription>
-            This tab is a placeholder. Use it for documents that need attention.
-          </EmptyStateDescription>
-        </EmptyState>
+        <GridEmptyState
+          title="No focus documents yet"
+          description="Documents that need review will show here once they are flagged."
+        />
       </TabsPanel>
     </Tabs>
   );

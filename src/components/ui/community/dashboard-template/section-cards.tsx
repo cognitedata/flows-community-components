@@ -1,13 +1,15 @@
 import {
-  Badge,
   Card,
   CardDescription,
   CardFooter,
   CardFooterStart,
   CardHeader,
+  CardHeaderCenter,
   CardHeaderEnd,
-  CardHeaderStart,
   CardTitle,
+  Count,
+  CountUnit,
+  CountValue,
 } from '@cognite/aura/components';
 import { IconTrendingDown, IconTrendingUp } from '@tabler/icons-react';
 import type { ReactNode } from 'react';
@@ -15,14 +17,14 @@ import type { ReactNode } from 'react';
 function MetricCard({
   label,
   value,
-  delta,
+  unit,
   trend,
   detail,
   hint,
 }: {
   label: string;
   value: string;
-  delta: string;
+  unit?: string;
   trend: 'up' | 'down';
   detail: string;
   hint: string;
@@ -32,26 +34,25 @@ function MetricCard({
   return (
     <Card className="min-w-0">
       <CardHeader>
-        <CardHeaderStart className="min-w-0">
-          <CardDescription>{label}</CardDescription>
-          <CardTitle className="text-2xl tabular-nums tracking-tight">
-            {value}
-          </CardTitle>
-        </CardHeaderStart>
+        <CardHeaderCenter>
+          <CardTitle>{label}</CardTitle>
+        </CardHeaderCenter>
         <CardHeaderEnd>
-          <Badge variant={trend === 'up' ? 'success' : 'error'} outline>
-            <TrendIcon size={14} stroke={1.5} />
-            {delta}
-          </Badge>
+          <Count variant={trend === 'up' ? 'success' : 'critical'}>
+            <CountValue>{value}</CountValue>
+            {unit ? <CountUnit>{unit}</CountUnit> : null}
+          </Count>
         </CardHeaderEnd>
       </CardHeader>
       <CardFooter>
         <CardFooterStart className="min-w-0">
-          <p className="flex items-center gap-1 text-sm font-medium">
-            {detail}
-            <TrendIcon size={16} stroke={1.5} />
-          </p>
-          <CardDescription>{hint}</CardDescription>
+          <div className="flex min-w-0 flex-col gap-1">
+            <p className="flex items-center gap-1 text-sm font-medium">
+              {detail}
+              <TrendIcon size={16} stroke={1.5} />
+            </p>
+            <CardDescription>{hint}</CardDescription>
+          </div>
         </CardFooterStart>
       </CardFooter>
     </Card>
@@ -66,8 +67,8 @@ export function SectionCards(): ReactNode {
     >
       <MetricCard
         label="Total Revenue"
-        value="$1,250.00"
-        delta="+12.5%"
+        value="1,250"
+        unit="$"
         trend="up"
         detail="Trending up this month"
         hint="Visitors for the last 6 months"
@@ -75,7 +76,6 @@ export function SectionCards(): ReactNode {
       <MetricCard
         label="New Customers"
         value="1,234"
-        delta="-20%"
         trend="down"
         detail="Down 20% this period"
         hint="Acquisition needs attention"
@@ -83,15 +83,14 @@ export function SectionCards(): ReactNode {
       <MetricCard
         label="Active Accounts"
         value="45,678"
-        delta="+12.5%"
         trend="up"
         detail="Strong user retention"
         hint="Engagement exceed targets"
       />
       <MetricCard
         label="Growth Rate"
-        value="4.5%"
-        delta="+4.5%"
+        value="4.5"
+        unit="%"
         trend="up"
         detail="Steady performance increase"
         hint="Meets growth projections"

@@ -13,6 +13,10 @@ import * as path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import {
+  dashboardLayouts,
+  dashboardRegistryId,
+} from '../src/components/ui/community/dashboard-template/dashboard-layouts.data';
+import {
   mapLayouts,
   mapLayoutRegistryId,
 } from '../src/components/ui/community/map-layout-template/map-layout-template.data';
@@ -262,6 +266,40 @@ function extractRegistryDependenciesFromFile(filePath: string): string[] {
   }
 }
 
+function isDashboardLayoutEntry(
+  componentName: string,
+  fileName: string
+): boolean {
+  return (
+    componentName === 'dashboard-template' &&
+    dashboardLayouts.some(
+      (layout) => fileName === `${dashboardRegistryId(layout.id)}.tsx`
+    )
+  );
+}
+
+function dashboardLayoutItems(): RegistryItem[] {
+  return dashboardLayouts.map((layout) => {
+    const name = dashboardRegistryId(layout.id);
+    return {
+      name,
+      type: 'registry:block',
+      title: layout.name,
+      description: `${layout.name} dashboard layout.`,
+      registryDependencies: [
+        `${registryDependencyNamespace}/dashboard-template`,
+      ],
+      files: [
+        {
+          path: `src/components/ui/community/dashboard-template/${name}.tsx`,
+          target: `src/components/ui/community/${name}.tsx`,
+          type: 'registry:component',
+        },
+      ],
+    };
+  });
+}
+
 function isMapLayoutEntry(componentName: string, fileName: string): boolean {
   return (
     componentName === 'map-layout-template' &&
@@ -352,7 +390,8 @@ function autoDetectComponentFiles(componentName: string): RegistryFile[] {
         !name.includes('.spec.') &&
         !name.includes('.test.') &&
         !isRecordListLayoutEntry(componentName, name) &&
-        !isMapLayoutEntry(componentName, name)
+        !isMapLayoutEntry(componentName, name) &&
+        !isDashboardLayoutEntry(componentName, name)
     );
 
   for (const extra of extraFiles) {
@@ -447,10 +486,14 @@ function buildRegistry(components: string[]): Registry {
       }
     }
 
-    const registryDeps = extractRegistryDependenciesFromFile(componentPath).map(
-      (dep) =>
-        dep.includes('/') ? dep : `${registryDependencyNamespace}/${dep}`
-    );
+    const registryDeps = new Set<string>();
+    for (const file of files.filter((entry) => /\.tsx?$/.test(entry.path))) {
+      for (const dep of extractRegistryDependenciesFromFile(file.path)) {
+        registryDeps.add(
+          dep.includes('/') ? dep : `${registryDependencyNamespace}/${dep}`
+        );
+      }
+    }
 
     return {
       name: componentName,
@@ -462,7 +505,8 @@ function buildRegistry(components: string[]): Registry {
       description: jsdocMetadata.description || '',
       dependencies:
         dependencies.size > 0 ? Array.from(dependencies).sort() : undefined,
-      registryDependencies: registryDeps.length > 0 ? registryDeps : undefined,
+      registryDependencies:
+        registryDeps.size > 0 ? Array.from(registryDeps).sort() : undefined,
       files,
     };
   });
@@ -481,6 +525,7 @@ function buildRegistry(components: string[]): Registry {
       ...itemsWithoutMiscNameClashes,
       ...mapLayoutItems(),
       ...recordListLayoutItems(),
+      ...dashboardLayoutItems(),
     ],
   };
 }

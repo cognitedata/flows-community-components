@@ -98,7 +98,7 @@
       "name": "dashboard-template",
       "type": "registry:block",
       "title": "Dashboard",
-      "description": "A dashboard with metric cards, charts and a data table.",
+      "description": "Dashboard layouts for a read-only overview, an optional side panel, and an optional data grid with preview.",
       "dependencies": [
         "@cognite/aura",
         "@tabler/icons-react",
@@ -114,6 +114,41 @@
           "path": "src/components/ui/community/dashboard-template/chart-area-interactive.tsx",
           "target": "src/components/ui/community/chart-area-interactive.tsx",
           "type": "registry:component"
+        },
+        {
+          "path": "src/components/ui/community/dashboard-template/dashboard-layout-cards.tsx",
+          "target": "src/components/ui/community/dashboard-layout-cards.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/ui/community/dashboard-template/dashboard-layout-grid.tsx",
+          "target": "src/components/ui/community/dashboard-layout-grid.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/ui/community/dashboard-template/dashboard-layout-overview.tsx",
+          "target": "src/components/ui/community/dashboard-layout-overview.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/ui/community/dashboard-template/dashboard-layout-panel.tsx",
+          "target": "src/components/ui/community/dashboard-layout-panel.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/ui/community/dashboard-template/dashboard-layout-preview.tsx",
+          "target": "src/components/ui/community/dashboard-layout-preview.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/ui/community/dashboard-template/dashboard-layout.tsx",
+          "target": "src/components/ui/community/dashboard-layout.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/ui/community/dashboard-template/dashboard-layouts.data.ts",
+          "target": "src/components/ui/community/dashboard-layouts.data.ts",
+          "type": "registry:lib"
         },
         {
           "path": "src/components/ui/community/dashboard-template/dashboard-template.data.ts",
@@ -134,6 +169,16 @@
           "path": "src/components/ui/community/dashboard-template/site-header.tsx",
           "target": "src/components/ui/community/site-header.tsx",
           "type": "registry:component"
+        },
+        {
+          "path": "src/components/ui/community/dashboard-template/SKILL.md",
+          "target": "~/.claude/skills/aura-dashboard/SKILL.md",
+          "type": "registry:file"
+        },
+        {
+          "path": "src/components/ui/community/dashboard-template/dashboard-template.md",
+          "target": "src/components/ui/community/dashboard-template/dashboard-template.md",
+          "type": "registry:file"
         }
       ]
     },
@@ -181,6 +226,9 @@
       "dependencies": [
         "@cognite/aura",
         "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "@aura/map"
       ],
       "files": [
         {
@@ -559,6 +607,134 @@
         {
           "path": "src/components/ui/community/record-list-template/record-list-right-panel-tabs.tsx",
           "target": "src/components/ui/community/record-list-right-panel-tabs.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "dashboard-header",
+      "type": "registry:block",
+      "title": "Dashboard + header",
+      "description": "Dashboard + header dashboard layout.",
+      "registryDependencies": [
+        "@aura/dashboard-template"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/community/dashboard-template/dashboard-header.tsx",
+          "target": "src/components/ui/community/dashboard-header.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "dashboard-tabs",
+      "type": "registry:block",
+      "title": "Dashboard + tabs",
+      "description": "Dashboard + tabs dashboard layout.",
+      "registryDependencies": [
+        "@aura/dashboard-template"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/community/dashboard-template/dashboard-tabs.tsx",
+          "target": "src/components/ui/community/dashboard-tabs.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "dashboard-panel-header",
+      "type": "registry:block",
+      "title": "Left panel + dashboard + header",
+      "description": "Left panel + dashboard + header dashboard layout.",
+      "registryDependencies": [
+        "@aura/dashboard-template"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/community/dashboard-template/dashboard-panel-header.tsx",
+          "target": "src/components/ui/community/dashboard-panel-header.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "dashboard-panel-tabs",
+      "type": "registry:block",
+      "title": "Left panel + dashboard + tabs",
+      "description": "Left panel + dashboard + tabs dashboard layout.",
+      "registryDependencies": [
+        "@aura/dashboard-template"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/community/dashboard-template/dashboard-panel-tabs.tsx",
+          "target": "src/components/ui/community/dashboard-panel-tabs.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "dashboard-grid-header",
+      "type": "registry:block",
+      "title": "Dashboard + data grid + header",
+      "description": "Dashboard + data grid + header dashboard layout.",
+      "registryDependencies": [
+        "@aura/dashboard-template"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/community/dashboard-template/dashboard-grid-header.tsx",
+          "target": "src/components/ui/community/dashboard-grid-header.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "dashboard-grid-tabs",
+      "type": "registry:block",
+      "title": "Dashboard + data grid + tabs",
+      "description": "Dashboard + data grid + tabs dashboard layout.",
+      "registryDependencies": [
+        "@aura/dashboard-template"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/community/dashboard-template/dashboard-grid-tabs.tsx",
+          "target": "src/components/ui/community/dashboard-grid-tabs.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "dashboard-preview-header",
+      "type": "registry:block",
+      "title": "Dashboard + data grid + right panel + header",
+      "description": "Dashboard + data grid + right panel + header dashboard layout.",
+      "registryDependencies": [
+        "@aura/dashboard-template"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/community/dashboard-template/dashboard-preview-header.tsx",
+          "target": "src/components/ui/community/dashboard-preview-header.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "dashboard-preview-tabs",
+      "type": "registry:block",
+      "title": "Dashboard + data grid + right panel + tabs",
+      "description": "Dashboard + data grid + right panel + tabs dashboard layout.",
+      "registryDependencies": [
+        "@aura/dashboard-template"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/community/dashboard-template/dashboard-preview-tabs.tsx",
+          "target": "src/components/ui/community/dashboard-preview-tabs.tsx",
           "type": "registry:component"
         }
       ]

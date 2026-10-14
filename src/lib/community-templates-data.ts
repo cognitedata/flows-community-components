@@ -7,6 +7,13 @@ import {
 } from '@tabler/icons-react';
 
 import {
+  dashboardLayoutNames,
+  dashboardLayouts,
+  dashboardRegistryId,
+} from '@/components/ui/community/dashboard-template/dashboard-layouts.data';
+import dashboardDocs from '@/components/ui/community/dashboard-template/dashboard-template.md?raw';
+import dashboardSkill from '@/components/ui/community/dashboard-template/SKILL.md?raw';
+import {
   mapLayoutNames,
   mapLayouts,
   mapLayoutRegistryId,
@@ -69,6 +76,8 @@ const mapLayoutGuide = splitLayoutDocs(mapLayoutDocs, mapLayoutNames);
 
 const recordListGuide = splitLayoutDocs(recordListDocs, recordListLayoutNames);
 
+const dashboardGuide = splitLayoutDocs(dashboardDocs, dashboardLayoutNames);
+
 export interface CommunityTemplateSkill {
   /** Skill name from the SKILL.md front matter. */
   name: string;
@@ -108,12 +117,22 @@ export const COMMUNITY_TEMPLATES: CommunityTemplateEntry[] = [
   {
     name: 'Dashboard',
     description:
-      'A data-dense overview screen with metric cards, charts, and a table.',
+      'Eight dashboard layouts: header or tabs, an optional side panel, and an optional data grid with preview.',
     icon: IconLayoutDashboard,
     registryId: 'dashboard-template',
-    usage: `This is a complete overview screen, not a single primitive. After you add it from the registry, import \`DashboardTemplate\` and render it on a route.
-
-The header, metric cards, visitors chart, and documents table each live in their own file. Drop the template into your app shell — it does not include a sidebar — then replace the sample metrics, chart series, and table rows with your product data.`,
+    usage: dashboardGuide.usage,
+    variantDescriptions: dashboardGuide.sections,
+    variantInstalls: Object.fromEntries(
+      dashboardLayouts.map((layout) => [
+        layout.name,
+        dashboardRegistryId(layout.id),
+      ])
+    ),
+    skill: {
+      name: 'aura-dashboard',
+      markdown: dashboardSkill,
+      installPath: '.claude/skills/aura-dashboard/SKILL.md',
+    },
   },
   {
     name: 'Map layout',
