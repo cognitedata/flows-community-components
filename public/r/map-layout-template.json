@@ -7,6 +7,9 @@
     "@cognite/aura",
     "@tabler/icons-react"
   ],
+  "registryDependencies": [
+    "@aura/map"
+  ],
   "files": [
     {
       "path": "src/components/ui/community/map-layout-template/map-layout-template.tsx",

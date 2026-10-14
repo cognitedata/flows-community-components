@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "dashboard-preview-header",
+  "title": "Dashboard + data grid + right panel + header",
+  "description": "Dashboard + data grid + right panel + header dashboard layout.",
+  "registryDependencies": [
+    "@aura/dashboard-template"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/community/dashboard-template/dashboard-preview-header.tsx",
+      "content": "import { DashboardLayout } from './dashboard-layout';\n\nfunction DashboardPreviewHeader() {\n  return <DashboardLayout layout=\"preview-header\" />;\n}\n\nDashboardPreviewHeader.displayName = 'DashboardPreviewHeader';\n\nexport { DashboardPreviewHeader };\n",
+      "type": "registry:component",
+      "target": "src/components/ui/community/dashboard-preview-header.tsx"
+    }
+  ],
+  "type": "registry:block"
+}

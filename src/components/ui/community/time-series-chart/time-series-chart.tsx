@@ -69,3 +69,4 @@ export type {
   TimeSeriesPoint,
   TimeSeriesThreshold as TimeSeriesThresholdConfig,
 } from './time-series-chart.data';
+export { sampleSeries } from './time-series-chart.data';

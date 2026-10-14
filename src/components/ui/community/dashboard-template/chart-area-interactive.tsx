@@ -9,17 +9,10 @@ import {
   CardContent,
   CardDescription,
   CardHeader,
-  CardHeaderEnd,
-  CardHeaderStart,
   CardTitle,
   SegmentedControl,
   SegmentedControlButton,
   SegmentedControlList,
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
 } from '@cognite/aura/components';
 import type { ReactNode } from 'react';
 import { useMemo, useState } from 'react';
@@ -76,18 +69,18 @@ export function ChartAreaInteractive(): ReactNode {
 
   return (
     <Card data-slot="dashboard-chart">
-      <CardHeader className="flex flex-col items-stretch gap-3 @3xl/main:flex-row @3xl/main:items-start @3xl/main:justify-between">
-        <CardHeaderStart className="min-w-0">
-          <CardTitle>Total Visitors</CardTitle>
-          <CardDescription>
-            {timeRange === '90d'
-              ? 'Total for the last 3 months'
-              : timeRange === '30d'
-                ? 'Total for the last 30 days'
-                : 'Total for the last 7 days'}
-          </CardDescription>
-        </CardHeaderStart>
-        <CardHeaderEnd className="w-full @3xl/main:w-auto">
+      <CardHeader>
+        <div className="col-span-full flex flex-wrap items-start justify-between gap-3">
+          <div className="flex min-w-0 flex-col">
+            <CardTitle>Total Visitors</CardTitle>
+            <CardDescription>
+              {timeRange === '90d'
+                ? 'Total for the last 3 months'
+                : timeRange === '30d'
+                  ? 'Total for the last 30 days'
+                  : 'Total for the last 7 days'}
+            </CardDescription>
+          </div>
           <SegmentedControl
             value={timeRange}
             onValueChange={(value) => {
@@ -95,9 +88,8 @@ export function ChartAreaInteractive(): ReactNode {
                 setTimeRange(value);
               }
             }}
-            className="hidden @3xl/main:block"
           >
-            <SegmentedControlList size="small">
+            <SegmentedControlList>
               <SegmentedControlButton value="90d">
                 Last 3 months
               </SegmentedControlButton>
@@ -109,28 +101,7 @@ export function ChartAreaInteractive(): ReactNode {
               </SegmentedControlButton>
             </SegmentedControlList>
           </SegmentedControl>
-          <Select
-            value={timeRange}
-            onValueChange={(value) => {
-              if (isTimeRange(value)) {
-                setTimeRange(value);
-              }
-            }}
-          >
-            <SelectTrigger
-              size="sm"
-              className="w-40 @3xl/main:hidden"
-              aria-label="Select time range"
-            >
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="90d">Last 3 months</SelectItem>
-              <SelectItem value="30d">Last 30 days</SelectItem>
-              <SelectItem value="7d">Last 7 days</SelectItem>
-            </SelectContent>
-          </Select>
-        </CardHeaderEnd>
+        </div>
       </CardHeader>
       <CardContent>
         <ChartContainer

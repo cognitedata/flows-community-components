@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "dashboard-panel-header",
+  "title": "Left panel + dashboard + header",
+  "description": "Left panel + dashboard + header dashboard layout.",
+  "registryDependencies": [
+    "@aura/dashboard-template"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/community/dashboard-template/dashboard-panel-header.tsx",
+      "content": "import { DashboardLayout } from './dashboard-layout';\n\nfunction DashboardPanelHeader() {\n  return <DashboardLayout layout=\"panel-header\" />;\n}\n\nDashboardPanelHeader.displayName = 'DashboardPanelHeader';\n\nexport { DashboardPanelHeader };\n",
+      "type": "registry:component",
+      "target": "src/components/ui/community/dashboard-panel-header.tsx"
+    }
+  ],
+  "type": "registry:block"
+}
