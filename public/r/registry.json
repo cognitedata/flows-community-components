@@ -452,6 +452,24 @@
       ]
     },
     {
+      "name": "user-avatar",
+      "type": "registry:component",
+      "title": "User Avatar",
+      "description": "Avatar and display name for a CDF user, resolved from an IAM identifier with a raw-id fallback.",
+      "dependencies": [
+        "@cognite/aura",
+        "@cognite/sdk",
+        "@tanstack/react-query"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/community/user-avatar/user-avatar.tsx",
+          "target": "src/components/ui/community/user-avatar.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "map-layout-left-right-panels",
       "type": "registry:block",
       "title": "Left panel + map + right panel",

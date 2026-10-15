@@ -10,6 +10,7 @@ import { MenubarMetadata } from '../components/ui/community/menubar/menubar.meta
 import { RecordListTemplateMetadata } from '../components/ui/community/record-list-template/record-list-template.metadata';
 import { SheetMetadata } from '../components/ui/community/sheet/sheet.metadata';
 import { TimeSeriesChartMetadata } from '../components/ui/community/time-series-chart/time-series-chart.metadata';
+import { UserAvatarMetadata } from '../components/ui/community/user-avatar/user-avatar.metadata';
 
 import { getInstallCommands } from './install-snippets';
 import type { ComponentMeta } from './types';
@@ -37,6 +38,7 @@ const communityMetaById: Record<string, ComponentMeta> = {
   menubar: MenubarMetadata,
   sheet: SheetMetadata,
   'time-series-chart': TimeSeriesChartMetadata,
+  'user-avatar': UserAvatarMetadata,
 };
 
 function toCatalogItem(id: string, meta: ComponentMeta): CommunityCatalogItem {
