@@ -24,6 +24,6 @@
     "scale": "count",
     "unit": "findings",
     "higherIsBetter": false,
-    "description": "Places where Aura components were used against a rule written in the Aura docs."
+    "description": "Aura components that were restyled or used in ways the docs specifically say not to."
   }
 ]

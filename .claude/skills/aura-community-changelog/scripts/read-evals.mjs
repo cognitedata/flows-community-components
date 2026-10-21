@@ -6,6 +6,11 @@
 // from the reading about `compareDays` days earlier, ready to drop into the eval cards
 // (value, unit and the footer trend: direction, whether it is an improvement, and text).
 //
+// Settings come from the environment, or from `config.local.env` next to SKILL.md (git-ignored;
+// see config.local.env.example). The secret is best kept in the macOS Keychain, not in a file:
+//   security add-generic-password -s aura-changelog-cdf -a "$USER" -w     (prompts for the secret)
+// The script reads it from there when CDF_CLIENT_SECRET is not set. Nothing here ever prints it.
+//
 // Env (values live in config.local.md, never in this file):
 //   CDF_BASE_URL        e.g. https://<cluster>.cognitedata.com
 //   CDF_PROJECT         CDF project name
@@ -15,7 +20,36 @@
 //   CDF_SERIES_PREFIX   prepended to each metric key to form the time series externalId
 //
 // Not verified against live data yet: the first run should be compared by eye with Fusion.
-import { readFileSync } from 'node:fs';
+import { execFileSync } from 'node:child_process';
+import { existsSync, readFileSync } from 'node:fs';
+
+const envFile = new URL('../config.local.env', import.meta.url);
+if (existsSync(envFile)) {
+  for (const line of readFileSync(envFile, 'utf8').split('\n')) {
+    const match = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*?)\s*$/);
+    if (match && process.env[match[1]] === undefined) {
+      process.env[match[1]] = match[2].replace(/^["']|["']$/g, '');
+    }
+  }
+}
+
+// The aura-tools workflow names its service account DUNE_DEPLOY_CLIENT_ID / _SECRET; accept those too.
+process.env.CDF_CLIENT_ID ??= process.env.DUNE_DEPLOY_CLIENT_ID;
+process.env.CDF_CLIENT_SECRET ??= process.env.DUNE_DEPLOY_CLIENT_SECRET;
+
+function keychainSecret() {
+  if (process.platform !== 'darwin') return undefined;
+  try {
+    return (
+      execFileSync('security', ['find-generic-password', '-s', 'aura-changelog-cdf', '-w'], {
+        encoding: 'utf8',
+        stdio: ['ignore', 'pipe', 'ignore'],
+      }).trim() || undefined
+    );
+  } catch {
+    return undefined;
+  }
+}
 
 const need = (name) => {
   const value = process.env[name];
@@ -30,7 +64,10 @@ const baseUrl = need('CDF_BASE_URL').replace(/\/$/, '');
 const project = need('CDF_PROJECT');
 const tokenUrl = need('CDF_TOKEN_URL');
 const clientId = need('CDF_CLIENT_ID');
-const clientSecret = need('CDF_CLIENT_SECRET');
+const clientSecret =
+  process.env.CDF_CLIENT_SECRET ??
+  keychainSecret() ??
+  need('CDF_CLIENT_SECRET'); // exits with a message if neither is set
 const prefix = process.env.CDF_SERIES_PREFIX ?? '';
 const compareDays = Number(process.argv[2] ?? 7);
 
