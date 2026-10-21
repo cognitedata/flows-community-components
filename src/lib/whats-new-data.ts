@@ -1,8 +1,4 @@
-import {
-  IconRocket,
-  IconTable,
-  type Icon as TablerIcon,
-} from '@tabler/icons-react';
+import { IconTable, type Icon as TablerIcon } from '@tabler/icons-react';
 
 export interface WhatsNewPost {
   slug: string;
@@ -27,21 +23,12 @@ export const WHATS_NEW_POSTS: WhatsNewPost[] = [
   {
     slug: '2026-10-21',
     title:
-      'DataGrid filtering, translatable result counts, and 20 documented components',
-    month: 'Oct 17 – 21, 2026',
+      'DataGrid selection and filtering, new page templates, and 19 more documented components',
+    month: 'Oct 8 – 21, 2026',
     excerpt:
-      'DataGrid filtering got more flexible, result counts can now be translated, and nine more components have portable docs.',
+      'DataGrid gained selection, resizing and filtering, community teams got new page templates, and 19 more components now have portable docs.',
     icon: IconTable,
     embed: '2026-10-21.html',
-  },
-  {
-    slug: '2026-10-16',
-    title: 'Aura 1.0, a stronger DataGrid, and new community charts',
-    month: 'Oct 2 – 16, 2026',
-    excerpt:
-      'Aura reached 1.0, DataGrid gained selection, resizing and loading states, and the community library added a time-series chart, maps and page templates.',
-    icon: IconRocket,
-    embed: '2026-10-16.html',
   },
 ];
 

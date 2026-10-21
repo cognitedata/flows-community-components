@@ -14,7 +14,7 @@ Read `config.md` and `config.local.md` first (see `config.local.example.md` if t
 ## Workflow
 
 ### 1. Set the window
-End = today, start = today minus `window_days` (default 14). State the dates back to the user.
+There is one report per run, covering the last two weeks. End = today. Start = the day after the end of the newest report in `src/lib/whats-new-data.ts` (its `month` range), or today minus `window_days` (14) if that is missing. If the newest report ended fewer than 13 days ago, stop: nothing is due yet. State the dates back to the user.
 
 ### 2. Gather (read-only)
 - **Aura library** (a path inside a larger private monorepo, so filter by path): list commits touching `aura_path` since the window start, take the `(#PR)` numbers from the squash-merge subjects, then fetch each PR's title, body, files, author and reviewers with `gh pr view`. Don't use `gh pr list --search` with a path filter; it has none and silently returns nothing. Commands are in `config.local.md`. Add changelog entries for releases cut in the window.
@@ -58,14 +58,20 @@ Chromatic (the Aura Storybook) refuses iframe embedding, so use screenshots, not
 Show the user a table of **Included / Excluded (with reason) / Uncertain** items, the proposed highlights, and any visual substitutions. Wait for approval or edits before rendering. In a scheduled run, stop here, save the table as `review-YYYY-MM-DD.md` outside the repo or in a git-ignored folder (it names private PRs), and notify the user.
 
 ### 8. Render
-Fill `assets/post-template.html` (replace the `{{...}}` placeholders and duplicate the marked blocks). The template already carries the Aura tokens (light and dark, transparent page background); if Aura's colors change, re-sync them (`references/aura-styling.md`). Save as `aura-changelog-YYYY-MM-DD.html` with CSS inline so the file is self-contained. `examples/sample-2026-10-16.html` shows a finished post.
+Write a content file (see `examples/content-2026-10-21.json` and the schema at the top of `scripts/render-report.py`): header text, the 3 highlights, the cards for each section, the section summaries and the contributors. Image paths point at the screenshots you captured (in `shots/`, git-ignored). Then run:
+
+```bash
+python3 scripts/render-report.py <content.json> aura-changelog-YYYY-MM-DD.html
+```
+
+The renderer reuses the CSS in `assets/post-template.html`, reads the three eval cards (`asOf` = the report's end date), trims and downsizes the screenshots, lays the cards out (at most 3 per row, a lone trailing card becomes 2+2), leaves out empty sections, and fails if there aren't exactly 3 highlights or 3 eval cards. The result is one self-contained HTML file. Open it and check it before publishing. `examples/sample-2026-10-21.html` is a finished report.
 
 ### 9. Final safety pass and publish
-Re-read the rendered text against the banned-language checklist in `references/safety-filter.md`. Confirm no Slack quotes or names, no ticket keys, and no internal URLs. Then, once the user approves, publish to the community site's **What's new** section:
-1. Copy the HTML to `public/whats-new-posts/<slug>.html`, where `<slug>` is the end date, e.g. `2026-10-16`. (Use this folder, not `public/whats-new/`: that path collides with the `/whats-new/:slug` route.)
-2. Add an entry at the top of `WHATS_NEW_POSTS` in `src/lib/whats-new-data.ts`: `slug`, `title`, `month` (the date range, e.g. `Oct 16 – 30, 2026`), `excerpt` (the post's key takeaways), an `icon`, and `embed: '<slug>.html'`. The post page then shows the HTML in an iframe that sizes itself to the content.
-3. Preview with `pnpm run dev` and open `/whats-new`, then open a PR. Never merge or deploy without explicit user confirmation.
-The What's new page lists reports newest first in a left sidebar, labelled by date range; the top entry is the current report and the default page. Every report page opens with a note pointing to the full changelog (`/aura/documentation/changelog`), so the post itself doesn't need to repeat it. The post has no page background of its own and follows the site's light/dark theme. Don't publish while the eval cards still show placeholders.
+Re-read the rendered text against the banned-language checklist in `references/safety-filter.md`. Confirm no Slack quotes or names, no ticket keys, and no internal URLs. Then, once the user approves, publish to the community site's **What's new** page, which shows a single report (the one for the last two weeks):
+1. Copy the HTML to `public/whats-new-posts/<slug>.html`, where `<slug>` is the end date, e.g. `2026-10-21`, and delete the previous report's file. (Use this folder, not `public/whats-new/`: that path collides with the `/whats-new/:slug` route.)
+2. In `src/lib/whats-new-data.ts`, replace the entry in `WHATS_NEW_POSTS` with the new one: `slug`, `title`, `month` (the date range, e.g. `Oct 8 – 21, 2026`), `excerpt` (the key takeaways), an `icon`, and `embed: '<slug>.html'`. Keep the array structure: it is newest first, the first entry is the default page, and the sidebar lists whatever is in it, so older reports can be kept later by leaving them in the array.
+3. Preview with `pnpm run dev`, open `/whats-new`, then open a PR on a new branch. Never merge or deploy without explicit user confirmation.
+Every report page opens with a note pointing to the full changelog (`/aura/documentation/changelog`), so the report itself doesn't repeat it. The report has no page background of its own and follows the site's light/dark theme. Don't publish if the eval cards could not be read.
 
-## Scheduling
-See `README.md`. The scheduled run stops at the review gate and notifies the user.
+## Scheduling and manual runs
+See `README.md`. A scheduled run prepares a draft and stops at the review gate; it never edits the repo or publishes. To publish an approved draft, ask Claude: "publish the changelog draft from <folder>".
