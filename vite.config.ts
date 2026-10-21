@@ -149,8 +149,7 @@ function historyApiFallback(): Plugin {
           url.startsWith('/@') || // Vite internal
           url.startsWith('/node_modules') ||
           url.startsWith('/src') ||
-          url.startsWith('/public') ||
-          url.includes('/whats-new-posts/') // static HTML posts embedded on the What's new page
+          url.startsWith('/public')
         ) {
           return next();
         }

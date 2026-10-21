@@ -1,6 +1,6 @@
 # Aura styling for the post
 
-`assets/post-template.html` already uses real Aura tokens. It has no page background (html and body are transparent) so it inherits the website's, and it supports light and dark: standalone it follows `prefers-color-scheme`, and the site sets class `dark` or `light` on `<html>` when it embeds the post. The values were copied from Aura's `colors.css` and `DESIGN.md` (paths in `config.local.md`). Re-sync them if Aura's colors change.
+`assets/post-template.html` already uses real Aura tokens. It is used for the standalone review draft: no page background (html and body are transparent) and it follows `prefers-color-scheme`. The site itself renders the report natively with its own components and theme. The values were copied from Aura's `colors.css` and `DESIGN.md` (paths in `config.local.md`). Re-sync them if Aura's colors change.
 
 ## Tokens in use (dark values; light values are in the template's `:root`)
 | Role | Value | Aura source |

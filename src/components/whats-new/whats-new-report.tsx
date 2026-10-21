@@ -190,7 +190,7 @@ function Section({ title, data }: { title: string; data?: ReportSection }) {
   );
 }
 
-/** Native rendering of a What's new report from its JSON data (same content as the embedded HTML). */
+/** Renders a What's new report from its JSON data. */
 export function WhatsNewReport({ data }: { data: WhatsNewReportData }) {
   return (
     <article>

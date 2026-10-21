@@ -18,14 +18,14 @@ Open a session in this repo and ask Claude: "Run the aura-community-changelog sk
 - `python3 scripts/render-report.py <content.json> <out.html>` builds the report from a content file (see `examples/`).
 
 ## Automate (every two weeks)
-A scheduled task in the Claude desktop app runs every Wednesday at about 9:07 and the task itself checks whether a report is due (the newest report in `src/lib/whats-new-data.ts` ended 13 or more days ago), because cron can't express "every other week". When due it prepares a draft in `~/aura-changelog-drafts/<end-date>/`: the content file, the screenshots, a rendered `report.html` and the Included / Excluded / Uncertain review table. It does not edit the repo, push or publish, and it notifies you. Review the table and the draft, then ask Claude to "publish the changelog draft from ~/aura-changelog-drafts/<end-date>", which adds the report to the site on a new branch and opens a PR.
+A scheduled task in the Claude desktop app runs every Wednesday at about 9:07 and the task itself checks whether a report is due (the newest report in `src/lib/whats-new-data.ts` ended 13 or more days ago), because cron can't express "every other week". When due it prepares a draft in `~/aura-changelog-drafts/<end-date>/`: the content file, the screenshots, a rendered `report.html` (a standalone draft for review) and the Included / Excluded / Uncertain review table. It does not edit the repo, push or publish, and it notifies you. Review the table and the draft, then ask Claude to "publish the changelog draft from ~/aura-changelog-drafts/<end-date>", which adds the report to the site on a new branch and opens a PR.
 
 The task only fires while the desktop app is open and the Mac is awake; if it was closed at the scheduled time it runs when you next open the app. It needs `gh` access to the private Aura repo, Google Chrome, CDF read access (see Set up) and this repo checked out at the path in the task. A plain GitHub Action is not a fit: it would need private-repo access, Chrome and a Claude session.
 
 ## Safety
 - This repo is public. Internal details stay in `config.local.md`; review tables name private PRs, so keep `review-*.md` and `shots/` out of the repo.
 - Only merged work is published. Slack and Jira are context only and are never quoted.
-- Publishing is a PR to this repo (HTML in `public/whats-new-posts/`, entry in `src/lib/whats-new-data.ts`); a person reviews and merges it. Scheduled runs never publish.
+- Publishing is a PR to this repo (`report.json` and images in `public/whats-new-posts/<slug>/`, entry in `src/lib/whats-new-data.ts`); a person reviews and merges it. Scheduled runs never publish.
 
 ## Contents
 - `SKILL.md`: workflow and rules
@@ -34,5 +34,5 @@ The task only fires while the desktop app is open and the Mac is awake; if it wa
 - `assets/post-template.html`: the fixed post layout
 - `scripts/capture-story.sh`: headless-Chrome Storybook screenshots
 - `scripts/read-evals.mjs`, `metrics.json`: the three eval cards (definitions and CDF reader)
-- `scripts/render-report.py`: builds the report from a content file: self-contained HTML, and with `--data-out` a `report.json` plus image files that the site renders natively
+- `scripts/render-report.py`: builds the report from a content file: a standalone HTML draft for review, and with `--data-out` the `report.json` plus image files that the site renders
 - `examples/`: a finished report and the content file it was built from

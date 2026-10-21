@@ -9,7 +9,7 @@
 <style>
   /* Layout follows the Figma mock linked in config.local.md. Aura tokens from colors.css.
      No page background: html and body are transparent so the post inherits the website's background.
-     Theme: standalone it follows prefers-color-scheme; embedded, the site sets class "dark" or "light" on <html>. */
+     Theme: follows prefers-color-scheme. */
   :root {
     color-scheme: light;
     --fg:#17191a;              /* mountain-950 */
@@ -29,9 +29,8 @@
     --b-neutral-bg:#e4e6e8; --b-neutral-fg:#40464a;
   }
   @media (prefers-color-scheme: dark) {
-    :root:not(.light) { color-scheme:dark; --fg:#f8f9f9; --muted:#a3aab0; --card:#212426; --card-border:#2c3033; --border:#33373a; --link:#7796e6; --link-hover:#ccd7f6; --ring:#8fa8eb; --good:#60b780; --bad:#f7778d; }
+    :root { color-scheme:dark; --fg:#f8f9f9; --muted:#a3aab0; --card:#212426; --card-border:#2c3033; --border:#33373a; --link:#7796e6; --link-hover:#ccd7f6; --ring:#8fa8eb; --good:#60b780; --bad:#f7778d; }
   }
-  :root.dark { color-scheme:dark; --fg:#f8f9f9; --muted:#a3aab0; --card:#212426; --card-border:#2c3033; --border:#33373a; --link:#7796e6; --link-hover:#ccd7f6; --ring:#8fa8eb; --good:#60b780; --bad:#f7778d; }
   * { box-sizing:border-box; }
   html, body { background:transparent; }
   body { margin:0; color:var(--fg); font:400 14px/20px Inter, -apple-system, "Segoe UI", sans-serif; letter-spacing:-0.04px; }

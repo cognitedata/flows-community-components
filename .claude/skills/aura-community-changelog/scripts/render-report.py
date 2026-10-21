@@ -4,7 +4,7 @@
 Usage: python3 scripts/render-report.py <content.json> [out.html] [--data-out DIR --url-prefix /path]
 
 --data-out also writes report.json plus the processed images, so a site can render the report natively
-(the same content, as data) instead of embedding the HTML.
+(the same content, as data). The site renders that data; the HTML is a standalone draft for review.
 
 The layout and styling come from assets/post-template.html (its <style> block is reused),
 so the structure is fixed: header with 3 eval cards, exactly 3 highlights, then the
