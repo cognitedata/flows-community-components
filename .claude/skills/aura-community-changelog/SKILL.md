@@ -68,10 +68,15 @@ The renderer reuses the CSS in `assets/post-template.html`, reads the three eval
 
 ### 9. Final safety pass and publish
 Re-read the rendered text against the banned-language checklist in `references/safety-filter.md`. Confirm no Slack quotes or names, no ticket keys, and no internal URLs. Then, once the user approves, publish to the community site's **What's new** page, which shows a single report (the one for the last two weeks):
-1. Copy the HTML to `public/whats-new-posts/<slug>.html`, where `<slug>` is the end date, e.g. `2026-10-21`, and delete the previous report's file. (Use this folder, not `public/whats-new/`: that path collides with the `/whats-new/:slug` route.)
-2. In `src/lib/whats-new-data.ts`, replace the entry in `WHATS_NEW_POSTS` with the new one: `slug`, `title`, `month` (the date range, e.g. `Oct 8 – 21, 2026`), `excerpt` (the key takeaways), an `icon`, and `embed: '<slug>.html'`. Keep the array structure: it is newest first, the first entry is the default page, and the sidebar lists whatever is in it, so older reports can be kept later by leaving them in the array.
-3. Preview with `pnpm run dev`, open `/whats-new`, then open a PR on a new branch. Never merge or deploy without explicit user confirmation.
-Every report page opens with a note pointing to the full changelog (`/aura/documentation/changelog`), so the report itself doesn't repeat it. The report has no page background of its own and follows the site's light/dark theme. Don't publish if the eval cards could not be read.
+1. Generate the site files from the approved content file. `<slug>` is the end date, e.g. `2026-10-21`:
+   ```bash
+   python3 scripts/render-report.py <content.json> public/whats-new-posts/<slug>.html \
+     --data-out public/whats-new-posts/<slug> --url-prefix /whats-new-posts/<slug>
+   ```
+   This writes the self-contained HTML (the fallback view) and a folder with `report.json` plus the processed images, which the site renders natively. Delete the previous report's HTML file and folder. (Use `public/whats-new-posts/`, not `public/whats-new/`: that path collides with the `/whats-new/:slug` route.)
+2. In `src/lib/whats-new-data.ts`, replace the entry in `WHATS_NEW_POSTS` with the new one: `slug`, `title`, `month` (the date range, e.g. `Oct 8 – 21, 2026`), `excerpt` (the key takeaways), an `icon`, `embed: '<slug>.html'` and `report: '<slug>'`. Keep the array structure: it is newest first, the first entry is the default page, and the sidebar lists whatever is in it, so older reports can be kept later by leaving them in the array.
+3. Preview with `pnpm run dev`, open `/whats-new` (native view, rendered by `src/components/whats-new/whats-new-report.tsx`) and `/whats-new?view=html` (the iframe fallback), then open a PR on a new branch. Never merge or deploy without explicit user confirmation.
+Every report page opens with a note pointing to the full changelog (`/aura/documentation/changelog`), so the report itself doesn't repeat it. Both views follow the site's light/dark theme. Don't publish if the eval cards could not be read.
 
 ## Scheduling and manual runs
 See `README.md`. A scheduled run prepares a draft and stops at the review gate; it never edits the repo or publishes. To publish an approved draft, ask Claude: "publish the changelog draft from <folder>".

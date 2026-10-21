@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 """Render a What's new report (one self-contained HTML file) from a content JSON file.
 
-Usage: python3 scripts/render-report.py <content.json> <out.html>
+Usage: python3 scripts/render-report.py <content.json> [out.html] [--data-out DIR --url-prefix /path]
+
+--data-out also writes report.json plus the processed images, so a site can render the report natively
+(the same content, as data) instead of embedding the HTML.
 
 The layout and styling come from assets/post-template.html (its <style> block is reused),
 so the structure is fixed: header with 3 eval cards, exactly 3 highlights, then the
@@ -29,6 +32,7 @@ badge: "New" | "Update" | "Fix" | anything else (neutral, e.g. "Docs").
 Text fields are plain text (they are HTML-escaped). Only stdlib; `sips` (macOS) is used, when present,
 to trim and downscale screenshots so the file stays small.
 """
+import argparse
 import base64
 import html
 import json
@@ -63,16 +67,17 @@ def sips(*args):
     return subprocess.run(["sips", *args], capture_output=True, text=True).returncode == 0
 
 
-def image_uri(image, base_dir):
-    """Return (data_uri, is_raster)."""
+def image_bytes(image, base_dir):
+    """Process an image spec. Returns (bytes, extension, mime)."""
     if "svg" in image:
-        return "data:image/svg+xml;base64," + base64.b64encode(image["svg"].encode("utf-8")).decode(), False
+        return image["svg"].encode("utf-8"), "svg", "image/svg+xml"
     path = (base_dir / image["path"]).resolve()
     if not path.exists():
         sys.exit("Image not found: %s" % path)
     if path.suffix.lower() == ".svg":
-        return "data:image/svg+xml;base64," + base64.b64encode(path.read_bytes()).decode(), False
-    data, mime = path.read_bytes(), "image/png" if path.suffix.lower() == ".png" else "image/jpeg"
+        return path.read_bytes(), "svg", "image/svg+xml"
+    data = path.read_bytes()
+    ext, mime = ("png", "image/png") if path.suffix.lower() == ".png" else ("jpg", "image/jpeg")
     if shutil.which("sips"):
         with tempfile.TemporaryDirectory() as tmp:
             work = Path(tmp) / "in.png"
@@ -88,8 +93,14 @@ def image_uri(image, base_dir):
                     work = cropped
             out = Path(tmp) / "out.jpg"
             if sips("-s", "format", "jpeg", "-s", "formatOptions", "85", "--resampleWidth", "900", str(work), "--out", str(out)):
-                data, mime = out.read_bytes(), "image/jpeg"
-    return "data:%s;base64,%s" % (mime, base64.b64encode(data).decode()), True
+                data, ext, mime = out.read_bytes(), "jpg", "image/jpeg"
+    return data, ext, mime
+
+
+def image_uri(image, base_dir):
+    """Return (data_uri, is_raster)."""
+    data, ext, mime = image_bytes(image, base_dir)
+    return "data:%s;base64,%s" % (mime, base64.b64encode(data).decode()), ext != "svg"
 
 
 def link(url, label):
@@ -168,10 +179,56 @@ def load_evals(as_of):
     return json.loads(result.stdout)
 
 
+def export_data(content, evals, base_dir, out_dir, prefix):
+    """Write report.json plus processed image files, for a site that renders the report natively."""
+    out_dir.mkdir(parents=True, exist_ok=True)
+    prefix = prefix.rstrip("/")
+    counter = {"n": 0}
+
+    def save(image, role):
+        data, ext, _ = image_bytes(image, base_dir)
+        counter["n"] += 1
+        name = "%s-%02d.%s" % (role, counter["n"], ext)
+        (out_dir / name).write_bytes(data)
+        ref = {"src": "%s/%s" % (prefix, name), "alt": image.get("alt", "")}
+        if image.get("auto"):
+            ref["auto"] = True
+        if image.get("position"):
+            ref["position"] = image["position"]
+        return ref
+
+    def item(entry, role):
+        out = {k: v for k, v in entry.items() if k != "image"}
+        if entry.get("image"):
+            out["image"] = save(entry["image"], role)
+        return out
+
+    report = {
+        "eyebrow": content["eyebrow"],
+        "title": content.get("title", "Aura & Community Updates"),
+        "intro": content["intro"],
+        "evals": evals,
+        "highlights": {"summary": content["highlights"]["summary"], "items": [item(h, "highlight") for h in content["highlights"]["items"]]},
+        "thanks": content["thanks"],
+    }
+    for key in ("components", "context", "other"):
+        block = content.get(key) or {}
+        if block.get("cards"):
+            report[key] = {"summary": block["summary"], "cards": [item(c, key) for c in block["cards"]]}
+    (out_dir / "report.json").write_text(json.dumps(report, indent=2, ensure_ascii=False), encoding="utf-8")
+    print("wrote %s/report.json and %d images" % (out_dir, counter["n"]))
+
+
 def main():
-    if len(sys.argv) != 3:
-        sys.exit(__doc__)
-    content_path, out_path = Path(sys.argv[1]).resolve(), Path(sys.argv[2])
+    parser = argparse.ArgumentParser(description="Render a What's new report from a content JSON file.")
+    parser.add_argument("content")
+    parser.add_argument("out", nargs="?", help="output HTML file (self-contained)")
+    parser.add_argument("--data-out", help="also write report.json and image files to this folder, for native rendering on the site")
+    parser.add_argument("--url-prefix", default="", help="URL path the image files will be served from (used with --data-out)")
+    args = parser.parse_args()
+    if not args.out and not args.data_out:
+        parser.error("give an output HTML file, --data-out, or both")
+    content_path = Path(args.content).resolve()
     base_dir = content_path.parent
     content = json.loads(content_path.read_text(encoding="utf-8"))
 
@@ -182,6 +239,11 @@ def main():
     if len(highlights) != 3:
         sys.exit("Highlights must be exactly 3 (got %d)" % len(highlights))
 
+    if args.data_out:
+        export_data(content, evals, base_dir, Path(args.data_out), args.url_prefix)
+        if not args.out:
+            return
+    out_path = Path(args.out)
     hl_html = ""
     for h in highlights:
         uri, _ = image_uri(h["image"], base_dir)

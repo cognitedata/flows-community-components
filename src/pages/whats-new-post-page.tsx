@@ -5,10 +5,12 @@ import {
   useRef,
   useState,
 } from 'react';
-import { Link, Navigate, useParams } from 'react-router-dom';
+import { Link, Navigate, useParams, useSearchParams } from 'react-router-dom';
 
 import { PageTitle } from '@/components/page-title';
+import { WhatsNewReport } from '@/components/whats-new/whats-new-report';
 import { WHATS_NEW_POSTS, getWhatsNewPostBySlug } from '@/lib/whats-new-data';
+import { type WhatsNewReportData, fetchReport } from '@/lib/whats-new-report';
 
 /**
  * Shows a self-contained HTML post from `public/whats-new-posts/`. The frame
@@ -66,8 +68,37 @@ function EmbeddedPost({ file, title }: { file: string; title: string }) {
   );
 }
 
+/** Renders a report natively from its JSON data. */
+function NativeReport({ folder }: { folder: string }) {
+  const [report, setReport] = useState<WhatsNewReportData | null>(null);
+  const [failed, setFailed] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetchReport(folder)
+      .then((data) => {
+        if (!cancelled) setReport(data);
+      })
+      .catch(() => {
+        if (!cancelled) setFailed(true);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [folder]);
+
+  if (failed) {
+    return <p className="text-sm text-muted-fg">Could not load this report.</p>;
+  }
+  if (!report) {
+    return <p className="text-sm text-muted-fg">Loading report…</p>;
+  }
+  return <WhatsNewReport data={report} />;
+}
+
 export function WhatsNewPostPage() {
   const { slug } = useParams<{ slug: string }>();
+  const [searchParams] = useSearchParams();
   // No slug means the /whats-new index, which shows the most recent report.
   const post = slug ? getWhatsNewPostBySlug(slug) : WHATS_NEW_POSTS[0];
 
@@ -76,6 +107,8 @@ export function WhatsNewPostPage() {
   }
 
   const Icon = post.icon;
+  const showNative =
+    Boolean(post.report) && searchParams.get('view') !== 'html';
 
   return (
     <div className="mx-auto w-full max-w-[960px]">
@@ -91,7 +124,31 @@ export function WhatsNewPostPage() {
         </Link>
         .
       </p>
-      {post.embed ? (
+      {post.report && post.embed && (
+        <p className="mb-6 text-xs text-muted-fg">
+          View:{' '}
+          <Link
+            to="?view=native"
+            className={
+              showNative ? 'font-medium text-foreground' : 'hover:underline'
+            }
+          >
+            Native
+          </Link>
+          {' · '}
+          <Link
+            to="?view=html"
+            className={
+              showNative ? 'hover:underline' : 'font-medium text-foreground'
+            }
+          >
+            HTML
+          </Link>
+        </p>
+      )}
+      {showNative && post.report ? (
+        <NativeReport folder={post.report} />
+      ) : post.embed ? (
         <EmbeddedPost file={post.embed} title={post.title} />
       ) : (
         <>

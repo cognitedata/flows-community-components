@@ -34,5 +34,5 @@ The task only fires while the desktop app is open and the Mac is awake; if it wa
 - `assets/post-template.html`: the fixed post layout
 - `scripts/capture-story.sh`: headless-Chrome Storybook screenshots
 - `scripts/read-evals.mjs`, `metrics.json`: the three eval cards (definitions and CDF reader)
-- `scripts/render-report.py`: builds the report HTML from a content file
+- `scripts/render-report.py`: builds the report from a content file: self-contained HTML, and with `--data-out` a `report.json` plus image files that the site renders natively
 - `examples/`: a finished report and the content file it was built from
