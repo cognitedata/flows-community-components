@@ -44,10 +44,14 @@ function keychainSecret() {
   if (process.platform !== 'darwin') return undefined;
   try {
     return (
-      execFileSync('security', ['find-generic-password', '-s', 'aura-changelog-cdf', '-w'], {
-        encoding: 'utf8',
-        stdio: ['ignore', 'pipe', 'ignore'],
-      }).trim() || undefined
+      execFileSync(
+        'security',
+        ['find-generic-password', '-s', 'aura-changelog-cdf', '-w'],
+        {
+          encoding: 'utf8',
+          stdio: ['ignore', 'pipe', 'ignore'],
+        }
+      ).trim() || undefined
     );
   } catch {
     return undefined;
@@ -73,7 +77,9 @@ const clientSecret =
   need('CDF_CLIENT_SECRET'); // exits with a message if neither is set
 const prefix = process.env.CDF_SERIES_PREFIX ?? '';
 const compareDays = Number(process.argv[2] ?? 7);
-const asOfMs = process.argv[3] ? Date.parse(`${process.argv[3]}T23:59:59Z`) : Date.now();
+const asOfMs = process.argv[3]
+  ? Date.parse(`${process.argv[3]}T23:59:59Z`)
+  : Date.now();
 if (Number.isNaN(asOfMs)) {
   console.error('asOf must be a date like 2026-10-16');
   process.exit(1);
@@ -117,7 +123,9 @@ async function datapointBefore(token, externalId, before) {
     }
   );
   if (!response.ok) {
-    throw new Error(`CDF request failed for ${externalId} (HTTP ${response.status})`);
+    throw new Error(
+      `CDF request failed for ${externalId} (HTTP ${response.status})`
+    );
   }
   const { items } = await response.json();
   return items?.[0]?.datapoints?.[0] ?? null;
@@ -133,12 +141,20 @@ function format(metric, raw) {
 // Footer trend: "Up 3.2 pts from last week". Percent changes are in percentage points.
 function describeTrend(metric, raw, previous) {
   if (previous === null) {
-    return { direction: null, improved: null, text: 'No earlier reading to compare' };
+    return {
+      direction: null,
+      improved: null,
+      text: 'No earlier reading to compare',
+    };
   }
   const delta = round(format(metric, raw) - format(metric, previous));
   const since = compareDays === 7 ? 'last week' : `${compareDays} days ago`;
   if (delta === 0) {
-    return { direction: 'flat', improved: null, text: `No change from ${since}` };
+    return {
+      direction: 'flat',
+      improved: null,
+      text: `No change from ${since}`,
+    };
   }
   const direction = delta > 0 ? 'up' : 'down';
   const amount = `${Math.abs(delta)}${metric.scale === 'percent' ? ' pts' : ''}`;
@@ -157,12 +173,19 @@ for (const metric of metrics) {
   if (!latest) {
     throw new Error(`No datapoints for ${externalId}; check CDF_SERIES_PREFIX`);
   }
-  const earlier = await datapointBefore(token, externalId, asOfMs - compareDays * 86_400_000);
+  const earlier = await datapointBefore(
+    token,
+    externalId,
+    asOfMs - compareDays * 86_400_000
+  );
   cards.push({
     name: metric.name,
     subtitle: metric.subtitle,
     value: format(metric, latest.value),
-    unit: latest.value === 1 && metric.unitSingular ? metric.unitSingular : metric.unit,
+    unit:
+      latest.value === 1 && metric.unitSingular
+        ? metric.unitSingular
+        : metric.unit,
     description: metric.description,
     trend: describeTrend(metric, latest.value, earlier?.value ?? null),
     measuredAt: new Date(latest.timestamp).toISOString().slice(0, 10),
