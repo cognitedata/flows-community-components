@@ -1,7 +1,10 @@
 #!/usr/bin/env node
 // Reads the three eval cards for the post from CDF time series.
 //
-// Usage: node scripts/read-evals.mjs [compareDays]   (default 7: the eval runs weekly)
+// Usage: node scripts/read-evals.mjs [compareDays] [asOf]
+//   compareDays  days back for the comparison reading (default 7: the eval runs weekly)
+//   asOf         YYYY-MM-DD: use the latest reading on or before this day (default: now), so a
+//                report is scored with the eval it covers, not one that ran after its window
 // Prints JSON: one object per metric in metrics.json with the latest value and its change
 // from the reading about `compareDays` days earlier, ready to drop into the eval cards
 // (value, unit and the footer trend: direction, whether it is an improvement, and text).
@@ -70,6 +73,11 @@ const clientSecret =
   need('CDF_CLIENT_SECRET'); // exits with a message if neither is set
 const prefix = process.env.CDF_SERIES_PREFIX ?? '';
 const compareDays = Number(process.argv[2] ?? 7);
+const asOfMs = process.argv[3] ? Date.parse(`${process.argv[3]}T23:59:59Z`) : Date.now();
+if (Number.isNaN(asOfMs)) {
+  console.error('asOf must be a date like 2026-10-16');
+  process.exit(1);
+}
 
 const metrics = JSON.parse(
   readFileSync(new URL('../metrics.json', import.meta.url), 'utf8')
@@ -92,7 +100,7 @@ async function getToken() {
   return body.access_token;
 }
 
-// `before` accepts "now" or a relative time such as "14d-ago".
+// `before` is a timestamp in milliseconds.
 async function datapointBefore(token, externalId, before) {
   const response = await fetch(
     `${baseUrl}/api/v1/projects/${project}/timeseries/data/latest`,
@@ -145,16 +153,16 @@ const token = await getToken();
 const cards = [];
 for (const metric of metrics) {
   const externalId = `${prefix}${metric.key}`;
-  const latest = await datapointBefore(token, externalId, 'now');
+  const latest = await datapointBefore(token, externalId, asOfMs);
   if (!latest) {
     throw new Error(`No datapoints for ${externalId}; check CDF_SERIES_PREFIX`);
   }
-  const earlier = await datapointBefore(token, externalId, `${compareDays}d-ago`);
+  const earlier = await datapointBefore(token, externalId, asOfMs - compareDays * 86_400_000);
   cards.push({
     name: metric.name,
     subtitle: metric.subtitle,
     value: format(metric, latest.value),
-    unit: metric.unit,
+    unit: latest.value === 1 && metric.unitSingular ? metric.unitSingular : metric.unit,
     description: metric.description,
     trend: describeTrend(metric, latest.value, earlier?.value ?? null),
     measuredAt: new Date(latest.timestamp).toISOString().slice(0, 10),

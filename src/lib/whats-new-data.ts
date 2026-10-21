@@ -1,4 +1,8 @@
-import { IconRocket, type Icon as TablerIcon } from '@tabler/icons-react';
+import {
+  IconRocket,
+  IconTable,
+  type Icon as TablerIcon,
+} from '@tabler/icons-react';
 
 export interface WhatsNewPost {
   slug: string;
@@ -20,6 +24,16 @@ export interface WhatsNewPost {
  * when a new report is added at the top, the previous ones move down the list.
  */
 export const WHATS_NEW_POSTS: WhatsNewPost[] = [
+  {
+    slug: '2026-10-21',
+    title:
+      'DataGrid filtering, translatable result counts, and 20 documented components',
+    month: 'Oct 17 – 21, 2026',
+    excerpt:
+      'DataGrid filtering got more flexible, result counts can now be translated, and nine more components have portable docs.',
+    icon: IconTable,
+    embed: '2026-10-21.html',
+  },
   {
     slug: '2026-10-16',
     title: 'Aura 1.0, a stronger DataGrid, and new community charts',
