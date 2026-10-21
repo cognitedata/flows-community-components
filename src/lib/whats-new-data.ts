@@ -1,44 +1,33 @@
-import {
-  IconBook2,
-  IconLayoutGrid,
-  IconPalette,
-  type Icon as TablerIcon,
-} from '@tabler/icons-react';
+import { IconTable, type Icon as TablerIcon } from '@tabler/icons-react';
 
 export interface WhatsNewPost {
   slug: string;
   title: string;
-  /** e.g. "November 2026" */
+  /** e.g. "November 2026" or "Oct 2 – 16, 2026" */
   month: string;
   excerpt: string;
   icon: TablerIcon;
+  /**
+   * Folder name in `public/whats-new-posts/` holding `report.json` and its images.
+   * When set, the post page renders the report natively from that data.
+   */
+  report?: string;
 }
 
-/** Newest first. */
+/**
+ * Newest first. The first entry is the current report and the default page;
+ * when a new report is added at the top, the previous ones move down the list.
+ */
 export const WHATS_NEW_POSTS: WhatsNewPost[] = [
   {
-    slug: 'august-2026',
-    title: 'Customer theming, MCP server, and a new Patterns library',
-    month: 'August 2026',
+    slug: '2026-10-21',
+    title:
+      'DataGrid selection and filtering, new page templates, and 19 more documented components',
+    month: 'Oct 8 – 21, 2026',
     excerpt:
-      'This month we shipped a live re-theming panel, an MCP server for connecting agents directly to Aura, and a first batch of layout patterns alongside the component catalog.',
-    icon: IconPalette,
-  },
-  {
-    slug: 'july-2026',
-    title: 'Foundations rewritten, Community components open up',
-    month: 'July 2026',
-    excerpt:
-      'Foundations grew real per-topic pages, and the Community section now welcomes contributed components like Drawer, Sheet, and Carousel.',
-    icon: IconLayoutGrid,
-  },
-  {
-    slug: 'june-2026',
-    title: 'A new documentation structure',
-    month: 'June 2026',
-    excerpt:
-      'Documentation moved to a proper sidebar-driven structure with dedicated sections for getting started, architecture, and contribution.',
-    icon: IconBook2,
+      'DataGrid gained selection, resizing and filtering, community teams got new page templates, and 19 more components now have portable docs.',
+    icon: IconTable,
+    report: '2026-10-21',
   },
 ];
 

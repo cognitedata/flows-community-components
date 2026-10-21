@@ -42,3 +42,9 @@ storybook-static
 *.njsproj
 *.sln
 *.sw?
+
+# aura-community-changelog: internal config and generated output
+.claude/skills/aura-community-changelog/config.local.md
+.claude/skills/aura-community-changelog/config.local.env
+.claude/skills/aura-community-changelog/shots/
+.claude/skills/aura-community-changelog/review-*.md
