@@ -1,6 +1,7 @@
 import { Avatar, AvatarFallback } from '@cognite/aura/components';
 import { cn } from '@cognite/aura/utils';
 import type { CogniteClient } from '@cognite/sdk';
+import { IconAlertTriangle, IconKey, IconUser } from '@tabler/icons-react';
 import { useQuery } from '@tanstack/react-query';
 import {
   createContext,
@@ -12,6 +13,16 @@ import {
 
 const SERVICE_PRINCIPAL = 'SERVICE_PRINCIPAL';
 const PROFILE_STALE_TIME_MS = 5 * 60 * 1000;
+
+type FallbackKind = 'unknown' | 'failed' | 'servicePrincipal';
+
+const iconClass = 'size-3 shrink-0';
+
+const FALLBACK_SYMBOLS: Record<FallbackKind, ReactNode> = {
+  unknown: <IconUser className={iconClass} aria-hidden />,
+  failed: <IconAlertTriangle className={iconClass} aria-hidden />,
+  servicePrincipal: <IconKey className={iconClass} aria-hidden />,
+};
 
 const SdkContext = createContext<CogniteClient | null>(null);
 
@@ -105,22 +116,41 @@ export function UserAvatar({
     () => (sdk ? createUserProfileLookup(sdk) : undefined),
     [sdk]
   );
-  const { data: profile } = useUserProfile(userIdentifier, lookup ?? sdkLookup);
-  const label =
-    profile?.identityType === SERVICE_PRINCIPAL
-      ? servicePrincipalLabel
-      : profile?.displayName?.trim();
+  const { data: profile, isError } = useUserProfile(
+    userIdentifier,
+    lookup ?? sdkLookup
+  );
+  const displayName = profile?.displayName?.trim();
+  const isServicePrincipal = profile?.identityType === SERVICE_PRINCIPAL;
 
-  if (!label) {
-    return <span className={className}>{userIdentifier}</span>;
+  let kind: FallbackKind | undefined;
+  let text = userIdentifier;
+  let symbol: ReactNode;
+  if (isServicePrincipal) {
+    kind = 'servicePrincipal';
+    text = servicePrincipalLabel;
+  } else if (displayName) {
+    text = displayName;
+    symbol = getInitials(displayName);
+  } else {
+    kind = isError ? 'failed' : 'unknown';
+  }
+  if (kind) {
+    symbol = FALLBACK_SYMBOLS[kind];
   }
 
   return (
-    <span className={cn('inline-flex items-center gap-2', className)}>
-      <Avatar sizes={size}>
-        <AvatarFallback>{getInitials(label)}</AvatarFallback>
+    <span
+      className={cn(
+        'inline-flex min-w-0 max-w-full items-center gap-2',
+        className
+      )}
+      title={text}
+    >
+      <Avatar sizes={size} className="shrink-0">
+        <AvatarFallback>{symbol}</AvatarFallback>
       </Avatar>
-      <span>{label}</span>
+      <span className="truncate">{text}</span>
     </span>
   );
 }
