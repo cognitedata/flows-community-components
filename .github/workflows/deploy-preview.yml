@@ -6,7 +6,7 @@ on:
 
 permissions:
   contents: read
-  pages: read
+  pages: write
   pull-requests: write
   actions: write
 
@@ -37,12 +37,23 @@ jobs:
 
       - name: Get Pages URL
         id: pages
+        continue-on-error: true
         uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
+
+      - name: Resolve Pages base path
+        id: pages_base
+        run: |
+          BASE="${{ steps.pages.outputs.base_path }}"
+          if [ -z "$BASE" ]; then
+            BASE="/${{ github.event.repository.name }}"
+            echo "configure-pages did not return a base path; using $BASE"
+          fi
+          echo "base_path=$BASE" >> "$GITHUB_OUTPUT"
 
       - name: Build with Vite
         run: pnpm run build
         env:
-          PAGES_BASE_PATH: ${{ steps.pages.outputs.base_path }}/branches/${{ steps.branch.outputs.name }}
+          PAGES_BASE_PATH: ${{ steps.pages_base.outputs.base_path }}/branches/${{ steps.branch.outputs.name }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Add branch metadata

@@ -1,0 +1,30 @@
+[
+  {
+    "key": "auraCoveragePct",
+    "name": "Adoption",
+    "subtitle": "Aura coverage · higher is better",
+    "scale": "percent",
+    "unit": "%",
+    "higherIsBetter": true,
+    "description": "How much of an AI-generated app is built from Aura components instead of custom or third-party code."
+  },
+  {
+    "key": "couldHaveBeenAuraPct",
+    "name": "Missed opportunities",
+    "subtitle": "Rebuilt instead of reused · lower is better",
+    "scale": "percent",
+    "unit": "% of custom",
+    "higherIsBetter": false,
+    "description": "Custom components the agent built even though Aura already has a documented equivalent."
+  },
+  {
+    "key": "usageQualityFindingsCount",
+    "name": "Quality",
+    "subtitle": "Usage-quality findings · lower is better",
+    "scale": "count",
+    "unit": "findings",
+    "unitSingular": "finding",
+    "higherIsBetter": false,
+    "description": "Aura components that were restyled or used in ways the docs specifically say not to."
+  }
+]

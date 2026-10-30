@@ -1,0 +1,226 @@
+{
+  "headline": "DataGrid selection and filtering, new page templates, and 19 more documented components",
+  "eyebrow": "Oct 8 – Oct 21, 2026",
+  "intro": "DataGrid gained selection, resizing and filtering, community teams got new page templates, and 19 more components now have portable docs.",
+  "asOf": "2026-10-21",
+  "highlights": {
+    "summary": "DataGrid gained selection, resizing and filtering, community teams got ready-made page templates, and documentation grew to 20 components.",
+    "items": [
+      {
+        "title": "DataGrid keeps growing",
+        "text": "Row selection with an action toolbar, column resizing and a flexible filter panel make DataGrid more useful for data-heavy apps.",
+        "url": "https://master--695bb4b1b8041ae09768950a.chromatic.com/?path=/story/primitives-datagrid--basic",
+        "label": "View in Storybook",
+        "image": {
+          "path": "shots/s-dg-select.png",
+          "alt": "DataGrid with row selection",
+          "trim": [
+            24,
+            24,
+            24,
+            24
+          ]
+        }
+      },
+      {
+        "title": "Page templates for community apps",
+        "text": "A Record list, dashboard layouts and map layouts give teams ready-made starting points that install with one command.",
+        "url": "https://cognitedata.github.io/flows-community-components/community/templates",
+        "label": "See the templates",
+        "image": {
+          "path": "shots/c-record.png",
+          "alt": "Record list template with filters and a grid",
+          "trim": [
+            6,
+            34,
+            6,
+            6
+          ]
+        }
+      },
+      {
+        "title": "19 more components documented",
+        "text": "Nineteen more components now have portable docs, bringing the total to 20.",
+        "url": "https://cognitedata.github.io/flows-community-components/aura/components",
+        "label": "Browse components",
+        "image": {
+          "svg": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 400'>\n<rect width='600' height='400' fill='#1e2022'/>\n<text x='36' y='230' font-size='150' font-weight='600' fill='#f8f9f9' font-family='Space Grotesk,Inter,sans-serif'>19</text>\n<text x='36' y='290' font-size='22' fill='#a3aab0' font-family='Inter,sans-serif'>more components with portable docs</text>\n<rect x='36' y='316' width='56' height='8' rx='4' fill='#7796e6'/><rect x='100' y='316' width='56' height='8' rx='4' fill='#7796e6'/><rect x='164' y='316' width='56' height='8' rx='4' fill='#7796e6'/><rect x='228' y='316' width='56' height='8' rx='4' fill='#33373a'/></svg>",
+          "alt": "Graphic: 19 more components with portable docs"
+        }
+      }
+    ]
+  },
+  "components": {
+    "summary": "Seven updates landed: DataGrid selection, resizing, filtering and fixes, plus new community templates and a user avatar.",
+    "cards": [
+      {
+        "title": "DataGrid: resizing and selection",
+        "subtitle": "Aura",
+        "badge": "Update",
+        "text": "Columns can be resized by dragging, and selecting rows reveals an action toolbar with the selected count and actions.",
+        "url": "https://master--695bb4b1b8041ae09768950a.chromatic.com/?path=/story/primitives-actiontoolbar--basic",
+        "label": "View in Storybook",
+        "image": {
+          "path": "shots/t-toolbar.png",
+          "alt": "Action toolbar with 8 selected, Clear, icon actions and a primary button",
+          "auto": true
+        }
+      },
+      {
+        "title": "DataGrid: filtering and result count",
+        "subtitle": "Aura",
+        "badge": "Update",
+        "text": "The filter panel supports per-column operators, and the result count text is configurable with header and footer slots apps can place themselves.",
+        "url": "https://master--695bb4b1b8041ae09768950a.chromatic.com/?path=/story/primitives-datagrid--filter-trigger-toolbar",
+        "label": "View in Storybook",
+        "image": {
+          "path": "shots/o21-filter.png",
+          "alt": "DataGrid with a filter trigger in its toolbar",
+          "trim": [
+            24,
+            24,
+            24,
+            24
+          ]
+        }
+      },
+      {
+        "title": "DataGrid: fixes",
+        "subtitle": "Aura",
+        "badge": "Fix",
+        "text": "Paginated grids return to the first page when data, sorting or search changes, and date cells show readable values instead of raw ISO strings.",
+        "url": "https://master--695bb4b1b8041ae09768950a.chromatic.com/?path=/story/primitives-datagrid--with-pagination",
+        "label": "View in Storybook",
+        "image": {
+          "path": "shots/o21-pagination.png",
+          "alt": "DataGrid with pagination controls",
+          "trim": [
+            24,
+            24,
+            24,
+            24
+          ]
+        }
+      },
+      {
+        "title": "Mermaid and code blocks",
+        "subtitle": "Aura",
+        "badge": "Fix",
+        "text": "Mermaid diagrams can go fullscreen again, and code block buttons are no longer clipped.",
+        "url": "https://master--695bb4b1b8041ae09768950a.chromatic.com/?path=/story/ai-code-block--basic",
+        "label": "View in Storybook",
+        "image": {
+          "path": "shots/s-code.png",
+          "alt": "Code block with copy button"
+        }
+      },
+      {
+        "title": "Record list",
+        "subtitle": "Community template",
+        "badge": "New",
+        "text": "Six list layouts pair a header or tabs with a full-width grid, side panel or preview.",
+        "url": "https://cognitedata.github.io/flows-community-components/community/templates/record-list",
+        "label": "See the template",
+        "image": {
+          "path": "shots/c-record.png",
+          "alt": "Record list template with filters and a grid",
+          "trim": [
+            6,
+            34,
+            6,
+            6
+          ]
+        }
+      },
+      {
+        "title": "Dashboard and map layouts",
+        "subtitle": "Community templates",
+        "badge": "New",
+        "text": "Ready-made page layouts for dashboard and map screens.",
+        "url": "https://cognitedata.github.io/flows-community-components/community/templates/dashboard",
+        "label": "See the template",
+        "image": {
+          "path": "shots/c-dashboard.png",
+          "alt": "Dashboard page layout with header, tiles and charts",
+          "trim": [
+            6,
+            6,
+            6,
+            6
+          ]
+        }
+      },
+      {
+        "title": "User avatar",
+        "subtitle": "Community",
+        "badge": "New",
+        "text": "Turn a user identifier into an avatar and display name with one component.",
+        "url": "https://master--695bb4b1b8041ae09768950a.chromatic.com/?path=/story/primitives-avatar--all-sizes",
+        "label": "View Avatar in Storybook",
+        "image": {
+          "path": "shots/t-avatar.png",
+          "alt": "Aura Avatar sizes; User avatar is built on this component",
+          "auto": true
+        }
+      }
+    ]
+  },
+  "context": {
+    "summary": "Nineteen more components gained portable docs, and the community page templates now ship agent skills.",
+    "cards": [
+      {
+        "title": "Portable docs for 19 components",
+        "subtitle": "Aura docs",
+        "badge": "Docs",
+        "text": "Alert, Badge, Input, Slider, Tooltip and 14 more now have markdown docs and example galleries.",
+        "url": "https://master--695bb4b1b8041ae09768950a.chromatic.com/?path=/story/primitives-badge--all-variants",
+        "label": "View a gallery",
+        "image": {
+          "path": "shots/s-badge.png",
+          "alt": "Badge variants gallery"
+        }
+      },
+      {
+        "title": "Agent skills for page templates",
+        "subtitle": "Community",
+        "badge": "New",
+        "text": "The Record list, Dashboard and Map layout templates each install a skill that guides coding agents to use them.",
+        "url": "https://cognitedata.github.io/flows-community-components/community/templates/record-list/skill",
+        "label": "Read the skill",
+        "image": {
+          "path": "shots/c-skill2.png",
+          "alt": "Agent skill section of the Record list page",
+          "trim": [
+            10,
+            10,
+            10,
+            10
+          ]
+        }
+      }
+    ]
+  },
+  "other": {
+    "summary": "",
+    "cards": []
+  },
+  "thanks": {
+    "summary": "Fourteen people committed, reviewed or tested the work in this update.",
+    "people": [
+      "sam-parallax",
+      "laylafy",
+      "trygveu",
+      "adshodg",
+      "adshodgson",
+      "leomendez",
+      "ooter37",
+      "tomscott-qs",
+      "andyfitch",
+      "slavco86",
+      "lizbrenner",
+      "danlevings",
+      "larsmoa",
+      "mortenmj"
+    ]
+  }
+}
