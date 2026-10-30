@@ -10,7 +10,7 @@ Internal values (private repo names, Slack, Jira, Figma, metrics source) live in
 | storybook_base_url | `https://master--695bb4b1b8041ae09768950a.chromatic.com` (Chromatic build of master; `index.json` loads without login) |
 | post_title_format | `Aura & Community Updates` with the date range shown above the title |
 | community_platform | this repo's Vite/React site, deployed to GitHub Pages |
-| publish_method | write `report.json` and images to `public/whats-new-posts/<slug>/` with `render-report.py --data-out` and add an entry in `src/lib/whats-new-data.ts` (see SKILL.md step 9) |
+| publish_method | write `report.json` and images to `public/whats-new-posts/<slug>/` with `render-report.py`, which also rebuilds `index.json` (see SKILL.md step 9) |
 
 ## Eval cards
 The three header cards come from the weekly Aura eval (an AI agent builds an app from a fixed brief, then an `aura-review` audit scores it). Their names, units and one-sentence descriptions are in `metrics.json`; `scripts/read-evals.mjs` reads the values from CDF. Percent metrics are stored as 0-1 fractions and shown as percentages.

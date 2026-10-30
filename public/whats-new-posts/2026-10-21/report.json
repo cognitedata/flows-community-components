@@ -1,4 +1,6 @@
 {
+  "slug": "2026-10-21",
+  "headline": "DataGrid selection and filtering, new page templates, and 19 more documented components",
   "eyebrow": "Oct 8 – Oct 21, 2026",
   "title": "Aura & Community Updates",
   "intro": "DataGrid gained selection, resizing and filtering, community teams got new page templates, and 19 more components now have portable docs.",
@@ -52,7 +54,7 @@
         "url": "https://master--695bb4b1b8041ae09768950a.chromatic.com/?path=/story/primitives-datagrid--basic",
         "label": "View in Storybook",
         "image": {
-          "src": "/whats-new-posts/2026-10-21/highlight-01.jpg",
+          "src": "highlight-01.jpg",
           "alt": "DataGrid with row selection"
         }
       },
@@ -62,7 +64,7 @@
         "url": "https://cognitedata.github.io/flows-community-components/community/templates",
         "label": "See the templates",
         "image": {
-          "src": "/whats-new-posts/2026-10-21/highlight-02.jpg",
+          "src": "highlight-02.jpg",
           "alt": "Record list template with filters and a grid"
         }
       },
@@ -72,7 +74,7 @@
         "url": "https://cognitedata.github.io/flows-community-components/aura/components",
         "label": "Browse components",
         "image": {
-          "src": "/whats-new-posts/2026-10-21/highlight-03.svg",
+          "src": "highlight-03.svg",
           "alt": "Graphic: 19 more components with portable docs"
         }
       }
@@ -108,7 +110,7 @@
         "url": "https://master--695bb4b1b8041ae09768950a.chromatic.com/?path=/story/primitives-actiontoolbar--basic",
         "label": "View in Storybook",
         "image": {
-          "src": "/whats-new-posts/2026-10-21/components-04.jpg",
+          "src": "components-04.jpg",
           "alt": "Action toolbar with 8 selected, Clear, icon actions and a primary button",
           "auto": true
         }
@@ -121,7 +123,7 @@
         "url": "https://master--695bb4b1b8041ae09768950a.chromatic.com/?path=/story/primitives-datagrid--filter-trigger-toolbar",
         "label": "View in Storybook",
         "image": {
-          "src": "/whats-new-posts/2026-10-21/components-05.jpg",
+          "src": "components-05.jpg",
           "alt": "DataGrid with a filter trigger in its toolbar"
         }
       },
@@ -133,7 +135,7 @@
         "url": "https://master--695bb4b1b8041ae09768950a.chromatic.com/?path=/story/primitives-datagrid--with-pagination",
         "label": "View in Storybook",
         "image": {
-          "src": "/whats-new-posts/2026-10-21/components-06.jpg",
+          "src": "components-06.jpg",
           "alt": "DataGrid with pagination controls"
         }
       },
@@ -145,7 +147,7 @@
         "url": "https://master--695bb4b1b8041ae09768950a.chromatic.com/?path=/story/ai-code-block--basic",
         "label": "View in Storybook",
         "image": {
-          "src": "/whats-new-posts/2026-10-21/components-07.jpg",
+          "src": "components-07.jpg",
           "alt": "Code block with copy button"
         }
       },
@@ -157,7 +159,7 @@
         "url": "https://cognitedata.github.io/flows-community-components/community/templates/record-list",
         "label": "See the template",
         "image": {
-          "src": "/whats-new-posts/2026-10-21/components-08.jpg",
+          "src": "components-08.jpg",
           "alt": "Record list template with filters and a grid"
         }
       },
@@ -169,7 +171,7 @@
         "url": "https://cognitedata.github.io/flows-community-components/community/templates/dashboard",
         "label": "See the template",
         "image": {
-          "src": "/whats-new-posts/2026-10-21/components-09.jpg",
+          "src": "components-09.jpg",
           "alt": "Dashboard page layout with header, tiles and charts"
         }
       },
@@ -181,7 +183,7 @@
         "url": "https://master--695bb4b1b8041ae09768950a.chromatic.com/?path=/story/primitives-avatar--all-sizes",
         "label": "View Avatar in Storybook",
         "image": {
-          "src": "/whats-new-posts/2026-10-21/components-10.jpg",
+          "src": "components-10.jpg",
           "alt": "Aura Avatar sizes; User avatar is built on this component",
           "auto": true
         }
@@ -199,7 +201,7 @@
         "url": "https://master--695bb4b1b8041ae09768950a.chromatic.com/?path=/story/primitives-badge--all-variants",
         "label": "View a gallery",
         "image": {
-          "src": "/whats-new-posts/2026-10-21/context-11.jpg",
+          "src": "context-11.jpg",
           "alt": "Badge variants gallery"
         }
       },
@@ -211,7 +213,7 @@
         "url": "https://cognitedata.github.io/flows-community-components/community/templates/record-list/skill",
         "label": "Read the skill",
         "image": {
-          "src": "/whats-new-posts/2026-10-21/context-12.jpg",
+          "src": "context-12.jpg",
           "alt": "Agent skill section of the Record list page"
         }
       }

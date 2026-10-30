@@ -5,7 +5,7 @@ description: Generates a public-facing, visual biweekly changelog / blog post fo
 
 # Aura Community Changelog
 
-Produces a self-contained HTML draft that highlights what was **shipped** in the last 14 days across the Aura library and the community repo. The audience is developers, designers, stakeholders and PMs: technical enough to be useful, high-level enough to skim.
+Produces a report (a `report.json` plus images, rendered by the community site's What's new page) that highlights what was **shipped** in the last 14 days across the Aura library and the community repo. The audience is developers, designers, stakeholders and PMs: technical enough to be useful, high-level enough to skim.
 
 The post is public. That is the single most important constraint: a leaked roadmap item or half-formed idea is hard to take back once published. So the design is conservative: only merged, released work is a source of content, and a human approves the item list before anything is rendered. This repo is public too, so internal details (private repo names, Slack, Jira, Figma links) live in `config.local.md`, which is git-ignored. Never copy them into committed files or the post.
 
@@ -14,7 +14,7 @@ Read `config.md` and `config.local.md` first (see `config.local.example.md` if t
 ## Workflow
 
 ### 1. Set the window
-There is one report per run, covering the last two weeks. End = today. Start = the day after the end of the newest report in `src/lib/whats-new-data.ts` (its `month` range), or today minus `window_days` (14) if that is missing. If the newest report ended fewer than 13 days ago, stop: nothing is due yet. State the dates back to the user.
+There is one report per run, covering the last two weeks. End = today. Start = the day after the end of the newest report (`public/whats-new-posts/index.json`: the first entry's `slug` is its end date), or today minus `window_days` (14) if that is missing. If the newest report ended fewer than 13 days ago, stop: nothing is due yet. State the dates back to the user.
 
 ### 2. Gather (read-only)
 - **Aura library** (a path inside a larger private monorepo, so filter by path): list commits touching `aura_path` since the window start, take the `(#PR)` numbers from the squash-merge subjects, then fetch each PR's title, body, files, author and reviewers with `gh pr view`. Don't use `gh pr list --search` with a path filter; it has none and silently returns nothing. Commands are in `config.local.md`. Add changelog entries for releases cut in the window.
@@ -27,7 +27,7 @@ There is one report per run, covering the last two weeks. End = today. Start = t
 Apply `references/safety-filter.md`. In short: merged and released only; drop internal-only refactors, anything about roadmap, RFCs, experiments (including components the community site labels "Experimental"), customers, pricing or future plans. When unsure, put the item in **Uncertain** rather than guessing either way.
 
 ### 4. Fit items into the fixed post structure
-The structure never changes (layout from the Figma mock in `config.local.md`; see `assets/post-template.html`):
+The structure never changes (layout from the Figma mock in `config.local.md`; implemented once, in `src/components/whats-new/whats-new-report.tsx`):
 
 1. **Header**: date range, title, 1-2 sentence key takeaways, then **exactly 3 eval/metric cards** (name, subtitle, number + unit, short description). The cards are fixed and named for what they measure: **Adoption** (Aura coverage), **Missed opportunities** (components rebuilt instead of reused) and **Quality** (usage-quality findings), from the weekly Aura eval (see `metrics.json`). Each card has a footer with a zigzag trending arrow and one line such as "Up 3.2 pts from last week" or "Down 2 from last week" (percent metrics change in percentage points). The arrow points the way the number moved; its color shows whether that is good (green) or bad (red) using each metric's `higherIsBetter`, and flat or unknown changes stay muted. `read-evals.mjs` supplies the direction, the good/bad flag and the text. Only the numbers and the footer change each run. When the eval brief changes between weeks, say so in the subtitle or the intro, because the trend then mixes app difficulty with Aura quality.
 2. **Highlights**: **exactly 3**. Each has a landscape (3:2) image, a title, a **one-sentence** description, and a link when a sensible public one exists (community site page, Storybook story, public docs).
@@ -38,7 +38,7 @@ The structure never changes (layout from the Figma mock in `config.local.md`; se
 
 **Section summaries:** the line under every section heading (Highlights, Components, Context & skills, Other news, Thank you) is a one- or two-sentence summary of the actual work in that section's cards, written fresh each run. Never reuse a generic tagline like "new and noteworthy updates".
 
-Categories 3-5 appear only if they have something to report; leave the whole section out otherwise. Cards fill the container with **at most 3 per row** (the template uses a 6-column grid: a row of 3 spans 2 each, a row of 2 spans 3, a lone card spans 6; a trailing single card becomes 2+2 with the row above). Every description is one sentence; put extra detail behind a link.
+Categories 3-5 appear only if they have something to report; leave the whole section out otherwise. Cards fill the container with **at most 3 per row** (`rowSizes` in `src/lib/whats-new-report.ts` is the single definition: a row of 3 spans 2 columns each, a row of 2 spans 3, and a trailing single card becomes 2+2 with the row above). Every description is one sentence; put extra detail behind a link.
 
 ### 5. Visuals
 Chromatic (the Aura Storybook) refuses iframe embedding, so use screenshots, not iframes. Every highlight and every item that names a component gets an image.
@@ -57,24 +57,23 @@ Chromatic (the Aura Storybook) refuses iframe embedding, so use screenshots, not
 ### 7. Review gate (required)
 Show the user a table of **Included / Excluded (with reason) / Uncertain** items, the proposed highlights, and any visual substitutions. Wait for approval or edits before rendering. In a scheduled run, stop here, save the table as `review-YYYY-MM-DD.md` outside the repo or in a git-ignored folder (it names private PRs), and notify the user.
 
-### 8. Render
-Write a content file (see `examples/content-2026-10-21.json` and the schema at the top of `scripts/render-report.py`): header text, the 3 highlights, the cards for each section, the section summaries and the contributors. Image paths point at the screenshots you captured (in `shots/`, git-ignored). Then run:
+### 8. Write the report data
+Write a content file (see `examples/content-2026-10-21.json` and the schema at the top of `scripts/render-report.py`): headline, date range, intro, the 3 highlights, the cards for each section, the section summaries and the contributors. Image paths point at the screenshots you captured (in `shots/`, git-ignored). Then run:
 
 ```bash
-python3 scripts/render-report.py <content.json> aura-changelog-YYYY-MM-DD.html
+python3 scripts/render-report.py <content.json> <out-dir>/<slug>    # e.g. ~/aura-changelog-drafts/2026-11-04/report/2026-11-04
 ```
 
-The renderer reuses the CSS in `assets/post-template.html`, reads the three eval cards (`asOf` = the report's end date), trims and downsizes the screenshots, lays the cards out (at most 3 per row, a lone trailing card becomes 2+2), leaves out empty sections, and fails if there aren't exactly 3 highlights or 3 eval cards. The result is one self-contained HTML file. It is a standalone draft for review (the scheduled run produces it); the site itself renders `report.json`, not this file. Open it and check it before publishing. `examples/sample-2026-10-21.html` is a finished report.
+This writes `report.json` and the processed images (trimmed and downsized) into that folder, reads the three eval cards (`asOf` = the report's end date), enforces exactly 3 highlights and 3 eval cards, and rebuilds `index.json` next to the folder. There is no HTML output: the site renders `report.json`, so the layout lives in one place. To see a draft, copy the folder under `public/whats-new-posts/` (and its `index.json`) and open `/whats-new` with `pnpm run dev`.
 
 ### 9. Final safety pass and publish
 Re-read the rendered text against the banned-language checklist in `references/safety-filter.md`. Confirm no Slack quotes or names, no ticket keys, and no internal URLs. Then, once the user approves, publish to the community site's **What's new** page, which shows a single report (the one for the last two weeks):
 1. Generate the site data from the approved content file. `<slug>` is the end date, e.g. `2026-10-21`:
    ```bash
-   python3 scripts/render-report.py <content.json> --data-out public/whats-new-posts/<slug> --url-prefix /whats-new-posts/<slug>
+   python3 scripts/render-report.py <content.json> public/whats-new-posts/<slug>
    ```
-   This writes a folder with `report.json` plus the processed images, which the site renders natively. Delete the previous report's folder. (Use `public/whats-new-posts/`, not `public/whats-new/`: that path collides with the `/whats-new/:slug` route.)
-2. In `src/lib/whats-new-data.ts`, replace the entry in `WHATS_NEW_POSTS` with the new one: `slug`, `title`, `month` (the date range, e.g. `Oct 8 – 21, 2026`), `excerpt` (the key takeaways), an `icon` and `report: '<slug>'`. Keep the array structure: it is newest first, the first entry is the default page, and the sidebar lists whatever is in it, so older reports can be kept later by leaving them in the array.
-3. Preview with `pnpm run dev` and open `/whats-new` (rendered by `src/components/whats-new/whats-new-report.tsx`), then open a PR on a new branch. Never merge or deploy without explicit user confirmation.
+   This writes `report.json` and the images, and rebuilds `public/whats-new-posts/index.json`, which drives the sidebar and the default page (newest first). Delete the previous report's folder to show only the latest, or keep it to have it listed as an older report. (Use `public/whats-new-posts/`, not `public/whats-new/`: that path collides with the `/whats-new/:slug` route.) Image `src` values are file names relative to the folder; the site resolves them against its base path, so previews under `/branches/<name>/` work.
+2. Preview with `pnpm run dev` and open `/whats-new`, then open a PR on a new branch. The PR preview deploy is the visual review. Never merge or deploy without explicit user confirmation.
 Every report page opens with a note pointing to the full changelog (`/aura/documentation/changelog`), so the report itself doesn't repeat it. The page follows the site's light/dark theme. Don't publish if the eval cards could not be read.
 
 ## Scheduling and manual runs

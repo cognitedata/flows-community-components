@@ -1,4 +1,12 @@
-/** Shape of `public/whats-new-posts/<folder>/report.json`, written by the aura-community-changelog skill. */
+/** Entry of `public/whats-new-posts/index.json`, rebuilt by the aura-community-changelog skill from the report folders. */
+export interface ReportIndexEntry {
+  slug: string;
+  /** Date range, e.g. "Oct 8 – Oct 21, 2026". */
+  label: string;
+  headline: string;
+}
+
+/** Shape of `public/whats-new-posts/<slug>/report.json`, written by the aura-community-changelog skill. */
 export interface ReportImage {
   src: string;
   alt: string;
@@ -38,6 +46,8 @@ export interface ReportSection {
 }
 
 export interface WhatsNewReportData {
+  slug: string;
+  headline: string;
   eyebrow: string;
   title: string;
   intro: string;
@@ -65,11 +75,29 @@ export function rowSizes(count: number): number[] {
   return sizes;
 }
 
-export async function fetchReport(folder: string): Promise<WhatsNewReportData> {
+function postsUrl(path: string): string {
   const base = import.meta.env.BASE_URL || '/';
-  const response = await fetch(`${base}whats-new-posts/${folder}/report.json`);
+  return `${base}whats-new-posts/${path}`;
+}
+
+/** Image `src` values in report.json are file names relative to the report folder. */
+export function reportAssetUrl(slug: string, src: string): string {
+  return postsUrl(`${slug}/${src}`);
+}
+
+async function fetchJson<T>(path: string): Promise<T> {
+  const response = await fetch(postsUrl(path));
   if (!response.ok) {
-    throw new Error(`Could not load report (HTTP ${response.status})`);
+    throw new Error(`Could not load ${path} (HTTP ${response.status})`);
   }
-  return (await response.json()) as WhatsNewReportData;
+  return (await response.json()) as T;
+}
+
+/** Reports, newest first. The first entry is the default page. */
+export function fetchIndex(): Promise<ReportIndexEntry[]> {
+  return fetchJson<ReportIndexEntry[]>('index.json');
+}
+
+export function fetchReport(slug: string): Promise<WhatsNewReportData> {
+  return fetchJson<WhatsNewReportData>(`${slug}/report.json`);
 }

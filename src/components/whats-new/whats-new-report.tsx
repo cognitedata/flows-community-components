@@ -12,6 +12,7 @@ import {
   type ReportItem,
   type ReportSection,
   type WhatsNewReportData,
+  reportAssetUrl,
   rowSizes,
 } from '@/lib/whats-new-report';
 
@@ -88,7 +89,13 @@ function EvalCard({ data }: { data: ReportEval }) {
   );
 }
 
-function Highlights({ data }: { data: WhatsNewReportData['highlights'] }) {
+function Highlights({
+  data,
+  slug,
+}: {
+  data: WhatsNewReportData['highlights'];
+  slug: string;
+}) {
   return (
     <section className="mt-12">
       <h2 className="font-heading text-xl font-medium">Highlights</h2>
@@ -101,7 +108,7 @@ function Highlights({ data }: { data: WhatsNewReportData['highlights'] }) {
           >
             {item.image && (
               <img
-                src={item.image.src}
+                src={reportAssetUrl(slug, item.image.src)}
                 alt={item.image.alt}
                 className="aspect-3/2 w-full rounded-lg object-cover object-left-top"
               />
@@ -118,7 +125,15 @@ function Highlights({ data }: { data: WhatsNewReportData['highlights'] }) {
   );
 }
 
-function Card({ card, rowSize }: { card: ReportCard; rowSize: number }) {
+function Card({
+  card,
+  rowSize,
+  slug,
+}: {
+  card: ReportCard;
+  rowSize: number;
+  slug: string;
+}) {
   return (
     <article
       className={cn(
@@ -148,14 +163,14 @@ function Card({ card, rowSize }: { card: ReportCard; rowSize: number }) {
             )}
           >
             <img
-              src={card.image.src}
+              src={reportAssetUrl(slug, card.image.src)}
               alt={card.image.alt}
               className="max-h-full max-w-full"
             />
           </div>
         ) : (
           <img
-            src={card.image.src}
+            src={reportAssetUrl(slug, card.image.src)}
             alt={card.image.alt}
             className={cn(
               'w-full rounded-lg object-cover object-left-top',
@@ -169,7 +184,15 @@ function Card({ card, rowSize }: { card: ReportCard; rowSize: number }) {
   );
 }
 
-function Section({ title, data }: { title: string; data?: ReportSection }) {
+function Section({
+  title,
+  data,
+  slug,
+}: {
+  title: string;
+  data?: ReportSection;
+  slug: string;
+}) {
   if (!data || data.cards.length === 0) return null;
   const sizes = rowSizes(data.cards.length);
   let index = 0;
@@ -182,7 +205,7 @@ function Section({ title, data }: { title: string; data?: ReportSection }) {
           const row = data.cards.slice(index, index + size);
           index += size;
           return row.map((card) => (
-            <Card key={card.title} card={card} rowSize={size} />
+            <Card key={card.title} card={card} rowSize={size} slug={slug} />
           ));
         })}
       </div>
@@ -209,10 +232,10 @@ export function WhatsNewReport({ data }: { data: WhatsNewReportData }) {
         </div>
       </header>
       <hr className="mt-8 border-border" />
-      <Highlights data={data.highlights} />
-      <Section title="Components" data={data.components} />
-      <Section title="Context & skills" data={data.context} />
-      <Section title="Other news" data={data.other} />
+      <Highlights data={data.highlights} slug={data.slug} />
+      <Section title="Components" data={data.components} slug={data.slug} />
+      <Section title="Context & skills" data={data.context} slug={data.slug} />
+      <Section title="Other news" data={data.other} slug={data.slug} />
       <section className="mt-12">
         <h2 className="font-heading text-xl font-medium">Thank you!</h2>
         <p className="mt-1 mb-4 text-sm text-muted-fg">{data.thanks.summary}</p>

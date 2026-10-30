@@ -1,19 +1,19 @@
 import { useEffect, useState } from 'react';
-import { Link, Navigate, useParams } from 'react-router-dom';
+import { Link, Navigate, useOutletContext, useParams } from 'react-router-dom';
 
 import { PageTitle } from '@/components/page-title';
 import { WhatsNewReport } from '@/components/whats-new/whats-new-report';
-import { WHATS_NEW_POSTS, getWhatsNewPostBySlug } from '@/lib/whats-new-data';
+import type { WhatsNewOutletContext } from '@/layouts/whats-new-layout';
 import { type WhatsNewReportData, fetchReport } from '@/lib/whats-new-report';
 
-/** Renders a report natively from its JSON data. */
-function NativeReport({ folder }: { folder: string }) {
+/** Loads and renders one report from its JSON data. */
+function NativeReport({ slug }: { slug: string }) {
   const [report, setReport] = useState<WhatsNewReportData | null>(null);
   const [failed, setFailed] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
-    fetchReport(folder)
+    fetchReport(slug)
       .then((data) => {
         if (!cancelled) setReport(data);
       })
@@ -23,7 +23,7 @@ function NativeReport({ folder }: { folder: string }) {
     return () => {
       cancelled = true;
     };
-  }, [folder]);
+  }, [slug]);
 
   if (failed) {
     return <p className="text-sm text-muted-fg">Could not load this report.</p>;
@@ -36,20 +36,23 @@ function NativeReport({ folder }: { folder: string }) {
 
 export function WhatsNewPostPage() {
   const { slug } = useParams<{ slug: string }>();
+  const { entries } = useOutletContext<WhatsNewOutletContext>();
   // No slug means the /whats-new index, which shows the most recent report.
-  const post = slug ? getWhatsNewPostBySlug(slug) : WHATS_NEW_POSTS[0];
+  const entry = slug ? entries.find((e) => e.slug === slug) : entries[0];
 
-  if (!post) {
-    return <Navigate to="/whats-new" replace />;
+  if (!entry) {
+    return slug ? (
+      <Navigate to="/whats-new" replace />
+    ) : (
+      <p className="text-sm text-muted-fg">No reports yet.</p>
+    );
   }
-
-  const Icon = post.icon;
 
   return (
     <div className="mx-auto w-full max-w-[960px]">
-      <PageTitle title={`${post.title} — Aura`} />
+      <PageTitle title={`${entry.headline} — Aura`} />
       <p className="mb-6 rounded-lg bg-muted-bg px-4 py-3 text-sm text-muted-fg">
-        This report highlights the most notable work from {post.month}. For a
+        This report highlights the most notable work from {entry.label}. For a
         full, itemized list of every change, see the{' '}
         <Link
           to="/aura/documentation/changelog"
@@ -59,28 +62,7 @@ export function WhatsNewPostPage() {
         </Link>
         .
       </p>
-      {post.report ? (
-        <NativeReport folder={post.report} />
-      ) : (
-        <>
-          <header className="mb-10 sm:mb-12">
-            <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-medium-bg text-muted-fg">
-              <Icon size={24} stroke={1.5} />
-            </div>
-            <p className="mb-2 text-xs font-medium tracking-wide text-muted-fg uppercase">
-              {post.month}
-            </p>
-            <h1 className="font-heading text-4xl font-semibold tracking-tight sm:text-5xl">
-              {post.title}
-            </h1>
-            <p className="mt-3 max-w-[60ch] text-muted-fg">{post.excerpt}</p>
-          </header>
-          <p className="max-w-[65ch] text-sm leading-relaxed text-muted-fg">
-            The full write-up for this update is on the way. In the meantime,
-            pick another report from the list.
-          </p>
-        </>
-      )}
+      <NativeReport key={entry.slug} slug={entry.slug} />
     </div>
   );
 }
