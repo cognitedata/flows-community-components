@@ -6,7 +6,7 @@ on:
 
 permissions:
   contents: read
-  pages: write
+  pages: read
   pull-requests: write
   actions: write
 
