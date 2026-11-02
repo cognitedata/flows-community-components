@@ -89,9 +89,10 @@ def load_evals(as_of):
 
 
 def write_report(content, base_dir, out_dir):
-    evals = content.get("evals") or load_evals(content.get("asOf"))
-    if len(evals) != 3:
-        sys.exit("The header needs exactly 3 eval cards (got %d)" % len(evals))
+    # Pass "evals": [] to skip (site can hide the cards via SHOW_EVAL_CARDS).
+    evals = content["evals"] if "evals" in content else load_evals(content.get("asOf"))
+    if len(evals) not in (0, 3):
+        sys.exit("The header needs 0 or 3 eval cards (got %d)" % len(evals))
     if len(content["highlights"]["items"]) != 3:
         sys.exit("Highlights must be exactly 3 (got %d)" % len(content["highlights"]["items"]))
     for key in ("components", "context", "other"):
