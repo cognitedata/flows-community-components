@@ -459,6 +459,7 @@
       "dependencies": [
         "@cognite/aura",
         "@cognite/sdk",
+        "@tabler/icons-react",
         "@tanstack/react-query"
       ],
       "files": [
