@@ -9,7 +9,7 @@ import { cn } from '@/lib/utils';
 
 const NAV_ITEMS: { label: string; href: string; hidden?: boolean }[] = [
   { label: 'Home', href: '/' },
-  { label: "What's new", href: '/whats-new', hidden: true },
+  { label: "What's new", href: '/whats-new' },
   { label: 'Docs', href: '/aura/documentation/about-aura' },
   { label: 'Components', href: '/aura' },
   { label: 'Charts', href: '/charts' },

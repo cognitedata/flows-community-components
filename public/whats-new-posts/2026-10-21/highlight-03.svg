@@ -1,0 +1,5 @@
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 400'>
+<rect width='600' height='400' fill='#1e2022'/>
+<text x='36' y='230' font-size='150' font-weight='600' fill='#f8f9f9' font-family='Space Grotesk,Inter,sans-serif'>19</text>
+<text x='36' y='290' font-size='22' fill='#a3aab0' font-family='Inter,sans-serif'>more components with portable docs</text>
+<rect x='36' y='316' width='56' height='8' rx='4' fill='#7796e6'/><rect x='100' y='316' width='56' height='8' rx='4' fill='#7796e6'/><rect x='164' y='316' width='56' height='8' rx='4' fill='#7796e6'/><rect x='228' y='316' width='56' height='8' rx='4' fill='#33373a'/></svg>

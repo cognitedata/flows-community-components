@@ -4,6 +4,7 @@ import { AuraLayout } from '@/layouts/aura-layout';
 import { CommunityLayout } from '@/layouts/community-layout';
 import { PatternsLayout } from '@/layouts/patterns-layout';
 import { RootLayout } from '@/layouts/root-layout';
+import { WhatsNewLayout } from '@/layouts/whats-new-layout';
 import { ChartsPage } from '@/pages/charts-page';
 import { CommunityComponentDetailPage } from '@/pages/community-component-detail-page';
 import { CommunityComponentsPage } from '@/pages/community-components-page';
@@ -22,7 +23,6 @@ import { PatternDetailPage } from '@/pages/pattern-detail-page';
 import { PatternsExtendingFunctionalityPage } from '@/pages/patterns-extending-functionality-page';
 import { PatternsIntroductionPage } from '@/pages/patterns-introduction-page';
 import { PatternsPage } from '@/pages/patterns-page';
-import { WhatsNewPage } from '@/pages/whats-new-page';
 import { WhatsNewPostPage } from '@/pages/whats-new-post-page';
 
 function RedirectWithSlug({ to }: { to: string }) {
@@ -39,8 +39,15 @@ export const router = createBrowserRouter(
       element: <RootLayout />,
       children: [
         { index: true, element: <HomePage /> },
-        { path: 'whats-new', element: <WhatsNewPage /> },
-        { path: 'whats-new/:slug', element: <WhatsNewPostPage /> },
+        {
+          path: 'whats-new',
+          element: <WhatsNewLayout />,
+          children: [
+            // The index route shows the most recent report.
+            { index: true, element: <WhatsNewPostPage /> },
+            { path: ':slug', element: <WhatsNewPostPage /> },
+          ],
+        },
         { path: 'charts', element: <ChartsPage /> },
         {
           path: 'aura',
