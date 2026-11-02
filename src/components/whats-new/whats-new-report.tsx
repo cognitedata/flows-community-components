@@ -37,6 +37,9 @@ const BADGE_VARIANT: Record<
   Fix: 'warning',
 };
 
+/** Adoption / Missed opportunities / Quality. Off until we're ready to publish metrics again. */
+const SHOW_EVAL_CARDS = false;
+
 function MoreLink({ item }: { item: ReportItem }) {
   if (!item.url) return null;
   return (
@@ -225,11 +228,13 @@ export function WhatsNewReport({ data }: { data: WhatsNewReportData }) {
           {data.title}
         </h1>
         <p className="max-w-[60ch]">{data.intro}</p>
-        <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-3">
-          {data.evals.map((item) => (
-            <EvalCard key={item.name} data={item} />
-          ))}
-        </div>
+        {SHOW_EVAL_CARDS && (
+          <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-3">
+            {data.evals.map((item) => (
+              <EvalCard key={item.name} data={item} />
+            ))}
+          </div>
+        )}
       </header>
       <hr className="mt-8 border-border" />
       <Highlights data={data.highlights} slug={data.slug} />
