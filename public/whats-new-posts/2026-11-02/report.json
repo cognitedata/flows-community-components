@@ -1,0 +1,138 @@
+{
+  "slug": "2026-11-02",
+  "headline": "MessageResponseTable for chat, richer DataGrid presentation, and What's new on the community site",
+  "eyebrow": "Oct 22 – Nov 2, 2026",
+  "title": "Aura & Community Updates",
+  "intro": "Chat tables landed as MessageResponseTable, DataGrid picked up presentation and filter options, and the community site now publishes biweekly What's new reports.",
+  "evals": [],
+  "highlights": {
+    "summary": "A DataGrid-backed table for chat responses, more ways to present and filter grids, and a public What's new page for shipped Aura and community work.",
+    "items": [
+      {
+        "title": "MessageResponseTable for chat",
+        "text": "Assistant messages can render tables with DataGrid, including pagination, an expanded view, CSV download and resizable columns.",
+        "url": "https://master--695bb4b1b8041ae09768950a.chromatic.com/?path=/story/ai-message--assistant-message",
+        "label": "View Message in Storybook",
+        "image": {
+          "src": "highlight-01.jpg",
+          "alt": "DataGrid table used as stand-in for MessageResponseTable (Chromatic master lag)"
+        }
+      },
+      {
+        "title": "DataGrid presentation and filters",
+        "text": "Grids can use striped rows, an emphasized header, wrapping cells, an overridable background and checklist column filter state.",
+        "url": "https://master--695bb4b1b8041ae09768950a.chromatic.com/?path=/story/primitives-datagrid--filter-trigger-toolbar",
+        "label": "View in Storybook",
+        "image": {
+          "src": "highlight-02.jpg",
+          "alt": "DataGrid with filter toolbar"
+        }
+      },
+      {
+        "title": "What's new on the community site",
+        "text": "A biweekly What's new page ships native report pages from merged Aura and community work, with a review gate before publish.",
+        "url": "https://cognitedata.github.io/flows-community-components/whats-new",
+        "label": "Open What's new",
+        "image": {
+          "src": "highlight-03.jpg",
+          "alt": "What's new page on the community site"
+        }
+      }
+    ]
+  },
+  "thanks": {
+    "summary": "Seven people shipped or reviewed the work in this update.",
+    "people": [
+      "louisatallah-cognite",
+      "sam-parallax",
+      "tomscott-qs",
+      "lizbrenner",
+      "danlevings",
+      "leomendez",
+      "ooter37"
+    ]
+  },
+  "components": {
+    "summary": "MessageResponseTable is new, DataGrid gained presentation options, and optional Selects can be cleared.",
+    "cards": [
+      {
+        "title": "MessageResponseTable",
+        "subtitle": "Aura",
+        "badge": "New",
+        "text": "A DataGrid renderer for tables inside chat responses, with pagination at 50 rows, expanded view, CSV export and resizable columns.",
+        "url": "https://master--695bb4b1b8041ae09768950a.chromatic.com/?path=/story/ai-message--assistant-message",
+        "label": "View Message in Storybook",
+        "image": {
+          "src": "components-04.jpg",
+          "alt": "DataGrid stand-in for MessageResponseTable"
+        }
+      },
+      {
+        "title": "DataGrid presentation",
+        "subtitle": "Aura",
+        "badge": "Update",
+        "text": "Striped rows, emphasizeHeader, wrapCells and an overridable background give grids more layout control.",
+        "url": "https://master--695bb4b1b8041ae09768950a.chromatic.com/?path=/story/primitives-datagrid--header-and-footer",
+        "label": "View in Storybook",
+        "image": {
+          "src": "components-05.jpg",
+          "alt": "DataGrid with header and footer"
+        }
+      },
+      {
+        "title": "DataGrid checklist filters",
+        "subtitle": "Aura",
+        "badge": "Update",
+        "text": "Column filter state can drive a checklist so users pick multiple values in one panel.",
+        "url": "https://master--695bb4b1b8041ae09768950a.chromatic.com/?path=/story/primitives-datagrid--filter-trigger-toolbar",
+        "label": "View in Storybook",
+        "image": {
+          "src": "components-06.jpg",
+          "alt": "DataGrid filter trigger toolbar"
+        }
+      },
+      {
+        "title": "Clearable Select",
+        "subtitle": "Aura",
+        "badge": "Update",
+        "text": "An optional Select can be cleared so users can remove a choice without picking a placeholder value.",
+        "url": "https://master--695bb4b1b8041ae09768950a.chromatic.com/?path=/story/primitives-select--default",
+        "label": "View in Storybook",
+        "image": {
+          "src": "components-07.jpg",
+          "alt": "Select control",
+          "auto": true
+        }
+      }
+    ]
+  },
+  "context": {
+    "summary": "Four more Aura primitives got portable docs, and the community site gained the What's new reporting workflow.",
+    "cards": [
+      {
+        "title": "Docs for Accordion, Card, Item and Popover",
+        "subtitle": "Aura docs",
+        "badge": "Docs",
+        "text": "Accordion, Card, Item and Popover now have markdown docs and example galleries.",
+        "url": "https://master--695bb4b1b8041ae09768950a.chromatic.com/?path=/story/primitives-accordion--basic",
+        "label": "View Accordion",
+        "image": {
+          "src": "context-08.jpg",
+          "alt": "Accordion basic story"
+        }
+      },
+      {
+        "title": "What's new reporting skill",
+        "subtitle": "Community",
+        "badge": "New",
+        "text": "A biweekly skill gathers merged work, stops at a human review gate, and publishes report.json pages on the site.",
+        "url": "https://cognitedata.github.io/flows-community-components/whats-new",
+        "label": "Open What's new",
+        "image": {
+          "src": "context-09.jpg",
+          "alt": "Card basic story illustrating docs coverage"
+        }
+      }
+    ]
+  }
+}
